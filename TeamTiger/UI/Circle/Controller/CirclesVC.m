@@ -10,10 +10,10 @@
 #import "JZNavigationExtension.h"
 #import "UserInfoView.h"
 #import "TTMyProfileViewController.h"
-#import "TTCommonCell.h"
-#import "TTCommonItem.h"
-#import "TTCommonGroup.h"
-#import "TTCommonArrowItem.h"
+#import "CirclesItemModel.h"
+#import "CirclesItemCell.h"
+#import "ChooseTag.h"
+
 // Controllers
 
 // Model
@@ -26,7 +26,7 @@
 @property(nonatomic,strong) UIImageView *headImgV;
 
 @property (nonatomic, strong) UserInfoView *userInfoView;
-
+@property (nonatomic, strong) ChooseTag *chooseTagView;
 @property(nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *circles;
 @property (nonatomic, strong) NSMutableArray *data;
@@ -37,17 +37,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = self.addCirclesItem;
-//    self.navigationController.jz_navigationBarBackgroundAlpha = 0;
+    //    self.navigationController.jz_navigationBarBackgroundAlpha = 0;
     self.navigationController.jz_navigationBarBackgroundHidden = YES;
-
+    
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]){
         self.edgesForExtendedLayout = UIRectEdgeAll;
     }
     
     [self.view addSubview:self.headImgV];
     [self.headImgV addSubview:self.userInfoView];
+    [self.view addSubview:self.chooseTagView];
     [self.view addSubview:self.tableView];
-//    [self setupGroups];
+    [self setupModels];
     [self layoutSubViews];
     // Do any additional setup after loading the view.
 }
@@ -79,26 +80,33 @@
         make.height.mas_equalTo(70);
     }];
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.chooseTagView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headImgV.mas_bottom).offset(10);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.equalTo(self.view.mas_height).multipliedBy(0.24);
+    }];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.chooseTagView.mas_bottom).offset(10);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.bottom.equalTo(self.view);
     }];
 }
 
-//- (void)setupGroups {
-//    self.circles = [CirclesManager sharedInstance].circles;
-//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
-//    group.items = [NSMutableArray array];
-//    for (NSString *title in self.circles) {
-////        TTCommonItem *item = [TTCommonArrowItem itemWithTitle:title subtitle:nil destVcClass:nil];
-//        NSString *colorStr = [NSString stringWithUTF8String:kColorAr[arc4random_uniform(6)]];
-//        TTCommonItem *item = [TTCommonArrowItem itemWithPointColor:colorStr title:title subtitle:nil destVcClass:nil];
-//        [group.items addObject:item];
-//    }
-//    [self.data addObject:group];
-//}
+- (void)setupModels {
+    self.circles = [CirclesManager sharedInstance].circles;
+    for (NSString *title in self.circles) {
+        
+        NSString *colorStr = [NSString stringWithUTF8String:kColorAr[arc4random_uniform(6)]];
+        CirclesItemModel *item = [[CirclesItemModel alloc] init];
+        item.title = title;
+        item.pointColor = colorStr;
+        
+        [self.data addObject:item];
+    }
+}
 
 #pragma mark - Target Methods
 
@@ -110,26 +118,19 @@
 
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.data.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    TTCommonGroup *group = self.data[section];
-    return group.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 1.创建cell
-    TTCommonCell *cell = [TTCommonCell cellWithTableView:tableView];
+    CirclesItemCell *cell = [CirclesItemCell cellWithTableView:tableView];
     
     // 2.给cell传递模型数据
-    TTCommonGroup *group = self.data[indexPath.section];
-    cell.item = group.items[indexPath.row];
-    cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
+    CirclesItemModel *item = self.data[indexPath.row];
+    [cell setData:item];
+    cell.lastRowInSection =  (self.data.count - 1 == indexPath.row);
     
     // 3.返回cell
     return cell;
@@ -140,29 +141,29 @@
     // 1.取消选中这行
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // 2.模型数据
-    TTCommonGroup *group = self.data[indexPath.section];
-    TTCommonItem *item = group.items[indexPath.row];
-    
-    //    if (self.selectCircleVCBlock) {
-    //        self.selectCircleVCBlock(self.circles[indexPath.section], self);
+    //    // 2.模型数据
+    //    TTCommonGroup *group = self.data[indexPath.section];
+    //    TTCommonItem *item = group.items[indexPath.row];
+    //
+    //    //    if (self.selectCircleVCBlock) {
+    //    //        self.selectCircleVCBlock(self.circles[indexPath.section], self);
+    //    //    }
+    //    //    [[CacheManager sharedInstance] setObject:item.title ForKey:TTSelectCircle_Cache_Key];
+    ////    [CirclesManager sharedInstance].selectIndex = indexPath.section;
+    ////    [self.navigationController popViewControllerAnimated:YES];
+    //
+    //    if (item.option) { // block有值(点击这个cell,.有特定的操作需要执行)
+    //        item.option();
+    //    } else if ([item isKindOfClass:[TTCommonArrowItem class]]) { // 箭头
+    //        TTCommonArrowItem *arrowItem = (TTCommonArrowItem *)item;
+    //
+    //        // 如果没有需要跳转的控制器
+    //        if (arrowItem.destVcClass == nil) return;
+    //
+    //        UIViewController *vc = [[arrowItem.destVcClass alloc] init];
+    //        vc.title = arrowItem.title;
+    //        [self.navigationController pushViewController:vc  animated:YES];
     //    }
-    //    [[CacheManager sharedInstance] setObject:item.title ForKey:TTSelectCircle_Cache_Key];
-//    [CirclesManager sharedInstance].selectIndex = indexPath.section;
-//    [self.navigationController popViewControllerAnimated:YES];
-    
-    if (item.option) { // block有值(点击这个cell,.有特定的操作需要执行)
-        item.option();
-    } else if ([item isKindOfClass:[TTCommonArrowItem class]]) { // 箭头
-        TTCommonArrowItem *arrowItem = (TTCommonArrowItem *)item;
-        
-        // 如果没有需要跳转的控制器
-        if (arrowItem.destVcClass == nil) return;
-        
-        UIViewController *vc = [[arrowItem.destVcClass alloc] init];
-        vc.title = arrowItem.title;
-        [self.navigationController pushViewController:vc  animated:YES];
-    }
 }
 
 //- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -212,14 +213,22 @@
 
 -(UIImageView *)headImgV {
     if (!_headImgV) {
-//        _headImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_1"]];
+        //        _headImgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_1"]];
         _headImgV = [[UIImageView alloc] init];
-//        _headImgV.image = [UIImage imageNamed:@"image_4.jpg"];
-//        _headImgV.contentMode = UIViewContentModeCenter;
+        //        _headImgV.image = [UIImage imageNamed:@"image_4.jpg"];
+        //        _headImgV.contentMode = UIViewContentModeCenter;
         _headImgV.clipsToBounds = YES;
         _headImgV.backgroundColor = [UIColor blueColor];
     }
     return _headImgV;
+}
+
+-(ChooseTag *)chooseTagView {
+    if (!_chooseTagView) {
+        _chooseTagView = [[ChooseTag alloc] init];
+        _chooseTagView.tags =  @[@[@"tag",@"tag1",@"tag2",@"tag3",@"tag4"],@[@"tag5",@"tag6",@"tag7",@"tag8"]];
+    }
+    return _chooseTagView;
 }
 
 -(UIBarButtonItem *)addCirclesItem{
@@ -237,8 +246,8 @@
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
         _tableView.backgroundColor = [UIColor clearColor];
-//        _tableView.rowHeight = UITableViewAutomaticDimension;
-//        _tableView.estimatedRowHeight = 44;
+        //        _tableView.rowHeight = UITableViewAutomaticDimension;
+        //        _tableView.estimatedRowHeight = 44;
     }
     return _tableView;
 }

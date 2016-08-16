@@ -61,6 +61,13 @@
 		06B464A61D62A48B00DBC806 /* UIViewController+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B4649F1D62A48B00DBC806 /* UIViewController+JZExtension.m */; };
 		06B464A91D62A4F800DBC806 /* CirclesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464A81D62A4F800DBC806 /* CirclesVC.m */; };
 		06B464AB1D62A69E00DBC806 /* UserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464AA1D62A69E00DBC806 /* UserInfoView.xib */; };
+		06B464BA1D62F2D900DBC806 /* ChooseTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464B91D62F2D900DBC806 /* ChooseTag.m */; };
+		06B464BC1D62F2E800DBC806 /* ChooseTag.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464BB1D62F2E800DBC806 /* ChooseTag.xib */; };
+		06B464C01D62FB6E00DBC806 /* ChooseTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464BE1D62FB6E00DBC806 /* ChooseTagCell.m */; };
+		06B464C11D62FB6E00DBC806 /* ChooseTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464BF1D62FB6E00DBC806 /* ChooseTagCell.xib */; };
+		06B464C81D6300DC00DBC806 /* CirclesItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464C71D6300DC00DBC806 /* CirclesItemModel.m */; };
+		06B464CC1D6300F000DBC806 /* CirclesItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464CA1D6300F000DBC806 /* CirclesItemCell.m */; };
+		06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */; };
 		06E026621D50439D00B9743B /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E026611D50439D00B9743B /* UserInfoView.m */; };
 		1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBAE1D3F29C900F85E9A /* NSArray+YYAdd.m */; };
 		1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBB01D3F29C900F85E9A /* NSBundle+YYAdd.m */; };
@@ -509,6 +516,17 @@
 		06B464A71D62A4F800DBC806 /* CirclesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclesVC.h; sourceTree = "<group>"; };
 		06B464A81D62A4F800DBC806 /* CirclesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclesVC.m; sourceTree = "<group>"; };
 		06B464AA1D62A69E00DBC806 /* UserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoView.xib; sourceTree = "<group>"; };
+		06B464B81D62F2D900DBC806 /* ChooseTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseTag.h; sourceTree = "<group>"; };
+		06B464B91D62F2D900DBC806 /* ChooseTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseTag.m; sourceTree = "<group>"; };
+		06B464BB1D62F2E800DBC806 /* ChooseTag.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseTag.xib; sourceTree = "<group>"; };
+		06B464BD1D62FB6E00DBC806 /* ChooseTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseTagCell.h; sourceTree = "<group>"; };
+		06B464BE1D62FB6E00DBC806 /* ChooseTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseTagCell.m; sourceTree = "<group>"; };
+		06B464BF1D62FB6E00DBC806 /* ChooseTagCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChooseTagCell.xib; sourceTree = "<group>"; };
+		06B464C61D6300DC00DBC806 /* CirclesItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclesItemModel.h; sourceTree = "<group>"; };
+		06B464C71D6300DC00DBC806 /* CirclesItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclesItemModel.m; sourceTree = "<group>"; };
+		06B464C91D6300F000DBC806 /* CirclesItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclesItemCell.h; sourceTree = "<group>"; };
+		06B464CA1D6300F000DBC806 /* CirclesItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclesItemCell.m; sourceTree = "<group>"; };
+		06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CirclesItemCell.xib; sourceTree = "<group>"; };
 		06E026601D50439D00B9743B /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
 		06E026611D50439D00B9743B /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
 		1D09CBAD1D3F29C900F85E9A /* NSArray+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYAdd.h"; sourceTree = "<group>"; };
@@ -1358,8 +1376,8 @@
 		068E96561D4F499E0074229C /* Circle */ = {
 			isa = PBXGroup;
 			children = (
+				06B464C51D6300C900DBC806 /* Model */,
 				068E96571D4F499E0074229C /* Controller */,
-				068E965A1D4F499E0074229C /* Model */,
 				068E965B1D4F499E0074229C /* View */,
 			);
 			path = Circle;
@@ -1376,13 +1394,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		068E965A1D4F499E0074229C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		068E965B1D4F499E0074229C /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,6 +1402,15 @@
 				06E026601D50439D00B9743B /* UserInfoView.h */,
 				06E026611D50439D00B9743B /* UserInfoView.m */,
 				06B464AA1D62A69E00DBC806 /* UserInfoView.xib */,
+				06B464B81D62F2D900DBC806 /* ChooseTag.h */,
+				06B464B91D62F2D900DBC806 /* ChooseTag.m */,
+				06B464BB1D62F2E800DBC806 /* ChooseTag.xib */,
+				06B464BD1D62FB6E00DBC806 /* ChooseTagCell.h */,
+				06B464BE1D62FB6E00DBC806 /* ChooseTagCell.m */,
+				06B464BF1D62FB6E00DBC806 /* ChooseTagCell.xib */,
+				06B464C91D6300F000DBC806 /* CirclesItemCell.h */,
+				06B464CA1D6300F000DBC806 /* CirclesItemCell.m */,
+				06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1424,6 +1444,16 @@
 				06B4649B1D62A48B00DBC806 /* UIToolbar+JZExtension.m */,
 			);
 			path = Private;
+			sourceTree = "<group>";
+		};
+		06B464C51D6300C900DBC806 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				06B464C61D6300DC00DBC806 /* CirclesItemModel.h */,
+				06B464C71D6300DC00DBC806 /* CirclesItemModel.m */,
+			);
+			name = Model;
+			path = Controller/Model;
 			sourceTree = "<group>";
 		};
 		1D09CBAA1D3F29C900F85E9A /* YYKit */ = {
@@ -2948,6 +2978,7 @@
 				1DB5A5871D4B3F36009E6170 /* switchMask@2x.png in Resources */,
 				1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */,
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
+				06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
@@ -2967,6 +2998,7 @@
 				2D01BACA1D5C69D800E10721 /* HomeViewController.xib in Resources */,
 				0604B4741D4C5A9B00EF1703 /* image_1.jpg in Resources */,
 				1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */,
+				06B464BC1D62F2E800DBC806 /* ChooseTag.xib in Resources */,
 				0604B4761D4C5A9B00EF1703 /* image_3.jpg in Resources */,
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
@@ -2999,6 +3031,7 @@
 				1D9580B01D3E207200FD0053 /* MJRefresh.bundle in Resources */,
 				0604B47D1D4C5A9B00EF1703 /* upshadow.png in Resources */,
 				2D01BAD21D5C69D800E10721 /* HomeCell.xib in Resources */,
+				06B464C11D62FB6E00DBC806 /* ChooseTagCell.xib in Resources */,
 				0604B47B1D4C5A9B00EF1703 /* image_8.jpg in Resources */,
 				2D01BAD81D5C69D800E10721 /* HomeDetailCell2.xib in Resources */,
 			);
@@ -3016,6 +3049,7 @@
 				1D09CC6D1D3F29C900F85E9A /* UIBezierPath+YYAdd.m in Sources */,
 				2D01BAD31D5C69D800E10721 /* HomeDetailCell.m in Sources */,
 				1D9580E61D3E23E100FD0053 /* APP_SETTINGS.m in Sources */,
+				06B464CC1D6300F000DBC806 /* CirclesItemCell.m in Sources */,
 				1DD2E3391D59B871005D45A9 /* WXApiManager.m in Sources */,
 				1D09CD631D3F59D500F85E9A /* SDWebImagePrefetcher.m in Sources */,
 				1D09CD281D3F550300F85E9A /* UIActionSheet+HYBHelperKit.m in Sources */,
@@ -3030,6 +3064,7 @@
 				1D9580AC1D3E207200FD0053 /* MJRefreshBackStateFooter.m in Sources */,
 				1D09CC7B1D3F29C900F85E9A /* YYKVStorage.m in Sources */,
 				1D09CD261D3F550300F85E9A /* UIGestureRecognizer+HYBHelperBlockKit.m in Sources */,
+				06B464BA1D62F2D900DBC806 /* ChooseTag.m in Sources */,
 				2D7945151D5C648E003B5A6E /* JJOneScrollView.m in Sources */,
 				1D0EA2C31D45A82C00B47108 /* LCBatchRequest.m in Sources */,
 				1D9580A51D3E207200FD0053 /* MJRefreshFooter.m in Sources */,
@@ -3133,6 +3168,7 @@
 				1D09CD0F1D3F550300F85E9A /* HYBHelperKitBaseURLController.m in Sources */,
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
+				06B464C01D62FB6E00DBC806 /* ChooseTagCell.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
@@ -3273,6 +3309,7 @@
 				1D09CC871D3F29C900F85E9A /* YYSpriteSheetImage.m in Sources */,
 				1D09CD591D3F59D500F85E9A /* UIImage+MultiFormat.m in Sources */,
 				1D9580B11D3E207200FD0053 /* MJRefreshConst.m in Sources */,
+				06B464C81D6300DC00DBC806 /* CirclesItemModel.m in Sources */,
 				1D09CD541D3F59D500F85E9A /* SDImageCache.m in Sources */,
 				1D0EA2C81D45A82C00B47108 /* LCNetworkConfig.m in Sources */,
 				1D0EA2D11D45A8AE00B47108 /* TMCache.m in Sources */,

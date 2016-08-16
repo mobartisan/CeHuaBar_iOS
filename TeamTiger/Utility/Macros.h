@@ -47,6 +47,8 @@
 //检测是否iPod或者iPhone
 #define isiPhone    (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 
+#define FONT(s)       [UIFont systemFontOfSize:s]
+
 //View相关
 #define Point(Xpos, Ypos)                  CGPointMake(Xpos, Ypos)
 #define Size(Width, Height)                CGSizeMake(Width, Height)
