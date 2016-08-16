@@ -129,7 +129,9 @@ static NSString *cellID = @"ChooseTagCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    float tmp = (AttendsViewWidth-1)/3;
+    if (is40inch || is35inch) {
+        return CGSizeMake(40, 40);
+    }
     return CGSizeMake(50, 50);
     
     //    return CGSizeMake(50, self.cellHeight);
@@ -151,6 +153,9 @@ static NSString *cellID = @"ChooseTagCell";
 
 //cell的最小列间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    if (is40inch || is35inch) {
+        return 10;
+    }
     return 20;
 }
 

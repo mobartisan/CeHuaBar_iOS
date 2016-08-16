@@ -14,8 +14,15 @@
     [super awakeFromNib];
     // Initialization code
     self.tagBtn.layer.masksToBounds = YES;
-    self.tagBtn.layer.cornerRadius = self.tagBtn.hyb_height * 0.5;
 
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+//    if (is40inch || is35inch) {
+//        self.tagBtn.layer.cornerRadius = 40 * 0.5;
+//    }
+    self.tagBtn.layer.cornerRadius = self.hyb_width * 0.5;
 }
 
 @end
