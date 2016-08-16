@@ -12,6 +12,7 @@
 @implementation HomeCellModel
 
 
+
 - (instancetype)initWithDic:(NSDictionary *)dic {
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dic];

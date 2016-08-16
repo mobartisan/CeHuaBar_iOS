@@ -19,6 +19,8 @@
 
 @property (strong, nonatomic) DataManager *manager;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSIndexPath *indexPath;
+
 @end
 
 @implementation VoteHomeCell
@@ -48,7 +50,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    HomeCellModel *cellModel = self.manager.dataSource[1];
+    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
     HomeDetailCellModel *model = cellModel.comment[self.manager.index1];
     if (model.isClick) {
         return cellModel.comment.count;
@@ -57,7 +59,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[1];
+    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
     HomeDetailCellModel *model = cellModel.comment[indexPath.row];
     if (model.typeCell == TypeCellTimeAndTitle) {
         HomeDetailCell4 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier4"];
@@ -87,7 +89,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[1];
+    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
     HomeDetailCellModel *model = cellModel.comment[indexPath.row];
     if (model.typeCell == TypeCellTimeAndTitle) {
         return 40;
@@ -140,8 +142,8 @@
     
 }
 
-- (void)configureCellWithModel:(HomeCellModel *)model {
-   
+- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath {
+    self.indexPath = indexPath;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;

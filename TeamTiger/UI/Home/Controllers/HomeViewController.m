@@ -61,6 +61,7 @@
     self.tableView.mj_header = header;
     
 //    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+//        [self addDataToDataArr];
 //        [self.tableView reloadData];
 //        [self.tableView.mj_footer endRefreshing];
 //    }];
@@ -69,6 +70,9 @@
 }
 
 - (void)addDataToDataArr {
+    if (self.manager.dataSource.count > 4) {
+        return;
+    }
     NSDictionary *dic = @{@"headImage":@"touxiang",
                           @"name":@"卞克",
                           @"type":@"BBS",
@@ -102,11 +106,9 @@
                                     }].mutableCopy
                           };
     [self.manager.dataArr addObject:dic];
-    [self.manager.dataSource removeAllObjects];
-    for (NSDictionary *dic in self.manager.dataArr) {
-        HomeCellModel *model = [HomeCellModel modelWithDic:dic];
-        [self.manager.dataSource addObject:model];
-    };
+    HomeCellModel *model = [HomeCellModel modelWithDic:dic];
+    [self.manager.dataSource addObject:model];
+    
 }
 
 - (void)handleRefresh:(NSNotification *)notification {
@@ -183,7 +185,7 @@
         case 0:{
             if (indexPath.row == 0) {
                 HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
-                [cell configureCellWithModel:model];
+                [cell configureCellWithModel:model indexPath:indexPath];
                 if (model.isClick) {
                     [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
                 }else {
@@ -194,7 +196,7 @@
                 return cell;
             }else {
                 VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
-                [cell configureCellWithModel:model];
+                [cell configureCellWithModel:model indexPath:indexPath];
                 if (model.isClick) {
                     [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
                 }else {
@@ -221,7 +223,7 @@
             HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
             cell.moreBtn.indexPath = indexPath;
             [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
-            [cell configureCellWithModel:self.manager.dataSource[indexPath.row]];
+            [cell configureCellWithModel:model indexPath:indexPath];
             return cell;
         }
         default:

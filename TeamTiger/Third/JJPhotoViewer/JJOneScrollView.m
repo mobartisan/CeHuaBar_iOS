@@ -122,7 +122,7 @@
     [UIView animateWithDuration:AnimationTime animations:^{
         
         [self setFrameAndZoom:imageView];
-        self.maximumZoomScale = 1.5;
+        self.maximumZoomScale = 1.8;
         self.minimumZoomScale = 1;
         self.superview.backgroundColor = [UIColor blackColor];
         

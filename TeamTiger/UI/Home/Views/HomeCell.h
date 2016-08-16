@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeCellModel.h"
-#import "ButtonIndexPath.h"
 
+
+@class HomeCellModel, ButtonIndexPath;
 
 @interface HomeCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
@@ -26,6 +26,6 @@
 @property (assign, nonatomic) BOOL isOpen;
 
 
-- (void)configureCellWithModel:(HomeCellModel *)model;
+- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath;
 
 @end

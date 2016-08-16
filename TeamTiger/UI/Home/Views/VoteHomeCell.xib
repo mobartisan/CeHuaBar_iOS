@@ -509,7 +509,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ekj-HS-FT2" userLabel="bottomView">
-                        <rect key="frame" x="54" y="391" width="40" height="40"/>
+                        <rect key="frame" x="55" y="391" width="40" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Rf-9O-yrt" customClass="ButtonIndexPath">
                                 <rect key="frame" x="4" y="17" width="32" height="20"/>
@@ -551,7 +551,7 @@
                     <constraint firstItem="XYp-Xr-gaa" firstAttribute="top" secondItem="B4J-44-aco" secondAttribute="top" constant="5" id="XjA-ut-RXt"/>
                     <constraint firstItem="UF2-hv-S26" firstAttribute="leading" secondItem="B4J-44-aco" secondAttribute="leading" constant="10" id="bvs-ET-w1u"/>
                     <constraint firstAttribute="bottom" secondItem="UIg-X5-02q" secondAttribute="bottom" id="ct0-W2-hr8"/>
-                    <constraint firstItem="Ekj-HS-FT2" firstAttribute="leading" secondItem="B4J-44-aco" secondAttribute="leading" constant="54" id="da1-bb-ILG"/>
+                    <constraint firstItem="Ekj-HS-FT2" firstAttribute="leading" secondItem="B4J-44-aco" secondAttribute="leading" constant="55" id="da1-bb-ILG"/>
                     <constraint firstItem="Ekj-HS-FT2" firstAttribute="top" secondItem="XYp-Xr-gaa" secondAttribute="bottom" constant="366" id="egJ-XM-R8h"/>
                     <constraint firstItem="XYp-Xr-gaa" firstAttribute="leading" secondItem="B4J-44-aco" secondAttribute="leading" constant="10" id="ttL-rX-hne"/>
                     <constraint firstAttribute="trailing" secondItem="UF2-hv-S26" secondAttribute="trailing" constant="10" id="umJ-7E-oP6"/>

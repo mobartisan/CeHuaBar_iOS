@@ -41,6 +41,6 @@ typedef void(^ClickBtn)(UIButton *button);
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 
 @property (copy, nonatomic) ClickBtn clickBtn;
-- (void)configureCellWithModel:(HomeCellModel *)model;
+- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath;
 
 @end

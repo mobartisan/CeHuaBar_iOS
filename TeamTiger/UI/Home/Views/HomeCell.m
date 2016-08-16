@@ -11,14 +11,17 @@
 #import "HomeDetailCell1.h"
 #import "HomeDetailCell2.h"
 #import "HomeDetailCell3.h"
+#import "HomeCellModel.h"
 #import "HomeDetailCellModel.h"
 #import "DataManager.h"
+#import "ButtonIndexPath.h"
 #import "JJPhotoManeger.h"
 
 @interface HomeCell ()
 
 @property (strong, nonatomic) DataManager *manager;
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end
 
@@ -51,7 +54,8 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithModel:(HomeCellModel *)model {
+- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath {
+    self.indexPath = indexPath;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;
@@ -62,7 +66,7 @@
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    HomeCellModel *cellModel = self.manager.dataSource[0];
+    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
     HomeDetailCellModel *model = cellModel.comment[self.manager.index];
     if (model.isClick) {
         return cellModel.comment.count;
@@ -73,7 +77,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[0];
+    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
     HomeDetailCellModel *model = cellModel.comment[indexPath.row];
     if (model.typeCell == TypeCellImage) {
         HomeDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];

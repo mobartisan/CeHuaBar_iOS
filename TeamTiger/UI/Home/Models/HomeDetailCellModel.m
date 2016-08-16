@@ -16,6 +16,7 @@
     }
     return self;
 }
+
 + (instancetype)modelWithDic:(NSDictionary *)dic {
     return [[HomeDetailCellModel alloc] initWithDic:dic];
 }
