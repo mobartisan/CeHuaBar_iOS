@@ -13,6 +13,7 @@
 #import "CirclesItemModel.h"
 #import "CirclesItemCell.h"
 #import "ChooseTag.h"
+#import "TTAddProjectViewController.h"
 
 // Controllers
 
@@ -193,6 +194,9 @@
 #pragma mark - Privater Methods
 -(void)addCirclesAction {
     NSLog(@"创建新的圈子");
+    TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+    TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
+    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
 }
 
 #pragma mark - Setter Getter Methods
@@ -219,6 +223,7 @@
         //        _headImgV.contentMode = UIViewContentModeCenter;
         _headImgV.clipsToBounds = YES;
         _headImgV.backgroundColor = [UIColor blueColor];
+        _headImgV.userInteractionEnabled = YES;
     }
     return _headImgV;
 }
