@@ -42,10 +42,10 @@
 //            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"确定"] block:nil];
 //        }
 
-//3.测试网络
-        
+////3.测试网络
+//        
 //        LoginApi *loginApi = [[LoginApi alloc] init];
-//        loginApi.requestArgument = @{@"username":@"xingxing",@"password":@"123456"};
+//        loginApi.requestArgument = @{@"username":@"bianke",@"password":@"110110"};
 //        LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self];
 //            [loginApi addAccessory:accessary];
 //            [loginApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -56,8 +56,8 @@
 //            }];
 //        
 //        
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            TestApi *testApi = [[TestApi alloc] init];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            ProjectsApi *testApi = [[ProjectsApi alloc] init];
 //            LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self];
 //            [testApi addAccessory:accessary];
 //            [testApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {

@@ -87,7 +87,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
+    return @"bbs/api/v1.0/project/list.app";
 }
 
 - (LCRequestMethod)requestMethod {

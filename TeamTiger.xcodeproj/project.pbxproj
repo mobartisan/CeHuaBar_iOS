@@ -330,6 +330,19 @@
 		1DB926181D46F4F4003676AC /* LCRequestAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926161D46F4F4003676AC /* LCRequestAccessory.m */; };
 		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
 		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
+		1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D31D6462340039077D /* SetPassController.m */; };
+		1DBFD6DB1D6462340039077D /* SPTLogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D51D6462340039077D /* SPTLogonViewController.m */; };
+		1DBFD6DC1D6462340039077D /* SPTLookForPsdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */; };
+		1DBFD6DD1D6462340039077D /* SPTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */; };
+		1DBFD6EA1D6463650039077D /* DJRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E01D6463650039077D /* DJRegisterView.m */; };
+		1DBFD6EB1D6463650039077D /* dvq.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E21D6463650039077D /* dvq.png */; };
+		1DBFD6EC1D6463650039077D /* irn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E31D6463650039077D /* irn.png */; };
+		1DBFD6ED1D6463650039077D /* irv.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E41D6463650039077D /* irv.png */; };
+		1DBFD6EE1D6463650039077D /* label_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E51D6463650039077D /* label_phone.png */; };
+		1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E61D6463650039077D /* textfield_activated_holo_light@2x.png */; };
+		1DBFD6F01D6463650039077D /* textfield_activated_holo_light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E71D6463650039077D /* textfield_activated_holo_light@3x.png */; };
+		1DBFD6F11D6463650039077D /* textfield_default_holo_light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E81D6463650039077D /* textfield_default_holo_light@2x.png */; };
+		1DBFD6F21D6463650039077D /* textfield_default_holo_light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E91D6463650039077D /* textfield_default_holo_light@3x.png */; };
 		1DD2E31F1D596EAA005D45A9 /* toggle_background_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3171D596EAA005D45A9 /* toggle_background_off@2x.png */; };
 		1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3181D596EAA005D45A9 /* toggle_background_off@3x.png */; };
 		1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3191D596EAA005D45A9 /* toggle_background_on@2x.png */; };
@@ -1035,6 +1048,24 @@
 		1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationSetting.m; sourceTree = "<group>"; };
 		1DBFD6CE1D6436210039077D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		1DBFD6CF1D6436210039077D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		1DBFD6D21D6462340039077D /* SetPassController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPassController.h; sourceTree = "<group>"; };
+		1DBFD6D31D6462340039077D /* SetPassController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPassController.m; sourceTree = "<group>"; };
+		1DBFD6D41D6462340039077D /* SPTLogonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTLogonViewController.h; sourceTree = "<group>"; };
+		1DBFD6D51D6462340039077D /* SPTLogonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTLogonViewController.m; sourceTree = "<group>"; };
+		1DBFD6D61D6462340039077D /* SPTLookForPsdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTLookForPsdViewController.h; sourceTree = "<group>"; };
+		1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTLookForPsdViewController.m; sourceTree = "<group>"; };
+		1DBFD6D81D6462340039077D /* SPTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTRegisterViewController.h; sourceTree = "<group>"; };
+		1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTRegisterViewController.m; sourceTree = "<group>"; };
+		1DBFD6DF1D6463650039077D /* DJRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRegisterView.h; sourceTree = "<group>"; };
+		1DBFD6E01D6463650039077D /* DJRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRegisterView.m; sourceTree = "<group>"; };
+		1DBFD6E21D6463650039077D /* dvq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dvq.png; sourceTree = "<group>"; };
+		1DBFD6E31D6463650039077D /* irn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irn.png; sourceTree = "<group>"; };
+		1DBFD6E41D6463650039077D /* irv.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irv.png; sourceTree = "<group>"; };
+		1DBFD6E51D6463650039077D /* label_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_phone.png; sourceTree = "<group>"; };
+		1DBFD6E61D6463650039077D /* textfield_activated_holo_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_activated_holo_light@2x.png"; sourceTree = "<group>"; };
+		1DBFD6E71D6463650039077D /* textfield_activated_holo_light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_activated_holo_light@3x.png"; sourceTree = "<group>"; };
+		1DBFD6E81D6463650039077D /* textfield_default_holo_light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_default_holo_light@2x.png"; sourceTree = "<group>"; };
+		1DBFD6E91D6463650039077D /* textfield_default_holo_light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "textfield_default_holo_light@3x.png"; sourceTree = "<group>"; };
 		1DD2E3171D596EAA005D45A9 /* toggle_background_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_off@2x.png"; sourceTree = "<group>"; };
 		1DD2E3181D596EAA005D45A9 /* toggle_background_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_off@3x.png"; sourceTree = "<group>"; };
 		1DD2E3191D596EAA005D45A9 /* toggle_background_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_on@2x.png"; sourceTree = "<group>"; };
@@ -2423,6 +2454,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1DBFD6DE1D6463650039077D /* DJRegisterView */,
 				06B4648E1D62A48B00DBC806 /* JZNavigationExtension */,
 				2D79450A1D5C648E003B5A6E /* JJPhotoViewer */,
 				1DD2E3271D59B30F005D45A9 /* OpenSDK */,
@@ -2621,6 +2653,47 @@
 			path = NotificationCell;
 			sourceTree = "<group>";
 		};
+		1DBFD6D11D6462340039077D /* CustomLogin */ = {
+			isa = PBXGroup;
+			children = (
+				1DBFD6D21D6462340039077D /* SetPassController.h */,
+				1DBFD6D31D6462340039077D /* SetPassController.m */,
+				1DBFD6D41D6462340039077D /* SPTLogonViewController.h */,
+				1DBFD6D51D6462340039077D /* SPTLogonViewController.m */,
+				1DBFD6D61D6462340039077D /* SPTLookForPsdViewController.h */,
+				1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */,
+				1DBFD6D81D6462340039077D /* SPTRegisterViewController.h */,
+				1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */,
+			);
+			name = CustomLogin;
+			path = CustomerLogin;
+			sourceTree = "<group>";
+		};
+		1DBFD6DE1D6463650039077D /* DJRegisterView */ = {
+			isa = PBXGroup;
+			children = (
+				1DBFD6DF1D6463650039077D /* DJRegisterView.h */,
+				1DBFD6E01D6463650039077D /* DJRegisterView.m */,
+				1DBFD6E11D6463650039077D /* images */,
+			);
+			path = DJRegisterView;
+			sourceTree = "<group>";
+		};
+		1DBFD6E11D6463650039077D /* images */ = {
+			isa = PBXGroup;
+			children = (
+				1DBFD6E21D6463650039077D /* dvq.png */,
+				1DBFD6E31D6463650039077D /* irn.png */,
+				1DBFD6E41D6463650039077D /* irv.png */,
+				1DBFD6E51D6463650039077D /* label_phone.png */,
+				1DBFD6E61D6463650039077D /* textfield_activated_holo_light@2x.png */,
+				1DBFD6E71D6463650039077D /* textfield_activated_holo_light@3x.png */,
+				1DBFD6E81D6463650039077D /* textfield_default_holo_light@2x.png */,
+				1DBFD6E91D6463650039077D /* textfield_default_holo_light@3x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		1DD2E3161D596EAA005D45A9 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -2697,6 +2770,7 @@
 		1DDE9E651D531B54005926FE /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				1DBFD6D11D6462340039077D /* CustomLogin */,
 				1DDE9E661D531B66005926FE /* TTLoginViewController.h */,
 				1DDE9E671D531B66005926FE /* TTLoginViewController.m */,
 				1DDE9E681D531B66005926FE /* TTLoginViewController.xib */,
@@ -3002,6 +3076,7 @@
 				1DD2E3251D596EAA005D45A9 /* toggle_handle_on@2x.png in Resources */,
 				0604B4781D4C5A9B00EF1703 /* image_5.jpg in Resources */,
 				1DB5A5871D4B3F36009E6170 /* switchMask@2x.png in Resources */,
+				1DBFD6F01D6463650039077D /* textfield_activated_holo_light@3x.png in Resources */,
 				1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */,
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
 				06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */,
@@ -3019,6 +3094,7 @@
 				1DB5A5911D4B3F36009E6170 /* square-switch-mask@2x.png in Resources */,
 				1DB5A5861D4B3F36009E6170 /* switchGreen@2x.png in Resources */,
 				0604B47A1D4C5A9B00EF1703 /* image_7.jpg in Resources */,
+				1DBFD6EC1D6463650039077D /* irn.png in Resources */,
 				0604B4751D4C5A9B00EF1703 /* image_2.jpg in Resources */,
 				1DD2E3261D596EAA005D45A9 /* toggle_handle_on@3x.png in Resources */,
 				2D01BACA1D5C69D800E10721 /* HomeViewController.xib in Resources */,
@@ -3026,12 +3102,15 @@
 				1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */,
 				06B464BC1D62F2E800DBC806 /* ChooseTag.xib in Resources */,
 				0604B4761D4C5A9B00EF1703 /* image_3.jpg in Resources */,
+				1DBFD6EE1D6463650039077D /* label_phone.png in Resources */,
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
 				1DD2E3481D59C589005D45A9 /* icon@2x.png in Resources */,
 				1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */,
 				1DF0A1B31D4DB898002D91DB /* 16.png in Resources */,
 				1DD2E32E1D59B30F005D45A9 /* README.txt in Resources */,
+				1DBFD6F11D6463650039077D /* textfield_default_holo_light@2x.png in Resources */,
+				1DBFD6ED1D6463650039077D /* irv.png in Resources */,
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
 				1DF0A1AE1D4DB898002D91DB /* 11.png in Resources */,
 				1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */,
@@ -3040,6 +3119,7 @@
 				2D01BADC1D5C69D800E10721 /* HomeDetailCell4.xib in Resources */,
 				1DF0A1B91D4DB898002D91DB /* 5.png in Resources */,
 				2D01BAD61D5C69D800E10721 /* HomeDetailCell1.xib in Resources */,
+				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
 				1DB5A5921D4B3F36009E6170 /* square-switch-overlay@2x.png in Resources */,
@@ -3049,12 +3129,14 @@
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
 				1DB5A5891D4B3F36009E6170 /* switchToggle@2x.png in Resources */,
 				0604B4791D4C5A9B00EF1703 /* image_6.jpg in Resources */,
+				1DBFD6EB1D6463650039077D /* dvq.png in Resources */,
 				1DD2E3241D596EAA005D45A9 /* toggle_handle_off@3x.png in Resources */,
 				2D01BAD41D5C69D800E10721 /* HomeDetailCell.xib in Resources */,
 				1DF0A1BC1D4DB898002D91DB /* 8.png in Resources */,
 				1DA0E1A11D543F7B008CD6DF /* ProjectCell1.xib in Resources */,
 				2DFACA591D507B8B0099A2A3 /* DiscussListCell1.xib in Resources */,
 				1D9580B01D3E207200FD0053 /* MJRefresh.bundle in Resources */,
+				1DBFD6F21D6463650039077D /* textfield_default_holo_light@3x.png in Resources */,
 				0604B47D1D4C5A9B00EF1703 /* upshadow.png in Resources */,
 				2D01BAD21D5C69D800E10721 /* HomeCell.xib in Resources */,
 				06B464C11D62FB6E00DBC806 /* ChooseTagCell.xib in Resources */,
@@ -3177,12 +3259,14 @@
 				1D09CC631D3F29C900F85E9A /* NSObject+YYAdd.m in Sources */,
 				1D09CD241D3F550300F85E9A /* UIButton+HYBHelperBlockKit.m in Sources */,
 				06008F441D58249300A5B3DB /* TZPhotoPreviewCell.m in Sources */,
+				1DBFD6EA1D6463650039077D /* DJRegisterView.m in Sources */,
 				1DD2E3441D59B8E0005D45A9 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */,
 				2D01BADD1D5C69D800E10721 /* HomeDetailCell5.m in Sources */,
 				1D09CD601D3F59D500F85E9A /* SDWebImageCompat.m in Sources */,
 				2D01BACE1D5C69D800E10721 /* ButtonIndexPath.m in Sources */,
 				2D01BADB1D5C69D800E10721 /* HomeDetailCell4.m in Sources */,
 				1D09CC711D3F29C900F85E9A /* UIFont+YYAdd.m in Sources */,
+				1DBFD6DC1D6462340039077D /* SPTLookForPsdViewController.m in Sources */,
 				1D09CC941D3F29C900F85E9A /* YYTextSelectionView.m in Sources */,
 				1D09CC9A1D3F29C900F85E9A /* YYTextParser.m in Sources */,
 				0604B4641D4C5A5B00EF1703 /* AKPickerView.m in Sources */,
@@ -3197,6 +3281,7 @@
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
 				06B464C01D62FB6E00DBC806 /* ChooseTagCell.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
+				1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
 				1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */,
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
@@ -3262,11 +3347,13 @@
 				1D09CC601D3F29C900F85E9A /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				1D09CC611D3F29C900F85E9A /* NSNotificationCenter+YYAdd.m in Sources */,
 				1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */,
+				1DBFD6DD1D6462340039077D /* SPTRegisterViewController.m in Sources */,
 				1D09CD621D3F59D500F85E9A /* SDWebImageManager.m in Sources */,
 				1D0EA2D21D45A8AE00B47108 /* TMDiskCache.m in Sources */,
 				1D09CD611D3F59D500F85E9A /* SDWebImageDecoder.m in Sources */,
 				1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */,
 				1D9580381D3E123800FD0053 /* AFSecurityPolicy.m in Sources */,
+				1DBFD6DB1D6462340039077D /* SPTLogonViewController.m in Sources */,
 				1D9580361D3E123800FD0053 /* AFHTTPSessionManager.m in Sources */,
 				1D0EA2C41D45A82C00B47108 /* LCBatchRequestAgent.m in Sources */,
 				06008F151D58162300A5B3DB /* TTCommonCell.m in Sources */,
