@@ -328,6 +328,8 @@
 		1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB5A5851D4B3F36009E6170 /* square-switch-track@2x.png */; };
 		1DB926171D46F4F4003676AC /* LCProcessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926141D46F4F4003676AC /* LCProcessFilter.m */; };
 		1DB926181D46F4F4003676AC /* LCRequestAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926161D46F4F4003676AC /* LCRequestAccessory.m */; };
+		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
+		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
 		1DD2E31F1D596EAA005D45A9 /* toggle_background_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3171D596EAA005D45A9 /* toggle_background_off@2x.png */; };
 		1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3181D596EAA005D45A9 /* toggle_background_off@3x.png */; };
 		1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3191D596EAA005D45A9 /* toggle_background_on@2x.png */; };
@@ -1029,6 +1031,10 @@
 		1DB926141D46F4F4003676AC /* LCProcessFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCProcessFilter.m; sourceTree = "<group>"; };
 		1DB926151D46F4F4003676AC /* LCRequestAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCRequestAccessory.h; sourceTree = "<group>"; };
 		1DB926161D46F4F4003676AC /* LCRequestAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCRequestAccessory.m; sourceTree = "<group>"; };
+		1DBFD6CA1D640C8D0039077D /* TTNotificationSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationSetting.h; sourceTree = "<group>"; };
+		1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationSetting.m; sourceTree = "<group>"; };
+		1DBFD6CE1D6436210039077D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		1DBFD6CF1D6436210039077D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		1DD2E3171D596EAA005D45A9 /* toggle_background_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_off@2x.png"; sourceTree = "<group>"; };
 		1DD2E3181D596EAA005D45A9 /* toggle_background_off@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_off@3x.png"; sourceTree = "<group>"; };
 		1DD2E3191D596EAA005D45A9 /* toggle_background_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_background_on@2x.png"; sourceTree = "<group>"; };
@@ -2061,6 +2067,7 @@
 		1D55FD901D49AA8200094112 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1DBFD6CD1D6435FA0039077D /* NotificationCell */,
 				1D6D02C81D58137500EE0C2E /* TTPickerView */,
 				1DA0E1A51D547778008CD6DF /* ItemView */,
 				1DA0E19A1D543F7B008CD6DF /* ProjectCell */,
@@ -2596,6 +2603,24 @@
 			path = NetworkHelper;
 			sourceTree = "<group>";
 		};
+		1DBFD6C91D640C620039077D /* NotificationSetting */ = {
+			isa = PBXGroup;
+			children = (
+				1DBFD6CA1D640C8D0039077D /* TTNotificationSetting.h */,
+				1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */,
+			);
+			path = NotificationSetting;
+			sourceTree = "<group>";
+		};
+		1DBFD6CD1D6435FA0039077D /* NotificationCell */ = {
+			isa = PBXGroup;
+			children = (
+				1DBFD6CE1D6436210039077D /* NotificationCell.h */,
+				1DBFD6CF1D6436210039077D /* NotificationCell.m */,
+			);
+			path = NotificationCell;
+			sourceTree = "<group>";
+		};
 		1DD2E3161D596EAA005D45A9 /* Other */ = {
 			isa = PBXGroup;
 			children = (
@@ -2746,6 +2771,7 @@
 		1DF991D41D48ADB300E7D1B8 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				1DBFD6C91D640C620039077D /* NotificationSetting */,
 				1DDE9E6B1D5330ED005926FE /* MyProfile */,
 				1DDE9E5F1D52DADA005926FE /* AddProject */,
 				1D55FD901D49AA8200094112 /* View */,
@@ -3086,6 +3112,7 @@
 				1D0EA2C61D45A82C00B47108 /* LCChainRequestAgent.m in Sources */,
 				1D9580B51D3E207200FD0053 /* UIView+MJExtension.m in Sources */,
 				1DA71B621D3DB5A1007483D2 /* AppDelegate.m in Sources */,
+				1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */,
 				1D9580B31D3E207200FD0053 /* UIScrollView+MJExtension.m in Sources */,
 				2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */,
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
@@ -3171,6 +3198,7 @@
 				06B464C01D62FB6E00DBC806 /* ChooseTagCell.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
+				1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */,
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
 				1D09CC891D3F29C900F85E9A /* YYWebImageOperation.m in Sources */,
 				1D09CC9D1D3F29C900F85E9A /* YYTextUtilities.m in Sources */,

@@ -6,10 +6,12 @@
 //  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
-#import "TTMyProfileViewController.h"
-#import "ProfileCell.h"
 #import "IQKeyboardManager.h"
 #import "MockDatas.h"
+#import "ProfileCell.h"
+#import "TTMyProfileViewController.h"
+#import "TTNotificationSetting.h"
+
 
 @interface TTMyProfileViewController ()
 
@@ -56,6 +58,13 @@
         }
     };
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 3) {
+        TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
+        [self.navigationController pushViewController:notificationVC animated:YES];
+    }
 }
 
 - (NSMutableArray *)dataSource {
