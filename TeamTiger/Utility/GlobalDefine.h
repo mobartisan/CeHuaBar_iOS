@@ -24,4 +24,6 @@ static const int STR_COLOR_MAX = 6;
 static const char* kColorAr[STR_COLOR_MAX] = {
     "DCAD62", "669AFF", "DA4042", "91BF42", "E8C61E","41C4F0"};
 
+NSString *gSession;
+
 #endif /* GlobalDefine_h */

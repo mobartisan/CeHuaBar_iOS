@@ -16,7 +16,11 @@
 
 @end
 
-@interface Api1 : LCBaseRequest<LCAPIRequest>
+@interface LoginApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+@interface TestApi : LCBaseRequest<LCAPIRequest>
 
 @end
 

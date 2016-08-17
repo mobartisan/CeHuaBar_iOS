@@ -11,9 +11,11 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__ //确保只被objectcive-C语言的文件所引用
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "GlobalDefine.h"
 #import "SqliteManager.h"
 #import "AppConstant.h"
 #import "Masonry.h"
@@ -21,9 +23,11 @@
 #import "Common.h"
 #import "HYBHelperKit.h"
 #import "TTBaseNavigationController.h"
-#import "GlobalDefine.h"
 #import "TMCache.h"
 #import "CirclesManager.h"
-#import "MJRefresh.h" 
+#import "MJRefresh.h"
+#import "NetworkManager.h"
+
+#endif
 
 #endif /* TeamTiger_Prefix_pch */

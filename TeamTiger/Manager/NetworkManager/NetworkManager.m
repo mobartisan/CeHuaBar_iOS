@@ -16,21 +16,21 @@ static double const timeOutInterval = 15.0;
 
 + (void)configerNetworking {
     LCNetworkConfig *config = [LCNetworkConfig sharedInstance];
-    config.mainBaseUrl = @"http://api.zdoz.net/";
+    config.mainBaseUrl = @"http://192.168.0.115:3001/";
     LCProcessFilter *filter = [[LCProcessFilter alloc] init];
     config.processRule = filter;
 }
 
 @end
 
-@implementation Api1
+@implementation LoginApi
 
 - (NSString *)apiMethodName {
-    return @"getweather2.aspx";
+    return @"user/login2.app";
 }
 
 - (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
+    return LCRequestMethodPost;
 }
 
 - (NSTimeInterval)requestTimeoutInterval {
@@ -52,6 +52,38 @@ static double const timeOutInterval = 15.0;
 }
 
 @end
+
+
+@implementation TestApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/point2.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+
+@end
+
 
 @implementation ImageUploadApi
 
