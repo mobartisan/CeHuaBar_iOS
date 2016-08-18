@@ -7,11 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GeTuiSdk.h"
 
-@interface MessageManager : NSObject
+
+@interface MessageManager : NSObject<GeTuiSdkDelegate>
 
 + (instancetype)sharedInstance;
+
++ (void)registerUserNotification;
+
+- (void)startGeTui;
+
+- (void)registerDeviceToken:(NSString *)deviceToken;
 
 - (void)handleOneMessage:(id)msgObj;
 
 @end
+

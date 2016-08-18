@@ -9,6 +9,17 @@
 #ifndef Constant_h
 #define Constant_h
 
+//GeTui
+
+static NSString *const gtAppId = @"IDmqL4Had8ARm3iKv9y4g2";
+
+static NSString *const gtAppSecret = @"Ei65yWW81c7EPhwd5d3Pn9";
+
+static NSString *const gtAppKey = @"jj16WEjX6z8vpT4TF1ChM6";
+
+static NSString *const gtMasterSecret = @"4bxJjcNdUh96Ght4aHotg4";
+
+
 //默认图片
 #define kImageForHead [UIImage imageNamed:@"common-headDefault"]
 

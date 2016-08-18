@@ -20,6 +20,7 @@
 #import "UIView+TYLaunchAnimation.h"
 #import "WXApiManager.h"
 #import "CirclesVC.h"
+#import "MessageManager.h"
 
 @interface AppDelegate ()
 
@@ -63,8 +64,10 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //个推SDK重新上线
+    [[MessageManager sharedInstance] startGeTui];
 }
+
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -76,6 +79,42 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+
+
+#pragma mark - 用户通知(推送)回调 _IOS 8.0以上使用
+/** 已登记用户通知 */
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    // 注册远程通知（推送）
+    [application registerForRemoteNotifications];
+}
+
+#pragma mark - 远程通知(推送)回调
+/** 远程通知注册成功委托 */
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"\n>>>[DeviceToken Success]:%@\n\n", token);
+    UserDefaultsSave(token, @"CurrentDeviceToken");
+    [[MessageManager sharedInstance] registerDeviceToken:token];
+}
+
+/** 远程通知注册失败委托 */
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"\n>>>[DeviceToken Error]:%@\n\n", error.description);
+}
+
+#pragma mark - APP运行中接收到通知(推送)处理
+/** APP已经接收到“远程”通知(推送) - (App运行在后台/App运行在前台) */
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"\n>>>[Receive RemoteNotification]:%@\n\n", userInfo);
+}
+
+/** APP已经接收到“远程”通知(推送) - 透传推送消息  */
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
+    // 处理APN
+    NSLog(@"\n>>>[Receive RemoteNotification - Background Fetch]:%@\n\n", userInfo);
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 #pragma -mark initial methods
@@ -139,6 +178,10 @@
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     
     
+    //推送相关
+    [MessageManager registerUserNotification];
+    [[MessageManager sharedInstance] startGeTui];
+
     //配置网络
     [NetworkManager configerNetworking];
 
