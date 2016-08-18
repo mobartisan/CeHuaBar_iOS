@@ -97,6 +97,8 @@
 //    TTCommonItem *attachment = [TTCommonArrowItem itemWithTitle:@"附件" subtitle:attachmentSub destVcClass:nil];
 //    WeakSelf;
 //    attachment.option = ^{
+////        AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
+////        [wself.navigationController pushViewController:addImageVC animated:YES];
 //        NSMutableArray *selectAssets = [[SelectPhotosManger sharedInstance] getAssets];
 //        if (selectAssets == nil || selectAssets.count == 0) {
 //            UIActionSheet *sheet = [UIActionSheet hyb_showInView:wself.view title:nil cancelTitle:@"取消" destructiveTitle:nil otherTitles:@[@"拍照",@"去相册选择"] callback:^(UIActionSheet *actionSheet, NSUInteger buttonIndex) {
@@ -117,7 +119,10 @@
 //    group.items = @[attachment];
 //    [self.data addObject:group];
     UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
-    customView.backgroundColor = [UIColor redColor];
+    AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
+    [self addChildViewController:addImageVC];
+    [customView addSubview:addImageVC.view];
+    customView.clipsToBounds = YES;
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = @[attachment];

@@ -64,7 +64,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = kColorForBackgroud;
+    self.view.backgroundColor = kColorForCommonCellBackgroud;
     _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
     _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
     [self configCollectionView];
@@ -74,7 +74,7 @@
 - (void)configCollectionView {
     _layout = [[LxGridViewFlowLayout alloc] init];
     _margin = 4;
-    _itemWH = (self.view.tz_width - 2 * _margin - 4) / 3 - _margin;
+    _itemWH = (self.view.tz_width - 2 * _margin - 4) / 4 - _margin;
     _layout.itemSize = CGSizeMake(_itemWH, _itemWH);
     _layout.minimumInteritemSpacing = _margin;
     _layout.minimumLineSpacing = _margin;

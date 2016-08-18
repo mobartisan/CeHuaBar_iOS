@@ -13,6 +13,4 @@
 @property (nonatomic, assign, getter = isLastRowInSection) BOOL lastRowInSection;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
-
-+ (instancetype)cellWithTableView:(UITableView *)tableView WithCustomView:(UIView *)customView;
 @end

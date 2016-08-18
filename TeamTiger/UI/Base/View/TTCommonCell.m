@@ -202,13 +202,6 @@ typedef enum : NSUInteger {
     return cell;
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView WithCustomView:(UIView *)customView {
-    TTCommonCell *cell = [self cellWithTableView:tableView WithCustomView:nil];
-    cell.customView = customView;
-    cell.cellType = TTCommonCellCustomView;
-    return cell;
-}
-
 - (void)dealloc {
 //    self.textView.delegate = nil;
 }
@@ -227,8 +220,10 @@ typedef enum : NSUInteger {
 
 - (void)customLayoutSubviews {
     if (self.cellType == TTCommonCellCustomView) {
+        CGFloat customViewH = self.customView.hyb_height;
         [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
+            make.height.mas_equalTo(customViewH);
         }];
         return;
     }
@@ -276,7 +271,7 @@ typedef enum : NSUInteger {
         make.left.equalTo(self.contentView);
         make.right.equalTo(self.contentView);
         make.height.mas_equalTo(1);
-        if (self.cellType != TTCommonCellTextView) {
+        if (self.cellType != TTCommonCellTextView || self.cellType != TTCommonCellCustomView) {
             make.top.equalTo(self.contentView).offset(73);
         }
         make.bottom.equalTo(self.contentView).offset(-1);
@@ -363,8 +358,13 @@ typedef enum : NSUInteger {
  */
 - (void)setupData
 {
-    if (self.cellType == TTCommonCellCustomView) {
+    if ([self.item isKindOfClass:[TTCommonCustomViewItem class]]) {
+        self.cellType = TTCommonCellCustomView;
         [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+        TTCommonCustomViewItem *item = (TTCommonCustomViewItem *)self.item;
+        
+        self.customView = item.customView;
         
         [self.contentView addSubview:self.customView];
         return;
