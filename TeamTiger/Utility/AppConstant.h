@@ -19,7 +19,6 @@ static NSString *const gtAppKey = @"jj16WEjX6z8vpT4TF1ChM6";
 
 static NSString *const gtMasterSecret = @"4bxJjcNdUh96Ght4aHotg4";
 
-
 //默认图片
 #define kImageForHead [UIImage imageNamed:@"common-headDefault"]
 

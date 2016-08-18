@@ -340,6 +340,9 @@
 		1DBC49D01D6588E000DB0CD2 /* TTAddContactorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49C91D6588E000DB0CD2 /* TTAddContactorViewController.m */; };
 		1DBC49D11D6588E000DB0CD2 /* TTAddContactorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DBC49CA1D6588E000DB0CD2 /* TTAddContactorViewController.xib */; };
 		1DBC49D21D6588E000DB0CD2 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49CD1D6588E000DB0CD2 /* ContactTableViewCell.m */; };
+		1DBC49D51D65A17B00DB0CD2 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49D41D65A17B00DB0CD2 /* libicucore.tbd */; };
+		1DBC49D71D65A18E00DB0CD2 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49D61D65A18E00DB0CD2 /* MessageUI.framework */; };
+		1DBC49D91D65A1B400DB0CD2 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49D81D65A1B400DB0CD2 /* AddressBookUI.framework */; };
 		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
 		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
 		1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D31D6462340039077D /* SetPassController.m */; };
@@ -1074,6 +1077,9 @@
 		1DBC49CA1D6588E000DB0CD2 /* TTAddContactorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddContactorViewController.xib; sourceTree = "<group>"; };
 		1DBC49CC1D6588E000DB0CD2 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
 		1DBC49CD1D6588E000DB0CD2 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
+		1DBC49D41D65A17B00DB0CD2 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		1DBC49D61D65A18E00DB0CD2 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		1DBC49D81D65A1B400DB0CD2 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		1DBFD6CA1D640C8D0039077D /* TTNotificationSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationSetting.h; sourceTree = "<group>"; };
 		1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationSetting.m; sourceTree = "<group>"; };
 		1DBFD6CE1D6436210039077D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
@@ -1234,6 +1240,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DBC49D91D65A1B400DB0CD2 /* AddressBookUI.framework in Frameworks */,
+				1DBC49D71D65A18E00DB0CD2 /* MessageUI.framework in Frameworks */,
+				1DBC49D51D65A17B00DB0CD2 /* libicucore.tbd in Frameworks */,
 				1DBC49C11D65550000DB0CD2 /* CoreBluetooth.framework in Frameworks */,
 				1DBC49BF1D6554F800DB0CD2 /* CoreLocation.framework in Frameworks */,
 				1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */,
@@ -2383,6 +2392,7 @@
 			children = (
 				1D09CCBA1D3F2AF300F85E9A /* Accelerate.framework */,
 				1D5D5FF71D4EFADD007123EB /* AddressBook.framework */,
+				1DBC49D81D65A1B400DB0CD2 /* AddressBookUI.framework */,
 				1D09CCB81D3F2AE800F85E9A /* AssetsLibrary.framework */,
 				1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */,
 				1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */,
@@ -2394,11 +2404,13 @@
 				1D09CCAE1D3F2AB900F85E9A /* CoreText.framework */,
 				1D09CCB61D3F2ADF00F85E9A /* ImageIO.framework */,
 				1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */,
+				1DBC49D61D65A18E00DB0CD2 /* MessageUI.framework */,
 				1D09CCBC1D3F2AFC00F85E9A /* MobileCoreServices.framework */,
 				1D09CCB41D3F2AD500F85E9A /* QuartzCore.framework */,
 				1DBC49B81D6554AF00DB0CD2 /* Security.framework */,
 				1D09CCBE1D3F2B0600F85E9A /* SystemConfiguration.framework */,
 				1DD2E32F1D59B3DB005D45A9 /* libc++.tbd */,
+				1DBC49D41D65A17B00DB0CD2 /* libicucore.tbd */,
 				1D9580EC1D3E26F800FD0053 /* libsqlite3.0.tbd */,
 				1D9580EA1D3E26CE00FD0053 /* libsqlite3.tbd */,
 				1D09CCC01D3F2B0E00F85E9A /* libz.tbd */,
@@ -3663,6 +3675,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TeamTiger/Third/SMS_SDK",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeamTiger/Resource/TeamTiger-Prefix.pch";
@@ -3690,6 +3706,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TeamTiger/Third/SMS_SDK",
+				);
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TeamTiger/Resource/TeamTiger-Prefix.pch";

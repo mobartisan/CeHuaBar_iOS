@@ -22,6 +22,7 @@
 #import "CirclesVC.h"
 #import "MessageManager.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -176,7 +177,6 @@
     //IQKeyboardManager
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-    
     
     //推送相关
     [MessageManager registerUserNotification];
