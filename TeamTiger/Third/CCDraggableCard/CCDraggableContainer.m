@@ -76,7 +76,7 @@
         //  -------------------------------------------------------------------------------------------------------
 
         if (self.loadedIndex < indexs || YES) {
-            NSLog(@"self.loadedIndex = %ld,self.currentCards.count = %ld,preloadViewCont = %ld", self.loadedIndex, self.currentCards.count, preloadViewCont);
+            NSLog(@"self.loadedIndex = %zd,self.currentCards.count = %tu,preloadViewCont = %zd", self.loadedIndex, self.currentCards.count, preloadViewCont);
             for (long int i = self.currentCards.count; i <  (self.moving ? preloadViewCont + 1: preloadViewCont); i++) {
                 
                 CCDraggableCardView *cardView = [self.dataSource draggableContainer:self viewForIndex:self.loadedIndex%indexs];
