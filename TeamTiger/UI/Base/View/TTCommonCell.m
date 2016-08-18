@@ -48,6 +48,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, weak) UIView *divider;
 
+@property (nonatomic, strong) UIView *customView;
+
 @property (nonatomic, assign)TTCommonCellType cellType;
 @end
 
@@ -56,7 +58,7 @@ typedef enum : NSUInteger {
 - (UIImageView *)arrowView
 {
     if (_arrowView == nil) {
-        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CellArrow"]];
+        _arrowView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_enter"]];
     }
     return _arrowView;
 }
@@ -194,8 +196,13 @@ typedef enum : NSUInteger {
     TTCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-//        cell = LoadFromNib(@"TTCommonCell");
     }
+    return cell;
+}
+
++ (instancetype)cellWithTableView:(UITableView *)tableView WithCustomView:(UIView *)customView {
+    TTCommonCell *cell = [self cellWithTableView:tableView WithCustomView:nil];
+    cell.customView = customView;
     return cell;
 }
 

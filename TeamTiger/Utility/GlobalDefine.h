@@ -10,7 +10,7 @@
 #define GlobalDefine_h
 
 #define kColorForBackgroud [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]
-#define kColorForCommonCellBackgroud [Common colorFromHexRGB:@"333949"]
+#define kColorForCommonCellBackgroud [Common colorFromHexRGB:@"1a293b"]
 #define kColorForCommonCellSelectedBackgroud [Common colorFromHexRGB:@"272d39"]
 
 static const double default_NavigationHeight = 64.0;

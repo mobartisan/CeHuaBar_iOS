@@ -59,6 +59,7 @@
     
     [self setupGroup0];
     [self setupGroup1];
+    [self setupGroup2];
     [self.tableView reloadData];
 }
 
@@ -76,10 +77,12 @@
  */
 - (void)setupGroup0
 {
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
+    
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[describe];
+    group.items = @[tag,describe];
     [self.data addObject:group];
 }
 
@@ -88,7 +91,7 @@
  */
 - (void)setupGroup1
 {
-    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
+
     NSString *attachmentSub = [NSString stringWithFormat:@"%ld", [[[SelectPhotosManger sharedInstance] getAssets] count]];
     TTCommonItem *attachment = [TTCommonArrowItem itemWithTitle:@"附件" subtitle:attachmentSub destVcClass:nil];
     WeakSelf;
@@ -108,10 +111,20 @@
             [wself.navigationController pushViewController:addImageVC animated:YES];
         }
     };
-    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:nil];;
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[tag, attachment, vote];
+    group.items = @[attachment];
+    [self.data addObject:group];
+}
+
+/**
+ *  第2组数据
+ */
+- (void)setupGroup2
+{
+    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:nil];
+    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+    group.items = @[vote];
     [self.data addObject:group];
 }
 
