@@ -12,6 +12,7 @@
 #import "TTCommonArrowItem.h"
 #import "TTCommonLabelItem.h"
 #import "TTCommonTextViewItem.h"
+#import "TTCommonCustomViewItem.h"
 #import "UITextView+PlaceHolder.h"
 
 typedef enum : NSUInteger {
@@ -20,6 +21,7 @@ typedef enum : NSUInteger {
     TTCommonCellSwitch,
     TTCommonCellTextView,
     TTCommonCellDefual,
+    TTCommonCellCustomView,
 } TTCommonCellType;
 
 @interface TTCommonCell()<UITextViewDelegate>
@@ -203,6 +205,7 @@ typedef enum : NSUInteger {
 + (instancetype)cellWithTableView:(UITableView *)tableView WithCustomView:(UIView *)customView {
     TTCommonCell *cell = [self cellWithTableView:tableView WithCustomView:nil];
     cell.customView = customView;
+    cell.cellType = TTCommonCellCustomView;
     return cell;
 }
 
@@ -223,7 +226,12 @@ typedef enum : NSUInteger {
 //}
 
 - (void)customLayoutSubviews {
-
+    if (self.cellType == TTCommonCellCustomView) {
+        [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+        return;
+    }
     
     [self.labelView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
@@ -318,6 +326,10 @@ typedef enum : NSUInteger {
  */
 - (void)setupRightContent
 {
+    if (self.cellType == TTCommonCellCustomView) {
+        return;
+    }
+    
     if ([self.item isKindOfClass:[TTCommonArrowItem class]]) { // 箭头
         self.cellType = TTCommonCellArrow;
         [self.contentView addSubview:self.arrowView];
@@ -351,6 +363,13 @@ typedef enum : NSUInteger {
  */
 - (void)setupData
 {
+    if (self.cellType == TTCommonCellCustomView) {
+        [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+        [self.contentView addSubview:self.customView];
+        return;
+    }
+    
     if (self.item.icon) {
         self.imageView.image = [UIImage imageNamed:self.item.icon];
     }

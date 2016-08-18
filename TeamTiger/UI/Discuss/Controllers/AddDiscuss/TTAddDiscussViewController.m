@@ -12,6 +12,7 @@
 #import "TTCommonGroup.h"
 #import "TTCommonArrowItem.h"
 #import "TTCommonTextViewItem.h"
+#import "TTCommonCustomViewItem.h"
 #import "TZImagePickerController.h"
 #import "UIView+Layout.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -92,26 +93,32 @@
 - (void)setupGroup1
 {
 
-    NSString *attachmentSub = [NSString stringWithFormat:@"%ld", [[[SelectPhotosManger sharedInstance] getAssets] count]];
-    TTCommonItem *attachment = [TTCommonArrowItem itemWithTitle:@"附件" subtitle:attachmentSub destVcClass:nil];
-    WeakSelf;
-    attachment.option = ^{
-        NSMutableArray *selectAssets = [[SelectPhotosManger sharedInstance] getAssets];
-        if (selectAssets == nil || selectAssets.count == 0) {
-            UIActionSheet *sheet = [UIActionSheet hyb_showInView:wself.view title:nil cancelTitle:@"取消" destructiveTitle:nil otherTitles:@[@"拍照",@"去相册选择"] callback:^(UIActionSheet *actionSheet, NSUInteger buttonIndex) {
-                if (buttonIndex == 0) { // take photo / 去拍照
-                    [wself takePhoto];
-                } else if (buttonIndex == 1) {
-                    [wself pushImagePickerController];
-                }
-            }];
-            sheet.actionSheetStyle = UIActionSheetStyleDefault;
-        } else {
-            AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
-            [wself.navigationController pushViewController:addImageVC animated:YES];
-        }
-    };
-    
+//    NSString *attachmentSub = [NSString stringWithFormat:@"%ld", [[[SelectPhotosManger sharedInstance] getAssets] count]];
+//    TTCommonItem *attachment = [TTCommonArrowItem itemWithTitle:@"附件" subtitle:attachmentSub destVcClass:nil];
+//    WeakSelf;
+//    attachment.option = ^{
+//        NSMutableArray *selectAssets = [[SelectPhotosManger sharedInstance] getAssets];
+//        if (selectAssets == nil || selectAssets.count == 0) {
+//            UIActionSheet *sheet = [UIActionSheet hyb_showInView:wself.view title:nil cancelTitle:@"取消" destructiveTitle:nil otherTitles:@[@"拍照",@"去相册选择"] callback:^(UIActionSheet *actionSheet, NSUInteger buttonIndex) {
+//                if (buttonIndex == 0) { // take photo / 去拍照
+//                    [wself takePhoto];
+//                } else if (buttonIndex == 1) {
+//                    [wself pushImagePickerController];
+//                }
+//            }];
+//            sheet.actionSheetStyle = UIActionSheetStyleDefault;
+//        } else {
+//            AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
+//            [wself.navigationController pushViewController:addImageVC animated:YES];
+//        }
+//    };
+//    
+//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+//    group.items = @[attachment];
+//    [self.data addObject:group];
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
+    customView.backgroundColor = [UIColor redColor];
+    TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = @[attachment];
     [self.data addObject:group];

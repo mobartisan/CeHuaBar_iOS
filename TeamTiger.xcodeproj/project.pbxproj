@@ -68,6 +68,7 @@
 		06B464C81D6300DC00DBC806 /* CirclesItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464C71D6300DC00DBC806 /* CirclesItemModel.m */; };
 		06B464CC1D6300F000DBC806 /* CirclesItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464CA1D6300F000DBC806 /* CirclesItemCell.m */; };
 		06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */; };
+		06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBA61D654E6B00DB49E1 /* TTCommonCustomViewItem.m */; };
 		06E026621D50439D00B9743B /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E026611D50439D00B9743B /* UserInfoView.m */; };
 		1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBAE1D3F29C900F85E9A /* NSArray+YYAdd.m */; };
 		1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBB01D3F29C900F85E9A /* NSBundle+YYAdd.m */; };
@@ -542,6 +543,8 @@
 		06B464C91D6300F000DBC806 /* CirclesItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclesItemCell.h; sourceTree = "<group>"; };
 		06B464CA1D6300F000DBC806 /* CirclesItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclesItemCell.m; sourceTree = "<group>"; };
 		06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CirclesItemCell.xib; sourceTree = "<group>"; };
+		06DFEBA51D654E6B00DB49E1 /* TTCommonCustomViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCommonCustomViewItem.h; sourceTree = "<group>"; };
+		06DFEBA61D654E6B00DB49E1 /* TTCommonCustomViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCommonCustomViewItem.m; sourceTree = "<group>"; };
 		06E026601D50439D00B9743B /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
 		06E026611D50439D00B9743B /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
 		1D09CBAD1D3F29C900F85E9A /* NSArray+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYAdd.h"; sourceTree = "<group>"; };
@@ -1246,6 +1249,8 @@
 				06008F1B1D58163100A5B3DB /* TTCommonGroup.m */,
 				06008F1C1D58163100A5B3DB /* TTCommonItem.h */,
 				06008F1D1D58163100A5B3DB /* TTCommonItem.m */,
+				06DFEBA51D654E6B00DB49E1 /* TTCommonCustomViewItem.h */,
+				06DFEBA61D654E6B00DB49E1 /* TTCommonCustomViewItem.m */,
 				06008F1E1D58163100A5B3DB /* TTCommonLabelItem.h */,
 				06008F1F1D58163100A5B3DB /* TTCommonLabelItem.m */,
 				06008F201D58163100A5B3DB /* TTCommonSwitchItem.h */,
@@ -3437,6 +3442,7 @@
 				1D9580721D3E1ADD00FD0053 /* MBProgressHUD.m in Sources */,
 				06008F281D58163100A5B3DB /* TTCommonSwitchItem.m in Sources */,
 				1D09CC851D3F29C900F85E9A /* YYImageCache.m in Sources */,
+				06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */,
 				1D09CD171D3F550300F85E9A /* NSNumber+HYBHelperKit.m in Sources */,
 				1DA0E19F1D543F7B008CD6DF /* ProjectCell.m in Sources */,
 				1D09CC9C1D3F29C900F85E9A /* YYTextRunDelegate.m in Sources */,
