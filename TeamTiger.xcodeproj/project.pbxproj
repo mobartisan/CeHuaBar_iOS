@@ -69,6 +69,9 @@
 		06B464CC1D6300F000DBC806 /* CirclesItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464CA1D6300F000DBC806 /* CirclesItemCell.m */; };
 		06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */; };
 		06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBA61D654E6B00DB49E1 /* TTCommonCustomViewItem.m */; };
+		06DFEBAA1D658CA900DB49E1 /* AddImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBA91D658CA900DB49E1 /* AddImageView.m */; };
+		06DFEBAE1D65D8F200DB49E1 /* TTAddVoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBAC1D65D8F200DB49E1 /* TTAddVoteViewController.m */; };
+		06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DFEBAD1D65D8F200DB49E1 /* TTAddVoteViewController.xib */; };
 		06E026621D50439D00B9743B /* UserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06E026611D50439D00B9743B /* UserInfoView.m */; };
 		1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBAE1D3F29C900F85E9A /* NSArray+YYAdd.m */; };
 		1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBB01D3F29C900F85E9A /* NSBundle+YYAdd.m */; };
@@ -559,6 +562,11 @@
 		06B464CB1D6300F000DBC806 /* CirclesItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CirclesItemCell.xib; sourceTree = "<group>"; };
 		06DFEBA51D654E6B00DB49E1 /* TTCommonCustomViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTCommonCustomViewItem.h; sourceTree = "<group>"; };
 		06DFEBA61D654E6B00DB49E1 /* TTCommonCustomViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTCommonCustomViewItem.m; sourceTree = "<group>"; };
+		06DFEBA81D658CA900DB49E1 /* AddImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddImageView.h; sourceTree = "<group>"; };
+		06DFEBA91D658CA900DB49E1 /* AddImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddImageView.m; sourceTree = "<group>"; };
+		06DFEBAB1D65D8F200DB49E1 /* TTAddVoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddVoteViewController.h; sourceTree = "<group>"; };
+		06DFEBAC1D65D8F200DB49E1 /* TTAddVoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddVoteViewController.m; sourceTree = "<group>"; };
+		06DFEBAD1D65D8F200DB49E1 /* TTAddVoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddVoteViewController.xib; sourceTree = "<group>"; };
 		06E026601D50439D00B9743B /* UserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoView.h; sourceTree = "<group>"; };
 		06E026611D50439D00B9743B /* UserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoView.m; sourceTree = "<group>"; };
 		1D09CBAD1D3F29C900F85E9A /* NSArray+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYAdd.h"; sourceTree = "<group>"; };
@@ -1338,6 +1346,8 @@
 				06008F4C1D582FA500A5B3DB /* TZTestCell.m */,
 				06008F4F1D582FD300A5B3DB /* AddImageViewController.h */,
 				06008F501D582FD300A5B3DB /* AddImageViewController.m */,
+				06DFEBA81D658CA900DB49E1 /* AddImageView.h */,
+				06DFEBA91D658CA900DB49E1 /* AddImageView.m */,
 			);
 			path = AddImage;
 			sourceTree = "<group>";
@@ -2893,6 +2903,9 @@
 				1DDE9E721D535DDA005926FE /* TTAddDiscussViewController.h */,
 				1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */,
 				1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */,
+				06DFEBAB1D65D8F200DB49E1 /* TTAddVoteViewController.h */,
+				06DFEBAC1D65D8F200DB49E1 /* TTAddVoteViewController.m */,
+				06DFEBAD1D65D8F200DB49E1 /* TTAddVoteViewController.xib */,
 			);
 			name = AddDiscuss;
 			path = Controllers/AddDiscuss;
@@ -3226,6 +3239,7 @@
 				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
+				06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */,
 				1DB5A5921D4B3F36009E6170 /* square-switch-overlay@2x.png in Resources */,
 				2D7945181D5C648E003B5A6E /* none.png in Resources */,
 				1DF0A1B41D4DB898002D91DB /* 17.png in Resources */,
@@ -3380,6 +3394,7 @@
 				068E96551D4F488C0074229C /* UIViewController+MMDrawerController.m in Sources */,
 				1D9408691D41BE2D009E2E11 /* MessageManager.m in Sources */,
 				1D09CCAB1D3F29C900F85E9A /* YYWeakProxy.m in Sources */,
+				06DFEBAA1D658CA900DB49E1 /* AddImageView.m in Sources */,
 				1D09CD0F1D3F550300F85E9A /* HYBHelperKitBaseURLController.m in Sources */,
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
@@ -3431,6 +3446,7 @@
 				1D09CCA61D3F29C900F85E9A /* YYSentinel.m in Sources */,
 				0604B4661D4C5A5B00EF1703 /* CCDraggableContainer.m in Sources */,
 				1DDE9E631D52DAF8005926FE /* TTAddProjectViewController.m in Sources */,
+				06DFEBAE1D65D8F200DB49E1 /* TTAddVoteViewController.m in Sources */,
 				1D09CD211D3F550300F85E9A /* UITextField+HYBMasonryKit.m in Sources */,
 				2D01BAD11D5C69D800E10721 /* HomeCell.m in Sources */,
 				06008F291D58163100A5B3DB /* TTCommonTextViewItem.m in Sources */,

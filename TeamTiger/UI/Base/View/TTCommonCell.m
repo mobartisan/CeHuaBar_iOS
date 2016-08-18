@@ -220,18 +220,19 @@ typedef enum : NSUInteger {
 
 - (void)customLayoutSubviews {
     if (self.cellType == TTCommonCellCustomView) {
-        CGFloat customViewH = self.customView.hyb_height;
+//        CGFloat customViewH = self.customView.hyb_height;
         [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-            make.height.mas_equalTo(customViewH);
+//            make.edges.equalTo(self.contentView);
+            make.left.equalTo(self.contentView);
+            make.right.equalTo(self.contentView);
+            make.top.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
         }];
         return;
     }
     
     [self.labelView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
-//                make.top.equalTo(self.contentView).offset(kDistanceToVSide);
-//                make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
         make.left.equalTo(self.contentView.mas_left).offset(kDistanceToHSide);
         make.height.mas_equalTo(kLabelHeight);
         make.width.mas_greaterThanOrEqualTo(40);
@@ -271,12 +272,11 @@ typedef enum : NSUInteger {
         make.left.equalTo(self.contentView);
         make.right.equalTo(self.contentView);
         make.height.mas_equalTo(1);
-        if (self.cellType != TTCommonCellTextView || self.cellType != TTCommonCellCustomView) {
+        if (self.cellType != TTCommonCellTextView ) {
             make.top.equalTo(self.contentView).offset(73);
         }
         make.bottom.equalTo(self.contentView).offset(-1);
     }];
-
 }
 
 /**

@@ -23,9 +23,12 @@
 #import "SelectPhotosManger.h"
 #import "SelectCircleViewController.h"
 #import "IQKeyboardManager.h"
+#import "AddImageView.h"
+
 @interface TTAddDiscussViewController ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
+@property (nonatomic, strong) AddImageView *addImageView;
 
 //@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 //@property (nonatomic, strong) NSMutableArray *selectedAssets;
@@ -51,17 +54,19 @@
     self.tableView.estimatedRowHeight = 77;
     //    self.tableView.rowHeight = 77;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.data removeAllObjects];
+    
     // 0.添加数据
     
     [self setupGroup0];
     [self setupGroup1];
     [self setupGroup2];
-    [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+//    [self.data removeAllObjects];
+//
+//    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,11 +123,13 @@
 //    TTCommonGroup *group = [[TTCommonGroup alloc] init];
 //    group.items = @[attachment];
 //    [self.data addObject:group];
-    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
-    AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
-    [self addChildViewController:addImageVC];
-    [customView addSubview:addImageVC.view];
-    customView.clipsToBounds = YES;
+//    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
+//    AddImageViewController *addImageVC = [[AddImageViewController alloc] init];
+//    [self addChildViewController:addImageVC];
+//    [customView addSubview:addImageVC.view];
+//    customView.clipsToBounds = YES;
+    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual];
+//    self.addImageView = customView;
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = @[attachment];
