@@ -61,7 +61,7 @@
     self.emailLabel.text = model.email;
     if (![Common isEmptyString:model.portrait]) {
         self.headImageView.image = [UIImage imageNamed:model.portrait];
-    } else {
+    } else if (model.imageData){
         self.headImageView.image = [UIImage imageWithData:model.imageData];
     }
     
@@ -78,13 +78,19 @@
             make.top.mas_equalTo(10.0);
         }];
     }
+    
+    if(model.isAdd.intValue == 0){
+        [self.operationBtn setImage:[UIImage imageNamed:@"add_contactor_normal"] forState:UIControlStateNormal];
+    } else {
+        [self.operationBtn setImage:[UIImage imageNamed:@"add_contactor_selected"] forState:UIControlStateNormal];
+    }
 }
 
 - (UIImageView *)headImageView{
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc]init];
         [_headImageView setContentMode:UIViewContentModeScaleAspectFill];
-        _headImageView.backgroundColor = [UIColor redColor];
+        _headImageView.image = [UIImage imageNamed:@"common-headDefault"];
         [self.contentView addSubview:_headImageView];
         [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(15.0);
@@ -134,12 +140,12 @@
         _operationBtn = [UIButton hyb_buttonWithImage:nil selectedImage:nil superView:self.contentView constraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView.mas_right).offset(-20);
             make.width.mas_equalTo(64);
-            make.height.mas_equalTo(32);
+            make.height.mas_equalTo(30);
             make.centerY.equalTo(self.contentView.mas_centerY);
         } touchUp:^(UIButton *sender) {
             NSLog(@"click me");
         }];
-        _operationBtn.backgroundColor = [UIColor redColor];
+        _operationBtn.backgroundColor = [UIColor clearColor];
     }
     return _operationBtn;
 }

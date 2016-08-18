@@ -53,7 +53,7 @@
         if (emailArr && emailArr.count > 0) {
             baseInfo[@"email"] = emailArr.firstObject;
         }
-        baseInfo[@"isAdd"] = @1;
+        baseInfo[@"isAdd"] = @0;
         
         if (![Common isEmptyString:lastName] || ![Common isEmptyString:firstName]) {
             [mArray addObject:baseInfo];
