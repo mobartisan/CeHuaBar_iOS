@@ -33,4 +33,27 @@
 }
 
 
+- (void)showHudWithText:(NSString *)text {
+    self.hud.label.text = text;
+    [self.hud showAnimated:YES];
+}
+
+- (void)hideHud {
+    [self.hud hideAnimated:YES];
+}
+
+- (void)hideHudAfterSeconds:(int)seconds {
+    [self.hud hideAnimated:YES afterDelay:seconds];
+}
+
+
+- (MBProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:_hud];
+        _hud.mode = MBProgressHUDModeText;
+    }
+    return _hud;
+}
+
 @end

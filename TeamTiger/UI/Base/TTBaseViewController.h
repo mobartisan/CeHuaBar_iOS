@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "HYBHelperKitBaseController.h"
+#import "MBProgressHUD.h"
 
 @interface TTBaseViewController : HYBHelperKitBaseController
+
+@property (nonatomic, strong) MBProgressHUD *hud;
+
+- (void)showHudWithText:(NSString *)text;
+
+- (void)hideHud;
+
+- (void)hideHudAfterSeconds:(int)seconds;
 
 @end

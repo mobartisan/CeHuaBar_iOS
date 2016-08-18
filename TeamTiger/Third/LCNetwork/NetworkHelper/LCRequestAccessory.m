@@ -18,13 +18,17 @@
 @implementation LCRequestAccessory
 
 
-- (instancetype) initWithShowVC:(UIViewController *)vc{
+- (instancetype) initWithShowVC:(UIViewController *)vc Text:(NSString *)loadingText{
     self = [super init];
     if (self) {
         _hud = [[MBProgressHUD alloc] initWithView:vc.view];
         [vc.view addSubview:_hud];
         _hud.mode = MBProgressHUDModeIndeterminate;
-        _hud.label.text = @"正在加载...";
+        if (![Common isEmptyString:loadingText]) {
+            _hud.label.text = loadingText;
+        } else {
+            _hud.label.text = @"正在加载...";
+        }
         _hud.square = YES;
     }
     return self;

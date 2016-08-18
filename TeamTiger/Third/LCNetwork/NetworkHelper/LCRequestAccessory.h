@@ -12,7 +12,7 @@
 
 @interface LCRequestAccessory : NSObject<LCRequestAccessory>
 
-- (instancetype) initWithShowVC:(UIViewController *)vc;
+- (instancetype) initWithShowVC:(UIViewController *)vc Text:(NSString *)loadingText;
 
 
 @end
