@@ -64,6 +64,8 @@
     [self toggleAccessoriesWillStartCallBack];
     [self.agent addRequest:self];
     //
+    NSLog(@"Reqest Url: %@",self.urlString);
+    NSLog(@"Reqest Parameter: %@",self.requestArgument);
     [NSTimer hyb_scheduledTimerWithTimeInterval:1.0 repeats:YES callback:^(NSTimer *timer) {
         self.cacheInvalidTime--;
         if (self.cacheInvalidTime <= 0) {

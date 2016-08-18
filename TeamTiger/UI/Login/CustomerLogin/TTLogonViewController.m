@@ -46,7 +46,7 @@
 #pragma -mark
 #pragma -mark login register password action
 - (void)loginActionUserName:(NSString *)userName Password:(NSString *)password {
-#if 1
+#if 0
     [self jumpToRootVC];
 #else
     
@@ -63,11 +63,17 @@
     [loginApi addAccessory:accessary];
     [loginApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@",request.responseJSONObject);
-        gSession = request.responseJSONObject[@"obj"][@"token"];
-        //do something
-//        1.data
-//        2.UI
-        [self jumpToRootVC];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            gSession = request.responseJSONObject[OBJ][@"token"];
+            //do something
+            //        1.data
+            //        2.UI
+            [self jumpToRootVC];
+        } else {
+            //登录失败
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
+        }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@",error.description);
         [super showHudWithText:@"您的网络好像有问题~"];

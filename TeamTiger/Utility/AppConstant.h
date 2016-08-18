@@ -44,5 +44,10 @@ static NSString *const TABLE_TT_Attachment = @"TT_Attachment";
 
 static NSString *const TABLE_TT_At_Members = @"TT_At_Members";
 
+//网络返回Key
+static NSString *const CODE = @"code";
+static NSString *const MSG = @"msg";
+static NSString *const SUCCESS = @"success";
+static NSString *const OBJ = @"obj";
 
 #endif /* Constant_h */
