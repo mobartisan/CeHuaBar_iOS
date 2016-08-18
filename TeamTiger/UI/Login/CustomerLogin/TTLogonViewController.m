@@ -46,6 +46,10 @@
 #pragma -mark
 #pragma -mark login register password action
 - (void)loginActionUserName:(NSString *)userName Password:(NSString *)password {
+#if 1
+    [self jumpToRootVC];
+#else
+    
     if ([Common isEmptyString:userName] || [Common isEmptyString:password]) {
         [super showHudWithText:@"用户名或密码不能为空"];
         [super hideHudAfterSeconds:3.0];
@@ -67,6 +71,7 @@
         [super showHudWithText:@"您的网络好像有问题~"];
         [super hideHudAfterSeconds:3.0];
     }];
+#endif
 }
 
 - (void)registerAction:(id)sender {
