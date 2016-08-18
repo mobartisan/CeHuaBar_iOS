@@ -329,6 +329,12 @@
 		1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB5A5851D4B3F36009E6170 /* square-switch-track@2x.png */; };
 		1DB926171D46F4F4003676AC /* LCProcessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926141D46F4F4003676AC /* LCProcessFilter.m */; };
 		1DB926181D46F4F4003676AC /* LCRequestAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926161D46F4F4003676AC /* LCRequestAccessory.m */; };
+		1DBC49B71D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */; };
+		1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49B81D6554AF00DB0CD2 /* Security.framework */; };
+		1DBC49BB1D6554D100DB0CD2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */; };
+		1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */; };
+		1DBC49BF1D6554F800DB0CD2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BE1D6554F700DB0CD2 /* CoreLocation.framework */; };
+		1DBC49C11D65550000DB0CD2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */; };
 		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
 		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
 		1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D31D6462340039077D /* SetPassController.m */; };
@@ -1047,6 +1053,13 @@
 		1DB926141D46F4F4003676AC /* LCProcessFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCProcessFilter.m; sourceTree = "<group>"; };
 		1DB926151D46F4F4003676AC /* LCRequestAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCRequestAccessory.h; sourceTree = "<group>"; };
 		1DB926161D46F4F4003676AC /* LCRequestAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCRequestAccessory.m; sourceTree = "<group>"; };
+		1DBC49B51D65542E00DB0CD2 /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
+		1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.4.3.a"; sourceTree = "<group>"; };
+		1DBC49B81D6554AF00DB0CD2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		1DBC49BE1D6554F700DB0CD2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		1DBFD6CA1D640C8D0039077D /* TTNotificationSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationSetting.h; sourceTree = "<group>"; };
 		1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationSetting.m; sourceTree = "<group>"; };
 		1DBFD6CE1D6436210039077D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
@@ -1207,10 +1220,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DBC49C11D65550000DB0CD2 /* CoreBluetooth.framework in Frameworks */,
+				1DBC49BF1D6554F800DB0CD2 /* CoreLocation.framework in Frameworks */,
+				1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */,
+				1DBC49BB1D6554D100DB0CD2 /* AVFoundation.framework in Frameworks */,
+				1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */,
 				1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */,
 				1DD2E3301D59B3DB005D45A9 /* libc++.tbd in Frameworks */,
 				1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */,
 				1D09CCC11D3F2B0E00F85E9A /* libz.tbd in Frameworks */,
+				1DBC49B71D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a in Frameworks */,
 				1D09CCBF1D3F2B0600F85E9A /* SystemConfiguration.framework in Frameworks */,
 				1D09CCBD1D3F2AFC00F85E9A /* MobileCoreServices.framework in Frameworks */,
 				1D09CCBB1D3F2AF300F85E9A /* Accelerate.framework in Frameworks */,
@@ -2351,14 +2370,19 @@
 				1D09CCBA1D3F2AF300F85E9A /* Accelerate.framework */,
 				1D5D5FF71D4EFADD007123EB /* AddressBook.framework */,
 				1D09CCB81D3F2AE800F85E9A /* AssetsLibrary.framework */,
+				1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */,
+				1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */,
 				1D09CCAC1D3F2AAF00F85E9A /* CoreFoundation.framework */,
 				1D09CCB01D3F2AC200F85E9A /* CoreGraphics.framework */,
 				1D09CCB21D3F2ACB00F85E9A /* CoreImage.framework */,
+				1DBC49BE1D6554F700DB0CD2 /* CoreLocation.framework */,
 				1D677F151D5C1D48001D099E /* CoreTelephony.framework */,
 				1D09CCAE1D3F2AB900F85E9A /* CoreText.framework */,
 				1D09CCB61D3F2ADF00F85E9A /* ImageIO.framework */,
+				1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */,
 				1D09CCBC1D3F2AFC00F85E9A /* MobileCoreServices.framework */,
 				1D09CCB41D3F2AD500F85E9A /* QuartzCore.framework */,
+				1DBC49B81D6554AF00DB0CD2 /* Security.framework */,
 				1D09CCBE1D3F2B0600F85E9A /* SystemConfiguration.framework */,
 				1DD2E32F1D59B3DB005D45A9 /* libc++.tbd */,
 				1D9580EC1D3E26F800FD0053 /* libsqlite3.0.tbd */,
@@ -2459,6 +2483,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1DBC49B41D65542E00DB0CD2 /* GtSdkLib */,
 				1DBFD6DE1D6463650039077D /* DJRegisterView */,
 				06B4648E1D62A48B00DBC806 /* JZNavigationExtension */,
 				2D79450A1D5C648E003B5A6E /* JJPhotoViewer */,
@@ -2638,6 +2663,15 @@
 				1DB926161D46F4F4003676AC /* LCRequestAccessory.m */,
 			);
 			path = NetworkHelper;
+			sourceTree = "<group>";
+		};
+		1DBC49B41D65542E00DB0CD2 /* GtSdkLib */ = {
+			isa = PBXGroup;
+			children = (
+				1DBC49B51D65542E00DB0CD2 /* GeTuiSdk.h */,
+				1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */,
+			);
+			path = GtSdkLib;
 			sourceTree = "<group>";
 		};
 		1DBFD6C91D640C620039077D /* NotificationSetting */ = {
@@ -3021,6 +3055,11 @@
 					1DA71B591D3DB5A1007483D2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = FAT69R69RF;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3581,6 +3620,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeamTiger/Third/OpenSDK",
+					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dream.teamTiger.TeamTiger;
@@ -3607,6 +3647,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeamTiger/Third/OpenSDK",
+					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dream.teamTiger.TeamTiger;
