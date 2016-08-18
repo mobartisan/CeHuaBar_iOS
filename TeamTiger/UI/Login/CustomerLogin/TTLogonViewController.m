@@ -8,19 +8,19 @@
 //  Copyright (c) 2015年 梁大红. All rights reserved.
 //
 
-#import "SPTLogonViewController.h"
+#import "TTLogonViewController.h"
 #import "AppDelegate.h"
 
 #import "DJRegisterView.h"
 
-#import "SPTRegisterViewController.h"//用户注册
-#import "SPTLookForPsdViewController.h"//找回密码
+#import "TTRegisterViewController.h"//用户注册
+#import "TTLookForPsdViewController.h"//找回密码
 
-@interface SPTLogonViewController ()
+@interface TTLogonViewController ()
 
 @end
 
-@implementation SPTLogonViewController
+@implementation TTLogonViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,14 +51,14 @@
 }
 
 - (void)registerAction:(id)sender {
-    SPTRegisterViewController *registerVC = [[SPTRegisterViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:registerVC];
+    TTRegisterViewController *registerVC = [[TTRegisterViewController alloc] init];
+    TTBaseNavigationController *nav = [[TTBaseNavigationController alloc] initWithRootViewController:registerVC];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)forgetPasswordAction:(id)sender {
-    SPTLookForPsdViewController *lookforPassVC = [[SPTLookForPsdViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:lookforPassVC];
+    TTLookForPsdViewController *lookforPassVC = [[TTLookForPsdViewController alloc] init];
+    TTBaseNavigationController *nav = [[TTBaseNavigationController alloc] initWithRootViewController:lookforPassVC];
     [self presentViewController:nav animated:YES completion:nil];
 }
 

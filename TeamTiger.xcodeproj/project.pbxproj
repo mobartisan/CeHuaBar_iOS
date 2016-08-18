@@ -331,9 +331,9 @@
 		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
 		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
 		1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D31D6462340039077D /* SetPassController.m */; };
-		1DBFD6DB1D6462340039077D /* SPTLogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D51D6462340039077D /* SPTLogonViewController.m */; };
-		1DBFD6DC1D6462340039077D /* SPTLookForPsdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */; };
-		1DBFD6DD1D6462340039077D /* SPTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */; };
+		1DBFD6DB1D6462340039077D /* TTLogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D51D6462340039077D /* TTLogonViewController.m */; };
+		1DBFD6DC1D6462340039077D /* TTLookForPsdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D71D6462340039077D /* TTLookForPsdViewController.m */; };
+		1DBFD6DD1D6462340039077D /* TTRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D91D6462340039077D /* TTRegisterViewController.m */; };
 		1DBFD6EA1D6463650039077D /* DJRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E01D6463650039077D /* DJRegisterView.m */; };
 		1DBFD6EB1D6463650039077D /* dvq.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E21D6463650039077D /* dvq.png */; };
 		1DBFD6EC1D6463650039077D /* irn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBFD6E31D6463650039077D /* irn.png */; };
@@ -1050,12 +1050,12 @@
 		1DBFD6CF1D6436210039077D /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		1DBFD6D21D6462340039077D /* SetPassController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPassController.h; sourceTree = "<group>"; };
 		1DBFD6D31D6462340039077D /* SetPassController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPassController.m; sourceTree = "<group>"; };
-		1DBFD6D41D6462340039077D /* SPTLogonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTLogonViewController.h; sourceTree = "<group>"; };
-		1DBFD6D51D6462340039077D /* SPTLogonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTLogonViewController.m; sourceTree = "<group>"; };
-		1DBFD6D61D6462340039077D /* SPTLookForPsdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTLookForPsdViewController.h; sourceTree = "<group>"; };
-		1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTLookForPsdViewController.m; sourceTree = "<group>"; };
-		1DBFD6D81D6462340039077D /* SPTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTRegisterViewController.h; sourceTree = "<group>"; };
-		1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTRegisterViewController.m; sourceTree = "<group>"; };
+		1DBFD6D41D6462340039077D /* TTLogonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLogonViewController.h; sourceTree = "<group>"; };
+		1DBFD6D51D6462340039077D /* TTLogonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLogonViewController.m; sourceTree = "<group>"; };
+		1DBFD6D61D6462340039077D /* TTLookForPsdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLookForPsdViewController.h; sourceTree = "<group>"; };
+		1DBFD6D71D6462340039077D /* TTLookForPsdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLookForPsdViewController.m; sourceTree = "<group>"; };
+		1DBFD6D81D6462340039077D /* TTRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTRegisterViewController.h; sourceTree = "<group>"; };
+		1DBFD6D91D6462340039077D /* TTRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTRegisterViewController.m; sourceTree = "<group>"; };
 		1DBFD6DF1D6463650039077D /* DJRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DJRegisterView.h; sourceTree = "<group>"; };
 		1DBFD6E01D6463650039077D /* DJRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DJRegisterView.m; sourceTree = "<group>"; };
 		1DBFD6E21D6463650039077D /* dvq.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dvq.png; sourceTree = "<group>"; };
@@ -2658,12 +2658,12 @@
 			children = (
 				1DBFD6D21D6462340039077D /* SetPassController.h */,
 				1DBFD6D31D6462340039077D /* SetPassController.m */,
-				1DBFD6D41D6462340039077D /* SPTLogonViewController.h */,
-				1DBFD6D51D6462340039077D /* SPTLogonViewController.m */,
-				1DBFD6D61D6462340039077D /* SPTLookForPsdViewController.h */,
-				1DBFD6D71D6462340039077D /* SPTLookForPsdViewController.m */,
-				1DBFD6D81D6462340039077D /* SPTRegisterViewController.h */,
-				1DBFD6D91D6462340039077D /* SPTRegisterViewController.m */,
+				1DBFD6D41D6462340039077D /* TTLogonViewController.h */,
+				1DBFD6D51D6462340039077D /* TTLogonViewController.m */,
+				1DBFD6D61D6462340039077D /* TTLookForPsdViewController.h */,
+				1DBFD6D71D6462340039077D /* TTLookForPsdViewController.m */,
+				1DBFD6D81D6462340039077D /* TTRegisterViewController.h */,
+				1DBFD6D91D6462340039077D /* TTRegisterViewController.m */,
 			);
 			name = CustomLogin;
 			path = CustomerLogin;
@@ -3266,7 +3266,7 @@
 				2D01BACE1D5C69D800E10721 /* ButtonIndexPath.m in Sources */,
 				2D01BADB1D5C69D800E10721 /* HomeDetailCell4.m in Sources */,
 				1D09CC711D3F29C900F85E9A /* UIFont+YYAdd.m in Sources */,
-				1DBFD6DC1D6462340039077D /* SPTLookForPsdViewController.m in Sources */,
+				1DBFD6DC1D6462340039077D /* TTLookForPsdViewController.m in Sources */,
 				1D09CC941D3F29C900F85E9A /* YYTextSelectionView.m in Sources */,
 				1D09CC9A1D3F29C900F85E9A /* YYTextParser.m in Sources */,
 				0604B4641D4C5A5B00EF1703 /* AKPickerView.m in Sources */,
@@ -3347,13 +3347,13 @@
 				1D09CC601D3F29C900F85E9A /* NSKeyedUnarchiver+YYAdd.m in Sources */,
 				1D09CC611D3F29C900F85E9A /* NSNotificationCenter+YYAdd.m in Sources */,
 				1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */,
-				1DBFD6DD1D6462340039077D /* SPTRegisterViewController.m in Sources */,
+				1DBFD6DD1D6462340039077D /* TTRegisterViewController.m in Sources */,
 				1D09CD621D3F59D500F85E9A /* SDWebImageManager.m in Sources */,
 				1D0EA2D21D45A8AE00B47108 /* TMDiskCache.m in Sources */,
 				1D09CD611D3F59D500F85E9A /* SDWebImageDecoder.m in Sources */,
 				1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */,
 				1D9580381D3E123800FD0053 /* AFSecurityPolicy.m in Sources */,
-				1DBFD6DB1D6462340039077D /* SPTLogonViewController.m in Sources */,
+				1DBFD6DB1D6462340039077D /* TTLogonViewController.m in Sources */,
 				1D9580361D3E123800FD0053 /* AFHTTPSessionManager.m in Sources */,
 				1D0EA2C41D45A82C00B47108 /* LCBatchRequestAgent.m in Sources */,
 				06008F151D58162300A5B3DB /* TTCommonCell.m in Sources */,

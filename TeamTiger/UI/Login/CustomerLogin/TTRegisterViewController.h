@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTBaseViewController.h"
 
-@interface SPTRegisterViewController : TTBaseViewController
+@interface TTRegisterViewController : TTBaseViewController
 
 @end

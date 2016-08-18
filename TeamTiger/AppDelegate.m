@@ -13,7 +13,7 @@
 #import "MMDrawerController.h"
 #import "MMDrawerVisualState.h"
 #import "TTBaseNavigationController.h"
-#import "TTLoginViewController.h"
+#import "TTLogonViewController.h"
 #import "TTTabBarViewController.h"
 #import "TYLaunchFadeScaleAnimation.h"
 #import "UIImage+TYLaunchImage.h"
@@ -34,7 +34,7 @@
     }
     [self initialMethods];
     [self initialGlobalData];
-    TTLoginViewController *loginVC = [[TTLoginViewController alloc] initWithNibName:@"TTLoginViewController" bundle:nil];
+    TTLogonViewController *loginVC = [[TTLogonViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
 

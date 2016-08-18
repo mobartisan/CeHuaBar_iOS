@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTBaseViewController.h"
 
-@interface SPTLogonViewController : TTBaseViewController
+@interface TTLogonViewController : TTBaseViewController
 
 @end

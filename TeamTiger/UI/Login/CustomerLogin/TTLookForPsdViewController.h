@@ -8,6 +8,6 @@
 
 #import "TTBaseViewController.h"
 
-@interface SPTLookForPsdViewController : TTBaseViewController
+@interface TTLookForPsdViewController : TTBaseViewController
 
 @end
