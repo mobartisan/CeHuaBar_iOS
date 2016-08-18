@@ -56,7 +56,8 @@
         return;
     }
     LoginApi *loginApi = [[LoginApi alloc] init];
-    //bianke  110110
+    //username: zhaorui,liupeng,xingxing,bianke,chenjie
+    //password: 123456
     loginApi.requestArgument = @{@"username":userName,@"password":password};
     LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self Text:@"登录中..."];
     [loginApi addAccessory:accessary];
@@ -68,6 +69,7 @@
 //        2.UI
         [self jumpToRootVC];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error.description);
         [super showHudWithText:@"您的网络好像有问题~"];
         [super hideHudAfterSeconds:3.0];
     }];

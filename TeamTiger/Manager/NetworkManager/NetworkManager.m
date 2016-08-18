@@ -26,7 +26,7 @@ static double const timeOutInterval = 15.0;
 @implementation LoginApi
 
 - (NSString *)apiMethodName {
-    return @"user/login2.app";
+    return @"bbs/api/v1.0/user/login.app";
 }
 
 - (LCRequestMethod)requestMethod {
