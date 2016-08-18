@@ -24,6 +24,7 @@
 #import "SelectCircleViewController.h"
 #import "IQKeyboardManager.h"
 #import "AddImageView.h"
+#import "TTAddVoteViewController.h"
 
 @interface TTAddDiscussViewController ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -141,7 +142,7 @@
  */
 - (void)setupGroup2
 {
-    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:nil];
+    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:[TTAddVoteViewController class]];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = @[vote];
     [self.data addObject:group];

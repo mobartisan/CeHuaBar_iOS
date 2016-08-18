@@ -126,15 +126,15 @@ static const double kColumn = 4.0f;
             //            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self).offset(kDistanceToHSide);
             make.right.equalTo(self).offset(-kDistanceToHSide);
-            make.top.equalTo(self).offset(kDistanceToVSide);
-            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide);
+            make.top.equalTo(self);
+            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
         }];
-        
+        self.textView.placeholder = @"输入选项描述";
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             //        make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide);
             make.left.equalTo(self).offset(kDistanceToHSide);
             make.right.equalTo(self).offset(-kDistanceToHSide);
-            make.bottom.equalTo(self).offset(-kDistanceToVSide);
+            make.bottom.equalTo(self).offset(-kDistanceToVSide*0.5);
             make.height.mas_equalTo((Screen_Width - 2 * kDistanceToHSide - 4) / kColumn);
         }];
     }
@@ -142,6 +142,7 @@ static const double kColumn = 4.0f;
     if (addImageViewType == AddImageViewVoteWithTitle) {
         
         [self addSubview:self.typeLab];
+        [self addSubview:self.textView];
         self.typeLab.text = @"投票选项";
         
         [self.typeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -155,15 +156,15 @@ static const double kColumn = 4.0f;
             //            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self).offset(kDistanceToHSide);
             make.right.equalTo(self).offset(-kDistanceToHSide);
-            make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide);
-            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide);
+            make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide*0.2);
+            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
         }];
         
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             //        make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide);
             make.left.equalTo(self).offset(kDistanceToHSide);
             make.right.equalTo(self).offset(-kDistanceToHSide);
-            make.bottom.equalTo(self).offset(-kDistanceToVSide);
+            make.bottom.equalTo(self).offset(-kDistanceToVSide*0.5);
             make.height.mas_equalTo((Screen_Width - 2 * kDistanceToHSide - 4) / kColumn);
         }];
     }
