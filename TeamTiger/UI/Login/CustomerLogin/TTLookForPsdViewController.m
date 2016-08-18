@@ -18,11 +18,11 @@
     [super viewDidLoad];
     
     self.title = @"找回密码";    
-    [self hyb_setNavLeftButtonTitle:@"返回" onCliked:^(UIButton *sender) {
+    
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];
 
-    
     DJRegisterView *djzcView = [[DJRegisterView alloc]
                                 initwithFrame:self.view.bounds djRegisterViewTypeSMS:DJRegisterViewTypeNoScanfSMS plTitle:@"请输入验证码"
                                 title:@"提交"

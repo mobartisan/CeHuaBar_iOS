@@ -18,10 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"注册";
-    
-    [self hyb_setNavLeftButtonTitle:@"返回" onCliked:^(UIButton *sender) {
+        
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }];
+
 
     DJRegisterView *djzcView = [[DJRegisterView alloc]
                                 initwithFrame:self.view.bounds djRegisterViewTypeSMS:DJRegisterViewTypeScanfPhoneSMS plTitle:@"请输入获取到的验证码"

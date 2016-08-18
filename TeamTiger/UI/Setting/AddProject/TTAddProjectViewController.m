@@ -9,6 +9,7 @@
 #import "Constant.h"
 #import "IQKeyboardManager.h"
 #import "SettingCell.h"
+#import "TTAddContactorViewController.h"
 #import "TTAddProjectViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
@@ -72,14 +73,17 @@
                 break;
             }
             case ECellTypeAccessory:{
-                NSLog(@"跳转微信，增加人员");
-                UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
-                [WXApiRequestHandler sendLinkURL:kLinkURL
-                                         TagName:kLinkTagName
-                                           Title:kLinkTitle
-                                     Description:kLinkDescription
-                                      ThumbImage:thumbImage
-                                         InScene:WXSceneSession];
+//                NSLog(@"跳转微信，增加人员");
+//                UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
+//                [WXApiRequestHandler sendLinkURL:kLinkURL
+//                                         TagName:kLinkTagName
+//                                           Title:kLinkTitle
+//                                     Description:kLinkDescription
+//                                      ThumbImage:thumbImage
+//                                         InScene:WXSceneSession];
+                
+                TTAddContactorViewController *addContactorVC = [[TTAddContactorViewController alloc] initWithNibName:@"TTAddContactorViewController" bundle:nil];
+                [self.navigationController pushViewController:addContactorVC animated:YES];
                 break;
             }
             default:

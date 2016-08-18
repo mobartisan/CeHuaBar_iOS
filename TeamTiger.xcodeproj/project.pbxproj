@@ -335,6 +335,11 @@
 		1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */; };
 		1DBC49BF1D6554F800DB0CD2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BE1D6554F700DB0CD2 /* CoreLocation.framework */; };
 		1DBC49C11D65550000DB0CD2 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */; };
+		1DBC49CE1D6588E000DB0CD2 /* ContactModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49C51D6588E000DB0CD2 /* ContactModel.m */; };
+		1DBC49CF1D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49C71D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m */; };
+		1DBC49D01D6588E000DB0CD2 /* TTAddContactorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49C91D6588E000DB0CD2 /* TTAddContactorViewController.m */; };
+		1DBC49D11D6588E000DB0CD2 /* TTAddContactorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DBC49CA1D6588E000DB0CD2 /* TTAddContactorViewController.xib */; };
+		1DBC49D21D6588E000DB0CD2 /* ContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC49CD1D6588E000DB0CD2 /* ContactTableViewCell.m */; };
 		1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */; };
 		1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6CF1D6436210039077D /* NotificationCell.m */; };
 		1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBFD6D31D6462340039077D /* SetPassController.m */; };
@@ -1060,6 +1065,15 @@
 		1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		1DBC49BE1D6554F700DB0CD2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1DBC49C01D6554FF00DB0CD2 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		1DBC49C41D6588E000DB0CD2 /* ContactModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactModel.h; sourceTree = "<group>"; };
+		1DBC49C51D6588E000DB0CD2 /* ContactModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactModel.m; sourceTree = "<group>"; };
+		1DBC49C61D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTAddContactorViewController+AddressBook.h"; sourceTree = "<group>"; };
+		1DBC49C71D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTAddContactorViewController+AddressBook.m"; sourceTree = "<group>"; };
+		1DBC49C81D6588E000DB0CD2 /* TTAddContactorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddContactorViewController.h; sourceTree = "<group>"; };
+		1DBC49C91D6588E000DB0CD2 /* TTAddContactorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddContactorViewController.m; sourceTree = "<group>"; };
+		1DBC49CA1D6588E000DB0CD2 /* TTAddContactorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddContactorViewController.xib; sourceTree = "<group>"; };
+		1DBC49CC1D6588E000DB0CD2 /* ContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactTableViewCell.h; sourceTree = "<group>"; };
+		1DBC49CD1D6588E000DB0CD2 /* ContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactTableViewCell.m; sourceTree = "<group>"; };
 		1DBFD6CA1D640C8D0039077D /* TTNotificationSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTNotificationSetting.h; sourceTree = "<group>"; };
 		1DBFD6CB1D640C8D0039077D /* TTNotificationSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTNotificationSetting.m; sourceTree = "<group>"; };
 		1DBFD6CE1D6436210039077D /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
@@ -2674,6 +2688,38 @@
 			path = GtSdkLib;
 			sourceTree = "<group>";
 		};
+		1DBC49C21D6588E000DB0CD2 /* AddContactor */ = {
+			isa = PBXGroup;
+			children = (
+				1DBC49C31D6588E000DB0CD2 /* Model */,
+				1DBC49C61D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.h */,
+				1DBC49C71D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m */,
+				1DBC49C81D6588E000DB0CD2 /* TTAddContactorViewController.h */,
+				1DBC49C91D6588E000DB0CD2 /* TTAddContactorViewController.m */,
+				1DBC49CA1D6588E000DB0CD2 /* TTAddContactorViewController.xib */,
+				1DBC49CB1D6588E000DB0CD2 /* View */,
+			);
+			path = AddContactor;
+			sourceTree = "<group>";
+		};
+		1DBC49C31D6588E000DB0CD2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1DBC49C41D6588E000DB0CD2 /* ContactModel.h */,
+				1DBC49C51D6588E000DB0CD2 /* ContactModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DBC49CB1D6588E000DB0CD2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1DBC49CC1D6588E000DB0CD2 /* ContactTableViewCell.h */,
+				1DBC49CD1D6588E000DB0CD2 /* ContactTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1DBFD6C91D640C620039077D /* NotificationSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -2884,6 +2930,7 @@
 		1DF991D41D48ADB300E7D1B8 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				1DBC49C21D6588E000DB0CD2 /* AddContactor */,
 				1DBFD6C91D640C620039077D /* NotificationSetting */,
 				1DDE9E6B1D5330ED005926FE /* MyProfile */,
 				1DDE9E5F1D52DADA005926FE /* AddProject */,
@@ -3144,6 +3191,7 @@
 				2D01BACA1D5C69D800E10721 /* HomeViewController.xib in Resources */,
 				0604B4741D4C5A9B00EF1703 /* image_1.jpg in Resources */,
 				1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */,
+				1DBC49D11D6588E000DB0CD2 /* TTAddContactorViewController.xib in Resources */,
 				06B464BC1D62F2E800DBC806 /* ChooseTag.xib in Resources */,
 				0604B4761D4C5A9B00EF1703 /* image_3.jpg in Resources */,
 				1DBFD6EE1D6463650039077D /* label_phone.png in Resources */,
@@ -3338,8 +3386,10 @@
 				1D115F881D4BA043003DFBB1 /* IQUITextFieldView+Additions.m in Sources */,
 				1D09CD2A1D3F550300F85E9A /* UIColor+HYBHelperKitUIKit.m in Sources */,
 				1D09CD221D3F550300F85E9A /* UIView+HYBMasonryKit.m in Sources */,
+				1DBC49CE1D6588E000DB0CD2 /* ContactModel.m in Sources */,
 				1D09CC721D3F29C900F85E9A /* UIGestureRecognizer+YYAdd.m in Sources */,
 				2D01BACD1D5C69D800E10721 /* HomeDetailCellModel.m in Sources */,
+				1DBC49D21D6588E000DB0CD2 /* ContactTableViewCell.m in Sources */,
 				1DF991CD1D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m in Sources */,
 				1D09CCAA1D3F29C900F85E9A /* YYTransaction.m in Sources */,
 				1D09CD131D3F550300F85E9A /* NSDictionary+HYBHelperKit.m in Sources */,
@@ -3365,6 +3415,7 @@
 				1D9580D91D3E225200FD0053 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				06B464A61D62A48B00DBC806 /* UIViewController+JZExtension.m in Sources */,
 				1D9580D21D3E225200FD0053 /* MASCompositeConstraint.m in Sources */,
+				1DBC49D01D6588E000DB0CD2 /* TTAddContactorViewController.m in Sources */,
 				1D09CCA61D3F29C900F85E9A /* YYSentinel.m in Sources */,
 				0604B4661D4C5A5B00EF1703 /* CCDraggableContainer.m in Sources */,
 				1DDE9E631D52DAF8005926FE /* TTAddProjectViewController.m in Sources */,
@@ -3445,6 +3496,7 @@
 				068E965E1D4F499E0074229C /* CirclesViewController.m in Sources */,
 				06008F401D58249300A5B3DB /* TZImageManager.m in Sources */,
 				1DA71B8F1D3DCC3D007483D2 /* TTBaseViewController.m in Sources */,
+				1DBC49CF1D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m in Sources */,
 				06B464A31D62A48B00DBC806 /* UINavigationBar+JZExtension.m in Sources */,
 				1D9580AF1D3E207200FD0053 /* MJRefreshStateHeader.m in Sources */,
 				1D9408651D41BA47009E2E11 /* NetworkManager.m in Sources */,

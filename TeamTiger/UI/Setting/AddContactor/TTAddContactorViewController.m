@@ -36,9 +36,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"添加成员";
-    [self hyb_setNavLeftButtonTitle:@"返回" onCliked:^(UIButton *sender) {
+    
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
+
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     //contact table
