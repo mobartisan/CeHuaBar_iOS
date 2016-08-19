@@ -222,11 +222,11 @@ typedef enum : NSUInteger {
     if (self.cellType == TTCommonCellCustomView) {
 //        CGFloat customViewH = self.customView.hyb_height;
         [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self.contentView);
-            make.left.equalTo(self.contentView);
-            make.right.equalTo(self.contentView);
-            make.top.equalTo(self.contentView);
-            make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
+            make.edges.equalTo(self.contentView);
+//            make.left.equalTo(self.contentView);
+//            make.right.equalTo(self.contentView);
+//            make.top.equalTo(self.contentView);
+//            make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
         }];
         return;
     }

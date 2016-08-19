@@ -32,6 +32,7 @@ static const double kColumn = 4.0f;
 }
 
 @property (nonatomic, strong) UILabel *typeLab;
+@property (nonatomic, strong) UILabel *optionLab;
 @property (nonatomic, strong) UIButton *addVoteItemBtn;
 @property (nonatomic, assign) AddImageViewType addImageViewType;
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
@@ -121,10 +122,22 @@ static const double kColumn = 4.0f;
         }];
     }
     if (addImageViewType == AddImageViewVote) {
+                
+        [self addSubview:self.optionLab];
+        self.optionLab.text = @"选项A:";
+        [self.optionLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            //            make.centerY.equalTo(self.contentView);
+            make.left.equalTo(self).offset(kDistanceToHSide+4);
+            make.width.mas_greaterThanOrEqualTo(60);
+            //            make.height.mas_equalTo(kLabelHeight);
+            make.top.equalTo(self);
+            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
+        }];
+
         [self addSubview:self.textView];
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self).offset(kDistanceToHSide);
+            make.left.equalTo(self).offset(kDistanceToHSide * 4);
             make.right.equalTo(self).offset(-kDistanceToHSide);
             make.top.equalTo(self);
             make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
@@ -142,19 +155,30 @@ static const double kColumn = 4.0f;
     if (addImageViewType == AddImageViewVoteWithTitle) {
         
         [self addSubview:self.typeLab];
+        [self addSubview:self.optionLab];
         [self addSubview:self.textView];
         self.typeLab.text = @"投票选项";
-        
+        self.optionLab.text = @"选项A:";
         [self.typeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kDistanceToVSide);
             make.left.equalTo(self).offset(kDistanceToHSide);
             make.height.mas_equalTo(kLabelHeight);
             make.width.mas_greaterThanOrEqualTo(40);
         }];
+        
+        [self.optionLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            //            make.centerY.equalTo(self.contentView);
+            make.left.equalTo(self).offset(kDistanceToHSide+4);
+            make.width.mas_greaterThanOrEqualTo(60);
+//            make.height.mas_equalTo(kLabelHeight);
+            make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide*0.2);
+            make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
+        }];
+        
         self.textView.placeholder = @"输入选项描述";
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self).offset(kDistanceToHSide);
+            make.left.equalTo(self).offset(kDistanceToHSide * 4.0);
             make.right.equalTo(self).offset(-kDistanceToHSide);
             make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide*0.2);
             make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
@@ -239,6 +263,15 @@ static const double kColumn = 4.0f;
         _typeLab.textColor = [UIColor whiteColor];
     }
     return _typeLab;
+}
+
+- (UILabel *)optionLab {
+    if (!_optionLab) {
+        _optionLab = [[UILabel alloc] init];
+        _optionLab.font = [UIFont systemFontOfSize:15];
+        _optionLab.textColor = [UIColor whiteColor];
+    }
+    return _optionLab;
 }
 
 - (void)layoutSubviews {
