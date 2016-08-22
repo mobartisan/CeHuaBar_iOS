@@ -11,26 +11,21 @@
 #import "HomeDetailCellModel.h"
 #import "HomeDetailCell4.h"
 #import "HomeDetailCell5.h"
+#import "HomeDetailCell6.h"
 #import "ButtonIndexPath.h"
-#import "DataManager.h"
 #import "JJPhotoManeger.h"
+
+
+static CGFloat tableViewHeight = 0.0;
 
 @interface VoteHomeCell ()
 
-@property (strong, nonatomic) DataManager *manager;
-@property (assign, nonatomic) NSInteger index;
-@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) HomeDetailCellModel *detailModel;
 
 @end
 
 @implementation VoteHomeCell
 
-- (DataManager *)manager {
-    if (_manager == nil) {
-        _manager = [DataManager mainSingleton];
-    }
-    return _manager;
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -40,6 +35,7 @@
     [Common removeExtraCellLines:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"HomeDetailCell4" bundle:nil] forCellReuseIdentifier:@"cellIdentifier4"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HomeDetailCell5" bundle:nil] forCellReuseIdentifier:@"cellIdentifier5"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HomeDetailCell6" bundle:nil] forCellReuseIdentifier:@"cellIdentifier6"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -50,58 +46,61 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
-    HomeDetailCellModel *model = cellModel.comment[self.manager.index1];
-    if (model.isClick) {
-        return cellModel.comment.count;
+    if (self.detailModel.isClick) {
+        return _model.comment.count;
+    }else {
+        for (HomeDetailCellModel *detailModel in _model.comment) {
+            if (detailModel.typeCell == TypeCellTitle) {
+                NSUInteger index = [_model.comment indexOfObject:detailModel];
+                return index + 1;
+            }
+        }
+        return 0;
     }
-    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
-    HomeDetailCellModel *model = cellModel.comment[indexPath.row];
-    if (model.typeCell == TypeCellTimeAndTitle) {
+    HomeDetailCellModel *detailModel = _model.comment[indexPath.row];
+    if (detailModel.typeCell == TypeCellTitleNoButton) {
         HomeDetailCell4 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier4"];
-        [cell configureCellWithModel:model];
-        if (indexPath.row == cellModel.comment.count - 1) {
-            cell.lineView2.hidden = YES;
-        }
-        
+        [cell configureCellWithModel:detailModel];
         return cell;
-    }else if (model.typeCell == TypeCellName){
+    }else if(detailModel.typeCell == TypeCellTitle){
         HomeDetailCell5 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier5"];
-        kWeakObject(cell);
-        if (!model.isClick) {
-            cell.moreBtn.hidden = NO;
-        }
+        [cell configureCellWithModel:detailModel];
         cell.clickBlock = ^() {
-            self.manager.index1 = indexPath.row;
-            weakObject.moreBtn.hidden = YES;
-            model.isClick = YES;
-            [tableView reloadData];
-            CGFloat height = self.tableView.contentSize.height;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isClick" object:@{@"height":@(height), @"type":@"1"}];
+            self.detailModel = detailModel;
+            detailModel.isClick = YES;
+            detailModel.typeCell = TypeCellTitleNoButton;
+            [self.tableView reloadData];
+            _model.height = 0;
+            if ([self.delegate respondsToSelector:@selector(reloadTableViewWithHeight:withIndexPath:)]) {
+                [self.delegate reloadTableViewWithHeight:0.0 withIndexPath:nil];
+            }
         };
         return cell;
+    }else {
+        HomeDetailCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier6"];
+        if (indexPath.row == _model.comment.count - 1) {
+            cell.lineView2.hidden = YES;
+        }
+        [cell configureCellWithModel:detailModel];
+        return cell;
     }
-    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
-    HomeDetailCellModel *model = cellModel.comment[indexPath.row];
-    if (model.typeCell == TypeCellTimeAndTitle) {
-        return 40;
-    }else if (model.typeCell == TypeCellName){
-        if (model.isClick) {
-            return 40;
-        }
-        return 80;
+    HomeDetailCellModel *model = _model.comment[indexPath.row];
+    if (model.typeCell == TypeCellTitleNoButton) {
+        return 35;
+    }else if (model.typeCell == TypeCellTitle){
+        return 65;
+    }else {
+        return 35;
     }
-    return 0;
 }
 
+//投票
 - (IBAction)handleBtnAction:(UIButton *)sender {
     UIButton *btn = nil;
     switch (sender.tag) {
@@ -122,6 +121,7 @@
     }
 }
 
+//图片
 - (IBAction)handleClickImageAction:(UIButton *)sender {
     UIImageView *image = nil;
     switch (sender.tag) {
@@ -142,8 +142,9 @@
     
 }
 
-- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath {
-    self.indexPath = indexPath;
+- (void)setModel:(HomeCellModel *)model {
+    _model = model;
+    
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;
@@ -156,7 +157,7 @@
     self.aProgress.progress = [model.aTicket floatValue];
     self.bProgress.progress = [model.bTicket floatValue];
     self.cProgress.progress = [model.cTicket floatValue];
-
+    
     self.aTicketLB.text = [NSString stringWithFormat:@"%.0f票", (model.aTicket.floatValue) * 10];
     self.bTicketLB.text = [NSString stringWithFormat:@"%.0f票", (model.bTicket.floatValue) * 10];
     self.cTicketLB.text = [NSString stringWithFormat:@"%.0f票", (model.cTicket.floatValue) * 10];
@@ -165,6 +166,42 @@
     self.bPerLB.text = [NSString stringWithFormat:@"(%.0f%%)", (model.bTicket.floatValue) * 100];
     self.cPerLB.text = [NSString stringWithFormat:@"(%.0f%%)", (model.cTicket.floatValue) * 100];
     
+    if (model.isClick == NO) {
+        if (_detailModel != nil) {
+            _detailModel.isClick = NO;
+            _detailModel.typeCell = TypeCellTitle;
+            [self.tableView reloadData];
+        }
+    }
+    
+    CGFloat height = 0;
+    NSMutableArray *cellHeightArr = [NSMutableArray array];
+    NSMutableArray *cellHeight1Arr = [NSMutableArray array];
+    NSMutableArray *cellHeight2Arr = [NSMutableArray array];
+    if (model.isClick) {
+        for (HomeDetailCellModel *detailModel in model.comment) {
+            if (detailModel.typeCell == TypeCellTitleNoButton) {
+                [cellHeightArr addObject:detailModel];
+            } else if (detailModel.typeCell == TypeCellTitle) {
+                [cellHeight1Arr addObject:detailModel];
+                if (detailModel.isClick == NO) {
+                    break;
+                }
+            }else if (detailModel.typeCell == TypeCellTime) {
+                [cellHeight2Arr addObject:detailModel];
+            }
+        }
+    }
+    height =  35 * ((int)cellHeightArr.count)  + 65 * ((int)cellHeight1Arr.count) + 35 * ((int)cellHeight2Arr.count);
+    if (_model.height == 0) {
+        _model.height = height;
+    }
+    tableViewHeight = _model.height;
 }
+
++ (CGFloat)tableViewHeight {
+    return tableViewHeight;
+}
+
 
 @end

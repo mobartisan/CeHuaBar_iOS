@@ -8,6 +8,9 @@
 
 #import "HomeViewController.h"
 #import "DataManager.h"
+#import "UIView+KeyBoardShowAndHidden.h"
+#import "IQKeyboardManager.h"
+#import "ButtonIndexPath.h"
 #import "HeadView.h"
 #import "HomeCell.h"
 #import "VoteHomeCell.h"
@@ -18,14 +21,15 @@
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (assign, nonatomic) NSInteger projectType;
 @property (strong, nonatomic) DataManager *manager;
-
-@property (assign, nonatomic) CGFloat height;
 @property (assign, nonatomic) BOOL isShowHeaderView;
+
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
 
 @end
 
@@ -49,81 +53,85 @@
     [Common removeExtraCellLines:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"HomeCell" bundle:nil] forCellReuseIdentifier:@"HomeCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"isClick" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleClickCard:) name:@"ClickCard" object:nil];
+    
+    [_bgView showAccessoryViewAnimation];
+    [_bgView hiddenAccessoryViewAnimation];
 }
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.tableView.mj_header endRefreshing];
         [self.tableView reloadData];
-    }];;
+        [self.tableView.mj_header endRefreshing];
+    }];
     self.tableView.mj_header = header;
     
-//    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//        [self addDataToDataArr];
-//        [self.tableView reloadData];
-//        [self.tableView.mj_footer endRefreshing];
-//    }];
-//    self.tableView.mj_footer = footer;
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self addDataToDataArr];
+        [self.tableView reloadData];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+    self.tableView.mj_footer = footer;
     
 }
 
 - (void)addDataToDataArr {
-    if (self.manager.dataSource.count > 4) {
+    if (self.manager.dataSource.count > 3) {
         return;
     }
-    NSDictionary *dic = @{@"headImage":@"touxiang",
-                          @"name":@"卞克",
-                          @"type":@"BBS",
-                          @"image1":@"image",
+    NSDictionary *dic = @{@"projectType":@(ProjectTypeAll),
+                          @"headImage":@"touxiang",
+                          @"name":@"唐小旭",
+                          @"type":@"工作牛",
+                          @"image1":@"placeImage",
                           @"image2":@"image",
                           @"image3":@"image",
-                          @"aDes":@"tape something",
-                          @"bDes":@"tape something",
-                          @"cDes":@"tape something",
-                          @"aTicket":@"0.7",
-                          @"bTicket":@"0.4",
-                          @"cTicket":@"0.1",
                           @"comment":@[
-                                  @{@"time":@"19:50",
-                                    @"firstName":@"卞克",
-                                    @"secondName":@"A",
-                                    @"des":@"卞克",
+                                  @{@"time":@"20:51",
+                                    @"firstName":@"曹兴星",
+                                    @"secondName":@"@卞克",
+                                    @"des":@"TypeSomething...",
                                     @"firstImage":@"image",
                                     @"secondImage":@"image",
-                                    @"typeCell":@(TypeCellTimeAndTitle)
+                                    @"typeCell":@(TypeCellTitleNoButton)
                                     },
                                   @{@"time":@"13:55",
                                     @"firstName":@"卞克",
-                                    @"secondName":@"A",
-                                    @"typeCell":@(TypeCellName)
+                                    @"secondName":@"@唐小旭",
+                                    @"des":@"TypeSomething...",
+                                    @"firstImage":@"image",
+                                    @"secondImage":@"image",
+                                    @"typeCell":@(TypeCellTitleNoButton)
                                     },
-                                  @{@"time":@"9:55",
-                                    @"firstName":@"唐小旭",
-                                    @"secondName":@"B",
-                                    @"typeCell":@(TypeCellTimeAndTitle)
-                                    }].mutableCopy
+                                  @{@"time":@"9:00",
+                                    @"firstName":@"齐云猛",
+                                    @"secondName":@"",
+                                    @"des":@"TypeSomething...",
+                                    @"secondImage":@"image",
+                                    @"firstImage":@"image",
+                                    @"typeCell":@(TypeCellTitle)
+                                    },
+                                  @{@"time":@"昨天",
+                                    @"firstName":@"2016年7月18日",
+                                    @"secondName":@"@唐小旭",
+                                    @"des":@"TypeSomething...",
+                                    @"firstImage":@"image",
+                                    @"secondImage":@"image",
+                                    @"typeCell":@(TypeCellTime)
+                                    },
+                                  @{@"time":@"13:55",
+                                    @"firstName":@"俞弦",
+                                    @"secondName":@"",
+                                    @"des":@"TypeSomething...",
+                                    @"firstImage":@"image",
+                                    @"secondImage":@"image",
+                                    @"typeCell":@(TypeCellTitleNoButton),
+                                    },
+                                  ].mutableCopy
                           };
     [self.manager.dataArr addObject:dic];
     HomeCellModel *model = [HomeCellModel modelWithDic:dic];
     [self.manager.dataSource addObject:model];
     
-}
-
-- (void)handleRefresh:(NSNotification *)notification {
-    NSDictionary *dic = notification.object;
-    if ([dic[@"type"] isEqualToString:@"0"]) {
-        self.height = ((NSNumber *)(dic[@"height"])).floatValue;
-    }else {
-        self.manager.height = ((NSNumber *)(dic[@"height"])).floatValue;
-    }
-    [self.tableView reloadData];
-}
-
-- (void)handleClickCard:(NSNotification *)notification {
-    self.projectType = ((NSNumber *)(notification.object)).integerValue;
-    [self.tableView reloadData];
 }
 
 - (void)configureNavigationItem {
@@ -154,158 +162,104 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"isClick" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ClickCard" object:nil];
+    [IQKeyboardManager sharedManager].enable = YES;
+    
 }
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (self.projectType) {
-        case 0:
-            return self.manager.dataSource.count;
-            break;
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-            return 1;
-            break;
-        default:
-            break;
-    }
-    return 0;
+    return self.manager.dataSource.count;
+    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
-    switch (self.projectType) {
-        case 0:{
-            if (indexPath.row == 0) {
-                HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
-                [cell configureCellWithModel:model indexPath:indexPath];
-                if (model.isClick) {
-                    [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
-                }else {
-                    [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
-                }
-                cell.moreBtn.indexPath = indexPath;
-                [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
-                return cell;
-            }else {
-                VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
-                [cell configureCellWithModel:model indexPath:indexPath];
-                if (model.isClick) {
-                    [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
-                }else {
-                    [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
-                }
-                cell.moreBtn.indexPath = indexPath;
-                [cell.moreBtn addTarget:self action:@selector(handleAction:) forControlEvents:UIControlEventTouchUpInside];
-                cell.clickBtn = ^ (UIButton *btn){
-                    btn.selected = !btn.selected;
-                    if (btn.selected) {
-                        [btn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
-                    }else {
-                        [btn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
-                    }
-                };
-                return cell;
-            }
+    if (model.projectType == ProjectTypeAll) {
+        HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
+        cell.model = model;
+        cell.indexPath = indexPath;
+        cell.delegate = self;
+        if (model.isClick) {
+            [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
+        }else {
+            [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
         }
-            break;
-        case 1:
-        case 2:
-        case 3:
-        case 4:{
-            HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
-            cell.moreBtn.indexPath = indexPath;
-            [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
-            [cell configureCellWithModel:model indexPath:indexPath];
-            return cell;
+        cell.moreBtn.indexPath = indexPath;
+        [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.clickCommentBtn = ^(UIButton *btn) {
+            self.bgViewBottomConstraint.constant = 0;
+            [self.view setNeedsLayout];
+            [self.textView becomeFirstResponder];
+        };
+        return cell;
+    }else {
+        VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
+        cell.model = model;
+        if (model.isClick) {
+            [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
+        }else {
+            [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
         }
-        default:
-            break;
+        cell.moreBtn.indexPath = indexPath;
+        [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+        return cell;
     }
-    return nil;
+    
+    
 }
 
 - (void)handleClickAction:(ButtonIndexPath *)button {
     HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
-    HomeDetailCellModel *detailModel = model.comment[self.manager.index];
     model.isClick = !model.isClick;
-    HomeCell *cell = (HomeCell *)button.superview.superview.superview;
     if (model.isClick) {
-        [cell.tableView reloadData];
-        self.height = cell.tableView.contentSize.height;
+        
     }else {
-        if (self.manager.index != 0) {
-            detailModel.isClick = NO;
-            detailModel.typeCell = TypeCellTitle;
-        }
-        [cell.tableView reloadData];
+        model.height = 0.0;
     }
-    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
-- (void)handleAction:(ButtonIndexPath *)button {
+- (void)handleVoteHomeAction:(ButtonIndexPath *)button {
     HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
-    HomeDetailCellModel *detailModel = model.comment[self.manager.index1];
     model.isClick = !model.isClick;
-    VoteHomeCell *cell = (VoteHomeCell *)button.superview.superview.superview;
     if (model.isClick) {
-        [cell.tableView reloadData];
-        self.manager.height = cell.tableView.contentSize.height;
+        
     }else {
-        detailModel.isClick = NO;
-        [cell.tableView reloadData];
+        model.height = 0.0;
     }
-    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView scrollToRowAtIndexPath:button.indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
-    switch (self.projectType) {
-        case 0:{
-            if (indexPath.row == 0) {
-                if (model.isClick) {
-                    return 253 + self.height + 5;
-                }else {
-                    return 253;
-                }
-            }else {
-                if (model.isClick) {
-                    return 431 + self.manager.height + 5;
-                }else {
-                    return 431;
-                }
-            }
-        }
-            break;
-        case 1:{
-            
-        }
-        case 2:{
-            
-        }
-        case 3:{
-            
-        }
-        case 4:{
+    if (model.projectType == ProjectTypeAll) {
+        if (model.height == 0) {
             if (model.isClick) {
-                return 253 + self.height + 5;
+                return 253 + [HomeCell tableViewHeight];
             }else {
                 return 253;
             }
+        }else{
+            return 253 + model.height;
         }
-        default:
-            break;
+    }else {
+        if (model.height == 0) {
+            if (model.isClick) {
+                return 431 + [HomeCell tableViewHeight];
+            }else {
+                return 431;
+            }
+        }else{
+            return 431 + model.height;
+        }
     }
-    return 0;
+    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -327,10 +281,41 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.bgView endEditing:YES];
+}
+
+#pragma mark HomeCellDelegate
+- (void)reloadHomeTableView:(NSIndexPath *)indexPath {
+    [self.tableView reloadData];
+    
+}
+
+#pragma mark VoteHomeCellDelegate
+- (void)reloadTableViewWithHeight:(CGFloat)height withIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView reloadData];
+    
+}
 #pragma mark HeadViewDelegate
 - (void)headViewDidClickWithHeadView:(HeadView *)headView {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
     [self.navigationController pushViewController:discussVC animated:YES];
 }
+
+
+#pragma mark UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView  shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([@"\n" isEqualToString: text]){
+        [self.bgView endEditing:YES];
+        self.bgViewBottomConstraint.constant = -40;
+        [self.view setNeedsLayout];
+        return NO;
+    }
+    return YES;
+    
+}
+
+
 
 @end

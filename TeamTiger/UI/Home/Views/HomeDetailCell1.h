@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UIView *lineView2;
 @property (copy, nonatomic) ClickBlock clickMoreBtn;
 
+
+
+
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
 
 @end

@@ -12,6 +12,12 @@
 @class HomeCellModel, ButtonIndexPath;
 typedef void(^ClickBtn)(UIButton *button);
 
+@protocol VoteHomeCellDelegate <NSObject>
+
+- (void)reloadTableViewWithHeight:(CGFloat)height withIndexPath:(NSIndexPath *)indexPath;
+
+@end
+
 @interface VoteHomeCell : UITableViewCell<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
@@ -41,6 +47,10 @@ typedef void(^ClickBtn)(UIButton *button);
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 
 @property (copy, nonatomic) ClickBtn clickBtn;
-- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath;
+@property (strong, nonatomic) HomeCellModel *model;
+
+@property (assign, nonatomic) id <VoteHomeCellDelegate> delegate;
+
++ (CGFloat)tableViewHeight;
 
 @end

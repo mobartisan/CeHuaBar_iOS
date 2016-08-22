@@ -441,6 +441,14 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wRI-66-chI" customClass="ButtonIndexPath">
+                                <rect key="frame" x="330" y="356" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="aoX-Nm-RKz"/>
+                                    <constraint firstAttribute="height" constant="20" id="fIY-dl-GHg"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="icon_discussion"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -457,12 +465,14 @@
                             <constraint firstItem="lkm-My-Vjy" firstAttribute="width" secondItem="OSp-Fc-wbx" secondAttribute="width" id="6Gf-nl-R1Q"/>
                             <constraint firstItem="OSp-Fc-wbx" firstAttribute="width" secondItem="7Kd-u0-9Yt" secondAttribute="width" id="6sd-f9-Sqz"/>
                             <constraint firstItem="Fh6-W0-fiZ" firstAttribute="leading" secondItem="uJq-HK-Vfq" secondAttribute="leading" id="8AA-bW-K92"/>
+                            <constraint firstAttribute="bottom" secondItem="wRI-66-chI" secondAttribute="bottom" constant="5" id="9ap-aW-cva"/>
                             <constraint firstItem="X8m-2n-kpP" firstAttribute="top" secondItem="lBM-Ig-7TV" secondAttribute="bottom" constant="3" id="BM1-3l-ccI"/>
                             <constraint firstItem="elm-82-2uu" firstAttribute="top" secondItem="HiL-DE-kso" secondAttribute="bottom" constant="10" id="DTW-el-jcn"/>
                             <constraint firstItem="gyS-ai-R3T" firstAttribute="top" secondItem="OSp-Fc-wbx" secondAttribute="bottom" constant="6" id="DVk-cS-Xfu"/>
                             <constraint firstAttribute="trailing" secondItem="elm-82-2uu" secondAttribute="trailing" id="FJd-oc-2Aw"/>
                             <constraint firstItem="4oy-zT-hv1" firstAttribute="leading" secondItem="LdJ-YF-6Ko" secondAttribute="trailing" constant="3" id="H4V-4x-UXP"/>
                             <constraint firstItem="Fh6-W0-fiZ" firstAttribute="top" secondItem="uJq-HK-Vfq" secondAttribute="top" id="HLL-qp-Zvp"/>
+                            <constraint firstAttribute="trailing" secondItem="wRI-66-chI" secondAttribute="trailing" constant="5" id="HvQ-nB-XYl"/>
                             <constraint firstAttribute="trailing" secondItem="uJq-HK-Vfq" secondAttribute="trailing" constant="13" id="IlD-eD-OOA"/>
                             <constraint firstItem="gyS-ai-R3T" firstAttribute="trailing" secondItem="OSp-Fc-wbx" secondAttribute="trailing" id="Jc8-lc-hIa"/>
                             <constraint firstItem="z8o-82-dcz" firstAttribute="leading" secondItem="7Kd-u0-9Yt" secondAttribute="leading" id="K7J-eH-eHi"/>
@@ -584,10 +594,11 @@
                 <outlet property="tableView" destination="UIg-X5-02q" id="GSF-ol-rkU"/>
                 <outlet property="typeLB" destination="X8m-2n-kpP" id="y83-bu-NwZ"/>
             </connections>
-            <point key="canvasLocation" x="223.5" y="46.5"/>
+            <point key="canvasLocation" x="293.5" y="24.5"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_discussion" width="15" height="14"/>
         <image name="icon_tag" width="11" height="11"/>
         <image name="icon_vote_normal" width="10" height="9"/>
         <image name="icon_xia" width="18" height="11"/>

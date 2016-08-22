@@ -14,10 +14,4 @@
 @property (strong, nonatomic) NSMutableArray *dataArr;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 
-@property (strong, nonatomic) NSIndexPath *indexPath;
-@property (assign, nonatomic) NSInteger index;
-@property (assign, nonatomic) NSInteger index1;
-@property (assign, nonatomic) CGFloat height;
-
-
 @end

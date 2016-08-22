@@ -34,7 +34,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A7o-Px-kF2" userLabel="View2">
-                        <rect key="frame" x="68" y="25" width="4" height="62"/>
+                        <rect key="frame" x="68" y="25" width="4" height="61"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="4" id="JVK-H0-YIM"/>
@@ -93,7 +93,7 @@
                     <constraint firstItem="Xel-w9-9WG" firstAttribute="leading" secondItem="L8E-oX-LpO" secondAttribute="trailing" constant="5" id="GKp-lS-RvB"/>
                     <constraint firstItem="xWx-UP-xRx" firstAttribute="top" secondItem="3ZN-0T-J8u" secondAttribute="top" id="HKq-cp-aBr"/>
                     <constraint firstItem="3ZN-0T-J8u" firstAttribute="top" secondItem="8eG-JU-WpM" secondAttribute="top" constant="20" id="Qio-uZ-0F9"/>
-                    <constraint firstAttribute="bottom" secondItem="A7o-Px-kF2" secondAttribute="bottom" constant="2" id="YYn-hb-ZG9"/>
+                    <constraint firstAttribute="bottom" secondItem="A7o-Px-kF2" secondAttribute="bottom" constant="3" id="YYn-hb-ZG9"/>
                     <constraint firstItem="A7o-Px-kF2" firstAttribute="leading" secondItem="L8E-oX-LpO" secondAttribute="trailing" constant="5" id="a4v-Vr-JSn"/>
                     <constraint firstItem="gbz-w5-vPX" firstAttribute="leading" secondItem="A7o-Px-kF2" secondAttribute="trailing" constant="8" id="bC2-dD-lHY"/>
                     <constraint firstItem="xWx-UP-xRx" firstAttribute="leading" secondItem="3ZN-0T-J8u" secondAttribute="trailing" constant="-1" id="bRL-ed-dMP"/>
@@ -122,7 +122,7 @@
                 <outlet property="secondNameLB" destination="xWx-UP-xRx" id="dfu-Ma-yfE"/>
                 <outlet property="timeLB" destination="L8E-oX-LpO" id="Ia3-nV-8aL"/>
             </connections>
-            <point key="canvasLocation" x="656" y="320"/>
+            <point key="canvasLocation" x="309" y="253"/>
         </tableViewCell>
     </objects>
     <resources>

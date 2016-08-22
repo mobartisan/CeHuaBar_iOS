@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, ProjectType) {
-    ProjectTypeAll = 0 ,
-    ProjectTypeCattle = 1, //工作牛
+    ProjectTypeAll = 0,
+    ProjectTypeCattle, //工作牛
     ProjectTypeEMeeting, //易会
     ProjectTypeMPP, //MPP
     ProjectTypeMarket, //营配
+    ProjectTypeVote//投票
 };
 
 @interface HomeCellModel : NSObject
@@ -34,6 +35,7 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 
 @property (assign, nonatomic) NSInteger projectType;
 @property (strong, nonatomic) NSMutableArray *comment;
+@property (assign, nonatomic) CGFloat height;
 
 - (instancetype)initWithDic:(NSDictionary *)dic;
 + (instancetype)modelWithDic:(NSDictionary *)dic;

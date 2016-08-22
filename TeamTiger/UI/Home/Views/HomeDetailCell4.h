@@ -17,4 +17,5 @@
 @property (weak, nonatomic) IBOutlet UIView *lineView2;
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
+
 @end

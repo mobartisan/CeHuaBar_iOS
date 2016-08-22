@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ClickCommentBtn)(UIButton *button);
 
 @class HomeCellModel, ButtonIndexPath;
+
+@protocol HomeCellDelegate <NSObject>
+
+- (void)reloadHomeTableView:(NSIndexPath *)indexPath;
+
+@end
 
 @interface HomeCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
@@ -23,9 +30,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
-@property (assign, nonatomic) BOOL isOpen;
+@property (assign, nonatomic) id <HomeCellDelegate> delegate;
 
+@property (strong, nonatomic) HomeCellModel *model;
+@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (copy, nonatomic)   ClickCommentBtn clickCommentBtn;
 
-- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath;
++ (CGFloat)tableViewHeight;
 
 @end

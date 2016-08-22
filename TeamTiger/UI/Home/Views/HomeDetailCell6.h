@@ -1,24 +1,22 @@
 //
-//  HomeDetailCell5.h
+//  HomeDetailCell6.h
 //  TeamTiger
 //
-//  Created by Dale on 16/8/8.
+//  Created by Dale on 16/8/20.
 //  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@class HomeDetailCellModel, ButtonIndexPath;
 
-@interface HomeDetailCell5 : UITableViewCell
+@class HomeDetailCellModel;
 
-@property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
+@interface HomeDetailCell6 : UITableViewCell
+
+
 @property (weak, nonatomic) IBOutlet UILabel *timeLB;
 @property (weak, nonatomic) IBOutlet UILabel *nameLB;
 @property (weak, nonatomic) IBOutlet UILabel *typeLB;
-
-
-
-@property (nonatomic, copy) ClickBlock clickBlock;
-
+@property (weak, nonatomic) IBOutlet UIView  *lineView2;
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
+
 @end

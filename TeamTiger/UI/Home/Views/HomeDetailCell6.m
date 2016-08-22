@@ -1,15 +1,15 @@
 //
-//  HomeDetailCell5.m
+//  HomeDetailCell6.m
 //  TeamTiger
 //
-//  Created by Dale on 16/8/8.
+//  Created by Dale on 16/8/20.
 //  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
-#import "HomeDetailCell5.h"
+#import "HomeDetailCell6.h"
 #import "HomeDetailCellModel.h"
 
-@implementation HomeDetailCell5
+@implementation HomeDetailCell6
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,11 +20,6 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
-}
-- (IBAction)handleClickAction:(UIButton *)sender {
-    if (self.clickBlock) {
-        self.clickBlock();
-    }
 }
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model {

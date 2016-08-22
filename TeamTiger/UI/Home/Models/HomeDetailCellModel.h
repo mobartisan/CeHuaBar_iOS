@@ -9,12 +9,10 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, TypeCell) {
-    TypeCellImage = 0,
-    TypeCellTitle,
-    TypeCellTitleNoButton,
-    TypeCellTime,
-    TypeCellTimeAndTitle,
-    TypeCellName
+    TypeCellImage = 0,// 图片
+    TypeCellTitleNoButton,//纯文字
+    TypeCellTitle,//文字和按钮
+    TypeCellTime//时间
 };
 
 @interface HomeDetailCellModel : NSObject

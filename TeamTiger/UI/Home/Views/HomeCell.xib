@@ -70,7 +70,7 @@
                                 <rect key="frame" x="228" y="60" width="104" height="108"/>
                                 <gestureRecognizers/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGF-my-4IP" userLabel="CommentBtn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGF-my-4IP" userLabel="CommentBtn" customClass="ButtonIndexPath">
                                 <rect key="frame" x="334" y="175" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Wmk-aU-4eM"/>

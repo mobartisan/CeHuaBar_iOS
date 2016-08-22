@@ -13,26 +13,18 @@
 #import "HomeDetailCell3.h"
 #import "HomeCellModel.h"
 #import "HomeDetailCellModel.h"
-#import "DataManager.h"
 #import "ButtonIndexPath.h"
 #import "JJPhotoManeger.h"
 
+static CGFloat tableViewHeight = 0.0;
+
 @interface HomeCell ()
 
-@property (strong, nonatomic) DataManager *manager;
-@property (assign, nonatomic) NSInteger index;
-@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) HomeDetailCellModel *detailModel;
 
 @end
 
 @implementation HomeCell
-
-- (DataManager *)manager {
-    if (_manager == nil) {
-        _manager = [DataManager mainSingleton];
-    }
-    return _manager;
-}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -54,71 +46,115 @@
     // Configure the view for the selected state
 }
 
-- (void)configureCellWithModel:(HomeCellModel *)model indexPath:(NSIndexPath *)indexPath {
-    self.indexPath = indexPath;
+
+- (void)setModel:(HomeCellModel *)model {
+    _model = model;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;
     self.image1.image = kImage(model.image1);
     self.image2.image = kImage(model.image2);
     self.image3.image = kImage(model.image3);
+    
+    if (model.isClick == NO) {
+        if (_detailModel != nil) {
+            _detailModel.isClick = NO;
+            _detailModel.typeCell = TypeCellTitle;
+            [self.tableView reloadData];
+        }
+    }
+    CGFloat height = 0;
+    NSMutableArray *cellHeightArr = [NSMutableArray array];
+    NSMutableArray *cellHeight1Arr = [NSMutableArray array];
+    NSMutableArray *cellHeight2Arr = [NSMutableArray array];
+    NSMutableArray *cellHeight3Arr = [NSMutableArray array];
+    if (model.isClick) {
+        for (HomeDetailCellModel *detailModel in model.comment) {
+            if (detailModel.typeCell == TypeCellImage) {
+                [cellHeightArr addObject:detailModel];
+            } else if (detailModel.typeCell == TypeCellTitleNoButton) {
+                [cellHeight1Arr addObject:detailModel];
+            }else if (detailModel.typeCell == TypeCellTitle) {
+                [cellHeight2Arr addObject:detailModel];
+                if (detailModel.isClick == NO) {
+                    break;
+                }
+            }else {
+                [cellHeight3Arr addObject:detailModel];
+            }
+        }
+    }
+    height =  160 * ((int)cellHeightArr.count)  + 60 * ((int)cellHeight1Arr.count) + 100 * ((int)cellHeight2Arr.count) + 30 * ((int)cellHeight3Arr.count);
+    if (_model.height == 0) {
+        _model.height = height;
+    }
+    tableViewHeight = _model.height;
+}
+
++ (CGFloat)tableViewHeight {
+    return tableViewHeight;
 }
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
-    HomeDetailCellModel *model = cellModel.comment[self.manager.index];
-    if (model.isClick) {
-        return cellModel.comment.count;
+    if (self.detailModel.isClick) {
+        return _model.comment.count;
     }else {
-        return 3;
+        for (HomeDetailCellModel *detailModel in _model.comment) {
+            if (detailModel.typeCell == TypeCellTitle) {
+                NSUInteger index = [_model.comment indexOfObject:detailModel];
+                return index + 1;
+            }
+        }
+        return 0;
     }
-    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[self.indexPath.row];
-    HomeDetailCellModel *model = cellModel.comment[indexPath.row];
-    if (model.typeCell == TypeCellImage) {
+    HomeDetailCellModel *detailModel = _model.comment[indexPath.row];
+    if (detailModel.typeCell == TypeCellImage) {
         HomeDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
-        [cell configureCellWithModel:model];
+        [cell configureCellWithModel:detailModel];
         return cell;
-    }else if (model.typeCell == TypeCellTitle) {
+    }else if (detailModel.typeCell == TypeCellTitle) {
         HomeDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier1"];
         cell.moreBtn.indexPath = indexPath;
         cell.clickMoreBtn = ^() {
-            self.manager.index = indexPath.row;
-            model.isClick = YES;
-            model.typeCell = TypeCellTitleNoButton;
-            [tableView reloadData];
-            CGFloat height = self.tableView.contentSize.height;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"isClick" object:@{@"height":@(height), @"type":@"0"}];
-            
+            self.detailModel = detailModel;
+            detailModel.isClick = YES;
+            detailModel.typeCell = TypeCellTitleNoButton;
+            [self.tableView reloadData];
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+             _model.height = 0;
+            if ([self.delegate respondsToSelector:@selector(reloadHomeTableView:)]) {
+                [self.delegate reloadHomeTableView:self.indexPath];
+            }
         };
-        [cell configureCellWithModel:model];
+        [cell configureCellWithModel:detailModel];
         return cell;
-    }else if (model.typeCell == TypeCellTime){
+    }else if (detailModel.typeCell == TypeCellTime){
         HomeDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier2"];
-        [cell configureCellWithModel:model];
+        [cell configureCellWithModel:detailModel];
         return cell;
-    }else if (model.typeCell == TypeCellTitleNoButton) {
+    }else {
         HomeDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier3"];
-        if (indexPath.row == cellModel.comment.count - 1) {
+        if (indexPath.row == _model.comment.count - 1) {
             cell.lineView2.hidden = YES;
         }
-        [cell configureCellWithModel:model];
+        [cell configureCellWithModel:detailModel];
         return cell;
     }
-    return nil;
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *cellModel = self.manager.dataSource[indexPath.section];
-    HomeDetailCellModel *model = cellModel.comment[indexPath.row];
-    switch (model.typeCell) {
+    HomeDetailCellModel *datailModel = _model.comment[indexPath.row];
+    switch (datailModel.typeCell) {
         case TypeCellImage:
             return 160;
+            break;
+        case TypeCellTitleNoButton:
+            return 60;
             break;
         case TypeCellTitle:
             return 100;
@@ -126,17 +162,14 @@
         case TypeCellTime:
             return 30;
             break;
-        case TypeCellTitleNoButton:
-            return 60;
-            break;
         default:
             break;
     }
     return 0;
 }
 
-- (IBAction)hanldeCommentAction:(UIButton *)sender {
-    NSLog(@"评论");
+- (IBAction)hanldeCommentAction:(ButtonIndexPath *)sender {
+    self.clickCommentBtn(sender);
 }
 
 - (IBAction)handleClickImageAction:(UIButton *)sender {
@@ -156,7 +189,7 @@
     }
     JJPhotoManeger *mg = [JJPhotoManeger maneger];
     [mg showNetworkPhotoViewer:@[self.image1, self.image2, self.image3] urlStrArr:nil selecView:image];
-
+    
 }
 
 @end
