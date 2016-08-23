@@ -71,6 +71,7 @@ static CGFloat tableViewHeight = 0.0;
         cell.clickBlock = ^() {
             self.detailModel = detailModel;
             detailModel.isClick = YES;
+            detailModel.isTap = YES;
             detailModel.typeCell = TypeCellTitleNoButton;
             [self.tableView reloadData];
             _model.height = 0;
@@ -81,6 +82,7 @@ static CGFloat tableViewHeight = 0.0;
         return cell;
     }else {
         HomeDetailCell6 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier6"];
+        cell.lineView2.hidden = NO;
         if (indexPath.row == _model.comment.count - 1) {
             cell.lineView2.hidden = YES;
         }
@@ -102,22 +104,34 @@ static CGFloat tableViewHeight = 0.0;
 
 //投票
 - (IBAction)handleBtnAction:(UIButton *)sender {
-    UIButton *btn = nil;
     switch (sender.tag) {
-        case 100:
-            btn = self.aBtn;
+        case 100:{
+             sender.selected = !sender.selected;
+            if (sender.selected) {
+                [self.aBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+            }else {
+                [self.aBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+            }
+        }
             break;
-        case 101:
-            btn = self.bBtn;
+        case 101:{
+            sender.selected = !sender.selected;
+            if (sender.selected) {
+                [self.bBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+            }else {
+                [self.bBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+            }
+        }
             break;
-        case 102:
-            btn = self.cBtn;
+        case 102:{
+            sender.selected = !sender.selected;
+            if (sender.selected) {
+                [self.cBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+            }else {
+                [self.cBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+            }
+        }
             break;
-        default:
-            break;
-    }
-    if (self.clickBtn) {
-        self.clickBtn(btn);
     }
 }
 
@@ -143,8 +157,12 @@ static CGFloat tableViewHeight = 0.0;
 }
 
 - (void)setModel:(HomeCellModel *)model {
+    if (model.isClick) {
+        [self.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
+    }else {
+        [self.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
+    }
     _model = model;
-    
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;
@@ -166,12 +184,14 @@ static CGFloat tableViewHeight = 0.0;
     self.bPerLB.text = [NSString stringWithFormat:@"(%.0f%%)", (model.bTicket.floatValue) * 100];
     self.cPerLB.text = [NSString stringWithFormat:@"(%.0f%%)", (model.cTicket.floatValue) * 100];
     
-    if (model.isClick == NO) {
-        if (_detailModel != nil) {
-            _detailModel.isClick = NO;
-            _detailModel.typeCell = TypeCellTitle;
-            [self.tableView reloadData];
+    for (HomeDetailCellModel *detailModel in _model.comment) {
+        if (detailModel.typeCell == TypeCellTitle || detailModel.isTap) {
+            self.detailModel = detailModel;
         }
+    }
+    if (model.isClick == NO) {
+        self.detailModel.isClick = NO;
+        self.detailModel.typeCell = TypeCellTitle;
     }
     
     CGFloat height = 0;
@@ -203,5 +223,8 @@ static CGFloat tableViewHeight = 0.0;
     return tableViewHeight;
 }
 
+- (IBAction)handleCommitAction:(UIButton *)sender {
+    
+}
 
 @end

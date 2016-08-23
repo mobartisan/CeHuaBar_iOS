@@ -184,11 +184,6 @@
         cell.model = model;
         cell.indexPath = indexPath;
         cell.delegate = self;
-        if (model.isClick) {
-            [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
-        }else {
-            [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
-        }
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickCommentBtn = ^(UIButton *btn) {
@@ -196,17 +191,19 @@
             [self.view setNeedsLayout];
             [self.textView becomeFirstResponder];
         };
+        [cell.tableView reloadData];
         return cell;
     }else {
         VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
         cell.model = model;
-        if (model.isClick) {
-            [cell.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
-        }else {
-            [cell.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
-        }
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+        cell.clickBtn = ^(UIButton *btn) {
+            self.bgViewBottomConstraint.constant = 0;
+            [self.view setNeedsLayout];
+            [self.textView becomeFirstResponder];
+        };
+        [cell.tableView reloadData];
         return cell;
     }
     
@@ -289,7 +286,7 @@
 #pragma mark HomeCellDelegate
 - (void)reloadHomeTableView:(NSIndexPath *)indexPath {
     [self.tableView reloadData];
-    
+
 }
 
 #pragma mark VoteHomeCellDelegate

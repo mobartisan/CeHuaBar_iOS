@@ -152,7 +152,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="icon_vote_normal"/>
                                     </button>
-                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0o-Dy-EeE">
+                                    <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0o-Dy-EeE">
                                         <rect key="frame" x="0.0" y="0.0" width="106" height="30"/>
                                         <connections>
                                             <action selector="handleBtnAction:" destination="IRM-1p-eHw" eventType="touchUpInside" id="5gZ-13-WSl"/>
@@ -254,7 +254,7 @@
                                         </constraints>
                                         <state key="normal" backgroundImage="icon_vote_normal"/>
                                     </button>
-                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raf-VN-ATd">
+                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Raf-VN-ATd">
                                         <rect key="frame" x="0.0" y="0.0" width="106" height="30"/>
                                         <connections>
                                             <action selector="handleBtnAction:" destination="IRM-1p-eHw" eventType="touchUpInside" id="bZT-nf-s7I"/>
@@ -448,6 +448,9 @@
                                     <constraint firstAttribute="height" constant="20" id="fIY-dl-GHg"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="icon_discussion"/>
+                                <connections>
+                                    <action selector="handleCommitAction:" destination="IRM-1p-eHw" eventType="touchUpInside" id="Kdk-eN-5dP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>

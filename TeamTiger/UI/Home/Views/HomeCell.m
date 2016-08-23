@@ -48,6 +48,11 @@ static CGFloat tableViewHeight = 0.0;
 
 
 - (void)setModel:(HomeCellModel *)model {
+    if (model.isClick) {
+        [self.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
+    }else {
+        [self.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
+    }
     _model = model;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
@@ -55,13 +60,14 @@ static CGFloat tableViewHeight = 0.0;
     self.image1.image = kImage(model.image1);
     self.image2.image = kImage(model.image2);
     self.image3.image = kImage(model.image3);
-    
-    if (model.isClick == NO) {
-        if (_detailModel != nil) {
-            _detailModel.isClick = NO;
-            _detailModel.typeCell = TypeCellTitle;
-            [self.tableView reloadData];
+    for (HomeDetailCellModel *detailModel in _model.comment) {
+        if (detailModel.typeCell == TypeCellTitle || detailModel.isTap) {
+            self.detailModel = detailModel;
         }
+    }
+    if (model.isClick == NO) {
+        self.detailModel.isClick = NO;
+        self.detailModel.typeCell = TypeCellTitle;
     }
     CGFloat height = 0;
     NSMutableArray *cellHeightArr = [NSMutableArray array];
@@ -120,12 +126,11 @@ static CGFloat tableViewHeight = 0.0;
         HomeDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier1"];
         cell.moreBtn.indexPath = indexPath;
         cell.clickMoreBtn = ^() {
-            self.detailModel = detailModel;
             detailModel.isClick = YES;
+            detailModel.isTap = YES;
             detailModel.typeCell = TypeCellTitleNoButton;
             [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-             _model.height = 0;
+            _model.height = 0;
             if ([self.delegate respondsToSelector:@selector(reloadHomeTableView:)]) {
                 [self.delegate reloadHomeTableView:self.indexPath];
             }
@@ -136,8 +141,9 @@ static CGFloat tableViewHeight = 0.0;
         HomeDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier2"];
         [cell configureCellWithModel:detailModel];
         return cell;
-    }else {
+    }else { //TypeCellTitleNoButton
         HomeDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier3"];
+        cell.lineView2.hidden = NO;
         if (indexPath.row == _model.comment.count - 1) {
             cell.lineView2.hidden = YES;
         }

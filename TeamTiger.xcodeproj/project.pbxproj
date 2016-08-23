@@ -411,6 +411,31 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
+		2D2AAA241D6C46EC00AE1A70 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AA9FC1D6C46EC00AE1A70 /* HomeViewController.m */; };
+		2D2AAA251D6C46EC00AE1A70 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AA9FD1D6C46EC00AE1A70 /* HomeViewController.xib */; };
+		2D2AAA261D6C46EC00AE1A70 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AA9FF1D6C46EC00AE1A70 /* DataManager.m */; };
+		2D2AAA271D6C46EC00AE1A70 /* HomeCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA021D6C46EC00AE1A70 /* HomeCellModel.m */; };
+		2D2AAA281D6C46EC00AE1A70 /* HomeDetailCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA041D6C46EC00AE1A70 /* HomeDetailCellModel.m */; };
+		2D2AAA291D6C46EC00AE1A70 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA071D6C46EC00AE1A70 /* HeadView.m */; };
+		2D2AAA2A1D6C46EC00AE1A70 /* HeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA081D6C46EC00AE1A70 /* HeadView.xib */; };
+		2D2AAA2B1D6C46EC00AE1A70 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA0A1D6C46EC00AE1A70 /* HomeCell.m */; };
+		2D2AAA2C1D6C46EC00AE1A70 /* HomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA0B1D6C46EC00AE1A70 /* HomeCell.xib */; };
+		2D2AAA2D1D6C46EC00AE1A70 /* HomeDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA0D1D6C46EC00AE1A70 /* HomeDetailCell.m */; };
+		2D2AAA2E1D6C46EC00AE1A70 /* HomeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA0E1D6C46EC00AE1A70 /* HomeDetailCell.xib */; };
+		2D2AAA2F1D6C46EC00AE1A70 /* HomeDetailCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA101D6C46EC00AE1A70 /* HomeDetailCell1.m */; };
+		2D2AAA301D6C46EC00AE1A70 /* HomeDetailCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA111D6C46EC00AE1A70 /* HomeDetailCell1.xib */; };
+		2D2AAA311D6C46EC00AE1A70 /* HomeDetailCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA131D6C46EC00AE1A70 /* HomeDetailCell2.m */; };
+		2D2AAA321D6C46EC00AE1A70 /* HomeDetailCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA141D6C46EC00AE1A70 /* HomeDetailCell2.xib */; };
+		2D2AAA331D6C46EC00AE1A70 /* HomeDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA161D6C46EC00AE1A70 /* HomeDetailCell3.m */; };
+		2D2AAA341D6C46EC00AE1A70 /* HomeDetailCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA171D6C46EC00AE1A70 /* HomeDetailCell3.xib */; };
+		2D2AAA351D6C46EC00AE1A70 /* HomeDetailCell4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA191D6C46EC00AE1A70 /* HomeDetailCell4.m */; };
+		2D2AAA361D6C46EC00AE1A70 /* HomeDetailCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA1A1D6C46EC00AE1A70 /* HomeDetailCell4.xib */; };
+		2D2AAA371D6C46EC00AE1A70 /* HomeDetailCell5.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA1C1D6C46EC00AE1A70 /* HomeDetailCell5.m */; };
+		2D2AAA381D6C46EC00AE1A70 /* HomeDetailCell5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA1D1D6C46EC00AE1A70 /* HomeDetailCell5.xib */; };
+		2D2AAA391D6C46EC00AE1A70 /* HomeDetailCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA1F1D6C46EC00AE1A70 /* HomeDetailCell6.m */; };
+		2D2AAA3A1D6C46EC00AE1A70 /* HomeDetailCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA201D6C46EC00AE1A70 /* HomeDetailCell6.xib */; };
+		2D2AAA3B1D6C46EC00AE1A70 /* VoteHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D2AAA221D6C46EC00AE1A70 /* VoteHomeCell.m */; };
+		2D2AAA3C1D6C46EC00AE1A70 /* VoteHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D2AAA231D6C46EC00AE1A70 /* VoteHomeCell.xib */; };
 		2D7945141D5C648E003B5A6E /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */; };
 		2D7945151D5C648E003B5A6E /* JJOneScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450E1D5C648E003B5A6E /* JJOneScrollView.m */; };
 		2D7945161D5C648E003B5A6E /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7945101D5C648E003B5A6E /* JJPhoto.m */; };
@@ -418,31 +443,6 @@
 		2D7945181D5C648E003B5A6E /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D7945131D5C648E003B5A6E /* none.png */; };
 		2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB1710D1D65ABD500EB222F /* ButtonIndexPath.m */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
-		2DE3A8361D6AEE01001690C7 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A80E1D6AEE01001690C7 /* HomeViewController.m */; };
-		2DE3A8371D6AEE01001690C7 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A80F1D6AEE01001690C7 /* HomeViewController.xib */; };
-		2DE3A8381D6AEE01001690C7 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8111D6AEE01001690C7 /* DataManager.m */; };
-		2DE3A8391D6AEE01001690C7 /* HomeCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8141D6AEE01001690C7 /* HomeCellModel.m */; };
-		2DE3A83A1D6AEE01001690C7 /* HomeDetailCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8161D6AEE01001690C7 /* HomeDetailCellModel.m */; };
-		2DE3A83B1D6AEE01001690C7 /* HeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8191D6AEE01001690C7 /* HeadView.m */; };
-		2DE3A83C1D6AEE01001690C7 /* HeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A81A1D6AEE01001690C7 /* HeadView.xib */; };
-		2DE3A83D1D6AEE01001690C7 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A81C1D6AEE01001690C7 /* HomeCell.m */; };
-		2DE3A83E1D6AEE01001690C7 /* HomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A81D1D6AEE01001690C7 /* HomeCell.xib */; };
-		2DE3A83F1D6AEE01001690C7 /* HomeDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A81F1D6AEE01001690C7 /* HomeDetailCell.m */; };
-		2DE3A8401D6AEE01001690C7 /* HomeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8201D6AEE01001690C7 /* HomeDetailCell.xib */; };
-		2DE3A8411D6AEE01001690C7 /* HomeDetailCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8221D6AEE01001690C7 /* HomeDetailCell1.m */; };
-		2DE3A8421D6AEE01001690C7 /* HomeDetailCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8231D6AEE01001690C7 /* HomeDetailCell1.xib */; };
-		2DE3A8431D6AEE01001690C7 /* HomeDetailCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8251D6AEE01001690C7 /* HomeDetailCell2.m */; };
-		2DE3A8441D6AEE01001690C7 /* HomeDetailCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8261D6AEE01001690C7 /* HomeDetailCell2.xib */; };
-		2DE3A8451D6AEE01001690C7 /* HomeDetailCell3.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8281D6AEE01001690C7 /* HomeDetailCell3.m */; };
-		2DE3A8461D6AEE01001690C7 /* HomeDetailCell3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8291D6AEE01001690C7 /* HomeDetailCell3.xib */; };
-		2DE3A8471D6AEE01001690C7 /* HomeDetailCell4.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A82B1D6AEE01001690C7 /* HomeDetailCell4.m */; };
-		2DE3A8481D6AEE01001690C7 /* HomeDetailCell4.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A82C1D6AEE01001690C7 /* HomeDetailCell4.xib */; };
-		2DE3A8491D6AEE01001690C7 /* HomeDetailCell5.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A82E1D6AEE01001690C7 /* HomeDetailCell5.m */; };
-		2DE3A84A1D6AEE01001690C7 /* HomeDetailCell5.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A82F1D6AEE01001690C7 /* HomeDetailCell5.xib */; };
-		2DE3A84B1D6AEE01001690C7 /* HomeDetailCell6.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8311D6AEE01001690C7 /* HomeDetailCell6.m */; };
-		2DE3A84C1D6AEE01001690C7 /* HomeDetailCell6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8321D6AEE01001690C7 /* HomeDetailCell6.xib */; };
-		2DE3A84D1D6AEE01001690C7 /* VoteHomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8341D6AEE01001690C7 /* VoteHomeCell.m */; };
-		2DE3A84E1D6AEE01001690C7 /* VoteHomeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DE3A8351D6AEE01001690C7 /* VoteHomeCell.xib */; };
 		2DE3A8511D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8501D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m */; };
 		2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */; };
 		2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */; };
@@ -1184,6 +1184,45 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
+		2D2AA9FB1D6C46EC00AE1A70 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		2D2AA9FC1D6C46EC00AE1A70 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		2D2AA9FD1D6C46EC00AE1A70 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		2D2AA9FE1D6C46EC00AE1A70 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		2D2AA9FF1D6C46EC00AE1A70 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		2D2AAA011D6C46EC00AE1A70 /* HomeCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCellModel.h; sourceTree = "<group>"; };
+		2D2AAA021D6C46EC00AE1A70 /* HomeCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCellModel.m; sourceTree = "<group>"; };
+		2D2AAA031D6C46EC00AE1A70 /* HomeDetailCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCellModel.h; sourceTree = "<group>"; };
+		2D2AAA041D6C46EC00AE1A70 /* HomeDetailCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCellModel.m; sourceTree = "<group>"; };
+		2D2AAA061D6C46EC00AE1A70 /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
+		2D2AAA071D6C46EC00AE1A70 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
+		2D2AAA081D6C46EC00AE1A70 /* HeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadView.xib; sourceTree = "<group>"; };
+		2D2AAA091D6C46EC00AE1A70 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		2D2AAA0A1D6C46EC00AE1A70 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		2D2AAA0B1D6C46EC00AE1A70 /* HomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeCell.xib; sourceTree = "<group>"; };
+		2D2AAA0C1D6C46EC00AE1A70 /* HomeDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell.h; sourceTree = "<group>"; };
+		2D2AAA0D1D6C46EC00AE1A70 /* HomeDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell.m; sourceTree = "<group>"; };
+		2D2AAA0E1D6C46EC00AE1A70 /* HomeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell.xib; sourceTree = "<group>"; };
+		2D2AAA0F1D6C46EC00AE1A70 /* HomeDetailCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell1.h; sourceTree = "<group>"; };
+		2D2AAA101D6C46EC00AE1A70 /* HomeDetailCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell1.m; sourceTree = "<group>"; };
+		2D2AAA111D6C46EC00AE1A70 /* HomeDetailCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell1.xib; sourceTree = "<group>"; };
+		2D2AAA121D6C46EC00AE1A70 /* HomeDetailCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell2.h; sourceTree = "<group>"; };
+		2D2AAA131D6C46EC00AE1A70 /* HomeDetailCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell2.m; sourceTree = "<group>"; };
+		2D2AAA141D6C46EC00AE1A70 /* HomeDetailCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell2.xib; sourceTree = "<group>"; };
+		2D2AAA151D6C46EC00AE1A70 /* HomeDetailCell3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell3.h; sourceTree = "<group>"; };
+		2D2AAA161D6C46EC00AE1A70 /* HomeDetailCell3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell3.m; sourceTree = "<group>"; };
+		2D2AAA171D6C46EC00AE1A70 /* HomeDetailCell3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell3.xib; sourceTree = "<group>"; };
+		2D2AAA181D6C46EC00AE1A70 /* HomeDetailCell4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell4.h; sourceTree = "<group>"; };
+		2D2AAA191D6C46EC00AE1A70 /* HomeDetailCell4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell4.m; sourceTree = "<group>"; };
+		2D2AAA1A1D6C46EC00AE1A70 /* HomeDetailCell4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell4.xib; sourceTree = "<group>"; };
+		2D2AAA1B1D6C46EC00AE1A70 /* HomeDetailCell5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell5.h; sourceTree = "<group>"; };
+		2D2AAA1C1D6C46EC00AE1A70 /* HomeDetailCell5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell5.m; sourceTree = "<group>"; };
+		2D2AAA1D1D6C46EC00AE1A70 /* HomeDetailCell5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell5.xib; sourceTree = "<group>"; };
+		2D2AAA1E1D6C46EC00AE1A70 /* HomeDetailCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell6.h; sourceTree = "<group>"; };
+		2D2AAA1F1D6C46EC00AE1A70 /* HomeDetailCell6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell6.m; sourceTree = "<group>"; };
+		2D2AAA201D6C46EC00AE1A70 /* HomeDetailCell6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell6.xib; sourceTree = "<group>"; };
+		2D2AAA211D6C46EC00AE1A70 /* VoteHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteHomeCell.h; sourceTree = "<group>"; };
+		2D2AAA221D6C46EC00AE1A70 /* VoteHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteHomeCell.m; sourceTree = "<group>"; };
+		2D2AAA231D6C46EC00AE1A70 /* VoteHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoteHomeCell.xib; sourceTree = "<group>"; };
 		2D79450B1D5C648E003B5A6E /* JJMainScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMainScrollView.h; sourceTree = "<group>"; };
 		2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMainScrollView.m; sourceTree = "<group>"; };
 		2D79450D1D5C648E003B5A6E /* JJOneScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJOneScrollView.h; sourceTree = "<group>"; };
@@ -1197,45 +1236,6 @@
 		2DB1710D1D65ABD500EB222F /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
-		2DE3A80D1D6AEE01001690C7 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		2DE3A80E1D6AEE01001690C7 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		2DE3A80F1D6AEE01001690C7 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		2DE3A8101D6AEE01001690C7 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		2DE3A8111D6AEE01001690C7 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
-		2DE3A8131D6AEE01001690C7 /* HomeCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCellModel.h; sourceTree = "<group>"; };
-		2DE3A8141D6AEE01001690C7 /* HomeCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCellModel.m; sourceTree = "<group>"; };
-		2DE3A8151D6AEE01001690C7 /* HomeDetailCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCellModel.h; sourceTree = "<group>"; };
-		2DE3A8161D6AEE01001690C7 /* HomeDetailCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCellModel.m; sourceTree = "<group>"; };
-		2DE3A8181D6AEE01001690C7 /* HeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadView.h; sourceTree = "<group>"; };
-		2DE3A8191D6AEE01001690C7 /* HeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadView.m; sourceTree = "<group>"; };
-		2DE3A81A1D6AEE01001690C7 /* HeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeadView.xib; sourceTree = "<group>"; };
-		2DE3A81B1D6AEE01001690C7 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		2DE3A81C1D6AEE01001690C7 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
-		2DE3A81D1D6AEE01001690C7 /* HomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeCell.xib; sourceTree = "<group>"; };
-		2DE3A81E1D6AEE01001690C7 /* HomeDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell.h; sourceTree = "<group>"; };
-		2DE3A81F1D6AEE01001690C7 /* HomeDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell.m; sourceTree = "<group>"; };
-		2DE3A8201D6AEE01001690C7 /* HomeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell.xib; sourceTree = "<group>"; };
-		2DE3A8211D6AEE01001690C7 /* HomeDetailCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell1.h; sourceTree = "<group>"; };
-		2DE3A8221D6AEE01001690C7 /* HomeDetailCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell1.m; sourceTree = "<group>"; };
-		2DE3A8231D6AEE01001690C7 /* HomeDetailCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell1.xib; sourceTree = "<group>"; };
-		2DE3A8241D6AEE01001690C7 /* HomeDetailCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell2.h; sourceTree = "<group>"; };
-		2DE3A8251D6AEE01001690C7 /* HomeDetailCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell2.m; sourceTree = "<group>"; };
-		2DE3A8261D6AEE01001690C7 /* HomeDetailCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell2.xib; sourceTree = "<group>"; };
-		2DE3A8271D6AEE01001690C7 /* HomeDetailCell3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell3.h; sourceTree = "<group>"; };
-		2DE3A8281D6AEE01001690C7 /* HomeDetailCell3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell3.m; sourceTree = "<group>"; };
-		2DE3A8291D6AEE01001690C7 /* HomeDetailCell3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell3.xib; sourceTree = "<group>"; };
-		2DE3A82A1D6AEE01001690C7 /* HomeDetailCell4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell4.h; sourceTree = "<group>"; };
-		2DE3A82B1D6AEE01001690C7 /* HomeDetailCell4.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell4.m; sourceTree = "<group>"; };
-		2DE3A82C1D6AEE01001690C7 /* HomeDetailCell4.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell4.xib; sourceTree = "<group>"; };
-		2DE3A82D1D6AEE01001690C7 /* HomeDetailCell5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell5.h; sourceTree = "<group>"; };
-		2DE3A82E1D6AEE01001690C7 /* HomeDetailCell5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell5.m; sourceTree = "<group>"; };
-		2DE3A82F1D6AEE01001690C7 /* HomeDetailCell5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell5.xib; sourceTree = "<group>"; };
-		2DE3A8301D6AEE01001690C7 /* HomeDetailCell6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDetailCell6.h; sourceTree = "<group>"; };
-		2DE3A8311D6AEE01001690C7 /* HomeDetailCell6.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDetailCell6.m; sourceTree = "<group>"; };
-		2DE3A8321D6AEE01001690C7 /* HomeDetailCell6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeDetailCell6.xib; sourceTree = "<group>"; };
-		2DE3A8331D6AEE01001690C7 /* VoteHomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteHomeCell.h; sourceTree = "<group>"; };
-		2DE3A8341D6AEE01001690C7 /* VoteHomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteHomeCell.m; sourceTree = "<group>"; };
-		2DE3A8351D6AEE01001690C7 /* VoteHomeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VoteHomeCell.xib; sourceTree = "<group>"; };
 		2DE3A84F1D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+KeyBoardShowAndHidden.h"; sourceTree = "<group>"; };
 		2DE3A8501D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+KeyBoardShowAndHidden.m"; sourceTree = "<group>"; };
 		2DFACA491D507B8B0099A2A3 /* DiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussViewController.h; sourceTree = "<group>"; };
@@ -2556,7 +2556,7 @@
 		1DA71B761D3DB618007483D2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				2DE3A80B1D6AEE01001690C7 /* Home */,
+				2D2AA9F91D6C46EC00AE1A70 /* Home */,
 				1DDE9E651D531B54005926FE /* Login */,
 				064C0C121D51E0F400D8E639 /* Main */,
 				2DFACA471D507B8B0099A2A3 /* Discuss */,
@@ -2979,6 +2979,76 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		2D2AA9F91D6C46EC00AE1A70 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2D2AA9FE1D6C46EC00AE1A70 /* DataManager.h */,
+				2D2AA9FF1D6C46EC00AE1A70 /* DataManager.m */,
+				2D2AA9FA1D6C46EC00AE1A70 /* Controllers */,
+				2D2AAA001D6C46EC00AE1A70 /* Models */,
+				2D2AAA051D6C46EC00AE1A70 /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2D2AA9FA1D6C46EC00AE1A70 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2D2AA9FB1D6C46EC00AE1A70 /* HomeViewController.h */,
+				2D2AA9FC1D6C46EC00AE1A70 /* HomeViewController.m */,
+				2D2AA9FD1D6C46EC00AE1A70 /* HomeViewController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2D2AAA001D6C46EC00AE1A70 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2D2AAA011D6C46EC00AE1A70 /* HomeCellModel.h */,
+				2D2AAA021D6C46EC00AE1A70 /* HomeCellModel.m */,
+				2D2AAA031D6C46EC00AE1A70 /* HomeDetailCellModel.h */,
+				2D2AAA041D6C46EC00AE1A70 /* HomeDetailCellModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2D2AAA051D6C46EC00AE1A70 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2D2AAA061D6C46EC00AE1A70 /* HeadView.h */,
+				2D2AAA071D6C46EC00AE1A70 /* HeadView.m */,
+				2D2AAA081D6C46EC00AE1A70 /* HeadView.xib */,
+				2D2AAA091D6C46EC00AE1A70 /* HomeCell.h */,
+				2D2AAA0A1D6C46EC00AE1A70 /* HomeCell.m */,
+				2D2AAA0B1D6C46EC00AE1A70 /* HomeCell.xib */,
+				2D2AAA0C1D6C46EC00AE1A70 /* HomeDetailCell.h */,
+				2D2AAA0D1D6C46EC00AE1A70 /* HomeDetailCell.m */,
+				2D2AAA0E1D6C46EC00AE1A70 /* HomeDetailCell.xib */,
+				2D2AAA0F1D6C46EC00AE1A70 /* HomeDetailCell1.h */,
+				2D2AAA101D6C46EC00AE1A70 /* HomeDetailCell1.m */,
+				2D2AAA111D6C46EC00AE1A70 /* HomeDetailCell1.xib */,
+				2D2AAA121D6C46EC00AE1A70 /* HomeDetailCell2.h */,
+				2D2AAA131D6C46EC00AE1A70 /* HomeDetailCell2.m */,
+				2D2AAA141D6C46EC00AE1A70 /* HomeDetailCell2.xib */,
+				2D2AAA151D6C46EC00AE1A70 /* HomeDetailCell3.h */,
+				2D2AAA161D6C46EC00AE1A70 /* HomeDetailCell3.m */,
+				2D2AAA171D6C46EC00AE1A70 /* HomeDetailCell3.xib */,
+				2D2AAA181D6C46EC00AE1A70 /* HomeDetailCell4.h */,
+				2D2AAA191D6C46EC00AE1A70 /* HomeDetailCell4.m */,
+				2D2AAA1A1D6C46EC00AE1A70 /* HomeDetailCell4.xib */,
+				2D2AAA1B1D6C46EC00AE1A70 /* HomeDetailCell5.h */,
+				2D2AAA1C1D6C46EC00AE1A70 /* HomeDetailCell5.m */,
+				2D2AAA1D1D6C46EC00AE1A70 /* HomeDetailCell5.xib */,
+				2D2AAA1E1D6C46EC00AE1A70 /* HomeDetailCell6.h */,
+				2D2AAA1F1D6C46EC00AE1A70 /* HomeDetailCell6.m */,
+				2D2AAA201D6C46EC00AE1A70 /* HomeDetailCell6.xib */,
+				2D2AAA211D6C46EC00AE1A70 /* VoteHomeCell.h */,
+				2D2AAA221D6C46EC00AE1A70 /* VoteHomeCell.m */,
+				2D2AAA231D6C46EC00AE1A70 /* VoteHomeCell.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2D79450A1D5C648E003B5A6E /* JJPhotoViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2993,76 +3063,6 @@
 				2D7945131D5C648E003B5A6E /* none.png */,
 			);
 			path = JJPhotoViewer;
-			sourceTree = "<group>";
-		};
-		2DE3A80B1D6AEE01001690C7 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				2DE3A8101D6AEE01001690C7 /* DataManager.h */,
-				2DE3A8111D6AEE01001690C7 /* DataManager.m */,
-				2DE3A80C1D6AEE01001690C7 /* Controllers */,
-				2DE3A8121D6AEE01001690C7 /* Models */,
-				2DE3A8171D6AEE01001690C7 /* Views */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		2DE3A80C1D6AEE01001690C7 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				2DE3A80D1D6AEE01001690C7 /* HomeViewController.h */,
-				2DE3A80E1D6AEE01001690C7 /* HomeViewController.m */,
-				2DE3A80F1D6AEE01001690C7 /* HomeViewController.xib */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		2DE3A8121D6AEE01001690C7 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				2DE3A8131D6AEE01001690C7 /* HomeCellModel.h */,
-				2DE3A8141D6AEE01001690C7 /* HomeCellModel.m */,
-				2DE3A8151D6AEE01001690C7 /* HomeDetailCellModel.h */,
-				2DE3A8161D6AEE01001690C7 /* HomeDetailCellModel.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		2DE3A8171D6AEE01001690C7 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				2DE3A8181D6AEE01001690C7 /* HeadView.h */,
-				2DE3A8191D6AEE01001690C7 /* HeadView.m */,
-				2DE3A81A1D6AEE01001690C7 /* HeadView.xib */,
-				2DE3A81B1D6AEE01001690C7 /* HomeCell.h */,
-				2DE3A81C1D6AEE01001690C7 /* HomeCell.m */,
-				2DE3A81D1D6AEE01001690C7 /* HomeCell.xib */,
-				2DE3A81E1D6AEE01001690C7 /* HomeDetailCell.h */,
-				2DE3A81F1D6AEE01001690C7 /* HomeDetailCell.m */,
-				2DE3A8201D6AEE01001690C7 /* HomeDetailCell.xib */,
-				2DE3A8211D6AEE01001690C7 /* HomeDetailCell1.h */,
-				2DE3A8221D6AEE01001690C7 /* HomeDetailCell1.m */,
-				2DE3A8231D6AEE01001690C7 /* HomeDetailCell1.xib */,
-				2DE3A8241D6AEE01001690C7 /* HomeDetailCell2.h */,
-				2DE3A8251D6AEE01001690C7 /* HomeDetailCell2.m */,
-				2DE3A8261D6AEE01001690C7 /* HomeDetailCell2.xib */,
-				2DE3A8271D6AEE01001690C7 /* HomeDetailCell3.h */,
-				2DE3A8281D6AEE01001690C7 /* HomeDetailCell3.m */,
-				2DE3A8291D6AEE01001690C7 /* HomeDetailCell3.xib */,
-				2DE3A82A1D6AEE01001690C7 /* HomeDetailCell4.h */,
-				2DE3A82B1D6AEE01001690C7 /* HomeDetailCell4.m */,
-				2DE3A82C1D6AEE01001690C7 /* HomeDetailCell4.xib */,
-				2DE3A82D1D6AEE01001690C7 /* HomeDetailCell5.h */,
-				2DE3A82E1D6AEE01001690C7 /* HomeDetailCell5.m */,
-				2DE3A82F1D6AEE01001690C7 /* HomeDetailCell5.xib */,
-				2DE3A8301D6AEE01001690C7 /* HomeDetailCell6.h */,
-				2DE3A8311D6AEE01001690C7 /* HomeDetailCell6.m */,
-				2DE3A8321D6AEE01001690C7 /* HomeDetailCell6.xib */,
-				2DE3A8331D6AEE01001690C7 /* VoteHomeCell.h */,
-				2DE3A8341D6AEE01001690C7 /* VoteHomeCell.m */,
-				2DE3A8351D6AEE01001690C7 /* VoteHomeCell.xib */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		2DFACA471D507B8B0099A2A3 /* Discuss */ = {
@@ -3172,8 +3172,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DF0A1AF1D4DB898002D91DB /* 12.png in Resources */,
+				2D2AAA3C1D6C46EC00AE1A70 /* VoteHomeCell.xib in Resources */,
 				1D115F941D4BA043003DFBB1 /* IQKeyboardManager.bundle in Resources */,
 				1DA0E1991D542FE4008CD6DF /* ProfileCell_Header.xib in Resources */,
+				2D2AAA381D6C46EC00AE1A70 /* HomeDetailCell5.xib in Resources */,
 				0604B4731D4C5A9B00EF1703 /* downshadow.png in Resources */,
 				1DF0A1AD1D4DB898002D91DB /* 10.png in Resources */,
 				1DDE9E701D533106005926FE /* TTMyProfileViewController.xib in Resources */,
@@ -3184,15 +3186,16 @@
 				1DB5A5881D4B3F36009E6170 /* switchRed@2x.png in Resources */,
 				1DF0A1B01D4DB898002D91DB /* 13.png in Resources */,
 				1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */,
+				2D2AAA3A1D6C46EC00AE1A70 /* HomeDetailCell6.xib in Resources */,
 				1DB5A5901D4B3F36009E6170 /* round-switch-track@2x.png in Resources */,
+				2D2AAA301D6C46EC00AE1A70 /* HomeDetailCell1.xib in Resources */,
 				1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */,
 				1D9580D11D3E225200FD0053 /* Info.plist in Resources */,
 				06008F161D58162300A5B3DB /* TTCommonCell.xib in Resources */,
-				2DE3A8421D6AEE01001690C7 /* HomeDetailCell1.xib in Resources */,
 				1DA0E1A31D546CC7008CD6DF /* ProjectCell_Member.xib in Resources */,
 				1DB5A58D1D4B3F36009E6170 /* round-switch-thumb-highlight@2x.png in Resources */,
 				1DDE9E6A1D531B66005926FE /* TTLoginViewController.xib in Resources */,
-				2DE3A84A1D6AEE01001690C7 /* HomeDetailCell5.xib in Resources */,
+				2D2AAA251D6C46EC00AE1A70 /* HomeViewController.xib in Resources */,
 				1DF0A1B81D4DB898002D91DB /* 4.png in Resources */,
 				1DA71B841D3DBA67007483D2 /* Assets.xcassets in Resources */,
 				1DD2E31F1D596EAA005D45A9 /* toggle_background_off@2x.png in Resources */,
@@ -3203,17 +3206,17 @@
 				1DF0A1B51D4DB898002D91DB /* 18.png in Resources */,
 				1DA71B821D3DBA67007483D2 /* LaunchScreen.storyboard in Resources */,
 				1DD2E3251D596EAA005D45A9 /* toggle_handle_on@2x.png in Resources */,
+				2D2AAA361D6C46EC00AE1A70 /* HomeDetailCell4.xib in Resources */,
 				0604B4781D4C5A9B00EF1703 /* image_5.jpg in Resources */,
 				1DB5A5871D4B3F36009E6170 /* switchMask@2x.png in Resources */,
 				1DBFD6F01D6463650039077D /* textfield_activated_holo_light@3x.png in Resources */,
 				1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */,
-				2DE3A84E1D6AEE01001690C7 /* VoteHomeCell.xib in Resources */,
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
 				06B464CD1D6300F000DBC806 /* CirclesItemCell.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
+				2D2AAA2C1D6C46EC00AE1A70 /* HomeCell.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
-				2DE3A8371D6AEE01001690C7 /* HomeViewController.xib in Resources */,
 				1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */,
 				1DA0E1951D54243F008CD6DF /* ProfileCell.xib in Resources */,
 				1DB5A5941D4B3F36009E6170 /* square-switch-thumb@2x.png in Resources */,
@@ -3222,11 +3225,10 @@
 				1DB5A58F1D4B3F36009E6170 /* round-switch-track-no-text@2x.png in Resources */,
 				1DB5A5911D4B3F36009E6170 /* square-switch-mask@2x.png in Resources */,
 				1DB5A5861D4B3F36009E6170 /* switchGreen@2x.png in Resources */,
+				2D2AAA341D6C46EC00AE1A70 /* HomeDetailCell3.xib in Resources */,
 				0604B47A1D4C5A9B00EF1703 /* image_7.jpg in Resources */,
 				1DBFD6EC1D6463650039077D /* irn.png in Resources */,
-				2DE3A83E1D6AEE01001690C7 /* HomeCell.xib in Resources */,
 				0604B4751D4C5A9B00EF1703 /* image_2.jpg in Resources */,
-				2DE3A84C1D6AEE01001690C7 /* HomeDetailCell6.xib in Resources */,
 				1DD2E3261D596EAA005D45A9 /* toggle_handle_on@3x.png in Resources */,
 				0604B4741D4C5A9B00EF1703 /* image_1.jpg in Resources */,
 				1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */,
@@ -3237,22 +3239,21 @@
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
 				1DD2E3481D59C589005D45A9 /* icon@2x.png in Resources */,
-				2DE3A8461D6AEE01001690C7 /* HomeDetailCell3.xib in Resources */,
 				1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */,
+				2D2AAA321D6C46EC00AE1A70 /* HomeDetailCell2.xib in Resources */,
+				2D2AAA2E1D6C46EC00AE1A70 /* HomeDetailCell.xib in Resources */,
 				1DF0A1B31D4DB898002D91DB /* 16.png in Resources */,
 				1DD2E32E1D59B30F005D45A9 /* README.txt in Resources */,
 				1DBFD6F11D6463650039077D /* textfield_default_holo_light@2x.png in Resources */,
 				1DBFD6ED1D6463650039077D /* irv.png in Resources */,
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
 				1DF0A1AE1D4DB898002D91DB /* 11.png in Resources */,
-				2DE3A8481D6AEE01001690C7 /* HomeDetailCell4.xib in Resources */,
 				1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */,
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
-				2DE3A83C1D6AEE01001690C7 /* HeadView.xib in Resources */,
+				2D2AAA2A1D6C46EC00AE1A70 /* HeadView.xib in Resources */,
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,
 				1DF0A1B91D4DB898002D91DB /* 5.png in Resources */,
 				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
-				2DE3A8441D6AEE01001690C7 /* HomeDetailCell2.xib in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
 				06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */,
@@ -3261,7 +3262,6 @@
 				1DF0A1B41D4DB898002D91DB /* 17.png in Resources */,
 				1DB5A58B1D4B3F36009E6170 /* round-switch-mask@2x.png in Resources */,
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
-				2DE3A8401D6AEE01001690C7 /* HomeDetailCell.xib in Resources */,
 				1DB5A5891D4B3F36009E6170 /* switchToggle@2x.png in Resources */,
 				0604B4791D4C5A9B00EF1703 /* image_6.jpg in Resources */,
 				1DBFD6EB1D6463650039077D /* dvq.png in Resources */,
@@ -3284,10 +3284,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DE3A8391D6AEE01001690C7 /* HomeCellModel.m in Sources */,
 				1D115F8C1D4BA043003DFBB1 /* IQKeyboardManager.m in Sources */,
 				1D09CC641D3F29C900F85E9A /* NSObject+YYAddForARC.m in Sources */,
-				2DE3A83A1D6AEE01001690C7 /* HomeDetailCellModel.m in Sources */,
 				1D09CC6D1D3F29C900F85E9A /* UIBezierPath+YYAdd.m in Sources */,
 				1D9580E61D3E23E100FD0053 /* APP_SETTINGS.m in Sources */,
 				06B464CC1D6300F000DBC806 /* CirclesItemCell.m in Sources */,
@@ -3314,6 +3312,7 @@
 				1D9580391D3E123800FD0053 /* AFURLRequestSerialization.m in Sources */,
 				1DA0E1941D54243F008CD6DF /* ProfileCell.m in Sources */,
 				1D09CC801D3F29C900F85E9A /* UIButton+YYWebImage.m in Sources */,
+				2D2AAA2F1D6C46EC00AE1A70 /* HomeDetailCell1.m in Sources */,
 				1D09CC741D3F29C900F85E9A /* UIScreen+YYAdd.m in Sources */,
 				1D09CCA21D3F29C900F85E9A /* YYFileHash.m in Sources */,
 				1DD2E3461D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m in Sources */,
@@ -3321,8 +3320,10 @@
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
 				1D09CC951D3F29C900F85E9A /* NSAttributedString+YYText.m in Sources */,
 				06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */,
+				2D2AAA2D1D6C46EC00AE1A70 /* HomeDetailCell.m in Sources */,
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
 				2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */,
+				2D2AAA331D6C46EC00AE1A70 /* HomeDetailCell3.m in Sources */,
 				1D115F8F1D4BA043003DFBB1 /* IQBarButtonItem.m in Sources */,
 				1D09CC771D3F29C900F85E9A /* UITextField+YYAdd.m in Sources */,
 				1D0EA2C61D45A82C00B47108 /* LCChainRequestAgent.m in Sources */,
@@ -3330,10 +3331,10 @@
 				1DA71B621D3DB5A1007483D2 /* AppDelegate.m in Sources */,
 				1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */,
 				1D9580B31D3E207200FD0053 /* UIScrollView+MJExtension.m in Sources */,
-				2DE3A84B1D6AEE01001690C7 /* HomeDetailCell6.m in Sources */,
 				2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */,
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
+				2D2AAA391D6C46EC00AE1A70 /* HomeDetailCell6.m in Sources */,
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,
@@ -3349,7 +3350,6 @@
 				2D7945161D5C648E003B5A6E /* JJPhoto.m in Sources */,
 				1D115F8A1D4BA043003DFBB1 /* IQUIViewController+Additions.m in Sources */,
 				1D09CCA51D3F29C900F85E9A /* YYReachability.m in Sources */,
-				2DE3A83F1D6AEE01001690C7 /* HomeDetailCell.m in Sources */,
 				1D09CC8E1D3F29C900F85E9A /* YYTextEffectWindow.m in Sources */,
 				2DE3A8511D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m in Sources */,
 				1D0EA2D31D45A8AE00B47108 /* TMMemoryCache.m in Sources */,
@@ -3361,6 +3361,7 @@
 				1D09CC6A1D3F29C900F85E9A /* YYCGUtilities.m in Sources */,
 				2DFACA581D507B8B0099A2A3 /* DiscussListCell1.m in Sources */,
 				1D9580E91D3E23E100FD0053 /* SqliteManager.m in Sources */,
+				2D2AAA351D6C46EC00AE1A70 /* HomeDetailCell4.m in Sources */,
 				1D9580D71D3E225200FD0053 /* MASViewConstraint.m in Sources */,
 				1D09CD251D3F550300F85E9A /* UIControl+HYBHelperBlockKit.m in Sources */,
 				1D09CC7C1D3F29C900F85E9A /* YYMemoryCache.m in Sources */,
@@ -3372,6 +3373,7 @@
 				1D95803B1D3E123800FD0053 /* AFURLSessionManager.m in Sources */,
 				1D09CD5D1D3F59D500F85E9A /* UIView+WebCacheOperation.m in Sources */,
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
+				2D2AAA3B1D6C46EC00AE1A70 /* VoteHomeCell.m in Sources */,
 				06008F461D58249300A5B3DB /* TZVideoPlayerController.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */,
@@ -3412,10 +3414,8 @@
 				06DFEBAA1D658CA900DB49E1 /* AddImageView.m in Sources */,
 				1D09CD0F1D3F550300F85E9A /* HYBHelperKitBaseURLController.m in Sources */,
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
-				2DE3A8431D6AEE01001690C7 /* HomeDetailCell2.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
 				06B464C01D62FB6E00DBC806 /* ChooseTagCell.m in Sources */,
-				2DE3A8411D6AEE01001690C7 /* HomeDetailCell1.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
 				1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
@@ -3423,6 +3423,7 @@
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
 				1D09CC891D3F29C900F85E9A /* YYWebImageOperation.m in Sources */,
 				1D09CC9D1D3F29C900F85E9A /* YYTextUtilities.m in Sources */,
+				2D2AAA261D6C46EC00AE1A70 /* DataManager.m in Sources */,
 				1D09CC751D3F29C900F85E9A /* UIScrollView+YYAdd.m in Sources */,
 				1D115F911D4BA043003DFBB1 /* IQTitleBarButtonItem.m in Sources */,
 				1D09CC861D3F29C900F85E9A /* YYImageCoder.m in Sources */,
@@ -3441,6 +3442,7 @@
 				1D09CC5F1D3F29C900F85E9A /* NSDictionary+YYAdd.m in Sources */,
 				2D7945141D5C648E003B5A6E /* JJMainScrollView.m in Sources */,
 				068E96531D4F488C0074229C /* MMDrawerController.m in Sources */,
+				2D2AAA241D6C46EC00AE1A70 /* HomeViewController.m in Sources */,
 				1D9580DB1D3E225200FD0053 /* ViewController+MASAdditions.m in Sources */,
 				1D9580371D3E123800FD0053 /* AFNetworkReachabilityManager.m in Sources */,
 				2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */,
@@ -3476,7 +3478,6 @@
 				1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */,
 				1D09CC7E1D3F29C900F85E9A /* CALayer+YYWebImage.m in Sources */,
 				1D09CD111D3F550300F85E9A /* NSArray+HYBHelperKit.m in Sources */,
-				2DE3A8381D6AEE01001690C7 /* DataManager.m in Sources */,
 				1D115F8D1D4BA043003DFBB1 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				1D09CC6F1D3F29C900F85E9A /* UIControl+YYAdd.m in Sources */,
 				1D09CCA11D3F29C900F85E9A /* YYDispatchQueuePool.m in Sources */,
@@ -3496,13 +3497,12 @@
 				06008F151D58162300A5B3DB /* TTCommonCell.m in Sources */,
 				1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */,
 				1D09CC8B1D3F29C900F85E9A /* YYClassInfo.m in Sources */,
-				2DE3A8361D6AEE01001690C7 /* HomeViewController.m in Sources */,
 				06893D011D59F16A00921900 /* SelectCircleViewController.m in Sources */,
-				2DE3A8451D6AEE01001690C7 /* HomeDetailCell3.m in Sources */,
 				1D9580AD1D3E207200FD0053 /* MJRefreshGifHeader.m in Sources */,
 				1D09CC881D3F29C900F85E9A /* YYWebImageManager.m in Sources */,
 				1D09CC991D3F29C900F85E9A /* YYTextAttribute.m in Sources */,
 				1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */,
+				2D2AAA291D6C46EC00AE1A70 /* HeadView.m in Sources */,
 				1D09CC9E1D3F29C900F85E9A /* YYLabel.m in Sources */,
 				1D3E23691D61635C0024A5CA /* ModelsManager.m in Sources */,
 				1D09CC5E1D3F29C900F85E9A /* NSDate+YYAdd.m in Sources */,
@@ -3518,16 +3518,16 @@
 				1DA0E1A81D54779C008CD6DF /* ItemView.m in Sources */,
 				1D09CD2C1D3F550300F85E9A /* UIView+HYBHelperKitUIKit.m in Sources */,
 				1D3E23681D61635C0024A5CA /* Models.m in Sources */,
-				2DE3A83D1D6AEE01001690C7 /* HomeCell.m in Sources */,
 				1D09CC6C1D3F29C900F85E9A /* UIBarButtonItem+YYAdd.m in Sources */,
+				2D2AAA271D6C46EC00AE1A70 /* HomeCellModel.m in Sources */,
 				1D09CD1D1D3F550300F85E9A /* UIImageView+HYBMasonryKit.m in Sources */,
 				1D09CD5C1D3F59D500F85E9A /* UIImageView+WebCache.m in Sources */,
 				1D09CC761D3F29C900F85E9A /* UITableView+YYAdd.m in Sources */,
 				06008F4D1D582FA500A5B3DB /* LxGridViewFlowLayout.m in Sources */,
+				2D2AAA311D6C46EC00AE1A70 /* HomeDetailCell2.m in Sources */,
 				1D09CC961D3F29C900F85E9A /* NSParagraphStyle+YYText.m in Sources */,
 				1D09CCA31D3F29C900F85E9A /* YYGestureRecognizer.m in Sources */,
 				1D9580AA1D3E207200FD0053 /* MJRefreshBackGifFooter.m in Sources */,
-				2DE3A8471D6AEE01001690C7 /* HomeDetailCell4.m in Sources */,
 				06B464A41D62A48B00DBC806 /* UIToolbar+JZExtension.m in Sources */,
 				1D55FD981D49ABAC00094112 /* Common.m in Sources */,
 				1D09CC6E1D3F29C900F85E9A /* UIColor+YYAdd.m in Sources */,
@@ -3544,15 +3544,15 @@
 				1DA71B8F1D3DCC3D007483D2 /* TTBaseViewController.m in Sources */,
 				1DBC49CF1D6588E000DB0CD2 /* TTAddContactorViewController+AddressBook.m in Sources */,
 				06B464A31D62A48B00DBC806 /* UINavigationBar+JZExtension.m in Sources */,
+				2D2AAA371D6C46EC00AE1A70 /* HomeDetailCell5.m in Sources */,
 				1D9580AF1D3E207200FD0053 /* MJRefreshStateHeader.m in Sources */,
 				1D9408651D41BA47009E2E11 /* NetworkManager.m in Sources */,
 				1D09CC811D3F29C900F85E9A /* UIImageView+YYWebImage.m in Sources */,
 				2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */,
-				2DE3A84D1D6AEE01001690C7 /* VoteHomeCell.m in Sources */,
 				1D09CCA91D3F29C900F85E9A /* YYTimer.m in Sources */,
 				06008F431D58249300A5B3DB /* TZPhotoPickerController.m in Sources */,
+				2D2AAA2B1D6C46EC00AE1A70 /* HomeCell.m in Sources */,
 				1D09CD5A1D3F59D500F85E9A /* UIImage+WebP.m in Sources */,
-				2DE3A83B1D6AEE01001690C7 /* HeadView.m in Sources */,
 				1D09CD1A1D3F550300F85E9A /* NSTimer+HYBHelperKit.m in Sources */,
 				1D09CD231D3F550300F85E9A /* UIWebView+HYBMasonryKit.m in Sources */,
 				1D09CCA41D3F29C900F85E9A /* YYKeychain.m in Sources */,
@@ -3587,9 +3587,9 @@
 				1D115F861D4BA043003DFBB1 /* IQNSArray+Sort.m in Sources */,
 				1D9580AE1D3E207200FD0053 /* MJRefreshNormalHeader.m in Sources */,
 				06E026621D50439D00B9743B /* UserInfoView.m in Sources */,
+				2D2AAA281D6C46EC00AE1A70 /* HomeDetailCellModel.m in Sources */,
 				1D09CD1B1D3F550300F85E9A /* NSUserDefaults+HYBHelperKit.m in Sources */,
 				06008F251D58163100A5B3DB /* TTCommonGroup.m in Sources */,
-				2DE3A8491D6AEE01001690C7 /* HomeDetailCell5.m in Sources */,
 				1D09CC621D3F29C900F85E9A /* NSNumber+YYAdd.m in Sources */,
 				1D09CC6B1D3F29C900F85E9A /* UIApplication+YYAdd.m in Sources */,
 				1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */,
