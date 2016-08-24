@@ -15,12 +15,33 @@
 #import "ButtonIndexPath.h"
 #import "JJPhotoManeger.h"
 
-
 static CGFloat tableViewHeight = 0.0;
 
 @interface VoteHomeCell ()
 
 @property (strong, nonatomic) HomeDetailCellModel *detailModel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLB;
+@property (weak, nonatomic) IBOutlet UIImageView *headImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLB;
+@property (weak, nonatomic) IBOutlet UILabel *typeLB;
+@property (weak, nonatomic) IBOutlet UIImageView *image1;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UILabel *aDesLB;
+@property (weak, nonatomic) IBOutlet UILabel *bDesLB;
+@property (weak, nonatomic) IBOutlet UILabel *cDesLB;
+@property (weak, nonatomic) IBOutlet UIButton *aBtn;
+@property (weak, nonatomic) IBOutlet UIButton *bBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cBtn;
+@property (weak, nonatomic) IBOutlet UIProgressView *aProgress;
+@property (weak, nonatomic) IBOutlet UILabel *aTicketLB;
+@property (weak, nonatomic) IBOutlet UILabel *aPerLB;
+@property (weak, nonatomic) IBOutlet UIProgressView *bProgress;
+@property (weak, nonatomic) IBOutlet UILabel *bTicketLB;
+@property (weak, nonatomic) IBOutlet UILabel *bPerLB;
+@property (weak, nonatomic) IBOutlet UIProgressView *cProgress;
+@property (weak, nonatomic) IBOutlet UILabel *cTicketLB;
+@property (weak, nonatomic) IBOutlet UILabel *cPerLB;
 
 @end
 
@@ -163,6 +184,7 @@ static CGFloat tableViewHeight = 0.0;
         [self.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
     }
     _model = model;
+    self.timeLB.text = model.time;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;

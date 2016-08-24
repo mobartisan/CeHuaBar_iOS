@@ -11,12 +11,6 @@
 @class HomeDetailCellModel;
 
 @interface HomeDetailCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *timeLB;
-@property (weak, nonatomic) IBOutlet UILabel *firstNameLB;
-@property (weak, nonatomic) IBOutlet UILabel *secondeNameLB;
-@property (weak, nonatomic) IBOutlet UILabel *desLB;
-@property (weak, nonatomic) IBOutlet UIImageView *image1;
-@property (weak, nonatomic) IBOutlet UIImageView *image2;
 
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;

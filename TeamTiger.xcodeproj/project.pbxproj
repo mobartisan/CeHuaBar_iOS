@@ -441,9 +441,9 @@
 		2D7945161D5C648E003B5A6E /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7945101D5C648E003B5A6E /* JJPhoto.m */; };
 		2D7945171D5C648E003B5A6E /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7945121D5C648E003B5A6E /* JJPhotoManeger.m */; };
 		2D7945181D5C648E003B5A6E /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D7945131D5C648E003B5A6E /* none.png */; };
+		2D79B67F1D6D775000C51919 /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79B67E1D6D775000C51919 /* YZInputView.m */; };
 		2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB1710D1D65ABD500EB222F /* ButtonIndexPath.m */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
-		2DE3A8511D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE3A8501D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m */; };
 		2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */; };
 		2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */; };
 		2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */; };
@@ -1232,12 +1232,12 @@
 		2D7945111D5C648E003B5A6E /* JJPhotoManeger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPhotoManeger.h; sourceTree = "<group>"; };
 		2D7945121D5C648E003B5A6E /* JJPhotoManeger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPhotoManeger.m; sourceTree = "<group>"; };
 		2D7945131D5C648E003B5A6E /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
+		2D79B67D1D6D775000C51919 /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
+		2D79B67E1D6D775000C51919 /* YZInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZInputView.m; sourceTree = "<group>"; };
 		2DB1710C1D65ABD500EB222F /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
 		2DB1710D1D65ABD500EB222F /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
-		2DE3A84F1D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+KeyBoardShowAndHidden.h"; sourceTree = "<group>"; };
-		2DE3A8501D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+KeyBoardShowAndHidden.m"; sourceTree = "<group>"; };
 		2DFACA491D507B8B0099A2A3 /* DiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussViewController.h; sourceTree = "<group>"; };
 		2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussViewController.m; sourceTree = "<group>"; };
 		2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussViewController.xib; sourceTree = "<group>"; };
@@ -2614,8 +2614,6 @@
 		1DA71B8B1D3DCB3A007483D2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				2DE3A84F1D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.h */,
-				2DE3A8501D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m */,
 				2DB1710C1D65ABD500EB222F /* ButtonIndexPath.h */,
 				2DB1710D1D65ABD500EB222F /* ButtonIndexPath.m */,
 				2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */,
@@ -3015,6 +3013,7 @@
 		2D2AAA051D6C46EC00AE1A70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2D79B67C1D6D775000C51919 /* InputView */,
 				2D2AAA061D6C46EC00AE1A70 /* HeadView.h */,
 				2D2AAA071D6C46EC00AE1A70 /* HeadView.m */,
 				2D2AAA081D6C46EC00AE1A70 /* HeadView.xib */,
@@ -3063,6 +3062,15 @@
 				2D7945131D5C648E003B5A6E /* none.png */,
 			);
 			path = JJPhotoViewer;
+			sourceTree = "<group>";
+		};
+		2D79B67C1D6D775000C51919 /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				2D79B67D1D6D775000C51919 /* YZInputView.h */,
+				2D79B67E1D6D775000C51919 /* YZInputView.m */,
+			);
+			path = InputView;
 			sourceTree = "<group>";
 		};
 		2DFACA471D507B8B0099A2A3 /* Discuss */ = {
@@ -3320,6 +3328,7 @@
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
 				1D09CC951D3F29C900F85E9A /* NSAttributedString+YYText.m in Sources */,
 				06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */,
+				2D79B67F1D6D775000C51919 /* YZInputView.m in Sources */,
 				2D2AAA2D1D6C46EC00AE1A70 /* HomeDetailCell.m in Sources */,
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
 				2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */,
@@ -3351,7 +3360,6 @@
 				1D115F8A1D4BA043003DFBB1 /* IQUIViewController+Additions.m in Sources */,
 				1D09CCA51D3F29C900F85E9A /* YYReachability.m in Sources */,
 				1D09CC8E1D3F29C900F85E9A /* YYTextEffectWindow.m in Sources */,
-				2DE3A8511D6AEE23001690C7 /* UIView+KeyBoardShowAndHidden.m in Sources */,
 				1D0EA2D31D45A8AE00B47108 /* TMMemoryCache.m in Sources */,
 				1D09CCA71D3F29C900F85E9A /* YYThreadSafeArray.m in Sources */,
 				1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */,

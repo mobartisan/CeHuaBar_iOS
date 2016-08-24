@@ -12,16 +12,11 @@
 
 @interface HomeDetailCell1 : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *timeLB;
-@property (weak, nonatomic) IBOutlet UILabel *firstNameLB;
-@property (weak, nonatomic) IBOutlet UILabel *secondNameLB;
-@property (weak, nonatomic) IBOutlet UILabel *descipitionLB;
+
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 
 @property (weak, nonatomic) IBOutlet UIView *lineView2;
 @property (copy, nonatomic) ClickBlock clickMoreBtn;
-
-
 
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;

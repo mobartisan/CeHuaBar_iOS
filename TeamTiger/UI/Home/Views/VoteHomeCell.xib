@@ -595,6 +595,7 @@
                 <outlet property="moreBtn" destination="8Rf-9O-yrt" id="bY2-8d-d6g"/>
                 <outlet property="nameLB" destination="lBM-Ig-7TV" id="Fvt-oI-11I"/>
                 <outlet property="tableView" destination="UIg-X5-02q" id="GSF-ol-rkU"/>
+                <outlet property="timeLB" destination="XYp-Xr-gaa" id="TD7-3I-Sm0"/>
                 <outlet property="typeLB" destination="X8m-2n-kpP" id="y83-bu-NwZ"/>
             </connections>
             <point key="canvasLocation" x="293.5" y="24.5"/>

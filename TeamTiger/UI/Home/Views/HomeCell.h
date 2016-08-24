@@ -20,13 +20,6 @@ typedef void(^ClickCommentBtn)(UIButton *button);
 
 @interface HomeCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UIImageView *headImage;
-@property (weak, nonatomic) IBOutlet UILabel *nameLB;
-@property (weak, nonatomic) IBOutlet UILabel *typeLB;
-@property (weak, nonatomic) IBOutlet UIImageView *image1;
-@property (weak, nonatomic) IBOutlet UIImageView *image2;
-@property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;

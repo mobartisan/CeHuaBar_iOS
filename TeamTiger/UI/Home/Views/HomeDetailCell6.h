@@ -13,9 +13,7 @@
 @interface HomeDetailCell6 : UITableViewCell
 
 
-@property (weak, nonatomic) IBOutlet UILabel *timeLB;
-@property (weak, nonatomic) IBOutlet UILabel *nameLB;
-@property (weak, nonatomic) IBOutlet UILabel *typeLB;
+
 @property (weak, nonatomic) IBOutlet UIView  *lineView2;
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
 

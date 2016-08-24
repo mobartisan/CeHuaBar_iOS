@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeDetailCellModel.h"
+
+@class HomeDetailCellModel;
 
 @interface HomeDetailCell2 : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *timeLB;
-@property (weak, nonatomic) IBOutlet UILabel *nameLB;
-
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
 

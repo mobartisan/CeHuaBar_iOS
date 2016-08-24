@@ -7,6 +7,14 @@
 //
 
 #import "HomeDetailCell2.h"
+#import "HomeDetailCellModel.h"
+
+@interface HomeDetailCell2 ()
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLB;
+@property (weak, nonatomic) IBOutlet UILabel *nameLB;
+
+@end
 
 @implementation HomeDetailCell2
 

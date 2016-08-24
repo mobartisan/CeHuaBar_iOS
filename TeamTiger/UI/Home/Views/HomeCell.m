@@ -21,6 +21,14 @@ static CGFloat tableViewHeight = 0.0;
 @interface HomeCell ()
 
 @property (strong, nonatomic) HomeDetailCellModel *detailModel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLB;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
+@property (weak, nonatomic) IBOutlet UIImageView *headImage;
+@property (weak, nonatomic) IBOutlet UILabel *nameLB;
+@property (weak, nonatomic) IBOutlet UILabel *typeLB;
+@property (weak, nonatomic) IBOutlet UIImageView *image1;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UIImageView *image3;
 
 @end
 
@@ -54,6 +62,7 @@ static CGFloat tableViewHeight = 0.0;
         [self.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
     }
     _model = model;
+    self.timeLB.text = model.time;
     self.headImage.image = kImage(model.headImage);
     self.nameLB.text = model.name;
     self.typeLB.text = model.type;

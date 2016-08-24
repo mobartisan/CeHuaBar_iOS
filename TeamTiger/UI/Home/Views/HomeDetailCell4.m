@@ -9,6 +9,14 @@
 #import "HomeDetailCell4.h"
 #import "HomeDetailCellModel.h"
 
+@interface HomeDetailCell4 ()
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLB;
+@property (weak, nonatomic) IBOutlet UILabel *nameLB;
+@property (weak, nonatomic) IBOutlet UILabel *typeLB;
+
+@end
+
 @implementation HomeDetailCell4
 
 - (void)awakeFromNib {
