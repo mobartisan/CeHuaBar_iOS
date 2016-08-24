@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="bgView" destination="ZEy-SD-ud2" id="Io6-rB-RKv"/>
                 <outlet property="bgViewBottomConstraint" destination="ScW-or-7JG" id="B24-Tv-cJM"/>
+                <outlet property="bgViewHeightConstraint" destination="O9e-xO-Tdy" id="fMD-GG-bs2"/>
                 <outlet property="tableView" destination="RAl-1T-Dx6" id="T5n-8r-R84"/>
                 <outlet property="textView" destination="g2d-2A-hFC" id="EPm-Ay-IUK"/>
                 <outlet property="view" destination="iN0-l3-epB" id="Csg-Wd-Yn7"/>
@@ -30,14 +31,11 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEy-SD-ud2" userLabel="bgView">
                     <rect key="frame" x="0.0" y="568" width="320" height="40"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-2A-hFC">
-                            <rect key="frame" x="50" y="5" width="220" height="30"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-2A-hFC" customClass="YZInputView">
+                            <rect key="frame" x="20" y="5" width="250" height="30"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="send"/>
-                            <connections>
-                                <outlet property="delegate" destination="-1" id="xYi-7T-cLf"/>
-                            </connections>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sPs-za-PUr">
                             <rect key="frame" x="278" y="5" width="34" height="30"/>
@@ -47,14 +45,14 @@
                             <state key="normal" title="发送"/>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.4823529412" green="0.49803921569999998" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="g2d-2A-hFC" secondAttribute="bottom" constant="5" id="6ch-g1-zub"/>
                         <constraint firstAttribute="height" constant="40" id="O9e-xO-Tdy"/>
                         <constraint firstItem="sPs-za-PUr" firstAttribute="leading" secondItem="g2d-2A-hFC" secondAttribute="trailing" constant="8" id="QkB-ev-Qmv"/>
                         <constraint firstItem="g2d-2A-hFC" firstAttribute="top" secondItem="ZEy-SD-ud2" secondAttribute="top" constant="5" id="S3A-2E-Cab"/>
                         <constraint firstAttribute="trailing" secondItem="g2d-2A-hFC" secondAttribute="trailing" constant="50" id="Zgp-PZ-9fK"/>
-                        <constraint firstItem="g2d-2A-hFC" firstAttribute="leading" secondItem="ZEy-SD-ud2" secondAttribute="leading" constant="50" id="atc-yY-FSG"/>
+                        <constraint firstItem="g2d-2A-hFC" firstAttribute="leading" secondItem="ZEy-SD-ud2" secondAttribute="leading" constant="20" id="atc-yY-FSG"/>
                         <constraint firstAttribute="trailing" secondItem="sPs-za-PUr" secondAttribute="trailing" constant="8" id="g6Y-Bf-LaY"/>
                         <constraint firstAttribute="bottom" secondItem="sPs-za-PUr" secondAttribute="bottom" constant="5" id="onq-Zv-sor"/>
                     </constraints>

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 
 @interface HomeCellModel : NSObject
 
+@property (copy, nonatomic) NSString *time;
 @property (copy, nonatomic) NSString *headImage;
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *type;

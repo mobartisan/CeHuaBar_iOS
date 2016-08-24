@@ -8,7 +8,7 @@
 
 #import "HomeViewController.h"
 #import "DataManager.h"
-#import "UIView+KeyBoardShowAndHidden.h"
+#import "YZInputView.h"
 #import "IQKeyboardManager.h"
 #import "ButtonIndexPath.h"
 #import "HeadView.h"
@@ -21,15 +21,16 @@
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) DataManager *manager;
 @property (assign, nonatomic) BOOL isShowHeaderView;
 
 @property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet YZInputView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeightConstraint;
 
 @end
 
@@ -48,14 +49,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 监听文本框文字高度改变
+    _textView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
+        _bgViewHeightConstraint.constant = textHeight + 10;
+    };
+    // 设置文本框最大行数
+    _textView.maxNumberOfLines = 4;
+    _textView.placeholder = @"评论";
+    
     [self configureNavigationItem];
     [self handleRefreshAction];
     [Common removeExtraCellLines:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"HomeCell" bundle:nil] forCellReuseIdentifier:@"HomeCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
-    
-    [_bgView showAccessoryViewAnimation];
-    [_bgView hiddenAccessoryViewAnimation];
+}
+
+
+#pragma mark -- 键盘上的视图显示和隐藏
+- (void)keyBoardWillChangeFrameNotification:(NSNotification *)notification {
+    CGRect keyBoardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    _bgViewBottomConstraint.constant = keyBoardFrame.origin.y != kScreenHeight ? keyBoardFrame.size.height : -100;
+    [UIView animateWithDuration:duration animations:^{
+        [self.view layoutIfNeeded];
+    }];
 }
 
 - (void)handleRefreshAction {
@@ -79,10 +96,11 @@
         return;
     }
     NSDictionary *dic = @{@"projectType":@(ProjectTypeAll),
+                          @"time":@"2016年8月10日 14:25",
                           @"headImage":@"touxiang",
-                          @"name":@"唐小旭",
-                          @"type":@"工作牛",
-                          @"image1":@"placeImage",
+                          @"name":@"齐云猛",
+                          @"type":@"易会",
+                          @"image1":@"image",
                           @"image2":@"image",
                           @"image3":@"image",
                           @"comment":@[
@@ -163,12 +181,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification  object:nil];
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 }
 
@@ -187,8 +206,6 @@
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickCommentBtn = ^(UIButton *btn) {
-            self.bgViewBottomConstraint.constant = 0;
-            [self.view setNeedsLayout];
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
@@ -199,8 +216,6 @@
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickBtn = ^(UIButton *btn) {
-            self.bgViewBottomConstraint.constant = 0;
-            [self.view setNeedsLayout];
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
@@ -278,11 +293,6 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.bgView endEditing:YES];
-}
-
 #pragma mark HomeCellDelegate
 - (void)reloadHomeTableView:(NSIndexPath *)indexPath {
     [self.tableView reloadData];
@@ -300,18 +310,11 @@
     [self.navigationController pushViewController:discussVC animated:YES];
 }
 
-
-#pragma mark UITextViewDelegate
-- (BOOL)textView:(UITextView *)textView  shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if([@"\n" isEqualToString: text]){
-        [self.bgView endEditing:YES];
-        self.bgViewBottomConstraint.constant = -40;
-        [self.view setNeedsLayout];
-        return NO;
-    }
-    return YES;
-    
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:YES];
 }
+
+
 
 
 
