@@ -44,7 +44,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -53,11 +53,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"CellIdentify";
+    NSDictionary *dic = self.datas[indexPath.section];
     SettingCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (!cell) {
-        cell = LoadFromNib(@"SettingCell");
+        cell = [SettingCell loadCellWithData:dic];
     }
-    [cell reloadCell:self.datas[indexPath.section]];
+    [cell reloadCell:dic];
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeTextField:{
@@ -86,6 +87,9 @@
                 [self.navigationController pushViewController:addContactorVC animated:YES];
                 break;
             }
+            case ECellTypeBottom:{
+                break;
+            }
             default:
                 break;
         }
@@ -110,7 +114,8 @@
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"名称",@"TYPE":@"0"},
                   @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
                   @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
-                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},nil];
+                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
+                  @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"4"},nil];
     }
     return _datas;
 }

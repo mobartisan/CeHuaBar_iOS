@@ -239,6 +239,7 @@
 		1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F811D4BA043003DFBB1 /* IQToolbar.m */; };
 		1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */; };
 		1D115F941D4BA043003DFBB1 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */; };
+		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
@@ -904,6 +905,7 @@
 		1D115F821D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
 		1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		1D3E235F1D61635C0024A5CA /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
@@ -2171,6 +2173,7 @@
 				1D55FD911D49AAA400094112 /* SettingCell.h */,
 				1D55FD921D49AAA400094112 /* SettingCell.m */,
 				1D55FD931D49AAA400094112 /* SettingCell.xib */,
+				1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3268,6 +3271,7 @@
 				1DB5A5921D4B3F36009E6170 /* square-switch-overlay@2x.png in Resources */,
 				2D7945181D5C648E003B5A6E /* none.png in Resources */,
 				1DF0A1B41D4DB898002D91DB /* 17.png in Resources */,
+				1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */,
 				1DB5A58B1D4B3F36009E6170 /* round-switch-mask@2x.png in Resources */,
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
 				1DB5A5891D4B3F36009E6170 /* switchToggle@2x.png in Resources */,
