@@ -239,6 +239,7 @@
 		1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F811D4BA043003DFBB1 /* IQToolbar.m */; };
 		1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */; };
 		1D115F941D4BA043003DFBB1 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */; };
+		1D29415D1D6E7F45003B9066 /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D29415C1D6E7F45003B9066 /* UploadManager.m */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
@@ -905,6 +906,8 @@
 		1D115F821D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
 		1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		1D29415B1D6E7F45003B9066 /* UploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadManager.h; sourceTree = "<group>"; };
+		1D29415C1D6E7F45003B9066 /* UploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadManager.m; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
@@ -2138,6 +2141,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		1D29415A1D6E7F1E003B9066 /* UploadManager */ = {
+			isa = PBXGroup;
+			children = (
+				1D29415B1D6E7F45003B9066 /* UploadManager.h */,
+				1D29415C1D6E7F45003B9066 /* UploadManager.m */,
+			);
+			path = UploadManager;
+			sourceTree = "<group>";
+		};
 		1D3E235B1D61635C0024A5CA /* ModelsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2514,6 +2526,7 @@
 		1DA71B741D3DB618007483D2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				1D29415A1D6E7F1E003B9066 /* UploadManager */,
 				1D3E235B1D61635C0024A5CA /* ModelsManager */,
 				1D8C334B1D5AC34C00AA4E1A /* MockDatas */,
 				06893CFA1D59F0FE00921900 /* CirclesManager */,
@@ -3522,6 +3535,7 @@
 				1D115F2E1D4B9560003DFBB1 /* UITextView+PlaceHolder.m in Sources */,
 				1D09CC8F1D3F29C900F85E9A /* YYTextInput.m in Sources */,
 				1DF991CC1D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m in Sources */,
+				1D29415D1D6E7F45003B9066 /* UploadManager.m in Sources */,
 				06008F4E1D582FA500A5B3DB /* TZTestCell.m in Sources */,
 				1D09CC8D1D3F29C900F85E9A /* YYTextDebugOption.m in Sources */,
 				1D9580A81D3E207200FD0053 /* MJRefreshAutoNormalFooter.m in Sources */,
