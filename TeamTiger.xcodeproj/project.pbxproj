@@ -43,6 +43,12 @@
 		0604B47B1D4C5A9B00EF1703 /* image_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4701D4C5A9B00EF1703 /* image_8.jpg */; };
 		0604B47C1D4C5A9B00EF1703 /* image_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4711D4C5A9B00EF1703 /* image_9.jpg */; };
 		0604B47D1D4C5A9B00EF1703 /* upshadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4721D4C5A9B00EF1703 /* upshadow.png */; };
+		063B08881D6F144F008AB592 /* MMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B087C1D6F144F008AB592 /* MMAlertView.m */; };
+		063B08891D6F144F008AB592 /* MMPopupCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B087E1D6F144F008AB592 /* MMPopupCategory.m */; };
+		063B088A1D6F144F008AB592 /* MMPopupItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B08811D6F144F008AB592 /* MMPopupItem.m */; };
+		063B088B1D6F144F008AB592 /* MMPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B08831D6F144F008AB592 /* MMPopupView.m */; };
+		063B088C1D6F144F008AB592 /* MMPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B08851D6F144F008AB592 /* MMPopupWindow.m */; };
+		063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B08871D6F144F008AB592 /* MMSheetView.m */; };
 		064C0C181D51E0F400D8E639 /* TTTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064C0C151D51E0F400D8E639 /* TTTabBarViewController.m */; };
 		06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 06893CFC1D59F0FE00921900 /* CirclesManager.m */; };
 		06893D011D59F16A00921900 /* SelectCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06893D001D59F16A00921900 /* SelectCircleViewController.m */; };
@@ -516,6 +522,19 @@
 		0604B4701D4C5A9B00EF1703 /* image_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_8.jpg; sourceTree = "<group>"; };
 		0604B4711D4C5A9B00EF1703 /* image_9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_9.jpg; sourceTree = "<group>"; };
 		0604B4721D4C5A9B00EF1703 /* upshadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upshadow.png; sourceTree = "<group>"; };
+		063B087B1D6F144F008AB592 /* MMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlertView.h; sourceTree = "<group>"; };
+		063B087C1D6F144F008AB592 /* MMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlertView.m; sourceTree = "<group>"; };
+		063B087D1D6F144F008AB592 /* MMPopupCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupCategory.h; sourceTree = "<group>"; };
+		063B087E1D6F144F008AB592 /* MMPopupCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupCategory.m; sourceTree = "<group>"; };
+		063B087F1D6F144F008AB592 /* MMPopupDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupDefine.h; sourceTree = "<group>"; };
+		063B08801D6F144F008AB592 /* MMPopupItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupItem.h; sourceTree = "<group>"; };
+		063B08811D6F144F008AB592 /* MMPopupItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupItem.m; sourceTree = "<group>"; };
+		063B08821D6F144F008AB592 /* MMPopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupView.h; sourceTree = "<group>"; };
+		063B08831D6F144F008AB592 /* MMPopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupView.m; sourceTree = "<group>"; };
+		063B08841D6F144F008AB592 /* MMPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupWindow.h; sourceTree = "<group>"; };
+		063B08851D6F144F008AB592 /* MMPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPopupWindow.m; sourceTree = "<group>"; };
+		063B08861D6F144F008AB592 /* MMSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMSheetView.h; sourceTree = "<group>"; };
+		063B08871D6F144F008AB592 /* MMSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMSheetView.m; sourceTree = "<group>"; };
 		064C0C141D51E0F400D8E639 /* TTTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTabBarViewController.h; sourceTree = "<group>"; };
 		064C0C151D51E0F400D8E639 /* TTTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTabBarViewController.m; sourceTree = "<group>"; };
 		06893CFB1D59F0FE00921900 /* CirclesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CirclesManager.h; sourceTree = "<group>"; };
@@ -1411,6 +1430,26 @@
 				0604B4721D4C5A9B00EF1703 /* upshadow.png */,
 			);
 			path = testImg;
+			sourceTree = "<group>";
+		};
+		063B087A1D6F144F008AB592 /* MMPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				063B087B1D6F144F008AB592 /* MMAlertView.h */,
+				063B087C1D6F144F008AB592 /* MMAlertView.m */,
+				063B087D1D6F144F008AB592 /* MMPopupCategory.h */,
+				063B087E1D6F144F008AB592 /* MMPopupCategory.m */,
+				063B087F1D6F144F008AB592 /* MMPopupDefine.h */,
+				063B08801D6F144F008AB592 /* MMPopupItem.h */,
+				063B08811D6F144F008AB592 /* MMPopupItem.m */,
+				063B08821D6F144F008AB592 /* MMPopupView.h */,
+				063B08831D6F144F008AB592 /* MMPopupView.m */,
+				063B08841D6F144F008AB592 /* MMPopupWindow.h */,
+				063B08851D6F144F008AB592 /* MMPopupWindow.m */,
+				063B08861D6F144F008AB592 /* MMSheetView.h */,
+				063B08871D6F144F008AB592 /* MMSheetView.m */,
+			);
+			path = MMPopupView;
 			sourceTree = "<group>";
 		};
 		064C0C121D51E0F400D8E639 /* Main */ = {
@@ -2543,6 +2582,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				063B087A1D6F144F008AB592 /* MMPopupView */,
 				1DBC49B41D65542E00DB0CD2 /* GtSdkLib */,
 				1DBFD6DE1D6463650039077D /* DJRegisterView */,
 				06B4648E1D62A48B00DBC806 /* JZNavigationExtension */,
@@ -3350,6 +3390,7 @@
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
 				2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */,
 				2D2AAA331D6C46EC00AE1A70 /* HomeDetailCell3.m in Sources */,
+				063B08881D6F144F008AB592 /* MMAlertView.m in Sources */,
 				1D115F8F1D4BA043003DFBB1 /* IQBarButtonItem.m in Sources */,
 				1D09CC771D3F29C900F85E9A /* UITextField+YYAdd.m in Sources */,
 				1D0EA2C61D45A82C00B47108 /* LCChainRequestAgent.m in Sources */,
@@ -3357,6 +3398,7 @@
 				1DA71B621D3DB5A1007483D2 /* AppDelegate.m in Sources */,
 				1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */,
 				1D9580B31D3E207200FD0053 /* UIScrollView+MJExtension.m in Sources */,
+				063B088B1D6F144F008AB592 /* MMPopupView.m in Sources */,
 				2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */,
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
@@ -3399,6 +3441,7 @@
 				1D09CD5D1D3F59D500F85E9A /* UIView+WebCacheOperation.m in Sources */,
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
 				2D2AAA3B1D6C46EC00AE1A70 /* VoteHomeCell.m in Sources */,
+				063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */,
 				06008F461D58249300A5B3DB /* TZVideoPlayerController.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */,
@@ -3499,6 +3542,7 @@
 				1D09CC671D3F29C900F85E9A /* NSThread+YYAdd.m in Sources */,
 				06008F3E1D58249300A5B3DB /* TZAssetCell.m in Sources */,
 				1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				063B088A1D6F144F008AB592 /* MMPopupItem.m in Sources */,
 				1D9580A31D3E207200FD0053 /* MJRefreshBackFooter.m in Sources */,
 				1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */,
 				1D09CC7E1D3F29C900F85E9A /* CALayer+YYWebImage.m in Sources */,
@@ -3606,7 +3650,9 @@
 				06008F281D58163100A5B3DB /* TTCommonSwitchItem.m in Sources */,
 				1D09CC851D3F29C900F85E9A /* YYImageCache.m in Sources */,
 				06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */,
+				063B08891D6F144F008AB592 /* MMPopupCategory.m in Sources */,
 				1D09CD171D3F550300F85E9A /* NSNumber+HYBHelperKit.m in Sources */,
+				063B088C1D6F144F008AB592 /* MMPopupWindow.m in Sources */,
 				1DA0E19F1D543F7B008CD6DF /* ProjectCell.m in Sources */,
 				1D09CC9C1D3F29C900F85E9A /* YYTextRunDelegate.m in Sources */,
 				1DD2E33A1D59B871005D45A9 /* WXApiRequestHandler.m in Sources */,
