@@ -20,6 +20,7 @@ typedef void(^ClickActionBlock)(ProfileCell *cell,int type);
 @property (weak, nonatomic) IBOutlet UIImageView *headImgV;
 @property (copy, nonatomic) ClickActionBlock block;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dWeight;
 
 + (instancetype)loadCellWithType:(int)type;
 
