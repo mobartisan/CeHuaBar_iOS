@@ -36,6 +36,8 @@
 @property (nonatomic, assign) BOOL isSelectOriginalPhoto;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
+
+@property (nonatomic, strong) TTCommonArrowItem *tagItem;
 @end
 
 @implementation TTAddDiscussViewController
@@ -60,14 +62,18 @@
     
     [self setupGroup0];
     [self setupGroup1];
-    [self setupGroup2];
+//    [self setupGroup2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
 //    [self.data removeAllObjects];
 //
-//    [self.tableView reloadData];
+//    NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)];
+//    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+//    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,7 +91,7 @@
 - (void)setupGroup0
 {
     TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
-    
+    self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
