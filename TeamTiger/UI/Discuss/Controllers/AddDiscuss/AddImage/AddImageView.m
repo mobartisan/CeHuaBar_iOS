@@ -31,6 +31,7 @@ static const double kColumn = 4.0f;
     
 }
 
+
 @property (nonatomic, strong) UILabel *typeLab;
 @property (nonatomic, strong) UILabel *optionLab;
 @property (nonatomic, strong) UIButton *addVoteItemBtn;
@@ -84,9 +85,10 @@ static const double kColumn = 4.0f;
     return nil;
 }
 
-+ (instancetype)addImageViewWithType:(AddImageViewType)type {
++ (instancetype)addImageViewWithType:(AddImageViewType)type AndOption:(NSString *)option{
 //    AddImageView *addImageView = [[AddImageView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
     AddImageView *addImageView = [[AddImageView alloc] init];
+    addImageView.optionStr = option;
     addImageView.backgroundColor = kColorForCommonCellBackgroud;
     addImageView.addImageViewType = type;
     return addImageView;
@@ -124,7 +126,7 @@ static const double kColumn = 4.0f;
     if (addImageViewType == AddImageViewVote) {
                 
         [self addSubview:self.optionLab];
-        self.optionLab.text = @"选项A:";
+        self.optionLab.text = [NSString stringWithFormat:@"选项%@:", self.optionStr];
         [self.optionLab mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self).offset(kDistanceToHSide+4);

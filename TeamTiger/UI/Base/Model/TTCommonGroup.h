@@ -20,5 +20,5 @@
 /**
  *  存放着这组所有行的模型数据(这个数组中都是TTCommonItem对象)
  */
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSMutableArray *items;
 @end

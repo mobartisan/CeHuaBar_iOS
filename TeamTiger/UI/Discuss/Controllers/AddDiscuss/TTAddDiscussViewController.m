@@ -95,7 +95,7 @@
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[tag,describe];
+    group.items = [NSMutableArray arrayWithArray:@[tag,describe]];
     [self.data addObject:group];
 }
 
@@ -135,11 +135,11 @@
 //    [self addChildViewController:addImageVC];
 //    [customView addSubview:addImageVC.view];
 //    customView.clipsToBounds = YES;
-    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual];
+    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual AndOption:nil];
 //    self.addImageView = customView;
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[attachment];
+    group.items = [NSMutableArray arrayWithArray:@[attachment]];
     [self.data addObject:group];
 }
 
@@ -150,7 +150,7 @@
 {
     TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:[TTAddVoteViewController class]];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[vote];
+    group.items = [NSMutableArray arrayWithArray:@[vote]];
     [self.data addObject:group];
 }
 

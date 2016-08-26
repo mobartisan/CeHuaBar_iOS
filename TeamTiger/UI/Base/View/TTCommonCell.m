@@ -196,11 +196,22 @@ typedef enum : NSUInteger {
 {
     static NSString *ID = @"CommonCell";
     TTCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     if (cell == nil) {
         cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     return cell;
 }
+
++ (instancetype)cellWithTableView:(UITableView *)tableView isReuse:(BOOL)isReuse {
+    if (isReuse) {
+        return [self cellWithTableView:tableView];
+    } else {
+        TTCommonCell *cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        return cell;
+    }
+}
+
 
 - (void)dealloc {
 //    self.textView.delegate = nil;
