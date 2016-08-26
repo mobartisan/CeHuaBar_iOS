@@ -34,7 +34,7 @@
                 <constraint firstAttribute="trailing" secondItem="xHf-3V-b5Z" secondAttribute="trailing" id="rwb-Q2-uuG"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="388.5" y="186.5"/>
+            <point key="canvasLocation" x="386.5" y="54.5"/>
         </view>
     </objects>
 </document>

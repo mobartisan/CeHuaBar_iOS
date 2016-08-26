@@ -35,6 +35,7 @@
 }
 
 - (IBAction)handleClickImageAction:(UIButton *)sender {
+    [keyBoardBGView endEditing:YES];
     UIImageView *image = nil;
     switch (sender.tag) {
         case 300:

@@ -24,4 +24,7 @@
 
 //根据16进制显示颜色
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;
+
+//返回系统时间
++ (NSString *)getCurrentSystemTime;
 @end

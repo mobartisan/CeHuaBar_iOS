@@ -29,6 +29,7 @@ static CGFloat tableViewHeight = 0.0;
 @property (weak, nonatomic) IBOutlet UIImageView *image1;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UIImageView *image4;
 
 @end
 
@@ -69,6 +70,7 @@ static CGFloat tableViewHeight = 0.0;
     self.image1.image = kImage(model.image1);
     self.image2.image = kImage(model.image2);
     self.image3.image = kImage(model.image3);
+    self.image4.image = kImage(model.image4);
     for (HomeDetailCellModel *detailModel in _model.comment) {
         if (detailModel.typeCell == TypeCellTitle || detailModel.isTap) {
             self.detailModel = detailModel;
@@ -163,8 +165,8 @@ static CGFloat tableViewHeight = 0.0;
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeDetailCellModel *datailModel = _model.comment[indexPath.row];
-    switch (datailModel.typeCell) {
+    HomeDetailCellModel *detailModel = _model.comment[indexPath.row];
+    switch (detailModel.typeCell) {
         case TypeCellImage:
             return 160;
             break;
@@ -185,26 +187,50 @@ static CGFloat tableViewHeight = 0.0;
 
 - (IBAction)hanldeCommentAction:(ButtonIndexPath *)sender {
     self.clickCommentBtn(sender);
+
 }
 
-- (IBAction)handleClickImageAction:(UIButton *)sender {
-    UIImageView *image = nil;
+- (IBAction)handleBtnClick:(UIButton *)sender {
+    [keyBoardBGView endEditing:YES];
+    NSArray *imageArr = nil;
+    UIImageView *currentImage = nil;
     switch (sender.tag) {
         case 100:
-            image = self.image1;
+            currentImage = self.image1;
             break;
         case 101:
-            image = self.image2;
+            currentImage = self.image2;
             break;
-        case 102:
-            image = self.image3;
+        case 102:{
+            currentImage = self.image3;
+        }
+            break;
+        case 103:{
+            currentImage = self.image4;
+        }
             break;
         default:
             break;
     }
-    JJPhotoManeger *mg = [JJPhotoManeger maneger];
-    [mg showNetworkPhotoViewer:@[self.image1, self.image2, self.image3] urlStrArr:nil selecView:image];
-    
+    switch (_model.imageCount) {
+        case 1:
+            imageArr = @[self.image1];
+            break;
+        case 2:
+            imageArr = @[self.image1, self.image2];
+            break;
+        case 3:
+            imageArr  = @[self.image1, self.image2, self.image3];
+            break;
+        case 4:
+            imageArr  = @[self.image1, self.image2, self.image3, self.image4];
+            break;
+        default:
+            break;
+    }
+        JJPhotoManeger *manager = [JJPhotoManeger maneger];
+        [manager showNetworkPhotoViewer:imageArr urlStrArr:nil selecView:currentImage];
 }
+
 
 @end

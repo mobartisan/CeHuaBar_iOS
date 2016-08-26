@@ -21,7 +21,7 @@
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) DataManager *manager;
@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet YZInputView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeightConstraint;
+@property (assign, nonatomic) NSInteger index;
 
 @end
 
@@ -49,6 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    keyBoardBGView = _bgView;
     // 监听文本框文字高度改变
     _textView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
         _bgViewHeightConstraint.constant = textHeight + 10;
@@ -60,10 +62,14 @@
     [self configureNavigationItem];
     [self handleRefreshAction];
     [Common removeExtraCellLines:self.tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"HomeCell" bundle:nil] forCellReuseIdentifier:@"HomeCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapAction:)];
+    [self.tableView addGestureRecognizer:tap];
 }
 
+- (void)handleTapAction:(UITapGestureRecognizer *)tap {
+    [_bgView endEditing:YES];
+}
 
 #pragma mark -- 键盘上的视图显示和隐藏
 - (void)keyBoardWillChangeFrameNotification:(NSNotification *)notification {
@@ -96,6 +102,7 @@
         return;
     }
     NSDictionary *dic = @{@"projectType":@(ProjectTypeAll),
+                          @"imageCount":@(2),
                           @"time":@"2016年8月10日 14:25",
                           @"headImage":@"touxiang",
                           @"name":@"齐云猛",
@@ -199,13 +206,26 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
-        HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeCell"];
+        static NSString *homeCell = @"homeCell";
+        HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:homeCell];
+        if (cell == nil) {
+            if (model.imageCount == 1) {
+                cell = LoadFromNib(@"HomeCell");
+            }else if (model.imageCount == 2) {
+                cell = LoadFromNib(@"HomeCell1");
+            }else if (model.imageCount == 3) {
+                cell = LoadFromNib(@"HomeCell2");
+            }else {
+                cell = LoadFromNib(@"HomeCell3");
+            }
+        }
         cell.model = model;
         cell.indexPath = indexPath;
         cell.delegate = self;
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickCommentBtn = ^(UIButton *btn) {
+            self.index = indexPath.row;
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
@@ -216,8 +236,41 @@
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickBtn = ^(UIButton *btn) {
+            self.index = indexPath.row;
             [self.textView becomeFirstResponder];
         };
+        kWeakObject(cell);
+        [cell setVoteClick:^(UIButton *sender) {
+            switch (sender.tag) {
+                case 100:{
+                    sender.selected = !sender.selected;
+                    if (sender.selected) {
+                        [weakObject.aBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    }else {
+                        [weakObject.aBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                    }
+                }
+                    break;
+                case 101:{
+                    sender.selected = !sender.selected;
+                    if (sender.selected) {
+                        [weakObject.bBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    }else {
+                        [weakObject.bBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                    }
+                }
+                    break;
+                case 102:{
+                    sender.selected = !sender.selected;
+                    if (sender.selected) {
+                        [weakObject.cBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    }else {
+                        [weakObject.cBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                    }
+                }
+                    break;
+            }
+        }];
         [cell.tableView reloadData];
         return cell;
     }
@@ -233,9 +286,8 @@
     }else {
         model.height = 0.0;
     }
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
-
 - (void)handleVoteHomeAction:(ButtonIndexPath *)button {
     HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
     model.isClick = !model.isClick;
@@ -244,21 +296,32 @@
     }else {
         model.height = 0.0;
     }
-    [self.tableView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
-
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
-        if (model.height == 0) {
-            if (model.isClick) {
-                return 253 + [HomeCell tableViewHeight];
-            }else {
-                return 253;
+        if (model.imageCount == 4) {
+            if (model.height == 0) {
+                if (model.isClick) {
+                    return 353 + [HomeCell tableViewHeight];
+                }else {
+                    return 353;
+                }
+            }else{
+                return 353 + model.height;
             }
-        }else{
-            return 253 + model.height;
+        }else {
+            if (model.height == 0) {
+                if (model.isClick) {
+                    return 253 + [HomeCell tableViewHeight];
+                }else {
+                    return 253;
+                }
+            }else{
+                return 253 + model.height;
+            }
         }
     }else {
         if (model.height == 0) {
@@ -273,7 +336,6 @@
     }
     
 }
-
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.isShowHeaderView) {
         HeadView *headerView = [HeadView headerViewWithTableView:tableView];
@@ -284,7 +346,6 @@
     }
     
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.isShowHeaderView) {
         return 60;
@@ -292,11 +353,9 @@
         return 0;
     }
 }
-
 #pragma mark HomeCellDelegate
 - (void)reloadHomeTableView:(NSIndexPath *)indexPath {
     [self.tableView reloadData];
-
 }
 
 #pragma mark VoteHomeCellDelegate
@@ -310,10 +369,33 @@
     [self.navigationController pushViewController:discussVC animated:YES];
 }
 
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:YES];
+#pragma mark UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        NSDictionary *dic = nil;
+        HomeCellModel *model = self.manager.dataSource[self.index];
+        if (model.projectType == ProjectTypeAll) {
+            dic = @{@"time":[Common getCurrentSystemTime],
+                    @"firstName":@"赵瑞",
+                    @"secondName":@"@曹兴星",
+                    @"des":_textView.text,
+                    @"typeCell":@(TypeCellTitleNoButton)};
+        }else {
+            dic = @{@"time":[Common getCurrentSystemTime],
+                    @"firstName":@"曹兴星",
+                    @"secondName":@"C",
+                    @"typeCell":@(TypeCellTitleNoButton)
+                    };
+        }
+        HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
+        [model.comment insertObject:detailModel atIndex:0];
+        model.isClick = YES;
+        [self.tableView reloadData];
+        [_bgView endEditing:YES];
+        return NO;
+    }
+    return YES;
 }
-
 
 
 

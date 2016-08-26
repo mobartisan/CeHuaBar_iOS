@@ -30,9 +30,6 @@ static CGFloat tableViewHeight = 0.0;
 @property (weak, nonatomic) IBOutlet UILabel *aDesLB;
 @property (weak, nonatomic) IBOutlet UILabel *bDesLB;
 @property (weak, nonatomic) IBOutlet UILabel *cDesLB;
-@property (weak, nonatomic) IBOutlet UIButton *aBtn;
-@property (weak, nonatomic) IBOutlet UIButton *bBtn;
-@property (weak, nonatomic) IBOutlet UIButton *cBtn;
 @property (weak, nonatomic) IBOutlet UIProgressView *aProgress;
 @property (weak, nonatomic) IBOutlet UILabel *aTicketLB;
 @property (weak, nonatomic) IBOutlet UILabel *aPerLB;
@@ -125,34 +122,8 @@ static CGFloat tableViewHeight = 0.0;
 
 //投票
 - (IBAction)handleBtnAction:(UIButton *)sender {
-    switch (sender.tag) {
-        case 100:{
-             sender.selected = !sender.selected;
-            if (sender.selected) {
-                [self.aBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
-            }else {
-                [self.aBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
-            }
-        }
-            break;
-        case 101:{
-            sender.selected = !sender.selected;
-            if (sender.selected) {
-                [self.bBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
-            }else {
-                [self.bBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
-            }
-        }
-            break;
-        case 102:{
-            sender.selected = !sender.selected;
-            if (sender.selected) {
-                [self.cBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
-            }else {
-                [self.cBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
-            }
-        }
-            break;
+    if (self.voteClick) {
+        self.voteClick(sender);
     }
 }
 
@@ -246,7 +217,9 @@ static CGFloat tableViewHeight = 0.0;
 }
 
 - (IBAction)handleCommitAction:(UIButton *)sender {
-    
+    if (self.clickBtn) {
+        self.clickBtn(sender);
+    }
 }
 
 @end

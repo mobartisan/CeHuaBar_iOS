@@ -119,4 +119,9 @@
     return result;
 }
 
+//返回系统时间
++ (NSString *)getCurrentSystemTime {
+    return [NSString stringWithFormat:@"%ld:%ld", [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
+}
+
 @end

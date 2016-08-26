@@ -36,14 +36,15 @@
 - (NSMutableArray *)dataArr {
     if (_dataArr == nil) {
         _dataArr = @[
-                     @{@"projectType":@(ProjectTypeAll),
-                       @"time":@"2016年7月19日 15:25",
+                     @{@"time":@"2016年7月19日 15:25",
                        @"headImage":@"touxiang",
                        @"name":@"唐小旭",
                        @"type":@"工作牛",
                        @"image1":@"placeImage",
                        @"image2":@"image",
                        @"image3":@"image",
+                       @"projectType":@(ProjectTypeAll),
+                       @"imageCount":@(3),
                        @"comment":@[
                                @{@"time":@"19:50",
                                  @"firstName":@"唐小旭",
@@ -87,14 +88,17 @@
                                  },
                                ].mutableCopy
                        },
-                     @{@"projectType":@(ProjectTypeAll),
-                       @"time":@"2016年7月24日 15:25",
+                     @{@"time":@"2016年7月24日 15:25",
                        @"headImage":@"touxiang",
                        @"name":@"唐小旭",
                        @"type":@"工作牛",
                        @"image1":@"placeImage",
                        @"image2":@"image",
                        @"image3":@"image",
+                       @"image3":@"image",
+                       @"image4":@"image",
+                       @"projectType":@(ProjectTypeAll),
+                       @"imageCount":@(4),
                        @"comment":@[
                                @{@"time":@"19:50",
                                  @"firstName":@"唐小旭",
@@ -130,8 +134,7 @@
                                  },
                                ].mutableCopy
                        },
-                     @{@"projectType":@(ProjectTypeVote),
-                       @"time":@"2016年8月2日 15:25",
+                     @{@"time":@"2016年8月2日 15:25",
                        @"headImage":@"touxiang",
                        @"name":@"卞克",
                        @"type":@"BBS",
@@ -144,17 +147,16 @@
                        @"aTicket":@"0.7",
                        @"bTicket":@"0.4",
                        @"cTicket":@"0.1",
+                       @"projectType":@(ProjectTypeVote),
+                       @"imageCount":@(3),
                        @"comment":@[
                                @{@"time":@"19:50",
                                  @"firstName":@"卞克",
                                  @"secondName":@"A",
-                                 @"des":@"卞克",
-                                 @"firstImage":@"image",
-                                 @"secondImage":@"image",
                                  @"typeCell":@(TypeCellTitleNoButton)
                                  },
                                @{@"time":@"13:55",
-                                 @"firstName":@"卞克",
+                                 @"firstName":@"唐小旭",
                                  @"secondName":@"A",
                                  @"typeCell":@(TypeCellTitle)
                                  },

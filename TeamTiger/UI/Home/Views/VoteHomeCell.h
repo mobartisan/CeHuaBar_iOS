@@ -23,10 +23,13 @@ typedef void(^ClickBtn)(UIButton *button);
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (weak, nonatomic) IBOutlet UIButton *aBtn;
+@property (weak, nonatomic) IBOutlet UIButton *bBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cBtn;
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 
 @property (copy, nonatomic) ClickBtn clickBtn;
+@property (copy, nonatomic) void (^voteClick)(UIButton *sender);
 @property (strong, nonatomic) HomeCellModel *model;
 
 @property (assign, nonatomic) id <VoteHomeCellDelegate> delegate;

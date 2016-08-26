@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 @property (copy, nonatomic) NSString *image1;
 @property (copy, nonatomic) NSString *image2;
 @property (copy, nonatomic) NSString *image3;
+@property (copy, nonatomic) NSString *image4;
 @property (copy, nonatomic) NSString *aDes;
 @property (copy, nonatomic) NSString *bDes;
 @property (copy, nonatomic) NSString *cDes;
@@ -34,9 +35,22 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 @property (copy, nonatomic) NSString *cTicket;
 @property (assign, nonatomic) BOOL isClick;
 
+/**
+ *  cell类型
+ */
 @property (assign, nonatomic) NSInteger projectType;
+/**
+ *  评论数
+ */
 @property (strong, nonatomic) NSMutableArray *comment;
+/**
+ *  表视图总高度
+ */
 @property (assign, nonatomic) CGFloat height;
+/**
+ *  图片个数
+ */
+@property (assign, nonatomic) NSInteger imageCount;
 
 - (instancetype)initWithDic:(NSDictionary *)dic;
 + (instancetype)modelWithDic:(NSDictionary *)dic;

@@ -34,16 +34,16 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ga3-6i-ViT" userLabel="View2">
-                        <rect key="frame" x="68" y="15" width="4" height="49"/>
+                        <rect key="frame" x="68" y="15" width="4" height="47"/>
                         <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="4" id="nHB-mF-3pO"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="卞克" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Gx-rw-B0P">
-                        <rect key="frame" x="81" y="7" width="43" height="20"/>
+                        <rect key="frame" x="81" y="7" width="55" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="43" id="9sG-2Y-VJ2"/>
+                            <constraint firstAttribute="width" constant="55" id="9sG-2Y-VJ2"/>
                             <constraint firstAttribute="height" constant="20" id="Kri-Vn-nPE"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -51,7 +51,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zye-6m-Y2S">
-                        <rect key="frame" x="121" y="7" width="34" height="21"/>
+                        <rect key="frame" x="133" y="7" width="34" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -75,7 +75,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFf-nv-0Mf">
-                        <rect key="frame" x="156" y="7" width="18" height="21"/>
+                        <rect key="frame" x="168" y="7" width="18" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="Pfm-fX-txQ"/>
                             <constraint firstAttribute="width" constant="18" id="ULq-wk-t23"/>
@@ -97,7 +97,7 @@
                     <constraint firstItem="312-Je-hAC" firstAttribute="leading" secondItem="bVm-SH-Jjg" secondAttribute="trailing" constant="5" id="NOu-gs-oTA"/>
                     <constraint firstItem="312-Je-hAC" firstAttribute="top" secondItem="1qQ-Zo-X0E" secondAttribute="top" id="Pzk-d8-a3q"/>
                     <constraint firstItem="zye-6m-Y2S" firstAttribute="top" secondItem="8Gx-rw-B0P" secondAttribute="top" id="SF0-ql-bny"/>
-                    <constraint firstAttribute="bottom" secondItem="ga3-6i-ViT" secondAttribute="bottom" id="aXQ-aH-J3k"/>
+                    <constraint firstAttribute="bottom" secondItem="ga3-6i-ViT" secondAttribute="bottom" constant="2" id="aXQ-aH-J3k"/>
                     <constraint firstItem="bVm-SH-Jjg" firstAttribute="top" secondItem="1qQ-Zo-X0E" secondAttribute="topMargin" id="bzu-Me-zCy"/>
                     <constraint firstItem="ga3-6i-ViT" firstAttribute="top" secondItem="312-Je-hAC" secondAttribute="bottom" id="chP-Fr-qs4"/>
                     <constraint firstItem="8Gx-rw-B0P" firstAttribute="top" secondItem="1qQ-Zo-X0E" secondAttribute="top" constant="7" id="ffI-gU-aMB"/>
@@ -120,7 +120,7 @@
                 <outlet property="timeLB" destination="bVm-SH-Jjg" id="E93-R0-PNN"/>
                 <outlet property="typeLB" destination="rFf-nv-0Mf" id="GnV-H9-106"/>
             </connections>
-            <point key="canvasLocation" x="343" y="169.5"/>
+            <point key="canvasLocation" x="424" y="182.5"/>
         </tableViewCell>
     </objects>
     <resources>
