@@ -26,4 +26,19 @@ static NSString *const SelectAssets_Cache_Key = @"SelectAssets_Cache_Key_String"
 
 - (void)addAsset:(id)asset;
 - (void)deleteAssetWithIndex:(NSInteger) index;
+
+- (id)getPhotoesWithOption:(NSString *)option;
+- (void)setSelectPhotoes:(NSMutableArray *)photoes WithOption:(NSString *)option;
+- (void)cleanSelectPhotoesWithOption:(NSString *)option;
+
+- (void)addImage:(id)image WithOption:(NSString *)option;
+- (void)deletePhotoeWithIndex:(NSInteger) index WithOption:(NSString *)option;
+
+- (id)getAssetsWithOption:(NSString *)option;
+- (void)setSelectAssets:(NSMutableArray *)assets WithOption:(NSString *)option;
+- (void)cleanSelectAssetsWithOption:(NSString *)option;
+
+- (void)addAsset:(id)asset WithOption:(NSString *)option;
+- (void)deleteAssetWithIndex:(NSInteger) index WithOption:(NSString *)option;
+
 @end

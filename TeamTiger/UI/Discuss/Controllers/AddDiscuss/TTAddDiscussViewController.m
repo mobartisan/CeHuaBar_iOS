@@ -135,7 +135,7 @@
 //    [self addChildViewController:addImageVC];
 //    [customView addSubview:addImageVC.view];
 //    customView.clipsToBounds = YES;
-    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual AndOption:nil];
+    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual AndOption:@"Moment"];
 //    self.addImageView = customView;
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];

@@ -88,7 +88,10 @@ static const double kColumn = 4.0f;
 + (instancetype)addImageViewWithType:(AddImageViewType)type AndOption:(NSString *)option{
 //    AddImageView *addImageView = [[AddImageView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 200)];
     AddImageView *addImageView = [[AddImageView alloc] init];
-    addImageView.optionStr = option;
+    if (option != nil) {
+        addImageView.optionStr = option;
+    }
+    
     addImageView.backgroundColor = kColorForCommonCellBackgroud;
     addImageView.addImageViewType = type;
     return addImageView;
@@ -102,6 +105,12 @@ static const double kColumn = 4.0f;
 - (void)setAddImageViewType:(AddImageViewType)addImageViewType {
     _addImageViewType = addImageViewType;
     [self configUIWith:addImageViewType];
+}
+
+- (void)setOptionStr:(NSString *)optionStr {
+    _optionStr = optionStr;
+        _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:optionStr];
+        _selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:optionStr];
 }
 
 - (void)configUIWith:(AddImageViewType)addImageViewType{
@@ -201,8 +210,7 @@ static const double kColumn = 4.0f;
 {
     if (self = [super init]) {
         self.backgroundColor = kColorForCommonCellBackgroud;
-        _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
-        _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
+
         [self configCollectionView];
     }
     return self;
@@ -343,10 +351,10 @@ static const double kColumn = 4.0f;
             //            imagePickerVc.allowPickingOriginalPhoto = self.allowPickingOriginalPhotoSwitch.isOn;
             imagePickerVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
             [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-                [[SelectPhotosManger sharedInstance] setSelectPhotoes:[NSMutableArray arrayWithArray:photos]];
-                [[SelectPhotosManger sharedInstance] setSelectAssets:[NSMutableArray arrayWithArray:assets]];
-                _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
-                _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
+                [[SelectPhotosManger sharedInstance] setSelectPhotoes:[NSMutableArray arrayWithArray:photos] WithOption:self.optionStr];
+                [[SelectPhotosManger sharedInstance] setSelectAssets:[NSMutableArray arrayWithArray:assets]WithOption:self.optionStr];
+                _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:self.optionStr];
+                _selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr];
                 _isSelectOriginalPhoto = isSelectOriginalPhoto;
                 _layout.itemCount = _selectedPhotos.count;
                 [_collectionView reloadData];
@@ -376,7 +384,7 @@ static const double kColumn = 4.0f;
     imagePickerVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
     
     // 1.如果你需要将拍照按钮放在外面，不要传这个参数
-    imagePickerVc.selectedAssets = [[SelectPhotosManger sharedInstance] getAssets]; // optional, 可选的
+    imagePickerVc.selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr]; // optional, 可选的
     imagePickerVc.allowTakePicture = YES; // 在内部显示拍照按钮
     
     // 2. Set the appearance
@@ -443,10 +451,10 @@ static const double kColumn = 4.0f;
                     }
                     //                    [_selectedAssets addObject:assetModel.asset];
                     //                    [_selectedPhotos addObject:image];
-                    [[SelectPhotosManger sharedInstance] addAsset:assetModel.asset];
-                    [[SelectPhotosManger sharedInstance] addImage:image];
-                    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
-                    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
+                    [[SelectPhotosManger sharedInstance] addAsset:assetModel.asset WithOption:self.optionStr];
+                    [[SelectPhotosManger sharedInstance] addImage:image WithOption:self.optionStr];
+                    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:self.optionStr];
+                    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr];
                     [_collectionView reloadData];
                 }];
             }];
@@ -475,10 +483,10 @@ static const double kColumn = 4.0f;
 // 你可以通过一个asset获得原图，通过这个方法：[[TZImageManager manager] getOriginalPhotoWithAsset:completion:]
 // photos数组里的UIImage对象，默认是828像素宽，你可以通过设置photoWidth属性的值来改变它
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
-    [[SelectPhotosManger sharedInstance] setSelectPhotoes:[NSMutableArray arrayWithArray:photos]];
-    [[SelectPhotosManger sharedInstance] setSelectAssets:[NSMutableArray arrayWithArray:assets]];
-    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
-    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
+    [[SelectPhotosManger sharedInstance] setSelectPhotoes:[NSMutableArray arrayWithArray:photos] WithOption:self.optionStr];
+    [[SelectPhotosManger sharedInstance] setSelectAssets:[NSMutableArray arrayWithArray:assets] WithOption:self.optionStr];
+    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:self.optionStr];
+    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr];
     //    _selectedPhotos = [NSMutableArray arrayWithArray:photos];
     //    _selectedAssets = [NSMutableArray arrayWithArray:assets];
     _isSelectOriginalPhoto = isSelectOriginalPhoto;
@@ -492,10 +500,10 @@ static const double kColumn = 4.0f;
 - (void)deleteBtnClik:(UIButton *)sender {
     //    [_selectedPhotos removeObjectAtIndex:sender.tag];
     //    [_selectedAssets removeObjectAtIndex:sender.tag];
-    [[SelectPhotosManger sharedInstance] deleteAssetWithIndex:sender.tag];
-    [[SelectPhotosManger sharedInstance] deletePhotoeWithIndex:sender.tag];
-    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoes];
-    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssets];
+    [[SelectPhotosManger sharedInstance] deleteAssetWithIndex:sender.tag WithOption:self.optionStr];
+    [[SelectPhotosManger sharedInstance] deletePhotoeWithIndex:sender.tag WithOption:self.optionStr];
+    _selectedPhotos = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:self.optionStr];
+    _selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr];
     _layout.itemCount = _selectedPhotos.count;
     
     [_collectionView performBatchUpdates:^{

@@ -78,4 +78,74 @@ static SelectPhotosManger *singleton = nil;
     }
     [[[TMCache sharedCache] memoryCache] setObject:assets forKey:SelectAssets_Cache_Key];
 }
+
+- (id)getPhotoesWithOption:(NSString *)option {
+    NSString *SelectPhotoes_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectPhotoes_Cache_Key,option];
+    return [[[TMCache sharedCache] memoryCache] objectForKey:SelectPhotoes_Cache_KeyWithOption];
+}
+
+- (void)setSelectPhotoes:(NSMutableArray *)photoes WithOption:(NSString *)option {
+    NSString *SelectPhotoes_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectPhotoes_Cache_Key,option];
+    [[[TMCache sharedCache] memoryCache] setObject:photoes forKey:SelectPhotoes_Cache_KeyWithOption];
+}
+
+- (void)cleanSelectPhotoesWithOption:(NSString *)option {
+     NSString *SelectPhotoes_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectPhotoes_Cache_Key,option];
+    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectPhotoes_Cache_KeyWithOption];
+}
+
+- (void)addImage:(id)image WithOption:(NSString *)option {
+    NSString *SelectPhotoes_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectPhotoes_Cache_Key,option];
+    NSMutableArray *photoes = [[[TMCache sharedCache] memoryCache] objectForKey:SelectPhotoes_Cache_KeyWithOption];
+    if (photoes == nil) {
+        photoes = [NSMutableArray array];
+    }
+    [photoes addObject:image];
+    [[[TMCache sharedCache] memoryCache] setObject:photoes forKey:SelectPhotoes_Cache_KeyWithOption];
+    
+   
+}
+
+- (void)deletePhotoeWithIndex:(NSInteger) index WithOption:(NSString *)option {
+    NSString *SelectPhotoes_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectPhotoes_Cache_Key,option];
+    NSMutableArray *photoes = [[[TMCache sharedCache] memoryCache] objectForKey:SelectPhotoes_Cache_KeyWithOption];
+    if (photoes.count > index) {
+        [photoes removeObjectAtIndex:index];
+    }
+    [[[TMCache sharedCache] memoryCache] setObject:photoes forKey:SelectPhotoes_Cache_KeyWithOption];
+}
+
+- (id)getAssetsWithOption:(NSString *)option {
+    NSString *SelectAssets_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectAssets_Cache_Key,option];
+    return [[[TMCache sharedCache] memoryCache] objectForKey:SelectAssets_Cache_KeyWithOption];
+}
+
+- (void)setSelectAssets:(NSMutableArray *)assets WithOption:(NSString *)option {
+    NSString *SelectAssets_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectAssets_Cache_Key,option];
+    [[[TMCache sharedCache] memoryCache] setObject:assets forKey:SelectAssets_Cache_KeyWithOption];
+}
+
+- (void)cleanSelectAssetsWithOption:(NSString *)option {
+    NSString *SelectAssets_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectAssets_Cache_Key,option];
+    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectAssets_Cache_KeyWithOption];
+}
+
+- (void)addAsset:(id)asset WithOption:(NSString *)option {
+    NSString *SelectAssets_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectAssets_Cache_Key,option];
+    NSMutableArray *assets = [[[TMCache sharedCache] memoryCache] objectForKey:SelectAssets_Cache_KeyWithOption];
+    if (assets == nil) {
+        assets = [NSMutableArray array];
+    }
+    [assets addObject:asset];
+    [[[TMCache sharedCache] memoryCache] setObject:assets forKey:SelectAssets_Cache_KeyWithOption];
+}
+- (void)deleteAssetWithIndex:(NSInteger) index WithOption:(NSString *)option {
+    NSString *SelectAssets_Cache_KeyWithOption = [NSString stringWithFormat:@"%@_%@",SelectAssets_Cache_Key,option];
+    NSMutableArray *assets = [[[TMCache sharedCache] memoryCache] objectForKey:SelectAssets_Cache_KeyWithOption];
+    if (assets.count > index) {
+        [assets removeObjectAtIndex:index];
+    }
+    [[[TMCache sharedCache] memoryCache] setObject:assets forKey:SelectAssets_Cache_KeyWithOption];
+}
+
 @end
