@@ -404,9 +404,9 @@ static double const timeOutInterval = 15.0;
 
 - (AFConstructingBlock)constructingBodyBlock {
     AFConstructingBlock block = ^(id<AFMultipartFormData> formData){
-        NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"currentPageDot"], 0.9);
-        NSString *name = @"image";
-        NSString *formKey = @"image";
+        NSData *data = self.uploadModel.data;
+        NSString *name = self.uploadModel.fileName;
+        NSString *formKey = self.uploadModel.fileFormKey;
         NSString *type = @"image/jpeg";
         [formData appendPartWithFileData:data name:formKey fileName:name mimeType:type];
     };

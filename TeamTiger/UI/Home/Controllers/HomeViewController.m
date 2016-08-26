@@ -20,6 +20,11 @@
 #import "TTSettingViewController.h"
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
+#import "MMPopupItem.h"
+#import "MMAlertView.h"
+#import "MMSheetView.h"
+#import "MMPopupWindow.h"
+#import "TTAddVoteViewController.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
 
@@ -181,8 +186,32 @@
 }
 
 - (void)handleRightBtnAction {
-    TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
-    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+    
+    MMPopupItemHandler block = ^(NSInteger index){
+        NSLog(@"clickd %@ button",@(index));
+        
+        if (index == 0) {
+            TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
+            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+        } else if (index == 1) {
+            TTAddVoteViewController *voteVC = [[TTAddVoteViewController alloc] init];
+            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:voteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+        }
+    };
+    
+    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+        NSLog(@"animation complete");
+    };
+    
+    NSArray *items =
+    @[MMItemMake(@"创建Moment", MMItemTypeNormal, block),
+      MMItemMake(@"发起投票", MMItemTypeNormal, block)];
+    
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
+                                                          items:items];
+//    sheetView.attachedView = self.view;
+    sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
+    [sheetView showWithBlock:completeBlock];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

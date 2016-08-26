@@ -44,9 +44,6 @@
 }
 
 + (CGFloat)loadCellHeightWithType:(int)type {
-    if (type == 0) {
-        return 100.0;
-    }
     return 76.0;
 }
 
@@ -71,6 +68,12 @@
     
     if (![Common isEmptyString:dic[@"HeadImage"]]) {
         self.headImgV.image = [UIImage imageNamed:dic[@"HeadImage"]];
+    }
+    
+    if ([dic[@"Type"] intValue] == 1) {
+        if (self.accessoryImgV.hidden) {
+            self.dWeight.constant = -20;
+        }
     }
 }
 

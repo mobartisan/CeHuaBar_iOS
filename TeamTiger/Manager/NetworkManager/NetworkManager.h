@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "LCBaseRequest.h"
 #import "LCRequestAccessory.h"
+#import "UploadManager.h"
 
 @interface NetworkManager : NSObject
 
@@ -76,7 +77,9 @@
 
 @end
 
-
+//上传图片
 @interface ImageUploadApi : LCBaseRequest<LCAPIRequest>
+
+@property(nonatomic,strong)UploadModel *uploadModel;
 
 @end

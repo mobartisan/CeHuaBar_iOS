@@ -12,6 +12,7 @@ typedef NS_ENUM(NSUInteger, ECellType) {
     ECellTypeTextView,
     ECellTypeSwitch,
     ECellTypeAccessory,
+    ECellTypeBottom,
 };
 
 @class SettingCell;
@@ -22,6 +23,7 @@ typedef void(^NeedActionblock)(SettingCell *settingCell, ECellType type, id obj)
 @interface SettingCell : UITableViewCell<UITextFieldDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (weak, nonatomic) IBOutlet UIButton *createBtn;
 
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) UITextField *textField;
@@ -29,6 +31,8 @@ typedef void(^NeedActionblock)(SettingCell *settingCell, ECellType type, id obj)
 @property (strong, nonatomic) UIImageView *accessoryImgV;
 
 @property (copy, nonatomic) NeedActionblock actionBlock;
+
++ (instancetype)loadCellWithData:(id)data;
 
 - (void)reloadCell:(id)obj;
 

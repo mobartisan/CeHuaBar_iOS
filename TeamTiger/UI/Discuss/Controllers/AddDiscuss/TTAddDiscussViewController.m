@@ -36,6 +36,8 @@
 @property (nonatomic, assign) BOOL isSelectOriginalPhoto;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
+
+@property (nonatomic, strong) TTCommonArrowItem *tagItem;
 @end
 
 @implementation TTAddDiscussViewController
@@ -60,14 +62,18 @@
     
     [self setupGroup0];
     [self setupGroup1];
-    [self setupGroup2];
+//    [self setupGroup2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
 //    [self.data removeAllObjects];
 //
-//    [self.tableView reloadData];
+//    NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)];
+//    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+//    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,11 +91,11 @@
 - (void)setupGroup0
 {
     TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
-    
+    self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[tag,describe];
+    group.items = [NSMutableArray arrayWithArray:@[tag,describe]];
     [self.data addObject:group];
 }
 
@@ -129,11 +135,11 @@
 //    [self addChildViewController:addImageVC];
 //    [customView addSubview:addImageVC.view];
 //    customView.clipsToBounds = YES;
-    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual];
+    AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual AndOption:nil];
 //    self.addImageView = customView;
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[attachment];
+    group.items = [NSMutableArray arrayWithArray:@[attachment]];
     [self.data addObject:group];
 }
 
@@ -144,7 +150,7 @@
 {
     TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:[TTAddVoteViewController class]];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = @[vote];
+    group.items = [NSMutableArray arrayWithArray:@[vote]];
     [self.data addObject:group];
 }
 

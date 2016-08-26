@@ -11,8 +11,34 @@
 #import "UIButton+HYBHelperBlockKit.h"
 #import "TTFadeSwitch.h"
 #import "UITextView+PlaceHolder.h"
+#import "UIControl+YYAdd.h"
+#import "UIImage+YYAdd.h"
 
 @implementation SettingCell
+
+- (void)awakeFromNib {
+    setViewCorner(self.createBtn, 5);
+    self.createBtn.layer.borderColor = [UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1].CGColor;
+    self.createBtn.layer.borderWidth = minLineWidth;
+
+    [self.createBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1]] forState:UIControlStateHighlighted];
+    
+    [self.createBtn setTitleColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
+    
+    [self.createBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        if (self.actionBlock) {
+            self.actionBlock(self, ECellTypeBottom, nil);
+        }
+    }];
+}
+
++ (instancetype)loadCellWithData:(id)data {
+    NSDictionary *dic = [NSDictionary dictionaryWithDictionary:data];
+    if ([dic[@"TYPE"] intValue] == ECellTypeBottom) {
+        return LoadFromNib(@"SettingCell2");
+    }
+    return LoadFromNib(@"SettingCell");
+}
 
 - (void)reloadCell:(id)obj {
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:obj];
@@ -107,7 +133,9 @@
             }];
             break;
         }
-            
+        case ECellTypeBottom:{
+            break;
+        }
         default:
             break;
     }
