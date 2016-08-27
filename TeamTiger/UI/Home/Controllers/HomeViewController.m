@@ -165,12 +165,35 @@
 }
 
 - (void)configureNavigationItem {
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    [leftBtn setBackgroundImage:kImage(@"icon_install") forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(handleLeftBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    //左侧
+    UIToolbar *tools = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, 80, 39)];
+    tools.clipsToBounds = YES;
+    [tools setBackgroundImage:[UIImage new]forToolbarPosition:UIBarPositionAny                      barMetrics:UIBarMetricsDefault];
+    [tools setShadowImage:[UIImage new] forToolbarPosition:UIToolbarPositionAny];
+    //添加两个button
+    NSMutableArray *buttons = [NSMutableArray array];
     
+    UIBarButtonItem *spaceButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:      UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [spaceButtonItem setWidth:-16];
+    [buttons addObject:spaceButtonItem];
+
+    UIBarButtonItem *projectsBtn =[[UIBarButtonItem alloc]initWithImage:kImage(@"icon_install") style: UIBarButtonItemStyleDone target:self action:@selector(projectsBtnAction)];
+    projectsBtn.tintColor = [UIColor whiteColor];
+    [buttons addObject:projectsBtn];
+
+    UIBarButtonItem *spaceButtonItem2 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:      UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [spaceButtonItem2 setWidth:16];
+    [buttons addObject:spaceButtonItem2];
+    
+    UIBarButtonItem *settingBtn =[[UIBarButtonItem alloc]initWithImage:kImage(@"icon_install") style: UIBarButtonItemStyleDone target:self action:@selector(settingBtnAction)];
+    settingBtn.tintColor = [UIColor whiteColor];
+    [buttons addObject:settingBtn];
+    
+    [tools setItems:buttons animated:NO];
+    UIBarButtonItem *btn = [[UIBarButtonItem alloc]initWithCustomView:tools];
+    self.navigationItem.leftBarButtonItem = btn;
+    
+    //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 30, 30);
     [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
@@ -180,7 +203,15 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 }
 
-- (void)handleLeftBtnAction {
+- (void)projectsBtnAction {
+//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+//    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:settingVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
+    
+    [self showHudWithText:@"跳转项目列表"];
+    [self hideHudAfterSeconds:3.0];
+}
+
+- (void)settingBtnAction {
     TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
     [Common customPushAnimationFromNavigation:self.navigationController ToViewController:settingVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
 }
