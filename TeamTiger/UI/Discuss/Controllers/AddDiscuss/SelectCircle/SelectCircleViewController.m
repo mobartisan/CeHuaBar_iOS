@@ -33,7 +33,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = kColorForBackgroud;
     // Do any additional setup after loading the view.
-    
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
     [self.view addSubview:self.tableView];
     [self layoutSubviews];
     
