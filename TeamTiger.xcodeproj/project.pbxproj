@@ -3058,9 +3058,9 @@
 		2D8F25B61D701F0A00B28A8C /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				2D8F25B71D701F0A00B28A8C /* Controllers */,
 				2D8F25BB1D701F0A00B28A8C /* DataManager.h */,
 				2D8F25BC1D701F0A00B28A8C /* DataManager.m */,
+				2D8F25B71D701F0A00B28A8C /* Controllers */,
 				2D8F25BD1D701F0A00B28A8C /* Models */,
 				2D8F25C21D701F0A00B28A8C /* Views */,
 			);
@@ -3212,7 +3212,7 @@
 				TargetAttributes = {
 					1DA71B591D3DB5A1007483D2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 9WUQR88DQL;
+						DevelopmentTeam = 47Y3897GAH;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3400,7 +3400,6 @@
 				06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */,
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
 				2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */,
-				2D2AAA331D6C46EC00AE1A70 /* HomeDetailCell3.m in Sources */,
 				063B08881D6F144F008AB592 /* MMAlertView.m in Sources */,
 				1D115F8F1D4BA043003DFBB1 /* IQBarButtonItem.m in Sources */,
 				1D09CC771D3F29C900F85E9A /* UITextField+YYAdd.m in Sources */,
@@ -3451,10 +3450,7 @@
 				2D8F25F91D701F0A00B28A8C /* HomeDetailCell3.m in Sources */,
 				1D09CD5D1D3F59D500F85E9A /* UIView+WebCacheOperation.m in Sources */,
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
-
-				2D2AAA3B1D6C46EC00AE1A70 /* VoteHomeCell.m in Sources */,
 				063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */,
-
 				06008F461D58249300A5B3DB /* TZVideoPlayerController.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				2D8F26021D701F0A00B28A8C /* VoteHomeCell.m in Sources */,
@@ -3808,7 +3804,7 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3836,7 +3832,7 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = net.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

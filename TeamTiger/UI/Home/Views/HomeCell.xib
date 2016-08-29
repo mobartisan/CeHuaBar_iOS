@@ -174,7 +174,7 @@
                 <outlet property="timeLB" destination="TIf-wW-1Jy" id="1C7-2c-k7E"/>
                 <outlet property="typeLB" destination="Sge-uK-P0M" id="Ker-hP-tX6"/>
             </connections>
-            <point key="canvasLocation" x="275.5" y="371.5"/>
+            <point key="canvasLocation" x="378.5" y="269.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -36,7 +36,7 @@
 @property (weak, nonatomic) IBOutlet YZInputView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeightConstraint;
-@property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end
 
@@ -219,7 +219,7 @@
 - (void)handleRightBtnAction {
     
     MMPopupItemHandler block = ^(NSInteger index){
-        NSLog(@"clickd %@ button",@(index));
+
         
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
@@ -285,7 +285,7 @@
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickCommentBtn = ^(UIButton *btn) {
-            self.index = indexPath.row;
+            self.indexPath = indexPath;
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
@@ -296,40 +296,64 @@
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickBtn = ^(UIButton *btn) {
-            self.index = indexPath.row;
+            self.indexPath = indexPath;
             [self.textView becomeFirstResponder];
         };
-        kWeakObject(cell);
         [cell setVoteClick:^(UIButton *sender) {
+            NSDictionary *dic = nil;
+            NSString *projectType = nil;
+            NSInteger typeCell = 0;
             switch (sender.tag) {
                 case 100:{
-                    sender.selected = !sender.selected;
-                    if (sender.selected) {
-                        [weakObject.aBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    if (!model.aIsClick) {
+                        model.aIsClick = YES;
+                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.aTicket floatValue] + 0.1)];
+                        typeCell = TypeCellTime;
                     }else {
-                        [weakObject.aBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                        model.aIsClick = NO;
+                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.aTicket floatValue] - 0.1)];
+                        typeCell = TypeCellTitleNoButton;
                     }
+                    projectType = @"A";
                 }
                     break;
                 case 101:{
-                    sender.selected = !sender.selected;
-                    if (sender.selected) {
-                        [weakObject.bBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    if (!model.bIsClick) {
+                        model.bIsClick = YES;
+                        model.bTicket = [NSString stringWithFormat:@"%.1f", ([model.bTicket floatValue] + 0.1)];
+                        typeCell = TypeCellTime;
                     }else {
-                        [weakObject.bBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                        model.bIsClick = NO;
+                        model.bTicket = [NSString stringWithFormat:@"%.1f", ([model.bTicket floatValue] - 0.1)];
+                        typeCell = TypeCellTitleNoButton;
                     }
+                    projectType = @"B";
                 }
                     break;
                 case 102:{
-                    sender.selected = !sender.selected;
-                    if (sender.selected) {
-                        [weakObject.cBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+                    if (!model.cIsClick) {
+                        model.cIsClick = YES;
+                        model.cTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] + 0.1)];
+                        typeCell = TypeCellTime;
                     }else {
-                        [weakObject.cBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+                        model.aIsClick = NO;
+                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] - 0.1)];
+                        typeCell = TypeCellTitleNoButton;
                     }
+                    projectType = @"C";
                 }
                     break;
             }
+            dic = @{@"time":[Common getCurrentSystemTime],
+                    @"firstName":model.name,
+                    @"secondName":projectType,
+                    @"typeCell":@(typeCell)
+                    };
+             HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
+            [model.comment insertObject:detailModel atIndex:0];
+            model.isClick = YES;
+            model.height = 0.0;
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
         [cell.tableView reloadData];
         return cell;
@@ -360,27 +384,38 @@
 }
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat cellHeight = 0.0, cellImageHeight = 0.0;
+    if (is40inch) {
+        cellHeight = 303;
+        cellImageHeight = 303 -80;
+    }else if (is47inch) {
+        cellHeight = 353;
+        cellImageHeight = 353 - 100;
+    }else if (is55inch) {
+        cellHeight = 353;
+        cellImageHeight = 353 - 100;
+    }
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
         if (model.imageCount == 4) {
             if (model.height == 0) {
                 if (model.isClick) {
-                    return 353 + [HomeCell tableViewHeight];
+                    return cellHeight + [HomeCell tableViewHeight];
                 }else {
-                    return 353;
+                    return cellHeight;
                 }
             }else{
-                return 353 + model.height;
+                return cellHeight + model.height;
             }
         }else {
             if (model.height == 0) {
                 if (model.isClick) {
-                    return 253 + [HomeCell tableViewHeight];
+                    return cellImageHeight + [HomeCell tableViewHeight];
                 }else {
-                    return 253;
+                    return cellImageHeight;
                 }
             }else{
-                return 253 + model.height;
+                return cellImageHeight + model.height;
             }
         }
     }else {
@@ -433,7 +468,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         NSDictionary *dic = nil;
-        HomeCellModel *model = self.manager.dataSource[self.index];
+        HomeCellModel *model = self.manager.dataSource[self.indexPath.row];
         if (model.projectType == ProjectTypeAll) {
             dic = @{@"time":[Common getCurrentSystemTime],
                     @"firstName":@"赵瑞",
@@ -450,7 +485,8 @@
         HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
         [model.comment insertObject:detailModel atIndex:0];
         model.isClick = YES;
-        [self.tableView reloadData];
+        model.height = 0.0;
+        [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [_bgView endEditing:YES];
         return NO;
     }

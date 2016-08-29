@@ -71,27 +71,27 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="8x8-Tp-Yeg" userLabel="image1">
-                                <rect key="frame" x="60" y="60" width="110" height="108"/>
+                                <rect key="frame" x="68" y="60" width="109" height="108"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="i21-9q-Rbe" userLabel="image2">
-                                <rect key="frame" x="190" y="60" width="109" height="108"/>
+                                <rect key="frame" x="182" y="60" width="109" height="108"/>
                             </imageView>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yea-nQ-WXm" userLabel="Button1">
-                                <rect key="frame" x="60" y="60" width="110" height="108"/>
-                                <connections>
-                                    <action selector="handleBtnClick:" destination="VLY-xx-4Ry" eventType="touchUpInside" id="hUy-eU-0AH"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ch-nb-3yz" userLabel="Button2">
-                                <rect key="frame" x="190" y="60" width="109" height="108"/>
+                                <rect key="frame" x="182" y="60" width="109" height="108"/>
                                 <connections>
                                     <action selector="handleBtnClick:" destination="VLY-xx-4Ry" eventType="touchUpInside" id="AtA-T5-VQE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yea-nQ-WXm" userLabel="Button1">
+                                <rect key="frame" x="68" y="60" width="109" height="108"/>
+                                <connections>
+                                    <action selector="handleBtnClick:" destination="VLY-xx-4Ry" eventType="touchUpInside" id="hUy-eU-0AH"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="8x8-Tp-Yeg" firstAttribute="leading" secondItem="elw-02-gbQ" secondAttribute="leading" constant="60" id="3oB-Q9-vfS"/>
+                            <constraint firstItem="8x8-Tp-Yeg" firstAttribute="leading" secondItem="elw-02-gbQ" secondAttribute="leading" constant="68" id="3oB-Q9-vfS"/>
                             <constraint firstItem="vYk-ZI-FJa" firstAttribute="top" secondItem="ERc-lD-2e8" secondAttribute="bottom" constant="5" id="7wE-IS-DZj"/>
                             <constraint firstAttribute="trailing" secondItem="AoA-Fs-bnR" secondAttribute="trailing" constant="5" id="8MJ-ks-ugg"/>
                             <constraint firstAttribute="bottom" secondItem="i21-9q-Rbe" secondAttribute="bottom" constant="32" id="90C-YY-Mxx"/>
@@ -117,9 +117,9 @@
                             <constraint firstItem="yea-nQ-WXm" firstAttribute="top" secondItem="8x8-Tp-Yeg" secondAttribute="top" id="pIm-hb-r2t"/>
                             <constraint firstItem="ERc-lD-2e8" firstAttribute="leading" secondItem="kwa-IU-9sN" secondAttribute="trailing" constant="8" id="qEg-fU-jt9"/>
                             <constraint firstItem="9OU-R8-EaA" firstAttribute="leading" secondItem="vYk-ZI-FJa" secondAttribute="trailing" constant="5" id="rrj-37-XXr"/>
-                            <constraint firstItem="i21-9q-Rbe" firstAttribute="leading" secondItem="8x8-Tp-Yeg" secondAttribute="trailing" constant="20" id="tEb-M0-dJy"/>
+                            <constraint firstItem="i21-9q-Rbe" firstAttribute="leading" secondItem="8x8-Tp-Yeg" secondAttribute="trailing" constant="5" id="tEb-M0-dJy"/>
                             <constraint firstItem="vYk-ZI-FJa" firstAttribute="leading" secondItem="kwa-IU-9sN" secondAttribute="trailing" constant="8" id="ty0-Ry-Y9l"/>
-                            <constraint firstAttribute="trailing" secondItem="i21-9q-Rbe" secondAttribute="trailing" constant="60" id="uxN-vN-zv2"/>
+                            <constraint firstAttribute="trailing" secondItem="i21-9q-Rbe" secondAttribute="trailing" constant="68" id="uxN-vN-zv2"/>
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AtP-ct-5mK">
@@ -184,7 +184,7 @@
                 <outlet property="timeLB" destination="vhi-h4-Hez" id="NQp-wh-LaD"/>
                 <outlet property="typeLB" destination="9OU-R8-EaA" id="OHA-YF-Yvm"/>
             </connections>
-            <point key="canvasLocation" x="349.5" y="200.5"/>
+            <point key="canvasLocation" x="470.5" y="184.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -33,6 +33,9 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 @property (copy, nonatomic) NSString *aTicket;
 @property (copy, nonatomic) NSString *bTicket;
 @property (copy, nonatomic) NSString *cTicket;
+@property (assign, nonatomic) BOOL aIsClick;
+@property (assign, nonatomic) BOOL bIsClick;
+@property (assign, nonatomic) BOOL cIsClick;
 @property (assign, nonatomic) BOOL isClick;
 
 /**

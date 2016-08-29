@@ -154,6 +154,21 @@ static CGFloat tableViewHeight = 0.0;
     }else {
         [self.moreBtn setImage:kImage(@"icon_xia") forState:UIControlStateNormal];
     }
+    if (model.aIsClick) {
+        [self.aBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+    }else {
+        [self.aBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+    }
+    if (model.bIsClick) {
+        [self.bBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+    }else {
+        [self.bBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+    }
+    if (model.cIsClick) {
+        [self.cBtn setBackgroundImage:kImage(@"icon_vote") forState:UIControlStateNormal];
+    }else {
+        [self.cBtn setBackgroundImage:kImage(@"icon_vote_normal") forState:UIControlStateNormal];
+    }
     _model = model;
     self.timeLB.text = model.time;
     self.headImage.image = kImage(model.headImage);
@@ -182,6 +197,7 @@ static CGFloat tableViewHeight = 0.0;
             self.detailModel = detailModel;
         }
     }
+    
     if (model.isClick == NO) {
         self.detailModel.isClick = NO;
         self.detailModel.typeCell = TypeCellTitle;
