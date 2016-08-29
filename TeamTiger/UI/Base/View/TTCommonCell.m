@@ -296,15 +296,6 @@ typedef enum : NSUInteger {
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-//    [self customLayoutSubviews];
-   //    if (iOS7) return;
-//    
-//    // 设置分割线的frame
-//    CGFloat dividerH = 1;
-//    CGFloat dividerW = [UIScreen mainScreen].bounds.size.width;
-//    CGFloat dividerX = 0;
-//    CGFloat dividerY = self.contentView.frame.size.height - dividerH;
-//    self.divider.frame = CGRectMake(dividerX, dividerY, dividerW, dividerH);
 }
 
 - (void)setItem:(TTCommonItem *)item

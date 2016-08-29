@@ -84,8 +84,10 @@ static CGFloat tableViewHeight = 0.0;
     NSMutableArray *cellHeightArr = [NSMutableArray array];
     NSMutableArray *cellHeight1Arr = [NSMutableArray array];
     NSMutableArray *cellHeight2Arr = [NSMutableArray array];
+    
     NSMutableArray *cellHeight3Arr = [NSMutableArray array];
     if (model.isClick) {
+        
         for (HomeDetailCellModel *detailModel in model.comment) {
             if (detailModel.typeCell == TypeCellImage) {
                 [cellHeightArr addObject:detailModel];

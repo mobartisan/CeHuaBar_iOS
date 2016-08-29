@@ -36,7 +36,7 @@
 @property (nonatomic, assign) BOOL isSelectOriginalPhoto;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
-
+@property(nonatomic,strong) UIButton *startMomentBtn;
 @property (nonatomic, strong) TTCommonArrowItem *tagItem;
 @end
 
@@ -62,7 +62,7 @@
     
     [self setupGroup0];
     [self setupGroup1];
-//    [self setupGroup2];
+    [self setupGroup2];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,11 +146,37 @@
 /**
  *  第2组数据
  */
+//- (void)setupGroup2
+//{
+//    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:[TTAddVoteViewController class]];
+//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+//    group.items = [NSMutableArray arrayWithArray:@[vote]];
+//    [self.data addObject:group];
+//}
+
 - (void)setupGroup2
 {
-    TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:@"投票" subtitle:nil destVcClass:[TTAddVoteViewController class]];
+    //    self.addImageView = customView;
+    UIView *startView = [[UIView alloc] init];
+    startView.backgroundColor = kColorForBackgroud;
+    
+    
+    
+    
+    [startView addSubview:self.startMomentBtn];
+    [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(startView);
+        make.left.equalTo(startView).offset(8);
+        make.width.mas_equalTo(Screen_Width-16);
+        make.height.mas_equalTo(50);
+    }];
+
+    
+    TTCommonItem *startBtnItem = [TTCommonCustomViewItem itemWithCustomView:startView];
+
+
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = [NSMutableArray arrayWithArray:@[vote]];
+    group.items = [NSMutableArray arrayWithObjects:startBtnItem,nil];
     [self.data addObject:group];
 }
 
@@ -408,5 +434,24 @@
     // _collectionView.contentSize = CGSizeMake(0, ((_selectedPhotos.count + 2) / 3 ) * (_margin + _itemWH));
 }
 
+-(UIButton *)startMomentBtn{
+    if (!_startMomentBtn) {
+        _startMomentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
+        [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
+        setViewCornerAndBorder(_startMomentBtn, 8);
+        [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
+        //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateNormal];
+        //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateHighlighted];
+        [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
+        _startMomentBtn.backgroundColor = [UIColor clearColor];
+        //        _startMeetingBtn.bounds = (CGRect){CGPointZero, _startMeetingBtn.currentBackgroundImage.size};
+    }
+    return _startMomentBtn;
+}
+
+- (void)actionStartMoment {
+    NSLog(@"创建Moment");
+}
 
 @end

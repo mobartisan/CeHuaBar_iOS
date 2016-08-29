@@ -38,7 +38,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) AddImageView *addImageView;
-
+@property(nonatomic,strong) UIButton *startMomentBtn;
 @property (nonatomic, assign) BOOL isSelectOriginalPhoto;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
@@ -118,6 +118,21 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [self.data addObject:group];
 }
 
+/**
+ *  第1组数据
+ */
+//- (void)setupGroup2
+//{
+//    //    self.addImageView = customView;
+//    TTCommonItem *startBtnItem = [TTCommonCustomViewItem itemWithCustomView:self.startMomentBtn];
+//
+//    
+//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+//    group.items = [NSMutableArray arrayWithObjects:startBtnItem,nil];
+//    [self.data addObject:group];
+//}
+
+
 - (UIView *)addOptionView {
     UIView *addOptionView = [[UIView alloc] init];
     addOptionView.backgroundColor = [UIColor clearColor];
@@ -134,8 +149,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [addOptionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(addOptionView);
         make.left.equalTo(addOptionView).offset(kDistanceToHSide);
-//        make.top.equalTo(addOptionView).offset(kDistanceToVSide);
-//        make.bottom.equalTo(addOptionView).offset(-kDistanceToVSide);
     }];
     return addOptionView;
 }
@@ -250,6 +263,25 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     return group.footer;
 }
 
+-(UIButton *)startMomentBtn{
+    if (!_startMomentBtn) {
+        _startMomentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
+        [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
+        setViewCornerAndBorder(_startMomentBtn, 5);
+        [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
+//        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateNormal];
+//        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateHighlighted];
+        [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
+        _startMomentBtn.backgroundColor = [UIColor clearColor];
+        //        _startMeetingBtn.bounds = (CGRect){CGPointZero, _startMeetingBtn.currentBackgroundImage.size};
+    }
+    return _startMomentBtn;
+}
+
+- (void)actionStartMoment {
+    NSLog(@"创建Moment");
+}
 
 #pragma mark - Override
 

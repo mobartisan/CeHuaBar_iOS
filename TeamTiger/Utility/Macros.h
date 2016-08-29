@@ -76,7 +76,11 @@
 #define setViewCorner(view,radius)   {view.layer.cornerRadius = radius; view.layer.masksToBounds = YES;}
 
 //设置View圆角加边框
-#define setViewCornerAndBorder(view,radius)   {view.layer.cornerRadius = radius; view.layer.masksToBounds = YES; view.layer.borderWidth = (minLineWidth); view.layer.borderColor = ColorRGB(190, 190, 190).CGColor;}
+#define setViewCornerAndBorder(view,radius)   {view.layer.cornerRadius = radius; view.layer.masksToBounds = YES; view.layer.borderWidth = (minLineWidth); view.layer.borderColor = ColorRGB(46, 201, 202).CGColor;}
+
+//设置颜色
+#define ColorRGBA(R,G,B,A)           [UIColor colorWithRed:R / 255.0 green:G / 255.0  blue:B / 255.0  alpha:A]
+#define ColorRGB(R,G,B)              [UIColor colorWithRed:R / 255.0 green:G / 255.0  blue:B / 255.0  alpha:1.0]
 
 //设置View边框
 #define setViewBorder(view, width) {view.layer.borderWidth = width; view.layer.borderColor = ColorRGB(190, 190, 190).CGColor;}
