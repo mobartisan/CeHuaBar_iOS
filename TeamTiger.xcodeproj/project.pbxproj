@@ -58,6 +58,8 @@
 		068E96551D4F488C0074229C /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 068E96511D4F488C0074229C /* UIViewController+MMDrawerController.m */; };
 		068E965E1D4F499E0074229C /* CirclesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 068E96591D4F499E0074229C /* CirclesViewController.m */; };
 		068E965F1D4F499E0074229C /* CustomCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 068E965D1D4F499E0074229C /* CustomCardView.m */; };
+		0692CE921D7418A500299AC2 /* DeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692CE911D7418A500299AC2 /* DeviceManager.m */; };
+		0692CE961D7419D900299AC2 /* SDiPhoneVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0692CE951D7419D900299AC2 /* SDiPhoneVersion.m */; };
 		06B464A01D62A48B00DBC806 /* _JZNavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464931D62A48B00DBC806 /* _JZNavigationInteractiveTransition.m */; };
 		06B464A11D62A48B00DBC806 /* _JZValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464951D62A48B00DBC806 /* _JZValue.m */; };
 		06B464A21D62A48B00DBC806 /* NSNumber+JZExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B464971D62A48B00DBC806 /* NSNumber+JZExtension.m */; };
@@ -557,6 +559,10 @@
 		068E96591D4F499E0074229C /* CirclesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CirclesViewController.m; sourceTree = "<group>"; };
 		068E965C1D4F499E0074229C /* CustomCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCardView.h; sourceTree = "<group>"; };
 		068E965D1D4F499E0074229C /* CustomCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCardView.m; sourceTree = "<group>"; };
+		0692CE901D7418A500299AC2 /* DeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceManager.h; sourceTree = "<group>"; };
+		0692CE911D7418A500299AC2 /* DeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceManager.m; sourceTree = "<group>"; };
+		0692CE941D7419D900299AC2 /* SDiPhoneVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDiPhoneVersion.h; sourceTree = "<group>"; };
+		0692CE951D7419D900299AC2 /* SDiPhoneVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDiPhoneVersion.m; sourceTree = "<group>"; };
 		06B4648F1D62A48B00DBC806 /* JZNavigationExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JZNavigationExtension.h; sourceTree = "<group>"; };
 		06B464911D62A48B00DBC806 /* _JZ-objc-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "_JZ-objc-internal.h"; sourceTree = "<group>"; };
 		06B464921D62A48B00DBC806 /* _JZNavigationInteractiveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _JZNavigationInteractiveTransition.h; sourceTree = "<group>"; };
@@ -1567,6 +1573,24 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0692CE8F1D74188900299AC2 /* DeviceManager */ = {
+			isa = PBXGroup;
+			children = (
+				0692CE901D7418A500299AC2 /* DeviceManager.h */,
+				0692CE911D7418A500299AC2 /* DeviceManager.m */,
+			);
+			path = DeviceManager;
+			sourceTree = "<group>";
+		};
+		0692CE931D7419D900299AC2 /* SDiPhoneVersion */ = {
+			isa = PBXGroup;
+			children = (
+				0692CE941D7419D900299AC2 /* SDiPhoneVersion.h */,
+				0692CE951D7419D900299AC2 /* SDiPhoneVersion.m */,
+			);
+			path = SDiPhoneVersion;
+			sourceTree = "<group>";
+		};
 		06B4648E1D62A48B00DBC806 /* JZNavigationExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -2571,6 +2595,7 @@
 		1DA71B741D3DB618007483D2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				0692CE8F1D74188900299AC2 /* DeviceManager */,
 				1D29415A1D6E7F1E003B9066 /* UploadManager */,
 				1D3E235B1D61635C0024A5CA /* ModelsManager */,
 				1D8C334B1D5AC34C00AA4E1A /* MockDatas */,
@@ -2588,6 +2613,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				0692CE931D7419D900299AC2 /* SDiPhoneVersion */,
 				063B087A1D6F144F008AB592 /* MMPopupView */,
 				1DBC49B41D65542E00DB0CD2 /* GtSdkLib */,
 				1DBFD6DE1D6463650039077D /* DJRegisterView */,
@@ -3420,6 +3446,7 @@
 				1D9580A91D3E207200FD0053 /* MJRefreshAutoStateFooter.m in Sources */,
 				1D0EA2C21D45A82C00B47108 /* LCBaseRequest.m in Sources */,
 				1DB926171D46F4F4003676AC /* LCProcessFilter.m in Sources */,
+				0692CE921D7418A500299AC2 /* DeviceManager.m in Sources */,
 				1D09CC651D3F29C900F85E9A /* NSObject+YYAddForKVO.m in Sources */,
 				1D9580D31D3E225200FD0053 /* MASConstraint.m in Sources */,
 				1D09CD551D3F59D500F85E9A /* MKAnnotationView+WebCache.m in Sources */,
@@ -3656,6 +3683,7 @@
 				1D9580D81D3E225200FD0053 /* NSArray+MASAdditions.m in Sources */,
 				1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */,
 				06008F451D58249300A5B3DB /* TZPhotoPreviewController.m in Sources */,
+				0692CE961D7419D900299AC2 /* SDiPhoneVersion.m in Sources */,
 				068E96521D4F488C0074229C /* MMDrawerBarButtonItem.m in Sources */,
 				2D8F26011D701F0A00B28A8C /* YZInputView.m in Sources */,
 				1D9580721D3E1ADD00FD0053 /* MBProgressHUD.m in Sources */,

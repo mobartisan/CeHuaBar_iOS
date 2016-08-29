@@ -29,12 +29,12 @@
                                 title:@"下一步"
                                 
                                 hq:^BOOL(NSString *phoneStr) {
-                                    
+                                    NSLog(@"phoneStr : %@", phoneStr);
                                     return YES;
                                 }
                                 
                                 tjAction:^(NSString *yzmStr) {
-                                    
+                                    NSLog(@"yzmStr : %@",yzmStr);
                                 }];
     [self.view addSubview:djzcView];
     self.view.backgroundColor = [UIColor whiteColor];

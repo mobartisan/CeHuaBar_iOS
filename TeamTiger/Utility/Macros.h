@@ -9,6 +9,13 @@
 #ifndef Macros_h
 #define Macros_h
 
+//当前iOS系统版本
+#define CurrentSystemVersion_String        [[UIDevice currentDevice] systemVersion]
+#define CurrentSystemVersion_Double        [[[UIDevice currentDevice] systemVersion] doubleValue]
+
+//app 当前的版本
+#define AppVersion  [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]
+
 //检测是否retina屏
 #define isRetina   ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0, 960.0), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -23,6 +30,8 @@
 //检测是否iPhone6
 #define isIPhone6    ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750.0, 1334.0), [[UIScreen mainScreen] currentMode].size) : NO)
 
+//空字符串
+#define NullString            @""
 
 //检测是否iPhone6P
 #define isIPhone6P    ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242.0, 2208.0), [[UIScreen mainScreen] currentMode].size) : NO)

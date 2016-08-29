@@ -15,6 +15,7 @@
 
 #import "TTRegisterViewController.h"//用户注册
 #import "TTLookForPsdViewController.h"//找回密码
+#import "DeviceManager.h"
 
 @interface TTLogonViewController ()
 
@@ -24,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    WeakSelf;
     DJRegisterView *registerView = [[DJRegisterView alloc]
                                     initwithFrame:
                                     self.view.bounds
@@ -35,6 +36,8 @@
                                     } zcAction:^{
                                         NSLog(@"点击了 注册");
                                         [self registerAction:nil];
+                                        //test Register
+//                                        [wself testRegister];
                                     } wjAction:^{
                                         NSLog(@"点击了   忘记密码");
                                         [self forgetPasswordAction:nil];
@@ -44,9 +47,43 @@
 }
 
 #pragma -mark
+
+#pragma -mark test register
+- (void)testRegister {
+    RegisterApi *registerApi = [[RegisterApi alloc] init];
+    
+//    registerApi.requestArgument = @{@"username":@"Liupeng",@"password":@"111111",@"passwordConfirmation":@"111111"};
+    
+    registerApi.requestArgument = @{@"username":@"Chenjie",@"password":@"11111111",@"nick_name":@"huabaCJ",
+                                    @"phone":@"iphone",@"os_type":[[DeviceManager sharedInstance] getDeviceType],
+                                    @"os_description":[[DeviceManager sharedInstance] iphoneType],
+                                    @"device_identify":[[DeviceManager sharedInstance] getDeviceType],
+                                    @"passwordConfirmation":@"11111111"};
+    LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self Text:@"注册中..."];
+    [registerApi addAccessory:accessary];
+    [registerApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@",request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+//            gSession = request.responseJSONObject[OBJ][@"token"];
+//            //do something
+//            //        1.data
+//            //        2.UI
+//            [self jumpToRootVC];
+        } else {
+            //登录失败
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error.description);
+        [super showHudWithText:@"您的网络好像有问题~"];
+        [super hideHudAfterSeconds:3.0];
+    }];
+}
+
 #pragma -mark login register password action
 - (void)loginActionUserName:(NSString *)userName Password:(NSString *)password {
-#if 1
+#if 0
     [self jumpToRootVC];
 #else
     

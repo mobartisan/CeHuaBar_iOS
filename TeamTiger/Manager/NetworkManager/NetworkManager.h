@@ -17,6 +17,11 @@
 
 @end
 
+//注册
+@interface RegisterApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 //登录
 @interface LoginApi : LCBaseRequest<LCAPIRequest>
 
