@@ -17,8 +17,8 @@
 @end
 
 @interface HeadView : UITableViewHeaderFooterView
-@property (weak, nonatomic) IBOutlet UILabel *numberLB;
 
+@property (weak, nonatomic) IBOutlet UILabel *numberLB;
 + (instancetype)headerViewWithTableView:(UITableView *)tableView;
 @property (assign, nonatomic) id <HeadViewDelegate> delegate;
 

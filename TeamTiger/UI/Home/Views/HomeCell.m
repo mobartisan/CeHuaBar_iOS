@@ -55,6 +55,40 @@ static CGFloat tableViewHeight = 0.0;
     // Configure the view for the selected state
 }
 
++ (CGFloat)cellHeightWithModel:(HomeCellModel *)model {
+    CGFloat cellHeight = 0.0, cellImageHeight = 0.0;
+    if (is40inch) {
+        cellHeight = 303;
+        cellImageHeight = 303 -80;
+    }else if (is47inch) {
+        cellHeight = 353;
+        cellImageHeight = 353 - 100;
+    }else if (is55inch) {
+        cellHeight = 353;
+        cellImageHeight = 353 - 100;
+    }
+    if (model.imageCount == 4) {
+        if (model.height == 0) {
+            if (model.isClick) {
+                return cellHeight + [HomeCell tableViewHeight];
+            }else {
+                return cellHeight;
+            }
+        }else{
+            return cellHeight + model.height;
+        }
+    }else {
+        if (model.height == 0) {
+            if (model.isClick) {
+                return cellImageHeight + [HomeCell tableViewHeight];
+            }else {
+                return cellImageHeight;
+            }
+        }else{
+            return cellImageHeight + model.height;
+        }
+    }
+}
 
 - (void)setModel:(HomeCellModel *)model {
     if (model.isClick) {

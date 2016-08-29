@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "NetworkManager.h"
 #import "HomeCellModel.h"
 #import "HomeDetailCellModel.h"
 
@@ -18,6 +19,14 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[[self class] alloc] init];
+        ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
+        [projectsApi startWithBlockProgress:^(NSProgress *progress) {
+            
+        } success:^(__kindof LCBaseRequest *request) {
+            
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            
+        }];
     });
     return manager;
 }

@@ -45,7 +45,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="hQP-rw-mRH"/>
                             </constraints>
-                            <state key="normal" backgroundImage="add"/>
+                            <state key="normal" image="add"/>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>

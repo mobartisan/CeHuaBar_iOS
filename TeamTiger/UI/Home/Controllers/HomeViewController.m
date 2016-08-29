@@ -29,13 +29,12 @@
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) DataManager *manager;
-@property (assign, nonatomic) BOOL isShowHeaderView;
-
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet YZInputView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeightConstraint;
+@property (strong, nonatomic) DataManager *manager;
+@property (assign, nonatomic) BOOL isShowHeaderView;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end
@@ -177,7 +176,7 @@
     [spaceButtonItem setWidth:-16];
     [buttons addObject:spaceButtonItem];
 
-    UIBarButtonItem *projectsBtn =[[UIBarButtonItem alloc]initWithImage:kImage(@"icon_install") style: UIBarButtonItemStyleDone target:self action:@selector(projectsBtnAction)];
+    UIBarButtonItem *projectsBtn =[[UIBarButtonItem alloc] initWithImage:kImage(@"icon_install") style: UIBarButtonItemStyleDone target:self action:@selector(projectsBtnAction)];
     projectsBtn.tintColor = [UIColor whiteColor];
     [buttons addObject:projectsBtn];
 
@@ -384,40 +383,9 @@
 }
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat cellHeight = 0.0, cellImageHeight = 0.0;
-    if (is40inch) {
-        cellHeight = 303;
-        cellImageHeight = 303 -80;
-    }else if (is47inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
-    }else if (is55inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
-    }
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
-        if (model.imageCount == 4) {
-            if (model.height == 0) {
-                if (model.isClick) {
-                    return cellHeight + [HomeCell tableViewHeight];
-                }else {
-                    return cellHeight;
-                }
-            }else{
-                return cellHeight + model.height;
-            }
-        }else {
-            if (model.height == 0) {
-                if (model.isClick) {
-                    return cellImageHeight + [HomeCell tableViewHeight];
-                }else {
-                    return cellImageHeight;
-                }
-            }else{
-                return cellImageHeight + model.height;
-            }
-        }
+        return [HomeCell cellHeightWithModel:model];
     }else {
         if (model.height == 0) {
             if (model.isClick) {

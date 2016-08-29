@@ -28,5 +28,6 @@ typedef void(^ClickCommentBtn)(UIButton *button);
 @property (copy, nonatomic)   ClickCommentBtn clickCommentBtn;
 
 + (CGFloat)tableViewHeight;
++ (CGFloat)cellHeightWithModel:(HomeCellModel *)model;
 
 @end
