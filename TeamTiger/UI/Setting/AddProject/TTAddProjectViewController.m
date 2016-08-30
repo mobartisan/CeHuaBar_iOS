@@ -14,8 +14,13 @@
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
 #import "WXApiRequestHandler.h"
+#import "AFNetworking.h"
 
-@interface TTAddProjectViewController ()<WXApiManagerDelegate>
+@interface TTAddProjectViewController ()<WXApiManagerDelegate>{
+     NSString *_name;
+     NSString *_des;
+     BOOL isPrivate;
+}
 
 @end
 
@@ -36,6 +41,7 @@
     self.contentTable.estimatedRowHeight = 77;
     self.contentTable.rowHeight = UITableViewAutomaticDimension;
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -62,15 +68,15 @@
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeTextField:{
-                
+                _name = obj;
                 break;
             }
             case ECellTypeTextView:{
-                
+                _des = obj;
                 break;
             }
             case ECellTypeSwitch:{
-                
+                isPrivate = (BOOL)obj;
                 break;
             }
             case ECellTypeAccessory:{
@@ -88,6 +94,7 @@
                 break;
             }
             case ECellTypeBottom:{
+                [self createProjectWith:@"工作牛"description:@"项目讨论" is_private:isPrivate];
                 break;
             }
             default:
@@ -105,6 +112,35 @@
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor clearColor];
     return headerView;
+}
+
+- (void)createProjectWith:(NSString *)name description:(NSString *)description is_private:(BOOL)is_private {
+   
+    
+    if ([Common isEmptyString:name] || [Common isEmptyString:description]) {
+        [self showHudWithText:@"名称或描述不能为空"];
+        [self hideHudAfterSeconds:3.0];
+        return;
+    }
+#warning TO DO.....
+    ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
+    projectCreateApi.requestArgument = @{@"name":name,
+                                         @"description":description,
+                                         @"is_private":@(is_private),
+                                         @"current_state":@(0),
+                                         @"is_allow_delete":@(NO)
+                                         };
+    [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            //创建失败
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 #pragma -mark getters

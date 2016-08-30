@@ -184,7 +184,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
+    return @"/bbs/api/v1.0/project/create.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -205,6 +205,10 @@ static double const timeOutInterval = 15.0;
 
 - (NSDictionary *)requestHeaderValue {
     return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+- (LCRequestSerializerType)requestSerializerType {
+    return LCRequestSerializerTypeJSON;
 }
 
 @end

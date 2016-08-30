@@ -38,6 +38,7 @@ typedef NS_ENUM(NSInteger, ProjectType) {
 @property (assign, nonatomic) BOOL cIsClick;
 @property (assign, nonatomic) BOOL isClick;
 
+
 /**
  *  cell类型
  */

@@ -248,6 +248,7 @@
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification  object:nil];
+   
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -285,6 +286,7 @@
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         cell.clickCommentBtn = ^(UIButton *btn) {
             self.indexPath = indexPath;
+//            [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
