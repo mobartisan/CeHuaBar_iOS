@@ -3117,6 +3117,7 @@
 		2D8F25C21D701F0A00B28A8C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2D8F25E11D701F0A00B28A8C /* InputView */,
 				2D8F25C31D701F0A00B28A8C /* HeadView.h */,
 				2D8F25C41D701F0A00B28A8C /* HeadView.m */,
 				2D8F25C51D701F0A00B28A8C /* HeadView.xib */,
@@ -3147,7 +3148,6 @@
 				2D8F25DE1D701F0A00B28A8C /* HomeDetailCell6.h */,
 				2D8F25DF1D701F0A00B28A8C /* HomeDetailCell6.m */,
 				2D8F25E01D701F0A00B28A8C /* HomeDetailCell6.xib */,
-				2D8F25E11D701F0A00B28A8C /* InputView */,
 				2D8F25E41D701F0A00B28A8C /* VoteHomeCell.h */,
 				2D8F25E51D701F0A00B28A8C /* VoteHomeCell.m */,
 				2D8F25E61D701F0A00B28A8C /* VoteHomeCell.xib */,
