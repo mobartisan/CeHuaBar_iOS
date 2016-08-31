@@ -69,6 +69,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapAction:)];
     [self.tableView addGestureRecognizer:tap];
+        
 }
 
 - (void)handleTapAction:(UITapGestureRecognizer *)tap {

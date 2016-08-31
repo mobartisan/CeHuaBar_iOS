@@ -11,6 +11,7 @@
 #import "ProfileCell.h"
 #import "TTMyProfileViewController.h"
 #import "TTNotificationSetting.h"
+#import "UIAlertView+HYBHelperKit.h"
 
 
 @interface TTMyProfileViewController ()
@@ -55,6 +56,22 @@
             NSLog(@"微信头像，无法修改");
         } else {
             NSLog(@"退出登录");
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要退出吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+                    shake.fromValue = [NSNumber numberWithFloat:-M_PI_4 / 24.0];
+                    shake.toValue   = [NSNumber numberWithFloat:+M_PI_4 / 24.0];
+                    shake.duration = 0.1;
+                    shake.autoreverses = YES;
+                    shake.repeatCount = 6;
+                    UIWindow *window = [[UIApplication sharedApplication].delegate window];
+                    [[UIApplication sharedApplication].delegate applicationDidEnterBackground:[UIApplication sharedApplication]];
+                    [window.layer addAnimation:shake forKey:@"shakeAnimation"];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        exit(0);
+                    });
+                }
+            }];
         }
     };
     return cell;
