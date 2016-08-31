@@ -37,6 +37,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    WeakSelf;
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionPush SubType:kCATransitionFromRight];
+    }];
     self.navigationItem.rightBarButtonItem = self.addCirclesItem;
     //    self.navigationController.jz_navigationBarBackgroundAlpha = 0;
     self.navigationController.jz_navigationBarBackgroundHidden = YES;

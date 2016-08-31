@@ -25,6 +25,7 @@
 #import "MMSheetView.h"
 #import "MMPopupWindow.h"
 #import "TTAddVoteViewController.h"
+#import "CirclesVC.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
 
@@ -177,7 +178,7 @@
     [spaceButtonItem setWidth:-16];
     [buttons addObject:spaceButtonItem];
 
-    UIBarButtonItem *projectsBtn =[[UIBarButtonItem alloc] initWithImage:kImage(@"icon_install") style: UIBarButtonItemStyleDone target:self action:@selector(projectsBtnAction)];
+    UIBarButtonItem *projectsBtn =[[UIBarButtonItem alloc] initWithImage:kImage(@"icon_list") style: UIBarButtonItemStyleDone target:self action:@selector(projectsBtnAction)];
     projectsBtn.tintColor = [UIColor whiteColor];
     [buttons addObject:projectsBtn];
 
@@ -204,11 +205,12 @@
 }
 
 - (void)projectsBtnAction {
-//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-//    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:settingVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
+//    [self showHudWithText:@"跳转项目列表"];
+//    [self hideHudAfterSeconds:3.0];
     
-    [self showHudWithText:@"跳转项目列表"];
-    [self hideHudAfterSeconds:3.0];
+    //
+    CirclesVC *circleVC = [[CirclesVC alloc] init];
+    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:circleVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
 }
 
 - (void)settingBtnAction {
