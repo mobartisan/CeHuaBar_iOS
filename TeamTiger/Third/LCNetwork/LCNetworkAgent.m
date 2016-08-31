@@ -65,6 +65,7 @@
         serializer.removesKeysWithNullValues = [request.child removesKeysWithNullValues];
     }
     self.manager.responseSerializer = serializer;
+    _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     NSDictionary *argument = request.requestArgument;
     // 检查是否有统一的参数加工
     if (self.config.processRule && [self.config.processRule respondsToSelector:@selector(processArgumentWithRequest:query:)]) {

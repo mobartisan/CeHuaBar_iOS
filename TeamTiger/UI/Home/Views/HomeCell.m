@@ -90,6 +90,23 @@ static CGFloat tableViewHeight = 0.0;
     }
 }
 
++ (instancetype)homeCellWithTableView:(UITableView *)tableView model:(HomeCellModel *)model {
+    static NSString *homeCell = @"homeCell";
+    HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:homeCell];
+    if (cell == nil) {
+        if (model.imageCount == 1) {
+            cell = LoadFromNib(@"HomeCell");
+        }else if (model.imageCount == 2) {
+            cell = LoadFromNib(@"HomeCell1");
+        }else if (model.imageCount == 3) {
+            cell = LoadFromNib(@"HomeCell2");
+        }else {
+            cell = LoadFromNib(@"HomeCell3");
+        }
+    }
+    return cell;
+}
+
 - (void)setModel:(HomeCellModel *)model {
     if (model.isClick) {
         [self.moreBtn setImage:kImage(@"icon_shang") forState:UIControlStateNormal];
@@ -121,7 +138,6 @@ static CGFloat tableViewHeight = 0.0;
     
     NSMutableArray *cellHeight3Arr = [NSMutableArray array];
     if (model.isClick) {
-        
         for (HomeDetailCellModel *detailModel in model.comment) {
             if (detailModel.typeCell == TypeCellImage) {
                 [cellHeightArr addObject:detailModel];
@@ -179,7 +195,7 @@ static CGFloat tableViewHeight = 0.0;
             [self.tableView reloadData];
             _model.height = 0;
             if ([self.delegate respondsToSelector:@selector(reloadHomeTableView:)]) {
-                [self.delegate reloadHomeTableView:self.indexPath];
+                [self.delegate reloadHomeTableView:nil];
             }
         };
         [cell configureCellWithModel:detailModel];
@@ -223,7 +239,7 @@ static CGFloat tableViewHeight = 0.0;
 
 - (IBAction)hanldeCommentAction:(ButtonIndexPath *)sender {
     self.clickCommentBtn(sender);
-
+    
 }
 
 - (IBAction)handleBtnClick:(UIButton *)sender {
@@ -256,16 +272,16 @@ static CGFloat tableViewHeight = 0.0;
             imageArr = @[self.image1, self.image2];
             break;
         case 3:
-            imageArr  = @[self.image1, self.image2, self.image3];
+            imageArr = @[self.image1, self.image2, self.image3];
             break;
         case 4:
-            imageArr  = @[self.image1, self.image2, self.image3, self.image4];
+            imageArr = @[self.image1, self.image2, self.image3, self.image4];
             break;
         default:
             break;
     }
-        JJPhotoManeger *manager = [JJPhotoManeger maneger];
-        [manager showNetworkPhotoViewer:imageArr urlStrArr:nil selecView:currentImage];
+    JJPhotoManeger *manager = [JJPhotoManeger maneger];
+    [manager showNetworkPhotoViewer:imageArr urlStrArr:nil selecView:currentImage];
 }
 
 

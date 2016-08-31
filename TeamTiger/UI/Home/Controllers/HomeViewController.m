@@ -29,6 +29,9 @@
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+/**
+ *  评论视图
+ */
 @property (weak, nonatomic) IBOutlet UIView *bgView;
 @property (weak, nonatomic) IBOutlet YZInputView *textView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
@@ -266,27 +269,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
-        static NSString *homeCell = @"homeCell";
-        HomeCell *cell = [tableView dequeueReusableCellWithIdentifier:homeCell];
-        if (cell == nil) {
-            if (model.imageCount == 1) {
-                cell = LoadFromNib(@"HomeCell");
-            }else if (model.imageCount == 2) {
-                cell = LoadFromNib(@"HomeCell1");
-            }else if (model.imageCount == 3) {
-                cell = LoadFromNib(@"HomeCell2");
-            }else {
-                cell = LoadFromNib(@"HomeCell3");
-            }
-        }
+        HomeCell *cell = [HomeCell homeCellWithTableView:tableView model:model];
         cell.model = model;
-        cell.indexPath = indexPath;
+        //二级展开代理
         cell.delegate = self;
         cell.moreBtn.indexPath = indexPath;
+        //展开按钮
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        //评论
         cell.clickCommentBtn = ^(UIButton *btn) {
             self.indexPath = indexPath;
-//            [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
             [self.textView becomeFirstResponder];
         };
         [cell.tableView reloadData];
@@ -295,7 +287,8 @@
         VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
         cell.model = model;
         cell.moreBtn.indexPath = indexPath;
-        [cell.moreBtn addTarget:self action:@selector(handleVoteHomeAction:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
+        //评论
         cell.clickBtn = ^(UIButton *btn) {
             self.indexPath = indexPath;
             [self.textView becomeFirstResponder];
@@ -337,8 +330,8 @@
                         model.cTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] + 0.1)];
                         typeCell = TypeCellTime;
                     }else {
-                        model.aIsClick = NO;
-                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] - 0.1)];
+                        model.cIsClick = NO;
+                        model.cTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] - 0.1)];
                         typeCell = TypeCellTitleNoButton;
                     }
                     projectType = @"C";
@@ -359,26 +352,11 @@
         [cell.tableView reloadData];
         return cell;
     }
-    
-    
 }
-
 - (void)handleClickAction:(ButtonIndexPath *)button {
     HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
     model.isClick = !model.isClick;
-    if (model.isClick) {
-        
-    }else {
-        model.height = 0.0;
-    }
-    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
-}
-- (void)handleVoteHomeAction:(ButtonIndexPath *)button {
-    HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
-    model.isClick = !model.isClick;
-    if (model.isClick) {
-        
-    }else {
+    if (!model.isClick) {
         model.height = 0.0;
     }
     [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -399,7 +377,6 @@
             return 431 + model.height;
         }
     }
-    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.isShowHeaderView) {

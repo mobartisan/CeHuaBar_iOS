@@ -24,10 +24,10 @@ typedef void(^ClickCommentBtn)(UIButton *button);
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 @property (assign, nonatomic) id <HomeCellDelegate> delegate;
 @property (strong, nonatomic) HomeCellModel *model;
-@property (strong, nonatomic) NSIndexPath *indexPath;
 @property (copy, nonatomic)   ClickCommentBtn clickCommentBtn;
 
 + (CGFloat)tableViewHeight;
 + (CGFloat)cellHeightWithModel:(HomeCellModel *)model;
++ (instancetype)homeCellWithTableView:(UITableView *)tableView model:(HomeCellModel *)model;
 
 @end
