@@ -94,7 +94,8 @@
                 break;
             }
             case ECellTypeBottom:{
-                [self createProjectWith:@"工作牛"description:@"项目讨论" is_private:isPrivate];
+                
+                [self createProjectWith:_name description:_des is_private:isPrivate];
                 break;
             }
             default:
@@ -117,7 +118,7 @@
 - (void)createProjectWith:(NSString *)name description:(NSString *)description is_private:(BOOL)is_private {
    
     
-    if ([Common isEmptyString:name] || [Common isEmptyString:description]) {
+    if ([Common isEmptyString:name]) {
         [self showHudWithText:@"名称或描述不能为空"];
         [self hideHudAfterSeconds:3.0];
         return;
@@ -131,6 +132,7 @@
                                          @"is_allow_delete":@(NO)
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {

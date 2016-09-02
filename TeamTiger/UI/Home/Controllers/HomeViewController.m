@@ -73,7 +73,24 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapAction:)];
     [self.tableView addGestureRecognizer:tap];
-        
+    
+    [self getProject];
+}
+
+- (void)getProject {
+    ProjectsApi *pro = [[ProjectsApi alloc] init];
+//    LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self Text:@"登录中..."];
+//    [loginApi addAccessory:accessary];
+    [pro startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@",request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error.description);
+        [super showHudWithText:@"您的网络好像有问题~"];
+    }];
+
 }
 
 - (void)handleTapAction:(UITapGestureRecognizer *)tap {
