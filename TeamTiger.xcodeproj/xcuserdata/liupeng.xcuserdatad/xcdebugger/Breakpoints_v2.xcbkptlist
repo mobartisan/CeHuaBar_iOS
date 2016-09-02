@@ -55,9 +55,9 @@
             timestampString = "494150559.528061"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-loginActionUserName:Password:"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "-testRegister"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -67,13 +67,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Login/CustomerLogin/TTLogonViewController.m"
-            timestampString = "494150559.528061"
+            filePath = "TeamTiger/Third/MMPopupView/MMSheetView.m"
+            timestampString = "494480638.564707"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "-testRegister"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "-actionCancel"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/Third/MMPopupView/MMPopupWindow.m"
+            timestampString = "494480852.002081"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-initWithFrame:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/Third/MMPopupView/MMPopupWindow.m"
+            timestampString = "494480855.709445"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-actionTap:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

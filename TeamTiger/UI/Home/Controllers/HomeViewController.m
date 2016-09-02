@@ -223,6 +223,8 @@
 
 - (void)handleRightBtnAction {
     
+    [MMPopupWindow sharedWindow].touchWildToHide = YES;
+    
     MMPopupItemHandler block = ^(NSInteger index){
 
         
