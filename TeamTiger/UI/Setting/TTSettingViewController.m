@@ -10,6 +10,7 @@
 #import "IQKeyboardManager.h"
 #import "MockDatas.h"
 #import "ProjectCell.h"
+#import "SelectCircleViewControllerForSetting.h"
 #import "TTAddContactorViewController.h"
 #import "TTPickerView.h"
 #import "TTSettingViewController.h"
@@ -59,7 +60,14 @@
     [cell reloadCellData:dic];
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
-            [self ttPicker];
+//            [self ttPicker];
+            SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
+            selectCircleVC.title = @"选择项目";
+            WeakSelf;
+            selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
+                [wself loadProjectDataById:selectObject[@"Id"]];
+            };
+            [self.navigationController pushViewController:selectCircleVC animated:YES];
         } else if (type == EProjectAddMember){
 //            NSLog(@"跳转微信，增加人员");
 //            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
