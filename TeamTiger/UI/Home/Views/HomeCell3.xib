@@ -240,7 +240,7 @@
                 <outlet property="timeLB" destination="Z3A-VD-RtA" id="3KC-hd-BXM"/>
                 <outlet property="typeLB" destination="rFe-Wb-egG" id="G8c-8c-vs0"/>
             </connections>
-            <point key="canvasLocation" x="464.5" y="229.5"/>
+            <point key="canvasLocation" x="497.5" y="161.5"/>
         </tableViewCell>
     </objects>
     <resources>

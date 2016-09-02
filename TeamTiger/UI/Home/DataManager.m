@@ -18,17 +18,7 @@
     static DataManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [[[self class] alloc] init];
-#warning 列表请求
-        //项目列表
-        ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
-        [projectsApi startWithBlockProgress:^(NSProgress *progress) {
-            
-        } success:^(__kindof LCBaseRequest *request) {
-
-        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            
-        }];
+        manager = [[[self class] alloc] init];       
     });
     return manager;
 }

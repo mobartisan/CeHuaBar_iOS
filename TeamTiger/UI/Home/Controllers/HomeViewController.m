@@ -79,12 +79,9 @@
 
 - (void)getProject {
     ProjectsApi *pro = [[ProjectsApi alloc] init];
-//    LCRequestAccessory *accessary = [[LCRequestAccessory alloc] initWithShowVC:self Text:@"登录中..."];
-//    [loginApi addAccessory:accessary];
     [pro startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@",request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            
+            NSLog(@"%@", request.responseJSONObject);
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@",error.description);
@@ -272,6 +269,7 @@
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification  object:nil];
+
    
 }
 
@@ -382,27 +380,34 @@
 
 #pragma mark UITextViewDelegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
     if ([text isEqualToString:@"\n"]) {
-        NSDictionary *dic = nil;
-        HomeCellModel *model = self.manager.dataSource[self.indexPath.row];
-        if (model.projectType == ProjectTypeAll) {
-            dic = @{@"time":[Common getCurrentSystemTime],
-                    @"firstName":@"赵瑞",
-                    @"secondName":@"@曹兴星",
-                    @"des":_textView.text,
-                    @"typeCell":@(TypeCellTitleNoButton)};
-        }else {
-            dic = @{@"time":[Common getCurrentSystemTime],
-                    @"firstName":@"曹兴星",
-                    @"secondName":@"C",
-                    @"typeCell":@(TypeCellTitleNoButton)
-                    };
-        }
-        HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
-        [model.comment insertObject:detailModel atIndex:0];
-        model.isClick = YES;
-        model.height = 0.0;
-        [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
+#warning TO DO Here
+        NSString *project_id = @"5b0406e0-70de-11e6-b11e-57f534258fb6";
+        DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
+        discussCreatApi.requestArgument = @{@"project_id":project_id};
+        [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                NSLog(@"%@", request.responseJSONObject);
+                [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            } else {
+                //创建讨论失败
+                [super showHudWithText:request.responseJSONObject[MSG]];
+                [super hideHudAfterSeconds:3.0];
+            }
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@",error.description);
+            [self showHudWithText:@"您的网络好像有问题~"];
+            [self hideHudAfterSeconds:3.0];
+        }];
+        
+      
+        
+//        HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
+//        [model.comment insertObject:detailModel atIndex:0];
+//        model.isClick = YES;
+//        model.height = 0.0;
+//        [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
         [_bgView endEditing:YES];
         return NO;
     }

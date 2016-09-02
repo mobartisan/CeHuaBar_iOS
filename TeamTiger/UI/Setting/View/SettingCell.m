@@ -163,7 +163,7 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     if (self.actionBlock) {
-        self.actionBlock(self, ECellTypeTextField, textView.text);
+        self.actionBlock(self, ECellTypeTextView, textView.text);
     }
 }
 

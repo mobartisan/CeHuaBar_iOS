@@ -94,7 +94,6 @@
                 break;
             }
             case ECellTypeBottom:{
-                
                 [self createProjectWith:_name description:_des is_private:isPrivate];
                 break;
             }
@@ -116,14 +115,11 @@
 }
 
 - (void)createProjectWith:(NSString *)name description:(NSString *)description is_private:(BOOL)is_private {
-   
-    
     if ([Common isEmptyString:name]) {
         [self showHudWithText:@"名称或描述不能为空"];
         [self hideHudAfterSeconds:3.0];
         return;
     }
-#warning TO DO.....
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"name":name,
                                          @"description":description,
@@ -141,7 +137,9 @@
             [super hideHudAfterSeconds:3.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
+        NSLog(@"%@",error.description);
+        [self showHudWithText:@"您的网络好像有问题~"];
+        [self hideHudAfterSeconds:3.0];
     }];
 }
 
