@@ -27,7 +27,8 @@
     self.title = @"个人设置";
     
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
 
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;

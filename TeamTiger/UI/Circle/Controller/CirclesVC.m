@@ -213,8 +213,9 @@
         _userInfoView.clickBlock = ^(UserInfoView *view){
             //
             TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
-            TTBaseNavigationController *navi = [[TTBaseNavigationController alloc] initWithRootViewController:myProfileVC];
-            [wself presentViewController:navi animated:YES completion:nil];
+//            TTBaseNavigationController *navi = [[TTBaseNavigationController alloc] initWithRootViewController:myProfileVC];
+//            [wself presentViewController:navi animated:YES completion:nil];
+            [wself.navigationController pushViewController:myProfileVC animated:YES];
         };
     }
     return _userInfoView;
