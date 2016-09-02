@@ -29,7 +29,7 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZEy-SD-ud2" userLabel="bgView">
-                    <rect key="frame" x="0.0" y="568" width="320" height="40"/>
+                    <rect key="frame" x="0.0" y="628" width="320" height="40"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="g2d-2A-hFC" customClass="YZInputView">
                             <rect key="frame" x="20" y="5" width="250" height="30"/>
@@ -67,7 +67,7 @@
                 <constraint firstItem="ZEy-SD-ud2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GgN-tJ-7e0"/>
                 <constraint firstItem="RAl-1T-Dx6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LQh-JP-DA5"/>
                 <constraint firstAttribute="trailing" secondItem="ZEy-SD-ud2" secondAttribute="trailing" id="QKf-O3-EkC"/>
-                <constraint firstAttribute="bottom" secondItem="ZEy-SD-ud2" secondAttribute="bottom" constant="-40" id="ScW-or-7JG"/>
+                <constraint firstAttribute="bottom" secondItem="ZEy-SD-ud2" secondAttribute="bottom" constant="-100" id="ScW-or-7JG"/>
                 <constraint firstItem="RAl-1T-Dx6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Vze-Mn-E98"/>
                 <constraint firstAttribute="bottom" secondItem="RAl-1T-Dx6" secondAttribute="bottom" id="zuW-0b-lN5"/>
             </constraints>

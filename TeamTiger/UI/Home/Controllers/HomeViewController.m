@@ -240,7 +240,6 @@
     MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
         NSLog(@"animation complete");
     };
-    
     NSArray *items =
     @[MMItemMake(@"创建Moment", MMItemTypeNormal, block),
       MMItemMake(@"发起投票", MMItemTypeNormal, block)];
@@ -271,6 +270,7 @@
     return self.manager.dataSource.count;
     
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
@@ -291,6 +291,7 @@
     }else {
         VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
         cell.model = model;
+        cell.delegate = self;
         cell.moreBtn.indexPath = indexPath;
         [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
         //评论
@@ -298,66 +299,15 @@
             self.indexPath = indexPath;
             [self.textView becomeFirstResponder];
         };
-        [cell setVoteClick:^(UIButton *sender) {
-            NSDictionary *dic = nil;
-            NSString *projectType = nil;
-            NSInteger typeCell = 0;
-            switch (sender.tag) {
-                case 100:{
-                    if (!model.aIsClick) {
-                        model.aIsClick = YES;
-                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.aTicket floatValue] + 0.1)];
-                        typeCell = TypeCellTime;
-                    }else {
-                        model.aIsClick = NO;
-                        model.aTicket = [NSString stringWithFormat:@"%.1f", ([model.aTicket floatValue] - 0.1)];
-                        typeCell = TypeCellTitleNoButton;
-                    }
-                    projectType = @"A";
-                }
-                    break;
-                case 101:{
-                    if (!model.bIsClick) {
-                        model.bIsClick = YES;
-                        model.bTicket = [NSString stringWithFormat:@"%.1f", ([model.bTicket floatValue] + 0.1)];
-                        typeCell = TypeCellTime;
-                    }else {
-                        model.bIsClick = NO;
-                        model.bTicket = [NSString stringWithFormat:@"%.1f", ([model.bTicket floatValue] - 0.1)];
-                        typeCell = TypeCellTitleNoButton;
-                    }
-                    projectType = @"B";
-                }
-                    break;
-                case 102:{
-                    if (!model.cIsClick) {
-                        model.cIsClick = YES;
-                        model.cTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] + 0.1)];
-                        typeCell = TypeCellTime;
-                    }else {
-                        model.cIsClick = NO;
-                        model.cTicket = [NSString stringWithFormat:@"%.1f", ([model.cTicket floatValue] - 0.1)];
-                        typeCell = TypeCellTitleNoButton;
-                    }
-                    projectType = @"C";
-                }
-                    break;
-            }
-            dic = @{@"time":[Common getCurrentSystemTime],
-                    @"firstName":model.name,
-                    @"secondName":projectType,
-                    @"typeCell":@(typeCell)
-                    };
-             HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
-            [model.comment insertObject:detailModel atIndex:0];
-            model.isClick = YES;
-            model.height = 0.0;
+        //投票
+        [cell setVoteClick:^() {
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         }];
         [cell.tableView reloadData];
         return cell;
     }
 }
+
 - (void)handleClickAction:(ButtonIndexPath *)button {
     HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
     model.isClick = !model.isClick;
@@ -366,23 +316,17 @@
     }
     [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
+
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCellModel *model = self.manager.dataSource[indexPath.row];
     if (model.projectType == ProjectTypeAll) {
         return [HomeCell cellHeightWithModel:model];
     }else {
-        if (model.height == 0) {
-            if (model.isClick) {
-                return 431 + [HomeCell tableViewHeight];
-            }else {
-                return 431;
-            }
-        }else{
-            return 431 + model.height;
-        }
+        return [VoteHomeCell cellHeightWithModel:model];
     }
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (self.isShowHeaderView) {
         HeadView *headerView = [HeadView headerViewWithTableView:tableView];
@@ -393,6 +337,7 @@
     }
     
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.isShowHeaderView) {
         return 60;
@@ -400,6 +345,7 @@
         return 0;
     }
 }
+
 #pragma mark HomeCellDelegate
 - (void)reloadHomeTableView:(NSIndexPath *)indexPath {
     [self.tableView reloadData];
@@ -410,6 +356,7 @@
     [self.tableView reloadData];
     
 }
+
 #pragma mark HeadViewDelegate
 - (void)headViewDidClickWithHeadView:(HeadView *)headView {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
@@ -444,8 +391,5 @@
     }
     return YES;
 }
-
-
-
 
 @end

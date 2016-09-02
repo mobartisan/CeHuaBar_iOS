@@ -51,7 +51,7 @@
 {
     [super prepare];
     
-    self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
 }
 
 - (void)placeSubviews
@@ -100,7 +100,6 @@
             } completion:^(BOOL finished) {
                 // 如果执行完动画发现不是idle状态，就直接返回，进入其他状态
                 if (self.state != MJRefreshStateIdle) return;
-                
                 self.loadingView.alpha = 1.0;
                 [self.loadingView stopAnimating];
                 self.arrowView.hidden = NO;

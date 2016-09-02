@@ -30,6 +30,10 @@ static CGFloat tableViewHeight = 0.0;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet UIImageView *image4;
+//单层图片背景高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeight;
+//双层图片背景高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewDoubleHeight;
 
 @end
 
@@ -38,7 +42,13 @@ static CGFloat tableViewHeight = 0.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    if (is40inch) {
+        self.bgViewHeight.constant = 180;
+        self.bgViewDoubleHeight.constant = 260;
+    }else {
+        self.bgViewHeight.constant = 200;
+        self.bgViewDoubleHeight.constant = 320;
+    }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [Common removeExtraCellLines:self.tableView];
@@ -56,16 +66,14 @@ static CGFloat tableViewHeight = 0.0;
 }
 
 + (CGFloat)cellHeightWithModel:(HomeCellModel *)model {
-    CGFloat cellHeight = 0.0, cellImageHeight = 0.0;
+    //cellHeight 四张图片 cellImageHeight 一,二,三,张照片
+    CGFloat cellHeight = 0, cellImageHeight = 0;
     if (is40inch) {
-        cellHeight = 303;
-        cellImageHeight = 303 -80;
-    }else if (is47inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
-    }else if (is55inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
+        cellHeight = 311;
+        cellImageHeight = 231;
+    }else {
+        cellHeight = 371;
+        cellImageHeight = 251;
     }
     if (model.imageCount == 4) {
         if (model.height == 0) {
@@ -153,7 +161,7 @@ static CGFloat tableViewHeight = 0.0;
             }
         }
     }
-    height =  160 * ((int)cellHeightArr.count)  + 60 * ((int)cellHeight1Arr.count) + 100 * ((int)cellHeight2Arr.count) + 30 * ((int)cellHeight3Arr.count);
+    height =  130 * ((int)cellHeightArr.count)  + 60 * ((int)cellHeight1Arr.count) + 100 * ((int)cellHeight2Arr.count) + 30 * ((int)cellHeight3Arr.count);
     if (_model.height == 0) {
         _model.height = height;
     }
@@ -220,7 +228,7 @@ static CGFloat tableViewHeight = 0.0;
     HomeDetailCellModel *detailModel = _model.comment[indexPath.row];
     switch (detailModel.typeCell) {
         case TypeCellImage:
-            return 160;
+            return 130;
             break;
         case TypeCellTitleNoButton:
             return 60;
