@@ -37,7 +37,7 @@
 - (NSMutableArray *)dataArr {
     if (_dataArr == nil) {
         _dataArr = @[
-                     @{@"time":@"2016年7月19日 15:25",
+                     @{@"time":@"上午 11:27",
                        @"headImage":@"touxiang",
                        @"name":@"唐小旭",
                        @"type":@"工作牛",
@@ -72,7 +72,7 @@
                                  @"typeCell":@(TypeCellTitle)
                                  },
                                @{@"time":@"昨天",
-                                 @"firstName":@"2016年7月18日",
+                                 @"firstName":@"7月18日",
                                  @"secondName":@"@唐小旭",
                                  @"des":@"TypeSomething...",
                                  @"firstImage":@"image",
@@ -89,10 +89,10 @@
                                  },
                                ].mutableCopy
                        },
-                     @{@"time":@"2016年7月24日 15:25",
+                     @{@"time":@"上午 10:24",
                        @"headImage":@"touxiang",
-                       @"name":@"唐小旭",
-                       @"type":@"工作牛",
+                       @"name":@"卞克",
+                       @"type":@"BBS",
                        @"image1":@"placeImage",
                        @"image2":@"image",
                        @"image3":@"image",

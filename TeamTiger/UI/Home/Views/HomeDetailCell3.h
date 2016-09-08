@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *firstNameLB;
 @property (weak, nonatomic) IBOutlet UILabel *secondNameLB;
 @property (weak, nonatomic) IBOutlet UILabel *descipitionLB;
+@property (weak, nonatomic) IBOutlet UIImageView *icon_point;
 
 @property (weak, nonatomic) IBOutlet UIView *lineView2;
 

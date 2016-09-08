@@ -27,7 +27,7 @@
 #import "TTAddVoteViewController.h"
 #import "CirclesVC.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /**
@@ -58,14 +58,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"Moments";
     keyBoardBGView = _bgView;
     // 监听文本框文字高度改变
     _textView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
         _bgViewHeightConstraint.constant = textHeight + 10;
     };
+    _textView.keyboardAppearance = UIKeyboardAppearanceLight;
     // 设置文本框最大行数
     _textView.maxNumberOfLines = 4;
-    _textView.placeholder = @"评论";
+    _textView.placeholder = @"添加一条讨论";
+    _textView.placeholderColor = [UIColor grayColor];
     
     [self configureNavigationItem];
     [self handleRefreshAction];
@@ -77,15 +80,17 @@
     [self getProject];
 }
 
+#pragma mark  查询项目列表
 - (void)getProject {
     ProjectsApi *pro = [[ProjectsApi alloc] init];
     [pro startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            NSLog(@"%@", request.responseJSONObject);
+            NSLog(@"ProjectsApi == %@", request.responseJSONObject);
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@",error.description);
         [super showHudWithText:@"您的网络好像有问题~"];
+        [self hideHudAfterSeconds:3.0];
     }];
 
 }
@@ -126,7 +131,7 @@
     }
     NSDictionary *dic = @{@"projectType":@(ProjectTypeAll),
                           @"imageCount":@(2),
-                          @"time":@"2016年8月10日 14:25",
+                          @"time":@"7月19日 9:27",
                           @"headImage":@"touxiang",
                           @"name":@"齐云猛",
                           @"type":@"易会",
@@ -269,9 +274,10 @@
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification  object:nil];
-
-   
+    
+    
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -382,7 +388,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     if ([text isEqualToString:@"\n"]) {
-#warning TO DO Here
+#warning TO DO 
         NSString *project_id = @"5b0406e0-70de-11e6-b11e-57f534258fb6";
         DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
         discussCreatApi.requestArgument = @{@"project_id":project_id};
@@ -413,5 +419,6 @@
     }
     return YES;
 }
+
 
 @end

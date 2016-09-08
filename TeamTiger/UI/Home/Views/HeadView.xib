@@ -42,7 +42,7 @@
                             </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.10980392156862745" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="iul-Ws-brY" firstAttribute="top" secondItem="i07-ac-gOf" secondAttribute="top" constant="14" id="36z-TY-a2V"/>
                         <constraint firstItem="iul-Ws-brY" firstAttribute="centerX" secondItem="i07-ac-gOf" secondAttribute="centerX" constant="16" id="CSf-iG-LvJ"/>

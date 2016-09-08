@@ -17,7 +17,7 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016年7月19日 9:27" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYp-Xr-gaa">
                         <rect key="frame" x="10" y="5" width="355" height="20"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="W9k-oN-0pQ"/>
                         </constraints>
@@ -37,7 +37,7 @@
                                 <state key="normal" image="icon_xia"/>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.17254901959999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8Rf-9O-yrt" firstAttribute="leading" secondItem="Ekj-HS-FT2" secondAttribute="leading" constant="4" id="FE8-Li-3Wk"/>
                             <constraint firstAttribute="height" constant="40" id="TDr-mA-2mp"/>
@@ -57,7 +57,7 @@
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UIg-X5-02q">
                         <rect key="frame" x="5" y="431" width="365" height="151"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.17254901959999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                     </tableView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UF2-hv-S26" userLabel="bgView">
                         <rect key="frame" x="10" y="30" width="355" height="381"/>
@@ -439,7 +439,7 @@
                                         <color key="progressTintColor" red="0.1764705882352941" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1215686275" green="0.17254901959999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="pWH-xS-C4w" firstAttribute="leading" secondItem="elm-82-2uu" secondAttribute="leading" constant="8" id="0pE-kc-rzL"/>
                                     <constraint firstItem="UI9-FV-5jl" firstAttribute="leading" secondItem="elm-82-2uu" secondAttribute="leading" constant="37" id="193-7d-hKJ"/>
@@ -488,7 +488,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1019607843" green="0.14117647059999999" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.17254901959999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="lkm-My-Vjy" firstAttribute="leading" secondItem="OSp-Fc-wbx" secondAttribute="leading" id="09j-r9-NU8"/>
                             <constraint firstItem="Q5p-DV-hCe" firstAttribute="leading" secondItem="xuc-x1-cho" secondAttribute="trailing" constant="8" id="0UF-Gc-t0U"/>
@@ -572,7 +572,7 @@
                     <constraint firstItem="UIg-X5-02q" firstAttribute="top" secondItem="Ekj-HS-FT2" secondAttribute="bottom" id="zvd-Ys-frR"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="aBtn" destination="3FM-Z5-eAq" id="lhP-jg-U6h"/>
                 <outlet property="aDesLB" destination="bcS-vi-c4j" id="Ani-cU-nkk"/>

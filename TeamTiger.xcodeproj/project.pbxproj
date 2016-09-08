@@ -420,6 +420,8 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
+		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
+		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
 		2D7945141D5C648E003B5A6E /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */; };
 		2D7945151D5C648E003B5A6E /* JJOneScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450E1D5C648E003B5A6E /* JJOneScrollView.m */; };
 		2D7945161D5C648E003B5A6E /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7945101D5C648E003B5A6E /* JJPhoto.m */; };
@@ -1216,6 +1218,9 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
+		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
+		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
+		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
 		2D79450B1D5C648E003B5A6E /* JJMainScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMainScrollView.h; sourceTree = "<group>"; };
 		2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMainScrollView.m; sourceTree = "<group>"; };
 		2D79450D1D5C648E003B5A6E /* JJOneScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJOneScrollView.h; sourceTree = "<group>"; };
@@ -2991,6 +2996,9 @@
 				1DDE9E6C1D533106005926FE /* TTMyProfileViewController.h */,
 				1DDE9E6D1D533106005926FE /* TTMyProfileViewController.m */,
 				1DDE9E6E1D533106005926FE /* TTMyProfileViewController.xib */,
+				2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */,
+				2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */,
+				2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -3297,6 +3305,7 @@
 				1DB5A58D1D4B3F36009E6170 /* round-switch-thumb-highlight@2x.png in Resources */,
 				1DDE9E6A1D531B66005926FE /* TTLoginViewController.xib in Resources */,
 				2D8F25E81D701F0A00B28A8C /* HomeViewController.xib in Resources */,
+				2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */,
 				1DF0A1B81D4DB898002D91DB /* 4.png in Resources */,
 				1DA71B841D3DBA67007483D2 /* Assets.xcassets in Resources */,
 				1DD2E31F1D596EAA005D45A9 /* toggle_background_off@2x.png in Resources */,
@@ -3585,6 +3594,7 @@
 				1D09CC5D1D3F29C900F85E9A /* NSData+YYAdd.m in Sources */,
 				1D09CC671D3F29C900F85E9A /* NSThread+YYAdd.m in Sources */,
 				06008F3E1D58249300A5B3DB /* TZAssetCell.m in Sources */,
+				2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */,
 				1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				063B088A1D6F144F008AB592 /* MMPopupItem.m in Sources */,
 				1D9580A31D3E207200FD0053 /* MJRefreshBackFooter.m in Sources */,

@@ -83,7 +83,7 @@
 
 #pragma -mark login register password action
 - (void)loginActionUserName:(NSString *)userName Password:(NSString *)password {
-#if 0
+#if 1
     [self jumpToRootVC];
 #else
     

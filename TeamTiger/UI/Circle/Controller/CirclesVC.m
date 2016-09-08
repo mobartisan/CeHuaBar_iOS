@@ -43,8 +43,6 @@
         [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionPush SubType:kCATransitionFromRight];
     }];
     self.navigationItem.rightBarButtonItem = self.addCirclesItem;
-    //    self.navigationController.jz_navigationBarBackgroundAlpha = 0;
-    self.navigationController.jz_navigationBarBackgroundHidden = YES;
     
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]){
         self.edgesForExtendedLayout = UIRectEdgeAll;

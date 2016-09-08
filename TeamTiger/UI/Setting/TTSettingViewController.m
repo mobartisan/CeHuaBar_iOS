@@ -40,17 +40,21 @@
     [WXApiManager sharedManager].delegate = self;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.dataSource.count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = self.dataSource[indexPath.row];
+    NSDictionary *dic = self.dataSource[indexPath.section];
     return [ProjectCell loadCellHeightWithData:dic];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = self.dataSource[indexPath.row];
+    NSDictionary *dic = self.dataSource[indexPath.section];
     static NSString *cellID = @"cellIdentify";
     ProjectCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
@@ -60,7 +64,9 @@
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
             [self ttPicker];
-        } else if (type == EProjectAddMember){
+        }else if (type == EProjectGroup) {
+            NSLog(@"dddd");
+        }else if (type == EProjectAddMember){
 //            NSLog(@"跳转微信，增加人员");
 //            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
 //            [WXApiRequestHandler sendLinkURL:kLinkURL
@@ -78,6 +84,22 @@
     return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return 10;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        UIView *bgView = [[UIView alloc] init];
+        bgView.backgroundColor = kRGB(27, 36, 50);
+        return bgView;
+    }
+    return nil;
+}
+
 #pragma -mark Customer Methods
 - (void)loadProjectDataById:(id)projectId {
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
@@ -92,17 +114,22 @@
                           @"Description":resArray.firstObject[@"Name"],
                           @"ShowAccessory":@1,
                           @"IsEdit":@0,
-                          @"Color":kRGB(21.0, 30.0, 44.0)},
-                        
+                          @"Color":kRGB(27.0, 41.0, 58.0)},
                         @{@"Type":@1,
+                          @"Name":@"组",
+                          @"Description":@"我创建的项目",
+                          @"ShowAccessory":@1,
+                          @"IsEdit":@0,
+                          @"Color":kRGB(27.0, 41.0, 58.0)},
+                        @{@"Type":@2,
                           @"Name":@"项目成员",
                           @"Description":@"",
                           @"ShowAccessory":@0,
                           @"IsEdit":@0,
-                          @"Color":kRGB(25.0, 34.0, 49.0),
+                          @"Color":kRGB(27.0, 41.0, 58.0),
                           @"Members":[MockDatas membersOfproject:projectId]},
                         
-                        @{@"Type":@2,
+                        @{@"Type":@3,
                           @"Name":@"",
                           @"Description":@"",
                           @"ShowAccessory":@0,
@@ -122,17 +149,22 @@
       @"Description":[MockDatas projects][0][@"Name"],
       @"ShowAccessory":@1,
       @"IsEdit":@0,
-      @"Color":kRGB(21.0, 30.0, 44.0)},
-    
+      @"Color":kRGB(27.0, 41.0, 58.0)},
     @{@"Type":@1,
+      @"Name":@"组",
+      @"Description":@"我创建的项目",
+      @"ShowAccessory":@1,
+      @"IsEdit":@0,
+      @"Color":kRGB(27.0, 41.0, 58.0)},
+    @{@"Type":@2,
       @"Name":@"项目成员",
       @"Description":@"",
       @"ShowAccessory":@0,
       @"IsEdit":@0,
-      @"Color":kRGB(25.0, 34.0, 49.0),
+      @"Color":kRGB(27.0, 41.0, 58.0),
       @"Members":[MockDatas membersOfproject:[MockDatas projects][0][@"Id"]]},
     
-    @{@"Type":@2,
+    @{@"Type":@3,
       @"Name":@"",
       @"Description":@"",
       @"ShowAccessory":@0,

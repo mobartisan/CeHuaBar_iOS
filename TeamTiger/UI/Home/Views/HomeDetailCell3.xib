@@ -27,7 +27,7 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HgN-bl-2kV" userLabel="View1">
                         <rect key="frame" x="68" y="0.0" width="4" height="25"/>
-                        <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.18039215689999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="C3S-rI-psw"/>
                             <constraint firstAttribute="width" constant="4" id="kTa-NW-OCK"/>
@@ -35,7 +35,7 @@
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gq7-Wc-Mnf" userLabel="View2">
                         <rect key="frame" x="68" y="25" width="4" height="48"/>
-                        <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.18039215689999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="4" id="Ua0-D3-GP0"/>
                         </constraints>
@@ -98,10 +98,11 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="descipitionLB" destination="OkS-G3-q8B" id="6eX-P1-gxb"/>
                 <outlet property="firstNameLB" destination="QCn-Z8-uVQ" id="T5o-3n-iCf"/>
+                <outlet property="icon_point" destination="jSq-sV-Gti" id="HXA-iv-eh4"/>
                 <outlet property="lineView2" destination="gq7-Wc-Mnf" id="NhD-DL-3Da"/>
                 <outlet property="secondNameLB" destination="Akg-XU-8Ga" id="ibC-0T-ObE"/>
                 <outlet property="timeLB" destination="DHb-Bc-QZ6" id="EQn-g5-Hfy"/>

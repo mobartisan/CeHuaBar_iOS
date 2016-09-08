@@ -11,13 +11,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="添加成员" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rN4-3x-GEt">
-                        <rect key="frame" x="16" y="28" width="68" height="21"/>
+                        <rect key="frame" x="16" y="28" width="75" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="68" id="cfa-pn-Vdw"/>
+                            <constraint firstAttribute="width" constant="75" id="cfa-pn-Vdw"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,10 +28,9 @@
                     <constraint firstItem="rN4-3x-GEt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fHr-9a-HWj"/>
                     <constraint firstItem="rN4-3x-GEt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fYK-k2-0ep"/>
                     <constraint firstItem="rN4-3x-GEt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="28" id="ia4-nO-KGN"/>
-                    <constraint firstAttribute="bottom" secondItem="rN4-3x-GEt" secondAttribute="bottom" constant="28" id="mji-eD-zt0"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.20000000000000001" green="0.22352941176470587" blue="0.28627450980392155" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10588235294117647" green="0.16078431372549018" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="titleLab" destination="rN4-3x-GEt" id="tgd-6B-6YN"/>
             </connections>

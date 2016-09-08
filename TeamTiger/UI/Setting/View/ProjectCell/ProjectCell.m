@@ -24,6 +24,9 @@
             cell = LoadFromNib(@"ProjectCell1");
             break;
         case 1:
+            cell = LoadFromNib(@"ProjectCell1");
+            break;
+        case 2:
             cell = LoadFromNib(@"ProjectCell_Member");
             break;
         default:
@@ -34,7 +37,7 @@
 }
 
 + (CGFloat)loadCellHeightWithData:(id)obj {
-    if ([obj[@"Type"] intValue] == 1) {
+    if ([obj[@"Type"] intValue] == 2) {
         NSArray *array = obj[@"Members"];
         return 70.0 + itemSize * ceil((array.count + 1) / 4.0);
     }
@@ -72,7 +75,18 @@
                 self.block(self,EProjectSelect);//选择项目
             }
         }];
-    }  else if ([dic[@"Type"] intValue] == 1){
+    } else if ([dic[@"Type"] intValue] == 1) {
+        [UIButton hyb_buttonWithSuperView:self.contentView constraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(self.contentView.mas_top);
+            make.right.mas_equalTo(self.contentView.mas_right);
+            make.bottom.mas_equalTo(self.contentView.mas_bottom);
+            make.left.mas_equalTo(self.contentView.mas_left).offset(60);
+        } touchUp:^(UIButton *sender) {
+            if (self.block) {
+                self.block(self,EProjectGroup);//组
+            }
+        }];
+    }else if ([dic[@"Type"] intValue] == 2){
         UIView *contentView = [[UIView alloc] init];
         [self.scrollView addSubview:contentView];
         [contentView mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -12,6 +12,7 @@
 
 @interface HomeDetailCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *icon_point;
 
 - (void)configureCellWithModel:(HomeDetailCellModel *)model;
 

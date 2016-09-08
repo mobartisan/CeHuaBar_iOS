@@ -114,7 +114,7 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="lineView2" destination="AL9-Jr-xKZ" id="HsJ-71-UFO"/>
                 <outlet property="nameLB" destination="r0L-cc-kJ7" id="C14-LS-6bR"/>

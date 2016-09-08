@@ -18,7 +18,6 @@
 
 @interface TTAddProjectViewController ()<WXApiManagerDelegate>{
      NSString *_name;
-     NSString *_des;
      BOOL isPrivate;
 }
 
@@ -28,10 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"创建项目";
+    self.title = @"添加项目";
     [Common removeExtraCellLines:self.contentTable];
     
-    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back1"] block:^(UIButton *sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 
@@ -50,7 +49,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,10 +68,6 @@
         switch (type) {
             case ECellTypeTextField:{
                 _name = obj;
-                break;
-            }
-            case ECellTypeTextView:{
-                _des = obj;
                 break;
             }
             case ECellTypeSwitch:{
@@ -94,7 +89,7 @@
                 break;
             }
             case ECellTypeBottom:{
-                [self createProjectWith:_name description:_des is_private:isPrivate];
+                [self createProjectWith:_name is_private:isPrivate];
                 break;
             }
             default:
@@ -114,7 +109,7 @@
     return headerView;
 }
 
-- (void)createProjectWith:(NSString *)name description:(NSString *)description is_private:(BOOL)is_private {
+- (void)createProjectWith:(NSString *)name  is_private:(BOOL)is_private {
     if ([Common isEmptyString:name]) {
         [self showHudWithText:@"名称或描述不能为空"];
         [self hideHudAfterSeconds:3.0];
@@ -122,7 +117,6 @@
     }
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"name":name,
-                                         @"description":description,
                                          @"is_private":@(is_private),
                                          @"current_state":@(0),
                                          @"is_allow_delete":@(NO)
@@ -130,6 +124,8 @@
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
             //创建失败
@@ -147,8 +143,8 @@
 - (NSMutableArray *)datas {
     if (!_datas) {
         _datas = [NSMutableArray arrayWithObjects:
-                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"名称",@"TYPE":@"0"},
-                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
+                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目名称:",@"TYPE":@"0"},
+//                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
                   @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
                   @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
                   @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"4"},nil];

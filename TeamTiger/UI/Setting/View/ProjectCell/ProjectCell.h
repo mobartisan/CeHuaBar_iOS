@@ -14,6 +14,7 @@
 
 typedef enum : NSUInteger {
     EProjectSelect = 0,
+    EProjectGroup,
     EProjectAddMember,
     EProjectDleteProject,
 } EProjectType;

@@ -15,14 +15,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016年7月19日 9:27" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EYf-6f-Eqy">
-                        <rect key="frame" x="10" y="5" width="359" height="21"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.6705882353" green="0.67843137249999996" blue="0.69019607839999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="10" y="5" width="359" height="18"/>
+                        <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.3411764706" green="0.3803921569" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IO8-JI-iEW" userLabel="bgView">
-                        <rect key="frame" x="10" y="31" width="359" height="200"/>
+                        <rect key="frame" x="10" y="28" width="359" height="200"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="touxiang" translatesAutoresizingMaskIntoConstraints="NO" id="GmR-9J-1OA">
                                 <rect key="frame" x="15" y="10" width="40" height="40"/>
@@ -86,11 +86,11 @@
                         </constraints>
                     </view>
                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="q5p-PN-kyP">
-                        <rect key="frame" x="10" y="251" width="359" height="131"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="10" y="248" width="359" height="134"/>
+                        <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </tableView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7er-1M-KIZ">
-                        <rect key="frame" x="55" y="211" width="40" height="40"/>
+                        <rect key="frame" x="55" y="208" width="40" height="40"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0rM-Yp-KxC" customClass="ButtonIndexPath">
                                 <rect key="frame" x="0.0" y="17" width="40" height="20"/>
@@ -135,7 +135,7 @@
                     <constraint firstItem="7er-1M-KIZ" firstAttribute="leading" secondItem="DsG-XR-yUq" secondAttribute="leading" constant="55" id="zDj-fq-0at"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="bgView" destination="IO8-JI-iEW" id="e7B-KO-lkO"/>
                 <outlet property="bgViewHeight" destination="aaR-gk-dHM" id="sJ2-K3-Ovh"/>

@@ -18,8 +18,8 @@
 
 - (void)awakeFromNib {
     setViewCorner(self.createBtn, 5);
+    self.createBtn.layer.borderWidth = 1.5;
     self.createBtn.layer.borderColor = [UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1].CGColor;
-    self.createBtn.layer.borderWidth = minLineWidth;
 
     [self.createBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1]] forState:UIControlStateHighlighted];
     
@@ -46,16 +46,16 @@
 
     switch ([dic[@"TYPE"] intValue]) {
         case ECellTypeTextField:{
-            self.textField = [UITextField hyb_textFieldWithHolder:@"请输入名称" text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.titleLab.mas_right).offset(-20);
+            self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.titleLab.mas_right).offset(10);
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
                 make.top.mas_equalTo(self.contentView.mas_top).offset(22);
                 make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
             }];
             self.textField.textColor = [UIColor whiteColor];
             self.textField.tintColor = [UIColor whiteColor];
-            [self.textField setValue:[UIColor lightTextColor] forKeyPath:@"_placeholderLabel.textColor"];
-            self.textField.font = [UIFont systemFontOfSize:15];
+            [self.textField setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
+            self.textField.font = [UIFont systemFontOfSize:17];
             break;
         }
         case ECellTypeTextView:{
@@ -96,6 +96,8 @@
             self.tSwitch.trackImageOff = [UIImage imageNamed:@"toggle_background_off"];
             self.tSwitch.thumbInsetX = -3.0;
             self.tSwitch.thumbOffsetY = 0.0;
+            self.tSwitch.transform = CGAffineTransformMakeRotation(M_PI);
+            self.tSwitch.on = YES;
             [self.contentView addSubview:self.tSwitch];
             [self.tSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);

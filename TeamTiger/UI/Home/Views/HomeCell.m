@@ -43,11 +43,11 @@ static CGFloat tableViewHeight = 0.0;
     [super awakeFromNib];
     // Initialization code
     if (is40inch) {
-        self.bgViewHeight.constant = 180;
-        self.bgViewDoubleHeight.constant = 260;
-    }else {
         self.bgViewHeight.constant = 200;
-        self.bgViewDoubleHeight.constant = 320;
+        self.bgViewDoubleHeight.constant = 275;
+    }else {
+        self.bgViewHeight.constant = 220;
+        self.bgViewDoubleHeight.constant = 335;
     }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -69,11 +69,11 @@ static CGFloat tableViewHeight = 0.0;
     //cellHeight 四张图片 cellImageHeight 一,二,三,张照片
     CGFloat cellHeight = 0, cellImageHeight = 0;
     if (is40inch) {
-        cellHeight = 311;
-        cellImageHeight = 231;
+        cellHeight = 309;
+        cellImageHeight = 229;
     }else {
-        cellHeight = 371;
-        cellImageHeight = 251;
+        cellHeight = 383;
+        cellImageHeight = 268;
     }
     if (model.imageCount == 4) {
         if (model.height == 0) {
@@ -192,6 +192,11 @@ static CGFloat tableViewHeight = 0.0;
     if (detailModel.typeCell == TypeCellImage) {
         HomeDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else if (detailModel.typeCell == TypeCellTitle) {
         HomeDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier1"];
@@ -207,10 +212,20 @@ static CGFloat tableViewHeight = 0.0;
             }
         };
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else if (detailModel.typeCell == TypeCellTime){
         HomeDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier2"];
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else { //TypeCellTitleNoButton
         HomeDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier3"];
@@ -219,6 +234,11 @@ static CGFloat tableViewHeight = 0.0;
             cell.lineView2.hidden = YES;
         }
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }
 }

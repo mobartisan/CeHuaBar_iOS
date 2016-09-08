@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
 
 @property (weak, nonatomic) IBOutlet UIView *lineView2;
+@property (weak, nonatomic) IBOutlet UIImageView *icon_point;
 @property (copy, nonatomic) ClickBlock clickMoreBtn;
 
 
