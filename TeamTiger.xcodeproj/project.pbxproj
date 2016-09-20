@@ -396,6 +396,7 @@
 		1DDE9E701D533106005926FE /* TTMyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E6E1D533106005926FE /* TTMyProfileViewController.xib */; };
 		1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */; };
 		1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */; };
+		1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */; };
 		1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */; };
 		1DF0A1AC1D4DB898002D91DB /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A19A1D4DB898002D91DB /* 1.png */; };
 		1DF0A1AD1D4DB898002D91DB /* 10.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A19B1D4DB898002D91DB /* 10.png */; };
@@ -1184,6 +1185,8 @@
 		1DDE9E721D535DDA005926FE /* TTAddDiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddDiscussViewController.h; sourceTree = "<group>"; };
 		1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddDiscussViewController.m; sourceTree = "<group>"; };
 		1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddDiscussViewController.xib; sourceTree = "<group>"; };
+		1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCircleViewControllerForSetting.m; sourceTree = "<group>"; };
+		1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCircleViewControllerForSetting.h; sourceTree = "<group>"; };
 		1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
 		1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		1DF0A19A1D4DB898002D91DB /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -1511,6 +1514,8 @@
 			children = (
 				06893CFF1D59F16A00921900 /* SelectCircleViewController.h */,
 				06893D001D59F16A00921900 /* SelectCircleViewController.m */,
+				1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */,
+				1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */,
 			);
 			path = SelectCircle;
 			sourceTree = "<group>";
@@ -3238,7 +3243,7 @@
 				TargetAttributes = {
 					1DA71B591D3DB5A1007483D2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 47Y3897GAH;
+						DevelopmentTeam = QRKXLCEHPN;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3570,6 +3575,7 @@
 				1D9580D21D3E225200FD0053 /* MASCompositeConstraint.m in Sources */,
 				1DBC49D01D6588E000DB0CD2 /* TTAddContactorViewController.m in Sources */,
 				1D09CCA61D3F29C900F85E9A /* YYSentinel.m in Sources */,
+				1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */,
 				0604B4661D4C5A5B00EF1703 /* CCDraggableContainer.m in Sources */,
 				1DDE9E631D52DAF8005926FE /* TTAddProjectViewController.m in Sources */,
 				06DFEBAE1D65D8F200DB49E1 /* TTAddVoteViewController.m in Sources */,
@@ -3832,7 +3838,7 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -3860,7 +3866,7 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = net.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
