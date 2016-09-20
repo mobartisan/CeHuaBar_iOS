@@ -64,7 +64,6 @@
     [cell reloadCellData:dic];
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
-<<<<<<< HEAD
 //            [self ttPicker];
             SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
             selectCircleVC.title = @"选择项目";
@@ -73,13 +72,14 @@
                 [wself loadProjectDataById:selectObject[@"Id"]];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
-        } else if (type == EProjectAddMember){
-=======
-            [self ttPicker];
-        }else if (type == EProjectGroup) {
+        }
+//        else if (type == EProjectAddMember){
+//            [self ttPicker];
+//        }
+        else if (type == EProjectGroup) {
             NSLog(@"dddd");
-        }else if (type == EProjectAddMember){
->>>>>>> origin/master
+        }
+        else if (type == EProjectAddMember){
 //            NSLog(@"跳转微信，增加人员");
 //            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
 //            [WXApiRequestHandler sendLinkURL:kLinkURL

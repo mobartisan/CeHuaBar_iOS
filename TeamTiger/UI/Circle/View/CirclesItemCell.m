@@ -22,6 +22,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.pointImgV.layer.cornerRadius =self.pointImgV.hyb_width * 0.5;
     
     // 设置普通背景

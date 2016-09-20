@@ -17,6 +17,7 @@
 @implementation SettingCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     setViewCorner(self.createBtn, 5);
     self.createBtn.layer.borderWidth = 1.5;
     self.createBtn.layer.borderColor = [UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1].CGColor;

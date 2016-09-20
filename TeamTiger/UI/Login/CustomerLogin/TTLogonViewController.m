@@ -32,15 +32,15 @@
                                     djRegisterViewType:DJRegisterViewTypeNav action:^(NSString *acc, NSString *key) {
                                         NSLog(@"点击了登录");
                                         NSLog(@"\n输入的账户%@\n密码%@",acc,key);
-                                        [self loginActionUserName:acc Password:key];
+                                        [wself loginActionUserName:acc Password:key];
                                     } zcAction:^{
                                         NSLog(@"点击了 注册");
-                                        [self registerAction:nil];
+                                        [wself registerAction:nil];
                                         //test Register
 //                                        [wself testRegister];
                                     } wjAction:^{
                                         NSLog(@"点击了   忘记密码");
-                                        [self forgetPasswordAction:nil];
+                                        [wself forgetPasswordAction:nil];
                                     }];
     [self.view addSubview:registerView];
     self.view.backgroundColor = [UIColor whiteColor];
