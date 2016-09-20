@@ -77,7 +77,7 @@
 }
 
 + (NSDictionary *)testerInfo {
-    NSDictionary *userInfo = @{@"HeadImage":@"",@"Name":@"唐晓旭",@"Account":@"唐宋八大家之一"};
+    NSDictionary *userInfo = @{@"HeadImage":@"",@"Name":@"唐晓旭",@"Remarks":@"UI设计师",@"Account":@"唐宋八大家之一"};
     return userInfo;
 }
 

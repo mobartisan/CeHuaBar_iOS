@@ -11,12 +11,12 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="75.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-7u-kFq">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-7u-kFq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.17254901959999999" blue="0.23921568630000001" alpha="1" colorSpace="calibratedRGB"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="头像" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkE-6e-jIu">
                         <rect key="frame" x="16" y="28" width="34" height="21"/>
@@ -27,13 +27,12 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="common-headDefault" translatesAutoresizingMaskIntoConstraints="NO" id="JjQ-yr-QDs">
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="common-headDefault" translatesAutoresizingMaskIntoConstraints="NO" id="JjQ-yr-QDs">
                         <rect key="frame" x="212" y="10" width="52" height="56"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_enter" translatesAutoresizingMaskIntoConstraints="NO" id="f9h-rG-xsa">
                         <rect key="frame" x="278" y="28" width="30" height="20"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="0q5-s5-74f"/>
                         </constraints>
@@ -43,13 +42,17 @@
                 <constraints>
                     <constraint firstItem="f9h-rG-xsa" firstAttribute="leading" secondItem="JjQ-yr-QDs" secondAttribute="trailing" constant="14" id="1I9-Jl-9M4"/>
                     <constraint firstAttribute="trailing" secondItem="f9h-rG-xsa" secondAttribute="trailing" constant="12" id="1wZ-zh-Cno"/>
+                    <constraint firstItem="fw4-7u-kFq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4L7-Q9-4qf"/>
                     <constraint firstAttribute="bottom" secondItem="JjQ-yr-QDs" secondAttribute="bottom" constant="9.5" id="7Nx-Y8-90j"/>
+                    <constraint firstAttribute="bottom" secondItem="fw4-7u-kFq" secondAttribute="bottom" id="8ok-pw-Thl"/>
                     <constraint firstItem="f9h-rG-xsa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="28" id="Ajd-1A-4Va"/>
                     <constraint firstAttribute="bottom" secondItem="f9h-rG-xsa" secondAttribute="bottom" constant="27.5" id="DkP-Mq-qGR"/>
+                    <constraint firstItem="fw4-7u-kFq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HqX-bj-sVP"/>
                     <constraint firstAttribute="bottom" secondItem="gkE-6e-jIu" secondAttribute="bottom" constant="26.5" id="KmZ-m0-WXW"/>
                     <constraint firstItem="gkE-6e-jIu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="LDW-dF-N3d"/>
                     <constraint firstItem="JjQ-yr-QDs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="SBq-VX-V6r"/>
                     <constraint firstItem="gkE-6e-jIu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="28" id="hrS-sT-OYo"/>
+                    <constraint firstAttribute="trailing" secondItem="fw4-7u-kFq" secondAttribute="trailing" id="pwO-zr-re6"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -58,7 +61,7 @@
                 <outlet property="bgImgV" destination="fw4-7u-kFq" id="I6v-th-n6P"/>
                 <outlet property="headImgV" destination="JjQ-yr-QDs" id="IS9-xP-Ag6"/>
             </connections>
-            <point key="canvasLocation" x="402" y="340"/>
+            <point key="canvasLocation" x="560" y="317"/>
         </tableViewCell>
     </objects>
     <resources>

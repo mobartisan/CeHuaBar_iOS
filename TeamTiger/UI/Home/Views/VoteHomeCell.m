@@ -40,6 +40,7 @@ static CGFloat tableViewHeight = 0.0;
 @property (weak, nonatomic) IBOutlet UILabel *cTicketLB;
 @property (weak, nonatomic) IBOutlet UILabel *cPerLB;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeight;
 @end
 
 @implementation VoteHomeCell
@@ -48,6 +49,11 @@ static CGFloat tableViewHeight = 0.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    if (is40inch) {
+        self.bgViewHeight.constant = 361;
+    }else {
+        self.bgViewHeight.constant = 381;
+    }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [Common removeExtraCellLines:self.tableView];
@@ -122,8 +128,61 @@ static CGFloat tableViewHeight = 0.0;
 
 //投票
 - (IBAction)handleBtnAction:(UIButton *)sender {
+    NSDictionary *dic = nil;
+    NSString *projectType = nil;
+    NSInteger typeCell = 0;
+    switch (sender.tag) {
+        case 100:{
+            if (!_model.aIsClick) {
+                _model.aIsClick = YES;
+                _model.aTicket = [NSString stringWithFormat:@"%.1f", ([_model.aTicket floatValue] + 0.1)];
+                typeCell = TypeCellTime;
+            }else {
+                _model.aIsClick = NO;
+                _model.aTicket = [NSString stringWithFormat:@"%.1f", ([_model.aTicket floatValue] - 0.1)];
+                typeCell = TypeCellTitleNoButton;
+            }
+            projectType = @"A";
+        }
+            break;
+        case 101:{
+            if (!_model.bIsClick) {
+                _model.bIsClick = YES;
+                _model.bTicket = [NSString stringWithFormat:@"%.1f", ([_model.bTicket floatValue] + 0.1)];
+                typeCell = TypeCellTime;
+            }else {
+                _model.bIsClick = NO;
+                _model.bTicket = [NSString stringWithFormat:@"%.1f", ([_model.bTicket floatValue] - 0.1)];
+                typeCell = TypeCellTitleNoButton;
+            }
+            projectType = @"B";
+        }
+            break;
+        case 102:{
+            if (!_model.cIsClick) {
+                _model.cIsClick = YES;
+                _model.cTicket = [NSString stringWithFormat:@"%.1f", ([_model.cTicket floatValue] + 0.1)];
+                typeCell = TypeCellTime;
+            }else {
+                _model.cIsClick = NO;
+                _model.cTicket = [NSString stringWithFormat:@"%.1f", ([_model.cTicket floatValue] - 0.1)];
+                typeCell = TypeCellTitleNoButton;
+            }
+            projectType = @"C";
+        }
+            break;
+    }
+    dic = @{@"time":[Common getCurrentSystemTime],
+            @"firstName":_model.name,
+            @"secondName":projectType,
+            @"typeCell":@(typeCell)
+            };
+    HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
+    [_model.comment insertObject:detailModel atIndex:0];
+    _model.isClick = YES;
+    _model.height = 0.0;
     if (self.voteClick) {
-        self.voteClick(sender);
+        self.voteClick();
     }
 }
 
@@ -230,6 +289,24 @@ static CGFloat tableViewHeight = 0.0;
 
 + (CGFloat)tableViewHeight {
     return tableViewHeight;
+}
+
++ (CGFloat)cellHeightWithModel:(HomeCellModel *)model {
+    CGFloat cellHeight = 0;
+    if (is40inch) {
+        cellHeight = 411;
+    }else {
+        cellHeight = 431;
+    }
+    if (model.height == 0) {
+        if (model.isClick) {
+            return cellHeight + [VoteHomeCell tableViewHeight];
+        }else {
+            return cellHeight;
+        }
+    }else{
+        return cellHeight + model.height;
+    }
 }
 
 - (IBAction)handleCommitAction:(UIButton *)sender {

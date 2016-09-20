@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -27,16 +27,17 @@
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z77-Cp-znr" userLabel="View2">
                         <rect key="frame" x="68" y="15" width="4" height="33"/>
-                        <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.18039215689999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="4" id="Iv0-92-43H"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="唐小旭" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uky-cC-hPU">
-                        <rect key="frame" x="81" y="15" width="228" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7月18日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uky-cC-hPU">
+                        <rect key="frame" x="81" y="15" width="48" height="20"/>
                         <color key="backgroundColor" red="0.094117647060000004" green="0.12549019610000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="FGo-nb-HTi"/>
+                            <constraint firstAttribute="width" constant="48" id="Jir-Ry-MUY"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.30980392159999998" green="0.34901960780000002" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,7 +52,7 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ei-bm-rag">
                         <rect key="frame" x="68" y="0.0" width="4" height="15"/>
-                        <color key="backgroundColor" red="0.19215686269999999" green="0.23529411759999999" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.1215686275" green="0.18039215689999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="WqS-dN-7vR"/>
                             <constraint firstAttribute="width" constant="4" id="quM-SD-68t"/>
@@ -63,7 +64,6 @@
                     <constraint firstItem="CK2-MS-R0G" firstAttribute="leading" secondItem="69c-i8-jIz" secondAttribute="leadingMargin" constant="5" id="COU-ma-yNd"/>
                     <constraint firstItem="whg-aV-E8c" firstAttribute="leading" secondItem="CK2-MS-R0G" secondAttribute="trailing" id="GUU-oP-8Y9"/>
                     <constraint firstItem="z77-Cp-znr" firstAttribute="leading" secondItem="CK2-MS-R0G" secondAttribute="trailing" constant="5" id="IjX-jz-xDD"/>
-                    <constraint firstAttribute="trailing" secondItem="Uky-cC-hPU" secondAttribute="trailing" constant="10" id="JCr-g0-AIL"/>
                     <constraint firstItem="9ei-bm-rag" firstAttribute="bottom" secondItem="CK2-MS-R0G" secondAttribute="bottom" id="OQ0-Wj-YZZ"/>
                     <constraint firstAttribute="bottom" secondItem="z77-Cp-znr" secondAttribute="bottom" id="Tm1-RT-YgD"/>
                     <constraint firstItem="Uky-cC-hPU" firstAttribute="top" secondItem="69c-i8-jIz" secondAttribute="top" constant="15" id="UUw-lA-6U6"/>
@@ -79,12 +79,13 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
+                <outlet property="icon_point" destination="whg-aV-E8c" id="GGg-v9-rKi"/>
                 <outlet property="nameLB" destination="Uky-cC-hPU" id="S28-JU-0Xs"/>
                 <outlet property="timeLB" destination="CK2-MS-R0G" id="80W-Zd-d57"/>
             </connections>
-            <point key="canvasLocation" x="323.5" y="271.5"/>
+            <point key="canvasLocation" x="472.5" y="251.5"/>
         </tableViewCell>
     </objects>
     <resources>

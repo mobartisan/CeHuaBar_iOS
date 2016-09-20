@@ -70,7 +70,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     
     [self setupGroup0];
     [self setupGroup1];
-//    [self setupGroup2];
+    [self setupGroup2];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,19 +118,32 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [self.data addObject:group];
 }
 
-/**
- *  第1组数据
- */
-//- (void)setupGroup2
-//{
-//    //    self.addImageView = customView;
-//    TTCommonItem *startBtnItem = [TTCommonCustomViewItem itemWithCustomView:self.startMomentBtn];
-//
-//    
-//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
-//    group.items = [NSMutableArray arrayWithObjects:startBtnItem,nil];
-//    [self.data addObject:group];
-//}
+- (void)setupGroup2
+{
+    //    self.addImageView = customView;
+    UIView *startView = [[UIView alloc] init];
+    startView.backgroundColor = kColorForBackgroud;
+    
+    
+    
+    
+    [startView addSubview:self.startMomentBtn];
+    [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(startView);
+        make.left.equalTo(startView).offset(8);
+        make.width.mas_equalTo(Screen_Width-16);
+        make.height.mas_equalTo(50);
+    }];
+    
+    
+    TTCommonItem *startBtnItem = [TTCommonCustomViewItem itemWithCustomView:startView];
+    
+    
+    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+    group.items = [NSMutableArray arrayWithObjects:startBtnItem,nil];
+    [self.data addObject:group];
+}
+
 
 
 - (UIView *)addOptionView {

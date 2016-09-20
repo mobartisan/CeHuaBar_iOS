@@ -9,7 +9,7 @@
 #ifndef GlobalDefine_h
 #define GlobalDefine_h
 
-#define kColorForBackgroud [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]
+#define kColorForBackgroud [UIColor colorWithRed:28.0/255.0f green:37.0/255.0f blue:51.0/255.0f alpha:1.0f]
 #define kColorForCommonCellBackgroud [Common colorFromHexRGB:@"1a293b"]
 #define kColorForCommonCellSelectedBackgroud [Common colorFromHexRGB:@"272d39"]
 

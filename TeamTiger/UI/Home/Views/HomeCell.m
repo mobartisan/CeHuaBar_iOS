@@ -30,6 +30,10 @@ static CGFloat tableViewHeight = 0.0;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet UIImageView *image4;
+//单层图片背景高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeight;
+//双层图片背景高度
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewDoubleHeight;
 
 @end
 
@@ -38,7 +42,13 @@ static CGFloat tableViewHeight = 0.0;
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
+    if (is40inch) {
+        self.bgViewHeight.constant = 200;
+        self.bgViewDoubleHeight.constant = 275;
+    }else {
+        self.bgViewHeight.constant = 220;
+        self.bgViewDoubleHeight.constant = 335;
+    }
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [Common removeExtraCellLines:self.tableView];
@@ -56,16 +66,14 @@ static CGFloat tableViewHeight = 0.0;
 }
 
 + (CGFloat)cellHeightWithModel:(HomeCellModel *)model {
-    CGFloat cellHeight = 0.0, cellImageHeight = 0.0;
+    //cellHeight 四张图片 cellImageHeight 一,二,三,张照片
+    CGFloat cellHeight = 0, cellImageHeight = 0;
     if (is40inch) {
-        cellHeight = 303;
-        cellImageHeight = 303 -80;
-    }else if (is47inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
-    }else if (is55inch) {
-        cellHeight = 353;
-        cellImageHeight = 353 - 100;
+        cellHeight = 309;
+        cellImageHeight = 229;
+    }else {
+        cellHeight = 383;
+        cellImageHeight = 268;
     }
     if (model.imageCount == 4) {
         if (model.height == 0) {
@@ -153,7 +161,7 @@ static CGFloat tableViewHeight = 0.0;
             }
         }
     }
-    height =  160 * ((int)cellHeightArr.count)  + 60 * ((int)cellHeight1Arr.count) + 100 * ((int)cellHeight2Arr.count) + 30 * ((int)cellHeight3Arr.count);
+    height =  130 * ((int)cellHeightArr.count)  + 60 * ((int)cellHeight1Arr.count) + 100 * ((int)cellHeight2Arr.count) + 30 * ((int)cellHeight3Arr.count);
     if (_model.height == 0) {
         _model.height = height;
     }
@@ -184,6 +192,11 @@ static CGFloat tableViewHeight = 0.0;
     if (detailModel.typeCell == TypeCellImage) {
         HomeDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else if (detailModel.typeCell == TypeCellTitle) {
         HomeDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier1"];
@@ -199,10 +212,20 @@ static CGFloat tableViewHeight = 0.0;
             }
         };
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else if (detailModel.typeCell == TypeCellTime){
         HomeDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier2"];
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }else { //TypeCellTitleNoButton
         HomeDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier3"];
@@ -211,6 +234,11 @@ static CGFloat tableViewHeight = 0.0;
             cell.lineView2.hidden = YES;
         }
         [cell configureCellWithModel:detailModel];
+        if (_detailModel.isClick) {
+            cell.icon_point.image = kImage(@"icon_point");
+        }else {
+            cell.icon_point.image = kImage(@"icon_point");
+        }
         return cell;
     }
 }
@@ -220,7 +248,7 @@ static CGFloat tableViewHeight = 0.0;
     HomeDetailCellModel *detailModel = _model.comment[indexPath.row];
     switch (detailModel.typeCell) {
         case TypeCellImage:
-            return 160;
+            return 130;
             break;
         case TypeCellTitleNoButton:
             return 60;

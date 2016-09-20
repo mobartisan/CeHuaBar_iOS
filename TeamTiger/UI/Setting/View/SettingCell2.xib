@@ -11,14 +11,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cph-Ot-uRB">
-                        <rect key="frame" x="8" y="13.5" width="304" height="50"/>
+                        <rect key="frame" x="8" y="14" width="304" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="aQx-SB-78z"/>
                         </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="19"/>
                         <state key="normal" title="创建">
                             <color key="titleColor" red="0.090196078431372548" green="0.68235294117647061" blue="0.68627450980392157" alpha="1" colorSpace="calibratedRGB"/>
                         </state>

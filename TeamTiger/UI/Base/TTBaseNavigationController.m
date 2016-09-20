@@ -16,7 +16,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBar.barTintColor = [UIColor colorWithRed:21/255.0f green:27/255.0f blue:39/255.0f alpha:1.0f];
+    self.navigationBar.barTintColor = kColorForBackgroud;
+    self.navigationBar.translucent  = NO;
+    
+    //去掉NavigationBar 下面的横线
+//    self.navigationBar.clipsToBounds = YES;
+    [self.navigationBar setBackgroundImage:[UIImage new] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    self.navigationBar.shadowImage = [UIImage new];
+    
     //开启滑动返回手势
     self.interactivePopGestureRecognizer.delegate = nil;
     
@@ -25,7 +32,7 @@
     shadow.shadowOffset = CGSizeMake(0.5, 0.5);
     NSDictionary *dic = @{NSForegroundColorAttributeName : [UIColor whiteColor],
                           NSShadowAttributeName : shadow,
-                          NSFontAttributeName : [UIFont boldSystemFontOfSize:18.0]};
+                          NSFontAttributeName : [UIFont boldSystemFontOfSize:19.0]};
     [self.navigationBar setTitleTextAttributes:dic];
 }
 

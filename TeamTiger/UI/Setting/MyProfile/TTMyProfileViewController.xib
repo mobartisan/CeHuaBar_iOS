@@ -18,7 +18,7 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KIM-GJ-kBa">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.10980392156862745" green="0.14509803921568626" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="4US-Pp-ktv"/>
@@ -26,14 +26,14 @@
                     </connections>
                 </tableView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="KIM-GJ-kBa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="CMX-WU-kTC"/>
                 <constraint firstAttribute="trailing" secondItem="KIM-GJ-kBa" secondAttribute="trailing" id="d4A-fP-cZK"/>
                 <constraint firstAttribute="bottom" secondItem="KIM-GJ-kBa" secondAttribute="bottom" id="eT3-iT-QxY"/>
                 <constraint firstItem="KIM-GJ-kBa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fwz-U8-B5M"/>
             </constraints>
-            <point key="canvasLocation" x="402" y="340"/>
+            <point key="canvasLocation" x="258" y="308"/>
         </view>
     </objects>
 </document>
