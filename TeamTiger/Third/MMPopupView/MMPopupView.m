@@ -236,7 +236,6 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
     MMWeakify(self);
     MMPopupBlock block = ^(MMPopupView *popupView){
         MMStrongify(self);
-        
         if ( !self.superview )
         {
             [self.attachedView.mm_dimBackgroundView addSubview:self];
@@ -250,14 +249,18 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
         
         [UIView animateWithDuration:self.animationDuration
                               delay:0
-                            options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
+                            options:UIViewAnimationOptionTransitionNone|UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              
-                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(0);
-                             }];
+//                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
+//                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(0);
+//                             }];
                              
-                             [self layoutIfNeeded];
+//                            [self.layer setValue:@(-self.attachedView.frame.size.height) forKeyPath:@"transform.translation.y"];
+                             
+                            self.transform = CGAffineTransformMakeTranslation(0, -self.attachedView.frame.size.height);
+                             
+//                             [self layoutIfNeeded];
                              
                          }
                          completion:^(BOOL finished) {
@@ -284,11 +287,12 @@ static NSString * const MMPopupViewHideAllNotification = @"MMPopupViewHideAllNot
                             options:UIViewAnimationOptionCurveEaseIn | UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
                              
-                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
-                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
-                             }];
+//                             [self mas_updateConstraints:^(MASConstraintMaker *make) {
+//                                 make.bottom.equalTo(self.attachedView.mas_bottom).offset(self.attachedView.frame.size.height);
+//                             }];
+                             self.transform = CGAffineTransformIdentity;
                              
-                             [self layoutIfNeeded];
+//                             [self layoutIfNeeded];
                              
                          }
                          completion:^(BOOL finished) {
