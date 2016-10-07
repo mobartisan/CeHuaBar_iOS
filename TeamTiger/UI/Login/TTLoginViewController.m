@@ -8,13 +8,15 @@
 
 #import "TTLoginViewController.h"
 #import "UIControl+YYAdd.h"
+#import "WXApiManager.h"
 #import "AppDelegate.h"
 #import "WXApiRequestHandler.h"
 #import "Constant.h"
 #import "WXApi.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "NetworkManager.h"
-@interface TTLoginViewController ()
+
+@interface TTLoginViewController () <WXApiManagerDelegate>
 
 @end
 
@@ -22,26 +24,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [WXApiManager sharedManager].delegate = self;
     // Do any additional setup after loading the view from its nib.
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
 //1.跳转页面
+#if 1
         UIViewController *rootVC = [kAppDelegate creatHomeVC];
         UIWindow *window = kAppDelegate.window;
         window.rootViewController = rootVC;
         [window makeKeyAndVisible];
-
 //2.微信跳转
-//
-//        if ([WXApi isWXAppInstalled]) {
-//            [WXApiRequestHandler sendAuthRequestScope:kAuthScope
-//                                                State:kAuthState
-//                                               OpenID:kAuthOpenID
-//                                     InViewController:self];
-//        } else {
-//            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"确定"] block:nil];
-//        }
-
+#else
+        if ([WXApi isWXAppInstalled]) {
+            [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+                                                State:kAuthState
+                                               OpenID:kAuthOpenID
+                                     InViewController:self];
+        } else {
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"确定"] block:nil];
+        }
+#endif
 ////3.测试网络
 //        
 //        LoginApi *loginApi = [[LoginApi alloc] init];
@@ -68,6 +71,15 @@
 //        });
 //
     }];
+}
+
+- (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
+    if ([response.state isEqualToString:kAuthState]) {
+        NSString *url = @"https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+        
+        NSLog(@"%@", response.code);
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

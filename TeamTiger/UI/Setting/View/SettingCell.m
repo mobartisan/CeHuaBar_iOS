@@ -44,7 +44,6 @@
 - (void)reloadCell:(id)obj {
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:obj];
     self.titleLab.text = dic[@"TITLE"];
-
     switch ([dic[@"TYPE"] intValue]) {
         case ECellTypeTextField:{
             self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {

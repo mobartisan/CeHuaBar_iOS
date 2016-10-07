@@ -239,6 +239,7 @@
 
 - (void)managerDidRecvMessageResponse:(SendMessageToWXResp *)response {
     //    返回应用时，收到消息回调
+    NSLog(@"ddddddd");
 }
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
