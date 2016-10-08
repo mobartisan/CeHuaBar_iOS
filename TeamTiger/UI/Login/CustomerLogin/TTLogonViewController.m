@@ -64,6 +64,8 @@
     [registerApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@",request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
 //            gSession = request.responseJSONObject[OBJ][@"token"];
 //            //do something
 //            //        1.data
