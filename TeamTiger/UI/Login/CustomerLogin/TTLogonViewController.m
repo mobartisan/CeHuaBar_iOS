@@ -54,7 +54,7 @@
     
 //    registerApi.requestArgument = @{@"username":@"Liupeng",@"password":@"111111",@"passwordConfirmation":@"111111"};
     
-    registerApi.requestArgument = @{@"username":@"Chenjie",@"password":@"11111111",@"nick_name":@"huabaCJ",
+    registerApi.requestArgument = @{@"username":@"chenjie",@"password":@"11111111",@"nick_name":@"huabaCJ",
                                     @"phone":@"iphone",@"os_type":[[DeviceManager sharedInstance] getDeviceType],
                                     @"os_description":[[DeviceManager sharedInstance] iphoneType],
                                     @"device_identify":[[DeviceManager sharedInstance] getDeviceType],
@@ -83,7 +83,7 @@
 
 #pragma -mark login register password action
 - (void)loginActionUserName:(NSString *)userName Password:(NSString *)password {
-#if 1
+#if 0
     [self jumpToRootVC];
 #else
     

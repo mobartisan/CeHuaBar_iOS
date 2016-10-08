@@ -88,7 +88,6 @@
             NSLog(@"ProjectsApi == %@", request.responseJSONObject);
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error.description);
         [super showHudWithText:@"您的网络好像有问题~"];
         [self hideHudAfterSeconds:3.0];
     }];
