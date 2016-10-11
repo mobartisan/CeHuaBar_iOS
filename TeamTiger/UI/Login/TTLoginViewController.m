@@ -39,7 +39,7 @@
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
 //1.跳转页面
-#if 1
+#if 0
         UIViewController *rootVC = [kAppDelegate creatHomeVC];
         UIWindow *window = kAppDelegate.window;
         window.rootViewController = rootVC;
