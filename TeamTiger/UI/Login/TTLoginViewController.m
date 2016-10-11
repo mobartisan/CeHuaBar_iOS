@@ -15,6 +15,7 @@
 #import "WXApi.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "NetworkManager.h"
+#import "AFNetworking.h"
 
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
@@ -83,13 +84,32 @@
     }];
 }
 
+
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
     if ([response.state isEqualToString:kAuthState]) {
-        NSString *url = @"https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-        
-        NSLog(@"%@", response.code);
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
+        NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WXDoctor_App_ID, WXDoctor_App_Secret, response.code];
+        [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self getAccess_Token:responseObject[@"access_token"] openId:responseObject[@"openid"]];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+             NSLog(@"获取access_token时出错 = %@", error);
+        }];
     }
     
+}
+
+
+- (void)getAccess_Token:(NSString *)access_Token openId:(NSString *)openId {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
+    //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
+    NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
+    [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@", responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"获取access_token时出错 = %@", error);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
