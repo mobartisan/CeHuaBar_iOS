@@ -30,9 +30,6 @@
 //检测是否iPhone6
 #define isIPhone6    ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750.0, 1334.0), [[UIScreen mainScreen] currentMode].size) : NO)
 
-//空字符串
-#define NullString            @""
-
 //检测是否iPhone6P
 #define isIPhone6P    ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242.0, 2208.0), [[UIScreen mainScreen] currentMode].size) : NO)
 
@@ -110,5 +107,8 @@ typedef void(^ClickBlock)();
 #define UserDefaultsGet(Key)           [[NSUserDefaults standardUserDefaults] objectForKey:Key]
 #define UserDefaultsSave(Value,Key)    {[[NSUserDefaults standardUserDefaults] setObject:Value forKey:Key]; [[NSUserDefaults standardUserDefaults] synchronize];}
 #define UserDefaultsRemove(Key)        {[[NSUserDefaults standardUserDefaults] removeObjectForKey:Key]; [[NSUserDefaults standardUserDefaults] synchronize];}
+
+//空字符串
+#define NullString            @""
 
 #endif /* Macros_h */

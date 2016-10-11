@@ -1,39 +1,57 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TTLoginViewController">
             <connections>
+                <outlet property="bottomHeight" destination="RKs-rX-Tgb" id="0pd-uE-u85"/>
                 <outlet property="loginBtn" destination="uR6-ls-6ED" id="bxW-lY-2Ag"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginBG" translatesAutoresizingMaskIntoConstraints="NO" id="AaC-FL-M6C"/>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uR6-ls-6ED">
-                    <rect key="frame" x="110" y="254" width="100" height="60"/>
-                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="LFx-gl-qao"/>
-                        <constraint firstAttribute="width" constant="100" id="bdB-Oh-tQs"/>
+                        <constraint firstAttribute="width" constant="100" id="FTS-uX-4Tr"/>
+                        <constraint firstAttribute="height" constant="60" id="ouN-J9-Ahf"/>
+                        <constraint firstAttribute="width" secondItem="uR6-ls-6ED" secondAttribute="height" multiplier="5:3" id="wOQ-S4-CAs"/>
                     </constraints>
-                    <state key="normal" title="登  录">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="uR6-ls-6ED" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="SPd-l2-w9T"/>
-                <constraint firstItem="uR6-ls-6ED" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="iK4-u0-sGc"/>
+                <constraint firstItem="AaC-FL-M6C" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="C0m-cw-y6e"/>
+                <constraint firstAttribute="trailing" secondItem="AaC-FL-M6C" secondAttribute="trailing" id="Enh-WU-GAw"/>
+                <constraint firstAttribute="bottom" secondItem="uR6-ls-6ED" secondAttribute="bottom" constant="60" id="RKs-rX-Tgb"/>
+                <constraint firstItem="AaC-FL-M6C" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Ssd-6j-PdQ"/>
+                <constraint firstItem="AaC-FL-M6C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZK8-Ln-ZIJ"/>
+                <constraint firstAttribute="bottom" secondItem="AaC-FL-M6C" secondAttribute="bottom" id="eMO-X2-2XR"/>
+                <constraint firstItem="uR6-ls-6ED" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="g0h-Oz-8bM"/>
+                <constraint firstItem="AaC-FL-M6C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nth-rR-JRe"/>
             </constraints>
             <point key="canvasLocation" x="413" y="326"/>
         </view>
     </objects>
+    <resources>
+        <image name="loginBG" width="414" height="736"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina5_5.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>

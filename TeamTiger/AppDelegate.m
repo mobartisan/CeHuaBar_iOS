@@ -37,8 +37,8 @@
     }
     [self initialMethods];
     [self initialGlobalData];
-    TTLogonViewController *loginVC = [[TTLogonViewController alloc] init];
-//  TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
+//    TTLogonViewController *loginVC = [[TTLogonViewController alloc] init];
+    TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
 

@@ -24,8 +24,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (isIPhone4) {
+        self.bottomHeight.constant = 40;
+    } else if (isIPhone5) {
+        self.bottomHeight.constant = 50;
+    } else if (isIPhone6) {
+        self.bottomHeight.constant = 60;
+    } else if (isIPhone6P) {
+        self.bottomHeight.constant = 70;
+    }
+    
     [WXApiManager sharedManager].delegate = self;
-    // Do any additional setup after loading the view from its nib.
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
 //1.跳转页面
