@@ -64,8 +64,10 @@
             [super showHudWithText:@"登录微信失败"];
             [super hideHudAfterSeconds:1.0];
         }];
+    } else {
+        [super showHudWithText:@"登录微信失败"];
+        [super hideHudAfterSeconds:1.0];
     }
-    
 }
 
 
@@ -76,16 +78,19 @@
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@", responseObject);
-        //1.隐藏转圈
-        [super hideHud];
-        //2.user
+        //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
-        //3.jump new page
-        UIViewController *rootVC = [kAppDelegate creatHomeVC];
-        UIWindow *window = kAppDelegate.window;
-        window.rootViewController = rootVC;
-        [window makeKeyAndVisible];
+        //2.隐藏转圈 跳转
+        [super showHudWithText:@"登录成功"];
+        [super hideHudAfterSeconds:1.0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //3.jump new page
+            UIViewController *rootVC = [kAppDelegate creatHomeVC];
+            UIWindow *window = kAppDelegate.window;
+            window.rootViewController = rootVC;
+            [window makeKeyAndVisible];
+        });
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"获取access_token时出错 = %@", error);
         [super showHudWithText:@"登录微信失败"];

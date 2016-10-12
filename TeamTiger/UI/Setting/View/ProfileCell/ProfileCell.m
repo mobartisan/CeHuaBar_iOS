@@ -7,13 +7,14 @@
 //
 
 #import "ProfileCell.h"
+#import "UIImageView+WebCache.h"
+#import "UIImage+YYAdd.h"
 
 @implementation ProfileCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     setViewCorner(self.exitBtn, 5);
-    setViewCorner(self.headImgV, self.headImgV.frame.size.width / 2.0);
     
     if (self.headImgV) {
         self.headImgV.userInteractionEnabled = YES;
@@ -67,8 +68,24 @@
     }
     
     if (![Common isEmptyString:dic[@"HeadImage"]]) {
-        self.headImgV.image = [UIImage imageNamed:dic[@"HeadImage"]];
-    }
+        NSString *usrString = dic[@"HeadImage"];
+        NSArray *components = [usrString componentsSeparatedByString:@"/"];
+        NSMutableString *mString = [NSMutableString string];
+        NSInteger count = components.count;
+        [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx != count - 1) {
+                [mString appendFormat:@"%@/",obj];
+            } else {
+                [mString appendString:@"64"];//头像大小 46 64 96 132
+            }
+        }];
+        NSURL *url = [NSURL URLWithString:mString];
+        [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            image = [image imageByResizeToSize:Size(60, 60)];
+            image = [image imageByRoundCornerRadius:30];
+            self.headImgV.image = image;
+        }];
+    }    
     
     if ([dic[@"Type"] intValue] == 1) {
         if (self.accessoryImgV.hidden) {

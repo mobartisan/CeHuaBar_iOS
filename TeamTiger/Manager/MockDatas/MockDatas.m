@@ -7,6 +7,7 @@
 //
 
 #import "MockDatas.h"
+#import "Models.h"
 
 @implementation MockDatas
 
@@ -77,7 +78,8 @@
 }
 
 + (NSDictionary *)testerInfo {
-    NSDictionary *userInfo = @{@"HeadImage":@"",@"Name":@"唐晓旭",@"Remarks":@"UI设计师",@"Account":@"唐宋八大家之一"};
+    TT_User *user = [TT_User sharedInstance];
+    NSDictionary *userInfo = @{@"HeadImage":user.headimgurl,@"Name":user.nickname,@"Remarks":user.nickname,@"Account":user.nickname};
     return userInfo;
 }
 
