@@ -46,7 +46,7 @@
                                                OpenID:kAuthOpenID
                                      InViewController:self];
         } else {
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 0) {
                     UIViewController *rootVC = [kAppDelegate creatHomeVC];
                     UIWindow *window = kAppDelegate.window;
