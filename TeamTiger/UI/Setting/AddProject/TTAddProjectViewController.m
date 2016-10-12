@@ -9,7 +9,7 @@
 #import "Constant.h"
 #import "IQKeyboardManager.h"
 #import "SettingCell.h"
-#import "TTAddContactorViewController.h"
+//#import "TTAddContactorViewController.h"
 #import "TTAddProjectViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
