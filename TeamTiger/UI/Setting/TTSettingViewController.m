@@ -11,7 +11,7 @@
 #import "MockDatas.h"
 #import "ProjectCell.h"
 #import "SelectCircleViewControllerForSetting.h"
-#import "TTAddContactorViewController.h"
+#import "TTSelectGroupViewController.h"
 #import "TTPickerView.h"
 #import "TTSettingViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
@@ -77,19 +77,18 @@
 //            [self ttPicker];
 //        }
         else if (type == EProjectGroup) {
-            NSLog(@"dddd");
+            TTSelectGroupViewController *selectGroupVC = [[TTSelectGroupViewController alloc] initWithNibName:@"TTSelectGroupViewController" bundle:nil];
+            [self.navigationController pushViewController:selectGroupVC animated:YES];
         }
         else if (type == EProjectAddMember){
-//            NSLog(@"跳转微信，增加人员");
-//            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
-//            [WXApiRequestHandler sendLinkURL:kLinkURL
-//                                     TagName:kLinkTagName
-//                                       Title:kLinkTitle
-//                                 Description:kLinkDescription
-//                                  ThumbImage:thumbImage
-//                                     InScene:WXSceneSession];
-            TTAddContactorViewController *addContactorVC = [[TTAddContactorViewController alloc] initWithNibName:@"TTAddContactorViewController" bundle:nil];
-            [self.navigationController pushViewController:addContactorVC animated:YES];
+            NSLog(@"跳转微信，增加人员");
+            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
+            [WXApiRequestHandler sendLinkURL:kLinkURL
+                                     TagName:kLinkTagName
+                                       Title:kLinkTitle
+                                 Description:kLinkDescription
+                                  ThumbImage:thumbImage
+                                     InScene:WXSceneSession];
         } else if (type == EProjectDleteProject){
             NSLog(@"删除并退出");
         }

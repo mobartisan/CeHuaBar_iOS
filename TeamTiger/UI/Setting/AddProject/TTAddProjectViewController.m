@@ -75,17 +75,14 @@
                 break;
             }
             case ECellTypeAccessory:{
-//                NSLog(@"跳转微信，增加人员");
-//                UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
-//                [WXApiRequestHandler sendLinkURL:kLinkURL
-//                                         TagName:kLinkTagName
-//                                           Title:kLinkTitle
-//                                     Description:kLinkDescription
-//                                      ThumbImage:thumbImage
-//                                         InScene:WXSceneSession];
-                
-                TTAddContactorViewController *addContactorVC = [[TTAddContactorViewController alloc] initWithNibName:@"TTAddContactorViewController" bundle:nil];
-                [self.navigationController pushViewController:addContactorVC animated:YES];
+                NSLog(@"跳转微信，增加人员");
+                UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
+                [WXApiRequestHandler sendLinkURL:kLinkURL
+                                         TagName:kLinkTagName
+                                           Title:kLinkTitle
+                                     Description:kLinkDescription
+                                      ThumbImage:thumbImage
+                                         InScene:WXSceneSession];
                 break;
             }
             case ECellTypeBottom:{
