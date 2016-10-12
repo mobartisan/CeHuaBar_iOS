@@ -12,7 +12,6 @@
 #import "ProjectCell.h"
 #import "SelectCircleViewControllerForSetting.h"
 #import "TTSelectGroupViewController.h"
-#import "TTPickerView.h"
 #import "TTSettingViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
@@ -23,7 +22,7 @@
 
 @property(nonatomic,strong)NSMutableArray *dataSource;
 
-@property(nonatomic,strong)TTPickerView *ttPicker;
+@property(nonatomic,strong)NSMutableDictionary *currentGroupInfo;
 
 @end
 
@@ -64,20 +63,21 @@
     [cell reloadCellData:dic];
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
-//            [self ttPicker];
             SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
-            selectCircleVC.title = @"选择项目";
+            selectCircleVC.groupInfo = self.currentGroupInfo;
             WeakSelf;
             selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
-                [wself loadProjectDataById:selectObject[@"Id"]];
+                [wself loadProjectDataByInfo:selectObject];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
         }
-//        else if (type == EProjectAddMember){
-//            [self ttPicker];
-//        }
         else if (type == EProjectGroup) {
             TTSelectGroupViewController *selectGroupVC = [[TTSelectGroupViewController alloc] initWithNibName:@"TTSelectGroupViewController" bundle:nil];
+            selectGroupVC.selectedGroup = self.currentGroupInfo;
+            WeakSelf;
+            selectGroupVC.selectGroupBlock = ^(TTSelectGroupViewController *sgVC, NSMutableDictionary *mDic){
+                [wself loadGroupDataByInfo:mDic];
+            };
             [self.navigationController pushViewController:selectGroupVC animated:YES];
         }
         else if (type == EProjectAddMember){
@@ -113,113 +113,84 @@
 }
 
 #pragma -mark Customer Methods
-- (void)loadProjectDataById:(id)projectId {
+- (void)loadProjectDataByInfo:(id)projectInfo {
+    NSMutableDictionary *projectDic = self.dataSource[0];
+    projectDic[@"Description"] = projectInfo[@"Name"];
+
+    NSMutableDictionary *membersDic = self.dataSource[2];
+    membersDic[@"Members"] = [MockDatas membersOfproject:projectInfo[@"Id"]];
+
+    [self.contentTable reloadData];
+}
+
+- (void)loadGroupDataByInfo:(id)groupInfo {
+    NSString *projectId = [groupInfo[@"Pids"] componentsSeparatedByString:@","].firstObject;
+    
     NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         return [evaluatedObject[@"Id"] isEqualToString:projectId];
     }];
     NSArray *resArray = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
     if (resArray && resArray.count > 0) {
-        [self.dataSource removeAllObjects];
-        self.dataSource = @[
-                        @{@"Type":@0,
-                          @"Name":@"项目",
-                          @"Description":resArray.firstObject[@"Name"],
-                          @"ShowAccessory":@1,
-                          @"IsEdit":@0,
-                          @"Color":kRGB(27.0, 41.0, 58.0)},
-                        @{@"Type":@1,
-                          @"Name":@"组",
-                          @"Description":@"我创建的项目",
-                          @"ShowAccessory":@1,
-                          @"IsEdit":@0,
-                          @"Color":kRGB(27.0, 41.0, 58.0)},
-                        @{@"Type":@2,
-                          @"Name":@"项目成员",
-                          @"Description":@"",
-                          @"ShowAccessory":@0,
-                          @"IsEdit":@0,
-                          @"Color":kRGB(27.0, 41.0, 58.0),
-                          @"Members":[MockDatas membersOfproject:projectId]},
-                        
-                        @{@"Type":@3,
-                          @"Name":@"",
-                          @"Description":@"",
-                          @"ShowAccessory":@0,
-                          @"IsEdit":@0,
-                          @"Color":[UIColor clearColor]}].mutableCopy;
+
+        NSMutableDictionary *projectDic = self.dataSource[0];
+        projectDic[@"Description"] = resArray.firstObject[@"Name"];
+        
+        NSMutableDictionary *groupDic = self.dataSource[1];
+        groupDic[@"Description"] = groupInfo[@"Name"];
+        
+        NSMutableDictionary *membersDic = self.dataSource[2];
+        membersDic[@"Members"] = [MockDatas membersOfproject:projectId];
         
         [self.contentTable reloadData];
+        //当前分组
+        self.currentGroupInfo = groupInfo;
     }
 }
 
 #pragma -mark getter
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
-        _dataSource = @[
-    @{@"Type":@0,
-      @"Name":@"项目",
-      @"Description":[MockDatas projects][0][@"Name"],
-      @"ShowAccessory":@1,
-      @"IsEdit":@0,
-      @"Color":kRGB(27.0, 41.0, 58.0)},
-    @{@"Type":@1,
-      @"Name":@"组",
-      @"Description":@"我创建的项目",
-      @"ShowAccessory":@1,
-      @"IsEdit":@0,
-      @"Color":kRGB(27.0, 41.0, 58.0)},
-    @{@"Type":@2,
-      @"Name":@"项目成员",
-      @"Description":@"",
-      @"ShowAccessory":@0,
-      @"IsEdit":@0,
-      @"Color":kRGB(27.0, 41.0, 58.0),
-      @"Members":[MockDatas membersOfproject:[MockDatas projects][0][@"Id"]]},
-    
-    @{@"Type":@3,
-      @"Name":@"",
-      @"Description":@"",
-      @"ShowAccessory":@0,
-      @"IsEdit":@0,
-      @"Color":[UIColor clearColor]}].mutableCopy;
+        NSDictionary *group = [MockDatas groups].firstObject;
+        //当前分组
+        self.currentGroupInfo = group.mutableCopy;
+
+        NSString *projectId = [group[@"Pids"] componentsSeparatedByString:@","].firstObject;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [evaluatedObject[@"Id"] isEqualToString:projectId];
+        }];
+        NSArray *resArray = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
+        if (resArray && resArray.count > 0) {
+            _dataSource = @[
+                            @{@"Type":@0,
+                              @"Name":@"项目",
+                              @"Description":resArray.firstObject[@"Name"],
+                              @"ShowAccessory":@1,
+                              @"IsEdit":@0,
+                              @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
+                            @{@"Type":@1,
+                              @"Name":@"组",
+                              @"Description":group[@"Name"],
+                              @"ShowAccessory":@1,
+                              @"IsEdit":@0,
+                              @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
+                            @{@"Type":@2,
+                              @"Name":@"项目成员",
+                              @"Description":@"",
+                              @"ShowAccessory":@0,
+                              @"IsEdit":@0,
+                              @"Color":kRGB(27.0, 41.0, 58.0),
+                              @"Members":[MockDatas membersOfproject:projectId]}.mutableCopy,
+                            
+                            @{@"Type":@3,
+                              @"Name":@"",
+                              @"Description":@"",
+                              @"ShowAccessory":@0,
+                              @"IsEdit":@0,
+                              @"Color":[UIColor clearColor]}.mutableCopy].mutableCopy;
+        }
     }
     return  _dataSource;
-}
-
-
-- (TTPickerView *)ttPicker {
-    if (!_ttPicker) {
-        WeakSelf;
-        _ttPicker = [[TTPickerView alloc] initWithDatas:[MockDatas projects] SelectBlock:^(TTPickerView *view, id selObj) {
-            NSLog(@"%@",selObj);
-            [wself loadProjectDataById:selObj[@"Id"]];
-        } TapBlock:^(TTPickerView *view) {
-            [UIView animateWithDuration:0.3 animations:^{
-                [view mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.top.mas_equalTo(wself.view.mas_top).offset(200);
-                }];
-                [wself.view layoutIfNeeded];
-            } completion:^(BOOL finished) {
-                [view removeFromSuperview];
-                _ttPicker = nil;
-            }];
-        }];
-        [wself.view addSubview:_ttPicker];
-        [_ttPicker mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(wself.view.mas_left);
-            make.top.mas_equalTo(wself.view.mas_top).offset(200);
-            make.height.equalTo(wself.view.mas_height);
-            make.width.equalTo(wself.view.mas_width);
-        }];
-        [wself.view layoutIfNeeded];
-        [UIView animateWithDuration:0.3 animations:^{
-            [wself.ttPicker mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.top.mas_equalTo(wself.view.mas_top);
-            }];
-            [wself.view layoutIfNeeded];
-        }];
-    }
-    return _ttPicker;
 }
 
 

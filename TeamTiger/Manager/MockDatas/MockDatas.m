@@ -12,6 +12,15 @@
 @implementation MockDatas
 
 //for test
++ (NSArray *)groups {
+    NSArray *groups = @[
+                          @{@"Name":@"我创建的项目",@"Gid":@"00001",@"Pids":@"0001,0002"},
+                          @{@"Name":@"我关注的项目",@"Gid":@"00002",@"Pids":@"0002,0004"},
+                          @{@"Name":@"南京的项目",@"Gid":@"00003",@"Pids":@"0001,0002,0003,0004"},
+                          @{@"Name":@"北京的项目",@"Gid":@"00004",@"Pids":@"0001,0003"}];
+    return groups;
+}
+
 + (NSArray *)projects {
     NSArray *projects = @[
   @{@"Name":@"工作牛",@"Id":@"0001"},

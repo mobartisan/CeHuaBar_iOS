@@ -25,8 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"选择项目";
     self.view.backgroundColor = kColorForBackgroud;
-    // Do any additional setup after loading the view.
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
@@ -51,7 +51,12 @@
 
 #pragma mark - Initial Methods
 - (void)setupGroups {
-    self.data = [MockDatas projects].mutableCopy;
+    NSArray *pids = [self.groupInfo[@"Pids"] componentsSeparatedByString:@","];
+    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+         return [pids containsObject:evaluatedObject[@"Id"]];
+    }];
+    NSArray *projects = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
+    self.data = projects.mutableCopy;
 }
 #pragma mark - Target Methods
 

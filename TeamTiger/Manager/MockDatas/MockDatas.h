@@ -11,6 +11,8 @@
 @interface MockDatas : NSObject
 
 //for test
++ (NSArray *)groups;
+
 + (NSArray *)projects;
 
 + (NSArray *)membersOfproject:(id)projectId;

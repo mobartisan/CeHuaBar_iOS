@@ -8,6 +8,7 @@
 
 #import "TTSelectGroupViewController.h"
 #import "IQKeyboardManager.h"
+#import "MockDatas.h"
 
 @interface TTSelectGroupViewController ()
 
@@ -20,10 +21,22 @@
     self.title = @"选择组";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        if (wself.selectGroupBlock) {
+            wself.selectGroupBlock(wself, wself.groupDatas[wself.currentSelectedIndex]);
+        }
         [wself.navigationController popViewControllerAnimated:YES];
     }];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    //
+    __block NSInteger index = 0;
+    [[MockDatas groups] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj[@"Gid"] isEqualToString:self.selectedGroup[@"Gid"]]) {
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    self.currentSelectedIndex = index;
+    
+    //table view
     [Common removeExtraCellLines:self.groupTable];
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
@@ -37,7 +50,7 @@
 
 #pragma -mark
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return self.groupDatas.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -48,7 +61,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;        
         cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:44.0/255.0f alpha:1.0f];
     }
-    cell.textLabel.text = self.groupDatas[indexPath.row][@"GroupName"];
+    cell.textLabel.text = self.groupDatas[indexPath.row][@"Name"];
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     
@@ -62,30 +75,32 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSMutableDictionary *mDic = self.groupDatas[indexPath.row];
-    if ([mDic[@"IsSelected"] intValue] == 1) {
-        mDic[@"IsSelected"] = @"0";
-    } else {
-        mDic[@"IsSelected"] = @"1";
+    if (self.currentSelectedIndex == indexPath.row) {
+        return;
     }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.groupDatas enumerateObjectsUsingBlock:^(NSMutableDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj[@"IsSelected"] = @"0";
+    }];
+    NSMutableDictionary *mDic = self.groupDatas[indexPath.row];
+    mDic[@"IsSelected"] = @"1";
+    [tableView reloadData];
+    self.currentSelectedIndex = indexPath.row;
 }
 
 #pragma -mark
-
 - (NSMutableArray *)groupDatas {
     if (!_groupDatas) {
         _groupDatas = [NSMutableArray array];
-        
-        NSMutableDictionary *mDic1 = @{@"GroupName":@"我创建的项目",@"IsSelected":@"1"}.mutableCopy;
-        NSMutableDictionary *mDic2 = @{@"GroupName":@"南京项目组",@"IsSelected":@"0"}.mutableCopy;
-        NSMutableDictionary *mDic3 = @{@"GroupName":@"北京的项目",@"IsSelected":@"0"}.mutableCopy;
-        NSMutableDictionary *mDic4 = @{@"GroupName":@"我关注的项目",@"IsSelected":@"0"}.mutableCopy;
-        
-        [_groupDatas addObject:mDic1];
-        [_groupDatas addObject:mDic2];
-        [_groupDatas addObject:mDic3];
-        [_groupDatas addObject:mDic4];
+        NSArray *groups = [MockDatas groups];
+        [groups enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:obj];
+            if (idx == self.currentSelectedIndex) {
+                mDic[@"IsSelected"] = @"1";
+            } else {
+                mDic[@"IsSelected"] = @"0";
+            }
+            [_groupDatas addObject:mDic];
+        }];
     }
     return _groupDatas;
 }

@@ -14,4 +14,6 @@ typedef void(^SelectCircleVCBlock)(id selectObj, SelectCircleViewControllerForSe
 
 @property (nonatomic, copy)SelectCircleVCBlock selectCircleVCBlock;
 
+@property (nonatomic, strong)NSMutableDictionary *groupInfo;
+
 @end
