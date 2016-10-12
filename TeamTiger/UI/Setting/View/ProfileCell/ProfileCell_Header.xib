@@ -44,7 +44,7 @@
                     <constraint firstItem="gkE-6e-jIu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="LDW-dF-N3d"/>
                     <constraint firstItem="JjQ-yr-QDs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="SBq-VX-V6r"/>
                     <constraint firstItem="gkE-6e-jIu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="28" id="hrS-sT-OYo"/>
-                    <constraint firstAttribute="trailing" secondItem="JjQ-yr-QDs" secondAttribute="trailing" constant="20" id="pGA-BR-yij"/>
+                    <constraint firstAttribute="trailing" secondItem="JjQ-yr-QDs" secondAttribute="trailing" constant="24" id="pGA-BR-yij"/>
                     <constraint firstAttribute="trailing" secondItem="fw4-7u-kFq" secondAttribute="trailing" id="pwO-zr-re6"/>
                 </constraints>
             </tableViewCellContentView>

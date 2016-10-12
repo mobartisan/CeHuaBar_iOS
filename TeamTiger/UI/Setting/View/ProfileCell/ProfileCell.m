@@ -76,13 +76,12 @@
             if (idx != count - 1) {
                 [mString appendFormat:@"%@/",obj];
             } else {
-                [mString appendString:@"64"];//头像大小 46 64 96 132
+                [mString appendString:@"132"];//头像大小 46 64 96 132
             }
         }];
         NSURL *url = [NSURL URLWithString:mString];
         [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            image = [image imageByResizeToSize:Size(60, 60)];
-            image = [image imageByRoundCornerRadius:30];
+            image = [image imageByRoundCornerRadius:66];
             self.headImgV.image = image;
         }];
     }    
