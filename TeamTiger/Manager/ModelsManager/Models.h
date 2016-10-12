@@ -86,6 +86,22 @@
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+//for wechat
+@property(nonatomic, strong) NSString *city;  // city
+@property(nonatomic, strong) NSString *country;  // country
+@property(nonatomic, strong) NSString *headimgurl;  // headimgurl
+@property(nonatomic, strong) NSString *language;  // language
+@property(nonatomic, strong) NSString *nickname;  // nickname
+@property(nonatomic, strong) NSString *openid;  // openid
+@property(nonatomic, strong) NSArray *privilege;  // privilege
+@property(nonatomic, strong) NSString *province;  // province
+@property(nonatomic, strong) NSString *sex;  // sex
+@property(nonatomic, strong) NSString *unionid;  // unionid
+
++ (instancetype)sharedInstance;
+
+- (BOOL)createUser:(NSDictionary *)userDic;
+
 @end
 
 

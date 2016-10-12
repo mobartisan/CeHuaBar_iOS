@@ -175,6 +175,36 @@
 
     return [super description];
 }
+
+static TT_User *singleton = nil;
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (!singleton) {
+            singleton = [[[self class] alloc] init];
+        }
+    });
+    return singleton;
+}
+
+- (BOOL)createUser:(NSDictionary *)userDic {
+    if (userDic) {
+        self.city = userDic[@"city"];
+        self.country = userDic[@"country"];
+        self.headimgurl = userDic[@"headimgurl"];
+        self.language = userDic[@"language"];
+        self.nickname = userDic[@"nickname"];
+        self.openid = userDic[@"openid"];//equal user_id
+        self.user_id = userDic[@"openid"];
+        self.privilege = [NSArray arrayWithArray:userDic[@"privilege"]];
+        self.province = userDic[@"province"];
+        self.sex = userDic[@"sex"];//1 男  0 女
+        self.unionid = userDic[@"unionid"];
+        return YES;
+    }
+    return NO;
+}
+
 @end
 
 #pragma mark - 
