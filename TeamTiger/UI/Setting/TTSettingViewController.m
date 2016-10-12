@@ -91,6 +91,11 @@
                                      InScene:WXSceneSession];
         } else if (type == EProjectDleteProject){
             NSLog(@"删除并退出");
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    //TO DO HERE
+                }
+            }];
         }
     };
     return cell;
@@ -190,7 +195,7 @@
                               @"Color":[UIColor clearColor]}.mutableCopy].mutableCopy;
         }
     }
-    return  _dataSource;
+    return _dataSource;
 }
 
 

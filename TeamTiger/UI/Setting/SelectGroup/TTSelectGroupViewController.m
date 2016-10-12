@@ -60,10 +60,20 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;        
         cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:44.0/255.0f alpha:1.0f];
+        UIImageView *lineImgV = [[UIImageView alloc] init];
+        [cell addSubview:lineImgV];
+        lineImgV.backgroundColor = [UIColor lightGrayColor];
+        lineImgV.alpha = 0.5;
+        [lineImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.mas_left);
+            make.right.equalTo(cell.mas_right);
+            make.bottom.equalTo(cell.mas_bottom).offset(-1);
+            make.height.mas_equalTo(0.5);
+        }];
     }
     cell.textLabel.text = self.groupDatas[indexPath.row][@"Name"];
     cell.textLabel.textColor = [UIColor whiteColor];
-    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    cell.textLabel.font = [UIFont systemFontOfSize:16];
     
     if ([self.groupDatas[indexPath.row][@"IsSelected"] intValue] == 1) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
