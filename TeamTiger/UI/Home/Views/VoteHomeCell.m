@@ -128,8 +128,7 @@ static CGFloat tableViewHeight = 0.0;
 
 //投票
 - (IBAction)handleBtnAction:(UIButton *)sender {
-    NSDictionary *dic = nil;
-    NSString *projectType = nil;
+    NSString *projectType = @"";
     NSInteger typeCell = 0;
     switch (sender.tag) {
         case 100:{
@@ -172,7 +171,7 @@ static CGFloat tableViewHeight = 0.0;
         }
             break;
     }
-    dic = @{@"time":[Common getCurrentSystemTime],
+    NSDictionary *dic = @{@"time":[Common getCurrentSystemTime],
             @"firstName":_model.name,
             @"secondName":projectType,
             @"typeCell":@(typeCell)
