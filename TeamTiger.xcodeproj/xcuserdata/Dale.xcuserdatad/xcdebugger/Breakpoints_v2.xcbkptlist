@@ -24,9 +24,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "-managerDidRecvAuthResponse:"
-            landmarkType = "7">
+            endingLineNumber = "246">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -40,9 +38,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "-managerDidRecvMessageResponse:"
-            landmarkType = "7">
+            endingLineNumber = "241">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -56,9 +52,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "-managerDidRecvLaunchFromWXReq:"
-            landmarkType = "7">
+            endingLineNumber = "237">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -72,9 +66,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
-            endingLineNumber = "233"
-            landmarkName = "-managerDidRecvShowMessageReq:"
-            landmarkType = "7">
+            endingLineNumber = "233">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -88,9 +80,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "229"
-            endingLineNumber = "229"
-            landmarkName = "-managerDidRecvGetMessageReq:"
-            landmarkType = "7">
+            endingLineNumber = "229">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

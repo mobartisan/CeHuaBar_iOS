@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CirclesViewController.h"
+//#import "CirclesViewController.h"
 #import "HomeViewController.h"
 #import "IQKeyboardManager.h"
 #import "MMDrawerController.h"
@@ -20,7 +20,7 @@
 #import "UIImage+TYLaunchImage.h"
 #import "UIView+TYLaunchAnimation.h"
 #import "WXApiManager.h"
-#import "CirclesVC.h"
+//#import "CirclesVC.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
 
@@ -188,6 +188,9 @@
     //启动图片上传服务
     UploadManager *uploadManager = [UploadManager sharedInstance];
     [uploadManager startService];
+    
+    //七牛
+    [[QiniuUpoadManager sharedInstance] createToken];
 }
 
 - (void)initialGlobalData {
