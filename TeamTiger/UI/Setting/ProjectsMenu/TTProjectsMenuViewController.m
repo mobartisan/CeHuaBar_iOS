@@ -25,6 +25,9 @@
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionPush SubType:kCATransitionFromRight];
     }];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_add"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addCirclesAction)];
+    
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     [Common removeExtraCellLines:self.menuTable];
@@ -104,6 +107,26 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+/*改变删除按钮的title*/
+-(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"删除";
+}
+
+/*删除用到的函数*/
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        /*此处处理自己的代码，如删除数据*/
+        //TO DO HERE
+        /*删除tableView中的一行*/
+//        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
 #pragma -mark Data Handle
 - (void)getTableDatas {
     
@@ -132,6 +155,14 @@
         return results.firstObject;
     }
     return nil;
+}
+
+- (void)addCirclesAction {
+    [UIAlertView hyb_showWithTitle:@"提醒" message:@"增加分组" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            
+        }
+    }];
 }
 
 @end
