@@ -27,7 +27,7 @@
 #import "CirclesManager.h"
 #import "MJRefresh.h"
 #import "NetworkManager.h"
-
+#import "QiniuUpoadManager.h"
 #endif
 
 #endif /* TeamTiger_Prefix_pch */

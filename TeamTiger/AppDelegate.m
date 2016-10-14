@@ -188,6 +188,9 @@
     //启动图片上传服务
     UploadManager *uploadManager = [UploadManager sharedInstance];
     [uploadManager startService];
+    
+    //七牛
+    [[QiniuUpoadManager sharedInstance] createToken];
 }
 
 - (void)initialGlobalData {

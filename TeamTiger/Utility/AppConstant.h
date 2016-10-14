@@ -70,5 +70,11 @@ static NSString *const OBJ = @"obj";
 #define NSLog(format, ...)
 #endif
 
+//七牛
+static NSInteger defaultLiveTime = 365;
+static NSString *const QiNiuScope = @"cjdalebbs";
+static NSString *const QiNiuAccessKey = @"M82sZ5xflkxGQr1Kyi0VTG9UUid5PYBqYCzGgxv0";
+static NSString *const QiNiuSecretKey = @"t9uR0JgBozDzQduR9h-HS0p-nye7Vm2cYIlGkkem";
+#define QiNiuBaseUrl @"http://oez5w6mq8.bkt.clouddn.com/"
 
 #endif /* Constant_h */
