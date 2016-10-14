@@ -88,6 +88,9 @@
 
 + (NSDictionary *)testerInfo {
     TT_User *user = [TT_User sharedInstance];
+    if([Common isEmptyString:user.headimgurl] || [Common isEmptyString:user.nickname]){
+        return @{@"HeadImage":@"http://up.qqjia.com/z/14/tu17250_12.jpg",@"Name":@"测试账号",@"Remarks":@"测试账号",@"Account":@"测试账号"};
+    }
     NSDictionary *userInfo = @{@"HeadImage":user.headimgurl,@"Name":user.nickname,@"Remarks":user.nickname,@"Account":user.nickname};
     return userInfo;
 }
