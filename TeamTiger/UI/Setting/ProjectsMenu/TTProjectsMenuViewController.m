@@ -11,6 +11,8 @@
 #import "MockDatas.h"
 #import "GroupHeadView.h"
 #import "ProjectsCell.h"
+#import "UIImageView+WebCache.h"
+#import "UIImage+YYAdd.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -66,12 +68,28 @@
         NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
     }
+    else if(indexPath.section == 0) {
+        static NSString *cellID = @"CellIdentify";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        [cell addSubview:self.infoView];
+        [self loadUserInfo];
+        [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(cell);
+        }];
+    }
+
     else {
         static NSString *cellID = @"CellIdentify";
         cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     }
     return cell;
@@ -100,7 +118,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 53.0;
+    if (indexPath.section > 1) {
+        return 53.0;
+    } else if (indexPath.section == 0) {
+        return 80.0;
+    } else {
+        //to do
+        return 80.0;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,6 +191,34 @@
             
         }
     }];
+}
+
+- (void)loadUserInfo {
+    NSDictionary *dic = [MockDatas testerInfo];
+    self.nameLab.text = dic[@"Name"];
+    self.remarkLab.text = dic[@"Remarks"];
+    if (![Common isEmptyString:dic[@"HeadImage"]]) {
+        NSString *urlString = dic[@"HeadImage"];
+        NSMutableString *mString = [NSMutableString string];
+        if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
+            mString = urlString.mutableCopy;
+        } else {
+            NSArray *components = [urlString componentsSeparatedByString:@"/"];
+            NSInteger count = components.count;
+            [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx != count - 1) {
+                    [mString appendFormat:@"%@/",obj];
+                } else {
+                    [mString appendString:@"132"];//头像大小 46 64 96 132
+                }
+            }];
+        }
+        NSURL *url = [NSURL URLWithString:mString];
+        [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            image = [image imageByRoundCornerRadius:66];
+            self.headImgV.image = image;
+        }];
+    }
 }
 
 @end

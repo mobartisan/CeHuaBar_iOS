@@ -12,6 +12,11 @@
 
 @property(nonatomic, weak)IBOutlet UITableView *menuTable;
 
+@property(nonatomic, strong) IBOutlet UIView *infoView;
+@property(nonatomic, strong) IBOutlet UIImageView *headImgV;
+@property(nonatomic, strong) IBOutlet UILabel *nameLab;
+@property(nonatomic, strong) IBOutlet UILabel *remarkLab;
+
 @property(nonatomic, strong) NSMutableArray *allDatas;
 
 @property(nonatomic, strong) NSMutableArray *projects;

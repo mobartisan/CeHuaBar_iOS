@@ -8,7 +8,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TTProjectsMenuViewController">
             <connections>
+                <outlet property="headImgV" destination="Rre-A1-AVJ" id="TMN-LQ-GaO"/>
+                <outlet property="infoView" destination="0k7-6g-zPu" id="W4l-Z9-Or9"/>
                 <outlet property="menuTable" destination="zmV-ze-VQb" id="lKj-IH-uix"/>
+                <outlet property="nameLab" destination="VJs-I9-wrN" id="TUk-xc-Xse"/>
+                <outlet property="remarkLab" destination="Zpi-hW-kX5" id="d4R-Ao-H2M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,6 +37,45 @@
                 <constraint firstItem="zmV-ze-VQb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rKg-KP-UoB"/>
             </constraints>
             <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="0k7-6g-zPu">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rre-A1-AVJ">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="XfX-9P-Jwr"/>
+                        <constraint firstAttribute="width" constant="50" id="xSr-gb-yib"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Creative Designer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zpi-hW-kX5">
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Stepen Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VJs-I9-wrN">
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.082352941176470587" green="0.10588235294117647" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Zpi-hW-kX5" secondAttribute="bottom" constant="18" id="0j9-rx-7yV"/>
+                <constraint firstAttribute="trailing" secondItem="VJs-I9-wrN" secondAttribute="trailing" constant="16" id="45g-I8-Z0d"/>
+                <constraint firstItem="VJs-I9-wrN" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="20" id="4Zm-af-sVY"/>
+                <constraint firstItem="VJs-I9-wrN" firstAttribute="leading" secondItem="Rre-A1-AVJ" secondAttribute="trailing" constant="8" id="5Ky-Qs-cu8"/>
+                <constraint firstItem="Zpi-hW-kX5" firstAttribute="leading" secondItem="Rre-A1-AVJ" secondAttribute="trailing" constant="8" id="5xy-z8-NF0"/>
+                <constraint firstItem="Rre-A1-AVJ" firstAttribute="leading" secondItem="0k7-6g-zPu" secondAttribute="leading" constant="22" id="EfH-sE-WjS"/>
+                <constraint firstAttribute="trailing" secondItem="Zpi-hW-kX5" secondAttribute="trailing" constant="16" id="daC-GH-8Ow"/>
+                <constraint firstItem="Rre-A1-AVJ" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="15" id="heD-h5-9ce"/>
+                <constraint firstItem="Zpi-hW-kX5" firstAttribute="top" secondItem="VJs-I9-wrN" secondAttribute="bottom" constant="-2" id="zJC-7k-LRd"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-27.5" y="739"/>
         </view>
     </objects>
 </document>
