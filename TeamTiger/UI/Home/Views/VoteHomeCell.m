@@ -20,6 +20,7 @@ static CGFloat tableViewHeight = 0.0;
 @interface VoteHomeCell ()
 
 @property (strong, nonatomic) HomeDetailCellModel *detailModel;
+
 @property (weak, nonatomic) IBOutlet UILabel *timeLB;
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 @property (weak, nonatomic) IBOutlet UILabel *nameLB;
