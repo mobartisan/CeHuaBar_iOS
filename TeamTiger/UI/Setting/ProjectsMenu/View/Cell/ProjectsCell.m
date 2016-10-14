@@ -24,8 +24,8 @@
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
     if (object && [object isKindOfClass:[NSDictionary class]]) {
-        self.pointImgV.backgroundColor = ColorRGB(arc4random() % 255, arc4random() % 255, arc4random() % 255);
-        self.msgNumLab.text = @(arc4random()%100 + 1).stringValue;
+        self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
+        self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
         self.projectNameLab.text = object[@"Name"];
 
         UIView *v = [self viewWithTag:2016 + self.tag];
