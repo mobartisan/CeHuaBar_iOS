@@ -27,8 +27,12 @@
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 255, arc4random() % 255, arc4random() % 255);
         self.msgNumLab.text = @(arc4random()%100 + 1).stringValue;
         self.projectNameLab.text = object[@"Name"];
+
+        UIView *v = [self viewWithTag:2016 + self.tag];
+        if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];
         if (!isLast) {
             UIImageView *line = [[UIImageView alloc] init];
+            line.tag = 2016 + self.tag;
             [self addSubview:line];
             line.backgroundColor = [UIColor lightGrayColor];
             line.alpha = 0.3;

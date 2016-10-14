@@ -64,6 +64,7 @@
             cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        cell.tag = indexPath.section * 1000  + indexPath.row;
         NSArray *pids = [self.groups[indexPath.section - 2][@"Pids"] componentsSeparatedByString:@","];
         NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
@@ -110,7 +111,11 @@
     if (section == 0) {
         return nil;
     }
-    GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
+    static NSString *headViewID = @"HeadViewID";
+    GroupHeadView *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewID];
+    if (!headView) {
+        headView = LoadFromNib(@"GroupHeadView");
+    }
     if (section > 1) {
         [headView loadHeadViewData:self.groups[section - 2]];
     }
