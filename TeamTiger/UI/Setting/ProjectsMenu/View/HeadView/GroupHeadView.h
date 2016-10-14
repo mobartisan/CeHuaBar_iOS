@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GroupHeadView : UITableViewHeaderFooterView
+@interface GroupHeadView : UIView
 
 @property(nonatomic,weak)IBOutlet UILabel *groupNameLab;
 

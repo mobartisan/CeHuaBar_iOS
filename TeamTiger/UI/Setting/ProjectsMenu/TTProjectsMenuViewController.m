@@ -13,6 +13,7 @@
 #import "ProjectsCell.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+YYAdd.h"
+#import "TTMyProfileViewController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -111,11 +112,7 @@
     if (section == 0) {
         return nil;
     }
-    static NSString *headViewID = @"HeadViewID";
-    GroupHeadView *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headViewID];
-    if (!headView) {
-        headView = LoadFromNib(@"GroupHeadView");
-    }
+    GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
     if (section > 1) {
         [headView loadHeadViewData:self.groups[section - 2]];
     }
@@ -158,6 +155,11 @@
         /*删除tableView中的一行*/
 //        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+- (IBAction)clickHeadInfoAction:(id)sender {
+    TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
+    [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 
 #pragma -mark Data Handle

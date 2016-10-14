@@ -58,6 +58,11 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gT9-uW-7mv">
+                    <connections>
+                        <action selector="clickHeadInfoAction:" destination="-1" eventType="touchUpInside" id="fzT-xl-lUl"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.082352941176470587" green="0.10588235294117647" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -65,8 +70,12 @@
                 <constraint firstAttribute="trailing" secondItem="VJs-I9-wrN" secondAttribute="trailing" constant="16" id="45g-I8-Z0d"/>
                 <constraint firstItem="VJs-I9-wrN" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="20" id="4Zm-af-sVY"/>
                 <constraint firstItem="VJs-I9-wrN" firstAttribute="leading" secondItem="Rre-A1-AVJ" secondAttribute="trailing" constant="8" id="5Ky-Qs-cu8"/>
+                <constraint firstAttribute="trailing" secondItem="gT9-uW-7mv" secondAttribute="trailing" id="5hR-zG-kPN"/>
                 <constraint firstItem="Zpi-hW-kX5" firstAttribute="leading" secondItem="Rre-A1-AVJ" secondAttribute="trailing" constant="8" id="5xy-z8-NF0"/>
                 <constraint firstItem="Rre-A1-AVJ" firstAttribute="leading" secondItem="0k7-6g-zPu" secondAttribute="leading" constant="22" id="EfH-sE-WjS"/>
+                <constraint firstItem="gT9-uW-7mv" firstAttribute="leading" secondItem="0k7-6g-zPu" secondAttribute="leading" id="Ei7-qb-Rfv"/>
+                <constraint firstItem="gT9-uW-7mv" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" id="PBa-Ix-Zmq"/>
+                <constraint firstAttribute="bottom" secondItem="gT9-uW-7mv" secondAttribute="bottom" id="dTi-zW-Xee"/>
                 <constraint firstAttribute="trailing" secondItem="Zpi-hW-kX5" secondAttribute="trailing" constant="16" id="daC-GH-8Ow"/>
                 <constraint firstItem="Rre-A1-AVJ" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="15" id="heD-h5-9ce"/>
                 <constraint firstItem="Zpi-hW-kX5" firstAttribute="top" secondItem="VJs-I9-wrN" secondAttribute="bottom" constant="-2" id="zJC-7k-LRd"/>
