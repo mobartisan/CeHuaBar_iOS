@@ -25,7 +25,7 @@
 #import "MMSheetView.h"
 #import "MMPopupWindow.h"
 #import "TTAddVoteViewController.h"
-#import "CirclesVC.h"
+#import "TTProjectsMenuViewController.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate, UITextViewDelegate>
 
@@ -226,12 +226,9 @@
 }
 
 - (void)projectsBtnAction {
-//    [self showHudWithText:@"跳转项目列表"];
-//    [self hideHudAfterSeconds:3.0];
-    
-    //
-    CirclesVC *circleVC = [[CirclesVC alloc] init];
-    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:circleVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
+    //项目列表
+    TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
+    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:projectsMenuVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
 }
 
 - (void)settingBtnAction {
