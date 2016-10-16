@@ -528,6 +528,7 @@ NSUInteger QN_GuessDecodedLength(NSUInteger srcLen) {
                 curDest[1] = kBase64PaddingChar;
                 curDest += 2;
             }
+            NSLog(@"%tu",destLen);
             break;
 
         case 2:
@@ -544,6 +545,7 @@ NSUInteger QN_GuessDecodedLength(NSUInteger srcLen) {
                 curDest[0] = kBase64PaddingChar;
                 curDest += 1;
             }
+            NSLog(@"%tu",destLen);
             break;
     }
     // return the length
