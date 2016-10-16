@@ -11,11 +11,15 @@
 #import "MockDatas.h"
 #import "GroupHeadView.h"
 #import "ProjectsCell.h"
+#import "ProjectsView.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+YYAdd.h"
 #import "TTMyProfileViewController.h"
+#import "TTAddProjectViewController.h"
 
 @interface TTProjectsMenuViewController ()
+
+@property(nonatomic,strong)ProjectsView *pView;
 
 @end
 
@@ -70,21 +74,6 @@
         NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
     }
-    else if(indexPath.section == 0) {
-        static NSString *cellID = @"CellIdentify";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-        [cell addSubview:self.infoView];
-        [self loadUserInfo];
-        [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.mas_equalTo(cell);
-        }];
-    }
-
     else {
         static NSString *cellID = @"CellIdentify";
         cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -92,6 +81,18 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
             cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        if (indexPath.section == 0) {
+            [cell addSubview:self.infoView];
+            [self loadUserInfo];
+            [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(cell);
+            }];
+        } else {
+            [cell addSubview:self.pView];
+            [self.pView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(cell);
+            }];
         }
     }
     return cell;
@@ -125,8 +126,7 @@
     } else if (indexPath.section == 0) {
         return 80.0;
     } else {
-        //to do
-        return 80.0;
+        return [ProjectsView heightOfProjectsView:self.projects];
     }
 }
 
@@ -163,10 +163,6 @@
 }
 
 #pragma -mark Data Handle
-- (void)getTableDatas {
-    
-}
-
 - (NSMutableArray *)groups {
     if (!_groups) {
         _groups = [NSMutableArray arrayWithArray:[MockDatas groups]];
@@ -195,7 +191,6 @@
 - (void)addCirclesAction {
     [UIAlertView hyb_showWithTitle:@"提醒" message:@"增加分组" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
         if (buttonIndex == 1) {
-            
         }
     }];
 }
@@ -226,6 +221,25 @@
             self.headImgV.image = image;
         }];
     }
+}
+
+- (ProjectsView *)pView {
+    if (!_pView) {
+        _pView = [[ProjectsView alloc] initWithDatas:self.projects];
+        //data handle
+        _pView.projectBlock = ^(ProjectsView *tmpView, id object){
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"跳转具体项目的列表" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+                
+            }];
+        };
+        WeakSelf;
+        _pView.addProjectBlock = ^(ProjectsView *tmpView){
+            TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+            TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
+            [wself.navigationController presentViewController:baseNav animated:YES completion:nil];
+        };
+    }
+    return _pView;
 }
 
 @end

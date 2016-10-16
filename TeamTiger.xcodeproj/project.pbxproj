@@ -69,6 +69,8 @@
 		06DFEBAA1D658CA900DB49E1 /* AddImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBA91D658CA900DB49E1 /* AddImageView.m */; };
 		06DFEBAE1D65D8F200DB49E1 /* TTAddVoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06DFEBAC1D65D8F200DB49E1 /* TTAddVoteViewController.m */; };
 		06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 06DFEBAD1D65D8F200DB49E1 /* TTAddVoteViewController.xib */; };
+		1D01696E1DB30F6F00F828E4 /* ProjectsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D01696D1DB30F6F00F828E4 /* ProjectsView.m */; };
+		1D0169711DB31C3400F828E4 /* ProjectItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D0169701DB31C3400F828E4 /* ProjectItemView.m */; };
 		1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBAE1D3F29C900F85E9A /* NSArray+YYAdd.m */; };
 		1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBB01D3F29C900F85E9A /* NSBundle+YYAdd.m */; };
 		1D09CC5D1D3F29C900F85E9A /* NSData+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D09CBB21D3F29C900F85E9A /* NSData+YYAdd.m */; };
@@ -617,6 +619,10 @@
 		06DFEBAB1D65D8F200DB49E1 /* TTAddVoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddVoteViewController.h; sourceTree = "<group>"; };
 		06DFEBAC1D65D8F200DB49E1 /* TTAddVoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddVoteViewController.m; sourceTree = "<group>"; };
 		06DFEBAD1D65D8F200DB49E1 /* TTAddVoteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddVoteViewController.xib; sourceTree = "<group>"; };
+		1D01696C1DB30F6F00F828E4 /* ProjectsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsView.h; sourceTree = "<group>"; };
+		1D01696D1DB30F6F00F828E4 /* ProjectsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsView.m; sourceTree = "<group>"; };
+		1D01696F1DB31C3400F828E4 /* ProjectItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectItemView.h; sourceTree = "<group>"; };
+		1D0169701DB31C3400F828E4 /* ProjectItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectItemView.m; sourceTree = "<group>"; };
 		1D09CBAD1D3F29C900F85E9A /* NSArray+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYAdd.h"; sourceTree = "<group>"; };
 		1D09CBAE1D3F29C900F85E9A /* NSArray+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+YYAdd.m"; sourceTree = "<group>"; };
 		1D09CBAF1D3F29C900F85E9A /* NSBundle+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+YYAdd.h"; sourceTree = "<group>"; };
@@ -1692,6 +1698,17 @@
 			path = Private;
 			sourceTree = "<group>";
 		};
+		1D01696B1DB30F4F00F828E4 /* ProjectsView */ = {
+			isa = PBXGroup;
+			children = (
+				1D01696C1DB30F6F00F828E4 /* ProjectsView.h */,
+				1D01696D1DB30F6F00F828E4 /* ProjectsView.m */,
+				1D01696F1DB31C3400F828E4 /* ProjectItemView.h */,
+				1D0169701DB31C3400F828E4 /* ProjectItemView.m */,
+			);
+			path = ProjectsView;
+			sourceTree = "<group>";
+		};
 		1D09CBAA1D3F29C900F85E9A /* YYKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -2293,6 +2310,7 @@
 		1D32AEF21DB0C370000DF537 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D01696B1DB30F4F00F828E4 /* ProjectsView */,
 				1D32AEF31DB0C370000DF537 /* Cell */,
 				1D32AEF41DB0C370000DF537 /* HeadView */,
 			);
@@ -3686,7 +3704,6 @@
 				1D9580A71D3E207200FD0053 /* MJRefreshAutoGifFooter.m in Sources */,
 				2DDD542C1DB0D4AF00C55633 /* QNResponseInfo.m in Sources */,
 				2DDD541E1DB0D4AF00C55633 /* QNHex.m in Sources */,
-				068E965F1D4F499E0074229C /* CustomCardView.m in Sources */,
 				1D9580AC1D3E207200FD0053 /* MJRefreshBackStateFooter.m in Sources */,
 				2D8F25EA1D701F0A00B28A8C /* HomeCellModel.m in Sources */,
 				1D09CC7B1D3F29C900F85E9A /* YYKVStorage.m in Sources */,
@@ -3709,6 +3726,7 @@
 				1D9580A21D3E207200FD0053 /* MJRefreshAutoFooter.m in Sources */,
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
 				1D09CC951D3F29C900F85E9A /* NSAttributedString+YYText.m in Sources */,
+				1D0169711DB31C3400F828E4 /* ProjectItemView.m in Sources */,
 				06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */,
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
 				2DB1710E1D65ABD500EB222F /* ButtonIndexPath.m in Sources */,
@@ -3735,6 +3753,7 @@
 				1D0EA2C21D45A82C00B47108 /* LCBaseRequest.m in Sources */,
 				1DB926171D46F4F4003676AC /* LCProcessFilter.m in Sources */,
 				0692CE921D7418A500299AC2 /* DeviceManager.m in Sources */,
+				1D01696E1DB30F6F00F828E4 /* ProjectsView.m in Sources */,
 				1D09CC651D3F29C900F85E9A /* NSObject+YYAddForKVO.m in Sources */,
 				1D9580D31D3E225200FD0053 /* MASConstraint.m in Sources */,
 				1D09CD551D3F59D500F85E9A /* MKAnnotationView+WebCache.m in Sources */,
