@@ -73,6 +73,21 @@
         NSArray *pids = [self.groups[indexPath.section - 2][@"Pids"] componentsSeparatedByString:@","];
         NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
+        
+        __weak typeof(cell) tempCell = cell;
+        //设置删除cell回调block
+        ((ProjectsCell *)cell).deleteMember = ^{
+             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+             }];
+        };
+        //设置当cell左滑时，关闭其他cell的左滑
+        ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
+            for (ProjectsCell *item in tableView.visibleCells) {
+                if ([item isKindOfClass:[ProjectsCell class]] && item != tempCell) {
+                    [item closeLeftSwipe];
+                }
+            }
+        };
     }
     else {
         static NSString *cellID = @"CellIdentify";
@@ -115,14 +130,36 @@
     }
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
     if (section > 1) {
+        if (section == 1) {
+            headView.isEnabledSwipe = NO;
+        } else {
+            headView.isEnabledSwipe = YES;
+        }
         [headView loadHeadViewData:self.groups[section - 2]];
+        //设置删除group回调block
+        headView.deleteGroup = ^{
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            }];
+        };
+        headView.editGroup = ^{
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要编辑该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            }];
+        };
+        //设置当cell左滑时，关闭其他cell的左滑
+        headView.closeOtherCellSwipe = ^{
+            for (GroupHeadView *item in tableView.subviews) {
+                if ([item isKindOfClass:[GroupHeadView class]] && item != headView) {
+                    [item closeLeftSwipe];
+                }
+            }
+        };
     }
     return headView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section > 1) {
-        return 53.0;
+        return CELLHEIGHT;
     } else if (indexPath.section == 0) {
         return 80.0;
     } else {
@@ -132,29 +169,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
--(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section > 1) {
-        return UITableViewCellEditingStyleDelete;
-    }
-    return UITableViewCellEditingStyleNone;
-}
-
-/*改变删除按钮的title*/
--(NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @"删除";
-}
-
-/*删除用到的函数*/
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        /*此处处理自己的代码，如删除数据*/
-        //TO DO HERE
-        /*删除tableView中的一行*/
-//        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {
@@ -190,7 +204,7 @@
 
 - (void)addCirclesAction {
     [UIAlertView hyb_showWithTitle:@"提醒" message:@"增加分组" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-        if (buttonIndex == 1) {
+        if (buttonIndex == 0) {
         }
     }];
 }

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define CELLHEIGHT  53.0
+
 @interface ProjectsCell : UITableViewCell
 
 @property(nonatomic, weak) IBOutlet UIImageView *pointImgV;
@@ -17,6 +19,19 @@
 @property(nonatomic, weak) IBOutlet UILabel *msgNumLab;
 
 @property(nonatomic, weak) IBOutlet UIImageView *msgNumBGImgV;
+
+@property (nonatomic, weak) IBOutlet UIView *containerView; //容器view
+
+@property (nonatomic, weak) IBOutlet UIButton *deleteBtn; //底层删除按钮
+
+@property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动
+
+@property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipe; //向右清扫手势
+
+@property (nonatomic, copy) void (^deleteMember)(); //删除会员block回调方法
+@property (nonatomic, copy) void (^closeOtherCellSwipe)(); //关闭其他cell的左滑
+
+- (void)closeLeftSwipe; //关闭左滑
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast;
 
