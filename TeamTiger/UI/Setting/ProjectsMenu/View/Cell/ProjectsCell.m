@@ -8,6 +8,8 @@
 
 #import "ProjectsCell.h"
 
+#define  kEditViewWidth  64.0
+
 @implementation ProjectsCell
 
 - (void)awakeFromNib {
@@ -93,7 +95,7 @@
             self.closeOtherCellSwipe();
         
         [UIView animateWithDuration:0.5 animations:^{
-            sender.view.center = CGPointMake(Screen_Width * 0.5 - 64.0, CELLHEIGHT * 0.5);
+            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, CELLHEIGHT * 0.5);
         }];
         self.isOpenLeft = YES;
     }

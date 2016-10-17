@@ -8,6 +8,9 @@
 
 #import "GroupHeadView.h"
 
+#define kViewHeight     60.0
+#define kEditViewWidth  110.0
+
 @implementation GroupHeadView
 
 - (void)awakeFromNib {
@@ -38,8 +41,7 @@
 
 //子控件布局
 - (void)layoutSubviews{
-    CGFloat deleteWidth = Screen_Width - 110.0; //设置删除按钮宽度
-    self.deleteView.frame = CGRectMake(deleteWidth, 0, 110, 60);
+    self.deleteView.frame = CGRectMake(Screen_Width - kEditViewWidth, 0, kEditViewWidth, kViewHeight);
     self.containerView.frame = self.bounds;
 }
 
@@ -69,7 +71,7 @@
             self.closeOtherCellSwipe();
         
         [UIView animateWithDuration:0.5 animations:^{
-            sender.view.center = CGPointMake(Screen_Width * 0.5 - 110.0, 60 * 0.5);
+            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, kViewHeight * 0.5);
         }];
         self.isOpenLeft = YES;
     }
@@ -83,7 +85,7 @@
     if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.containerView.center = CGPointMake(Screen_Width * 0.5, 60 * 0.5);
+        self.containerView.center = CGPointMake(Screen_Width * 0.5, kViewHeight * 0.5);
     }];
     self.isOpenLeft = NO;
 }
