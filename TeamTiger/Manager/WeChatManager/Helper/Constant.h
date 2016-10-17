@@ -46,7 +46,7 @@ static NSString *kAppContnetExURL = @"http://weixin.qq.com";
 static NSString *kAppMessageExt = @"这是第三方带的测试字段";
 static NSString *kAppMessageAction = @"<action>dotaliTest</action>";
 
-static NSString *kAuthScope = @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact";
+static NSString *kAuthScope = @"snsapi_message,snsapi_userinfo,snsapi_friend,snsapi_contact, snsapi_base";
 static NSString *kAuthOpenID = @"0c806938e2413ce73eef92cc3";
 static NSString *kAuthState = @"xxx";
 
