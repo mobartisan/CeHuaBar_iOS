@@ -44,8 +44,6 @@
     UIView *v = [[UIView alloc] init];
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
-    //group view
-    [self gView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -211,6 +209,7 @@
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
+        [self.gView loadGroupInfo:nil AllProjects:[MockDatas projects]];
         [self.gView show];
     }
 }

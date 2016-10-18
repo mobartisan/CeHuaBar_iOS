@@ -23,6 +23,8 @@ typedef void(^ClickBtnBlock)(GroupView *gView, BOOL isConfirm);
 
 @property(nonatomic,strong)NSMutableArray *projects;
 
+@property(nonatomic,strong)NSMutableArray *selProjects;
+
 @property(nonatomic,strong)NSMutableDictionary *groupInfo;
 
 @property(nonatomic,copy)ClickBtnBlock clickBtnBlock;

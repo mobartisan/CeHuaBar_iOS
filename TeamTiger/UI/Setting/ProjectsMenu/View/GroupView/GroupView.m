@@ -43,12 +43,17 @@
 - (void)loadGroupInfo:(id)groupInfo AllProjects:(NSArray *)projects {
     if (groupInfo) {
         self.groupInfo = [NSMutableDictionary dictionaryWithDictionary:groupInfo];
-    }
-    if (projects) {
         self.projects = [NSMutableArray arrayWithArray:projects];
+        //TO DO
+        //self.selProjects 处理
+    } else {
+        self.selProjects = [NSMutableArray array];
+        self.projects = [NSMutableArray arrayWithArray:projects];
+        [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self.selProjects addObject:@0];
+        }];
     }
     [self.table reloadData];
-    
 }
 
 #pragma -mark
@@ -61,8 +66,28 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.textLabel.text = self.projects[indexPath.row][@"Name"];
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    cell.textLabel.textColor = [Common colorFromHexRGB:@"333333"];
+    if ([self.selProjects[indexPath.row] intValue] == 0) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSNumber *number = self.selProjects[indexPath.row];
+    if (number.intValue == 0) {
+        number = @1;
+    } else {
+        number = @0;
+    }
+    [self.selProjects replaceObjectAtIndex:indexPath.row withObject:number];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma -mark UIButtonAction
@@ -70,12 +95,14 @@
     if (self.clickBtnBlock) {
         self.clickBtnBlock(self,YES);
     }
+    [self hide];
 }
 
 - (IBAction)cancelBtnAction:(id)sender {
     if (self.clickBtnBlock) {
         self.clickBtnBlock(self,NO);
     }
+    [self hide];
 }
 
 #pragma -mark show and hide
