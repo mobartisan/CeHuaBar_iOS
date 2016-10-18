@@ -16,10 +16,13 @@
 #import "UIImage+YYAdd.h"
 #import "TTMyProfileViewController.h"
 #import "TTAddProjectViewController.h"
+#import "GroupView.h"
 
 @interface TTProjectsMenuViewController ()
 
 @property(nonatomic,strong)ProjectsView *pView;
+
+@property(nonatomic,strong)GroupView *gView;
 
 @end
 
@@ -41,6 +44,8 @@
     UIView *v = [[UIView alloc] init];
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
+    //group view
+    [self gView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -254,6 +259,14 @@
         };
     }
     return _pView;
+}
+
+- (GroupView *)gView {
+    if (!_gView) {
+        _gView = LoadFromNib(@"GroupView");
+        [_gView show];
+    }
+    return _gView;
 }
 
 @end

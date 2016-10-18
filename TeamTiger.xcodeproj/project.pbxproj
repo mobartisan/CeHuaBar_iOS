@@ -253,6 +253,8 @@
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
 		1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD931D49AAA400094112 /* SettingCell.xib */; };
 		1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */; };
+		1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */; };
+		1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5CCA201DB5AF8D00542DCD /* GroupView.xib */; };
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
 		1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5D5FF71D4EFADD007123EB /* AddressBook.framework */; };
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
@@ -982,6 +984,10 @@
 		1D55FD931D49AAA400094112 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		1D59130B1D4DDE9E00A188A0 /* GDIIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDIIndexBar.h; sourceTree = "<group>"; };
 		1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDIIndexBar.m; sourceTree = "<group>"; };
+		1D5CCA1D1DB5AF5C00542DCD /* GroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupView.h; sourceTree = "<group>"; };
+		1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupView.m; sourceTree = "<group>"; };
+		1D5CCA201DB5AF8D00542DCD /* GroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupView.xib; sourceTree = "<group>"; };
+		1D5CCA221DB6163900542DCD /* TeamTiger.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TeamTiger.entitlements; sourceTree = "<group>"; };
 		1D5D5FF11D4EE72E007123EB /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
 		1D5D5FF21D4EE72E007123EB /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
 		1D5D5FF71D4EFADD007123EB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -2310,6 +2316,7 @@
 		1D32AEF21DB0C370000DF537 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D5CCA1C1DB5AF3900542DCD /* GroupView */,
 				1D01696B1DB30F4F00F828E4 /* ProjectsView */,
 				1D32AEF31DB0C370000DF537 /* Cell */,
 				1D32AEF41DB0C370000DF537 /* HeadView */,
@@ -2384,6 +2391,16 @@
 				1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */,
 			);
 			path = GDIIndexBar;
+			sourceTree = "<group>";
+		};
+		1D5CCA1C1DB5AF3900542DCD /* GroupView */ = {
+			isa = PBXGroup;
+			children = (
+				1D5CCA1D1DB5AF5C00542DCD /* GroupView.h */,
+				1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */,
+				1D5CCA201DB5AF8D00542DCD /* GroupView.xib */,
+			);
+			path = GroupView;
 			sourceTree = "<group>";
 		};
 		1D5D5FF01D4EE703007123EB /* CacheManager */ = {
@@ -2691,6 +2708,7 @@
 		1DA71B5C1D3DB5A1007483D2 /* TeamTiger */ = {
 			isa = PBXGroup;
 			children = (
+				1D5CCA221DB6163900542DCD /* TeamTiger.entitlements */,
 				1DA71B601D3DB5A1007483D2 /* AppDelegate.h */,
 				1DA71B611D3DB5A1007483D2 /* AppDelegate.m */,
 				1D9580EE1D3E270400FD0053 /* Framework */,
@@ -3541,6 +3559,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -3614,6 +3635,7 @@
 				2D8F25F41D701F0A00B28A8C /* HomeDetailCell.xib in Resources */,
 				1DF984DA1DAE13510046698C /* TTSelectGroupViewController.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
+				1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */,
 				1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */,
 				1DA0E1951D54243F008CD6DF /* ProfileCell.xib in Resources */,
 				1DB5A5941D4B3F36009E6170 /* square-switch-thumb@2x.png in Resources */,
@@ -3744,6 +3766,7 @@
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
+				1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,
 				1DD2E33B1D59B871005D45A9 /* WXApiResponseHandler.m in Sources */,
@@ -4154,6 +4177,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
+<<<<<<< Updated upstream
+=======
+				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
+>>>>>>> Stashed changes
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
@@ -4173,7 +4200,11 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< Updated upstream
 				PROVISIONING_PROFILE = "f0b771c4-7b5e-4ac4-acc6-bc83af0e7740";
+=======
+				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
+>>>>>>> Stashed changes
 				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
 			};
 			name = Debug;
@@ -4184,6 +4215,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
+				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
@@ -4203,7 +4235,11 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+<<<<<<< Updated upstream
 				PROVISIONING_PROFILE = "f0b771c4-7b5e-4ac4-acc6-bc83af0e7740";
+=======
+				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
+>>>>>>> Stashed changes
 				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
 			};
 			name = Release;

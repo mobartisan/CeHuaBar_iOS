@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-//#import "CirclesViewController.h"
 #import "HomeViewController.h"
 #import "IQKeyboardManager.h"
 #import "MMDrawerController.h"
@@ -20,7 +19,6 @@
 #import "UIImage+TYLaunchImage.h"
 #import "UIView+TYLaunchAnimation.h"
 #import "WXApiManager.h"
-//#import "CirclesVC.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
 

@@ -85,7 +85,6 @@ static MessageManager *singleton = nil;
     }
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@", taskId, msgId, payloadMsg, offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
-    
 #warning TO DO here
     [self handleOneMessage:payloadMsg];
 }
