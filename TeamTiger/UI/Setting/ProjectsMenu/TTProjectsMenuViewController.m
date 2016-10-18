@@ -208,10 +208,11 @@
 }
 
 - (void)addCirclesAction {
-    [UIAlertView hyb_showWithTitle:@"提醒" message:@"增加分组" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-        if (buttonIndex == 0) {
-        }
-    }];
+    if (self.gView.isShow) {
+        [self.gView hide];
+    } else {
+        [self.gView show];
+    }
 }
 
 - (void)loadUserInfo {
@@ -264,7 +265,14 @@
 - (GroupView *)gView {
     if (!_gView) {
         _gView = LoadFromNib(@"GroupView");
-        [_gView show];
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:_gView];
+        [_gView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
     }
     return _gView;
 }

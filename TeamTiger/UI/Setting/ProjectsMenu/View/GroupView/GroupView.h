@@ -27,6 +27,7 @@ typedef void(^ClickBtnBlock)(GroupView *gView, BOOL isConfirm);
 
 @property(nonatomic,copy)ClickBtnBlock clickBtnBlock;
 
+@property(nonatomic,assign)BOOL isShow;
 
 - (void)loadGroupInfo:(id)groupInfo AllProjects:(NSArray *)projects;
 

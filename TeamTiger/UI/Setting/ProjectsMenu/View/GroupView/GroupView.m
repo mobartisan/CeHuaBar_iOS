@@ -30,7 +30,7 @@
     [Common removeExtraCellLines:self.table];
 }
 
--(void)layoutSubviews {
+- (void)layoutSubviews {
     [super layoutSubviews];
     UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(10, 10)];
     CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
@@ -80,28 +80,47 @@
 
 #pragma -mark show and hide
 - (void)show {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    
-    if (!self.bgBtn) {
-        self.bgBtn = [UIButton hyb_buttonWithSuperView:keyWindow constraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(keyWindow);
-        } touchUp:^(UIButton *sender) {
-            [self hide];
+    if (!self.isShow) {
+        self.isShow = YES;
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        if (!self.bgBtn) {
+            self.bgBtn = [UIButton hyb_buttonWithSuperView:keyWindow constraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(keyWindow);
+            } touchUp:^(UIButton *sender) {
+                [self hide];
+            }];
+            [self.superview layoutIfNeeded];
+        }
+        
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(100);
+            make.height.mas_equalTo(Screen_Height - 100);
         }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.superview layoutIfNeeded];
+        }];
+        [keyWindow bringSubviewToFront:self];
     }
-    
-    [keyWindow addSubview:self];
-    [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(keyWindow.mas_left).offset(18);
-        make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
-        make.bottom.mas_equalTo(keyWindow.mas_bottom);
-        make.top.mas_equalTo(keyWindow.mas_top).offset(100);
-    }];
 }
 
 - (void)hide {
-    [self.bgBtn removeFromSuperview];
-    [self removeFromSuperview];
+    if (self.isShow) {
+        self.isShow = NO;
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.superview layoutIfNeeded];
+        }];
+        [self.bgBtn removeFromSuperview];
+        self.bgBtn = nil;
+    }
 }
 
 @end
