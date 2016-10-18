@@ -4177,10 +4177,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "libstdc++";
-<<<<<<< Updated upstream
-=======
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
->>>>>>> Stashed changes
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
@@ -4200,11 +4197,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< Updated upstream
 				PROVISIONING_PROFILE = "f0b771c4-7b5e-4ac4-acc6-bc83af0e7740";
-=======
 				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
->>>>>>> Stashed changes
 				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
 			};
 			name = Debug;
@@ -4235,11 +4229,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-<<<<<<< Updated upstream
 				PROVISIONING_PROFILE = "f0b771c4-7b5e-4ac4-acc6-bc83af0e7740";
-=======
 				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
->>>>>>> Stashed changes
 				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
 			};
 			name = Release;
