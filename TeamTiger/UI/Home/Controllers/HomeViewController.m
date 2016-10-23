@@ -58,6 +58,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isShowHeaderView = YES;
     self.title = @"Moments";
     keyBoardBGView = _bgView;
     // 监听文本框文字高度改变
@@ -241,8 +242,6 @@
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     
     MMPopupItemHandler block = ^(NSInteger index){
-
-        
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
@@ -293,7 +292,6 @@
     if (model.projectType == ProjectTypeAll) {
         HomeCell *cell = [HomeCell homeCellWithTableView:tableView model:model];
         cell.model = model;
-        //二级展开代理
         cell.delegate = self;
         cell.moreBtn.indexPath = indexPath;
         //展开按钮

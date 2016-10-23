@@ -49,6 +49,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"讨论";
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 40, 40);
+    [rightBtn setTitle:@"清空" forState:UIControlStateNormal];
+    [rightBtn setTitleColor:kRGB(90, 108, 128) forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     // Do any additional setup after loading the view from its nib.
     [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell" bundle:nil] forCellReuseIdentifier:@"discussListCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell1" bundle:nil] forCellReuseIdentifier:@"discussListCell1"];
