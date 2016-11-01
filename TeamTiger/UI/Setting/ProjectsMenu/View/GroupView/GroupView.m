@@ -109,13 +109,8 @@
                 return;
             }
             
-            int count = 0;
-            for (id num in self.selProjects) {
-                if ([num intValue] == 1) {
-                    count++;
-                }
-            }
-            if (count == 0) {
+            id count = [self.selProjects valueForKeyPath:@"@sum.intValue"];
+            if ([count intValue] == 0) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
                 hud.label.text = @"组必须包含至少一个项目";
                 hud.mode = MBProgressHUDModeText;
