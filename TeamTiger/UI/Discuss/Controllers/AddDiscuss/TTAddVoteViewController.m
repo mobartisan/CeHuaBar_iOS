@@ -175,11 +175,11 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         TTCommonItem *attachment0 = [TTCommonCustomViewItem itemWithCustomView:customView0];
         
         
-        TTCommonGroup *group = [self.data lastObject];
+        TTCommonGroup *group = [self.data objectAtIndex:1];
         NSMutableArray *items = group.items;
         [items insertObject:attachment0 atIndex:items.count-1];
         
-        //    [self.tableView reloadData];
+//            [self.tableView reloadData];
         [self.tableView beginUpdates];
         NSArray *_tempIndexPathArr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:group.items.count-1 inSection:1]];
         [self.tableView insertRowsAtIndexPaths:_tempIndexPathArr withRowAnimation:UITableViewRowAnimationFade];
