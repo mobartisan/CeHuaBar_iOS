@@ -17,6 +17,8 @@
 
 @property(nonatomic,strong) UIImageView *unreadMsgImgV;
 
+@property(nonatomic,strong) UIButton *addBtn;
+
 @end
 
 @implementation ProjectItemView
@@ -34,7 +36,7 @@
             }
             self.projectNameLabel.text = object[@"Name"];
         }
-        [UIButton hyb_buttonWithImage:nil superView:self constraints:^(MASConstraintMaker *make) {
+        self.addBtn = [UIButton hyb_buttonWithImage:nil superView:self constraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         } touchUp:^(UIButton *sender) {
             if (!object) {
@@ -45,10 +47,13 @@
             } else {
                 //look up
                 if (self.clickProjectItemBlock) {
-                    self.clickProjectItemBlock(self,object);
+                    self.clickProjectItemBlock(self, object);
                 }
             }
         }];
+        if (!object) {
+            [self.addBtn setImage:[UIImage imageNamed:@"icon_add_group"] forState:UIControlStateNormal];
+        }
     }
     return self;
 }
