@@ -7,6 +7,7 @@
 //
 
 #import "GroupView.h"
+#import "MBProgressHUD.h"
 
 @interface GroupView ()
 
@@ -100,6 +101,28 @@
 - (IBAction)confirmBtnAction:(id)sender {
     if (self.clickBtnBlock) {
         if (self.groupInfo) {
+            if ([Common isEmptyString:self.nameTxtField.text]) {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+                hud.label.text = @"组名称不能为空";
+                hud.mode = MBProgressHUDModeText;
+                [hud hideAnimated:YES afterDelay:1.0];
+                return;
+            }
+            
+            int count = 0;
+            for (id num in self.selProjects) {
+                if ([num intValue] == 1) {
+                    count++;
+                }
+            }
+            if (count == 0) {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+                hud.label.text = @"组必须包含至少一个项目";
+                hud.mode = MBProgressHUDModeText;
+                [hud hideAnimated:YES afterDelay:1.0];
+                return;
+            }
+            
             self.groupInfo[@"Name"] = self.nameTxtField.text;
             NSMutableString *mString = [NSMutableString string];
             [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -145,21 +145,15 @@
             }];
         };
         headView.editGroup = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要编辑该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-                if(buttonIndex == 0) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        if (!self.gView.isShow) {
-                            [self.gView loadGroupInfo:self.groups[section - 2] AllProjects:[MockDatas projects]];
-                            [self.gView show];
-                            self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
-                                if (isConfirm) {
-                                    NSLog(@"%@",object);
-                                }
-                            };
-                        }
-                    });
-                }
-            }];
+            if (!self.gView.isShow) {
+                [self.gView loadGroupInfo:self.groups[section - 2] AllProjects:[MockDatas projects]];
+                [self.gView show];
+                self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+                    if (isConfirm) {
+                        NSLog(@"%@",object);
+                    }
+                };
+            }
         };
         //设置当cell左滑时，关闭其他cell的左滑
         headView.closeOtherCellSwipe = ^{
