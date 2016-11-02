@@ -21,7 +21,8 @@
 
 #import "MMDrawerController.h"
 #import "UIViewController+MMDrawerController.h"
-
+#import "ProjectsCell.h"
+#import "GroupHeadView.h"
 #import <QuartzCore/QuartzCore.h>
 
 CGFloat const MMDrawerDefaultWidth = 283.0f;
@@ -1371,6 +1372,14 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
         return ((self.openDrawerGestureModeMask & possibleOpenGestureModes)>0);
     }
     else{
+        if (self.openSide == MMDrawerSideLeft) {
+            CGPoint point = [touch locationInView:self.childControllerContainerView];
+            if (CGRectContainsPoint(CGRectMake(0, 0, Screen_Width * 0.618, Screen_Height), point)){
+                return YES;
+            } else {
+                return NO;
+            }
+        }
         MMCloseDrawerGestureMode possibleCloseGestureModes = [self possibleCloseGestureModesForGestureRecognizer:gestureRecognizer
                                                                                                        withTouch:touch];
         return ((self.closeDrawerGestureModeMask & possibleCloseGestureModes)>0);

@@ -137,7 +137,7 @@
     [drawerController setShowsShadow:YES];
     [drawerController setRestorationIdentifier:@"MMDrawer"];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningCenterView | MMOpenDrawerGestureModeBezelPanningCenterView];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeCustom];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState slideVisualStateBlock]];
     //自定义手势
     [drawerController setGestureShouldRecognizeTouchBlock:^BOOL(MMDrawerController *drawerController, UIGestureRecognizer *gesture, UITouch *touch) {
