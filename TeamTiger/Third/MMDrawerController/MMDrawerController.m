@@ -182,12 +182,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 -(void)commonSetup{
     
     CGFloat maxWidth = MMDrawerDefaultWidth;
-    if(is55inch){
-    } else if (is47inch){
-        maxWidth = 257.0;
-    } else {
-        maxWidth = 219.0;
-    }
+    maxWidth = Screen_Width;
     [self setMaximumLeftDrawerWidth:maxWidth];
     [self setMaximumRightDrawerWidth:maxWidth];
     

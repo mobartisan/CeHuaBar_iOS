@@ -17,6 +17,7 @@
 #import "TTMyProfileViewController.h"
 #import "TTAddProjectViewController.h"
 #import "GroupView.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -30,20 +31,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的项目";
-    WeakSelf;
-    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionPush SubType:kCATransitionFromRight];
-    }];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_add"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addCirclesAction)];
-    
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -171,7 +174,7 @@
     if (indexPath.section > 1) {
         return CELLHEIGHT;
     } else if (indexPath.section == 0) {
-        return 80.0;
+        return 120.0;
     } else {
         return [ProjectsView heightOfProjectsView:self.projects];
     }
@@ -184,6 +187,12 @@
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
     [self.navigationController pushViewController:myProfileVC animated:YES];
+}
+
+- (IBAction)clickHomeAction:(id)sender {
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma -mark Data Handle

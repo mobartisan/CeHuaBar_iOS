@@ -26,6 +26,7 @@
 #import "MMPopupWindow.h"
 #import "TTAddVoteViewController.h"
 #import "TTProjectsMenuViewController.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate, UITextViewDelegate>
 
@@ -207,8 +208,11 @@
 
 - (void)projectsBtnAction {
     //项目列表
-    TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
-    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:projectsMenuVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
+//    TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
+//    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:projectsMenuVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
+    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+        
+    }];
 }
 
 - (void)settingBtnAction {
