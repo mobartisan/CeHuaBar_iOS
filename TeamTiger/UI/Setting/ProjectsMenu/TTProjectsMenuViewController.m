@@ -18,6 +18,7 @@
 #import "TTAddProjectViewController.h"
 #import "GroupView.h"
 #import "UIViewController+MMDrawerController.h"
+#import "TTSettingViewController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -163,6 +164,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {

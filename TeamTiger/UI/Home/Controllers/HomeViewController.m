@@ -208,11 +208,7 @@
 
 - (void)projectsBtnAction {
     //项目列表
-//    TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
-//    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:projectsMenuVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
-    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        
-    }];
+    [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
 }
 
 - (void)settingBtnAction {
