@@ -24,6 +24,7 @@
 #import "ProjectsCell.h"
 #import "GroupHeadView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TTProjectsMenuViewController.h"
 
 CGFloat const MMDrawerDefaultWidth = 283.0f;
 CGFloat const MMDrawerDefaultAnimationVelocity = 840.0f;
@@ -1376,7 +1377,12 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
             [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
             CGPoint point = [touch locationInView:self.childControllerContainerView];
             if (CGRectContainsPoint(CGRectMake(0, 0, Screen_Width  - 214.0, Screen_Height), point)){
-                return YES;
+                TTBaseNavigationController *mainNav = (TTBaseNavigationController *)self.leftDrawerViewController;
+                if([mainNav.topViewController isKindOfClass:[TTProjectsMenuViewController class]]) {
+                    return YES;
+                } else {
+                    return NO;
+                }
             } else {
                 return NO;
             }

@@ -72,8 +72,12 @@
 
 //子控件布局
 - (void)layoutSubviews{
-    CGFloat deleteWidth = Screen_Width * 0.2; //设置删除按钮宽度
-    self.deleteBtn.frame = CGRectMake(Screen_Width * 0.8, 0, deleteWidth, CELLHEIGHT);
+    CGFloat deleteWidth = 64.0; //设置删除按钮宽度
+    self.deleteBtn.frame = CGRectMake(Screen_Width - 64.0, 0, deleteWidth, CELLHEIGHT - 1);
+    
+    CGFloat addWidth = 100.0; //
+    self.addBtn.frame = CGRectMake(Screen_Width - 164.0, 0, addWidth, CELLHEIGHT - 1);
+
     self.containerView.frame = self.contentView.bounds;
 }
 
@@ -102,7 +106,8 @@
             self.closeOtherCellSwipe();
         
         [UIView animateWithDuration:0.5 animations:^{
-            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, CELLHEIGHT * 0.5);
+            CGPoint tmpPoint = sender.view.center;
+            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, tmpPoint.y);
         }];
         self.isOpenLeft = YES;
     }
@@ -116,7 +121,8 @@
     if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.containerView.center = CGPointMake(Screen_Width * 0.5, CELLHEIGHT * 0.5);
+        CGPoint tmpPoint = self.containerView.center;
+        self.containerView.center = CGPointMake(Screen_Width * 0.5, tmpPoint.y);
     }];
     self.isOpenLeft = NO;
 }

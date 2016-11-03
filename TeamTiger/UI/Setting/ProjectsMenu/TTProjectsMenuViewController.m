@@ -19,6 +19,7 @@
 #import "GroupView.h"
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
+#import "TTGroupViewController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -257,21 +258,16 @@
 - (ProjectsView *)pView {
     if (!_pView) {
         _pView = [[ProjectsView alloc] initWithDatas:self.groups];
+        
+        WeakSelf;
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
-#warning TO DO HERE
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"跳转具体项目的列表" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-                
-            }];
+            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+            groupVC.groupId = object[@"Gid"];
+            [wself.navigationController pushViewController:groupVC animated:YES];
         };
-        WeakSelf;
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
             [wself addCirclesAction];
-            
-            // add project
-//            TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-//            TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-//            [wself.navigationController presentViewController:baseNav animated:YES completion:nil];
         };
     }
     return _pView;

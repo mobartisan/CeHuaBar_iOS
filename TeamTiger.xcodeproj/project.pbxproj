@@ -249,6 +249,7 @@
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
 		1D3E23691D61635C0024A5CA /* ModelsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23651D61635C0024A5CA /* ModelsManager.m */; };
+		1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5487231DCB263200DB4D89 /* TTGroupViewController.m */; };
 		1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */; };
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
 		1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD931D49AAA400094112 /* SettingCell.xib */; };
@@ -978,6 +979,8 @@
 		1D3E23631D61635C0024A5CA /* Models.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Models.m; sourceTree = "<group>"; };
 		1D3E23641D61635C0024A5CA /* ModelsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelsManager.h; sourceTree = "<group>"; };
 		1D3E23651D61635C0024A5CA /* ModelsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelsManager.m; sourceTree = "<group>"; };
+		1D5487221DCB263200DB4D89 /* TTGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupViewController.h; sourceTree = "<group>"; };
+		1D5487231DCB263200DB4D89 /* TTGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupViewController.m; sourceTree = "<group>"; };
 		1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingViewController.xib; sourceTree = "<group>"; };
 		1D55FD911D49AAA400094112 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		1D55FD921D49AAA400094112 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -2305,6 +2308,7 @@
 		1D32AEEC1DB084EC000DF537 /* ProjectsMenu */ = {
 			isa = PBXGroup;
 			children = (
+				1D5487211DCB260F00DB4D89 /* GroupsMenu */,
 				1D32AEF21DB0C370000DF537 /* View */,
 				1D32AEED1DB08546000DF537 /* TTProjectsMenuViewController.h */,
 				1D32AEEE1DB08546000DF537 /* TTProjectsMenuViewController.m */,
@@ -2366,6 +2370,15 @@
 				1D3E23611D61635C0024A5CA /* NSString+Encode.m */,
 			);
 			path = Encode;
+			sourceTree = "<group>";
+		};
+		1D5487211DCB260F00DB4D89 /* GroupsMenu */ = {
+			isa = PBXGroup;
+			children = (
+				1D5487221DCB263200DB4D89 /* TTGroupViewController.h */,
+				1D5487231DCB263200DB4D89 /* TTGroupViewController.m */,
+			);
+			path = GroupsMenu;
 			sourceTree = "<group>";
 		};
 		1D55FD901D49AA8200094112 /* View */ = {
@@ -4067,6 +4080,7 @@
 				1D0EA2C71D45A82C00B47108 /* LCNetworkAgent.m in Sources */,
 				1D09CD101D3F550300F85E9A /* HYBHelperKitTestEntranceController.m in Sources */,
 				1D9580A41D3E207200FD0053 /* MJRefreshComponent.m in Sources */,
+				1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */,
 				2D8F25E91D701F0A00B28A8C /* DataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
