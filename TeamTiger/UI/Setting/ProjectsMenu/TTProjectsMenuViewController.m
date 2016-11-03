@@ -31,12 +31,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
-    v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
+    v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
+    self.menuTable.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,11 +58,11 @@
 
 #pragma -mark UITableView DataSource & Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 + self.groups.count;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section > 1) {
-        return [[self.groups[section - 2][@"Pids"] componentsSeparatedByString:@","] count];
+        return self.unGroupedProjects.count;
     }
     return  1;
 }
@@ -72,13 +74,12 @@
         cell = (ProjectsCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = LoadFromNib(@"ProjectsCell");
-            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
-        NSArray *pids = [self.groups[indexPath.section - 2][@"Pids"] componentsSeparatedByString:@","];
-        NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
-        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
+        NSDictionary *projectInfo = self.unGroupedProjects[indexPath.row];
+        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.unGroupedProjects.count - 1];
         
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
@@ -100,14 +101,17 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if (indexPath.section == 0) {
             [cell addSubview:self.infoView];
             [self loadUserInfo];
             [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(cell);
+                make.left.mas_equalTo(cell.mas_left);
+                make.right.mas_equalTo(cell.mas_right);
+                make.top.mas_equalTo(cell.mas_top);
+                make.bottom.mas_equalTo(cell.mas_bottom).offset(minLineWidth);
             }];
         } else {
             [cell addSubview:self.pView];
@@ -135,37 +139,9 @@
         return nil;
     }
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
-    if (section > 1) {
-        if (section == 1) {
-            headView.isEnabledSwipe = NO;
-        } else {
-            headView.isEnabledSwipe = YES;
-        }
-        [headView loadHeadViewData:self.groups[section - 2]];
-        //设置删除group回调block
-        headView.deleteGroup = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            }];
-        };
-        headView.editGroup = ^{
-            if (!self.gView.isShow) {
-                [self.gView loadGroupInfo:self.groups[section - 2] AllProjects:[MockDatas projects]];
-                [self.gView show];
-                self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
-                    if (isConfirm) {
-                        NSLog(@"%@",object);
-                    }
-                };
-            }
-        };
-        //设置当cell左滑时，关闭其他cell的左滑
-        headView.closeOtherCellSwipe = ^{
-            for (GroupHeadView *item in tableView.subviews) {
-                if ([item isKindOfClass:[GroupHeadView class]] && item != headView) {
-                    [item closeLeftSwipe];
-                }
-            }
-        };
+    if (section >= 1) {
+        headView.isEnabledSwipe = NO;
+        [headView loadHeadViewIndex:section];
     }
     return headView;
 }
@@ -176,7 +152,7 @@
     } else if (indexPath.section == 0) {
         return 120.0;
     } else {
-        return [ProjectsView heightOfProjectsView:self.projects];
+        return [ProjectsView heightOfProjectsView:self.groups];
     }
 }
 
@@ -208,6 +184,13 @@
         _projects = [NSMutableArray arrayWithArray:[MockDatas projects]];
     }
     return _projects;
+}
+
+- (NSMutableArray *)unGroupedProjects {
+    if (!_unGroupedProjects) {
+        _unGroupedProjects = [NSMutableArray arrayWithArray:[MockDatas unGroupedProjects]];
+    }
+    return _unGroupedProjects;
 }
 
 - (NSDictionary *)projectsByPid:(NSString *)pid {
@@ -265,18 +248,22 @@
 
 - (ProjectsView *)pView {
     if (!_pView) {
-        _pView = [[ProjectsView alloc] initWithDatas:self.projects];
+        _pView = [[ProjectsView alloc] initWithDatas:self.groups];
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
+#warning TO DO HERE
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"跳转具体项目的列表" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 
             }];
         };
         WeakSelf;
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
-            TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-            TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-            [wself.navigationController presentViewController:baseNav animated:YES completion:nil];
+            [wself addCirclesAction];
+            
+            // add project
+//            TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+//            TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
+//            [wself.navigationController presentViewController:baseNav animated:YES completion:nil];
         };
     }
     return _pView;

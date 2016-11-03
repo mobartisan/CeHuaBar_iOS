@@ -15,14 +15,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initSubControls];
-    setViewCorner(self.pointImgV, 7.5);
+    setViewCorner(self.pointImgV, 4.0);
     setViewCorner(self.msgNumBGImgV, 10);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
@@ -40,7 +38,7 @@
             line.backgroundColor = [UIColor lightGrayColor];
             line.alpha = 0.3;
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(44.0);
+                make.left.equalTo(self.mas_left).offset(62.0);
                 make.right.equalTo(self.mas_right);
                 make.bottom.equalTo(self.mas_bottom).offset(-1);
                 make.height.mas_equalTo(minLineWidth);

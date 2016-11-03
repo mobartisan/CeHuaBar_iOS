@@ -34,6 +34,8 @@
 
 - (void)closeLeftSwipe; //关闭左滑
 
-- (void)loadHeadViewData:(id)object;
+- (void)loadHeadViewData:(id)object;//from data
+
+- (void)loadHeadViewIndex:(NSInteger)index;//from index
 
 @end

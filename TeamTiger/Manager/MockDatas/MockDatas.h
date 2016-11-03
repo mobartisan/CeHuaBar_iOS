@@ -15,6 +15,10 @@
 
 + (NSArray *)projects;
 
++ (NSArray *)unGroupedProjects;
+
++ (NSArray *)groupedProjects;
+
 + (NSArray *)membersOfproject:(id)projectId;
 
 + (NSDictionary *)testerInfo;

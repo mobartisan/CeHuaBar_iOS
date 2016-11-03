@@ -21,6 +21,8 @@
 
 @property(nonatomic, strong) NSMutableArray *projects;
 
+@property(nonatomic, strong) NSMutableArray *unGroupedProjects;
+
 @property(nonatomic, strong) NSMutableArray *groups;
 
 @end

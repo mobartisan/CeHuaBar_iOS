@@ -26,15 +26,16 @@
 - (instancetype)initWithData:(id)object {
     self = [super init];
     if (self) {
-        self.backgroundColor = ColorRGB(25.0, 34.0, 49.0);
+        self.backgroundColor = [Common colorFromHexRGB:@"202e41"];
         if (object && [object isKindOfClass:[NSDictionary class]]) {
-            self.msgLabel.text = @"12";
+            self.msgLabel.text = @(arc4random() % 10).stringValue;
             if (self.msgLabel.text.integerValue > 0) {
                 self.unreadMsgImgV.hidden = NO;
             } else {
                 self.unreadMsgImgV.hidden = YES;
             }
             self.projectNameLabel.text = object[@"Name"];
+            self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         }
         self.addBtn = [UIButton hyb_buttonWithImage:nil superView:self constraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
@@ -68,7 +69,7 @@
             make.top.mas_equalTo(50);
             make.width.equalTo(self.mas_width);
         }];
-        _projectNameLabel.textColor = ColorRGB(252.0, 252.0, 252.0);
+        _projectNameLabel.textColor = [Common colorFromHexRGB:@"ffffff"];
         _projectNameLabel.font = [UIFont systemFontOfSize:16.0];
     }
     return _projectNameLabel;
@@ -79,14 +80,14 @@
         _msgLabel = [[UILabel alloc] init];
         [self addSubview:_msgLabel];
         [_msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-8);
+            make.right.mas_equalTo(0).offset(3);
             make.bottom.mas_equalTo(0);
             make.width.equalTo(self.mas_width);
-            make.height.mas_equalTo(50);
+            make.height.equalTo(self.mas_height).offset(-20);
         }];
-        _msgLabel.textColor = ColorRGB(41.0, 50.0, 63.0);
+        _msgLabel.textColor = [Common colorFromHexRGB:@"2e3a4a"];
         _msgLabel.textAlignment = NSTextAlignmentRight;
-        _msgLabel.font = [UIFont systemFontOfSize:50];
+        _msgLabel.font = [UIFont boldSystemFontOfSize:75];
     }
     return _msgLabel;
 }
@@ -97,7 +98,7 @@
         _unreadMsgImgV.backgroundColor = ColorRGB(251, 11, 62);
         [self addSubview:_unreadMsgImgV];
         [_unreadMsgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(-8);
+            make.left.mas_equalTo(10);
             make.top.mas_equalTo(8);
             make.width.mas_equalTo(12);
             make.height.mas_equalTo(12);

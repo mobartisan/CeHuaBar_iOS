@@ -25,6 +25,17 @@
     }
 }
 
+- (void)loadHeadViewIndex:(NSInteger)index {
+    self.messageNumLab.hidden = YES;
+    if (index == 1) {
+        self.groupNameLab.text = @"项目分组";
+    } else if (index == 2) {
+        self.groupNameLab.text = @"未分组";
+        self.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+        self.containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+    }
+}
+
 
 //初始化子控件
 - (void)initSubControls{    

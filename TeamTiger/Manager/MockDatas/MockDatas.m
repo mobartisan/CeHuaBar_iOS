@@ -26,9 +26,26 @@
   @{@"Name":@"工作牛",@"Id":@"0001"},
   @{@"Name":@"易会",@"Id":@"0002"},
   @{@"Name":@"营配班组",@"Id":@"0003"},
-  @{@"Name":@"电动汽车",@"Id":@"0004"}];
+  @{@"Name":@"电动汽车",@"Id":@"0004"},
+  @{@"Name":@"主网抢修",@"Id":@"0005"}];
     return projects;
 }
+
++ (NSArray *)unGroupedProjects {
+    NSArray *unGroupedProjects = @[
+                          @{@"Name":@"主网抢修",@"Id":@"0005"}];
+    return unGroupedProjects;
+}
+
++ (NSArray *)groupedProjects {
+    NSArray *groupedProjects = @[
+                                 @{@"Name":@"工作牛",@"Id":@"0001"},
+                                 @{@"Name":@"易会",@"Id":@"0002"},
+                                 @{@"Name":@"营配班组",@"Id":@"0003"},
+                                 @{@"Name":@"电动汽车",@"Id":@"0004"}];
+    return groupedProjects;
+}
+
 
 + (NSArray *)membersOfproject:(id)projectId {
     NSArray *members = nil;
