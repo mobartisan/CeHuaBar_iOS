@@ -8,7 +8,7 @@
 
 #import "ProjectsCell.h"
 
-#define  kEditViewWidth  64.0
+#define  kEditViewWidth  (64.0 + 100.0)
 
 @implementation ProjectsCell
 
@@ -53,6 +53,9 @@
     //绑定删除会员事件
     [self.deleteBtn addTarget:self action:@selector(deleteMember:) forControlEvents:UIControlEventTouchUpInside];
     
+    //绑定增加会员事件
+    [self.addBtn addTarget:self action:@selector(addMember:) forControlEvents:UIControlEventTouchUpInside];
+    
     //3、给容器containerView绑定左右滑动清扫手势
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
     leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft; //设置向左清扫
@@ -76,10 +79,16 @@
 
 
 //删除会员
-- (void)deleteMember: (UIButton *)sender{
+- (void)deleteMember:(UIButton *)sender{
     //如果实现了删除block回调，则调用block
     if (self.deleteMember)
         self.deleteMember();
+}
+
+//增加会员
+- (void)addMember:(UIButton *)sender {
+    if (self.addMember)
+        self.addMember();
 }
 
 //左滑动和右滑动手势

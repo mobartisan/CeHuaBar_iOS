@@ -87,6 +87,11 @@
              [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
              }];
         };
+        //增加成员的cell回调block
+        ((ProjectsCell *)cell).addMember = ^{
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要添加该项目至组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            }];
+        };
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
             for (ProjectsCell *item in tableView.visibleCells) {
@@ -127,7 +132,7 @@
     if (section == 0) {
         return minLineWidth;
     }
-    return 60;
+    return 30;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

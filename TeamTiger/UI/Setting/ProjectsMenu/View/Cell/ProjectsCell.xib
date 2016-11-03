@@ -20,12 +20,20 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbu-hY-v7X">
                         <rect key="frame" x="256" y="0.0" width="64" height="52"/>
-                        <color key="backgroundColor" red="0.98431372549999996" green="0.043137254899999998" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99607843137254903" green="0.2627450980392157" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="64" id="IL9-BP-qx8"/>
                             <constraint firstAttribute="height" constant="52" id="omF-9C-Ybc"/>
                         </constraints>
                         <state key="normal" title="删除"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTz-2y-fVu">
+                        <rect key="frame" x="156" y="0.0" width="100" height="52"/>
+                        <color key="backgroundColor" red="0.43529411764705883" green="0.51372549019607838" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="a1Y-JM-mQa"/>
+                        </constraints>
+                        <state key="normal" title="添加到组"/>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQl-TQ-tL3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
@@ -87,12 +95,16 @@
                     <constraint firstItem="nQl-TQ-tL3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="EeT-v3-M7n"/>
                     <constraint firstItem="Jbu-hY-v7X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mxg-qv-agY"/>
                     <constraint firstItem="nQl-TQ-tL3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Q2p-5w-sUB"/>
+                    <constraint firstItem="Jbu-hY-v7X" firstAttribute="leading" secondItem="zTz-2y-fVu" secondAttribute="trailing" id="j2L-cF-BeO"/>
                     <constraint firstAttribute="trailing" secondItem="Jbu-hY-v7X" secondAttribute="trailing" id="lFE-ih-FLN"/>
                     <constraint firstAttribute="bottom" secondItem="Jbu-hY-v7X" secondAttribute="bottom" id="q7i-XC-A1P"/>
                     <constraint firstAttribute="bottom" secondItem="nQl-TQ-tL3" secondAttribute="bottom" id="qM0-d7-2zm"/>
+                    <constraint firstAttribute="bottom" secondItem="zTz-2y-fVu" secondAttribute="bottom" id="se4-e9-EEf"/>
+                    <constraint firstItem="zTz-2y-fVu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="swL-8K-1Ig"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="addBtn" destination="zTz-2y-fVu" id="gC9-St-TVw"/>
                 <outlet property="containerView" destination="nQl-TQ-tL3" id="GFW-hT-il4"/>
                 <outlet property="deleteBtn" destination="Jbu-hY-v7X" id="Oxc-Pn-Bkz"/>
                 <outlet property="msgNumBGImgV" destination="GI4-og-lQG" id="Cxy-S0-yiy"/>

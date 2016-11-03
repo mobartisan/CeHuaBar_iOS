@@ -1372,9 +1372,10 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
         return ((self.openDrawerGestureModeMask & possibleOpenGestureModes)>0);
     }
     else{
-        if (self.openSide == MMDrawerSideLeft) {
+        if (self.openSide == MMDrawerSideLeft &&
+            [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
             CGPoint point = [touch locationInView:self.childControllerContainerView];
-            if (CGRectContainsPoint(CGRectMake(0, 0, Screen_Width * 0.618, Screen_Height), point)){
+            if (CGRectContainsPoint(CGRectMake(0, 0, Screen_Width  - 200.0, Screen_Height), point)){
                 return YES;
             } else {
                 return NO;

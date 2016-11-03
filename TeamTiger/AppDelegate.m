@@ -134,10 +134,10 @@
                                             initWithCenterViewController:mainNav
                                             leftDrawerViewController:leftNav
                                             rightDrawerViewController:nil];
-    [drawerController setShowsShadow:YES];
+    [drawerController setShowsShadow:NO];
     [drawerController setRestorationIdentifier:@"MMDrawer"];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningCenterView | MMOpenDrawerGestureModeBezelPanningCenterView];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeBezelPanningCenterView | MMCloseDrawerGestureModePanningDrawerView];
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState slideVisualStateBlock]];
     //自定义手势
     [drawerController setGestureShouldRecognizeTouchBlock:^BOOL(MMDrawerController *drawerController, UIGestureRecognizer *gesture, UITouch *touch) {
