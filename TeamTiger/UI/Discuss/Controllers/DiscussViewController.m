@@ -56,6 +56,7 @@
     [rightBtn setTitleColor:kRGB(90, 108, 128) forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     // Do any additional setup after loading the view from its nib.
+    self.tableView.rowHeight = 80.0;
     [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell" bundle:nil] forCellReuseIdentifier:@"discussListCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell1" bundle:nil] forCellReuseIdentifier:@"discussListCell1"];
     [Common removeExtraCellLines:self.tableView];
@@ -78,11 +79,6 @@
         return cell;
     }
     
-}
-
-#pragma mark UITableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80;
 }
 
 @end
