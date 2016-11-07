@@ -420,6 +420,7 @@
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
+		2D76D0FE1DD0730300908A48 /* HomeVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D76D0FD1DD0730300908A48 /* HomeVoteCell.m */; };
 		2D7945141D5C648E003B5A6E /* JJMainScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */; };
 		2D7945151D5C648E003B5A6E /* JJOneScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D79450E1D5C648E003B5A6E /* JJOneScrollView.m */; };
 		2D7945161D5C648E003B5A6E /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7945101D5C648E003B5A6E /* JJPhoto.m */; };
@@ -441,7 +442,6 @@
 		2DD02A001DD00EFC00CD881F /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029FA1DD00EFC00CD881F /* SDBrowserImageView.m */; };
 		2DD02A011DD00EFC00CD881F /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029FC1DD00EFC00CD881F /* SDPhotoBrowser.m */; };
 		2DD02A021DD00EFC00CD881F /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029FF1DD00EFC00CD881F /* SDWaitingView.m */; };
-		2DD02A061DD04F6E00CD881F /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD02A051DD04F6E00CD881F /* YZInputView.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
 		2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BC1DB0D4AF00C55633 /* QNDomain.m */; };
 		2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BE1DB0D4AF00C55633 /* QNLruCache.m */; };
@@ -1240,6 +1240,8 @@
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
+		2D76D0FC1DD0730300908A48 /* HomeVoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeVoteCell.h; sourceTree = "<group>"; };
+		2D76D0FD1DD0730300908A48 /* HomeVoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeVoteCell.m; sourceTree = "<group>"; };
 		2D79450B1D5C648E003B5A6E /* JJMainScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMainScrollView.h; sourceTree = "<group>"; };
 		2D79450C1D5C648E003B5A6E /* JJMainScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMainScrollView.m; sourceTree = "<group>"; };
 		2D79450D1D5C648E003B5A6E /* JJOneScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJOneScrollView.h; sourceTree = "<group>"; };
@@ -1282,8 +1284,6 @@
 		2DD029FD1DD00EFC00CD881F /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
 		2DD029FE1DD00EFC00CD881F /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
 		2DD029FF1DD00EFC00CD881F /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
-		2DD02A041DD04F6E00CD881F /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
-		2DD02A051DD04F6E00CD881F /* YZInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZInputView.m; sourceTree = "<group>"; };
 		2DDD53B91DB0D4AF00C55633 /* QNDnsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDnsManager.h; sourceTree = "<group>"; };
 		2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNDnsManager.m; sourceTree = "<group>"; };
 		2DDD53BB1DB0D4AF00C55633 /* QNDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDomain.h; sourceTree = "<group>"; };
@@ -3225,11 +3225,12 @@
 		2DD029D91DD00E3D00CD881F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2DD02A031DD04F6E00CD881F /* InputView */,
 				2DD029DA1DD00E3D00CD881F /* HomeCell.h */,
 				2DD029DB1DD00E3D00CD881F /* HomeCell.m */,
 				2DD029DC1DD00E3D00CD881F /* HomeCommentCell.h */,
 				2DD029DD1DD00E3D00CD881F /* HomeCommentCell.m */,
+				2D76D0FC1DD0730300908A48 /* HomeVoteCell.h */,
+				2D76D0FD1DD0730300908A48 /* HomeVoteCell.m */,
 				2DD029DE1DD00E3D00CD881F /* SDWeiXinPhotoContainerView.h */,
 				2DD029DF1DD00E3D00CD881F /* SDWeiXinPhotoContainerView.m */,
 			);
@@ -3260,15 +3261,6 @@
 				2DD029FF1DD00EFC00CD881F /* SDWaitingView.m */,
 			);
 			path = SDPhotoBrowser;
-			sourceTree = "<group>";
-		};
-		2DD02A031DD04F6E00CD881F /* InputView */ = {
-			isa = PBXGroup;
-			children = (
-				2DD02A041DD04F6E00CD881F /* YZInputView.h */,
-				2DD02A051DD04F6E00CD881F /* YZInputView.m */,
-			);
-			path = InputView;
 			sourceTree = "<group>";
 		};
 		2DDD53B51DB0D4AF00C55633 /* QiniuSDK */ = {
@@ -3873,13 +3865,13 @@
 				1D09CD0D1D3F550300F85E9A /* HYBCommonKit.m in Sources */,
 				2DD02A021DD00EFC00CD881F /* SDWaitingView.m in Sources */,
 				1D09CD0E1D3F550300F85E9A /* HYBHelperKitBaseController.m in Sources */,
+				2D76D0FE1DD0730300908A48 /* HomeVoteCell.m in Sources */,
 				0604B4651D4C5A5B00EF1703 /* CCDraggableCardView.m in Sources */,
 				06008F3F1D58249300A5B3DB /* TZAssetModel.m in Sources */,
 				2DDD54211DB0D4AF00C55633 /* README.md in Sources */,
 				06008F421D58249300A5B3DB /* TZImagePickerController.m in Sources */,
 				1D09CC9B1D3F29C900F85E9A /* YYTextRubyAnnotation.m in Sources */,
 				2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */,
-				2DD02A061DD04F6E00CD881F /* YZInputView.m in Sources */,
 				1D9580D91D3E225200FD0053 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				1D32AEFD1DB0CB61000DF537 /* ProjectsCell.m in Sources */,
 				06B464A61D62A48B00DBC806 /* UIViewController+JZExtension.m in Sources */,

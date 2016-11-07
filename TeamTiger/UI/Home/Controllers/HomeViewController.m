@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "HomeModel.h"
 #import "HomeCell.h"
+#import "HomeVoteCell.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "UIView+SDAutoLayout.h"
 #import "ButtonIndexPath.h"
@@ -38,7 +39,8 @@
 - (NSArray *)dataSource {
     if (_dataSource == nil) {
         NSMutableArray *arr = @[
-                                @{@"iconImV":@"1",
+                                @{@"cellType":@"0",
+                                  @"iconImV":@"1",
                                   @"name":@"唐小旭",
                                   @"project":@"工作牛",
                                   @"content":@"测试数据测试数据测试数据测试数据",
@@ -64,61 +66,72 @@
                                                  @"content":@"滴滴滴滴的",
                                                  @"photeNameArry":@[],
                                                  @"time":@"7月25日 9:30"}
-                                               ].mutableCopy}
-//                                @{@"iconImV":@"9",
-//                                  @"name":@"唐小旭",
-//                                  @"project":@"BBS",
-//                                  @"content":@"测试数据测试数据测试数据测试数据",
-//                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_5.jpg"],
-//                                  @"time":@"7月20日 9:45",
-//                                  @"comment":@[@{@"name":@"唐小旭",
-//                                                 @"sName":@"@卞克",
-//                                                 @"content":@"测试数据测试数据测试数据测试数据",
-//                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-//                                                 @"time":@"7月23日 20:30"},
-//                                               @{@"name":@"卞克",
-//                                                 @"sName":@"@唐小绪",
-//                                                 @"content":@"哈哈哈",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月22日 15:05"},
-//                                               @{@"name":@"俞弦",
-//                                                 @"sName":@"",
-//                                                 @"content":@"有点意思",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月22日 12:01"},
-//                                               @{@"name":@"齐云猛",
-//                                                 @"sName":@"",
-//                                                 @"content":@"滴滴滴滴的",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月22日 11:30"}
-//                                               ].mutableCopy},
-//                                @{@"iconImV":@"9",
-//                                  @"name":@"唐小旭",
-//                                  @"project":@"BBS",
-//                                  @"content":@"测试数据测试数据测试数据测试数据",
-//                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-//                                  @"time":@"6月11日 14:40",
-//                                  @"comment":@[@{@"name":@"唐小旭",
-//                                                 @"sName":@"@卞克",
-//                                                 @"content":@"测试数据测试数据测试数据测试数据",
-//                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-//                                                 @"time":@"7月23日 13:30"},
-//                                               @{@"name":@"卞克",
-//                                                 @"sName":@"@唐小绪",
-//                                                 @"content":@"哈哈哈",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月21日 16:55"},
-//                                               @{@"name":@"俞弦",
-//                                                 @"sName":@"",
-//                                                 @"content":@"有点意思",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月21日 11:28"},
-//                                               @{@"name":@"齐云猛",
-//                                                 @"sName":@"",
-//                                                 @"content":@"滴滴滴滴的",
-//                                                 @"photeNameArry":@[],
-//                                                 @"time":@"7月21日 10:39"}
-//                                               ].mutableCopy}
+                                               ].mutableCopy},
+                                @{@"cellType":@"1",
+                                  @"iconImV":@"1",
+                                  @"name":@"唐小旭",
+                                  @"project":@"工作牛",
+                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_4.jpg", @"image_4.jpg"],
+                                  @"time":@"7月26日 9:45",
+                                  @"aNum":@"7",
+                                  @"bNum":@"2",
+                                  @"cNum":@"1"
+                                  }
+                                //                                @{@"iconImV":@"9",
+                                //                                  @"name":@"唐小旭",
+                                //                                  @"project":@"BBS",
+                                //                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                //                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_5.jpg"],
+                                //                                  @"time":@"7月20日 9:45",
+                                //                                  @"comment":@[@{@"name":@"唐小旭",
+                                //                                                 @"sName":@"@卞克",
+                                //                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                //                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                //                                                 @"time":@"7月23日 20:30"},
+                                //                                               @{@"name":@"卞克",
+                                //                                                 @"sName":@"@唐小绪",
+                                //                                                 @"content":@"哈哈哈",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月22日 15:05"},
+                                //                                               @{@"name":@"俞弦",
+                                //                                                 @"sName":@"",
+                                //                                                 @"content":@"有点意思",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月22日 12:01"},
+                                //                                               @{@"name":@"齐云猛",
+                                //                                                 @"sName":@"",
+                                //                                                 @"content":@"滴滴滴滴的",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月22日 11:30"}
+                                //                                               ].mutableCopy},
+                                //                                @{@"iconImV":@"9",
+                                //                                  @"name":@"唐小旭",
+                                //                                  @"project":@"BBS",
+                                //                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                //                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                //                                  @"time":@"6月11日 14:40",
+                                //                                  @"comment":@[@{@"name":@"唐小旭",
+                                //                                                 @"sName":@"@卞克",
+                                //                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                //                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                //                                                 @"time":@"7月23日 13:30"},
+                                //                                               @{@"name":@"卞克",
+                                //                                                 @"sName":@"@唐小绪",
+                                //                                                 @"content":@"哈哈哈",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月21日 16:55"},
+                                //                                               @{@"name":@"俞弦",
+                                //                                                 @"sName":@"",
+                                //                                                 @"content":@"有点意思",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月21日 11:28"},
+                                //                                               @{@"name":@"齐云猛",
+                                //                                                 @"sName":@"",
+                                //                                                 @"content":@"滴滴滴滴的",
+                                //                                                 @"photeNameArry":@[],
+                                //                                                 @"time":@"7月21日 10:39"}
+                                //                                               ].mutableCopy}
                                 ].mutableCopy;
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in arr) {
@@ -264,16 +277,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCell *cell = [HomeCell cellWithTableView:tableView];
-    cell.commentBtn.indexPath = indexPath;
-    cell.tableView.indexPath = indexPath;
-    [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
-        [self.tableView reloadData];;
-    }];
-    cell.homeModel = self.dataSource[indexPath.row];
+    HomeModel *model = self.dataSource[indexPath.row];
+    if (model.cellType == 0) {
+        HomeCell *cell = [HomeCell cellWithTableView:tableView];
+        
+        cell.commentBtn.indexPath = indexPath;
+        cell.tableView.indexPath = indexPath;
+        [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
+            [self.tableView reloadData];;
+        }];
+        cell.homeModel = model;
+        return cell;
+    }else {
+        HomeVoteCell *cell = [HomeVoteCell cellWithTableView:tableView];
+        cell.homeModel = model;
+        return cell;
+    }
     /** 启用cell frame缓存（可以提高cell滚动的流畅度, 目前为cell专用方法，后期会扩展到其他view） */
-//    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-    return cell;
+    //    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
 }
 
 #pragma mark UITableViewDelegate

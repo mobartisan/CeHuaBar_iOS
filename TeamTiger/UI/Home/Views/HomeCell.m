@@ -15,7 +15,6 @@
 #import "ButtonIndexPath.h"
 #import "TableViewIndexPath.h"
 #import "HomeCommentModel.h"
-#import "YZInputView.h"
 
 #define KHeaderViewH  10
 
@@ -235,16 +234,6 @@
         UIImageView *imageV = [UIImageView new];
         imageV.image = kImage(@"img_point");
         [bgView addSubview:imageV];
-        
-        //输入框
-//        YZInputView *inputView= [[YZInputView alloc] init];
-//        inputView.layer.borderWidth = 1;
-//        inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
-//        inputView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
-//        inputView.placeholder = @"讨论:";
-//        inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
-//        inputView.placeholderColor = [UIColor redColor];
-//        [bgView addSubview:inputView];
         
         UITextField *textField= [[UITextField alloc] init];
         textField.placeholder = @"讨论:";

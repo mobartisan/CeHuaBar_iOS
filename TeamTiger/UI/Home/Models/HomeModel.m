@@ -20,23 +20,26 @@
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dic];
         NSMutableArray *arr = [NSMutableArray array];
-        HomeCommentModel *homeCommentModel = nil;
-        for (int i = 0; i < self.comment.count; i++) {
-            NSDictionary *dic = self.comment[i];
-            HomeCommentModel *model = [HomeCommentModel homeCommentModelWithDict:dic];
-            if (i != 0) {
+        if (self.comment != nil && ![self.comment isKindOfClass:[NSNull class]] && self.comment.count != 0) {
+            HomeCommentModel *homeCommentModel = nil;
+            for (int i = 0; i < self.comment.count; i++) {
+                NSDictionary *dic = self.comment[i];
+                HomeCommentModel *model = [HomeCommentModel homeCommentModelWithDict:dic];
+                if (i != 0) {
                     HomeCommentModel *preModel = arr[i - 1];
                     if (![[model.time substringToIndex:4] isEqualToString:[preModel.time substringToIndex:4]]) {
                         preModel.show = YES;
                         self.index = i;
                         self.indexModel = preModel;
                         homeCommentModel = model;
+                    }
                 }
+                [arr addObject:model];
             }
-            [arr addObject:model];
+            [self modelWithModel:homeCommentModel arr:arr];
+            _comment = arr;
         }
-        [self modelWithModel:homeCommentModel arr:arr];
-        _comment = arr;
+        
     }
     return self;
 }
