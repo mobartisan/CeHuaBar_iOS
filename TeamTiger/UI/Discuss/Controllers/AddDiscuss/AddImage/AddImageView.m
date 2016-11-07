@@ -135,7 +135,7 @@ static const double kColumn = 4.0f;
     if (addImageViewType == AddImageViewVote) {
                 
         [self addSubview:self.optionLab];
-        self.optionLab.text = [NSString stringWithFormat:@"选项%@:", self.optionStr];
+        self.optionLab.text = [NSString stringWithFormat:@"选项%@", self.optionStr];
         [self.optionLab mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self).offset(kDistanceToHSide+4);
@@ -153,7 +153,7 @@ static const double kColumn = 4.0f;
             make.top.equalTo(self);
             make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
         }];
-        self.textView.placeholder = @"输入选项描述";
+//        self.textView.placeholder = @"输入选项描述";
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             //        make.top.equalTo(self.typeLab.mas_bottom).offset(kDistanceToVSide);
             make.left.equalTo(self).offset(kDistanceToHSide);
@@ -169,7 +169,7 @@ static const double kColumn = 4.0f;
         [self addSubview:self.optionLab];
         [self addSubview:self.textView];
         self.typeLab.text = @"投票选项";
-        self.optionLab.text = @"选项A:";
+        self.optionLab.text = @"选项A";
         [self.typeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kDistanceToVSide);
             make.left.equalTo(self).offset(kDistanceToHSide);
@@ -186,7 +186,7 @@ static const double kColumn = 4.0f;
             make.bottom.equalTo(self.collectionView.mas_top).offset(-kDistanceToVSide*0.2);
         }];
         
-        self.textView.placeholder = @"输入选项描述";
+//        self.textView.placeholder = @"输入选项描述";
         [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
             //            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self).offset(kDistanceToHSide * 4.0);
@@ -305,13 +305,16 @@ static const double kColumn = 4.0f;
     cell.videoImageView.hidden = YES;
     cell.hidden = NO;
     if (indexPath.row == _selectedPhotos.count) {
-        cell.imageView.image = [UIImage imageNamed:@"AlbumAddBtn.png"];
+        cell.imageView.image = [UIImage imageNamed:@"icon_add_picture"];
+        cell.imageView.contentMode = UIViewContentModeCenter;
+        cell.imageView.backgroundColor = [Common colorFromHexRGB:@"223449"];
         cell.deleteBtn.hidden = YES;
         if (_selectedAssets.count == kMaxImagesCount) {
             cell.hidden = YES;
         }
     } else {
         cell.imageView.image = _selectedPhotos[indexPath.row];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.asset = _selectedAssets[indexPath.row];
         cell.deleteBtn.hidden = NO;
     }

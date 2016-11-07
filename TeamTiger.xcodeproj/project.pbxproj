@@ -43,6 +43,7 @@
 		0604B47B1D4C5A9B00EF1703 /* image_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4701D4C5A9B00EF1703 /* image_8.jpg */; };
 		0604B47C1D4C5A9B00EF1703 /* image_9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4711D4C5A9B00EF1703 /* image_9.jpg */; };
 		0604B47D1D4C5A9B00EF1703 /* upshadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0604B4721D4C5A9B00EF1703 /* upshadow.png */; };
+		060A9F6E1DD024D50051B6E6 /* SelectOptionTypeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 060A9F6D1DD024D50051B6E6 /* SelectOptionTypeVC.m */; };
 		063B08881D6F144F008AB592 /* MMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B087C1D6F144F008AB592 /* MMAlertView.m */; };
 		063B08891D6F144F008AB592 /* MMPopupCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B087E1D6F144F008AB592 /* MMPopupCategory.m */; };
 		063B088A1D6F144F008AB592 /* MMPopupItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 063B08811D6F144F008AB592 /* MMPopupItem.m */; };
@@ -551,6 +552,8 @@
 		0604B4701D4C5A9B00EF1703 /* image_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_8.jpg; sourceTree = "<group>"; };
 		0604B4711D4C5A9B00EF1703 /* image_9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_9.jpg; sourceTree = "<group>"; };
 		0604B4721D4C5A9B00EF1703 /* upshadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upshadow.png; sourceTree = "<group>"; };
+		060A9F6C1DD024D50051B6E6 /* SelectOptionTypeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOptionTypeVC.h; sourceTree = "<group>"; };
+		060A9F6D1DD024D50051B6E6 /* SelectOptionTypeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOptionTypeVC.m; sourceTree = "<group>"; };
 		063B087B1D6F144F008AB592 /* MMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMAlertView.h; sourceTree = "<group>"; };
 		063B087C1D6F144F008AB592 /* MMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMAlertView.m; sourceTree = "<group>"; };
 		063B087D1D6F144F008AB592 /* MMPopupCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPopupCategory.h; sourceTree = "<group>"; };
@@ -1606,6 +1609,8 @@
 				06893D001D59F16A00921900 /* SelectCircleViewController.m */,
 				1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */,
 				1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */,
+				060A9F6C1DD024D50051B6E6 /* SelectOptionTypeVC.h */,
+				060A9F6D1DD024D50051B6E6 /* SelectOptionTypeVC.m */,
 			);
 			path = SelectCircle;
 			sourceTree = "<group>";
@@ -4007,6 +4012,7 @@
 				1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */,
 				06008F451D58249300A5B3DB /* TZPhotoPreviewController.m in Sources */,
 				0692CE961D7419D900299AC2 /* SDiPhoneVersion.m in Sources */,
+				060A9F6E1DD024D50051B6E6 /* SelectOptionTypeVC.m in Sources */,
 				068E96521D4F488C0074229C /* MMDrawerBarButtonItem.m in Sources */,
 				2DDD54341DB0D4AF00C55633 /* QNUploadOption.m in Sources */,
 				1D9580721D3E1ADD00FD0053 /* MBProgressHUD.m in Sources */,

@@ -193,31 +193,26 @@
 
 
 - (void)configureNavigationItem {
-    //右侧
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.frame = CGRectMake(0, 0, 23, 23);
-    [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
-    rightBtn.tintColor = [UIColor whiteColor];
-    [rightBtn addTarget:self action:@selector(handleRightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
     //左侧
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(0, 0, 30, 20);
     [leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
     leftBtn.tintColor = [UIColor whiteColor];
-    [leftBtn addTarget:self action:@selector(projectsBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn addTarget:self action:@selector(handleProjectsBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    //右侧
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 30, 20);
+    [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
+    rightBtn.tintColor = [UIColor whiteColor];
+    [rightBtn addTarget:self action:@selector(handleRightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
 }
 
-- (void)projectsBtnAction {
+- (void)handleProjectsBtnAction {
     //项目列表
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
-}
-
-- (void)settingBtnAction {
-    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-    [Common customPushAnimationFromNavigation:self.navigationController ToViewController:settingVC Type:kCATransitionPush SubType:kCATransitionFromLeft];
 }
 
 - (void)handleRightBtnAction {

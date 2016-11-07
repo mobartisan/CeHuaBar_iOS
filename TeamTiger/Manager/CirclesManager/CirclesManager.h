@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    OptionSingle = 0,
+    OptionMultiple,
+} OptionType;
+
 @interface CirclesManager : NSObject
 
 + (instancetype)sharedInstance;
@@ -21,5 +26,5 @@
 @property(nonatomic, strong) NSMutableArray *circles;
 @property(nonatomic, strong) NSString *selectCircle;
 @property(nonatomic, assign) NSInteger selectIndex;
-
+@property(nonatomic, assign) OptionType optionType;
 @end

@@ -198,7 +198,7 @@
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,0);
     }
     if (homeModel.open) {
-        self.tableView.sd_layout.heightIs([self.tableView cellsTotalHeight] + KHeaderViewH + 50);
+        self.tableView.sd_layout.heightIs([self.tableView cellsTotalHeight] + KHeaderViewH + 45);
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
     }else {
         self.tableView.sd_layout.heightIs(0);
@@ -259,7 +259,7 @@
         
         iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
         
-        inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 20).widthIs(13).heightIs(13);
+        inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 15).widthIs(13).heightIs(13);
 
         lineView.sd_layout.leftSpaceToView(bgView, 61).topEqualToView(inputImageV).widthIs(4).heightIs(30);
         
@@ -267,7 +267,7 @@
         
         textField.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
         
-        bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(50);
+        bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(45);
         
         [_headerView setupAutoHeightWithBottomView:bgView bottomMargin:0];
         [_headerView layoutSubviews];
