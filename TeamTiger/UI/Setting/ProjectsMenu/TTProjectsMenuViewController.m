@@ -165,8 +165,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    //跳转设置
+//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+//    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    //主页moments
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+#warning to do
+    }];
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {
