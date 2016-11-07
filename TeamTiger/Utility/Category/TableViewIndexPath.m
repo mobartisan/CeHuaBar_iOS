@@ -1,14 +1,14 @@
 //
-//  ButtonIndexPath.m
+//  TableViewIndexPath.m
 //  BBSDemo
 //
 //  Created by Dale on 16/11/1.
 //  Copyright © 2016年 Nari. All rights reserved.
 //
 
-#import "ButtonIndexPath.h"
+#import "TableViewIndexPath.h"
 
-@implementation ButtonIndexPath
+@implementation TableViewIndexPath
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -1,15 +1,13 @@
 //
-//  ViewController.h
-//  TeamTiger
+//  HomeViewController.h
+//  BBSDemo
 //
-//  Created by xxcao on 16/7/19.
-//  Copyright © 2016年 MobileArtisan. All rights reserved.
+//  Created by Dale on 16/10/28.
+//  Copyright © 2016年 Nari. All rights reserved.
 //
 
-#import "TTBaseViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface HomeViewController : TTBaseViewController
+@interface HomeViewController : UIViewController
 
-- (void)reloadWithData:(id)data;
 @end
-

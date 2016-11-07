@@ -1,22 +1,18 @@
 //
-//  ViewController.m
-//  TeamTiger
+//  HomeViewController.m
+//  BBSDemo
 //
-//  Created by xxcao on 16/7/19.
-//  Copyright © 2016年 MobileArtisan. All rights reserved.
+//  Created by Dale on 16/10/28.
+//  Copyright © 2016年 Nari. All rights reserved.
 //
 
 #import "HomeViewController.h"
-#import "DataManager.h"
-#import "YZInputView.h"
-#import "IQKeyboardManager.h"
-#import "ButtonIndexPath.h"
-#import "HeadView.h"
+#import "HomeModel.h"
 #import "HomeCell.h"
-#import "VoteHomeCell.h"
-#import "HomeDetailCell5.h"
-#import "HomeCellModel.h"
-#import "HomeDetailCellModel.h"
+#import "UITableView+SDAutoTableViewCellHeight.h"
+#import "UIView+SDAutoLayout.h"
+#import "ButtonIndexPath.h"
+#include "TableViewIndexPath.h"
 #import "TTSettingViewController.h"
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
@@ -27,172 +23,181 @@
 #import "TTAddVoteViewController.h"
 #import "TTProjectsMenuViewController.h"
 #import "UIViewController+MMDrawerController.h"
+#import "IQKeyboardManager.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HeadViewDelegate, HomeCellDelegate, VoteHomeCellDelegate, UITextViewDelegate, UITextViewDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-/**
- *  评论视图
- */
-@property (weak, nonatomic) IBOutlet UIView *bgView;
-@property (weak, nonatomic) IBOutlet YZInputView *textView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewBottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bgViewHeightConstraint;
-@property (strong, nonatomic) DataManager *manager;
-@property (assign, nonatomic) BOOL isShowHeaderView;
-@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) NSArray *dataSource;
+@property (strong, nonatomic) UIView *headerView;
 
 @end
 
 @implementation HomeViewController
 
-- (DataManager *)manager {
-    if (_manager == nil) {
-        _manager = [DataManager mainSingleton];
+- (NSArray *)dataSource {
+    if (_dataSource == nil) {
+        NSMutableArray *arr = @[
+                                @{@"iconImV":@"1",
+                                  @"name":@"唐小旭",
+                                  @"project":@"工作牛",
+                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_4.jpg", @"image_4.jpg"],
+                                  @"time":@"7月26日 9:45",
+                                  @"comment":@[@{@"name":@"唐小旭",
+                                                 @"sName":@"@卞克",
+                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                                 @"time":@"7月26日 19:50"},
+                                               @{@"name":@"卞克",
+                                                 @"sName":@"@唐小绪",
+                                                 @"content":@"哈哈哈",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月26 13:55"},
+                                               @{@"name":@"俞弦",
+                                                 @"sName":@"",
+                                                 @"content":@"有点意思",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月25日 14:17"},
+                                               @{@"name":@"齐云猛",
+                                                 @"sName":@"",
+                                                 @"content":@"滴滴滴滴的",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月25日 9:30"}
+                                               ].mutableCopy},
+                                @{@"iconImV":@"9",
+                                  @"name":@"唐小旭",
+                                  @"project":@"BBS",
+                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_5.jpg"],
+                                  @"time":@"7月20日 9:45",
+                                  @"comment":@[@{@"name":@"唐小旭",
+                                                 @"sName":@"@卞克",
+                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                                 @"time":@"7月23日 20:30"},
+                                               @{@"name":@"卞克",
+                                                 @"sName":@"@唐小绪",
+                                                 @"content":@"哈哈哈",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月22日 15:05"},
+                                               @{@"name":@"俞弦",
+                                                 @"sName":@"",
+                                                 @"content":@"有点意思",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月22日 12:01"},
+                                               @{@"name":@"齐云猛",
+                                                 @"sName":@"",
+                                                 @"content":@"滴滴滴滴的",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月22日 11:30"}
+                                               ].mutableCopy},
+                                @{@"iconImV":@"9",
+                                  @"name":@"唐小旭",
+                                  @"project":@"BBS",
+                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                  @"time":@"6月11日 14:40",
+                                  @"comment":@[@{@"name":@"唐小旭",
+                                                 @"sName":@"@卞克",
+                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                                 @"time":@"7月23日 13:30"},
+                                               @{@"name":@"卞克",
+                                                 @"sName":@"@唐小绪",
+                                                 @"content":@"哈哈哈",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月21日 16:55"},
+                                               @{@"name":@"俞弦",
+                                                 @"sName":@"",
+                                                 @"content":@"有点意思",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月21日 11:28"},
+                                               @{@"name":@"齐云猛",
+                                                 @"sName":@"",
+                                                 @"content":@"滴滴滴滴的",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"7月21日 10:39"}
+                                               ].mutableCopy}
+                                ].mutableCopy;
+        NSMutableArray *dataArr = [NSMutableArray array];
+        for (NSDictionary *dic in arr) {
+            HomeModel *homeModel = [HomeModel modelWithDic:dic];
+            [dataArr addObject:homeModel];
+        }
+        _dataSource = dataArr;
     }
-    return _manager;
+    return _dataSource;
 }
 
-- (void)reloadWithData:(id)data {
-    self.title = data;
+//talbeView 页眉
+- (UIView *)headerView {
+    if (!_headerView) {
+        _headerView = [UIView new];
+        _headerView.backgroundColor = kRGBColor(28, 37, 51);
+        
+        CGFloat imageViewH = kScreenWidth * 767 / 1242;
+        
+        UIImageView *imageView = [UIImageView new];
+        imageView.userInteractionEnabled = YES;
+        imageView.image = [UIImage imageNamed:@"image_3.jpg"];
+        [_headerView addSubview:imageView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+        [tap addTarget:self action:@selector(handleTapAction:)];
+        [imageView addGestureRecognizer:tap];
+        
+        
+        UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+        setBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        [setBtn setTitleColor:[Common colorFromHexRGB:@"ffffff"] forState:UIControlStateNormal];
+        setBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
+        [setBtn setBackgroundImage:[UIImage imageNamed:@"btn_project_setting"] forState:UIControlStateNormal];
+//        setBtn.backgroundColor = kRGBColor(22, 111, 220);
+        setBtn.layer.cornerRadius = 15;
+        setBtn.layer.masksToBounds = YES;
+        [setBtn addTarget:self action:@selector(handleSetBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [_headerView addSubview:setBtn];
+        
+        imageView.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
+        
+        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(110).heightIs(34);
+        
+        [_headerView setupAutoHeightWithBottomView:setBtn bottomMargin:5];
+        [_headerView layoutSubviews];
+    }
+    return _headerView;
+}
+
+//点击图片
+- (void)handleTapAction:(UITapGestureRecognizer *)tap {
+    NSLog(@"tap");
+}
+
+//设置按钮
+- (void)handleSetBtnAction {
+    NSLog(@"handleSetBtnAction");
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isShowHeaderView = YES;
-    self.title = @"Moments";
-    keyBoardBGView = _bgView;
-    // 监听文本框文字高度改变
-    _textView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
-        _bgViewHeightConstraint.constant = textHeight + 10;
-    };
-    _textView.keyboardAppearance = UIKeyboardAppearanceLight;
-    // 设置文本框最大行数
-    _textView.maxNumberOfLines = 4;
-    _textView.placeholder = @"添加一条讨论";
-    _textView.placeholderColor = [UIColor grayColor];
-    
+    // Do any additional setup after loading the view from its nib.
     [self configureNavigationItem];
-    [self handleRefreshAction];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
+    self.tableView.backgroundColor = kRGBColor(28, 37, 51);
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.allowsSelection = NO;
+    self.tableView.tableHeaderView = self.headerView;
     [Common removeExtraCellLines:self.tableView];
-    [self.tableView registerNib:[UINib nibWithNibName:@"VoteHomeCell" bundle:nil] forCellReuseIdentifier:@"VoteHomeCell"];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapAction:)];
-    [self.tableView addGestureRecognizer:tap];
-    
-    [self getProject];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
 }
 
-#pragma mark  查询项目列表
-- (void)getProject {
-    ProjectsApi *pro = [[ProjectsApi alloc] init];
-    [pro startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            NSLog(@"ProjectsApi == %@", request.responseJSONObject);
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        [super showHudWithText:@"您的网络好像有问题~"];
-        [self hideHudAfterSeconds:3.0];
-    }];
-
-}
-
-- (void)handleTapAction:(UITapGestureRecognizer *)tap {
-    [_bgView endEditing:YES];
-}
-
-#pragma mark -- 键盘上的视图显示和隐藏
-- (void)keyBoardWillChangeFrameNotification:(NSNotification *)notification {
-    CGRect keyBoardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    _bgViewBottomConstraint.constant = keyBoardFrame.origin.y != kScreenHeight ? keyBoardFrame.size.height : -100;
-    [UIView animateWithDuration:duration animations:^{
-        [self.view layoutIfNeeded];
-    }];
-}
-
-- (void)handleRefreshAction {
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
-    }];
-    self.tableView.mj_header = header;
-    
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [self addDataToDataArr];
-        [self.tableView reloadData];
-        [self.tableView.mj_footer endRefreshing];
-    }];
-    self.tableView.mj_footer = footer;
-    
-}
-
-- (void)addDataToDataArr {
-    if (self.manager.dataSource.count > 3) {
-        return;
-    }
-    NSDictionary *dic = @{@"projectType":@(ProjectTypeAll),
-                          @"imageCount":@(2),
-                          @"time":@"7月19日 9:27",
-                          @"headImage":@"touxiang",
-                          @"name":@"齐云猛",
-                          @"type":@"易会",
-                          @"image1":@"image",
-                          @"image2":@"image",
-                          @"image3":@"image",
-                          @"comment":@[
-                                  @{@"time":@"20:51",
-                                    @"firstName":@"曹兴星",
-                                    @"secondName":@"@卞克",
-                                    @"des":@"TypeSomething...",
-                                    @"firstImage":@"image",
-                                    @"secondImage":@"image",
-                                    @"typeCell":@(TypeCellTitleNoButton)
-                                    },
-                                  @{@"time":@"13:55",
-                                    @"firstName":@"卞克",
-                                    @"secondName":@"@唐小旭",
-                                    @"des":@"TypeSomething...",
-                                    @"firstImage":@"image",
-                                    @"secondImage":@"image",
-                                    @"typeCell":@(TypeCellTitleNoButton)
-                                    },
-                                  @{@"time":@"9:00",
-                                    @"firstName":@"齐云猛",
-                                    @"secondName":@"",
-                                    @"des":@"TypeSomething...",
-                                    @"secondImage":@"image",
-                                    @"firstImage":@"image",
-                                    @"typeCell":@(TypeCellTitle)
-                                    },
-                                  @{@"time":@"昨天",
-                                    @"firstName":@"2016年7月18日",
-                                    @"secondName":@"@唐小旭",
-                                    @"des":@"TypeSomething...",
-                                    @"firstImage":@"image",
-                                    @"secondImage":@"image",
-                                    @"typeCell":@(TypeCellTime)
-                                    },
-                                  @{@"time":@"13:55",
-                                    @"firstName":@"俞弦",
-                                    @"secondName":@"",
-                                    @"des":@"TypeSomething...",
-                                    @"firstImage":@"image",
-                                    @"secondImage":@"image",
-                                    @"typeCell":@(TypeCellTitleNoButton),
-                                    },
-                                  ].mutableCopy
-                          };
-    [self.manager.dataArr addObject:dic];
-    HomeCellModel *model = [HomeCellModel modelWithDic:dic];
-    [self.manager.dataSource addObject:model];
-    
-}
 
 - (void)configureNavigationItem {
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 23, 23);
-    [rightBtn setImage:kImage(@"icon_add2") forState:UIControlStateNormal];
+    [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
     rightBtn.tintColor = [UIColor whiteColor];
     [rightBtn addTarget:self action:@selector(handleRightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
@@ -239,7 +244,7 @@
     
     MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
                                                           items:items];
-//    sheetView.attachedView = self.view;
+    //    sheetView.attachedView = self.view;
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
 }
@@ -247,150 +252,33 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillChangeFrameNotification:) name:UIKeyboardWillChangeFrameNotification  object:nil];
     
     
 }
 
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [IQKeyboardManager sharedManager].enable = YES;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
+- (void)handleRefresh:(NSNotification *)notification {
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.manager.dataSource.count;
-    
+    return self.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *model = self.manager.dataSource[indexPath.row];
-    if (model.projectType == ProjectTypeAll) {
-        HomeCell *cell = [HomeCell homeCellWithTableView:tableView model:model];
-        cell.model = model;
-        cell.delegate = self;
-        cell.moreBtn.indexPath = indexPath;
-        //展开按钮
-        [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
-        //评论
-        cell.clickCommentBtn = ^(UIButton *btn) {
-            self.indexPath = indexPath;
-            [self.textView becomeFirstResponder];
-        };
-        [cell.tableView reloadData];
-        return cell;
-    }else {
-        VoteHomeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VoteHomeCell"];
-        cell.model = model;
-        cell.delegate = self;
-        cell.moreBtn.indexPath = indexPath;
-        [cell.moreBtn addTarget:self action:@selector(handleClickAction:) forControlEvents:UIControlEventTouchUpInside];
-        //评论
-        cell.clickBtn = ^(UIButton *btn) {
-            self.indexPath = indexPath;
-            [self.textView becomeFirstResponder];
-        };
-        //投票
-        [cell setVoteClick:^() {
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-        [cell.tableView reloadData];
-        return cell;
-    }
-}
-
-- (void)handleClickAction:(ButtonIndexPath *)button {
-    HomeCellModel *model = self.manager.dataSource[button.indexPath.row];
-    model.isClick = !model.isClick;
-    if (!model.isClick) {
-        model.height = 0.0;
-    }
-    [self.tableView reloadRowsAtIndexPaths:@[button.indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    HomeCell *cell = [HomeCell cellWithTableView:tableView];
+    cell.commentBtn.indexPath = indexPath;
+    cell.tableView.indexPath = indexPath;
+    [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
+        [self.tableView reloadData];;
+    }];
+    cell.homeModel = self.dataSource[indexPath.row];
+    return cell;
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCellModel *model = self.manager.dataSource[indexPath.row];
-    if (model.projectType == ProjectTypeAll) {
-        return [HomeCell cellHeightWithModel:model];
-    }else {
-        return [VoteHomeCell cellHeightWithModel:model];
-    }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.isShowHeaderView) {
-        HeadView *headerView = [HeadView headerViewWithTableView:tableView];
-        headerView.delegate = self;
-        return headerView;
-    }else {
-        return nil;
-    }
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.isShowHeaderView) {
-        return 60;
-    }else {
-        return 0;
-    }
-}
-
-#pragma mark HomeCellDelegate
-- (void)reloadHomeTableView:(NSIndexPath *)indexPath {
-    [self.tableView reloadData];
-}
-
-#pragma mark VoteHomeCellDelegate
-- (void)reloadTableViewWithHeight:(CGFloat)height withIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView reloadData];
-    
-}
-
-#pragma mark HeadViewDelegate
-- (void)headViewDidClickWithHeadView:(HeadView *)headView {
-    DiscussViewController *discussVC = [[DiscussViewController alloc] init];
-    [self.navigationController pushViewController:discussVC animated:YES];
-}
-
-#pragma mark UITextViewDelegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    
-    if ([text isEqualToString:@"\n"]) {
-#warning TO DO 
-        NSString *project_id = @"5b0406e0-70de-11e6-b11e-57f534258fb6";
-        DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
-        discussCreatApi.requestArgument = @{@"project_id":project_id};
-        [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                NSLog(@"%@", request.responseJSONObject);
-                [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
-            } else {
-                //创建讨论失败
-                [super showHudWithText:request.responseJSONObject[MSG]];
-                [super hideHudAfterSeconds:3.0];
-            }
-        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            NSLog(@"%@",error.description);
-            [self showHudWithText:@"您的网络好像有问题~"];
-            [self hideHudAfterSeconds:3.0];
-        }];
-        
-      
-        
-//        HomeDetailCellModel *detailModel = [HomeDetailCellModel modelWithDic:dic];
-//        [model.comment insertObject:detailModel atIndex:0];
-//        model.isClick = YES;
-//        model.height = 0.0;
-//        [self.tableView reloadRowsAtIndexPaths:@[self.indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [_bgView endEditing:YES];
-        return NO;
-    }
-    return YES;
+    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
 }
 
 

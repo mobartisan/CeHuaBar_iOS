@@ -1,5 +1,5 @@
 //
-//  ButtonIndexPath.h
+//  TableViewIndexPath.h
 //  BBSDemo
 //
 //  Created by Dale on 16/11/1.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ButtonIndexPath : UIButton
+@interface TableViewIndexPath : UITableView
 
 @property (strong, nonatomic) NSIndexPath *indexPath;
 

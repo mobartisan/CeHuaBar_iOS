@@ -1,33 +1,22 @@
 //
 //  HomeCell.h
-//  TeamTiger
+//  BBSDemo
 //
-//  Created by Dale on 16/8/1.
-//  Copyright © 2016年 MobileArtisan. All rights reserved.
+//  Created by Dale on 16/10/28.
+//  Copyright © 2016年 Nari. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-typedef void(^ClickCommentBtn)(UIButton *button);
+@class HomeModel, ButtonIndexPath, TableViewIndexPath;
 
-@class HomeCellModel, ButtonIndexPath;
+@interface HomeCell : UITableViewCell
 
-@protocol HomeCellDelegate <NSObject>
+@property (strong, nonatomic) HomeModel *homeModel;
+@property (strong, nonatomic) ButtonIndexPath *commentBtn;
+@property (strong, nonatomic) TableViewIndexPath *tableView;
+@property (copy, nonatomic) void(^CommentBtnClick)(NSIndexPath *indexPath);
 
-- (void)reloadHomeTableView:(NSIndexPath *)indexPath;
-
-@end
-
-@interface HomeCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet ButtonIndexPath *moreBtn;
-@property (assign, nonatomic) id <HomeCellDelegate> delegate;
-@property (strong, nonatomic) HomeCellModel *model;
-@property (copy, nonatomic)   ClickCommentBtn clickCommentBtn;
-
-+ (CGFloat)tableViewHeight;
-+ (CGFloat)cellHeightWithModel:(HomeCellModel *)model;
-+ (instancetype)homeCellWithTableView:(UITableView *)tableView model:(HomeCellModel *)model;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end
