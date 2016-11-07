@@ -15,6 +15,7 @@
 #import "ButtonIndexPath.h"
 #import "TableViewIndexPath.h"
 #import "HomeCommentModel.h"
+#import "YZInputView.h"
 
 #define KHeaderViewH  10
 
@@ -68,7 +69,7 @@
     [self.contentView addSubview:self.nameLB];
     
     self.imageV1 = [UIImageView new];
-    self.imageV1.image = [UIImage imageNamed:@"icon_project"];
+    self.imageV1.image = [UIImage imageNamed:@"＃"];
     [self.contentView addSubview:self.imageV1];
     
     self.projectLB = [UILabel new];
@@ -77,7 +78,7 @@
     [self.contentView addSubview:self.projectLB];
     
     self.imageV2 = [UIImageView new];
-    self.imageV2.image = [UIImage imageNamed:@"icon_project"];
+    self.imageV2.image = [UIImage imageNamed:@"＃"];
     [self.contentView addSubview:self.imageV2];
     
     //内容
@@ -137,14 +138,14 @@
     [self.nameLB setSingleLineAutoResizeWithMaxWidth:200];
     
     
-    self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 7).widthIs(13).heightIs(13);
+    self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 9).widthIs(8).heightIs(10);
     
+    self.projectLB.sd_layout.leftSpaceToView(self.imageV1, 2).topSpaceToView(self.nameLB, 7).heightIs(13);
     
-    self.projectLB.sd_layout.leftSpaceToView(self.imageV1, 0).topEqualToView(self.imageV1).heightIs(13);
     [self.projectLB setSingleLineAutoResizeWithMaxWidth:80];
     
     
-    self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 0).topEqualToView(self.imageV1).widthIs(13).heightIs(13);
+    self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
     
 
     self.contentLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.imageV1, 10).rightSpaceToView(self.contentView, 10).autoHeightRatio(0);
@@ -171,10 +172,6 @@
 
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
     _homeModel.open = !_homeModel.open;
-    
-    if (_homeModel.indexModel.open) {
-        _homeModel.indexModel.show = YES;
-    }
     [self.tableView reloadDataWithExistedHeightCache];
     if (self.CommentBtnClick) {
         self.CommentBtnClick(sender.indexPath);
@@ -182,6 +179,10 @@
 }
 
 - (void)setHomeModel:(HomeModel *)homeModel {
+    if (_homeModel.indexModel.open) {
+        _homeModel.indexModel.show = YES;
+    }
+    
     _homeModel = homeModel;
     
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
@@ -197,7 +198,7 @@
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,0);
     }
     if (homeModel.open) {
-        self.tableView.sd_layout.heightIs([self.tableView cellsTotalHeight] + KHeaderViewH);
+        self.tableView.sd_layout.heightIs([self.tableView cellsTotalHeight] + KHeaderViewH + 50);
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
     }else {
         self.tableView.sd_layout.heightIs(0);
@@ -209,12 +210,66 @@
     if (_headerView == nil) {
         _headerView = [UIView new];
         _headerView.backgroundColor = kRGBColor(27, 37, 50);
-        UIImageView *iconI = [UIImageView new];
-        iconI.image = [UIImage imageNamed:@"jiantou"];
-        [_headerView addSubview:iconI];
         
-        iconI.sd_layout.leftSpaceToView(_headerView, 19).topSpaceToView(_headerView, 0).widthIs(KHeaderViewH).heightIs(KHeaderViewH);
-        [_headerView setupAutoHeightWithBottomView:iconI bottomMargin:0];
+        //箭头视图
+        UIImageView *iconI = [UIImageView new];
+        iconI.image = [UIImage imageNamed:@"bg_discussion"];
+        [_headerView addSubview:iconI];
+       
+    
+        UIView *bgView = [UIView new];
+        bgView.backgroundColor = kRGBColor(32, 46, 63);
+        [_headerView addSubview:bgView];
+
+        //输入视图
+        UIImageView *inputImageV = [UIImageView new];
+        inputImageV.image = kImage(@"icon_write");
+        [bgView addSubview:inputImageV];
+
+        //时间线
+        UIView *lineView = [UIView new];
+        lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
+        [bgView addSubview:lineView];
+        
+        //亮点
+        UIImageView *imageV = [UIImageView new];
+        imageV.image = kImage(@"img_point");
+        [bgView addSubview:imageV];
+        
+        //输入框
+//        YZInputView *inputView= [[YZInputView alloc] init];
+//        inputView.layer.borderWidth = 1;
+//        inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
+//        inputView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+//        inputView.placeholder = @"讨论:";
+//        inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
+//        inputView.placeholderColor = [UIColor redColor];
+//        [bgView addSubview:inputView];
+        
+        UITextField *textField= [[UITextField alloc] init];
+        textField.placeholder = @"讨论:";
+        textField.textColor = [Common colorFromHexRGB:@"525c6b"];
+        textField.font = [UIFont systemFontOfSize:16];
+        textField.layer.borderWidth = 1;
+        textField.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
+        textField.layer.cornerRadius = 5;
+        textField.layer.masksToBounds = YES;
+        textField.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+        [bgView addSubview:textField];
+        
+        iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
+        
+        inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 20).widthIs(13).heightIs(13);
+
+        lineView.sd_layout.leftSpaceToView(bgView, 61).topEqualToView(inputImageV).widthIs(4).heightIs(30);
+        
+        imageV.sd_layout.centerXEqualToView(lineView).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
+        
+        textField.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
+        
+        bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(50);
+        
+        [_headerView setupAutoHeightWithBottomView:bgView bottomMargin:0];
         [_headerView layoutSubviews];
     }
     return _headerView;
@@ -245,7 +300,10 @@
 
 #pragma mark HomeCommentCellDelegate
 - (void)clickMoreBtn {
-    _homeModel.indexModel.show = !_homeModel.indexModel.show;
+    _homeModel.indexModel.show = NO;
+    for (HomeCommentModel *commentModel in _homeModel.comment) {
+        commentModel.open = YES;
+    }
     [self.tableView reloadDataWithExistedHeightCache];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
 }

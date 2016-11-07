@@ -64,61 +64,61 @@
                                                  @"content":@"滴滴滴滴的",
                                                  @"photeNameArry":@[],
                                                  @"time":@"7月25日 9:30"}
-                                               ].mutableCopy},
-                                @{@"iconImV":@"9",
-                                  @"name":@"唐小旭",
-                                  @"project":@"BBS",
-                                  @"content":@"测试数据测试数据测试数据测试数据",
-                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_5.jpg"],
-                                  @"time":@"7月20日 9:45",
-                                  @"comment":@[@{@"name":@"唐小旭",
-                                                 @"sName":@"@卞克",
-                                                 @"content":@"测试数据测试数据测试数据测试数据",
-                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-                                                 @"time":@"7月23日 20:30"},
-                                               @{@"name":@"卞克",
-                                                 @"sName":@"@唐小绪",
-                                                 @"content":@"哈哈哈",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月22日 15:05"},
-                                               @{@"name":@"俞弦",
-                                                 @"sName":@"",
-                                                 @"content":@"有点意思",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月22日 12:01"},
-                                               @{@"name":@"齐云猛",
-                                                 @"sName":@"",
-                                                 @"content":@"滴滴滴滴的",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月22日 11:30"}
-                                               ].mutableCopy},
-                                @{@"iconImV":@"9",
-                                  @"name":@"唐小旭",
-                                  @"project":@"BBS",
-                                  @"content":@"测试数据测试数据测试数据测试数据",
-                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-                                  @"time":@"6月11日 14:40",
-                                  @"comment":@[@{@"name":@"唐小旭",
-                                                 @"sName":@"@卞克",
-                                                 @"content":@"测试数据测试数据测试数据测试数据",
-                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-                                                 @"time":@"7月23日 13:30"},
-                                               @{@"name":@"卞克",
-                                                 @"sName":@"@唐小绪",
-                                                 @"content":@"哈哈哈",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月21日 16:55"},
-                                               @{@"name":@"俞弦",
-                                                 @"sName":@"",
-                                                 @"content":@"有点意思",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月21日 11:28"},
-                                               @{@"name":@"齐云猛",
-                                                 @"sName":@"",
-                                                 @"content":@"滴滴滴滴的",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月21日 10:39"}
                                                ].mutableCopy}
+//                                @{@"iconImV":@"9",
+//                                  @"name":@"唐小旭",
+//                                  @"project":@"BBS",
+//                                  @"content":@"测试数据测试数据测试数据测试数据",
+//                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_5.jpg"],
+//                                  @"time":@"7月20日 9:45",
+//                                  @"comment":@[@{@"name":@"唐小旭",
+//                                                 @"sName":@"@卞克",
+//                                                 @"content":@"测试数据测试数据测试数据测试数据",
+//                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+//                                                 @"time":@"7月23日 20:30"},
+//                                               @{@"name":@"卞克",
+//                                                 @"sName":@"@唐小绪",
+//                                                 @"content":@"哈哈哈",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月22日 15:05"},
+//                                               @{@"name":@"俞弦",
+//                                                 @"sName":@"",
+//                                                 @"content":@"有点意思",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月22日 12:01"},
+//                                               @{@"name":@"齐云猛",
+//                                                 @"sName":@"",
+//                                                 @"content":@"滴滴滴滴的",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月22日 11:30"}
+//                                               ].mutableCopy},
+//                                @{@"iconImV":@"9",
+//                                  @"name":@"唐小旭",
+//                                  @"project":@"BBS",
+//                                  @"content":@"测试数据测试数据测试数据测试数据",
+//                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+//                                  @"time":@"6月11日 14:40",
+//                                  @"comment":@[@{@"name":@"唐小旭",
+//                                                 @"sName":@"@卞克",
+//                                                 @"content":@"测试数据测试数据测试数据测试数据",
+//                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+//                                                 @"time":@"7月23日 13:30"},
+//                                               @{@"name":@"卞克",
+//                                                 @"sName":@"@唐小绪",
+//                                                 @"content":@"哈哈哈",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月21日 16:55"},
+//                                               @{@"name":@"俞弦",
+//                                                 @"sName":@"",
+//                                                 @"content":@"有点意思",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月21日 11:28"},
+//                                               @{@"name":@"齐云猛",
+//                                                 @"sName":@"",
+//                                                 @"content":@"滴滴滴滴的",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月21日 10:39"}
+//                                               ].mutableCopy}
                                 ].mutableCopy;
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in arr) {
@@ -153,7 +153,6 @@
         [setBtn setTitleColor:[Common colorFromHexRGB:@"ffffff"] forState:UIControlStateNormal];
         setBtn.titleEdgeInsets = UIEdgeInsetsMake(-3, 30, 0, 0);
         [setBtn setBackgroundImage:[UIImage imageNamed:@"btn_project_setting"] forState:UIControlStateNormal];
-//        setBtn.backgroundColor = kRGBColor(22, 111, 220);
         setBtn.layer.cornerRadius = 15;
         setBtn.layer.masksToBounds = YES;
         [setBtn addTarget:self action:@selector(handleSetBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -222,7 +221,6 @@
 }
 
 - (void)handleRightBtnAction {
-    
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     
     MMPopupItemHandler block = ^(NSInteger index){
@@ -252,12 +250,17 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
-    
-    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)handleRefresh:(NSNotification *)notification {
-    [self.tableView reloadData];
+    NSIndexPath *indexPath = notification.object;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark UITableViewDataSource
@@ -273,6 +276,8 @@
         [self.tableView reloadData];;
     }];
     cell.homeModel = self.dataSource[indexPath.row];
+    /** 启用cell frame缓存（可以提高cell滚动的流畅度, 目前为cell专用方法，后期会扩展到其他view） */
+//    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
     return cell;
 }
 

@@ -103,6 +103,7 @@
     self.lineView.sd_layout.leftSpaceToView(self.contentView, 61).topSpaceToView(self.contentView, 0).widthIs(4).heightIs(KLineH);
     
     self.lineView1.sd_layout.centerXEqualToView(self.lineView).topSpaceToView(self.lineView, 0).widthIs(4);
+    
     self.imageV.sd_layout.centerXEqualToView(self.lineView).topSpaceToView(self.lineView, - KImageVH / 2).widthIs(KImageVH).heightIs(KImageVH);
     
     self.timeLB.sd_layout.leftSpaceToView(self.contentView, 8).centerYEqualToView(self.imageV).widthIs(38).heightIs(20);
@@ -122,21 +123,8 @@
 }
 
 - (void)setHomeCommentModel:(HomeCommentModel *)homeCommentModel {
-    if (homeCommentModel.show) {
-        self.moreBtn.hidden = NO;
-        self.lineView1.hidden = YES;
-    }
-    else {
-        self.moreBtn.hidden = YES;
-        self.lineView1.hidden = NO;
-    }
-    if (_homeCommentModel.open) {
-        self.imageV.image = kImage(@"img_point_normal");
-    }
-    
     _homeCommentModel = homeCommentModel;
     
-    CGFloat bottomMargin = 0;
     if ([homeCommentModel.time isEqualToString:@"这是时间节点"]) {
         self.timeLB.text = @"昨天";
         self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
@@ -162,11 +150,26 @@
         height = CGRectGetMaxY(self.desLB.frame);
     }
     self.lineView1.sd_layout.heightIs(height);
-    [self setupAutoHeightWithBottomView:self.lineView1 bottomMargin:bottomMargin];
+    [self setupAutoHeightWithBottomView:self.lineView1 bottomMargin:0];
+    
+    
+    if (homeCommentModel.show) {
+        self.moreBtn.hidden = NO;
+        self.lineView1.hidden = YES;
+    }
+    else {
+        self.moreBtn.hidden = YES;
+        self.lineView1.hidden = NO;
+    }
+    if (_homeCommentModel.open) {
+        self.imageV.image = kImage(@"img_point_normal");
+    }else {
+        self.imageV.image = kImage(@"img_point");
+    }
+    
 }
 
 - (void)clickMoreBtnAction {
-    _homeCommentModel.open = !_homeCommentModel.open;
     if ([self.delegate respondsToSelector:@selector(clickMoreBtn)]) {
         [self.delegate clickMoreBtn];
     }
