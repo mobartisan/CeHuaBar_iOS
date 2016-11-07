@@ -21,8 +21,10 @@
 
 #import "MMDrawerController.h"
 #import "UIViewController+MMDrawerController.h"
-
+#import "ProjectsCell.h"
+#import "GroupHeadView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "TTProjectsMenuViewController.h"
 
 CGFloat const MMDrawerDefaultWidth = 283.0f;
 CGFloat const MMDrawerDefaultAnimationVelocity = 840.0f;
@@ -182,12 +184,7 @@ static NSString *MMDrawerOpenSideKey = @"MMDrawerOpenSide";
 -(void)commonSetup{
     
     CGFloat maxWidth = MMDrawerDefaultWidth;
-    if(is55inch){
-    } else if (is47inch){
-        maxWidth = 257.0;
-    } else {
-        maxWidth = 219.0;
-    }
+    maxWidth = Screen_Width;
     [self setMaximumLeftDrawerWidth:maxWidth];
     [self setMaximumRightDrawerWidth:maxWidth];
     
@@ -1376,6 +1373,20 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
         return ((self.openDrawerGestureModeMask & possibleOpenGestureModes)>0);
     }
     else{
+        if (self.openSide == MMDrawerSideLeft &&
+            [gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+            CGPoint point = [touch locationInView:self.childControllerContainerView];
+            if (CGRectContainsPoint(CGRectMake(0, 0, Screen_Width  - 214.0, Screen_Height), point)){
+                TTBaseNavigationController *mainNav = (TTBaseNavigationController *)self.leftDrawerViewController;
+                if([mainNav.topViewController isKindOfClass:[TTProjectsMenuViewController class]]) {
+                    return YES;
+                } else {
+                    return NO;
+                }
+            } else {
+                return NO;
+            }
+        }
         MMCloseDrawerGestureMode possibleCloseGestureModes = [self possibleCloseGestureModesForGestureRecognizer:gestureRecognizer
                                                                                                        withTouch:touch];
         return ((self.closeDrawerGestureModeMask & possibleCloseGestureModes)>0);

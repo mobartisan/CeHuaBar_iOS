@@ -7,6 +7,7 @@
 //
 
 #import "GroupView.h"
+#import "MBProgressHUD.h"
 
 @interface GroupView ()
 
@@ -41,14 +42,20 @@
 
 
 - (void)loadGroupInfo:(id)groupInfo AllProjects:(NSArray *)projects {
+    self.projects = [NSMutableArray arrayWithArray:projects];
+    self.selProjects = [NSMutableArray array];
     if (groupInfo) {
         self.groupInfo = [NSMutableDictionary dictionaryWithDictionary:groupInfo];
-        self.projects = [NSMutableArray arrayWithArray:projects];
-        //TO DO
-        //self.selProjects 处理
+        self.nameTxtField.text = self.groupInfo[@"Name"];
+        NSArray *pids = [self.groupInfo[@"Pids"] componentsSeparatedByString:@","];
+        [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([pids containsObject:obj[@"Id"]] ) {
+                [self.selProjects addObject:@1];
+            } else {
+                [self.selProjects addObject:@0];
+            }
+        }];
     } else {
-        self.selProjects = [NSMutableArray array];
-        self.projects = [NSMutableArray arrayWithArray:projects];
         [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.selProjects addObject:@0];
         }];
@@ -93,14 +100,43 @@
 #pragma -mark UIButtonAction
 - (IBAction)confirmBtnAction:(id)sender {
     if (self.clickBtnBlock) {
-        self.clickBtnBlock(self,YES);
+        if ([Common isEmptyString:self.nameTxtField.text]) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+            hud.label.text = @"组名称不能为空";
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.0];
+            return;
+        }
+        
+        id count = [self.selProjects valueForKeyPath:@"@sum.intValue"];
+        if ([count intValue] == 0) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+            hud.label.text = @"组必须包含至少一个项目";
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.0];
+            return;
+        }
+        
+        if (self.groupInfo) {
+            self.groupInfo[@"Name"] = self.nameTxtField.text;
+            NSMutableString *mString = [NSMutableString string];
+            [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([self.selProjects[idx] intValue] == 1) {
+                    [mString appendFormat:@"%@,",obj[@"Id"]];
+                }
+            }];
+            NSUInteger length = mString.length;
+            [mString replaceOccurrencesOfString:@"," withString:@"" options:NSBackwardsSearch range:NSMakeRange(length - 1, 1)];
+            self.groupInfo[@"Pids"] = mString;
+        }
+        self.clickBtnBlock(self, YES, self.groupInfo);
     }
     [self hide];
 }
 
 - (IBAction)cancelBtnAction:(id)sender {
     if (self.clickBtnBlock) {
-        self.clickBtnBlock(self,NO);
+        self.clickBtnBlock(self, NO, nil);
     }
     [self hide];
 }

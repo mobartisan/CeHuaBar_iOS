@@ -1,9 +1,9 @@
 //
 //  ButtonIndexPath.m
-//  TeamTiger
+//  BBSDemo
 //
-//  Created by Dale on 16/8/3.
-//  Copyright © 2016年 MobileArtisan. All rights reserved.
+//  Created by Dale on 16/11/1.
+//  Copyright © 2016年 Nari. All rights reserved.
 //
 
 #import "ButtonIndexPath.h"

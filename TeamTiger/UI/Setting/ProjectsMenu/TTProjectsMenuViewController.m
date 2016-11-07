@@ -17,6 +17,9 @@
 #import "TTMyProfileViewController.h"
 #import "TTAddProjectViewController.h"
 #import "GroupView.h"
+#import "UIViewController+MMDrawerController.h"
+#import "TTSettingViewController.h"
+#import "TTGroupViewController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -30,20 +33,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的项目";
-    WeakSelf;
-    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionPush SubType:kCATransitionFromRight];
-    }];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"icon_add"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(addCirclesAction)];
-    
+    self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
-    v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
+    v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
+    self.menuTable.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,11 +60,11 @@
 
 #pragma -mark UITableView DataSource & Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2 + self.groups.count;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section > 1) {
-        return [[self.groups[section - 2][@"Pids"] componentsSeparatedByString:@","] count];
+        return self.unGroupedProjects.count;
     }
     return  1;
 }
@@ -69,19 +76,23 @@
         cell = (ProjectsCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = LoadFromNib(@"ProjectsCell");
-            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
-        NSArray *pids = [self.groups[indexPath.section - 2][@"Pids"] componentsSeparatedByString:@","];
-        NSDictionary *projectInfo = [self projectsByPid:pids[indexPath.row]];
-        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == pids.count - 1];
+        NSDictionary *projectInfo = self.unGroupedProjects[indexPath.row];
+        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.unGroupedProjects.count - 1];
         
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
              [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
              }];
+        };
+        //增加成员的cell回调block
+        ((ProjectsCell *)cell).addMember = ^{
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要添加该项目至组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            }];
         };
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
@@ -97,14 +108,17 @@
         cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            cell.backgroundColor = [UIColor colorWithRed:22.0/255.0f green:30.0/255.0f blue:41.0/255.0f alpha:1.0f];
+            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         if (indexPath.section == 0) {
             [cell addSubview:self.infoView];
             [self loadUserInfo];
             [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(cell);
+                make.left.mas_equalTo(cell.mas_left);
+                make.right.mas_equalTo(cell.mas_right);
+                make.top.mas_equalTo(cell.mas_top);
+                make.bottom.mas_equalTo(cell.mas_bottom).offset(minLineWidth);
             }];
         } else {
             [cell addSubview:self.pView];
@@ -120,7 +134,7 @@
     if (section == 0) {
         return minLineWidth;
     }
-    return 60;
+    return 30;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -132,30 +146,9 @@
         return nil;
     }
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
-    if (section > 1) {
-        if (section == 1) {
-            headView.isEnabledSwipe = NO;
-        } else {
-            headView.isEnabledSwipe = YES;
-        }
-        [headView loadHeadViewData:self.groups[section - 2]];
-        //设置删除group回调block
-        headView.deleteGroup = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            }];
-        };
-        headView.editGroup = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要编辑该组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            }];
-        };
-        //设置当cell左滑时，关闭其他cell的左滑
-        headView.closeOtherCellSwipe = ^{
-            for (GroupHeadView *item in tableView.subviews) {
-                if ([item isKindOfClass:[GroupHeadView class]] && item != headView) {
-                    [item closeLeftSwipe];
-                }
-            }
-        };
+    if (section >= 1) {
+        headView.isEnabledSwipe = NO;
+        [headView loadHeadViewIndex:section];
     }
     return headView;
 }
@@ -164,19 +157,34 @@
     if (indexPath.section > 1) {
         return CELLHEIGHT;
     } else if (indexPath.section == 0) {
-        return 80.0;
+        return 120.0;
     } else {
-        return [ProjectsView heightOfProjectsView:self.projects];
+        return [ProjectsView heightOfProjectsView:self.groups];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    //跳转设置
+//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+//    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    //主页moments
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+#warning to do
+    }];
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
     [self.navigationController pushViewController:myProfileVC animated:YES];
+}
+
+- (IBAction)clickHomeAction:(id)sender {
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        
+    }];
 }
 
 #pragma -mark Data Handle
@@ -192,6 +200,13 @@
         _projects = [NSMutableArray arrayWithArray:[MockDatas projects]];
     }
     return _projects;
+}
+
+- (NSMutableArray *)unGroupedProjects {
+    if (!_unGroupedProjects) {
+        _unGroupedProjects = [NSMutableArray arrayWithArray:[MockDatas unGroupedProjects]];
+    }
+    return _unGroupedProjects;
 }
 
 - (NSDictionary *)projectsByPid:(NSString *)pid {
@@ -211,6 +226,11 @@
     } else {
         [self.gView loadGroupInfo:nil AllProjects:[MockDatas projects]];
         [self.gView show];
+        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@",object);
+            }
+        };
     }
 }
 
@@ -244,18 +264,17 @@
 
 - (ProjectsView *)pView {
     if (!_pView) {
-        _pView = [[ProjectsView alloc] initWithDatas:self.projects];
+        _pView = [[ProjectsView alloc] initWithDatas:self.groups];
+        
+        WeakSelf;
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"跳转具体项目的列表" buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-                
-            }];
+            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+            groupVC.groupId = object[@"Gid"];
+            [wself.navigationController pushViewController:groupVC animated:YES];
         };
-        WeakSelf;
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
-            TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-            TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-            [wself.navigationController presentViewController:baseNav animated:YES completion:nil];
+            [wself addCirclesAction];
         };
     }
     return _pView;

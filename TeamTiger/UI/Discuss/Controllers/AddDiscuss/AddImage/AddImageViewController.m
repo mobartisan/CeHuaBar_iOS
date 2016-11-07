@@ -102,13 +102,15 @@
     cell.videoImageView.hidden = YES;
     cell.hidden = NO;
     if (indexPath.row == _selectedPhotos.count) {
-        cell.imageView.image = [UIImage imageNamed:@"AlbumAddBtn.png"];
+        cell.imageView.image = [UIImage imageNamed:@"icon_add_picture"];
+        cell.imageView.contentMode = UIViewContentModeCenter;
         cell.deleteBtn.hidden = YES;
         if (_selectedAssets.count == kMaxImagesCount) {
             cell.hidden = YES;
         }
     } else {
         cell.imageView.image = _selectedPhotos[indexPath.row];
+        cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         cell.asset = _selectedAssets[indexPath.row];
         cell.deleteBtn.hidden = NO;
     }

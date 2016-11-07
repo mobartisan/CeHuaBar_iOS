@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class GroupView;
 
-typedef void(^ClickBtnBlock)(GroupView *gView, BOOL isConfirm);
+typedef void(^ClickBtnBlock)(GroupView *gView, BOOL isConfirm, id object);
 
 @interface GroupView : UIView<UITableViewDelegate,UITableViewDataSource>
 

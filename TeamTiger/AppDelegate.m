@@ -21,6 +21,7 @@
 #import "WXApiManager.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
+#import "TTProjectsMenuViewController.h"
 
 @interface AppDelegate ()
 
@@ -35,7 +36,6 @@
     }
     [self initialMethods];
     [self initialGlobalData];
-//    TTLogonViewController *loginVC = [[TTLogonViewController alloc] init];
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
@@ -120,26 +120,25 @@
 
 #pragma -mark initial methods
 - (UIViewController *)creatHomeVC {
-#if 1
+#if 0
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
     return mainNav;
 #else
-    CirclesVC *circleVC = [[CirclesVC alloc] init];
-    TTBaseNavigationController *leftNav = [[TTBaseNavigationController alloc] initWithRootViewController:circleVC];
+    TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
+    TTBaseNavigationController *leftNav = [[TTBaseNavigationController alloc] initWithRootViewController:projectsMenuVC];
     
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
     MMDrawerController *drawerController = [[MMDrawerController alloc]
                                             initWithCenterViewController:mainNav
-                                            leftDrawerViewController:nil
-                                            rightDrawerViewController:leftNav];
-    [drawerController setShowsShadow:YES];
+                                            leftDrawerViewController:leftNav
+                                            rightDrawerViewController:nil];
+    [drawerController setShowsShadow:NO];
     [drawerController setRestorationIdentifier:@"MMDrawer"];
-    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeCustom];
-    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningCenterView | MMOpenDrawerGestureModeBezelPanningCenterView];
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeBezelPanningCenterView | MMCloseDrawerGestureModePanningDrawerView];
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState slideVisualStateBlock]];
-    [drawerController setMaximumRightDrawerWidth:Screen_Width];
     //自定义手势
     [drawerController setGestureShouldRecognizeTouchBlock:^BOOL(MMDrawerController *drawerController, UIGestureRecognizer *gesture, UITouch *touch) {
         BOOL shouldRecognizeTouch = NO;

@@ -25,7 +25,7 @@
     self.navigationBar.shadowImage = [UIImage new];
     
     //开启滑动返回手势
-    self.interactivePopGestureRecognizer.delegate = nil;
+//    self.interactivePopGestureRecognizer.delegate = nil;
     
     NSShadow *shadow = [[NSShadow alloc] init];
     shadow.shadowColor = [UIColor blackColor];

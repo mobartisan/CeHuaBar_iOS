@@ -22,6 +22,18 @@
     if (object && [object isKindOfClass:[NSDictionary class]]) {
         self.groupNameLab.text = object[@"Name"];
         self.messageNumLab.text = [NSString stringWithFormat:@"查看(%d)",arc4random()% 99 + 1];
+        self.messageNumLab.hidden = YES;
+    }
+}
+
+- (void)loadHeadViewIndex:(NSInteger)index {
+    self.messageNumLab.hidden = YES;
+    if (index == 1) {
+        self.groupNameLab.text = @"项目分组";
+    } else if (index == 2) {
+        self.groupNameLab.text = @"未分组";
+        self.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+        self.containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
     }
 }
 

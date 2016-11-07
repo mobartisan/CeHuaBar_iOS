@@ -34,6 +34,12 @@
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.tableView reloadData];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -114,11 +120,6 @@
     UIView *bgView = [[UIView alloc] init];
     bgView.backgroundColor = kRGB(27, 36, 50);
     return bgView;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
 }
 
 - (NSMutableArray *)dataSource {

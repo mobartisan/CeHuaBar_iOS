@@ -8,21 +8,19 @@
 
 #import "ProjectsCell.h"
 
-#define  kEditViewWidth  64.0
+#define  kEditViewWidth  (64.0 + 100.0)
 
 @implementation ProjectsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self initSubControls];
-    setViewCorner(self.pointImgV, 7.5);
+    setViewCorner(self.pointImgV, 4.0);
     setViewCorner(self.msgNumBGImgV, 10);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
@@ -40,7 +38,7 @@
             line.backgroundColor = [UIColor lightGrayColor];
             line.alpha = 0.3;
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(44.0);
+                make.left.equalTo(self.mas_left).offset(62.0);
                 make.right.equalTo(self.mas_right);
                 make.bottom.equalTo(self.mas_bottom).offset(-1);
                 make.height.mas_equalTo(minLineWidth);
@@ -54,6 +52,9 @@
 - (void)initSubControls{
     //绑定删除会员事件
     [self.deleteBtn addTarget:self action:@selector(deleteMember:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //绑定增加会员事件
+    [self.addBtn addTarget:self action:@selector(addMember:) forControlEvents:UIControlEventTouchUpInside];
     
     //3、给容器containerView绑定左右滑动清扫手势
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
@@ -71,17 +72,27 @@
 
 //子控件布局
 - (void)layoutSubviews{
-    CGFloat deleteWidth = Screen_Width * 0.2; //设置删除按钮宽度
-    self.deleteBtn.frame = CGRectMake(Screen_Width * 0.8, 0, deleteWidth, CELLHEIGHT);
+    CGFloat deleteWidth = 64.0; //设置删除按钮宽度
+    self.deleteBtn.frame = CGRectMake(Screen_Width - 64.0, 0, deleteWidth, CELLHEIGHT - 1);
+    
+    CGFloat addWidth = 100.0; //
+    self.addBtn.frame = CGRectMake(Screen_Width - 164.0, 0, addWidth, CELLHEIGHT - 1);
+
     self.containerView.frame = self.contentView.bounds;
 }
 
 
 //删除会员
-- (void)deleteMember: (UIButton *)sender{
+- (void)deleteMember:(UIButton *)sender{
     //如果实现了删除block回调，则调用block
     if (self.deleteMember)
         self.deleteMember();
+}
+
+//增加会员
+- (void)addMember:(UIButton *)sender {
+    if (self.addMember)
+        self.addMember();
 }
 
 //左滑动和右滑动手势
@@ -95,7 +106,8 @@
             self.closeOtherCellSwipe();
         
         [UIView animateWithDuration:0.5 animations:^{
-            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, CELLHEIGHT * 0.5);
+            CGPoint tmpPoint = sender.view.center;
+            sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, tmpPoint.y);
         }];
         self.isOpenLeft = YES;
     }
@@ -109,7 +121,8 @@
     if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.containerView.center = CGPointMake(Screen_Width * 0.5, CELLHEIGHT * 0.5);
+        CGPoint tmpPoint = self.containerView.center;
+        self.containerView.center = CGPointMake(Screen_Width * 0.5, tmpPoint.y);
     }];
     self.isOpenLeft = NO;
 }

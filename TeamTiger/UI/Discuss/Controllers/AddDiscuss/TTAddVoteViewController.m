@@ -22,6 +22,7 @@
 #import "AddImageViewController.h"
 #import "SelectPhotosManger.h"
 #import "SelectCircleViewController.h"
+#import "SelectOptionTypeVC.h"
 #import "IQKeyboardManager.h"
 #import "AddImageView.h"
 #import "MMAlertView.h"
@@ -44,6 +45,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
 
 @property (nonatomic, assign) NSInteger optionIndex;
+
+@property (nonatomic, strong) TTCommonArrowItem *tagItem;
+@property (nonatomic, strong) TTCommonArrowItem *optionTypeItem;
 @end
 #pragma mark - View Controller LifeCyle
 @implementation TTAddVoteViewController
@@ -71,6 +75,18 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [self setupGroup0];
     [self setupGroup1];
     [self setupGroup2];
+    [self setupGroup3];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
+    
+    OptionType optionType = [CirclesManager sharedInstance].optionType;
+    
+    
+    self.optionTypeItem.subtitle = optionType? @"多选":@"单选";
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,13 +101,27 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 /**
  *  第0组数据
  */
+//- (void)setupGroup0
+//{
+//    
+//    TTCommonItem *voteName = [TTCommonTextViewItem itemWithTitle:@"名称" textViewPlaceholder:@"请输入投票名称"];
+//    
+//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+//    group.items = [NSMutableArray arrayWithArray: @[voteName]];
+//    [self.data addObject:group];
+//}
+
+/**
+ *  第0组数据
+ */
 - (void)setupGroup0
 {
-    
-    TTCommonItem *voteName = [TTCommonTextViewItem itemWithTitle:@"名称" textViewPlaceholder:@"请输入投票名称"];
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"项目" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
+    self.tagItem = (TTCommonArrowItem *)tag;
+    TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"内容" textViewPlaceholder:@"请输入内容"];
     
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
-    group.items = [NSMutableArray arrayWithArray: @[voteName]];
+    group.items = [NSMutableArray arrayWithArray:@[tag,describe]];
     [self.data addObject:group];
 }
 
@@ -120,12 +150,19 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 - (void)setupGroup2
 {
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"投票类型" subtitle:@"单选" destVcClass:[SelectOptionTypeVC class]];
+    self.optionTypeItem = (TTCommonArrowItem *)tag;
+
+    TTCommonGroup *group = [[TTCommonGroup alloc] init];
+    group.items = [NSMutableArray arrayWithArray:@[tag]];
+    [self.data addObject:group];
+}
+
+- (void)setupGroup3
+{
     //    self.addImageView = customView;
     UIView *startView = [[UIView alloc] init];
     startView.backgroundColor = kColorForBackgroud;
-    
-    
-    
     
     [startView addSubview:self.startMomentBtn];
     [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -151,8 +188,14 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     addOptionView.backgroundColor = [UIColor clearColor];
     
     UIButton *addOptionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    addOptionBtn.frame = CGRectMake(0, 0, 30, 100);
-    [addOptionBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
+//    addOptionBtn.frame = CGRectMake(0, 0, 30, 100);
+    [addOptionBtn setTitle:@"添加更多选项  " forState:UIControlStateNormal];
+    [addOptionBtn.titleLabel setFont:FONT(13)];
+    [addOptionBtn.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [addOptionBtn.titleLabel setNumberOfLines:1];
+    [addOptionBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
+    [addOptionBtn setImage:kImage(@"icon_add_options") forState:UIControlStateNormal];
+    [addOptionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     addOptionBtn.tintColor = [UIColor whiteColor];
 //    [addOptionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -25)];
     [addOptionBtn addTarget:self action:@selector(addOptionBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -161,7 +204,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [addOptionView addSubview:addOptionBtn];
     [addOptionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(addOptionView);
-        make.left.equalTo(addOptionView).offset(kDistanceToHSide);
+        make.left.equalTo(addOptionView).offset(kDistanceToHSide+3);
     }];
     return addOptionView;
 }
@@ -179,14 +222,13 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSMutableArray *items = group.items;
         [items insertObject:attachment0 atIndex:items.count-1];
         
-//            [self.tableView reloadData];
         [self.tableView beginUpdates];
-        NSArray *_tempIndexPathArr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:group.items.count-1 inSection:1]];
-        [self.tableView insertRowsAtIndexPaths:_tempIndexPathArr withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:group.items.count-2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-        
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:group.items.count - 2 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:group.items.count-1 inSection:1] atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:group.items.count - 1 inSection:1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        });
     }
     else {
         MMAlertView *alertView = [[MMAlertView alloc] initWithConfirmTitle:@"提示" detail:@"只能设置7个选项."];
@@ -254,7 +296,12 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 20;
+    if (section == self.data.count-1) {
+        return 50;
+    } else if (section == self.data.count-2) {
+        return 20;
+    }
+    return 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -282,7 +329,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 5);
-        [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
+        [_startMomentBtn setTitle:@"发布" forState:UIControlStateNormal];
 //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateNormal];
 //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateHighlighted];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
