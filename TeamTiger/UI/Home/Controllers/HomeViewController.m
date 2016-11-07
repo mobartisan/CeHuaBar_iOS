@@ -151,7 +151,7 @@
         [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         setBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [setBtn setTitleColor:[Common colorFromHexRGB:@"ffffff"] forState:UIControlStateNormal];
-        setBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 25, 0, 0);
+        setBtn.titleEdgeInsets = UIEdgeInsetsMake(-3, 30, 0, 0);
         [setBtn setBackgroundImage:[UIImage imageNamed:@"btn_project_setting"] forState:UIControlStateNormal];
 //        setBtn.backgroundColor = kRGBColor(22, 111, 220);
         setBtn.layer.cornerRadius = 15;
@@ -161,7 +161,7 @@
         
         imageView.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
         
-        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(110).heightIs(34);
+        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(120).heightIs(34);
         
         [_headerView setupAutoHeightWithBottomView:setBtn bottomMargin:5];
         [_headerView layoutSubviews];

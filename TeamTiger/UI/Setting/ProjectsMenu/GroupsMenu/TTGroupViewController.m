@@ -12,6 +12,7 @@
 #import "TTAddProjectViewController.h"
 #import "TTSettingViewController.h"
 #import "GroupHeadView.h"
+#import "UIViewController+MMDrawerController.h"
 
 @interface TTGroupViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -84,8 +85,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-    [self.navigationController pushViewController:settingVC animated:YES];
+//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+//    [self.navigationController pushViewController:settingVC animated:YES];
+    
+    //主页moments
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+#warning to do
+        [self.navigationController popViewControllerAnimated:NO];
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

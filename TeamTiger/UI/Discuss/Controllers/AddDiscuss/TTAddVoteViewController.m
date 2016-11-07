@@ -179,14 +179,13 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSMutableArray *items = group.items;
         [items insertObject:attachment0 atIndex:items.count-1];
         
-//            [self.tableView reloadData];
         [self.tableView beginUpdates];
-        NSArray *_tempIndexPathArr = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:group.items.count-1 inSection:1]];
-        [self.tableView insertRowsAtIndexPaths:_tempIndexPathArr withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:group.items.count-2 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
-        
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:group.items.count - 2 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:group.items.count-1 inSection:1] atScrollPosition:UITableViewScrollPositionNone animated:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:group.items.count - 1 inSection:1] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        });
     }
     else {
         MMAlertView *alertView = [[MMAlertView alloc] initWithConfirmTitle:@"提示" detail:@"只能设置7个选项."];
