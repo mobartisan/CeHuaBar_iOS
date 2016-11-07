@@ -189,7 +189,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     
     UIButton *addOptionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    addOptionBtn.frame = CGRectMake(0, 0, 30, 100);
-    [addOptionBtn setTitle:@"添加更多选项  " forState:UIControlStateNormal];
+    [addOptionBtn setTitle:@"添加更多选项   " forState:UIControlStateNormal];
     [addOptionBtn.titleLabel setFont:FONT(13)];
     [addOptionBtn.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [addOptionBtn.titleLabel setNumberOfLines:1];
