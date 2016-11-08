@@ -171,17 +171,16 @@
 
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
     _homeModel.open = !_homeModel.open;
-    [self.tableView reloadDataWithExistedHeightCache];
+    if (_homeModel.open) {
+        _homeModel.indexModel.show = YES;
+    }
+    [self.tableView reloadData];
     if (self.CommentBtnClick) {
         self.CommentBtnClick(sender.indexPath);
     }
 }
 
 - (void)setHomeModel:(HomeModel *)homeModel {
-    if (_homeModel.indexModel.open) {
-        _homeModel.indexModel.show = YES;
-    }
-    
     _homeModel = homeModel;
     
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
@@ -283,8 +282,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
-    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
+    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
+//    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
+//    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
 }
 
 #pragma mark HomeCommentCellDelegate
@@ -293,7 +293,7 @@
     for (HomeCommentModel *commentModel in _homeModel.comment) {
         commentModel.open = YES;
     }
-    [self.tableView reloadDataWithExistedHeightCache];
+    [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
 }
 

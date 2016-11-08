@@ -267,8 +267,7 @@
 }
 
 - (void)handleRefresh:(NSNotification *)notification {
-    NSIndexPath *indexPath = notification.object;
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView reloadData];
 }
 
 #pragma mark UITableViewDataSource
