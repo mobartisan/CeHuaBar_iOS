@@ -173,6 +173,10 @@
     _homeModel.open = !_homeModel.open;
     if (_homeModel.open) {
         _homeModel.indexModel.show = YES;
+    }else {
+        for (HomeCommentModel *commentModel in _homeModel.comment) {
+            commentModel.open = NO;
+        }
     }
     [self.tableView reloadData];
     if (self.CommentBtnClick) {

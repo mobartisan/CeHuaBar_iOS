@@ -29,6 +29,7 @@
 @property (strong, nonatomic) UILabel *bTicket;
 @property (strong, nonatomic) UILabel *cTicket;
 @property (strong, nonatomic) UILabel *timeLB;
+@property (strong, nonatomic) UIView *separLine;
 
 @end
 
@@ -138,6 +139,11 @@
     self.timeLB.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.timeLB];
 
+    //分割线
+    self.separLine = [UIView new];
+    self.separLine.backgroundColor = kRGBColor(41, 50, 61);
+    [self.contentView addSubview:self.separLine];
+    
     self.iconImV.sd_layout.leftSpaceToView(self.contentView, 17).topSpaceToView(self.contentView, 19).widthIs(37).heightIs(37);
     self.iconImV.sd_cornerRadiusFromWidthRatio = @(0.5);
     
@@ -179,7 +185,9 @@
     [self.timeLB setSingleLineAutoResizeWithMaxWidth:200];
     [self.timeLB updateLayout];
     
-    [self setupAutoHeightWithBottomView:self.timeLB bottomMargin:10];
+    self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(1.5).topSpaceToView(self.timeLB, 10);
+    
+    [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
 }
 
 - (void)setHomeModel:(HomeModel *)homeModel {

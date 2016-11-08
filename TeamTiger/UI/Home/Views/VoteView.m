@@ -1,40 +1,25 @@
 //
-//  SDWeiXinPhotoContainerView.m
-//  SDAutoLayout 测试 Demo
+//  VoteView.m
+//  TeamTiger
 //
-//  Created by gsd on 15/12/23.
-//  Copyright © 2015年 gsd. All rights reserved.
+//  Created by Dale on 16/11/8.
+//  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
-
-/*
- 
- *********************************************************************************
- *                                                                                *
- * 在您使用此自动布局库的过程中如果出现bug请及时以以下任意一种方式联系我们，我们会及时修复bug并  *
- * 帮您解决问题。                                                                    *
- * 持续更新地址: https://github.com/gsdios/SDAutoLayout                              *
- * Email : gsdios@126.com                                                          *
- * GitHub: https://github.com/gsdios                                               *
- * 新浪微博:GSD_iOS                                                                 *
- *                                                                                *
- *********************************************************************************
- 
- */
-
-#import "SDWeiXinPhotoContainerView.h"
+#import "VoteView.h"
 #import "UIView+SDAutoLayout.h"
 #import "SDPhotoBrowser.h"
 
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 
-@interface SDWeiXinPhotoContainerView () <SDPhotoBrowserDelegate>
+@interface VoteView ()<SDPhotoBrowserDelegate>
 
 @property (nonatomic, strong) NSArray *imageViewsArray;
 
 @end
 
-@implementation SDWeiXinPhotoContainerView
+@implementation VoteView
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -56,6 +41,9 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];
         [imageView addGestureRecognizer:tap];
         [temp addObject:imageView];
+        
+        
+        
     }
     
     self.imageViewsArray = [temp copy];
@@ -79,14 +67,14 @@
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = itemW;
-//    if (_picPathStringsArray.count == 1) {
-//        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
-//        if (image.size.width) {
-//            itemH = image.size.height / image.size.width * itemW;
-//        }
-//    } else {
-//        itemH = itemW;
-//    }
+    //    if (_picPathStringsArray.count == 1) {
+    //        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
+    //        if (image.size.width) {
+    //            itemH = image.size.height / image.size.width * itemW;
+    //        }
+    //    } else {
+    //        itemH = itemW;
+    //    }
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin  = self.isCommentCell ? 10 : 7;
     [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -121,25 +109,25 @@
 
 - (CGFloat)itemWidthForPicPathArray:(NSArray *)array
 {
-//    if (array.count == 1) {
-//        return 120;
-//    } else {
-//        CGFloat w = [UIScreen mainScreen].bounds.size.width > 320 ? 80 : 70;
-//        return w;
-//    }
+    //    if (array.count == 1) {
+    //        return 120;
+    //    } else {
+    //        CGFloat w = [UIScreen mainScreen].bounds.size.width > 320 ? 80 : 70;
+    //        return w;
+    //    }
     
     return self.isCommentCell ?  52 : ([UIScreen mainScreen].bounds.size.width > 375 ?  75: 70);
 }
 
 - (NSInteger)perRowItemCountForPicPathArray:(NSArray *)array
 {
-//    if (array.count <= 3) {
-//        return array.count;
-//    } else if (array.count <= 4) {
-//        return 2;
-//    } else {
-//        return 3;
-//    }
+    //    if (array.count <= 3) {
+    //        return array.count;
+    //    } else if (array.count <= 4) {
+    //        return 2;
+    //    } else {
+    //        return 3;
+    //    }
     return 4;
     
 }
@@ -159,5 +147,6 @@
     UIImageView *imageView = self.subviews[index];
     return imageView.image;
 }
+
 
 @end

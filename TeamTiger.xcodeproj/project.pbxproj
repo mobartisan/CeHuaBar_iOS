@@ -482,6 +482,7 @@
 		2DFA80A91DD1BDF100160060 /* HomeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA809E1DD1BDF100160060 /* HomeCommentCell.m */; };
 		2DFA80AA1DD1BDF100160060 /* HomeVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */; };
 		2DFA80AB1DD1BDF100160060 /* SDWeiXinPhotoContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */; };
+		2DFA80AE1DD1CB0500160060 /* VoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80AD1DD1CB0500160060 /* VoteView.m */; };
 		2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */; };
 		2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */; };
 		2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */; };
@@ -1369,6 +1370,8 @@
 		2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeVoteCell.m; sourceTree = "<group>"; };
 		2DFA80A21DD1BDF100160060 /* SDWeiXinPhotoContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWeiXinPhotoContainerView.h; sourceTree = "<group>"; };
 		2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWeiXinPhotoContainerView.m; sourceTree = "<group>"; };
+		2DFA80AC1DD1CB0500160060 /* VoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteView.h; sourceTree = "<group>"; };
+		2DFA80AD1DD1CB0500160060 /* VoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteView.m; sourceTree = "<group>"; };
 		2DFACA491D507B8B0099A2A3 /* DiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussViewController.h; sourceTree = "<group>"; };
 		2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussViewController.m; sourceTree = "<group>"; };
 		2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussViewController.xib; sourceTree = "<group>"; };
@@ -3451,18 +3454,12 @@
 				2DFA809E1DD1BDF100160060 /* HomeCommentCell.m */,
 				2DFA809F1DD1BDF100160060 /* HomeVoteCell.h */,
 				2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */,
-				2DFA80A11DD1BDF100160060 /* InputView */,
 				2DFA80A21DD1BDF100160060 /* SDWeiXinPhotoContainerView.h */,
 				2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */,
+				2DFA80AC1DD1CB0500160060 /* VoteView.h */,
+				2DFA80AD1DD1CB0500160060 /* VoteView.m */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		2DFA80A11DD1BDF100160060 /* InputView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = InputView;
 			sourceTree = "<group>";
 		};
 		2DFACA471D507B8B0099A2A3 /* Discuss */ = {
@@ -3783,6 +3780,7 @@
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
 				063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */,
 				06008F461D58249300A5B3DB /* TZVideoPlayerController.m in Sources */,
+				2DFA80AE1DD1CB0500160060 /* VoteView.m in Sources */,
 				2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				2DDD54271DB0D4AF00C55633 /* QNFile.m in Sources */,

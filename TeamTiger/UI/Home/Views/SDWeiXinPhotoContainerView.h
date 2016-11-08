@@ -26,6 +26,9 @@
 
 @interface SDWeiXinPhotoContainerView : UIView
 
+//是否是commentCell类型
+@property (assign, nonatomic) BOOL isCommentCell;
+
 @property (nonatomic, strong) NSArray *picPathStringsArray;
 
 @end

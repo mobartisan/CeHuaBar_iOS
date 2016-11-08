@@ -91,6 +91,7 @@
     
     //图片
     self.photoContainerView = [SDWeiXinPhotoContainerView new];
+    self.photoContainerView.isCommentCell = YES;
     [self.contentView addSubview:self.photoContainerView];
     
     self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -161,11 +162,8 @@
         self.moreBtn.hidden = YES;
         self.lineView1.hidden = NO;
     }
-    if (_homeCommentModel.open) {
-        self.imageV.image = kImage(@"img_point_normal");
-    }else {
-        self.imageV.image = kImage(@"img_point");
-    }
+    self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
+   
     
 }
 
