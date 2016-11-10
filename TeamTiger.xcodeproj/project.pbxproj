@@ -474,15 +474,16 @@
 		2DDD543B1DB0D4D300C55633 /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */; };
 		2DDD543C1DB0D4D300C55633 /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD543A1DB0D4D300C55633 /* QiniuUpoadManager.m */; };
 		2DDD543F1DB0D52C00C55633 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDD543E1DB0D52C00C55633 /* libresolv.tbd */; };
+		2DF9F2A21DD461F000707F37 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F2961DD461F000707F37 /* HomeCell.m */; };
+		2DF9F2A31DD461F000707F37 /* HomeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F2981DD461F000707F37 /* HomeCommentCell.m */; };
+		2DF9F2A41DD461F000707F37 /* SDWeiXinPhotoContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F29A1DD461F000707F37 /* SDWeiXinPhotoContainerView.m */; };
+		2DF9F2A51DD461F000707F37 /* HomeVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F29D1DD461F000707F37 /* HomeVoteCell.m */; };
+		2DF9F2A61DD461F000707F37 /* ImageAndBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F29F1DD461F000707F37 /* ImageAndBtnView.m */; };
+		2DF9F2A71DD461F000707F37 /* VoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9F2A11DD461F000707F37 /* VoteView.m */; };
 		2DFA80A41DD1BDF100160060 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80931DD1BDF100160060 /* HomeViewController.m */; };
 		2DFA80A51DD1BDF100160060 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFA80941DD1BDF100160060 /* HomeViewController.xib */; };
 		2DFA80A61DD1BDF100160060 /* HomeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80971DD1BDF100160060 /* HomeCommentModel.m */; };
 		2DFA80A71DD1BDF100160060 /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80991DD1BDF100160060 /* HomeModel.m */; };
-		2DFA80A81DD1BDF100160060 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA809C1DD1BDF100160060 /* HomeCell.m */; };
-		2DFA80A91DD1BDF100160060 /* HomeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA809E1DD1BDF100160060 /* HomeCommentCell.m */; };
-		2DFA80AA1DD1BDF100160060 /* HomeVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */; };
-		2DFA80AB1DD1BDF100160060 /* SDWeiXinPhotoContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */; };
-		2DFA80AE1DD1CB0500160060 /* VoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80AD1DD1CB0500160060 /* VoteView.m */; };
 		2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */; };
 		2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */; };
 		2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */; };
@@ -1355,6 +1356,18 @@
 		2DDD54391DB0D4D300C55633 /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
 		2DDD543A1DB0D4D300C55633 /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
 		2DDD543E1DB0D52C00C55633 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		2DF9F2951DD461F000707F37 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		2DF9F2961DD461F000707F37 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		2DF9F2971DD461F000707F37 /* HomeCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentCell.h; sourceTree = "<group>"; };
+		2DF9F2981DD461F000707F37 /* HomeCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentCell.m; sourceTree = "<group>"; };
+		2DF9F2991DD461F000707F37 /* SDWeiXinPhotoContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWeiXinPhotoContainerView.h; sourceTree = "<group>"; };
+		2DF9F29A1DD461F000707F37 /* SDWeiXinPhotoContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWeiXinPhotoContainerView.m; sourceTree = "<group>"; };
+		2DF9F29C1DD461F000707F37 /* HomeVoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeVoteCell.h; sourceTree = "<group>"; };
+		2DF9F29D1DD461F000707F37 /* HomeVoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeVoteCell.m; sourceTree = "<group>"; };
+		2DF9F29E1DD461F000707F37 /* ImageAndBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageAndBtnView.h; sourceTree = "<group>"; };
+		2DF9F29F1DD461F000707F37 /* ImageAndBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageAndBtnView.m; sourceTree = "<group>"; };
+		2DF9F2A01DD461F000707F37 /* VoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteView.h; sourceTree = "<group>"; };
+		2DF9F2A11DD461F000707F37 /* VoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteView.m; sourceTree = "<group>"; };
 		2DFA80921DD1BDF100160060 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2DFA80931DD1BDF100160060 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		2DFA80941DD1BDF100160060 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -1362,16 +1375,6 @@
 		2DFA80971DD1BDF100160060 /* HomeCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentModel.m; sourceTree = "<group>"; };
 		2DFA80981DD1BDF100160060 /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
 		2DFA80991DD1BDF100160060 /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
-		2DFA809B1DD1BDF100160060 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		2DFA809C1DD1BDF100160060 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
-		2DFA809D1DD1BDF100160060 /* HomeCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentCell.h; sourceTree = "<group>"; };
-		2DFA809E1DD1BDF100160060 /* HomeCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentCell.m; sourceTree = "<group>"; };
-		2DFA809F1DD1BDF100160060 /* HomeVoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeVoteCell.h; sourceTree = "<group>"; };
-		2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeVoteCell.m; sourceTree = "<group>"; };
-		2DFA80A21DD1BDF100160060 /* SDWeiXinPhotoContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWeiXinPhotoContainerView.h; sourceTree = "<group>"; };
-		2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWeiXinPhotoContainerView.m; sourceTree = "<group>"; };
-		2DFA80AC1DD1CB0500160060 /* VoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteView.h; sourceTree = "<group>"; };
-		2DFA80AD1DD1CB0500160060 /* VoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteView.m; sourceTree = "<group>"; };
 		2DFACA491D507B8B0099A2A3 /* DiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussViewController.h; sourceTree = "<group>"; };
 		2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussViewController.m; sourceTree = "<group>"; };
 		2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussViewController.xib; sourceTree = "<group>"; };
@@ -3424,6 +3427,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		2DF9F2941DD461F000707F37 /* comments */ = {
+			isa = PBXGroup;
+			children = (
+				2DF9F2951DD461F000707F37 /* HomeCell.h */,
+				2DF9F2961DD461F000707F37 /* HomeCell.m */,
+				2DF9F2971DD461F000707F37 /* HomeCommentCell.h */,
+				2DF9F2981DD461F000707F37 /* HomeCommentCell.m */,
+				2DF9F2991DD461F000707F37 /* SDWeiXinPhotoContainerView.h */,
+				2DF9F29A1DD461F000707F37 /* SDWeiXinPhotoContainerView.m */,
+			);
+			path = comments;
+			sourceTree = "<group>";
+		};
+		2DF9F29B1DD461F000707F37 /* votes */ = {
+			isa = PBXGroup;
+			children = (
+				2DF9F29C1DD461F000707F37 /* HomeVoteCell.h */,
+				2DF9F29D1DD461F000707F37 /* HomeVoteCell.m */,
+				2DF9F29E1DD461F000707F37 /* ImageAndBtnView.h */,
+				2DF9F29F1DD461F000707F37 /* ImageAndBtnView.m */,
+				2DF9F2A01DD461F000707F37 /* VoteView.h */,
+				2DF9F2A11DD461F000707F37 /* VoteView.m */,
+			);
+			path = votes;
+			sourceTree = "<group>";
+		};
 		2DFA80911DD1BDF100160060 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3448,16 +3477,8 @@
 		2DFA809A1DD1BDF100160060 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				2DFA809B1DD1BDF100160060 /* HomeCell.h */,
-				2DFA809C1DD1BDF100160060 /* HomeCell.m */,
-				2DFA809D1DD1BDF100160060 /* HomeCommentCell.h */,
-				2DFA809E1DD1BDF100160060 /* HomeCommentCell.m */,
-				2DFA809F1DD1BDF100160060 /* HomeVoteCell.h */,
-				2DFA80A01DD1BDF100160060 /* HomeVoteCell.m */,
-				2DFA80A21DD1BDF100160060 /* SDWeiXinPhotoContainerView.h */,
-				2DFA80A31DD1BDF100160060 /* SDWeiXinPhotoContainerView.m */,
-				2DFA80AC1DD1CB0500160060 /* VoteView.h */,
-				2DFA80AD1DD1CB0500160060 /* VoteView.m */,
+				2DF9F2941DD461F000707F37 /* comments */,
+				2DF9F29B1DD461F000707F37 /* votes */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3727,6 +3748,7 @@
 				1DA71B621D3DB5A1007483D2 /* AppDelegate.m in Sources */,
 				1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */,
 				1D9580B31D3E207200FD0053 /* UIScrollView+MJExtension.m in Sources */,
+				2DF9F2A61DD461F000707F37 /* ImageAndBtnView.m in Sources */,
 				063B088B1D6F144F008AB592 /* MMPopupView.m in Sources */,
 				2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */,
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
@@ -3738,6 +3760,7 @@
 				2DD02A001DD00EFC00CD881F /* SDBrowserImageView.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,
 				1DD2E33B1D59B871005D45A9 /* WXApiResponseHandler.m in Sources */,
+				2DF9F2A71DD461F000707F37 /* VoteView.m in Sources */,
 				1D09CC981D3F29C900F85E9A /* YYTextArchiver.m in Sources */,
 				1D9580A91D3E207200FD0053 /* MJRefreshAutoStateFooter.m in Sources */,
 				2DDD541B1DB0D4AF00C55633 /* QNResolvUtil.m in Sources */,
@@ -3780,7 +3803,6 @@
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
 				063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */,
 				06008F461D58249300A5B3DB /* TZVideoPlayerController.m in Sources */,
-				2DFA80AE1DD1CB0500160060 /* VoteView.m in Sources */,
 				2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				2DDD54271DB0D4AF00C55633 /* QNFile.m in Sources */,
@@ -3789,7 +3811,6 @@
 				2D7945171D5C648E003B5A6E /* JJPhotoManeger.m in Sources */,
 				2DDD54291DB0D4AF00C55633 /* QNPHAssetResource.m in Sources */,
 				1DB926181D46F4F4003676AC /* LCRequestAccessory.m in Sources */,
-				2DFA80AB1DD1BDF100160060 /* SDWeiXinPhotoContainerView.m in Sources */,
 				1D9580A61D3E207200FD0053 /* MJRefreshHeader.m in Sources */,
 				1D55FD941D49AAA400094112 /* SettingCell.m in Sources */,
 				1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */,
@@ -3807,7 +3828,7 @@
 				06008F271D58163100A5B3DB /* TTCommonLabelItem.m in Sources */,
 				1D9580D41D3E225200FD0053 /* MASConstraintMaker.m in Sources */,
 				1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */,
-				2DFA80A91DD1BDF100160060 /* HomeCommentCell.m in Sources */,
+				2DF9F2A31DD461F000707F37 /* HomeCommentCell.m in Sources */,
 				1D09CC631D3F29C900F85E9A /* NSObject+YYAdd.m in Sources */,
 				1D09CD241D3F550300F85E9A /* UIButton+HYBHelperBlockKit.m in Sources */,
 				06008F441D58249300A5B3DB /* TZPhotoPreviewCell.m in Sources */,
@@ -3827,7 +3848,7 @@
 				1D9408691D41BE2D009E2E11 /* MessageManager.m in Sources */,
 				1D09CCAB1D3F29C900F85E9A /* YYWeakProxy.m in Sources */,
 				06DFEBAA1D658CA900DB49E1 /* AddImageView.m in Sources */,
-				2DFA80A81DD1BDF100160060 /* HomeCell.m in Sources */,
+				2DF9F2A21DD461F000707F37 /* HomeCell.m in Sources */,
 				1D09CD0F1D3F550300F85E9A /* HYBHelperKitBaseURLController.m in Sources */,
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
@@ -3872,6 +3893,7 @@
 				2DDD54321DB0D4AF00C55633 /* QNResumeUpload.m in Sources */,
 				068E96541D4F488C0074229C /* MMDrawerVisualState.m in Sources */,
 				1D09CD0D1D3F550300F85E9A /* HYBCommonKit.m in Sources */,
+				2DF9F2A51DD461F000707F37 /* HomeVoteCell.m in Sources */,
 				2DD02A021DD00EFC00CD881F /* SDWaitingView.m in Sources */,
 				1D09CD0E1D3F550300F85E9A /* HYBHelperKitBaseController.m in Sources */,
 				0604B4651D4C5A5B00EF1703 /* CCDraggableCardView.m in Sources */,
@@ -3964,6 +3986,7 @@
 				1D09CC961D3F29C900F85E9A /* NSParagraphStyle+YYText.m in Sources */,
 				1D09CCA31D3F29C900F85E9A /* YYGestureRecognizer.m in Sources */,
 				1D9580AA1D3E207200FD0053 /* MJRefreshBackGifFooter.m in Sources */,
+				2DF9F2A41DD461F000707F37 /* SDWeiXinPhotoContainerView.m in Sources */,
 				06B464A41D62A48B00DBC806 /* UIToolbar+JZExtension.m in Sources */,
 				1D09CC6E1D3F29C900F85E9A /* UIColor+YYAdd.m in Sources */,
 				06B464A11D62A48B00DBC806 /* _JZValue.m in Sources */,
@@ -4002,7 +4025,6 @@
 				1D9580B11D3E207200FD0053 /* MJRefreshConst.m in Sources */,
 				1D09CD541D3F59D500F85E9A /* SDImageCache.m in Sources */,
 				1D0EA2C81D45A82C00B47108 /* LCNetworkConfig.m in Sources */,
-				2DFA80AA1DD1BDF100160060 /* HomeVoteCell.m in Sources */,
 				1D0EA2D11D45A8AE00B47108 /* TMCache.m in Sources */,
 				1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */,
 				1D115F871D4BA043003DFBB1 /* IQUIScrollView+Additions.m in Sources */,

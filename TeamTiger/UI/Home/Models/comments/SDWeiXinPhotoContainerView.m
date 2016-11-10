@@ -127,8 +127,18 @@
 //        CGFloat w = [UIScreen mainScreen].bounds.size.width > 320 ? 80 : 70;
 //        return w;
 //    }
-    
-    return self.isCommentCell ?  52 : ([UIScreen mainScreen].bounds.size.width > 375 ?  75: 70);
+    CGFloat maxWidth = 0.0, minWidth = 0.0;
+    if (is40inch) {
+        maxWidth = 50;
+        minWidth = 42;
+    }else if (is47inch) {
+        maxWidth = 70;
+        minWidth = 50;
+    }else if (is55inch) {
+        maxWidth = 75;
+        minWidth = 60;
+    }
+    return self.isCommentCell ?  minWidth : maxWidth;
 }
 
 - (NSInteger)perRowItemCountForPicPathArray:(NSArray *)array

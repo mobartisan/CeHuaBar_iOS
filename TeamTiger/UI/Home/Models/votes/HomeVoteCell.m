@@ -10,7 +10,7 @@
 #import "HomeModel.h"
 #import "UIView+SDAutoLayout.h"
 #import "SDWeiXinPhotoContainerView.h"
-
+#import "VoteView.h"
 @interface HomeVoteCell ()
 
 @property (strong, nonatomic) UIImageView *iconImV;
@@ -18,7 +18,7 @@
 @property (strong, nonatomic) UIImageView *imageV1;
 @property (strong, nonatomic) UILabel *projectLB;
 @property (strong, nonatomic) UIImageView *imageV2;
-@property (strong, nonatomic) SDWeiXinPhotoContainerView *photoContainerView;
+@property (strong, nonatomic) VoteView *photoContainerView;
 @property (strong, nonatomic) UILabel *aLB;
 @property (strong, nonatomic) UILabel *bLB;
 @property (strong, nonatomic) UILabel *cLB;
@@ -81,7 +81,7 @@
     [self.contentView addSubview:self.imageV2];
     
     //图片
-    self.photoContainerView = [SDWeiXinPhotoContainerView new];
+    self.photoContainerView = [VoteView new];
     [self.contentView addSubview:self.photoContainerView];
     
     //A
@@ -96,6 +96,7 @@
     [self.contentView addSubview:self.aProgressView];
     
     self.aTicket = [UILabel new];
+    self.aTicket.textAlignment = NSTextAlignmentLeft;
     self.aTicket.textColor = kRGB(105, 112, 120);
     self.aTicket.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.aTicket];
@@ -112,6 +113,7 @@
     [self.contentView addSubview:self.bProgressView];
     
     self.bTicket = [UILabel new];
+    self.bTicket.textAlignment = NSTextAlignmentLeft;
     self.bTicket.textColor = kRGB(105, 112, 120);
      self.bTicket.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.bTicket];
@@ -128,6 +130,7 @@
     [self.contentView addSubview:self.cProgressView];
     
     self.cTicket = [UILabel new];
+    self.cTicket.textAlignment = NSTextAlignmentLeft;
     self.cTicket.textColor = kRGB(105, 112, 120);
     self.cTicket.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.cTicket];
@@ -163,21 +166,18 @@
     self.photoContainerView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.projectLB, 10);
     
     //A
-    self.aLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.photoContainerView, 20).widthIs(20).heightIs(20);
-    self.aTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.aLB).heightIs(20);
-    [self.aTicket setSingleLineAutoResizeWithMaxWidth:100];
+    self.aLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.photoContainerView, 10).widthIs(10).heightIs(20);
+    self.aTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.aLB).heightIs(20).widthIs(65);
     self.aProgressView.sd_layout.leftSpaceToView(self.aLB, 10).centerYEqualToView(self.aLB).rightSpaceToView(self.aTicket, 10).heightIs(4);
     
     //B
-    self.bLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.aLB, 5).widthIs(20).heightIs(20);
-    self.bTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.bLB).heightIs(20);
-    [self.bTicket setSingleLineAutoResizeWithMaxWidth:100];
+    self.bLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.aLB, 5).widthIs(10).heightIs(20);
+    self.bTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.bLB).heightIs(20).widthIs(65);
     self.bProgressView.sd_layout.leftSpaceToView(self.bLB, 10).centerYEqualToView(self.bLB).rightSpaceToView(self.bTicket, 10).heightIs(4);
     
     //C
-    self.cLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.bLB, 5).widthIs(20).heightIs(20);
-    self.cTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.cLB).heightIs(20);
-    [self.cTicket setSingleLineAutoResizeWithMaxWidth:100];
+    self.cLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.bLB, 5).widthIs(10).heightIs(20);
+    self.cTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.cLB).heightIs(20).widthIs(65);
     self.cProgressView.sd_layout.leftSpaceToView(self.cLB, 10).centerYEqualToView(self.cLB).rightSpaceToView(self.cTicket, 10).heightIs(4);
     
     //时间
@@ -193,6 +193,7 @@
 - (void)setHomeModel:(HomeModel *)homeModel {
     
     _homeModel = homeModel;
+    
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;

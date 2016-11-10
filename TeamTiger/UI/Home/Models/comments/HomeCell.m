@@ -286,9 +286,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
-//    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
-//    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
+//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
+    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
+    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
 }
 
 #pragma mark HomeCommentCellDelegate

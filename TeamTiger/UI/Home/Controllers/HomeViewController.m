@@ -72,7 +72,7 @@
                                   @"name":@"唐小旭",
                                   @"project":@"工作牛",
                                   @"content":@"测试数据测试数据测试数据测试数据",
-                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_4.jpg", @"image_4.jpg"],
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_7.jpg"],
                                   @"time":@"7月26日 9:45",
                                   @"aNum":@"7",
                                   @"bNum":@"2",
@@ -278,11 +278,10 @@
     HomeModel *model = self.dataSource[indexPath.row];
     if (model.cellType == 0) {
         HomeCell *cell = [HomeCell cellWithTableView:tableView];
-        
         cell.commentBtn.indexPath = indexPath;
         cell.tableView.indexPath = indexPath;
         [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
-            [self.tableView reloadData];;
+            [self.tableView reloadData];
         }];
         cell.homeModel = model;
         return cell;
@@ -292,12 +291,20 @@
         return cell;
     }
     /** 启用cell frame缓存（可以提高cell滚动的流畅度, 目前为cell专用方法，后期会扩展到其他view） */
-    //    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+//        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
+    NSLog(@"%f", [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView]);
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
+    
+//    HomeModel *model = self.dataSource[indexPath.row];
+//    Class currentClass = [HomeCell class];
+//    if (model.cellType == 1) {
+//        currentClass = [HomeVoteCell class];
+//    }
+//    return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
 }
 
 
