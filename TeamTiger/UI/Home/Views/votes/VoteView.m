@@ -106,7 +106,7 @@
 
 //每张图片的宽度
 - (CGFloat)itemWidthForPicPathArray:(NSArray *)array {
-//    CGFloat maxWidth = 0.0;
+    CGFloat maxWidth = 0.0;
 //    if (is40inch) {
 //        maxWidth = 50;
 //    }else if (is47inch) {
@@ -114,7 +114,12 @@
 //    }else if (is55inch) {
 //        maxWidth = 75;
 //    }
-    return  (kScreenWidth - 67 - 25 - 14) / 3;
+    if (is47inch) {
+        maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
+    }else {
+        maxWidth = 102.1;
+    }
+    return maxWidth;
 }
 
 //每行图片的个数
@@ -132,7 +137,7 @@
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {
-    
+    [_textField endEditing:YES];
     UIImageView *view = (UIImageView *)tap.view;
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;

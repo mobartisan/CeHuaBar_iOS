@@ -49,9 +49,11 @@
     
     
     CGFloat maxWidth = 0.0;
-
-    maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
-    
+    if (is47inch) {
+        maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
+    }else {
+        maxWidth = 102.1;
+    }
     self.imageV.sd_layout.leftSpaceToView(self, 0).topSpaceToView(self, 0).widthIs(maxWidth).heightEqualToWidth();
     
     self.projectLB.sd_layout.leftSpaceToView(self, 2).topSpaceToView(self.imageV, 7).widthIs(15).heightIs(20);

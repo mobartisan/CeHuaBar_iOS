@@ -80,7 +80,7 @@
                                 @{@"iconImV":@"9",
                                   @"name":@"唐小旭",
                                   @"project":@"BBS",
-                                  @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
+                                  @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg"],
                                   @"time":@"7月20日 9:45",
                                   @"comment":@[@{@"name":@"唐小旭",
@@ -201,9 +201,15 @@
     self.tableView.allowsSelection = NO;
     self.tableView.tableHeaderView = self.headerView;
     [Common removeExtraCellLines:self.tableView];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
+    [self.tableView addGestureRecognizer:tap];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
 }
 
+- (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
+    [self.tableView endEditing:YES];
+}
 
 - (void)configureNavigationItem {
     
@@ -297,7 +303,6 @@
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%f", [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView]);
     return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
     
     //    HomeModel *model = self.dataSource[indexPath.row];

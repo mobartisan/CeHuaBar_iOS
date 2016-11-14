@@ -161,12 +161,15 @@
     
     
     self.tableView.sd_layout.leftSpaceToView(self.contentView, 14).topSpaceToView(self.timeLB, 13).rightSpaceToView(self.contentView, 14);
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
+    [self.tableView addGestureRecognizer:tap];
     
     
     self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(1.5);
-    
-    
-    [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
+}
+
+- (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
+    [_textField endEditing:YES];
 }
 
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
@@ -206,6 +209,7 @@
         self.tableView.sd_layout.heightIs(0);
         self.separLine.sd_layout.topSpaceToView(self.timeLB, 10);
     }
+     [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
 }
 
 - (UIView *)headerView {
@@ -248,7 +252,7 @@
         textField.layer.masksToBounds = YES;
         textField.backgroundColor = [Common colorFromHexRGB:@"303f53"];
         [bgView addSubview:textField];
-        
+        _textField = textField;
         iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
         
         inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 15).widthIs(13).heightIs(13);
@@ -286,9 +290,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
-    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
-    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
+    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
+//    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
+//    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
 }
 
 #pragma mark HomeCommentCellDelegate

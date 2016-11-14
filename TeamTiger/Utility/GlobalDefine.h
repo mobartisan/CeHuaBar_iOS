@@ -25,5 +25,5 @@ static const char* kColorAr[STR_COLOR_MAX] = {
     "DCAD62", "669AFF", "DA4042", "91BF42", "E8C61E","41C4F0"};
 
 NSString *gSession;
-UIView   *keyBoardBGView;
+UITextField   *_textField;
 #endif /* GlobalDefine_h */
