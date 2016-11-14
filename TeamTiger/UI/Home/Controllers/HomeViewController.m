@@ -103,35 +103,35 @@
                                                  @"content":@"滴滴滴滴的",
                                                  @"photeNameArry":@[],
                                                  @"time":@"7月22日 11:30"}
-                                               ].mutableCopy},
-                                @{@"cellType":@"0",
-                                  @"iconImV":@"5",
-                                  @"name":@"曹兴星",
-                                  @"project":@"工作牛",
-                                  @"content":@"测试数据测试数据测试数据",
-                                  @"photeNameArry":@[@"image_4.jpg"],
-                                  @"time":@"7月20日 9:45",
-                                  @"comment":@[@{@"name":@"唐小旭",
-                                                 @"sName":@"@卞克",
-                                                 @"content":@"测试数据测试数据测试数据测试数据",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月23日 20:30"},
-                                               @{@"name":@"卞克",
-                                                 @"sName":@"@唐小绪",
-                                                 @"content":@"哈哈哈",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月23日 15:05"},
-                                               @{@"name":@"俞弦",
-                                                 @"sName":@"",
-                                                 @"content":@"有点意思",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月23日 12:01"},
-                                               @{@"name":@"齐云猛",
-                                                 @"sName":@"",
-                                                 @"content":@"滴滴滴滴的",
-                                                 @"photeNameArry":@[],
-                                                 @"time":@"7月22日 11:30"}
                                                ].mutableCopy}
+//                                @{@"cellType":@"0",
+//                                  @"iconImV":@"5",
+//                                  @"name":@"曹兴星",
+//                                  @"project":@"工作牛",
+//                                  @"content":@"测试数据测试数据测试数据",
+//                                  @"photeNameArry":@[@"image_4.jpg"],
+//                                  @"time":@"7月20日 9:45",
+//                                  @"comment":@[@{@"name":@"唐小旭",
+//                                                 @"sName":@"@卞克",
+//                                                 @"content":@"测试数据测试数据测试数据测试数据",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月23日 20:30"},
+//                                               @{@"name":@"卞克",
+//                                                 @"sName":@"@唐小绪",
+//                                                 @"content":@"哈哈哈",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月23日 15:05"},
+//                                               @{@"name":@"俞弦",
+//                                                 @"sName":@"",
+//                                                 @"content":@"有点意思",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月23日 12:01"},
+//                                               @{@"name":@"齐云猛",
+//                                                 @"sName":@"",
+//                                                 @"content":@"滴滴滴滴的",
+//                                                 @"photeNameArry":@[],
+//                                                 @"time":@"7月22日 11:30"}
+//                                               ].mutableCopy}
                                 ].mutableCopy;
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in arr) {
@@ -217,7 +217,7 @@
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 30, 20);
-    [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
+    [rightBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
     rightBtn.tintColor = [UIColor whiteColor];
     [rightBtn addTarget:self action:@selector(handleRightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
