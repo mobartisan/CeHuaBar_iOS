@@ -29,7 +29,7 @@
 @property (nonatomic, weak) UIView *sourceImagesContainerView;
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) NSInteger imageCount;
-
+@property (copy, nonatomic) NSString *content;
 @property (nonatomic, weak) id<SDPhotoBrowserDelegate> delegate;
 
 - (void)show;

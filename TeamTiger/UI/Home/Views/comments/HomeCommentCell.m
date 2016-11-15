@@ -131,14 +131,16 @@
         self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
         self.nameLB.font = [UIFont systemFontOfSize:12];
         self.nameLB.textColor = [Common colorFromHexRGB:@"69737f"];
+        self.nameLB.layer.cornerRadius = 3.0;
+        self.nameLB.layer.masksToBounds = YES;
     }else {
         self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
     }
     self.nameLB.text = homeCommentModel.name;
     self.name1LB.text = homeCommentModel.sName;
     self.desLB.text = homeCommentModel.content;
-    _photoContainerView.picPathStringsArray = homeCommentModel.photeNameArry;
-    
+    self.photoContainerView.picPathStringsArray = homeCommentModel.photeNameArry;
+    self.photoContainerView.content = homeCommentModel.content;
     CGFloat height = 0;
     if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {
         self.photoContainerView.sd_layout.topSpaceToView(self.desLB, 5);

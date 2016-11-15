@@ -45,7 +45,6 @@ typedef NS_ENUM(NSInteger, HomeModelCellType) {
 //cell类型
 @property (assign, nonatomic) HomeModelCellType cellType;
 
-
 + (instancetype)modelWithDic:(NSDictionary *)dic;
 
 @end

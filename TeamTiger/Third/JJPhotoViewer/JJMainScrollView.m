@@ -27,7 +27,10 @@
 
 
 @implementation JJMainScrollView
-
+{
+    UILabel *_indexLabel;
+    UILabel *_contentLB;
+}
 
 
 
@@ -59,9 +62,35 @@
         
         //代理
         self.delegate = self;
+        [self setupToolbars];
 
     }
     return self;
+}
+
+- (void)setupToolbars {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    // 1. 序标
+    UILabel *indexLabel = [[UILabel alloc] init];
+    indexLabel.text = @"2/4";
+    indexLabel.bounds = CGRectMake(0, 0, 80, 30);
+    indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35);
+    indexLabel.textAlignment = NSTextAlignmentCenter;
+    indexLabel.textColor = [UIColor whiteColor];
+    indexLabel.font = [UIFont boldSystemFontOfSize:20];
+    indexLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    indexLabel.layer.cornerRadius = indexLabel.bounds.size.height * 0.5;
+    indexLabel.clipsToBounds = YES;
+    _indexLabel = indexLabel;
+    [window addSubview:indexLabel];
+    
+    //2.内容label
+    UILabel *contentLB = [UILabel new];
+    contentLB.textColor = [UIColor whiteColor];
+    contentLB.numberOfLines = 0;
+    _contentLB = contentLB;
+    [self addSubview:contentLB];
+    
 }
 
 #pragma mark - 拿到数据时展示
@@ -81,8 +110,6 @@
         if(photo.isSelecImageView == YES)
         {
             selcImageIndex = i;
-            
-       
             break;
         }
         
@@ -145,8 +172,6 @@
         //当前观看的这个是第几个oneSc
         NSInteger  nowLookIndex =( scrollView.contentOffset.x + (scrollView.bounds.size.width/2)) /scrollView.bounds.size.width  ;
         
-   
-        
         for(int i = 0;i < self.oneScrolArr.count ; i++  )
         {
             if (i != nowLookIndex) {//除了当前看的 其他都给我重置位置
@@ -172,6 +197,7 @@
 //即将退出图片浏览器
 -(void)willGoBack:(NSInteger)seletedIndex
 {
+    [_indexLabel removeFromSuperview];
     //防崩
     self.delegate = nil;
     //返回退出时点的ImageView的序号给代理

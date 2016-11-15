@@ -32,9 +32,9 @@
 
 // Views
 //#define <#macro#> <#value#>
-static const int STR_OPTION_MAX = 7;
+static const int STR_OPTION_MAX = 9;
 static const char* kOptionStr[STR_OPTION_MAX] = {
-    "A", "B", "C", "D", "E","F", "G"};
+    "A", "B", "C", "D", "E","F", "G", "H", "I"};
 @interface TTAddVoteViewController ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
@@ -231,7 +231,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         });
     }
     else {
-        MMAlertView *alertView = [[MMAlertView alloc] initWithConfirmTitle:@"提示" detail:@"只能设置7个选项."];
+        MMAlertView *alertView = [[MMAlertView alloc] initWithConfirmTitle:@"提示" detail:@"只能设置9个选项."];
         alertView.attachedView = self.view;
         alertView.attachedView.mm_dimBackgroundBlurEnabled = YES;
         alertView.attachedView.mm_dimBackgroundBlurEffectStyle = UIBlurEffectStyleDark;

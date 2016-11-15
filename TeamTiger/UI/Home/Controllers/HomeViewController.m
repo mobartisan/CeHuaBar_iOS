@@ -26,11 +26,12 @@
 #import "UIViewController+MMDrawerController.h"
 #import "IQKeyboardManager.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @end
 
@@ -88,7 +89,7 @@
                                                  @"content":@"测试数据测试数据测试数据测试数据",
                                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
                                                  @"time":@"7月23日 20:30"},
-                                               @{@"name":@"卞克",
+                                               @{@"name":@"曹兴星",
                                                  @"sName":@"@唐小绪",
                                                  @"content":@"哈哈哈",
                                                  @"photeNameArry":@[],
@@ -148,16 +149,23 @@
     if (!_headerView) {
         _headerView = [UIView new];
         _headerView.backgroundColor = kRGBColor(28, 37, 51);
-        
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         
-        UIImageView *imageView = [UIImageView new];
-        imageView.userInteractionEnabled = YES;
-        imageView.image = [UIImage imageNamed:@"image_3.jpg"];
-        [_headerView addSubview:imageView];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
-        [tap addTarget:self action:@selector(handleTapAction:)];
-        [imageView addGestureRecognizer:tap];
+        UIButton *imageBtn = [UIButton new];
+        imageBtn.tag = 1000;
+        [imageBtn addTarget:self action:@selector(handleImageBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [_headerView addSubview:imageBtn];
+        
+        UILabel *textLB = [UILabel new];
+        textLB.userInteractionEnabled = YES;
+        textLB.tag = 1001;
+        textLB.textAlignment = NSTextAlignmentCenter;
+        textLB.text = @"轻触设置moment封面";
+        textLB.textColor = [Common colorFromHexRGB:@"3f608b"];
+        textLB.backgroundColor = [Common colorFromHexRGB:@"212e41"];
+        [_headerView addSubview:textLB];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapAction:)];
+        [textLB addGestureRecognizer:tap];
         
         
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -171,9 +179,11 @@
         [setBtn addTarget:self action:@selector(handleSetBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [_headerView addSubview:setBtn];
         
-        imageView.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
+        imageBtn.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
         
-        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(120).heightIs(34);
+        textLB.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
+        
+        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(120).heightIs(40);
         
         [_headerView setupAutoHeightWithBottomView:setBtn bottomMargin:5];
         [_headerView layoutSubviews];
@@ -181,14 +191,12 @@
     return _headerView;
 }
 
-//点击图片
-- (void)handleTapAction:(UITapGestureRecognizer *)tap {
-    NSLog(@"tap");
-}
-
 //设置按钮
 - (void)handleSetBtnAction {
-    NSLog(@"handleSetBtnAction");
+//    jump to setting
+    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+    [self.navigationController pushViewController:settingVC animated:YES];
+
 }
 
 - (void)viewDidLoad {
@@ -205,10 +213,30 @@
     [self.tableView addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
     [self.tableView endEditing:YES];
+}
+
+- (void)handleKeyBoard:(NSNotification *)notification {
+    CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
+    CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
+    NSLog(@"%@", NSStringFromCGRect(cellF));
+    CGFloat delta = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - [cell.tableView cellsTotalHeight];
+    
+    CGPoint offset = self.tableView.contentOffset;
+    NSLog(@"%f", offset.y);
+    offset.y += delta;
+    if (offset.y < 0) {
+        offset.y = 0;
+    }
+    
+    [self.tableView setContentOffset:offset animated:YES];
 }
 
 - (void)configureNavigationItem {
@@ -216,7 +244,7 @@
     //左侧
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(0, 0, 30, 20);
-    [leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
+    [leftBtn setImage:kImage(@"icon_sidebar_hint") forState:UIControlStateNormal];
     leftBtn.tintColor = [UIColor whiteColor];
     [leftBtn addTarget:self action:@selector(handleProjectsBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
@@ -236,7 +264,6 @@
 
 - (void)handleRightBtnAction {
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
-    
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
@@ -289,6 +316,7 @@
         cell.tableView.indexPath = indexPath;
         [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
             [self.tableView reloadData];
+            self.currentIndexPath = indexPath1;
         }];
         cell.homeModel = model;
         return cell;
@@ -303,14 +331,73 @@
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
+//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
     
-    //    HomeModel *model = self.dataSource[indexPath.row];
-    //    Class currentClass = [HomeCell class];
-    //    if (model.cellType == 1) {
-    //        currentClass = [HomeVoteCell class];
-    //    }
-    //    return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+        HomeModel *model = self.dataSource[indexPath.row];
+        Class currentClass = [HomeCell class];
+        if (model.cellType == 1) {
+            currentClass = [HomeVoteCell class];
+        }
+        return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+}
+
+//点击图片
+- (void)handleImageBtn:(UIButton *)sender {
+    [self presentVC];
+}
+
+- (void)handleTapAction:(UITapGestureRecognizer *)tap {
+    [self presentVC];
+}
+
+- (void)presentVC {
+    [MMPopupWindow sharedWindow].touchWildToHide = YES;
+    MMPopupItemHandler block = ^(NSInteger index){
+        if (index == 0) {
+            [self readImageFromAlbum];
+        } else if (index == 1) {
+            [self readImageFromCamera];
+        }
+    };
+    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+        NSLog(@"animation complete");
+    };
+    NSArray *items =
+    @[MMItemMake(@"相册", MMItemTypeNormal, block),
+      MMItemMake(@"拍照", MMItemTypeNormal, block)];
+    
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
+                                                          items:items];
+    sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
+    [sheetView showWithBlock:completeBlock];
+}
+
+//从相册中读取照片
+- (void)readImageFromAlbum {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;    imagePicker.delegate = self;
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+//拍照
+- (void)readImageFromCamera {
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.allowsEditing = YES;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"未检测到摄像头" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        [alert show];
+    }
+}
+#pragma mark --- UIImagePickerControllerDelegate
+//图片编辑完成之后触发, 显示图片在button上
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+    [_headerView viewWithTag:1001].hidden = YES;
+    [[_headerView viewWithTag:1000] setBackgroundImage:image forState:(UIControlStateNormal)];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

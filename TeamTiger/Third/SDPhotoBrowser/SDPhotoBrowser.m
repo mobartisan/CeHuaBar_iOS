@@ -28,7 +28,8 @@
     UIScrollView *_scrollView;
     BOOL _hasShowedFistView;
     UILabel *_indexLabel;
-    UIButton *_saveButton;
+//    UIButton *_saveButton;
+    UILabel *_contentLB;
     UIActivityIndicatorView *_indicatorView;
     BOOL _willDisappear;
 }
@@ -47,7 +48,7 @@
 {
     [self setupScrollView];
     
-//    [self setupToolbars];
+    [self setupToolbars];
 }
 
 - (void)dealloc
@@ -73,17 +74,26 @@
     [self addSubview:indexLabel];
     
     // 2.保存按钮
-    UIButton *saveButton = [[UIButton alloc] init];
-    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
-    [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    saveButton.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.90f];
-    saveButton.layer.cornerRadius = 5;
-    saveButton.clipsToBounds = YES;
-    [saveButton addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
-    _saveButton = saveButton;
-    [self addSubview:saveButton];
+//    UIButton *saveButton = [[UIButton alloc] init];
+//    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
+//    [saveButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    saveButton.backgroundColor = [UIColor colorWithRed:0.1f green:0.1f blue:0.1f alpha:0.90f];
+//    saveButton.layer.cornerRadius = 5;
+//    saveButton.clipsToBounds = YES;
+//    [saveButton addTarget:self action:@selector(saveImage) forControlEvents:UIControlEventTouchUpInside];
+//    _saveButton = saveButton;
+//    [self addSubview:saveButton];
+    
+    //3.内容label
+    UILabel *contentLB = [UILabel new];
+    contentLB.textColor = [UIColor whiteColor];
+    contentLB.numberOfLines = 0;
+    _contentLB = contentLB;
+    [self addSubview:contentLB];
+    
 }
 
+/*
 - (void)saveImage
 {
     int index = _scrollView.contentOffset.x / _scrollView.bounds.size.width;
@@ -121,6 +131,7 @@
     }
     [label performSelector:@selector(removeFromSuperview) withObject:nil afterDelay:1.0];
 }
+*/
 
 - (void)setupScrollView
 {
@@ -194,7 +205,8 @@
     
     [self addSubview:tempView];
 
-    _saveButton.hidden = YES;
+//    _saveButton.hidden = YES;
+    _contentLB.hidden = YES;
     
     [UIView animateWithDuration:SDPhotoBrowserHideImageAnimationDuration animations:^{
         tempView.frame = targetTemp;
@@ -250,7 +262,9 @@
     }
     
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35);
-    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 50, 25);
+//    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 50, 25);
+    _contentLB.frame = CGRectMake(15, self.bounds.size.height - 100, kScreenWidth - 15, 80);
+    _contentLB.text = self.content;
 }
 
 - (void)show

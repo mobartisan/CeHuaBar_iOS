@@ -18,7 +18,7 @@
 
 #define KHeaderViewH  10
 
-@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate>
+@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) UIImageView *iconImV;
 @property (strong, nonatomic) UILabel *nameLB;
@@ -195,7 +195,9 @@
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;
     self.timeLB.text = homeModel.time;
-    _photoContainerView.picPathStringsArray = homeModel.photeNameArry;
+    self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
+    self.photoContainerView.content = homeModel.content;
+    
     //图片
     if (homeModel.photeNameArry.count > 0) {
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,10);
@@ -210,6 +212,7 @@
         self.separLine.sd_layout.topSpaceToView(self.timeLB, 10);
     }
      [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
+    
 }
 
 - (UIView *)headerView {
@@ -243,13 +246,17 @@
         [bgView addSubview:imageV];
         
         UITextField *textField= [[UITextField alloc] init];
+        textField.returnKeyType = UIReturnKeyDone;
         textField.placeholder = @"讨论:";
-        textField.textColor = [Common colorFromHexRGB:@"525c6b"];
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        attrs[NSForegroundColorAttributeName] = [Common colorFromHexRGB:@"525c6b"];
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"讨论:" attributes:attrs];
         textField.font = [UIFont systemFontOfSize:16];
         textField.layer.borderWidth = 1;
         textField.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
-        textField.layer.cornerRadius = 5;
+        textField.layer.cornerRadius = 3;
         textField.layer.masksToBounds = YES;
+        textField.delegate = self;
         textField.backgroundColor = [Common colorFromHexRGB:@"303f53"];
         [bgView addSubview:textField];
         _textField = textField;
@@ -264,14 +271,14 @@
         textField.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
         
         bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(45);
-        
         [_headerView setupAutoHeightWithBottomView:bgView bottomMargin:0];
+        
         [_headerView layoutSubviews];
     }
     return _headerView;
 }
 
-#pragma mark UITableViewDataSource;
+#pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_homeModel.indexModel.show) {
         return _homeModel.index;
@@ -290,9 +297,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
-//    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
-//    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
+    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
+    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
 }
 
 #pragma mark HomeCommentCellDelegate
@@ -303,6 +309,24 @@
     }
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
+}
+
+#pragma mark UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField.text.length) {
+//        NSDictionary *dic = @{@"name":@"唐小旭",
+//                              @"sName":@"",
+//                              @"content":textField.text,
+//                              @"photeNameArry":@[],
+//                              @"time":[Common getCurrentSystemTime]};
+//        HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+//        [_homeModel.comment insertObject:commentModel atIndex:0];
+//        [textField resignFirstResponder];
+//        [self.tableView reloadData];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
+        return YES;
+    }
+    return NO;
 }
 
 @end

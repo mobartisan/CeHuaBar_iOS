@@ -70,7 +70,12 @@
     }
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
-    CGFloat itemH = 120;
+    CGFloat itemH = 0.0;
+    if (is40inch) {
+        itemH = 100;
+    }else {
+        itemH = 120;
+    }
     //    if (_picPathStringsArray.count == 1) {
     //        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
     //        if (image.size.width) {
@@ -114,7 +119,7 @@
 //    }else if (is55inch) {
 //        maxWidth = 75;
 //    }
-    if (is47inch) {
+    if (is40inch || is47inch) {
         maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
     }else {
         maxWidth = 102.1;

@@ -30,5 +30,6 @@
 @property (assign, nonatomic) BOOL isCommentCell;
 
 @property (nonatomic, strong) NSArray *picPathStringsArray;
+@property (copy, nonatomic) NSString *content;
 
 @end

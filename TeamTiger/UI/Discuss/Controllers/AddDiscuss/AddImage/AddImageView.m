@@ -38,6 +38,7 @@ static const double kColumn = 4.0f;
 @property (nonatomic, assign) AddImageViewType addImageViewType;
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, assign) NSUInteger photoCount;
 /**
  *  textView
  */
@@ -115,6 +116,7 @@ static const double kColumn = 4.0f;
 
 - (void)configUIWith:(AddImageViewType)addImageViewType{
     if (addImageViewType == AddImageViewDefual) {
+        self.photoCount = 4;
         [self addSubview:self.typeLab];
         self.typeLab.text = @"添加图片";
         
@@ -133,7 +135,7 @@ static const double kColumn = 4.0f;
         }];
     }
     if (addImageViewType == AddImageViewVote) {
-                
+        self.photoCount = 1;
         [self addSubview:self.optionLab];
         self.optionLab.text = [NSString stringWithFormat:@"选项%@", self.optionStr];
         [self.optionLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -164,7 +166,7 @@ static const double kColumn = 4.0f;
     }
     
     if (addImageViewType == AddImageViewVoteWithTitle) {
-        
+        self.photoCount = 1;
         [self addSubview:self.typeLab];
         [self addSubview:self.optionLab];
         [self addSubview:self.textView];
@@ -297,6 +299,7 @@ static const double kColumn = 4.0f;
 #pragma mark UICollectionView
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
     return _selectedPhotos.count + 1;
 }
 
@@ -309,7 +312,7 @@ static const double kColumn = 4.0f;
         cell.imageView.contentMode = UIViewContentModeCenter;
         cell.imageView.backgroundColor = [Common colorFromHexRGB:@"223449"];
         cell.deleteBtn.hidden = YES;
-        if (_selectedAssets.count == kMaxImagesCount) {
+        if (_selectedAssets.count == self.photoCount) {
             cell.hidden = YES;
         }
     } else {
@@ -381,7 +384,7 @@ static const double kColumn = 4.0f;
 #pragma mark - TZImagePickerController
 
 - (void)pushImagePickerController {
-    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:self.photoCount delegate:self];
     
 #pragma mark - 四类个性化设置，这些参数都可以不传，此时会走默认设置
     imagePickerVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
@@ -439,7 +442,7 @@ static const double kColumn = 4.0f;
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     if ([type isEqualToString:@"public.image"]) {
-        TZImagePickerController *tzImagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+        TZImagePickerController *tzImagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:self.photoCount delegate:self];
         //        tzImagePickerVc.sortAscendingByModificationDate = self.sortAscendingSwitch.isOn;
         [tzImagePickerVc showProgressHUD];
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];

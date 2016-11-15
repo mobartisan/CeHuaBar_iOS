@@ -11,5 +11,6 @@
 @interface VoteView : UIView
 
 @property (nonatomic, strong) NSArray *picPathStringsArray;
+@property (copy, nonatomic) NSString *content;
 
 @end
