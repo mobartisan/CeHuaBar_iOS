@@ -203,7 +203,7 @@
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,0);
     }
     if (homeModel.open) {
-        self.tableView.sd_layout.heightIs([self.tableView cellsTotalHeight] + KHeaderViewH + 45);
+        self.tableView.sd_layout.heightIs([self caculteCellHeightWithData:nil] + KHeaderViewH + 45);
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
     }else {
         self.tableView.sd_layout.heightIs(0);
@@ -290,9 +290,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
-//    HomeCommentModel *homeCommentModel = _homeModel.comment[indexPath.row];
-//    return [tableView cellHeightForIndexPath:indexPath model:homeCommentModel keyPath:@"homeCommentModel" cellClass:[HomeCommentCell class] contentViewWidth:kScreenWidth - 14 * 2];
+//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
+    
+    return [HomeCommentModel heightOfCellData:_homeModel.comment[indexPath.row]];
 }
 
 #pragma mark HomeCommentCellDelegate
@@ -303,6 +303,22 @@
     }
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
+    
+}
+
+- (CGFloat)caculteCellHeightWithData:(NSArray *)data {
+    CGFloat totalHeight = 0;
+    if (_homeModel.indexModel.show) {
+        for (int i = 0; i < _homeModel.index; i++) {
+            totalHeight += [HomeCommentModel heightOfCellData:_homeModel.comment[i]];
+        }
+    }else {
+        int count = (int)_homeModel.comment.count;
+        for (int i = 0; i < count; i++) {
+            totalHeight += [HomeCommentModel heightOfCellData:_homeModel.comment[i]];;
+        }
+    }
+    return totalHeight;
 }
 
 @end

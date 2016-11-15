@@ -78,7 +78,8 @@
                                   @"aNum":@"7",
                                   @"bNum":@"2",
                                   @"cNum":@"1"},
-                                @{@"iconImV":@"9",
+                                @{@"cellType":@"0",
+                                  @"iconImV":@"9",
                                   @"name":@"唐小旭",
                                   @"project":@"BBS",
                                   @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
@@ -323,35 +324,39 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeModel *model = self.dataSource[indexPath.row];
+    HomeModel *model = self.dataSource[indexPath.row];    
+    // 定义唯一标识
+    UITableViewCell *cell = nil;
     if (model.cellType == 0) {
-        HomeCell *cell = [HomeCell cellWithTableView:tableView];
-        cell.commentBtn.indexPath = indexPath;
-        cell.tableView.indexPath = indexPath;
-        [cell setCommentBtnClick:^(NSIndexPath *indexPath1) {
+        cell = (HomeCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeCell class])];
+        ((HomeCell *)cell).commentBtn.indexPath = indexPath;
+        ((HomeCell *)cell).tableView.indexPath = indexPath;
+        [((HomeCell *)cell) setCommentBtnClick:^(NSIndexPath *indexPath1) {
             [self.tableView reloadData];
         }];
-        cell.homeModel = model;
-        return cell;
-    }else {
-        HomeVoteCell *cell = [HomeVoteCell cellWithTableView:tableView];
-        cell.homeModel = model;
-        return cell;
+        ((HomeCell *)cell).homeModel = model;
+    } else {
+        cell = (HomeVoteCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeVoteCell class])];
+        ((HomeVoteCell *)cell).homeModel = model;
     }
-    /** 启用cell frame缓存（可以提高cell滚动的流畅度, 目前为cell专用方法，后期会扩展到其他view） */
-    //        [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+    ////// 此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅 //////
+    
+//    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
+    
+    return cell;
 }
 
 #pragma mark UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth tableView:tableView];
     
-    //    HomeModel *model = self.dataSource[indexPath.row];
-    //    Class currentClass = [HomeCell class];
-    //    if (model.cellType == 1) {
-    //        currentClass = [HomeVoteCell class];
-    //    }
-    //    return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+    HomeModel *model = self.dataSource[indexPath.row];
+    Class currentClass;
+    if (model.cellType == 0) {
+        currentClass = [HomeCell class];
+    } else {
+        currentClass = [HomeVoteCell class];
+    }
+    return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
 }
 
 
