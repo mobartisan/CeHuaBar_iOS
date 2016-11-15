@@ -14,7 +14,7 @@
 
 @interface TZAssetCell ()
 @property (weak, nonatomic) UIImageView *imageView;       // The photo / 照片
-@property (weak, nonatomic) UIImageView *selectImageView;
+
 @property (weak, nonatomic) UIView *bottomView;
 @property (weak, nonatomic) UILabel *timeLength;
 

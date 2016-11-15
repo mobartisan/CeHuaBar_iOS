@@ -91,7 +91,9 @@ static CGSize AssetGridThumbnailSize;
 - (void)initSubviews {
     [self checkSelectedModels];
     [self configCollectionView];
-    [self configBottomToolBar];
+    if (!self.isNormal) {
+        [self configBottomToolBar];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -316,6 +318,7 @@ static CGSize AssetGridThumbnailSize;
     }
     // the cell dipaly photo or video / 展示照片或视频的cell
     TZAssetCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TZAssetCell" forIndexPath:indexPath];
+
     TZAssetModel *model;
     if (tzImagePickerVc.sortAscendingByModificationDate || !_showTakePhotoBtn) {
         model = _models[indexPath.row];
@@ -354,6 +357,11 @@ static CGSize AssetGridThumbnailSize;
         }
         [UIView showOscillatoryAnimationWithLayer:weakLayer type:TZOscillatoryAnimationToSmaller];
     };
+    
+    if (self.isNormal) {
+        cell.selectPhotoButton.hidden = YES;
+        cell.selectImageView.hidden = YES;
+    }
     return cell;
 }
 
@@ -369,6 +377,14 @@ static CGSize AssetGridThumbnailSize;
         index = indexPath.row - 1;
     }
     TZAssetModel *model = _models[index];
+    
+    if (self.isNormal) {
+        [tzImagePickerVc.selectedModels addObject:model];
+        [self refreshBottomToolBarStatus];
+        [self okButtonClick];
+        return;
+    }
+    
     if (model.type == TZAssetModelMediaTypeVideo) {
         if (tzImagePickerVc.selectedModels.count > 0) {
             TZImagePickerController *imagePickerVc = (TZImagePickerController *)self.navigationController;

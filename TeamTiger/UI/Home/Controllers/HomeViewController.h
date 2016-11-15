@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface HomeViewController : UIViewController
+#import "TTBaseViewController.h"
+@interface HomeViewController : TTBaseViewController
 
 @end

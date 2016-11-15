@@ -28,6 +28,8 @@ static NSUInteger const kMaxImagesCount = 9;
 @interface TZImagePickerController : UINavigationController
 
 /// Use this init method / 用这个初始化方法
+- (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate isNormal:(BOOL) isNormal;
+
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate;
 /// This init method just for previewing photos / 用这个初始化方法以预览图片
 - (instancetype)initWithSelectedAssets:(NSMutableArray *)selectedAssets selectedPhotos:(NSMutableArray *)selectedPhotos index:(NSInteger)index;
@@ -65,6 +67,7 @@ static NSUInteger const kMaxImagesCount = 9;
 /// 默认为YES，如果设置为NO,拍照按钮将隐藏,用户将不能在选择器中拍照
 @property(nonatomic, assign) BOOL allowTakePicture;
 
+@property(nonatomic, assign) BOOL isNormal;
 /// The photos user have selected
 /// 用户选中过的图片数组
 @property (nonatomic, strong) NSMutableArray *selectedAssets;

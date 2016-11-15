@@ -14,6 +14,8 @@
 @property (nonatomic, assign) BOOL isFirstAppear;
 @property (nonatomic, strong) TZAlbumModel *model;
 
+@property (nonatomic, assign) BOOL isNormal;
+
 @property (nonatomic, copy) void (^backButtonClickHandle)(TZAlbumModel *model);
 
 @end

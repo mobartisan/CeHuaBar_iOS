@@ -25,13 +25,14 @@
 #import "TTProjectsMenuViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "IQKeyboardManager.h"
+#import "SelectBgImageVC.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
-
+@property (nonatomic, weak) UIImageView *imageView;
 @end
 
 @implementation HomeViewController
@@ -147,6 +148,7 @@
 - (UIView *)headerView {
     if (!_headerView) {
         _headerView = [UIView new];
+        _headerView.clipsToBounds = YES;
         _headerView.backgroundColor = kRGBColor(28, 37, 51);
         
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
@@ -154,7 +156,9 @@
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
         imageView.image = [UIImage imageNamed:@"image_3.jpg"];
+//        imageView.contentMode = UIViewContentModeCenter;
         [_headerView addSubview:imageView];
+        _imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(handleTapAction:)];
         [imageView addGestureRecognizer:tap];
@@ -184,6 +188,7 @@
 //点击图片
 - (void)handleTapAction:(UITapGestureRecognizer *)tap {
     NSLog(@"tap");
+    [self handleBgImageTap];
 }
 
 //设置按钮
@@ -232,6 +237,42 @@
 - (void)handleProjectsBtnAction {
     //项目列表
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
+}
+
+- (void)handleBgImageTap {
+    [MMPopupWindow sharedWindow].touchWildToHide = YES;
+    
+    MMPopupItemHandler block = ^(NSInteger index){
+        if (index == 0) {
+            SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
+            WeakSelf;
+            selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
+                wself.imageView.image = selectImage;
+//                [selectBgImageVC.navigationController popViewControllerAnimated:YES];
+            };
+            
+            TTBaseNavigationController *selectNav = [[TTBaseNavigationController alloc] initWithRootViewController:selectBgImageVC];
+            
+            [self presentViewController:selectNav animated:YES completion:nil];
+//            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:selectBgImageVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+    
+        } else if (index == 1) {
+//            TTAddVoteViewController *voteVC = [[TTAddVoteViewController alloc] init];
+//            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:voteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+        }
+    };
+    
+    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+        NSLog(@"animation complete");
+    };
+    NSArray *items =
+    @[MMItemMake(@"更换相册封面", MMItemTypeNormal, block)];
+    
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
+                                                          items:items];
+    //    sheetView.attachedView = self.view;
+    sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
+    [sheetView showWithBlock:completeBlock];
 }
 
 - (void)handleRightBtnAction {

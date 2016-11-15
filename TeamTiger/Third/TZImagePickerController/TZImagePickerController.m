@@ -72,6 +72,46 @@
     [self hideProgressHUD];
 }
 
+- (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate isNormal:(BOOL)isNormal {
+    TZAlbumPickerController *albumPickerVc = [[TZAlbumPickerController alloc] init];
+    self = [super initWithRootViewController:albumPickerVc];
+    self.isNormal = isNormal;
+    if (self) {
+        self.maxImagesCount = maxImagesCount > 0 ? maxImagesCount : kMaxImagesCount; // Default is 9 / 默认最大可选9张图片
+        self.pickerDelegate = delegate;
+        self.selectedModels = [NSMutableArray array];
+        
+        // Allow user picking original photo and video, you also can set No after this method
+        // 默认准许用户选择原图和视频, 你也可以在这个方法后置为NO
+        self.allowPickingOriginalPhoto = YES;
+        self.allowPickingVideo = YES;
+        self.allowPickingImage = YES;
+        self.allowTakePicture = YES;
+        self.timeout = 15;
+        self.photoWidth = 828.0;
+        self.photoPreviewMaxWidth = 600;
+        self.sortAscendingByModificationDate = YES;
+        
+        if (![[TZImageManager manager] authorizationStatusAuthorized]) {
+            _tipLable = [[UILabel alloc] init];
+            _tipLable.frame = CGRectMake(8, 0, self.view.tz_width - 16, 300);
+            _tipLable.textAlignment = NSTextAlignmentCenter;
+            _tipLable.numberOfLines = 0;
+            _tipLable.font = [UIFont systemFontOfSize:16];
+            _tipLable.textColor = [UIColor blackColor];
+            NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+            if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+            _tipLable.text = [NSString stringWithFormat:@"请在%@的\"设置-隐私-照片\"选项中，\r允许%@访问你的手机相册。",[UIDevice currentDevice].model,appName];
+            [self.view addSubview:_tipLable];
+            
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
+        } else {
+            [self pushToPhotoPickerVc];
+        }
+    }
+    return self;
+}
+
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount delegate:(id<TZImagePickerControllerDelegate>)delegate {
     TZAlbumPickerController *albumPickerVc = [[TZAlbumPickerController alloc] init];
     self = [super initWithRootViewController:albumPickerVc];
@@ -150,6 +190,7 @@
     if (_pushToPhotoPickerVc) {
         TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
         photoPickerVc.isFirstAppear = YES;
+        photoPickerVc.isNormal = self.isNormal;
         [[TZImageManager manager] getCameraRollAlbum:self.allowPickingVideo allowPickingImage:self.allowPickingImage completion:^(TZAlbumModel *model) {
             photoPickerVc.model = model;
             [self pushViewController:photoPickerVc animated:YES];

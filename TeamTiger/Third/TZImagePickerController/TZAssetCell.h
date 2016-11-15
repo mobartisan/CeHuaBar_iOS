@@ -20,6 +20,7 @@ typedef enum : NSUInteger {
 @interface TZAssetCell : UICollectionViewCell
 
 @property (weak, nonatomic) UIButton *selectPhotoButton;
+@property (weak, nonatomic) UIImageView *selectImageView;
 @property (nonatomic, strong) TZAssetModel *model;
 @property (nonatomic, copy) void (^didSelectPhotoBlock)(BOOL);
 @property (nonatomic, assign) TZAssetCellType type;
