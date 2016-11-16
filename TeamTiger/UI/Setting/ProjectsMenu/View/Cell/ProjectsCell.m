@@ -42,12 +42,12 @@
             UIImageView *line = [[UIImageView alloc] init];
             line.tag = 2016 + self.tag;
             [self addSubview:line];
-            line.backgroundColor = [UIColor lightGrayColor];
-            line.alpha = 0.3;
+            line.backgroundColor = [UIColor darkGrayColor];
+            line.alpha = 0.618;
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.mas_left).offset(62.0);
                 make.right.equalTo(self.mas_right);
-                make.bottom.equalTo(self.mas_bottom).offset(-1);
+                make.bottom.equalTo(self.mas_bottom).offset(-minLineWidth);
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
