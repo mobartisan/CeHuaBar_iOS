@@ -76,8 +76,6 @@
         cell = (ProjectsCell *)[tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
             cell = LoadFromNib(@"ProjectsCell");
-            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
         NSDictionary *projectInfo = self.unGroupedProjects[indexPath.row];
@@ -165,14 +163,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    //跳转设置
-//    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-//    [self.navigationController pushViewController:settingVC animated:YES];
-    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
+        ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+        ((ProjectsCell *)cell).containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+        [UIView animateWithDuration:0.3 animations:^{
+            ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
+            ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
+        }];
+    }
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-#warning to do
     }];
 }
 

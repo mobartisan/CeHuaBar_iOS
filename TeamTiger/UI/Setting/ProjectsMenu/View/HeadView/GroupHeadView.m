@@ -30,6 +30,8 @@
     self.messageNumLab.hidden = YES;
     if (index == 1) {
         self.groupNameLab.text = @"项目分组";
+        self.backgroundColor = [UIColor clearColor];
+        self.containerView.backgroundColor = [UIColor clearColor];
     } else if (index == 2) {
         self.groupNameLab.text = @"未分组";
         self.backgroundColor = [Common colorFromHexRGB:@"1c293b"];

@@ -17,6 +17,12 @@
     [self initSubControls];
     setViewCorner(self.pointImgV, 4.0);
     setViewCorner(self.msgNumBGImgV, 10);
+    
+    self.addBtn.alpha = 0.0;
+    self.deleteBtn.alpha = 0.0;
+    
+    self.backgroundColor = [UIColor clearColor];
+    self.containerView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,6 +30,7 @@
 }
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
+
     if (object && [object isKindOfClass:[NSDictionary class]]) {
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
@@ -108,6 +115,8 @@
         [UIView animateWithDuration:0.5 animations:^{
             CGPoint tmpPoint = sender.view.center;
             sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, tmpPoint.y);
+            self.addBtn.alpha = 1.0;
+            self.deleteBtn.alpha = 1.0;
         }];
         self.isOpenLeft = YES;
     }
@@ -123,6 +132,8 @@
     [UIView animateWithDuration:0.5 animations:^{
         CGPoint tmpPoint = self.containerView.center;
         self.containerView.center = CGPointMake(Screen_Width * 0.5, tmpPoint.y);
+        self.addBtn.alpha = 0.0;
+        self.deleteBtn.alpha = 0.0;
     }];
     self.isOpenLeft = NO;
 }

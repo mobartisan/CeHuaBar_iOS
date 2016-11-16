@@ -100,10 +100,10 @@
         [_unreadMsgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);
             make.top.mas_equalTo(8);
-            make.width.mas_equalTo(12);
-            make.height.mas_equalTo(12);
+            make.width.mas_equalTo(10);
+            make.height.mas_equalTo(10);
         }];
-        setViewCorner(_unreadMsgImgV, 6);
+        setViewCorner(_unreadMsgImgV, 5);
     }
     return _unreadMsgImgV;
 }
