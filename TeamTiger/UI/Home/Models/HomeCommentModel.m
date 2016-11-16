@@ -26,4 +26,11 @@
     
 }
 
++ (CGFloat)heightOfCellData:(id)object {
+    HomeCommentModel *model = (HomeCommentModel *)object;
+    CGRect rect = [model.content boundingRectWithSize:Size(Screen_Width - 14 * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil];
+    NSLog(@"height: %lf",27.0 + 20.0 + rect.size.height + ceil(model.photeNameArry.count / 3.0) * 52.0);
+    return 27.0 + 20.0 + rect.size.height + ceil(model.photeNameArry.count / 3.0) * 52.0;
+}
+
 @end
