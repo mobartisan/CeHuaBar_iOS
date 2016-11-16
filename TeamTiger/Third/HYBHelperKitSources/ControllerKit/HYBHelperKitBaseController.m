@@ -317,7 +317,7 @@
                                      initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                      target:nil
                                      action:nil];
-  negativeSpacer.width = -8;
+  negativeSpacer.width = 6;//modify this
   if (kIOSVersion < 7) {
     negativeSpacer.width = 0;
   }
