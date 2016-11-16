@@ -24,13 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目";
-    WeakSelf;
-    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        [wself.navigationController popViewControllerAnimated:YES];
-    }];
+    //left
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(0, 0, 23, 23);
+    [leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+    leftBtn.tintColor = [UIColor whiteColor];
+    [leftBtn addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    //right
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 23, 23);
-    [rightBtn setImage:kImage(@"icon_add") forState:UIControlStateNormal];
+    [rightBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
     rightBtn.tintColor = [UIColor whiteColor];
     [rightBtn addTarget:self action:@selector(addProject:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
@@ -157,6 +161,10 @@
     TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
     TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
     [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+}
+
+- (void)popVC:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -185,7 +185,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "293"
             endingLineNumber = "293"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-handleRightBtnAction"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,7 +217,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "280"
             endingLineNumber = "280"
-            landmarkName = "-handleRefresh:"
+            landmarkName = "-handleRightBtnAction"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

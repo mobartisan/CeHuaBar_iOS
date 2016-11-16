@@ -58,7 +58,7 @@
                                     <constraint firstAttribute="height" constant="20" id="eSh-cZ-2fC"/>
                                     <constraint firstAttribute="width" constant="36" id="ure-s7-O6D"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -70,11 +70,11 @@
                                     <constraint firstAttribute="width" constant="30" id="oKK-jk-k8w"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CellArrow" translatesAutoresizingMaskIntoConstraints="NO" id="dHC-CX-JRX">
-                                <rect key="frame" x="295" y="20.5" width="8" height="12"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_enter2" translatesAutoresizingMaskIntoConstraints="NO" id="dHC-CX-JRX">
+                                <rect key="frame" x="295" y="18" width="10" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="12" id="xgD-eV-rJC"/>
-                                    <constraint firstAttribute="width" constant="8" id="zOu-A4-uN6"/>
+                                    <constraint firstAttribute="height" constant="16" id="xgD-eV-rJC"/>
+                                    <constraint firstAttribute="width" constant="10" id="zOu-A4-uN6"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -88,13 +88,13 @@
                             <constraint firstAttribute="bottom" secondItem="w36-UU-QsC" secondAttribute="bottom" constant="14.5" id="LPH-1J-gaJ"/>
                             <constraint firstItem="GI4-og-lQG" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="17" id="NPS-ye-jdE"/>
                             <constraint firstItem="Uyb-jI-AhL" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="12" id="QV4-dE-ORU"/>
-                            <constraint firstAttribute="trailing" secondItem="dHC-CX-JRX" secondAttribute="trailing" constant="17" id="YUo-N6-LRK"/>
+                            <constraint firstAttribute="trailing" secondItem="dHC-CX-JRX" secondAttribute="trailing" constant="15" id="YUo-N6-LRK"/>
                             <constraint firstItem="w36-UU-QsC" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="16" id="a9X-JI-WKe"/>
                             <constraint firstAttribute="trailing" secondItem="GI4-og-lQG" secondAttribute="trailing" constant="30" id="eBp-Zx-ibc"/>
                             <constraint firstAttribute="bottom" secondItem="Uyb-jI-AhL" secondAttribute="bottom" constant="10" id="pYb-J2-GXi"/>
                             <constraint firstItem="Uyb-jI-AhL" firstAttribute="leading" secondItem="nQl-TQ-tL3" secondAttribute="leading" constant="18" id="x7J-88-sFc"/>
-                            <constraint firstItem="dHC-CX-JRX" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="20.5" id="ySo-YD-Ocn"/>
-                            <constraint firstAttribute="bottom" secondItem="dHC-CX-JRX" secondAttribute="bottom" constant="19.5" id="zAW-fQ-aQO"/>
+                            <constraint firstItem="dHC-CX-JRX" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="18" id="ySo-YD-Ocn"/>
+                            <constraint firstAttribute="bottom" secondItem="dHC-CX-JRX" secondAttribute="bottom" constant="18" id="zAW-fQ-aQO"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -124,6 +124,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="CellArrow" width="8" height="12"/>
+        <image name="icon_enter2" width="10" height="16"/>
     </resources>
 </document>
