@@ -7,6 +7,7 @@
 //
 
 #import "Common.h"
+#import "HYBHelperBlocksKit.h"
 
 @implementation Common
 
@@ -122,6 +123,55 @@
 //返回系统时间
 + (NSString *)getCurrentSystemTime {
     return [NSString stringWithFormat:@"%ld:%ld", [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
+}
+
+//生成BarItem
++ (UIBarButtonItem *)createBarItemWithTitle:(NSString *)name
+                                     Nimage:(UIImage *)nImg
+                                     Himage:(UIImage *)hImg
+                                       Size:(CGSize)size
+                                   Selector:(void (^)())block {
+    UIButton *btn = [UIButton hyb_buttonWithTouchUp:^(UIButton *sender) {
+        block();
+    }];
+    btn.frame = CGRectMake(0, 0, size.width, size.height);
+    [btn setBackgroundImage:nImg
+                   forState:UIControlStateNormal];
+    [btn setBackgroundImage:hImg
+                   forState:UIControlStateHighlighted];
+    if (![Common isEmptyString:name]) {
+        [btn setTitle:name
+             forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor]
+                  forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [btn sizeToFit];
+    }
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    return barItem;
+}
+
+
++ (UIBarButtonItem *)createBackBarButton:(NSString *)name
+                                Selector:(void(^)())block {
+    UIButton *btn = [UIButton hyb_buttonWithTouchUp:^(UIButton *sender) {
+        block();
+    }];
+    btn.frame = CGRectMake(0, 0, 22, 22);
+    [btn setImage:[UIImage imageNamed:@"icon_back"]
+         forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"icon_back"]
+         forState:UIControlStateHighlighted];
+    if (![Common isEmptyString:name]) {
+        [btn setTitle:name
+             forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor]
+                  forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [btn sizeToFit];
+    }
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    return barItem;
 }
 
 @end

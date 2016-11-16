@@ -196,6 +196,8 @@
 //设置按钮
 - (void)handleSetBtnAction {
     NSLog(@"handleSetBtnAction");
+    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)viewDidLoad {

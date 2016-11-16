@@ -27,4 +27,18 @@
 
 //返回系统时间
 + (NSString *)getCurrentSystemTime;
+
+
+//生成BarItem
++ (UIBarButtonItem *)createBarItemWithTitle:(NSString *)name
+                                     Nimage:(UIImage *)nImg
+                                     Himage:(UIImage *)hImg
+                                       Size:(CGSize)size
+                                   Selector:(void (^)())block;
+
+//生成BackBarItem
++ (UIBarButtonItem *)createBackBarButton:(NSString *)name
+                                Selector:(void(^)())block;
+
+
 @end
