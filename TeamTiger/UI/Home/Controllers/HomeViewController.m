@@ -26,6 +26,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "IQKeyboardManager.h"
 #import "SelectBgImageVC.h"
+#import "UIImage+YYAdd.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -156,7 +157,7 @@
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
         imageView.image = [UIImage imageNamed:@"image_3.jpg"];
-//        imageView.contentMode = UIViewContentModeCenter;
+//        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_headerView addSubview:imageView];
         _imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -247,7 +248,11 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-                wself.imageView.image = selectImage;
+                // 获取当前使用的图片像素和点的比例
+                CGFloat scale = [UIScreen mainScreen].scale;
+                // 裁减图片
+                CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
+                wself.imageView.image = [UIImage imageWithCGImage:imgR];
 //                [selectBgImageVC.navigationController popViewControllerAnimated:YES];
             };
             
@@ -256,9 +261,6 @@
             [self presentViewController:selectNav animated:YES completion:nil];
 //            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:selectBgImageVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
     
-        } else if (index == 1) {
-//            TTAddVoteViewController *voteVC = [[TTAddVoteViewController alloc] init];
-//            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:voteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         }
     };
     
