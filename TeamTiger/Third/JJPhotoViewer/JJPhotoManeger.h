@@ -40,7 +40,7 @@
 /**
  *  放大浏览网络图片
  */
--(void)showNetworkPhotoViewer:(NSArray *)imageViews urlStrArr:(NSArray *)urlStrArr selecView:(UIImageView *)selecView;
+-(void)showNetworkPhotoViewer:(NSArray *)imageViews urlStrArr:(NSArray *)urlStrArr selecView:(UIImageView *)selecView content:(NSString *)content;
 
 
 

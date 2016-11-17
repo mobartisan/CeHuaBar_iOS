@@ -15,6 +15,7 @@
 #import "ButtonIndexPath.h"
 #import "TableViewIndexPath.h"
 #import "HomeCommentModel.h"
+#import "HomeCommentModelFrame.h"
 
 #define KHeaderViewH  10
 
@@ -96,7 +97,7 @@
     self.timeLB.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:self.timeLB];
     
-
+    
     //评论按钮
     self.commentBtn = [ButtonIndexPath new];
     [self.commentBtn setImage:[UIImage imageNamed:@"icon_discussion"] forState:UIControlStateNormal];
@@ -104,7 +105,6 @@
     [self.commentBtn setTitleColor:[Common colorFromHexRGB:@"6f839d"] forState:UIControlStateNormal];
     self.commentBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.commentBtn addTarget:self action:@selector(handleCommentBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-#warning .......
     self.commentBtn.titleLabel.textAlignment = NSTextAlignmentRight;
     self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -10);
     self.commentBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -40);
@@ -146,7 +146,7 @@
     
     self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
     
-
+    
     self.contentLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.imageV1, 10).rightSpaceToView(self.contentView, 10).autoHeightRatio(0);
     [self.contentLB setMaxNumberOfLinesToShow:6];
     
@@ -164,52 +164,61 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     
-    
     self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(1.5);
-}
-
-- (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
-    [_textField endEditing:YES];
 }
 
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
     _homeModel.open = !_homeModel.open;
     if (_homeModel.open) {
-        _homeModel.indexModel.show = YES;
+        _homeModel.indexModel.homeCommentModel.show = YES;
     }else {
-        for (HomeCommentModel *commentModel in _homeModel.comment) {
-            commentModel.open = NO;
+        for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
+            commentModelF.homeCommentModel.open = NO;
         }
     }
-    [self.tableView reloadData];
     if (self.CommentBtnClick) {
         self.CommentBtnClick(sender.indexPath);
     }
+    
 }
+
+
+- (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
+    [_textField endEditing:YES];
+}
+
 
 - (void)setHomeModel:(HomeModel *)homeModel {
     _homeModel = homeModel;
+    [self.tableView reloadData];
     
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;
     self.timeLB.text = homeModel.time;
-    _photoContainerView.picPathStringsArray = homeModel.photeNameArry;
+    self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
+    self.photoContainerView.content = homeModel.content;
+    
     //图片
     if (homeModel.photeNameArry.count > 0) {
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,10);
     } else {
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,0);
     }
-    if (homeModel.open) {
-        self.tableView.sd_layout.heightIs([self caculteCellHeightWithData:nil] + KHeaderViewH + 45);
+    if (_homeModel.open) {
+        if (_homeModel.indexModel.homeCommentModel.show) {
+            self.tableView.sd_layout.heightIs(homeModel.partHeight + KHeaderViewH + 45);
+        }else {
+            self.tableView.sd_layout.heightIs(homeModel.totalHeight + KHeaderViewH + 45);
+        }
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
     }else {
         self.tableView.sd_layout.heightIs(0);
         self.separLine.sd_layout.topSpaceToView(self.timeLB, 10);
     }
-     [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
+    [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
+    
 }
 
 - (UIView *)headerView {
@@ -221,17 +230,17 @@
         UIImageView *iconI = [UIImageView new];
         iconI.image = [UIImage imageNamed:@"bg_discussion"];
         [_headerView addSubview:iconI];
-       
-    
+        
+        
         UIView *bgView = [UIView new];
         bgView.backgroundColor = kRGBColor(32, 46, 63);
         [_headerView addSubview:bgView];
-
+        
         //输入视图
         UIImageView *inputImageV = [UIImageView new];
         inputImageV.image = kImage(@"icon_write");
         [bgView addSubview:inputImageV];
-
+        
         //时间线
         UIView *lineView = [UIView new];
         lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
@@ -243,12 +252,15 @@
         [bgView addSubview:imageV];
         
         UITextField *textField= [[UITextField alloc] init];
+        textField.returnKeyType = UIReturnKeyDone;
         textField.placeholder = @"讨论:";
-        textField.textColor = [Common colorFromHexRGB:@"525c6b"];
+        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+        attrs[NSForegroundColorAttributeName] = [Common colorFromHexRGB:@"525c6b"];
+        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"讨论:" attributes:attrs];
         textField.font = [UIFont systemFontOfSize:16];
         textField.layer.borderWidth = 1;
         textField.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
-        textField.layer.cornerRadius = 5;
+        textField.layer.cornerRadius = 3;
         textField.layer.masksToBounds = YES;
         textField.backgroundColor = [Common colorFromHexRGB:@"303f53"];
         [bgView addSubview:textField];
@@ -256,7 +268,7 @@
         iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
         
         inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 15).widthIs(13).heightIs(13);
-
+        
         lineView.sd_layout.leftSpaceToView(bgView, 61).topEqualToView(inputImageV).widthIs(4).heightIs(30);
         
         imageV.sd_layout.centerXEqualToView(lineView).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
@@ -264,25 +276,29 @@
         textField.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
         
         bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(45);
-        
         [_headerView setupAutoHeightWithBottomView:bgView bottomMargin:0];
+        
         [_headerView layoutSubviews];
     }
     return _headerView;
 }
 
-#pragma mark UITableViewDataSource;
+#pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (_homeModel.indexModel.show) {
-        return _homeModel.index;
+    if (_homeModel.open) {
+        if (_homeModel.indexModel.homeCommentModel.show) {
+            return _homeModel.index;
+        }else {
+           return _homeModel.comment.count;
+        }
     }else {
-        return _homeModel.comment.count;
+        return 0;
     }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCommentCell *cell = [HomeCommentCell cellWithTableView:tableView];
     cell.delegate = self;
-    cell.homeCommentModel = _homeModel.comment[indexPath.row];
+    cell.modelFrame = _homeModel.comment[indexPath.row];
     if (_homeModel.comment.count - 1 == indexPath.row) {
         cell.lineView1.hidden = YES;
     }
@@ -290,35 +306,17 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:kScreenWidth - 14 * 2 tableView:tableView];
-    
-    return [HomeCommentModel heightOfCellData:_homeModel.comment[indexPath.row]];
+    HomeCommentModelFrame *modelFrame = _homeModel.comment[indexPath.row];
+    return modelFrame.cellHeight;
 }
 
 #pragma mark HomeCommentCellDelegate
 - (void)clickMoreBtn {
-    _homeModel.indexModel.show = NO;
-    for (HomeCommentModel *commentModel in _homeModel.comment) {
-        commentModel.open = YES;
+    _homeModel.indexModel.homeCommentModel.show = NO;
+    for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
+        commentModelF.homeCommentModel.open = YES;
     }
-    [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
-    
-}
-
-- (CGFloat)caculteCellHeightWithData:(NSArray *)data {
-    CGFloat totalHeight = 0;
-    if (_homeModel.indexModel.show) {
-        for (int i = 0; i < _homeModel.index; i++) {
-            totalHeight += [HomeCommentModel heightOfCellData:_homeModel.comment[i]];
-        }
-    }else {
-        int count = (int)_homeModel.comment.count;
-        for (int i = 0; i < count; i++) {
-            totalHeight += [HomeCommentModel heightOfCellData:_homeModel.comment[i]];;
-        }
-    }
-    return totalHeight;
 }
 
 @end

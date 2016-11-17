@@ -53,9 +53,7 @@
     self.imageViewsArray = [temp copy];
 }
 
-
-- (void)setPicPathStringsArray:(NSArray *)picPathStringsArray
-{
+- (void)setPicPathStringsArray:(NSArray *)picPathStringsArray {
     _picPathStringsArray = picPathStringsArray;
     
     for (long i = _picPathStringsArray.count; i < self.imageViewsArray.count; i++) {
@@ -70,7 +68,12 @@
     }
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
-    CGFloat itemH = 120;
+    CGFloat itemH = 0.0;
+    if (is40inch) {
+        itemH = 100;
+    }else {
+        itemH = 120;
+    }
     //    if (_picPathStringsArray.count == 1) {
     //        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
     //        if (image.size.width) {
@@ -114,7 +117,7 @@
 //    }else if (is55inch) {
 //        maxWidth = 75;
 //    }
-    if (is47inch) {
+    if (is40inch || is47inch) {
         maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
     }else {
         maxWidth = 102.1;
@@ -141,7 +144,7 @@
     UIImageView *view = (UIImageView *)tap.view;
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;
-    [manager showNetworkPhotoViewer:self.imageArr urlStrArr:nil selecView:view];
+    [manager showNetworkPhotoViewer:self.imageArr urlStrArr:nil selecView:view content:self.content];
     
 }
 

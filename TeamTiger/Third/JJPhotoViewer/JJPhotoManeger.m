@@ -28,23 +28,23 @@
  */
 -(void)showLocalPhotoViewer:(NSArray *)imageViews selecView:(UIImageView *)selecView
 {
-    [self setUpPhotoData:imageViews selecView:selecView urlStrArr:nil type:JJLocalWithLocalPhotoViewer];
+    [self setUpPhotoData:imageViews selecView:selecView urlStrArr:nil type:JJLocalWithLocalPhotoViewer content:nil];
 }
 
 
 /**
  * 点击网络下载图片浏览
  */
--(void)showNetworkPhotoViewer:(NSArray *)imageViews urlStrArr:(NSArray *)urlStrArr selecView:(UIImageView *)selecView
+-(void)showNetworkPhotoViewer:(NSArray *)imageViews urlStrArr:(NSArray *)urlStrArr selecView:(UIImageView *)selecView content:(NSString *)content
 {
     
-    [self setUpPhotoData:imageViews selecView:selecView urlStrArr:urlStrArr type:JJInternetWithInternetPhotoViewer];
+    [self setUpPhotoData:imageViews selecView:selecView urlStrArr:urlStrArr type:JJInternetWithInternetPhotoViewer content:content];
 }
 
 
 
 //拿到数据设置整体页面
--(void)setUpPhotoData:(NSArray *)imageViews  selecView:(UIImageView *)selecView urlStrArr:(NSArray *)urlStrArr  type:(JJPhotoViewerType)type
+-(void)setUpPhotoData:(NSArray *)imageViews  selecView:(UIImageView *)selecView urlStrArr:(NSArray *)urlStrArr  type:(JJPhotoViewerType)type content:(NSString *)content
 {
     
     //点击的是第几个图片
@@ -94,7 +94,7 @@
     //传递代理
     mainScrollView.mainDelegate = self.delegate;
     //给数据 type:然后说明是本地加载/还是网络加载  
-    [mainScrollView setPhotoData:photoModelArr Type:type];
+    [mainScrollView setPhotoData:photoModelArr Type:type content:content];
     //展示
     [self show:mainScrollView];
     

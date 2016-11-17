@@ -8,7 +8,7 @@
 
 #import "HomeModel.h"
 #import "HomeCommentModel.h"
-
+#import "HomeCommentModelFrame.h"
 
 @implementation HomeModel
 
@@ -20,38 +20,45 @@
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dic];
         NSMutableArray *arr = [NSMutableArray array];
-        if (self.comment != nil && ![self.comment isKindOfClass:[NSNull class]] && self.comment.count != 0) {
-            HomeCommentModel *homeCommentModel = nil;
-            for (int i = 0; i < self.comment.count; i++) {
-                NSDictionary *dic = self.comment[i];
-                HomeCommentModel *model = [HomeCommentModel homeCommentModelWithDict:dic];
-                if (i != 0) {
-                    HomeCommentModel *preModel = arr[i - 1];
-                    if (![[model.time substringToIndex:4] isEqualToString:[preModel.time substringToIndex:4]]) {
-                        preModel.show = YES;
-                        self.index = i;
-                        self.indexModel = preModel;
-                        homeCommentModel = model;
-                    }
+        int commentCount = (int)self.comment.count;
+        for (int i = 0; i < commentCount; i++) {
+            NSDictionary *dic = self.comment[i];
+            HomeCommentModel *model = [HomeCommentModel homeCommentModelWithDict:dic];
+            HomeCommentModelFrame *modelFrame = [[HomeCommentModelFrame alloc] init];
+            modelFrame.homeCommentModel = model;
+            if (i != 0) {
+                HomeCommentModelFrame *preModel = arr[i - 1];
+                if (![[modelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preModel.homeCommentModel.time substringToIndex:4]]) {
+                    preModel.homeCommentModel.show = YES;
+                    self.index = i ;
+                    self.indexModel = preModel;
                 }
-                [arr addObject:model];
             }
-            [self modelWithModel:homeCommentModel arr:arr];
-            _comment = arr;
+            [arr addObject:modelFrame];
         }
+        _comment = arr;
         
+        self.totalHeight = [self caculteCellTotalHeight];
+        self.partHeight = [self caculteCellPartHeight];
     }
     return self;
 }
 
-- (void)modelWithModel:(HomeCommentModel *)model arr:(NSMutableArray *)arr {
-    NSDictionary *dic1 = @{@"name":[model.time substringToIndex:5],
-                           @"sName":@"",
-                           @"content":@"",
-                           @"photeNameArry":@[],
-                           @"time":@"这是时间节点"};
-    HomeCommentModel *insertModel = [HomeCommentModel homeCommentModelWithDict:dic1];
-    [arr insertObject:insertModel atIndex:self.index];
+- (CGFloat)caculteCellTotalHeight {
+    CGFloat totalHeight = 0;
+    int count = (int)self.comment.count;
+    for (int i = 0; i < count; i++) {
+        totalHeight += ((HomeCommentModelFrame *)self.comment[i]).cellHeight;;
+    }
+    return totalHeight;
+}
+
+- (CGFloat)caculteCellPartHeight {
+    CGFloat partHeight = 0;
+    for (int i = 0; i < self.index; i++) {
+        partHeight += ((HomeCommentModelFrame *)self.comment[i]).cellHeight;;
+    }
+    return partHeight;
 }
 
 + (instancetype)modelWithDic:(NSDictionary *)dic {

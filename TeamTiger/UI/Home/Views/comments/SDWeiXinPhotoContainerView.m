@@ -44,8 +44,7 @@
     return self;
 }
 
-- (void)setup
-{
+- (void)setup {
     NSMutableArray *temp = [NSMutableArray new];
     
     for (int i = 0; i < 9; i++) {
@@ -113,6 +112,7 @@
     [_textField endEditing:YES];
     UIView *imageView = tap.view;
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
+    browser.content = self.content;
     browser.currentImageIndex = imageView.tag;
     browser.sourceImagesContainerView = self;
     browser.imageCount = self.picPathStringsArray.count;
@@ -130,8 +130,8 @@
 //    }
     CGFloat maxWidth = 0.0, minWidth = 0.0;
     if (is40inch) {
-        maxWidth = 50;
-        minWidth = 42;
+        maxWidth = 55;
+        minWidth = 45;
     }else if (is47inch) {
         maxWidth = 70;
         minWidth = 50;

@@ -23,6 +23,4 @@
 
 + (instancetype)homeCommentModelWithDict:(NSDictionary *)dic;
 
-+ (CGFloat)heightOfCellData:(id)object;
-
 @end

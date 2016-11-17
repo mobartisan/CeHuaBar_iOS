@@ -28,7 +28,7 @@ typedef enum {
 
 
 //获取数据
--(void)setPhotoData:(NSArray *)photoArr Type:(JJPhotoViewerType)type;
+-(void)setPhotoData:(NSArray *)photoArr Type:(JJPhotoViewerType)type content:(NSString *)content;
 
 /**代理*/
 @property(nonatomic,weak)id<JJPhotoDelegate>  mainDelegate;

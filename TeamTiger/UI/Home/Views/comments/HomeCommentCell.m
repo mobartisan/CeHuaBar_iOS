@@ -11,6 +11,7 @@
 #import "HomeModel.h"
 #import "HomeCommentModel.h"
 #import "SDWeiXinPhotoContainerView.h"
+#import "HomeCommentModelFrame.h"
 
 #define KLineH  10
 #define KImageVH 15
@@ -75,18 +76,19 @@
     //姓名
     self.nameLB = [UILabel new];
     self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
-    self.nameLB.font = [UIFont systemFontOfSize:16];
+    self.nameLB.font = KNameFont;
     [self.contentView addSubview:self.nameLB];
     
     self.name1LB = [UILabel new];
     self.name1LB.textColor = [Common colorFromHexRGB:@"5093ef"];
-    self.name1LB.font = [UIFont systemFontOfSize:16];
+    self.name1LB.font = KNameFont;
     [self.contentView addSubview:self.name1LB];
     
     //内容
     self.desLB = [UILabel new];
+    self.desLB.numberOfLines = 0;
     self.desLB.textColor = [Common colorFromHexRGB:@"a8aaad"];
-    self.desLB.font = [UIFont systemFontOfSize:16];
+    self.desLB.font = KTextFont;
     [self.contentView addSubview:self.desLB];
     
     //图片
@@ -95,75 +97,9 @@
     [self.contentView addSubview:self.photoContainerView];
     
     self.moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.moreBtn.hidden = YES;
     [self.moreBtn setImage:[UIImage imageNamed:@"icon_more"] forState:UIControlStateNormal];
     [self.moreBtn addTarget:self action:@selector(clickMoreBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.moreBtn];
-    
-    
-    self.lineView.sd_layout.leftSpaceToView(self.contentView, 61).topSpaceToView(self.contentView, 0).widthIs(4).heightIs(KLineH);
-    
-    self.lineView1.sd_layout.centerXEqualToView(self.lineView).topSpaceToView(self.lineView, 0).widthIs(4);
-    
-    self.imageV.sd_layout.centerXEqualToView(self.lineView).topSpaceToView(self.lineView, - KImageVH / 2).widthIs(KImageVH).heightIs(KImageVH);
-    
-    self.timeLB.sd_layout.leftSpaceToView(self.contentView, 8).centerYEqualToView(self.imageV).widthIs(38).heightIs(20);
-    
-    
-    self.nameLB.sd_layout.leftSpaceToView(self.contentView, 78).centerYEqualToView(self.imageV).heightIs( 20);
-    [self.nameLB setSingleLineAutoResizeWithMaxWidth:80];
-    
-    self.name1LB.sd_layout.leftSpaceToView(self.nameLB, 2).centerYEqualToView(self.imageV).heightIs(10);
-    [self.name1LB setSingleLineAutoResizeWithMaxWidth:80];
-    
-    self.desLB.sd_layout.leftEqualToView(self.nameLB).rightSpaceToView(self.contentView, 10).topSpaceToView(self.nameLB, 5).autoHeightRatio(0);
-    
-    self.photoContainerView.sd_layout.leftEqualToView(self.nameLB);
-    
-    self.moreBtn.sd_layout.rightSpaceToView(self.contentView, 15).bottomSpaceToView(self.contentView, 5).widthIs(30).heightIs(30);
-}
-
-- (void)setHomeCommentModel:(HomeCommentModel *)homeCommentModel {
-    _homeCommentModel = homeCommentModel;
-    
-    if ([homeCommentModel.time isEqualToString:@"这是时间节点"]) {
-        self.timeLB.text = @"昨天";
-        self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
-        self.nameLB.font = [UIFont systemFontOfSize:12];
-        self.nameLB.textColor = [Common colorFromHexRGB:@"69737f"];
-    }else {
-        self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
-    }
-    self.nameLB.text = homeCommentModel.name;
-    self.name1LB.text = homeCommentModel.sName;
-    self.desLB.text = homeCommentModel.content;
-    _photoContainerView.picPathStringsArray = homeCommentModel.photeNameArry;
-    
-    CGFloat height = 0;
-    if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {
-        self.photoContainerView.sd_layout.topSpaceToView(self.desLB, 5);
-        [self.photoContainerView updateLayout];
-        height = CGRectGetMaxY(self.photoContainerView.frame) ;
-    } else {
-        self.photoContainerView.sd_layout.topSpaceToView(self.desLB, 0);
-        //主动刷新布局,获取desLb的frame
-        [self.desLB updateLayout];
-        height = CGRectGetMaxY(self.desLB.frame);
-    }
-    self.lineView1.sd_layout.heightIs(height);
-    [self setupAutoHeightWithBottomView:self.lineView1 bottomMargin:0];
-    
-    
-    if (homeCommentModel.show) {
-        self.moreBtn.hidden = NO;
-        self.lineView1.hidden = YES;
-    }
-    else {
-        self.moreBtn.hidden = YES;
-        self.lineView1.hidden = NO;
-    }
-    self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
-   
     
 }
 
@@ -173,4 +109,61 @@
     }
 }
 
+- (void)setModelFrame:(HomeCommentModelFrame *)modelFrame {
+    _modelFrame = modelFrame;
+    [self settingData:modelFrame.homeCommentModel];
+    [self settingFrame:modelFrame.homeCommentModel];
+    
+}
+
+/**
+ *  设置数据
+ */
+- (void)settingData:(HomeCommentModel *)homeCommentModel {
+    self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
+    self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
+    self.nameLB.text = homeCommentModel.name;
+    self.name1LB.text = homeCommentModel.sName;
+    self.desLB.text = homeCommentModel.content;
+    self.photoContainerView.picPathStringsArray = homeCommentModel.photeNameArry;
+    self.photoContainerView.content = homeCommentModel.content;
+}
+
+/**
+ *  设置frame
+ */
+- (void)settingFrame:(HomeCommentModel *)homeCommentModel {
+
+    self.lineView.frame = self.modelFrame.lineF;
+    
+    self.lineView1.frame = self.modelFrame.line1F;
+    
+    self.imageV.frame = self.modelFrame.imageF;
+    
+    self.timeLB.frame = self.modelFrame.timeF;
+    
+    self.nameLB.frame = self.modelFrame.nameF;
+    
+    self.name1LB.frame = self.modelFrame.name1F;
+    
+    if (![Common isEmptyString:homeCommentModel.content]) {
+        self.desLB.frame = self.modelFrame.contentF;
+    }
+    if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {// 有配图
+        self.photoContainerView.hidden = NO;
+        self.photoContainerView.frame = self.modelFrame.pictureF;
+    }else {
+        self.photoContainerView.hidden = YES;
+    }
+
+    if (_modelFrame.homeCommentModel.show) {
+        self.moreBtn.hidden = NO;
+        self.moreBtn.frame = self.modelFrame.moreBtnF;
+        self.lineView1.hidden = YES;
+    }else {
+        self.moreBtn.hidden = YES;
+        self.lineView1.hidden = NO;
+    }
+    
+}
 @end

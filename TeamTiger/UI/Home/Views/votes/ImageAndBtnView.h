@@ -15,3 +15,7 @@
 @property (strong, nonatomic)  UIButton *voteBtn;
 
 @end
+
+@interface ProgresssAndTicketView : UIView
+
+@end

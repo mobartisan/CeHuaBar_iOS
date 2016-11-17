@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class HomeCommentModel;
+@class HomeCommentModelFrame;
 
 @protocol HomeCommentCellDelegate <NSObject>
 
@@ -18,7 +18,7 @@
 
 @interface HomeCommentCell : UITableViewCell
 
-@property (strong, nonatomic) HomeCommentModel *homeCommentModel;
+@property (strong, nonatomic) HomeCommentModelFrame *modelFrame;
 @property (assign, nonatomic) id<HomeCommentCellDelegate> delegate;
 @property (strong, nonatomic) UIView *lineView1;
 

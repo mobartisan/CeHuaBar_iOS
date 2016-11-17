@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HomeCommentModel;
+@class HomeCommentModelFrame;
 
 typedef NS_ENUM(NSInteger, HomeModelCellType) {
     HomeModelCellTypeComment = 0,
@@ -37,7 +37,7 @@ typedef NS_ENUM(NSInteger, HomeModelCellType) {
 //讨论数据
 @property (strong, nonatomic) NSMutableArray *comment;
 //时间节点所在的评论Model
-@property (strong, nonatomic) HomeCommentModel *indexModel;
+@property (strong, nonatomic) HomeCommentModelFrame *indexModel;
 //时间节点下标
 @property (assign, nonatomic) NSInteger index;
 //是否展开
@@ -45,6 +45,10 @@ typedef NS_ENUM(NSInteger, HomeModelCellType) {
 //cell类型
 @property (assign, nonatomic) HomeModelCellType cellType;
 
+//总高度
+@property (nonatomic, assign) CGFloat totalHeight;
+//部分高度
+@property (nonatomic, assign) CGFloat partHeight;
 
 + (instancetype)modelWithDic:(NSDictionary *)dic;
 
