@@ -41,18 +41,24 @@
     /**
      *  时间的frame
      */
-    CGFloat timeW = 38;//47
+    CGFloat timeW = 47;//47 38
     CGFloat timeH = 20;
-    CGFloat timeX = 8;//3
+    CGFloat timeX = 3;//3   8
     CGFloat timeY = CGRectGetMidY(_imageF) - timeH / 2;
     _timeF = CGRectMake(timeX, timeY, timeW, timeH);
 
     /**
      *  第一个姓名的frame
      */
+    UIFont *font = nil;
+    if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
+        font = KTimeFont;
+    }else {
+        font = KNameFont;
+    }
     CGFloat nameX = 78;
     CGFloat nameY = timeY;
-    CGFloat nameW = [self sizeWithText:homeCommentModel.name font:KNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
+    CGFloat nameW = [self sizeWithText:homeCommentModel.name font:font maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
     CGFloat nameH = 20;
     _nameF = CGRectMake(nameX, nameY, nameW, nameH);
     /**
@@ -87,7 +93,7 @@
     if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {
         CGFloat picX = nameX;
         CGFloat picY = CGRectGetMaxY(_contentF) + 5;
-        CGFloat picW = 200;
+        CGFloat picW = maxW;
         CGFloat picH = 52;
         _pictureF = CGRectMake(picX, picY, picW, picH);
         line1H = CGRectGetMaxY(_pictureF);
@@ -95,11 +101,12 @@
         if (![Common isEmptyString:homeCommentModel.content]) {
             line1H = CGRectGetMaxY(_contentF);
         }else {
-            lineH = CGRectGetMaxY(_timeF) + 10;
+            line1H = CGRectGetMaxY(_timeF) + 10;
         }
     }
-    if ([Common isEmptyString:homeCommentModel.name] && [Common isEmptyString:homeCommentModel.content]) {
-        lineH = CGRectGetMaxY(_timeF);
+    //此处为时间节点
+    if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
+        line1H = CGRectGetMaxY(_timeF);
     }
     
     _line1F = CGRectMake(line1X, line1Y, line1W, line1H);

@@ -197,6 +197,7 @@
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;
     self.timeLB.text = homeModel.time;
+    [self.commentBtn setTitle:homeModel.count forState:UIControlStateNormal];
     self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
     self.photoContainerView.content = homeModel.content;
     

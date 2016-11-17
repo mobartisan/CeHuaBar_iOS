@@ -36,22 +36,86 @@
     return self;
 }
 
-- (void)setup
-{
+- (void)setup {
     NSMutableArray *temp = [NSMutableArray new];
     
     for (int i = 0; i < 9; i++) {
         ImageAndBtnView *customView = [ImageAndBtnView new];
         customView.imageV.tag = i;
+        customView.voteBtn.tag = 100 + i;
+        [customView.voteBtn addTarget:self action:@selector(handleVoteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:customView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];
         [customView.imageV addGestureRecognizer:tap];
         [temp addObject:customView];
-        
     }
     
     self.imageViewsArray = [temp copy];
 }
+
+- (void)handleVoteBtnAction:(UIButton *)sender {
+    switch (sender.tag) {
+        case 100:
+        {
+            
+            
+        }
+            break;
+        case 101:
+        {
+            
+        }
+            break;
+        case 102:
+        {
+            
+        }
+            break;
+        case 103:
+        {
+            
+        }
+            break;
+        case 104:
+        {
+            
+        }
+            break;
+        case 105:
+        {
+            
+        }
+            break;
+        case 106:
+        {
+            
+        }
+            break;
+        case 107:
+        {
+            
+        }
+            break;
+        case 108:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+    [self setImageWith:sender];
+}
+
+- (void)setImageWith:(UIButton *)sender {
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [sender setImage:kImage(@"icon_like") forState:UIControlStateNormal];
+    }else {
+        [sender setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
+    }
+}
+
 
 - (void)setPicPathStringsArray:(NSArray *)picPathStringsArray {
     _picPathStringsArray = picPathStringsArray;
@@ -82,7 +146,7 @@
     //    } else {
     //        itemH = itemW;
     //    }
-    NSArray *arr = @[@"A", @"B", @"C"];
+    NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin  =  7;
     [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

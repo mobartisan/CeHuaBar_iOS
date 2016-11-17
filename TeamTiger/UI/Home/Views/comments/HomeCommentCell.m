@@ -75,8 +75,6 @@
     
     //姓名
     self.nameLB = [UILabel new];
-    self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
-    self.nameLB.font = KNameFont;
     [self.contentView addSubview:self.nameLB];
     
     self.name1LB = [UILabel new];
@@ -122,6 +120,21 @@
 - (void)settingData:(HomeCommentModel *)homeCommentModel {
     self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
     self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
+    if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
+        self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
+        self.nameLB.textColor = [Common colorFromHexRGB:@"69737f"];
+        self.nameLB.layer.cornerRadius = 3;
+        self.nameLB.layer.masksToBounds = YES;
+        self.nameLB.font = KTimeFont;
+        self.name1LB.hidden = YES;
+        self.timeLB.hidden = YES;
+    }else {
+        self.nameLB.backgroundColor = kRGBColor(32, 46, 63);
+        self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
+        self.nameLB.font = KNameFont;
+        self.name1LB.hidden = NO;
+        self.timeLB.hidden = NO;
+    }
     self.nameLB.text = homeCommentModel.name;
     self.name1LB.text = homeCommentModel.sName;
     self.desLB.text = homeCommentModel.content;
