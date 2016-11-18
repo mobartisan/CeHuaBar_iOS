@@ -36,7 +36,9 @@
             HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
             HomeCommentModelFrame *commentModelFrame = [[HomeCommentModelFrame alloc] init];
             commentModelFrame.homeCommentModel = commentModel;
-            if (i != 0) {
+            if (0 == i) {
+               
+            } else {
                 HomeCommentModelFrame *preModelFrame = arr[i - 1];
                 if (![[commentModelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preModelFrame.homeCommentModel.time substringToIndex:4]]) {
                     if (y < 1) {
