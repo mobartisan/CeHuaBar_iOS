@@ -362,6 +362,8 @@
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    
 }
 
 #pragma mark UITableViewDataSource
@@ -379,6 +381,8 @@
         ((HomeCell *)cell).tableView.indexPath = indexPath;
         [((HomeCell *)cell) setCommentBtnClick:^(NSIndexPath *indexPath1) {
             [self.tableView reloadData];
+            [self.tableView scrollToRowAtIndexPath:indexPath1 atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
         }];
         ((HomeCell *)cell).homeModel = model;
     } else {

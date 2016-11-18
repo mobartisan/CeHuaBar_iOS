@@ -129,11 +129,13 @@
         self.nameLB.layer.masksToBounds = YES;
         self.nameLB.font = KTimeFont;
         self.name1LB.hidden = YES;
+        self.timeLB.hidden = YES;
     }else {
         self.nameLB.backgroundColor = kRGBColor(32, 46, 63);
         self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
         self.nameLB.font = KNameFont;
         self.name1LB.hidden = NO;
+        self.timeLB.hidden = NO;
     }
     self.nameLB.text = homeCommentModel.name;
     self.name1LB.text = homeCommentModel.sName;
