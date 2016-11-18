@@ -183,6 +183,8 @@
         }];
         [self.bgBtn removeFromSuperview];
         self.bgBtn = nil;
+        //
+        [self.nameTxtField resignFirstResponder];
     }
 }
 
