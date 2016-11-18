@@ -67,7 +67,9 @@
 
 //数组是否为空
 + (BOOL)isEmptyArr:(NSArray *)arr {
-//    homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0
+    if ( arr != nil && ![arr isKindOfClass:[NSNull class]] && arr.count != 0) {
+        return NO;
+    }
     return YES;
 }
 

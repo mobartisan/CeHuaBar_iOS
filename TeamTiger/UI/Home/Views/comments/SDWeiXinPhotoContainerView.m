@@ -109,7 +109,7 @@
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap
 {
-    [_textField endEditing:YES];
+    [_textView endEditing:YES];
     UIView *imageView = tap.view;
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     browser.content = self.content;

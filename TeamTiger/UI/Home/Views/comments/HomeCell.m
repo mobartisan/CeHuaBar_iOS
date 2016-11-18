@@ -7,6 +7,7 @@
 //
 
 #import "HomeCell.h"
+#import "UITextView+Placeholder.h"
 #import "UIView+SDAutoLayout.h"
 #import "SDWeiXinPhotoContainerView.h"
 #import "HomeModel.h"
@@ -184,7 +185,7 @@
 
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
-    [_textField endEditing:YES];
+    [_textView endEditing:YES];
 }
 
 
@@ -252,20 +253,19 @@
         imageV.image = kImage(@"img_point");
         [bgView addSubview:imageV];
         
-        UITextField *textField= [[UITextField alloc] init];
-        textField.returnKeyType = UIReturnKeyDone;
-        textField.placeholder = @"讨论:";
-        NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
-        attrs[NSForegroundColorAttributeName] = [Common colorFromHexRGB:@"525c6b"];
-        textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"讨论:" attributes:attrs];
-        textField.font = [UIFont systemFontOfSize:16];
-        textField.layer.borderWidth = 1;
-        textField.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
-        textField.layer.cornerRadius = 3;
-        textField.layer.masksToBounds = YES;
-        textField.backgroundColor = [Common colorFromHexRGB:@"303f53"];
-        [bgView addSubview:textField];
-        _textField = textField;
+        UITextView *textView= [[UITextView alloc] init];
+        textView.returnKeyType = UIReturnKeyDone;
+        textView.placeholder = @"讨论:";
+        textView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
+        textView.font = [UIFont systemFontOfSize:16];
+        textView.layer.borderWidth = 1;
+        textView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
+        textView.layer.cornerRadius = 3;
+        textView.layer.masksToBounds = YES;
+        textView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+        [bgView addSubview:textView];
+        _textView = textView;
+        
         iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
         
         inputImageV.sd_layout.leftSpaceToView(bgView, 33).topSpaceToView(bgView, 15).widthIs(13).heightIs(13);
@@ -274,7 +274,7 @@
         
         imageV.sd_layout.centerXEqualToView(lineView).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
         
-        textField.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
+        textView.sd_layout.leftSpaceToView(bgView, 78).rightSpaceToView(bgView, 10).centerYEqualToView(imageV).heightIs(30);
         
         bgView.sd_layout.leftSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).topSpaceToView(iconI, 0).heightIs(45);
         [_headerView setupAutoHeightWithBottomView:bgView bottomMargin:0];

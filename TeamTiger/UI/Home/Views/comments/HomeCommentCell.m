@@ -122,6 +122,7 @@
         self.timeLB.text = [[homeCommentModel.time componentsSeparatedByString:@" "] lastObject];
     }
     self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
+    
     if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
         self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
         self.nameLB.textColor = [Common colorFromHexRGB:@"69737f"];
@@ -164,7 +165,7 @@
     if (![Common isEmptyString:homeCommentModel.content]) {
         self.desLB.frame = self.modelFrame.contentF;
     }
-    if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {// 有配图
+    if (![Common isEmptyArr:homeCommentModel.photeNameArry]) {// 有配图
         self.photoContainerView.hidden = NO;
         self.photoContainerView.frame = self.modelFrame.pictureF;
     }else {

@@ -31,14 +31,14 @@
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *dataSource;
+@property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
 @property (nonatomic, weak) UIImageView *imageView;
 @end
 
 @implementation HomeViewController
 
-- (NSArray *)dataSource {
+- (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         NSMutableArray *arr = @[
                                 @{@"cellType":@"0",
@@ -251,6 +251,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureNavigationItem];
+    [self handleRefreshAction];
     self.view.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -261,6 +262,70 @@
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
 }
+
+- (void)handleRefreshAction {
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+    }];
+    self.tableView.mj_header = header;
+    
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [self addDataToDataArr];
+        [self.tableView reloadData];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+    self.tableView.mj_footer = footer;
+    
+}
+
+- (void)addDataToDataArr {
+    if (self.dataSource.count > 5) {
+        return;
+    }
+    
+    NSDictionary *dic =@{@"cellType":@"0",
+                         @"iconImV":@"9",
+                         @"name":@"唐小旭",
+                         @"project":@"BBS",
+                         @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
+                         @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg"],
+                         @"time":@"7月20日 9:45",
+                         @"comment":@[@{@"name":@"唐小旭",
+                                        @"sName":@"@卞克",
+                                        @"content":@"测试数据测试数据测试数据测试数据",
+                                        @"photeNameArry":@[],
+                                        @"time":@"7月23日 20:30"},
+                                      @{@"name":@"曹兴星",
+                                        @"sName":@"@唐小绪",
+                                        @"content":@"哈哈哈",
+                                        @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg"],
+                                        @"time":@"7月23日 15:05"},
+                                      @{@"name":@"俞弦",
+                                        @"sName":@"",
+                                        @"content":@"有点意思",
+                                        @"photeNameArry":@[],
+                                        @"time":@"7月22日 12:01"},
+                                      @{@"name":@"齐云猛",
+                                        @"sName":@"",
+                                        @"content":@"滴滴滴滴的",
+                                        @"photeNameArry":@[],
+                                        @"time":@"7月22日 11:30"},
+                                      @{@"name":@"刘鹏",
+                                        @"sName":@"",
+                                        @"content":@"测试数据测试数据",
+                                        @"photeNameArry":@[@"image_5.jpg", @"image_6.jpg"],
+                                        @"time":@"7月20日 12:01"},
+                                      @{@"name":@"齐云猛",
+                                        @"sName":@"",
+                                        @"content":@"滴滴滴滴的",
+                                        @"photeNameArry":@[],
+                                        @"time":@"7月20日 11:30"}
+                                      ].mutableCopy};
+    HomeModel *homeModel = [HomeModel modelWithDic:dic];
+    [self.dataSource addObject:homeModel];
+}
+
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
     [self.tableView endEditing:YES];

@@ -90,7 +90,7 @@
     /**
      *  图片的frame
      */
-    if (homeCommentModel.photeNameArry != nil && ![homeCommentModel.photeNameArry isKindOfClass:[NSNull class]] && homeCommentModel.photeNameArry.count != 0) {
+    if (![Common isEmptyArr:homeCommentModel.photeNameArry]) {
         CGFloat picX = nameX;
         CGFloat picY = CGRectGetMaxY(_contentF) + 5;
         CGFloat picW = maxW;

@@ -121,7 +121,7 @@
     _picPathStringsArray = picPathStringsArray;
     
     for (long i = _picPathStringsArray.count; i < self.imageViewsArray.count; i++) {
-       ImageAndBtnView *customView  = [self.imageViewsArray objectAtIndex:i];
+        ImageAndBtnView *customView  = [self.imageViewsArray objectAtIndex:i];
         customView.hidden = YES;
     }
     
@@ -174,13 +174,13 @@
 //每张图片的宽度
 - (CGFloat)itemWidthForPicPathArray:(NSArray *)array {
     CGFloat maxWidth = 0.0;
-//    if (is40inch) {
-//        maxWidth = 50;
-//    }else if (is47inch) {
-//        maxWidth = 72;
-//    }else if (is55inch) {
-//        maxWidth = 75;
-//    }
+    //    if (is40inch) {
+    //        maxWidth = 50;
+    //    }else if (is47inch) {
+    //        maxWidth = 72;
+    //    }else if (is55inch) {
+    //        maxWidth = 75;
+    //    }
     if (is40inch || is47inch) {
         maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
     }else {
@@ -204,7 +204,7 @@
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {
-    [_textField endEditing:YES];
+    [_textView endEditing:YES];
     UIImageView *view = (UIImageView *)tap.view;
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;
