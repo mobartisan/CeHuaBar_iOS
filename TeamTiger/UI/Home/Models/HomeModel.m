@@ -7,6 +7,7 @@
 //
 
 #import "HomeModel.h"
+#import "NSString+Utils.h"
 #import "HomeCommentModel.h"
 #import "HomeCommentModelFrame.h"
 
@@ -20,13 +21,18 @@
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dic];
         NSMutableArray *arr = [NSMutableArray array];
+        //indexArr 存放时间节点的下标
         NSMutableArray *indexArr = [NSMutableArray array];
+        //modelFrameArr 存放不同时间节点的modelFrame
         NSMutableArray *modelFrameArr = [NSMutableArray array];
+        
         int y = 0;
+        
         int commentCount = (int)self.comment.count;
-        _count = [NSString stringWithFormat:@"%d", commentCount];
+        self.count = [NSString stringWithFormat:@"%d", commentCount];
         for (int i = 0; i < commentCount; i++) {
             NSDictionary *dic = self.comment[i];
+            //model赋值
             HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
             HomeCommentModelFrame *commentModelFrame = [[HomeCommentModelFrame alloc] init];
             commentModelFrame.homeCommentModel = commentModel;
@@ -46,14 +52,15 @@
             [arr addObject:commentModelFrame];
         }
         _comment = arr;
+        
+        
+        //插入时间节点model
         int indexCount = (int)indexArr.count;
         for (int i = 0; i < indexCount; i++) {
             HomeCommentModelFrame *modelFrame = modelFrameArr[i];
             NSArray *strArr = [modelFrame.homeCommentModel.time componentsSeparatedByString:@" "];
             NSString *month = [strArr firstObject];
-            NSString *time = [strArr lastObject];
             NSDictionary *dic1 = @{@"name": month,
-                                   @"time":[NSString stringWithFormat:@"%@ %@", time, time],
                                    @"sName":@"时间节点"};
             HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic1];
             HomeCommentModelFrame *commentModelFrame = [[HomeCommentModelFrame alloc] init];

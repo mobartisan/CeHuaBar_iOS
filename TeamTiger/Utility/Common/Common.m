@@ -122,7 +122,39 @@
 
 //返回系统时间
 + (NSString *)getCurrentSystemTime {
-    return [NSString stringWithFormat:@"%ld:%ld", [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
+    return [NSString stringWithFormat:@"%ld月:%ld日 %ld:%ld", [[NSDate date] hyb_month], [[NSDate date] hyb_day], [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
+}
+
+//系统日期
++ (NSString *)getCurrentSystemDate {
+    return [NSString stringWithFormat:@"%ld月:%ld日", [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
+}
+
+//比较时间大小
++ (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString {
+    NSDateFormatter *fmt = [[NSDateFormatter alloc]init];
+    // 如果是真机调试，转换这种欧美时间，需要设置locale
+    fmt.locale = [[NSLocale alloc]initWithLocaleIdentifier:@"en_US"];
+    
+    // 设置日期格式（声明字符串里面每个数字和单词的含义）
+    
+    //        fmt.dateFormat =@"EEE MMM dd HH:mm:ss Z yyyy";
+    [fmt setDateFormat:@"MM月dd日"];
+    
+    // 微博的创建日期
+    NSDate *createDate = [fmt dateFromString:dateString];
+    // 当前时间
+    NSDate *now = [fmt dateFromString:anotherdateString];
+    // 日历对象（方便比较两个日期之间的差距）
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    // NSCalendarUnit枚举代表想获得哪些差值
+    NSCalendarUnit unit =NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitDay |NSCalendarUnitHour |NSCalendarUnitMinute |NSCalendarUnitSecond;
+    // 计算两个日期之间的差值
+    NSDateComponents *cmps = [calendar components:unit fromDate:createDate toDate:now options:0];
+    
+    NSLog(@"%@ %@ %@", createDate, now, cmps);
+    
+    return cmps;
 }
 
 //生成BarItem

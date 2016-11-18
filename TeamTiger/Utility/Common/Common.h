@@ -27,7 +27,10 @@
 
 //返回系统时间
 + (NSString *)getCurrentSystemTime;
-
+//系统日期
++ (NSString *)getCurrentSystemDate;
+//比较时间大小
++ (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
 
 //生成BarItem
 + (UIBarButtonItem *)createBarItemWithTitle:(NSString *)name

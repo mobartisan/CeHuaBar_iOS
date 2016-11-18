@@ -118,7 +118,9 @@
  *  设置数据
  */
 - (void)settingData:(HomeCommentModel *)homeCommentModel {
-    self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
+    if (![Common isEmptyString:homeCommentModel.time]) {
+        self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
+    }
     self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
     if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
         self.nameLB.backgroundColor = [Common colorFromHexRGB:@"151f2c"];
@@ -127,13 +129,11 @@
         self.nameLB.layer.masksToBounds = YES;
         self.nameLB.font = KTimeFont;
         self.name1LB.hidden = YES;
-        self.timeLB.hidden = YES;
     }else {
         self.nameLB.backgroundColor = kRGBColor(32, 46, 63);
         self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
         self.nameLB.font = KNameFont;
         self.name1LB.hidden = NO;
-        self.timeLB.hidden = NO;
     }
     self.nameLB.text = homeCommentModel.name;
     self.name1LB.text = homeCommentModel.sName;
