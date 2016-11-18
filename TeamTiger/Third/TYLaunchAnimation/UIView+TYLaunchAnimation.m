@@ -23,10 +23,12 @@
     [superView addSubview:self];
     [superView bringSubviewToFront:self];
     
-    self.frame = superView.bounds;
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(superView);
+    }];
     
     if (animation && [animation respondsToSelector:@selector(configureAnimationWithView:completion:)]) {
-        [animation configureAnimationWithView:self completion:completion];
+//        [animation configureAnimationWithView:self completion:completion];
     }else {
         completion(YES);
     }
@@ -35,6 +37,14 @@
 - (void)showInWindowWithAnimation:(id<TYLaunchAnimationProtocol>)animation completion:(void (^)(BOOL finished))completion
 {
     [self showInView:tyCurrentWindow animation:animation completion:completion];
+}
+
+- (void)hideWithAnimation:(id<TYLaunchAnimationProtocol>)animation completion:(void (^)(BOOL finished))completion {
+    if (animation && [animation respondsToSelector:@selector(configureAnimationWithView:completion:)]) {
+        [animation configureAnimationWithView:self completion:completion];
+    }else {
+        completion(YES);
+    }
 }
 
 @end

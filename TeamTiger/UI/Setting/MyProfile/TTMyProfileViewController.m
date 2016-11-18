@@ -69,6 +69,7 @@
             NSLog(@"退出登录");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要退出吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
+                    UserDefaultsSave(@0, @"LastIsLogOut");
                     CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
                     shake.fromValue = [NSNumber numberWithFloat:-M_PI_4 / 24.0];
                     shake.toValue   = [NSNumber numberWithFloat:+M_PI_4 / 24.0];

@@ -51,11 +51,10 @@
 
 - (void)configureAnimationWithView:(UIView *)view completion:(void (^)(BOOL))completion
 {
-    [UIView animateWithDuration:self.duration delay:self.delay options:self.options animations:^{
-        
+    
+    [UIView animateWithDuration:self.duration delay:self.delay options:self.options animations:^{        
         view.transform = CGAffineTransformMakeScale(_scale, _scale);
         view.alpha = 0.0;
-        
     } completion:^(BOOL finished) {
         completion(finished);
         [view removeFromSuperview];

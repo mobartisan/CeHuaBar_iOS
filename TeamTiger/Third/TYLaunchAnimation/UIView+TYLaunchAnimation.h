@@ -15,4 +15,6 @@
 
 - (void)showInView:(UIView *)superView animation:(id<TYLaunchAnimationProtocol>)animation completion:(void (^)(BOOL finished))completion;
 
+- (void)hideWithAnimation:(id<TYLaunchAnimationProtocol>)animation completion:(void (^)(BOOL finished))completion;
+
 @end

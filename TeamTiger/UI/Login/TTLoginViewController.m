@@ -17,9 +17,13 @@
 #import "NetworkManager.h"
 #import "AFNetworking.h"
 #import "Models.h"
+#import "UIView+TYLaunchAnimation.h"
+#import "UIImage+TYLaunchImage.h"
+#import "TYLaunchFadeScaleAnimation.h"
 
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
+@property (nonatomic,strong)UIImageView *screenImageView;
 @end
 
 @implementation TTLoginViewController
@@ -37,64 +41,89 @@
     }
     [WXApiManager sharedManager].delegate = self;
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        //微信跳转
-        if ([WXApi isWXAppInstalled]) {
-            [self handleWXLoginAction];
-        } else {
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-                if (buttonIndex == 0) {
-                    UIViewController *rootVC = [kAppDelegate creatHomeVC];
-                    UIWindow *window = kAppDelegate.window;
-                    window.rootViewController = rootVC;
-                    [window makeKeyAndVisible];
-                }
-            }];
-        }
+        [self login];
     }];
+    
+    //launch image
+    self.screenImageView = [[UIImageView alloc] initWithImage:[UIImage ty_getLaunchImage]];
+    [self.screenImageView showInView:self.view animation:[TYLaunchFadeScaleAnimation fadeScaleAnimation] completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+    id num = UserDefaultsGet(@"LastIsLogOut");
+    if ([self isCanAutoLogin] && (num && [num intValue] == 1)) {
+        //自动登录
+        NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
+        NSString *openID = UserDefaultsGet(WX_OPEN_ID);
+        [self getAccess_Token:accessToken openId:openID];
+    } else {
+        //隐藏 手动登录
+        [self hideLaunchImage];//隐藏启动页
+    }
 }
 
-
-- (void)handleWXLoginAction {
-    NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
-    NSString *openID = UserDefaultsGet(WX_OPEN_ID);
-    // 如果已经请求过微信授权登录，那么考虑用已经得到的access_token
-    if (accessToken && openID) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];NSString *refreshToken = UserDefaultsGet(WX_REFRESH_TOKEN);
-        NSString *refreshUrlStr = [NSString stringWithFormat:@"%@/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@", WX_BASE_URL, WXDoctor_App_ID, refreshToken];
-        [manager GET:refreshUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"请求reAccess的response = %@", responseObject);
-            NSDictionary *refreshDict = [NSDictionary dictionaryWithDictionary:responseObject];
-            NSString *reAccessToken = [refreshDict objectForKey:WX_ACCESS_TOKEN];
-            // 如果reAccessToken为空,说明reAccessToken也过期了,反之则没有过期
-            if (reAccessToken) {
-                // 更新access_token、refresh_token、open_id
-                [[NSUserDefaults standardUserDefaults] setObject:reAccessToken forKey:WX_ACCESS_TOKEN];
-                UserDefaultsSave(reAccessToken, WX_ACCESS_TOKEN);
-                UserDefaultsSave([refreshDict objectForKey:WX_OPEN_ID], WX_OPEN_ID);
-                UserDefaultsSave([refreshDict objectForKey:WX_REFRESH_TOKEN], WX_REFRESH_TOKEN);
-                // 当存在reAccessToken不为空时直接执行AppDelegate中的wechatLoginByRequestForUserInfo方法
-                [self getAccess_Token:accessToken openId:openID];
-            }
-            else {
-                [self handleWXLoginAction];
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
-            [super showHudWithText:@"登录微信失败"];
-            [super hideHudAfterSeconds:1.0];
-        }];
-    }
-    else {
+- (void)login {
+    //微信跳转
+    if ([WXApi isWXAppInstalled]) {
         //转圈
         [super showHudWithText:@"正在登录..."];
         [WXApiRequestHandler sendAuthRequestScope:kAuthScope
                                             State:kAuthState
                                            OpenID:kAuthOpenID
                                  InViewController:self];
+    } else {
+        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            if (buttonIndex == 0) {
+#warning to do
+                UIViewController *rootVC = [kAppDelegate creatHomeVC];
+                UIWindow *window = kAppDelegate.window;
+                window.rootViewController = rootVC;
+                [window makeKeyAndVisible];
+            }
+        }];
     }
 }
 
+- (BOOL)isCanAutoLogin {
+    NSString *refreshToken = UserDefaultsGet(WX_REFRESH_TOKEN);
+    if([Common isEmptyString:refreshToken]) {
+        return NO;
+    }
+    NSString *urlString = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",WXDoctor_App_ID,refreshToken];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    if (!data || data.length == 0) {
+        return NO;
+    }
+    NSError *error = nil;
+    id obj = [NSJSONSerialization JSONObjectWithData:data
+                                             options:NSJSONReadingMutableContainers
+                                               error:&error];
+    if (error) {
+        NSLog(@"%@",[error description]);
+        return NO;
+    }
+    
+    NSString *reAccessToken = [obj objectForKey:WX_ACCESS_TOKEN];
+    if (reAccessToken) {
+        UserDefaultsSave(reAccessToken, WX_ACCESS_TOKEN);
+        UserDefaultsSave([obj objectForKey:WX_OPEN_ID], WX_OPEN_ID);
+        UserDefaultsSave([obj objectForKey:WX_REFRESH_TOKEN], WX_REFRESH_TOKEN);
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+- (void)hideLaunchImage {
+    //隐藏启动页
+    [self.screenImageView hideWithAnimation:[TYLaunchFadeScaleAnimation fadeScaleAnimation] completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
+}
+#pragma -mark 跳转微信回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
@@ -106,7 +135,7 @@
         NSString *openID = [accessDict objectForKey:WX_OPEN_ID];
         NSString *refreshToken = [accessDict objectForKey:WX_REFRESH_TOKEN];
         // 本地持久化，以便access_token的使用、刷新或者持续
-        if (accessToken && ![accessToken isEqualToString:@""] && openID && ![openID isEqualToString:@""]) {
+        if (![Common isEmptyString:accessToken] && ![Common isEmptyString:openID]) {
             UserDefaultsSave(accessToken, WX_ACCESS_TOKEN);
             UserDefaultsSave(openID, WX_OPEN_ID);
             UserDefaultsSave(refreshToken, WX_REFRESH_TOKEN);
@@ -116,13 +145,14 @@
         NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
         [super showHudWithText:@"登录微信失败"];
         [super hideHudAfterSeconds:1.0];
+        [self hideLaunchImage];//隐藏启动页
     }];
 }
 
+#pragma -mark 微信登录
 - (void)getAccess_Token:(NSString *)access_Token openId:(NSString *)openId {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
-    //https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"%@", responseObject);
@@ -132,23 +162,22 @@
         //2.隐藏转圈 跳转
         [super showHudWithText:@"登录成功"];
         [super hideHudAfterSeconds:1.0];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //3.jump new page
+        //3.标记变量
+        UserDefaultsSave(@1, @"LastIsLogOut");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //4.jump new page
             UIViewController *rootVC = [kAppDelegate creatHomeVC];
             UIWindow *window = kAppDelegate.window;
             window.rootViewController = rootVC;
             [window makeKeyAndVisible];
+            [self hideLaunchImage];//隐藏启动页
         });
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"获取access_token时出错 = %@", error);
         [super showHudWithText:@"登录微信失败"];
         [super hideHudAfterSeconds:1.0];
+        [self hideLaunchImage];//隐藏启动页
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

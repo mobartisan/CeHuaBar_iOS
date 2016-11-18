@@ -36,17 +36,12 @@
     }
     [self initialMethods];
     [self initialGlobalData];
+    
+    //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
 
-    //launch image
-    UIImageView *screenImageView = [[UIImageView alloc] initWithImage:[UIImage ty_getLaunchImage]];
-    [screenImageView showInWindowWithAnimation:[TYLaunchFadeScaleAnimation fadeScaleAnimation]
-                                    completion:^(BOOL finished) {
-                                        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-                                        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-                                    }];
     return YES;
 }
 
