@@ -51,7 +51,7 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
     id num = UserDefaultsGet(@"LastIsLogOut");
-    if ([self isCanAutoLogin] && (num && [num intValue] == 1)) {
+    if ([self isCanAutoLogin] && [num intValue] == 1) {
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
