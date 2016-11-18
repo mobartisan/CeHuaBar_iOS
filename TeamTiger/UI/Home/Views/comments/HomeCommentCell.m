@@ -119,7 +119,7 @@
  */
 - (void)settingData:(HomeCommentModel *)homeCommentModel {
     if (![Common isEmptyString:homeCommentModel.time]) {
-        self.timeLB.text = [homeCommentModel.time substringFromIndex:5];
+        self.timeLB.text = [[homeCommentModel.time componentsSeparatedByString:@" "] lastObject];
     }
     self.imageV.image = homeCommentModel.open ? kImage(@"img_point_normal") : kImage(@"img_point");
     if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {

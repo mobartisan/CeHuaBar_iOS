@@ -15,7 +15,8 @@
 
 //字符串为空检查
 + (BOOL)isEmptyString:(NSString *)sourceStr;
-
+//数组是否为空
++ (BOOL)isEmptyArr:(NSArray *)arr;
 
 //自定义push动画
 + (void)customPushAnimationFromNavigation:(UINavigationController *)nav ToViewController:(UIViewController *)vc Type:(NSString *)animationType SubType:(NSString *)subType;
@@ -30,7 +31,7 @@
 //系统日期
 + (NSString *)getCurrentSystemDate;
 //比较时间大小
-+ (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
+- (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
 
 //生成BarItem
 + (UIBarButtonItem *)createBarItemWithTitle:(NSString *)name

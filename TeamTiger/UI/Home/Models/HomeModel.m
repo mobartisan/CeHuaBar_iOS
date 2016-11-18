@@ -36,15 +36,13 @@
             HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
             HomeCommentModelFrame *commentModelFrame = [[HomeCommentModelFrame alloc] init];
             commentModelFrame.homeCommentModel = commentModel;
-            if (0 == i) {
-               
-            } else {
-                HomeCommentModelFrame *preModelFrame = arr[i - 1];
-                if (![[commentModelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preModelFrame.homeCommentModel.time substringToIndex:4]]) {
+            if (i != 0)  {
+                HomeCommentModelFrame *preCommentModelFrame = arr[i - 1];
+                if (![[commentModelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preCommentModelFrame.homeCommentModel.time substringToIndex:4]]) {
                     if (y < 1) {
-                        preModelFrame.homeCommentModel.show = YES;
+                        preCommentModelFrame.homeCommentModel.show = YES;
                         self.index = i ;
-                        self.indexModel = preModelFrame;
+                        self.indexModel = preCommentModelFrame;
                         y++;
                     }
                     [indexArr addObject:@(i)];
@@ -55,6 +53,11 @@
         }
         _comment = arr;
         
+        HomeCommentModelFrame *homeCommentModelFrame = [_comment firstObject];
+        NSString *firDate = [[homeCommentModelFrame.homeCommentModel.time componentsSeparatedByString:@" "] firstObject];
+        NSString *currentDate = [Common getCurrentSystemDate];
+        Common *common = [[Common alloc] init];
+        NSLog(@"%ld", [common differencewithDate:firDate withDate:currentDate].day);
         
         //插入时间节点model
         int indexCount = (int)indexArr.count;
@@ -70,28 +73,20 @@
             int index = [indexArr[i] intValue] + i;
             [_comment insertObject:commentModelFrame atIndex:index];
         }
-        self.totalHeight = [self caculteCellTotalHeight];
-        self.partHeight = [self caculteCellPartHeight];
+        self.totalHeight = [self caculteCellHeight:self.comment.count];
+        self.partHeight = [self caculteCellHeight:self.index];
     }
     return self;
 }
 
-- (CGFloat)caculteCellTotalHeight {
+- (CGFloat)caculteCellHeight:(NSInteger)count {
     CGFloat totalHeight = 0;
-    int count = (int)self.comment.count;
-    for (int i = 0; i < count; i++) {
+    for (NSInteger i = 0; i < count; i++) {
         totalHeight += ((HomeCommentModelFrame *)self.comment[i]).cellHeight;;
     }
     return totalHeight;
 }
 
-- (CGFloat)caculteCellPartHeight {
-    CGFloat partHeight = 0;
-    for (int i = 0; i < self.index; i++) {
-        partHeight += ((HomeCommentModelFrame *)self.comment[i]).cellHeight;;
-    }
-    return partHeight;
-}
 
 + (instancetype)modelWithDic:(NSDictionary *)dic {
     return [[HomeModel alloc] initWithDic:dic];
