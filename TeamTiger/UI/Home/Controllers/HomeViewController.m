@@ -347,11 +347,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)handleRefresh:(NSNotification *)notification {
-    [self.tableView reloadData];
+    NSIndexPath *indexPath = notification.object;
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark UITableViewDataSource
@@ -375,9 +375,6 @@
         cell = (HomeVoteCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeVoteCell class])];
         ((HomeVoteCell *)cell).homeModel = model;
     }
-    //     此步设置用于实现cell的frame缓存，可以让tableview滑动更加流畅
-    //    [cell useCellFrameCacheWithIndexPath:indexPath tableView:tableView];
-    
     return cell;
 }
 
@@ -391,6 +388,10 @@
         currentClass = [HomeVoteCell class];
     }
     return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

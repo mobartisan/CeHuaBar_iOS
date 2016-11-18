@@ -296,6 +296,7 @@
         return 0;
     }
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeCommentCell *cell = [HomeCommentCell cellWithTableView:tableView];
     cell.delegate = self;
