@@ -34,7 +34,6 @@
 @property (strong, nonatomic) UIView *separLine;
 
 @property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) HomeCommentModel *commentModel;
 
 @end
 
@@ -201,7 +200,6 @@
 
 
 - (void)setHomeModel:(HomeModel *)homeModel {
-    bgView = self.headerView;
     _homeModel = homeModel;
     [self.tableView reloadData];
     

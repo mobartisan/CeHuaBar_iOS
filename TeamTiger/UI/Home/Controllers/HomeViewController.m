@@ -8,12 +8,14 @@
 
 #import "HomeViewController.h"
 #import "HomeModel.h"
+#import "HomeCommentModelFrame.h"
+#import "HomeCommentModel.h"
 #import "HomeCell.h"
 #import "HomeVoteCell.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "UIView+SDAutoLayout.h"
 #import "ButtonIndexPath.h"
-#include "TableViewIndexPath.h"
+#import "TableViewIndexPath.h"
 #import "TTSettingViewController.h"
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
@@ -27,6 +29,7 @@
 #import "IQKeyboardManager.h"
 #import "SelectBgImageVC.h"
 #import "UIImage+YYAdd.h"
+
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 
@@ -295,6 +298,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    bgTableView = self.tableView;
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:self.allData];
     [self configureNavigationItem];
@@ -309,6 +313,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 - (void)handleRefreshAction {
@@ -332,7 +347,6 @@
     if (self.dataSource.count > 5) {
         return;
     }
-    
     NSDictionary *dic =@{@"cellType":@"0",
                          @"iconImV":@"9",
                          @"name":@"唐小旭",
@@ -463,17 +477,6 @@
     [sheetView showWithBlock:completeBlock];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [IQKeyboardManager sharedManager].enable = NO;
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [IQKeyboardManager sharedManager].enable = YES;
-}
-
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -481,14 +484,21 @@
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
+    HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
+    CGFloat height = 0;
+    if (homdModel.indexModel.homeCommentModel.open) {
+        height = homdModel.totalHeight;
+    }else {
+        height = homdModel.partHeight;
+    }
     CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
     CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
-    CGFloat delta = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - [cell.tableView cellsTotalHeight];
+    CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
     
     CGPoint offset = self.tableView.contentOffset;
-    offset.y += delta;
+    offset.y += delt;
     if (offset.y < 0) {
         offset.y = 0;
     }
@@ -551,11 +561,11 @@
 
 - (void)getDataWithProjectId:(NSString *)Id {
     [self.dataSource removeAllObjects];
-    for (HomeModel *homeModel in self.allData) {
-        if ([homeModel.Id isEqualToString:Id]) {
-            [self.dataSource addObject:homeModel];
+    [self.allData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([((HomeModel *)obj).Id isEqualToString:Id]) {
+            [self.dataSource addObject:obj];
         }
-    }
+    }];
     [self.tableView reloadData];
 }
 
