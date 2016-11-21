@@ -10,12 +10,18 @@
 
 @class HomeModel, ButtonIndexPath, TableViewIndexPath;
 
+@protocol HomeCellDelegate <NSObject>
+- (void)clickCommentBtn:(NSIndexPath *)indexPath;
+- (void)clickProjectBtn:(NSString *)projectId;
+
+@end
+
 @interface HomeCell : UITableViewCell
 
 @property (strong, nonatomic) HomeModel *homeModel;
 @property (strong, nonatomic) ButtonIndexPath *commentBtn;
 @property (strong, nonatomic) TableViewIndexPath *tableView;
-@property (copy, nonatomic) void(^CommentBtnClick)(NSIndexPath *indexPath);
+@property (assign, nonatomic) id <HomeCellDelegate> delegate;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

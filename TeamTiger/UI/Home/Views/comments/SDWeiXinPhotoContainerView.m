@@ -107,9 +107,8 @@
     self.fixedWidth = @(w);
 }
 
-- (void)tapImageView:(UITapGestureRecognizer *)tap
-{
-    [_textView endEditing:YES];
+- (void)tapImageView:(UITapGestureRecognizer *)tap {
+    [bgView endEditing:YES];
     UIView *imageView = tap.view;
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     browser.content = self.content;

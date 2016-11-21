@@ -157,7 +157,7 @@
     } else if (indexPath.section == 0) {
         return 120.0;
     } else {
-        return [ProjectsView heightOfProjectsView:self.groups];
+        return [ProjectsView heightOfProjectsView:self.groups] + 10;
     }
 }
 
@@ -174,6 +174,10 @@
     }
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        if (finished) {
+            NSString *Id = self.unGroupedProjects[indexPath.row][@"Id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id];
+        }
     }];
 }
 

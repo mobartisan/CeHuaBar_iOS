@@ -45,6 +45,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
@@ -99,6 +100,7 @@
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
 #warning to do
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row][@"Id"]];
         [self.navigationController popViewControllerAnimated:NO];
     }];
 }

@@ -28,20 +28,24 @@
 #import "SelectBgImageVC.h"
 #import "UIImage+YYAdd.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) NSArray *allData;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
 @property (nonatomic, weak) UIImageView *imageView;
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;
+
 @end
 
 @implementation HomeViewController
 
-- (NSMutableArray *)dataSource {
-    if (_dataSource == nil) {
+- (NSArray *)allData {
+    if (_allData == nil) {
         NSMutableArray *arr = @[
                                 @{@"cellType":@"0",
+                                  @"Id":@"0001",
                                   @"iconImV":@"1",
                                   @"name":@"唐小旭",
                                   @"project":@"工作牛",
@@ -70,9 +74,10 @@
                                                  @"time":@"7月18日 9:30"}
                                                ].mutableCopy},
                                 @{@"cellType":@"1",
+                                  @"Id":@"0002",
                                   @"iconImV":@"2",
-                                  @"name":@"唐小旭",
-                                  @"project":@"工作牛",
+                                  @"name":@"刘鹏",
+                                  @"project":@"易会",
                                   @"content":@"测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_7.jpg"],
                                   @"time":@"7月26日 9:45",
@@ -80,9 +85,10 @@
                                   @"bNum":@"2",
                                   @"cNum":@"1"},
                                 @{@"cellType":@"0",
+                                  @"Id":@"0003",
                                   @"iconImV":@"9",
                                   @"name":@"唐小旭",
-                                  @"project":@"BBS",
+                                  @"project":@"营配班组",
                                   @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg"],
                                   @"time":@"7月20日 9:45",
@@ -118,9 +124,10 @@
                                                  @"time":@"7月20日 11:30"}
                                                ].mutableCopy},
                                 @{@"cellType":@"0",
+                                  @"Id":@"0004",
                                   @"iconImV":@"3",
                                   @"name":@"曹兴星",
-                                  @"project":@"工作牛",
+                                  @"project":@"电动汽车",
                                   @"content":@"测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_4.jpg"],
                                   @"time":@"7月20日 9:45",
@@ -146,9 +153,10 @@
                                                  @"time":@"7月22日 11:30"}
                                                ].mutableCopy},
                                 @{@"cellType":@"0",
+                                  @"Id":@"0005",
                                   @"iconImV":@"4",
                                   @"name":@"赵瑞",
-                                  @"project":@"易会",
+                                  @"project":@"主网抢修",
                                   @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_4.jpg", @"image_9.jpg"],
                                   @"time":@"7月19日 9:45",
@@ -167,6 +175,35 @@
                                                  @"content":@"有点意思",
                                                  @"photeNameArry":@[],
                                                  @"time":@"7月21日 12:01"}
+                                               ].mutableCopy},
+                                @{@"cellType":@"0",
+                                  @"Id":@"0001",
+                                  @"iconImV":@"10",
+                                  @"name":@"曹兴星",
+                                  @"project":@"工作牛",
+                                  @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_4.jpg"],
+                                  @"time":@"8月16日 10:45",
+                                  @"comment":@[@{@"name":@"唐小旭",
+                                                 @"sName":@"",
+                                                 @"content":@"测试数据测试数据测试数据测试数据",
+                                                 @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg",@"image_1.jpg"],
+                                                 @"time":@"8月21日 19:50"},
+                                               @{@"name":@"琳琳",
+                                                 @"sName":@"@卞克",
+                                                 @"content":@"哈哈哈哈哈哈哈哈哈",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"8月20日 13:55"},
+                                               @{@"name":@"俞弦",
+                                                 @"sName":@"",
+                                                 @"content":@"有点意思有点意思",
+                                                 @"photeNameArry":@[@"image_2.jpg"],
+                                                 @"time":@"8月16日 20:17"},
+                                               @{@"name":@"赵瑞",
+                                                 @"sName":@"",
+                                                 @"content":@"滴滴滴滴的滴滴滴滴的滴滴滴滴的",
+                                                 @"photeNameArry":@[],
+                                                 @"time":@"8月16日 16:31"}
                                                ].mutableCopy}
                                 ].mutableCopy;
         NSMutableArray *dataArr = [NSMutableArray array];
@@ -174,7 +211,15 @@
             HomeModel *homeModel = [HomeModel modelWithDic:dic];
             [dataArr addObject:homeModel];
         }
-        _dataSource = dataArr;
+        _allData = dataArr;
+
+    }
+    return _allData;
+}
+
+- (NSMutableArray *)dataSource {
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
     }
     return _dataSource;
 }
@@ -224,7 +269,7 @@
         
         textLB.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
         
-        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 17).rightSpaceToView(_headerView, 17).widthIs(120).heightIs(34);
+        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 20).rightSpaceToView(_headerView, 17).widthIs(122).heightIs(40);
         
         [_headerView setupAutoHeightWithBottomView:setBtn bottomMargin:5];
         [_headerView layoutSubviews];
@@ -250,9 +295,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.title = @"Moments";
+    [self.dataSource addObjectsFromArray:self.allData];
     [self configureNavigationItem];
-    [self handleRefreshAction];
-    self.view.backgroundColor = kRGBColor(28, 37, 51);
+//    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
@@ -261,6 +307,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
 - (void)handleRefreshAction {
@@ -276,6 +324,7 @@
         [self.tableView.mj_footer endRefreshing];
     }];
     self.tableView.mj_footer = footer;
+    
     
 }
 
@@ -417,6 +466,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -428,8 +478,27 @@
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-    
 }
+
+- (void)handleKeyBoard:(NSNotification *)notification {
+    CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
+    CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
+    CGFloat delta = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - [cell.tableView cellsTotalHeight];
+    
+    CGPoint offset = self.tableView.contentOffset;
+    offset.y += delta;
+    if (offset.y < 0) {
+        offset.y = 0;
+    }
+    [self.tableView setContentOffset:offset animated:YES];
+}
+
+- (void)handleConvertId:(NSNotification *)notification {
+    [self getDataWithProjectId:notification.object];
+}
+
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -444,11 +513,7 @@
         cell = (HomeCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeCell class])];
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).tableView.indexPath = indexPath;
-        [((HomeCell *)cell) setCommentBtnClick:^(NSIndexPath *indexPath1) {
-            [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:indexPath1 atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-            
-        }];
+        ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
     } else {
         cell = (HomeVoteCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeVoteCell class])];
@@ -473,5 +538,25 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark HomeCellDelegate
+- (void)clickCommentBtn:(NSIndexPath *)indexPath {
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    self.currentIndexPath = indexPath;
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+- (void)clickProjectBtn:(NSString *)projectId {
+    [self getDataWithProjectId:projectId];
+}
+
+- (void)getDataWithProjectId:(NSString *)Id {
+    [self.dataSource removeAllObjects];
+    for (HomeModel *homeModel in self.allData) {
+        if ([homeModel.Id isEqualToString:Id]) {
+            [self.dataSource addObject:homeModel];
+        }
+    }
+    [self.tableView reloadData];
+}
 
 @end

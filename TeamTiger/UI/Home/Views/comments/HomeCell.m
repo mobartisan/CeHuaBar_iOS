@@ -27,6 +27,7 @@
 @property (strong, nonatomic) UIImageView *imageV1;
 @property (strong, nonatomic) UILabel *projectLB;
 @property (strong, nonatomic) UIImageView *imageV2;
+@property (strong, nonatomic) ButtonIndexPath *projectBtn;
 @property (strong, nonatomic) UILabel *contentLB;
 @property (strong, nonatomic) SDWeiXinPhotoContainerView *photoContainerView;
 @property (strong, nonatomic) UILabel *timeLB;
@@ -81,6 +82,10 @@
     self.imageV2 = [UIImageView new];
     self.imageV2.image = [UIImage imageNamed:@"＃"];
     [self.contentView addSubview:self.imageV2];
+    
+    self.projectBtn = [ButtonIndexPath buttonWithType:UIButtonTypeCustom];
+    [self.projectBtn addTarget:self action:@selector(handleClickProjectBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.projectBtn];
     
     //内容
     self.contentLB = [UILabel new];
@@ -141,12 +146,12 @@
     self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 9).widthIs(8).heightIs(10);
     
     self.projectLB.sd_layout.leftSpaceToView(self.imageV1, 2).topSpaceToView(self.nameLB, 7).heightIs(13);
-    
     [self.projectLB setSingleLineAutoResizeWithMaxWidth:80];
     
     
     self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
     
+    self.projectBtn.sd_layout.leftEqualToView(self.imageV1).rightEqualToView(self.imageV2).topSpaceToView(self.nameLB, 7).heightIs(20);
     
     self.contentLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.imageV1, 10).rightSpaceToView(self.contentView, 10).autoHeightRatio(0);
     [self.contentLB setMaxNumberOfLinesToShow:6];
@@ -168,6 +173,12 @@
     self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(1.5);
 }
 
+- (void)handleClickProjectBtnAction:(ButtonIndexPath *)sender {
+    if ([self.delegate respondsToSelector:@selector(clickProjectBtn:)]) {
+        [self.delegate clickProjectBtn:_homeModel.Id];
+    }
+}
+
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
     _homeModel.open = !_homeModel.open;
     if (_homeModel.open) {
@@ -177,19 +188,20 @@
             commentModelF.homeCommentModel.open = NO;
         }
     }
-    if (self.CommentBtnClick) {
-        self.CommentBtnClick(sender.indexPath);
+    if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+        [self.delegate clickCommentBtn:sender.indexPath];
     }
     
 }
 
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
-    [_textView endEditing:YES];
+    [self.tableView endEditing:YES];
 }
 
 
 - (void)setHomeModel:(HomeModel *)homeModel {
+    bgView = self.headerView;
     _homeModel = homeModel;
     [self.tableView reloadData];
     
@@ -255,16 +267,18 @@
         
         UITextView *textView= [[UITextView alloc] init];
         textView.returnKeyType = UIReturnKeyDone;
-        textView.placeholder = @"讨论:";
+        textView.placeholder = @" 讨论:";
         textView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
         textView.font = [UIFont systemFontOfSize:16];
         textView.layer.borderWidth = 1;
         textView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
         textView.layer.cornerRadius = 3;
         textView.layer.masksToBounds = YES;
+        [textView setTextDidChange:^(NSString *str) {
+            NSLog(@"ddd");
+        }];
         textView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
         [bgView addSubview:textView];
-        _textView = textView;
         
         iconI.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).widthIs(kScreenWidth).heightIs(KHeaderViewH);
         
@@ -290,7 +304,7 @@
         if (_homeModel.indexModel.homeCommentModel.show) {
             return _homeModel.index;
         }else {
-           return _homeModel.comment.count;
+            return _homeModel.comment.count;
         }
     }else {
         return 0;
