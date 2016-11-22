@@ -10,9 +10,17 @@
 
 @class HomeModel;
 
+@protocol HomeVoteCellDeleagte <NSObject>
+
+- (void)clickVoteProjectBtn:(NSString *)projectId;
+
+@end
+
 @interface HomeVoteCell : UITableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @property (strong, nonatomic) HomeModel *homeModel;
+@property (assign, nonatomic) id <HomeVoteCellDeleagte> delegate;
+@property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end

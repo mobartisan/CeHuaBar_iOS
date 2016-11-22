@@ -11,6 +11,8 @@
 #import "UIView+SDAutoLayout.h"
 #import "SDWeiXinPhotoContainerView.h"
 #import "VoteView.h"
+#import "ButtonIndexPath.h"
+
 @interface HomeVoteCell ()
 
 @property (strong, nonatomic) UIImageView *iconImV;
@@ -18,6 +20,7 @@
 @property (strong, nonatomic) UIImageView *imageV1;
 @property (strong, nonatomic) UILabel *projectLB;
 @property (strong, nonatomic) UIImageView *imageV2;
+@property (strong, nonatomic) ButtonIndexPath *projectBtn;
 @property (strong, nonatomic) VoteView *photoContainerView;
 @property (strong, nonatomic) UILabel *aLB;
 @property (strong, nonatomic) UILabel *bLB;
@@ -79,6 +82,10 @@
     self.imageV2 = [UIImageView new];
     self.imageV2.image = [UIImage imageNamed:@"＃"];
     [self.contentView addSubview:self.imageV2];
+    
+    self.projectBtn = [ButtonIndexPath buttonWithType:UIButtonTypeCustom];
+    [self.projectBtn addTarget:self action:@selector(handleClickProjectBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.contentView addSubview:self.projectBtn];
     
     //图片
     self.photoContainerView = [VoteView new];
@@ -163,6 +170,8 @@
     
     self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
     
+    self.projectBtn.sd_layout.leftEqualToView(self.imageV1).rightEqualToView(self.imageV2).topSpaceToView(self.nameLB, 7).heightIs(20);
+    
     self.photoContainerView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.projectLB, 10);
     
     //A
@@ -205,6 +214,13 @@
     self.bTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", homeModel.bNum, homeModel.bNum.floatValue * 10];
     self.cTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", homeModel.cNum, homeModel.cNum.floatValue * 10];
     self.timeLB.text = homeModel.time;
+}
+
+
+- (void)handleClickProjectBtnAction:(ButtonIndexPath *)sender {
+    if ([self.delegate respondsToSelector:@selector(clickVoteProjectBtn:)]) {
+        [self.delegate clickVoteProjectBtn:_homeModel.Id];
+    }
 }
 
 @end

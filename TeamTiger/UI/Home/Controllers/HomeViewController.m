@@ -31,7 +31,7 @@
 #import "UIImage+YYAdd.h"
 
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HomeCellDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HomeCellDelegate, HomeVoteCellDeleagte>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *allData;
@@ -215,7 +215,7 @@
             [dataArr addObject:homeModel];
         }
         _allData = dataArr;
-
+        
     }
     return _allData;
 }
@@ -302,7 +302,7 @@
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:self.allData];
     [self configureNavigationItem];
-//    [self handleRefreshAction];
+    //    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
@@ -528,6 +528,7 @@
     } else {
         cell = (HomeVoteCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeVoteCell class])];
         ((HomeVoteCell *)cell).homeModel = model;
+        ((HomeVoteCell *)cell).delegate = self;
     }
     return cell;
 }
@@ -559,13 +560,23 @@
     [self getDataWithProjectId:projectId];
 }
 
+#pragma mark HomeVoteCellDeleagte
+- (void)clickVoteProjectBtn:(NSString *)projectId {
+    [self getDataWithProjectId:projectId];
+}
+
+
 - (void)getDataWithProjectId:(NSString *)Id {
     [self.dataSource removeAllObjects];
-    [self.allData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([((HomeModel *)obj).Id isEqualToString:Id]) {
-            [self.dataSource addObject:obj];
-        }
-    }];
+    if (![Common isEmptyString:Id]) {
+        [self.allData enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([((HomeModel *)obj).Id isEqualToString:Id]) {
+                [self.dataSource addObject:obj];
+            }
+        }];
+    }else {
+        [self.dataSource setArray:self.allData];
+    }
     [self.tableView reloadData];
 }
 

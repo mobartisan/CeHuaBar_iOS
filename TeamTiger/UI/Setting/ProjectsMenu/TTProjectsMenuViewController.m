@@ -188,7 +188,7 @@
 
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@""];
     }];
 }
 
