@@ -25,9 +25,8 @@
         NSMutableArray *indexArr = [NSMutableArray array];
         //modelFrameArr 存放不同时间节点的modelFrame
         NSMutableArray *modelFrameArr = [NSMutableArray array];
-        
+        //y 用于 让判断只执行一次
         int y = 0;
-        
         int commentCount = (int)self.comment.count;
         self.count = [NSString stringWithFormat:@"%d", commentCount];
         for (int i = 0; i < commentCount; i++) {
@@ -41,10 +40,22 @@
                 if (![[commentModelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preCommentModelFrame.homeCommentModel.time substringToIndex:4]]) {
                     if (y < 1) {
                         preCommentModelFrame.homeCommentModel.show = YES;
-                        self.index = i ;
+                        if (indexArr.count == 1) {
+                            self.index = i + 1;
+                        } else {
+                             self.index = i;
+                        }
                         self.indexModel = preCommentModelFrame;
                         y++;
                     }
+                    [indexArr addObject:@(i)];
+                    [modelFrameArr addObject:commentModelFrame];
+                }
+            }else {
+                NSString *firDate = [[commentModelFrame.homeCommentModel.time componentsSeparatedByString:@" "] firstObject];
+                NSString *currentDate = [Common getCurrentSystemDate];
+                Common *common = [[Common alloc] init];
+                if ([common differencewithDate:firDate withDate:currentDate].day > 0) {
                     [indexArr addObject:@(i)];
                     [modelFrameArr addObject:commentModelFrame];
                 }
@@ -52,12 +63,6 @@
             [arr addObject:commentModelFrame];
         }
         _comment = arr;
-        
-        HomeCommentModelFrame *homeCommentModelFrame = [_comment firstObject];
-        NSString *firDate = [[homeCommentModelFrame.homeCommentModel.time componentsSeparatedByString:@" "] firstObject];
-        NSString *currentDate = [Common getCurrentSystemDate];
-        Common *common = [[Common alloc] init];
-        NSLog(@"%ld", [common differencewithDate:firDate withDate:currentDate].day);
         
         //插入时间节点model
         int indexCount = (int)indexArr.count;

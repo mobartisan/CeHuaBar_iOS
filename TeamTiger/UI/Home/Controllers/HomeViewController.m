@@ -31,14 +31,17 @@
 #import "UIImage+YYAdd.h"
 
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, HomeCellDelegate, HomeVoteCellDeleagte>
-
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
+{
+    CGFloat _ofSetY;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *allData;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
 @property (nonatomic, weak) UIImageView *imageView;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
+
 
 @end
 
@@ -54,12 +57,12 @@
                                   @"project":@"工作牛",
                                   @"content":@"测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_4.jpg", @"image_4.jpg"],
-                                  @"time":@"7月26日 9:45",
+                                  @"time":@"7月17日 9:45",
                                   @"comment":@[@{@"name":@"唐小旭",
                                                  @"sName":@"@卞克",
                                                  @"content":@"测试数据测试数据测试数据测试数据",
                                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
-                                                 @"time":@"11月17日 19:50"},
+                                                 @"time":@"11月21日 19:50"},
                                                @{@"name":@"卞克",
                                                  @"sName":@"@唐小绪",
                                                  @"content":@"哈哈哈",
@@ -99,7 +102,7 @@
                                                  @"sName":@"@卞克",
                                                  @"content":@"测试数据测试数据测试数据测试数据",
                                                  @"photeNameArry":@[],
-                                                 @"time":@"7月23日 20:30"},
+                                                 @"time":@"11月22日 20:30"},
                                                @{@"name":@"曹兴星",
                                                  @"sName":@"@唐小绪",
                                                  @"content":@"哈哈哈",
@@ -302,6 +305,7 @@
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:self.allData];
     [self configureNavigationItem];
+#warning TO DO ....
     //    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -391,7 +395,7 @@
 
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
-    [self.tableView endEditing:YES];
+    [self.view endEditing:YES];
 }
 
 - (void)configureNavigationItem {
@@ -412,11 +416,13 @@
 }
 
 - (void)handleProjectsBtnAction {
+    [self.view endEditing:YES];
     //项目列表
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
 }
 
 - (void)handleBgImageTap {
+    [self.view endEditing:YES];
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     
     MMPopupItemHandler block = ^(NSInteger index){
@@ -451,8 +457,8 @@
 }
 
 - (void)handleRightBtnAction {
+    [self.view endEditing:YES];
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
-    
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
@@ -502,13 +508,11 @@
     if (offset.y < 0) {
         offset.y = 0;
     }
-    [self.tableView setContentOffset:offset animated:YES];
+    _ofSetY = offset.y;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.tableView setContentOffset:offset animated:YES];
+    }];
 }
-
-- (void)handleConvertId:(NSNotification *)notification {
-    [self getDataWithProjectId:notification.object];
-}
-
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -520,13 +524,12 @@
     // 定义唯一标识
     UITableViewCell *cell = nil;
     if (model.cellType == 0) {
-        cell = (HomeCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeCell class])];
+        cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
-        ((HomeCell *)cell).tableView.indexPath = indexPath;
         ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
     } else {
-        cell = (HomeVoteCell *)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([HomeVoteCell class])];
+        cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
         ((HomeVoteCell *)cell).delegate = self;
     }
@@ -545,9 +548,17 @@
     return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_ofSetY > scrollView.contentOffset.y) {
+        NSLog(@"%f", scrollView.contentOffset.y);
+    }
 }
+
+- (void)handleConvertId:(NSNotification *)notification {
+    [self getDataWithProjectId:notification.object];
+}
+
 
 #pragma mark HomeCellDelegate
 - (void)clickCommentBtn:(NSIndexPath *)indexPath {
@@ -578,6 +589,10 @@
         [self.dataSource setArray:self.allData];
     }
     [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
