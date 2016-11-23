@@ -34,6 +34,7 @@
 @property (strong, nonatomic) UIView *separLine;
 
 @property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) UIImageView *headerImage;
 
 @end
 
@@ -123,7 +124,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.allowsSelection = NO;
     self.tableView.scrollEnabled = NO;
-    self.tableView.tableHeaderView = self.headerView;
+    self.tableView.tableHeaderView = self.headerImage;
     [Common removeExtraCellLines:self.tableView];
     [self.contentView addSubview:self.tableView];
     
@@ -233,6 +234,60 @@
     
 }
 
+- (UIImageView *)headerImage {
+    if (_headerImage == nil) {
+        _headerImage = [UIImageView new];
+        _headerImage.userInteractionEnabled = YES;
+        _headerImage.backgroundColor = kRGBColor(28, 37, 51);
+        UIImage *img = [UIImage imageNamed:@"bg_discussion"];
+        _headerImage.image = [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height - 1, img.size.width * 0.5, 1, img.size.width * 0.5) resizingMode:UIImageResizingModeStretch];
+        
+        //输入视图
+        UIImageView *inputImageV = [UIImageView new];
+        inputImageV.image = kImage(@"icon_write");
+        [_headerImage addSubview:inputImageV];
+        
+        //时间线
+        UIView *lineView = [UIView new];
+        lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
+        [_headerImage addSubview:lineView];
+        
+        //亮点
+        UIImageView *imageV = [UIImageView new];
+        imageV.image = kImage(@"img_point");
+        [_headerImage addSubview:imageV];
+        
+        UITextView *textView= [[UITextView alloc] init];
+        textView.returnKeyType = UIReturnKeyDone;
+        textView.placeholder = @" 讨论:";
+        textView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
+        textView.font = [UIFont systemFontOfSize:16];
+        textView.layer.borderWidth = 1;
+        textView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
+        textView.layer.cornerRadius = 3;
+        textView.layer.masksToBounds = YES;
+        [textView setTextDidChange:^(NSString *str) {
+            NSLog(@"ddd");
+        }];
+        textView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+        [_headerImage addSubview:textView];
+        
+        
+        inputImageV.sd_layout.leftSpaceToView(_headerImage, 33).topSpaceToView(_headerImage, 20).widthIs(13).heightIs(13);//20 + 13
+        
+        lineView.sd_layout.leftSpaceToView(_headerImage, 61).topEqualToView(inputImageV).widthIs(4).heightIs(30);//20 + 30
+        
+        imageV.sd_layout.centerXEqualToView(lineView).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
+        
+        textView.sd_layout.leftSpaceToView(_headerImage, 78).rightSpaceToView(_headerImage, 10).centerYEqualToView(imageV).heightIs(30);
+
+        [_headerImage setupAutoHeightWithBottomView:lineView bottomMargin:0];
+        [_headerImage layoutSubviews];
+    }
+    return _headerImage;
+}
+
+/*
 - (UIView *)headerView {
     if (_headerView == nil) {
         _headerView = [UIView new];
@@ -295,15 +350,11 @@
     }
     return _headerView;
 }
-
+*/
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (_homeModel.open) {
-        if (_homeModel.indexModel.homeCommentModel.show) {
-            return _homeModel.index;
-        }else {
-            return _homeModel.comment.count;
-        }
+        return _homeModel.indexModel.homeCommentModel.show ? _homeModel.index : _homeModel.comment.count;
     }else {
         return 0;
     }

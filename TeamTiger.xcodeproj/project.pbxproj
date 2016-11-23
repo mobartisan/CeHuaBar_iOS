@@ -424,7 +424,6 @@
 		2D7279F71DDD811B00CBF0BA /* HomeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279D91DDD811B00CBF0BA /* HomeCommentModel.m */; };
 		2D7279F81DDD811B00CBF0BA /* HomeCommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279DB1DDD811B00CBF0BA /* HomeCommentModelFrame.m */; };
 		2D7279F91DDD811B00CBF0BA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279DD1DDD811B00CBF0BA /* HomeModel.m */; };
-		2D7279FD1DDD811B00CBF0BA /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279E81DDD811B00CBF0BA /* HomeCell.m */; };
 		2D7279FE1DDD811B00CBF0BA /* HomeCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279EA1DDD811B00CBF0BA /* HomeCommentCell.m */; };
 		2D7279FF1DDD811B00CBF0BA /* SDWeiXinPhotoContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279EC1DDD811B00CBF0BA /* SDWeiXinPhotoContainerView.m */; };
 		2D727A001DDD811B00CBF0BA /* HomeVoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279EF1DDD811B00CBF0BA /* HomeVoteCell.m */; };
@@ -439,6 +438,7 @@
 		2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */; };
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
+		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DD029EE1DD00E7000CD881F /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */; };
 		2DD029EF1DD00E7000CD881F /* TableViewIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029ED1DD00E7000CD881F /* TableViewIndexPath.m */; };
@@ -1252,8 +1252,6 @@
 		2D7279DB1DDD811B00CBF0BA /* HomeCommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentModelFrame.m; sourceTree = "<group>"; };
 		2D7279DC1DDD811B00CBF0BA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
 		2D7279DD1DDD811B00CBF0BA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
-		2D7279E71DDD811B00CBF0BA /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
-		2D7279E81DDD811B00CBF0BA /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2D7279E91DDD811B00CBF0BA /* HomeCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentCell.h; sourceTree = "<group>"; };
 		2D7279EA1DDD811B00CBF0BA /* HomeCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentCell.m; sourceTree = "<group>"; };
 		2D7279EB1DDD811B00CBF0BA /* SDWeiXinPhotoContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWeiXinPhotoContainerView.h; sourceTree = "<group>"; };
@@ -1282,6 +1280,8 @@
 		2D727A171DDD844E00CBF0BA /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
+		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
 		2DD029EA1DD00E7000CD881F /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
@@ -3212,8 +3212,8 @@
 		2D7279E61DDD811B00CBF0BA /* comments */ = {
 			isa = PBXGroup;
 			children = (
-				2D7279E71DDD811B00CBF0BA /* HomeCell.h */,
-				2D7279E81DDD811B00CBF0BA /* HomeCell.m */,
+				2DB351331DE53D84000521A3 /* HomeCell.h */,
+				2DB351341DE53D84000521A3 /* HomeCell.m */,
 				2D7279E91DDD811B00CBF0BA /* HomeCommentCell.h */,
 				2D7279EA1DDD811B00CBF0BA /* HomeCommentCell.m */,
 				2D7279EB1DDD811B00CBF0BA /* SDWeiXinPhotoContainerView.h */,
@@ -3865,6 +3865,7 @@
 				2DDD54141DB0D4AF00C55633 /* QNNetworkInfo.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
 				2DDD54351DB0D4AF00C55633 /* QNUpToken.m in Sources */,
+				2DB351351DE53D84000521A3 /* HomeCell.m in Sources */,
 				2DDD542A1DB0D4AF00C55633 /* QNSystem.m in Sources */,
 				1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */,
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
@@ -3985,7 +3986,6 @@
 				1DA0E1A81D54779C008CD6DF /* ItemView.m in Sources */,
 				1D32AEF71DB0C3BE000DF537 /* GroupHeadView.m in Sources */,
 				2DDD54191DB0D4AF00C55633 /* QNHosts.m in Sources */,
-				2D7279FD1DDD811B00CBF0BA /* HomeCell.m in Sources */,
 				1D09CD2C1D3F550300F85E9A /* UIView+HYBHelperKitUIKit.m in Sources */,
 				1D3E23681D61635C0024A5CA /* Models.m in Sources */,
 				2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */,
