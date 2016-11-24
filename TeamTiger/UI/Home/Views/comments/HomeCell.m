@@ -270,6 +270,7 @@
     inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
     inputView.maxNumberOfLines = 1;
     inputView.textColor = [UIColor whiteColor];
+    inputView.keyboardAppearance = UIKeyboardAppearanceDark;
     inputView.returnKeyType = UIReturnKeySend;
     inputView.layer.borderWidth = 1;
     inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
