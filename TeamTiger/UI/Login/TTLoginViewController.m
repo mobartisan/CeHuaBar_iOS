@@ -32,12 +32,16 @@
     [super viewDidLoad];
     if (isIPhone4) {
         self.bottomHeight.constant = 40;
+        self.loginBgImgV.image = [UIImage imageNamed:@"loginBG35"];
     } else if (isIPhone5) {
         self.bottomHeight.constant = 50;
+        self.loginBgImgV.image = [UIImage imageNamed:@"loginBG40"];
     } else if (isIPhone6) {
         self.bottomHeight.constant = 60;
+        self.loginBgImgV.image = [UIImage imageNamed:@"loginBG47"];
     } else if (isIPhone6P) {
         self.bottomHeight.constant = 70;
+        self.loginBgImgV.image = [UIImage imageNamed:@"loginBG55"];
     }
     [WXApiManager sharedManager].delegate = self;
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {

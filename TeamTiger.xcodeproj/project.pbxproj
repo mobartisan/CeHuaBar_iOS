@@ -264,6 +264,10 @@
 		1D6D02CB1D58139F00EE0C2E /* TTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */; };
 		1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8713061DE6B91800C17D01 /* SelectGroupView.xib */; };
 		1D87130A1DE6B91800C17D01 /* SelectGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8713071DE6B91800C17D01 /* SelectGroupView.m */; };
+		1D87130F1DE6DC0900C17D01 /* loginBG40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D87130C1DE6DC0900C17D01 /* loginBG40@2x.png */; };
+		1D8713101DE6DC0900C17D01 /* loginBG47@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D87130D1DE6DC0900C17D01 /* loginBG47@2x.png */; };
+		1D8713111DE6DC0900C17D01 /* loginBG55@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D87130E1DE6DC0900C17D01 /* loginBG55@3x.png */; };
+		1D8713131DE6DFB600C17D01 /* loginBG35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8713121DE6DFB600C17D01 /* loginBG35@2x.png */; };
 		1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C334D1D5AC37B00AA4E1A /* MockDatas.m */; };
 		1D9408651D41BA47009E2E11 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9408641D41BA47009E2E11 /* NetworkManager.m */; };
 		1D9408691D41BE2D009E2E11 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9408681D41BE2D009E2E11 /* MessageManager.m */; };
@@ -995,6 +999,10 @@
 		1D8713061DE6B91800C17D01 /* SelectGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectGroupView.xib; sourceTree = "<group>"; };
 		1D8713071DE6B91800C17D01 /* SelectGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectGroupView.m; sourceTree = "<group>"; };
 		1D8713081DE6B91800C17D01 /* SelectGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectGroupView.h; sourceTree = "<group>"; };
+		1D87130C1DE6DC0900C17D01 /* loginBG40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginBG40@2x.png"; sourceTree = "<group>"; };
+		1D87130D1DE6DC0900C17D01 /* loginBG47@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginBG47@2x.png"; sourceTree = "<group>"; };
+		1D87130E1DE6DC0900C17D01 /* loginBG55@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginBG55@3x.png"; sourceTree = "<group>"; };
+		1D8713121DE6DFB600C17D01 /* loginBG35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginBG35@2x.png"; sourceTree = "<group>"; };
 		1D8C334C1D5AC37B00AA4E1A /* MockDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDatas.h; sourceTree = "<group>"; };
 		1D8C334D1D5AC37B00AA4E1A /* MockDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDatas.m; sourceTree = "<group>"; };
 		1D9408631D41BA47009E2E11 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
@@ -2427,6 +2435,17 @@
 			path = TTPickerView;
 			sourceTree = "<group>";
 		};
+		1D87130B1DE6DC0900C17D01 /* loginBG */ = {
+			isa = PBXGroup;
+			children = (
+				1D8713121DE6DFB600C17D01 /* loginBG35@2x.png */,
+				1D87130C1DE6DC0900C17D01 /* loginBG40@2x.png */,
+				1D87130D1DE6DC0900C17D01 /* loginBG47@2x.png */,
+				1D87130E1DE6DC0900C17D01 /* loginBG55@3x.png */,
+			);
+			path = loginBG;
+			sourceTree = "<group>";
+		};
 		1D8C334B1D5AC34C00AA4E1A /* MockDatas */ = {
 			isa = PBXGroup;
 			children = (
@@ -2816,14 +2835,15 @@
 		1DA71B7B1D3DB982007483D2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				1DD2E3471D59C589005D45A9 /* icon@2x.png */,
-				1DF0A1991D4DB898002D91DB /* portraits */,
-				0604B4671D4C5A9B00EF1703 /* testImg */,
-				1DA71B7C1D3DBA67007483D2 /* Base.lproj */,
-				1DA71B7F1D3DBA67007483D2 /* Info.plist */,
-				1DA71B801D3DBA67007483D2 /* Assets.xcassets */,
 				1DA71B811D3DBA67007483D2 /* main.m */,
 				1DA71B861D3DBDDB007483D2 /* TeamTiger-Prefix.pch */,
+				1DA71B7F1D3DBA67007483D2 /* Info.plist */,
+				1DD2E3471D59C589005D45A9 /* icon@2x.png */,
+				1DA71B801D3DBA67007483D2 /* Assets.xcassets */,
+				1DA71B7C1D3DBA67007483D2 /* Base.lproj */,
+				1D87130B1DE6DC0900C17D01 /* loginBG */,
+				1DF0A1991D4DB898002D91DB /* portraits */,
+				0604B4671D4C5A9B00EF1703 /* testImg */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -3620,6 +3640,7 @@
 				1DA0E1A01D543F7B008CD6DF /* ProjectCell2.xib in Resources */,
 				1DF0A1B61D4DB898002D91DB /* 2.png in Resources */,
 				2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */,
+				1D8713131DE6DFB600C17D01 /* loginBG35@2x.png in Resources */,
 				1DB5A5881D4B3F36009E6170 /* switchRed@2x.png in Resources */,
 				1DF0A1B01D4DB898002D91DB /* 13.png in Resources */,
 				2D727A1C1DDD844E00CBF0BA /* none.png in Resources */,
@@ -3629,6 +3650,7 @@
 				1D9580D11D3E225200FD0053 /* Info.plist in Resources */,
 				06008F161D58162300A5B3DB /* TTCommonCell.xib in Resources */,
 				1DA0E1A31D546CC7008CD6DF /* ProjectCell_Member.xib in Resources */,
+				1D8713111DE6DC0900C17D01 /* loginBG55@3x.png in Resources */,
 				1DB5A58D1D4B3F36009E6170 /* round-switch-thumb-highlight@2x.png in Resources */,
 				1DDE9E6A1D531B66005926FE /* TTLoginViewController.xib in Resources */,
 				2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */,
@@ -3640,6 +3662,7 @@
 				0604B4771D4C5A9B00EF1703 /* image_4.jpg in Resources */,
 				1DA0E1981D542FE4008CD6DF /* ProfileCell_Footer.xib in Resources */,
 				1DF0A1B51D4DB898002D91DB /* 18.png in Resources */,
+				1D8713101DE6DC0900C17D01 /* loginBG47@2x.png in Resources */,
 				1DA71B821D3DBA67007483D2 /* LaunchScreen.storyboard in Resources */,
 				1DD2E3251D596EAA005D45A9 /* toggle_handle_on@2x.png in Resources */,
 				0604B4781D4C5A9B00EF1703 /* image_5.jpg in Resources */,
@@ -3680,6 +3703,7 @@
 				1DBFD6ED1D6463650039077D /* irv.png in Resources */,
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
 				1DF0A1AE1D4DB898002D91DB /* 11.png in Resources */,
+				1D87130F1DE6DC0900C17D01 /* loginBG40@2x.png in Resources */,
 				1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */,
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,

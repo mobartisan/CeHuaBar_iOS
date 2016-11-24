@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
+@property (weak, nonatomic) IBOutlet UIImageView *loginBgImgV;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomHeight;
 
 @end
