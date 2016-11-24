@@ -205,6 +205,7 @@
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {
+    [bView endEditing:YES];
     UIImageView *view = (UIImageView *)tap.view;
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;

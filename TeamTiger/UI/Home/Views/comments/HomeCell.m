@@ -270,7 +270,7 @@
     inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
     inputView.maxNumberOfLines = 1;
     inputView.textColor = [UIColor whiteColor];
-    inputView.returnKeyType = UIReturnKeyDone;
+    inputView.returnKeyType = UIReturnKeySend;
     inputView.layer.borderWidth = 1;
     inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
     inputView.layer.cornerRadius = 3;
@@ -305,10 +305,12 @@
     
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    if (textView.text.length) {
-        NSLog(@"dddd");
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if( [text isEqualToString:@"\n"]){
+        [textView resignFirstResponder];
+        return NO;
     }
+    return YES;
 }
 
 #pragma mark UITableViewDataSource
