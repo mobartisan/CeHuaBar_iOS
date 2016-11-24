@@ -294,10 +294,8 @@
         lineView.sd_layout.leftSpaceToView(_headerImage, 61).topEqualToView(inputImageV).widthIs(4).heightIs(textHeight);
     };
     
-    
     [_headerImage setupAutoHeightWithBottomView:lineView bottomMargin:0];
     [_headerImage layoutSubviews];
-    
     return _headerImage;
 }
 
