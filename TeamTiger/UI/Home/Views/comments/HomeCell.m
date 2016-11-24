@@ -8,6 +8,7 @@
 
 #import "HomeCell.h"
 #import "YZInputView.h"
+#import "UITextView+Placeholder.h"
 #import "UIView+SDAutoLayout.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "SDWeiXinPhotoContainerView.h"
@@ -18,7 +19,7 @@
 #import "HomeCommentModelFrame.h"
 
 
-@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate>
+@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextViewDelegate>
 
 @property (strong, nonatomic) UIImageView *iconImV;
 @property (strong, nonatomic) UILabel *nameLB;
@@ -258,11 +259,12 @@
     
     //图片按钮
     ButtonIndexPath *imgBtn = [ButtonIndexPath buttonWithType:UIButtonTypeCustom];
-    [imgBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
+    [imgBtn setBackgroundImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
     [imgBtn addTarget:self action:@selector(handelImageAction:) forControlEvents:UIControlEventTouchUpInside];
     [_headerImage addSubview:imgBtn];
     
     YZInputView *inputView= [[YZInputView alloc] init];
+    inputView.delegate = self;
     inputView.font = [UIFont systemFontOfSize:16];
     inputView.placeholder = @" 讨论:";
     inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
@@ -281,15 +283,15 @@
     
     imageV.sd_layout.leftSpaceToView(_headerImage, 63 - 15 / 2).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
 
-    imgBtn.sd_layout.rightSpaceToView(_headerImage, 10).topSpaceToView(_headerImage, 20).widthIs(26).heightIs(26);
+    imgBtn.sd_layout.rightSpaceToView(_headerImage, 5).topSpaceToView(_headerImage, 23).widthIs(20).heightIs(20);
     
     //20 + 30
     // 监听文本框文字高度改变
     __weak typeof(inputView) weakInput = inputView;
     inputView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
-        CGFloat h = textHeight + 25;
+        CGFloat h = textHeight + 20;
         self.headerViewH = h;
-        weakInput.sd_layout.leftSpaceToView(_headerImage, 78).rightSpaceToView(imgBtn, 10).topSpaceToView(_headerImage, 15).heightIs(textHeight);
+        weakInput.sd_layout.leftSpaceToView(_headerImage, 78).rightSpaceToView(imgBtn, 5).topSpaceToView(_headerImage, 15).heightIs(textHeight);
         
         lineView.sd_layout.leftSpaceToView(_headerImage, 61).topEqualToView(inputImageV).widthIs(4).heightIs(textHeight);
     };
@@ -301,6 +303,12 @@
 
 - (void)handelImageAction:(ButtonIndexPath *)sender {
     
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    if (textView.text.length) {
+        NSLog(@"dddd");
+    }
 }
 
 #pragma mark UITableViewDataSource
