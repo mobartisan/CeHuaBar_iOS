@@ -88,7 +88,7 @@
     [self.contentView addSubview:self.projectBtn];
     
     //图片
-    self.photoContainerView = [VoteView new];
+    self.photoContainerView = [[VoteView alloc] init];
     [self.contentView addSubview:self.photoContainerView];
     
     //A

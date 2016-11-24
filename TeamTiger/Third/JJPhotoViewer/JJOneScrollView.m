@@ -31,6 +31,7 @@
 @property(nonatomic,weak)UIImageView *originalImageView;
 
 @end
+
 @implementation JJOneScrollView
 
 

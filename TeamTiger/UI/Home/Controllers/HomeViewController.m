@@ -15,7 +15,6 @@
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "UIView+SDAutoLayout.h"
 #import "ButtonIndexPath.h"
-#import "TableViewIndexPath.h"
 #import "TTSettingViewController.h"
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
@@ -486,7 +485,7 @@
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+//    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {

@@ -1,14 +1,14 @@
 //
-//  TableViewIndexPath.m
-//  BBSDemo
+//  HeaderView.m
+//  TeamTiger
 //
-//  Created by Dale on 16/11/1.
-//  Copyright © 2016年 Nari. All rights reserved.
+//  Created by Dale on 16/11/23.
+//  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
-#import "TableViewIndexPath.h"
+#import "HeaderView.h"
 
-@implementation TableViewIndexPath
+@implementation HeaderView
 
 /*
 // Only override drawRect: if you perform custom drawing.

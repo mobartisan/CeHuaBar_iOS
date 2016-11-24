@@ -149,6 +149,9 @@
     NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
     long perRowItemCount = [self perRowItemCountForPicPathArray:_picPathStringsArray];
     CGFloat margin  =  7;
+    if (![Common isEmptyArr:self.imageArr]) {
+        [self.imageArr removeAllObjects];
+    }
     [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         long columnIndex = idx % perRowItemCount;
         long rowIndex = idx / perRowItemCount;
@@ -209,7 +212,6 @@
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;
     [manager showNetworkPhotoViewer:self.imageArr urlStrArr:nil selecView:view content:self.content];
-    
 }
 
 #pragma mark - JJPhotoDelegate
