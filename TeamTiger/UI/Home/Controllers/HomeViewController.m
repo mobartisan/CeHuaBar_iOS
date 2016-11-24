@@ -15,7 +15,6 @@
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "UIView+SDAutoLayout.h"
 #import "ButtonIndexPath.h"
-#import "TableViewIndexPath.h"
 #import "TTSettingViewController.h"
 #import "TTAddDiscussViewController.h"
 #import "DiscussViewController.h"
@@ -87,9 +86,8 @@
                                   @"content":@"测试数据测试数据测试数据测试数据",
                                   @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_7.jpg"],
                                   @"time":@"7月26日 9:45",
-                                  @"aNum":@"7",
-                                  @"bNum":@"2",
-                                  @"cNum":@"1"},
+                                  @"ticketArry":@[@"7", @"2", @"1"]
+                                  },
                                 @{@"cellType":@"0",
                                   @"Id":@"0003",
                                   @"iconImV":@"9",
@@ -486,7 +484,7 @@
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    //    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {

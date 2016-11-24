@@ -445,9 +445,11 @@
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
+		2DB351391DE56967000521A3 /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351381DE56967000521A3 /* YZInputView.m */; };
+		2DB3513C1DE574F0000521A3 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3513B1DE574F0000521A3 /* HeaderView.m */; };
+		2DB3513E1DE574FF000521A3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DB3513D1DE574FF000521A3 /* HeaderView.xib */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DD029EE1DD00E7000CD881F /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */; };
-		2DD029EF1DD00E7000CD881F /* TableViewIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029ED1DD00E7000CD881F /* TableViewIndexPath.m */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
 		2DD029F71DD00EB400CD881F /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
@@ -1295,12 +1297,15 @@
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
+		2DB351371DE56967000521A3 /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
+		2DB351381DE56967000521A3 /* YZInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZInputView.m; sourceTree = "<group>"; };
+		2DB3513A1DE574F0000521A3 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
+		2DB3513B1DE574F0000521A3 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
+		2DB3513D1DE574FF000521A3 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
 		2DD029EA1DD00E7000CD881F /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
 		2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
-		2DD029EC1DD00E7000CD881F /* TableViewIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewIndexPath.h; sourceTree = "<group>"; };
-		2DD029ED1DD00E7000CD881F /* TableViewIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewIndexPath.m; sourceTree = "<group>"; };
 		2DD029F11DD00EB400CD881F /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
 		2DD029F21DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
 		2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
@@ -2870,8 +2875,6 @@
 			children = (
 				2DD029EA1DD00E7000CD881F /* ButtonIndexPath.h */,
 				2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */,
-				2DD029EC1DD00E7000CD881F /* TableViewIndexPath.h */,
-				2DD029ED1DD00E7000CD881F /* TableViewIndexPath.m */,
 				2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */,
 				2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */,
 				1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */,
@@ -3240,6 +3243,7 @@
 		2D7279E61DDD811B00CBF0BA /* comments */ = {
 			isa = PBXGroup;
 			children = (
+				2DB351361DE56967000521A3 /* InputView */,
 				2DB351331DE53D84000521A3 /* HomeCell.h */,
 				2DB351341DE53D84000521A3 /* HomeCell.m */,
 				2D7279E91DDD811B00CBF0BA /* HomeCommentCell.h */,
@@ -3301,6 +3305,18 @@
 				2DFA80911DD1BDF100160060 /* Controllers */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		2DB351361DE56967000521A3 /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				2DB351371DE56967000521A3 /* YZInputView.h */,
+				2DB351381DE56967000521A3 /* YZInputView.m */,
+				2DB3513A1DE574F0000521A3 /* HeaderView.h */,
+				2DB3513B1DE574F0000521A3 /* HeaderView.m */,
+				2DB3513D1DE574FF000521A3 /* HeaderView.xib */,
+			);
+			path = InputView;
 			sourceTree = "<group>";
 		};
 		2DD029F01DD00EB400CD881F /* SDAutoLayout */ = {
@@ -3670,6 +3686,7 @@
 				1DBFD6F01D6463650039077D /* textfield_activated_holo_light@3x.png in Resources */,
 				1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */,
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
+				2DB3513E1DE574FF000521A3 /* HeaderView.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
 				1DF984DA1DAE13510046698C /* TTSelectGroupViewController.xib in Resources */,
@@ -3833,6 +3850,7 @@
 				1D09CC7C1D3F29C900F85E9A /* YYMemoryCache.m in Sources */,
 				1D09CC841D3F29C900F85E9A /* YYImage.m in Sources */,
 				1D09CD191D3F550300F85E9A /* NSString+HYBHelperKit.m in Sources */,
+				2DB3513C1DE574F0000521A3 /* HeaderView.m in Sources */,
 				1D09CD181D3F550300F85E9A /* NSObject+HYBHelperKit.m in Sources */,
 				1D09CD291D3F550300F85E9A /* UIAlertView+HYBHelperKit.m in Sources */,
 				2DFA80A41DD1BDF100160060 /* HomeViewController.m in Sources */,
@@ -3880,7 +3898,6 @@
 				1D09CC9A1D3F29C900F85E9A /* YYTextParser.m in Sources */,
 				0604B4641D4C5A5B00EF1703 /* AKPickerView.m in Sources */,
 				2D727A0D1DDD842300CBF0BA /* SDWaitingView.m in Sources */,
-				2DD029EF1DD00E7000CD881F /* TableViewIndexPath.m in Sources */,
 				1D95803A1D3E123800FD0053 /* AFURLResponseSerialization.m in Sources */,
 				1D9580D61D3E225200FD0053 /* MASViewAttribute.m in Sources */,
 				1D09CD5E1D3F59D500F85E9A /* SDWebImageDownloader.m in Sources */,
@@ -4038,6 +4055,7 @@
 				1D09CC681D3F29C900F85E9A /* NSTimer+YYAdd.m in Sources */,
 				1DD2E3451D59B8E0005D45A9 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				1D09CD571D3F59D500F85E9A /* UIButton+WebCache.m in Sources */,
+				2DB351391DE56967000521A3 /* YZInputView.m in Sources */,
 				1D09CD201D3F550300F85E9A /* UITableView+HYBMasonryKit.m in Sources */,
 				1DA71B851D3DBA67007483D2 /* main.m in Sources */,
 				1D09CCA01D3F29C900F85E9A /* YYAsyncLayer.m in Sources */,

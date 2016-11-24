@@ -20,7 +20,7 @@
 
 - (void)setHomeCommentModel:(HomeCommentModel *)homeCommentModel {
     _homeCommentModel = homeCommentModel;
-        /**
+    /**
      *  上时间线的frame
      */
     CGFloat lineX = 61;

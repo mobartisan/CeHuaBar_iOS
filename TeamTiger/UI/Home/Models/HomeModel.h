@@ -35,12 +35,8 @@ typedef NS_ENUM(NSInteger, HomeModelCellType) {
 @property (copy, nonatomic) NSString *content;
 //图片数组
 @property (strong, nonatomic) NSArray *photeNameArry;
-//a投票数
-@property (copy, nonatomic) NSString *aNum;
-//b投票数
-@property (copy, nonatomic) NSString *bNum;
-//c投票数
-@property (copy, nonatomic) NSString *cNum;
+//投票个数数组
+@property (strong, nonatomic) NSArray *ticketArry;
 //时间
 @property (copy, nonatomic) NSString *time;
 //讨论数据

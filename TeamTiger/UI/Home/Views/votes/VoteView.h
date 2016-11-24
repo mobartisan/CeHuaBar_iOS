@@ -14,3 +14,11 @@
 @property (copy, nonatomic) NSString *content;
 
 @end
+
+
+@interface VoteBottomView : UIView
+
+
+@property (strong, nonatomic) NSArray *ticketArr;
+
+@end

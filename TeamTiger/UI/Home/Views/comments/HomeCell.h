@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) HomeModel *homeModel;
 @property (strong, nonatomic) ButtonIndexPath *commentBtn;
-@property (strong, nonatomic) TableViewIndexPath *tableView;
+@property (strong, nonatomic) UITableView *tableView;
 @property (assign, nonatomic) id <HomeCellDelegate> delegate;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
