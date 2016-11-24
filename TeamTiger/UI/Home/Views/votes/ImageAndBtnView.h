@@ -18,4 +18,10 @@
 
 @interface ProgresssAndTicketView : UIView
 
+
+@property (strong, nonatomic) UILabel *aLB;
+@property (strong, nonatomic) UIProgressView *aProgressView;
+@property (strong, nonatomic) UILabel *aTicket;
+
+
 @end

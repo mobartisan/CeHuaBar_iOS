@@ -12,7 +12,7 @@
 #import "JJPhotoManeger.h"
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 
-@interface VoteView ()<JJPhotoDelegate>
+@interface VoteView () <JJPhotoDelegate>
 
 @property (nonatomic, strong) NSArray *imageViewsArray;
 @property (strong, nonatomic) NSMutableArray *imageArr;
@@ -160,7 +160,6 @@
         customView.hidden = NO;
         customView.imageV.image = [UIImage imageNamed:obj];
         customView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
-        [self.imageArr addObject:customView.imageV];
     }];
     
     CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
@@ -193,8 +192,7 @@
 }
 
 //每行图片的个数
-- (NSInteger)perRowItemCountForPicPathArray:(NSArray *)array
-{
+- (NSInteger)perRowItemCountForPicPathArray:(NSArray *)array {
     //    if (array.count <= 3) {
     //        return array.count;
     //    } else if (array.count <= 4) {
@@ -221,3 +219,75 @@
 }
 
 @end
+
+
+
+@interface VoteBottomView ()
+
+@property (strong, nonatomic) NSMutableArray *tempArr;
+
+@end
+
+@implementation VoteBottomView
+
+- (NSMutableArray *)tempArr {
+    if (_tempArr == nil) {
+        _tempArr = [NSMutableArray array];
+    }
+    return _tempArr;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)setup {
+    for (int i = 0; i < 9; i++) {
+        ProgresssAndTicketView *customView = [[ProgresssAndTicketView alloc] init];
+        [self addSubview:customView];
+        [self.tempArr addObject:customView];
+    }
+}
+
+- (void)setTicketArr:(NSArray *)ticketArr {
+    _ticketArr = ticketArr;
+    for (long i = _ticketArr.count; i < self.tempArr.count; i++) {
+        ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:i];
+        customView.hidden = YES;
+    }
+    if (_ticketArr.count == 0) {
+        self.height = 0;
+        self.fixedHeight = @(0);
+        return;
+    }
+#warning TO DO.....itemW
+    CGFloat itemW = 283;
+    CGFloat itemH = 20.0;
+    CGFloat margin  =  2;
+    NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
+  
+    [_ticketArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *ticket = (NSString *)obj;
+        ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];
+        customView.aProgressView.progressTintColor = kRGB(45, 198, 200);
+        customView.aLB.text = arr[idx];
+        customView.aTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", ticket, ticket.floatValue * 10];
+        customView.hidden = NO;
+        customView.frame = CGRectMake(0, idx * (itemH + margin), itemW, itemH);
+    }];
+    
+    CGFloat h = itemH * (_ticketArr.count);
+    self.width = itemW;
+    self.height = h;
+    
+    self.fixedWidth = @(itemW);
+    self.fixedHeight = @(h);
+}
+
+
+@end
+
+

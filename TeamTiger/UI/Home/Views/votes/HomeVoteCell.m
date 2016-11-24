@@ -22,15 +22,8 @@
 @property (strong, nonatomic) UIImageView *imageV2;
 @property (strong, nonatomic) ButtonIndexPath *projectBtn;
 @property (strong, nonatomic) VoteView *photoContainerView;
-@property (strong, nonatomic) UILabel *aLB;
-@property (strong, nonatomic) UILabel *bLB;
-@property (strong, nonatomic) UILabel *cLB;
-@property (strong, nonatomic) UIProgressView *aProgressView;
-@property (strong, nonatomic) UIProgressView *bProgressView;
-@property (strong, nonatomic) UIProgressView *cProgressView;
-@property (strong, nonatomic) UILabel *aTicket;
-@property (strong, nonatomic) UILabel *bTicket;
-@property (strong, nonatomic) UILabel *cTicket;
+@property (strong, nonatomic) VoteBottomView *voteBottomView;
+
 @property (strong, nonatomic) UILabel *timeLB;
 @property (strong, nonatomic) UIView *separLine;
 
@@ -91,57 +84,8 @@
     self.photoContainerView = [[VoteView alloc] init];
     [self.contentView addSubview:self.photoContainerView];
     
-    //A
-    self.aLB = [UILabel new];
-    self.aLB.text = @"A";
-    self.aLB.textColor = [UIColor whiteColor];
-    self.aLB.font = [UIFont systemFontOfSize:16];
-    [self.contentView addSubview:self.aLB];
-    
-    self.aProgressView = [UIProgressView new];
-    self.aProgressView.progressTintColor = kRGB(45, 198, 200);
-    [self.contentView addSubview:self.aProgressView];
-    
-    self.aTicket = [UILabel new];
-    self.aTicket.textAlignment = NSTextAlignmentLeft;
-    self.aTicket.textColor = kRGB(105, 112, 120);
-    self.aTicket.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:self.aTicket];
-    
-    //B
-    self.bLB = [UILabel new];
-    self.bLB.text = @"B";
-    self.bLB.textColor = [UIColor whiteColor];
-    self.bLB.font = [UIFont systemFontOfSize:16];
-    [self.contentView addSubview:self.bLB];
-    
-    self.bProgressView = [UIProgressView new];
-    self.bProgressView.progressTintColor = kRGB(45, 198, 200);
-    [self.contentView addSubview:self.bProgressView];
-    
-    self.bTicket = [UILabel new];
-    self.bTicket.textAlignment = NSTextAlignmentLeft;
-    self.bTicket.textColor = kRGB(105, 112, 120);
-     self.bTicket.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:self.bTicket];
-    
-    //C
-    self.cLB = [UILabel new];
-    self.cLB.text = @"C";
-    self.cLB.textColor = [UIColor whiteColor];
-    self.cLB.font = [UIFont systemFontOfSize:16];
-    [self.contentView addSubview:self.cLB];
-    
-    self.cProgressView = [UIProgressView new];
-    self.cProgressView.progressTintColor = kRGB(45, 198, 200);
-    [self.contentView addSubview:self.cProgressView];
-    
-    self.cTicket = [UILabel new];
-    self.cTicket.textAlignment = NSTextAlignmentLeft;
-    self.cTicket.textColor = kRGB(105, 112, 120);
-    self.cTicket.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:self.cTicket];
-    
+    self.voteBottomView = [[VoteBottomView alloc] init];
+    [self.contentView addSubview:self.voteBottomView];
     
     //时间
     self.timeLB = [UILabel new];
@@ -174,23 +118,10 @@
     
     self.photoContainerView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.projectLB, 10);
     
-    //A
-    self.aLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.photoContainerView, 10).widthIs(10).heightIs(20);
-    self.aTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.aLB).heightIs(20).widthIs(65);
-    self.aProgressView.sd_layout.leftSpaceToView(self.aLB, 10).centerYEqualToView(self.aLB).rightSpaceToView(self.aTicket, 10).heightIs(4);
-    
-    //B
-    self.bLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.aLB, 5).widthIs(10).heightIs(20);
-    self.bTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.bLB).heightIs(20).widthIs(65);
-    self.bProgressView.sd_layout.leftSpaceToView(self.bLB, 10).centerYEqualToView(self.bLB).rightSpaceToView(self.bTicket, 10).heightIs(4);
-    
-    //C
-    self.cLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.bLB, 5).widthIs(10).heightIs(20);
-    self.cTicket.sd_layout.rightSpaceToView(self.contentView, 17).centerYEqualToView(self.cLB).heightIs(20).widthIs(65);
-    self.cProgressView.sd_layout.leftSpaceToView(self.cLB, 10).centerYEqualToView(self.cLB).rightSpaceToView(self.cTicket, 10).heightIs(4);
+    self.voteBottomView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.photoContainerView, 10);
     
     //时间
-    self.timeLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.cLB, 10).heightIs(20);
+    self.timeLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.voteBottomView, 10).heightIs(20);
     [self.timeLB setSingleLineAutoResizeWithMaxWidth:200];
     [self.timeLB updateLayout];
     
@@ -202,17 +133,12 @@
 - (void)setHomeModel:(HomeModel *)homeModel {
     
     _homeModel = homeModel;
-    
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
     self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
-    self.aProgressView.progress = homeModel.aNum.floatValue / 10;
-    self.bProgressView.progress = homeModel.bNum.floatValue / 10;
-    self.cProgressView.progress = homeModel.cNum.floatValue / 10;
-    self.aTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", homeModel.aNum, homeModel.aNum.floatValue * 10];
-    self.bTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", homeModel.bNum, homeModel.bNum.floatValue * 10];
-    self.cTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", homeModel.cNum, homeModel.cNum.floatValue * 10];
+    self.voteBottomView.ticketArr = homeModel.ticketArry;
+    NSLog(@"%@------%@", NSStringFromCGRect(self.photoContainerView.frame), NSStringFromCGRect(self.voteBottomView.frame));
     self.timeLB.text = homeModel.time;
 }
 

@@ -9,11 +9,6 @@
 #import "ImageAndBtnView.h"
 #import "UIView+SDAutoLayout.h"
 
-
-@interface ImageAndBtnView ()
-
-
-@end
 @implementation ImageAndBtnView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -64,6 +59,44 @@
     self.voteBtn.sd_layout.leftSpaceToView(self.projectLB, 0).topSpaceToView(self.imageV, 7).rightSpaceToView(self, 5).heightIs(20);
     
     [self setupAutoHeightWithBottomView:self.voteBtn bottomMargin:2];
+    
+}
+
+@end
+
+@implementation ProgresssAndTicketView
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupSubViews];
+    }
+    return self;
+}
+
+- (void)setupSubViews {
+    
+    self.aLB = [UILabel new];
+    self.aLB.textColor = [UIColor whiteColor];
+    self.aLB.font = [UIFont systemFontOfSize:16];
+    [self addSubview:self.aLB];
+    
+    self.aTicket = [UILabel new];
+    self.aTicket.textAlignment = NSTextAlignmentLeft;
+    self.aTicket.textColor = kRGB(105, 112, 120);
+    self.aTicket.font = [UIFont systemFontOfSize:14];
+    [self addSubview:self.aTicket];
+    
+    self.aProgressView = [UIProgressView new];
+    [self addSubview:self.aProgressView];
+    
+    self.aLB.sd_layout.leftSpaceToView(self, 0).topSpaceToView(self, 0).widthIs(10).heightIs(20);
+    
+    self.aTicket.sd_layout.rightSpaceToView(self, 0).centerYEqualToView(self.aLB).heightIs(20).widthIs(65);
+    
+    self.aProgressView.sd_layout.leftSpaceToView(self.aLB, 10).centerYEqualToView(self.aLB).rightSpaceToView(self.aTicket, 10).heightIs(4);
+    
+    [self setupAutoHeightWithBottomView:self.aLB bottomMargin:0];
 }
 
 @end
