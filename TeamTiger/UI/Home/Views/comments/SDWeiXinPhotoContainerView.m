@@ -108,7 +108,7 @@
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {
-    [bgTableView endEditing:YES];
+    [bView endEditing:YES];
     UIView *imageView = tap.view;
     SDPhotoBrowser *browser = [[SDPhotoBrowser alloc] init];
     browser.content = self.content;

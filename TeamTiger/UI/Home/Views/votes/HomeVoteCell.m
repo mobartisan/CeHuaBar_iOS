@@ -131,7 +131,6 @@
 }
 
 - (void)setHomeModel:(HomeModel *)homeModel {
-    
     _homeModel = homeModel;
     self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;

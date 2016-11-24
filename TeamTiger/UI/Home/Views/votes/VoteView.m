@@ -160,11 +160,11 @@
         customView.hidden = NO;
         customView.imageV.image = [UIImage imageNamed:obj];
         customView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
+        [self.imageArr addObject:customView.imageV];
     }];
     
     CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
     int columnCount = ceilf(_picPathStringsArray.count * 1.0 / perRowItemCount);
-    //3.14 ceilf(3.14) = 4
     CGFloat h = columnCount * itemH + (columnCount - 1) * margin;
     self.width = w;
     self.height = h;
@@ -205,7 +205,7 @@
 }
 
 - (void)tapImageView:(UITapGestureRecognizer *)tap {
-    [bgTableView endEditing:YES];
+    [bView endEditing:YES];
     UIImageView *view = (UIImageView *)tap.view;
     JJPhotoManeger *manager = [JJPhotoManeger maneger];
     manager.delegate = self;
@@ -263,23 +263,29 @@
         self.fixedHeight = @(0);
         return;
     }
-#warning TO DO.....itemW
-    CGFloat itemW = 283;
+    
+    CGFloat itemW = 0.0;
+    if (is40inch) {
+        itemW = 228;
+    }else if (is47inch) {
+         itemW = 283;
+    }else if (is55inch) {
+        
+    }
     CGFloat itemH = 20.0;
-    CGFloat margin  =  2;
+    CGFloat margin = 5;
     NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
   
     [_ticketArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *ticket = (NSString *)obj;
         ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];
-        customView.aProgressView.progressTintColor = kRGB(45, 198, 200);
         customView.aLB.text = arr[idx];
         customView.aTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", ticket, ticket.floatValue * 10];
         customView.hidden = NO;
         customView.frame = CGRectMake(0, idx * (itemH + margin), itemW, itemH);
     }];
     
-    CGFloat h = itemH * (_ticketArr.count);
+    CGFloat h = itemH * (_ticketArr.count) + margin * (_ticketArr.count - 1);
     self.width = itemW;
     self.height = h;
     

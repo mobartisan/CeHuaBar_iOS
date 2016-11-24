@@ -88,9 +88,10 @@
     [self addSubview:self.aTicket];
     
     self.aProgressView = [UIProgressView new];
+    self.aProgressView.progressTintColor = kRGB(45, 198, 200);
     [self addSubview:self.aProgressView];
     
-    self.aLB.sd_layout.leftSpaceToView(self, 0).topSpaceToView(self, 0).widthIs(10).heightIs(20);
+    self.aLB.sd_layout.leftSpaceToView(self, 0).topSpaceToView(self, 0).widthIs(12).heightIs(20);
     
     self.aTicket.sd_layout.rightSpaceToView(self, 0).centerYEqualToView(self.aLB).heightIs(20).widthIs(65);
     

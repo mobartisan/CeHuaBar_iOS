@@ -31,9 +31,6 @@
 
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
-{
-    CGFloat _ofSetY;
-}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *allData;
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -208,7 +205,18 @@
                                                  @"content":@"滴滴滴滴的滴滴滴滴的滴滴滴滴的",
                                                  @"photeNameArry":@[],
                                                  @"time":@"8月16日 16:31"}
-                                               ].mutableCopy}
+                                               ].mutableCopy},
+                                @{@"cellType":@"1",
+                                  @"Id":@"0005",
+                                  @"iconImV":@"2",
+                                  @"name":@"刘鹏",
+                                  @"project":@"主网抢修",
+                                  @"content":@"测试数据测试数据测试数据测试数据",
+                                  @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_7.jpg",
+                                                     @"image_1.jpg", @"image_8.jpg", @"image_5.jpg"],
+                                  @"time":@"11月24日 9:45",
+                                  @"ticketArry":@[@"7", @"2", @"1", @"3", @"5", @"9"]
+                                  }
                                 ].mutableCopy;
         NSMutableArray *dataArr = [NSMutableArray array];
         for (NSDictionary *dic in arr) {
@@ -300,11 +308,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     bgTableView = self.tableView;
+    bView = self.view;
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:self.allData];
     [self configureNavigationItem];
 #warning TO DO ....
-    //    [self handleRefreshAction];
+    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
@@ -334,63 +343,15 @@
         [self.tableView.mj_header endRefreshing];
     }];
     self.tableView.mj_header = header;
-    
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        [self addDataToDataArr];
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
+        
     }];
     self.tableView.mj_footer = footer;
     
     
 }
-
-- (void)addDataToDataArr {
-    if (self.dataSource.count > 5) {
-        return;
-    }
-    NSDictionary *dic =@{@"cellType":@"0",
-                         @"iconImV":@"9",
-                         @"name":@"唐小旭",
-                         @"project":@"BBS",
-                         @"content":@"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据",
-                         @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg"],
-                         @"time":@"7月20日 9:45",
-                         @"comment":@[@{@"name":@"唐小旭",
-                                        @"sName":@"@卞克",
-                                        @"content":@"测试数据测试数据测试数据测试数据",
-                                        @"photeNameArry":@[],
-                                        @"time":@"7月23日 20:30"},
-                                      @{@"name":@"曹兴星",
-                                        @"sName":@"@唐小绪",
-                                        @"content":@"哈哈哈",
-                                        @"photeNameArry":@[@"image_1.jpg", @"image_2.jpg"],
-                                        @"time":@"7月23日 15:05"},
-                                      @{@"name":@"俞弦",
-                                        @"sName":@"",
-                                        @"content":@"有点意思",
-                                        @"photeNameArry":@[],
-                                        @"time":@"7月22日 12:01"},
-                                      @{@"name":@"齐云猛",
-                                        @"sName":@"",
-                                        @"content":@"滴滴滴滴的",
-                                        @"photeNameArry":@[],
-                                        @"time":@"7月22日 11:30"},
-                                      @{@"name":@"刘鹏",
-                                        @"sName":@"",
-                                        @"content":@"测试数据测试数据",
-                                        @"photeNameArry":@[@"image_5.jpg", @"image_6.jpg"],
-                                        @"time":@"7月20日 12:01"},
-                                      @{@"name":@"齐云猛",
-                                        @"sName":@"",
-                                        @"content":@"滴滴滴滴的",
-                                        @"photeNameArry":@[],
-                                        @"time":@"7月20日 11:30"}
-                                      ].mutableCopy};
-    HomeModel *homeModel = [HomeModel modelWithDic:dic];
-    [self.dataSource addObject:homeModel];
-}
-
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
     [self.view endEditing:YES];
@@ -484,7 +445,7 @@
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    //    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
@@ -501,7 +462,7 @@
     if (offset.y < 0) {
         offset.y = 0;
     }
-    _ofSetY = offset.y;
+
     [UIView animateWithDuration:0.3 animations:^{
         [self.tableView setContentOffset:offset animated:YES];
     }];
@@ -543,9 +504,7 @@
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_ofSetY > scrollView.contentOffset.y) {
-        NSLog(@"%f", scrollView.contentOffset.y);
-    }
+    
 }
 
 - (void)handleConvertId:(NSNotification *)notification {
