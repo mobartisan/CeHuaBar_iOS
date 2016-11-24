@@ -87,7 +87,7 @@
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
-             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
              }];
         };
         //增加项目至分组的cell回调block
@@ -233,9 +233,16 @@
     } else {
         [self.gView loadGroupInfo:nil AllProjects:[MockDatas projects]];
         [self.gView show];
+        WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                    hud.label.text = @"创建分组成功";
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                });
             }
         };
     }
@@ -251,10 +258,12 @@
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                hud.label.text = @"项目已添加至该分组";
-                hud.mode = MBProgressHUDModeText;
-                [hud hideAnimated:YES afterDelay:1.0];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                    hud.label.text = @"项目已添加至该分组";
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                });
             }
         };
     }
