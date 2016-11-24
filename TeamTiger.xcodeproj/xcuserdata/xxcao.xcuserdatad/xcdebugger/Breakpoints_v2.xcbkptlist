@@ -169,7 +169,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "295"
             endingLineNumber = "295"
-            landmarkName = "-handleRightBtnAction"
+            landmarkName = "-handleSetBtnAction"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -201,7 +201,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "282"
             endingLineNumber = "282"
-            landmarkName = "-handleRightBtnAction"
+            landmarkName = "-headerView"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -234,38 +234,6 @@
             startingLineNumber = "320"
             endingLineNumber = "320"
             landmarkName = "-_hyb_setNavItems:isLeft:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Login/TTLoginViewController.m"
-            timestampString = "501152328.950528"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Login/TTLoginViewController.m"
-            timestampString = "501152357.318263"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "-login"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -324,22 +292,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Login/TTLoginViewController.m"
-            timestampString = "501152444.882148"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-isCanAutoLogin"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Login/TTLoginViewController.m"
             timestampString = "501152560.88261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -363,6 +315,70 @@
             endingLineNumber = "132"
             landmarkName = "-managerDidRecvAuthResponse:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+            timestampString = "501661519.497605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+            timestampString = "501661523.221138"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__64-[TTProjectsMenuViewController tableView:cellForRowAtIndexPath:]_block_invoke"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+                  timestampString = "501666476.310834"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "90"
+                  endingLineNumber = "90"
+                  offsetFromSymbolStart = "55">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__64-[TTProjectsMenuViewController tableView:cellForRowAtIndexPath:]_block_invoke_2"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+                  timestampString = "501666476.317861"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
