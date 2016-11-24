@@ -17,6 +17,7 @@
 #import "TTMyProfileViewController.h"
 #import "TTAddProjectViewController.h"
 #import "GroupView.h"
+#import "SelectGroupView.h"
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
 #import "TTGroupViewController.h"
@@ -26,6 +27,8 @@
 @property(nonatomic,strong)ProjectsView *pView;
 
 @property(nonatomic,strong)GroupView *gView;
+
+@property(nonatomic,strong)SelectGroupView *sgView;
 
 @end
 
@@ -87,10 +90,9 @@
              [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
              }];
         };
-        //增加成员的cell回调block
+        //增加项目至分组的cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要添加该项目至组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            }];
+            [self addProjectIntoGroupAction];
         };
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
@@ -225,7 +227,7 @@
     return nil;
 }
 
-- (void)addCirclesAction {
+- (void)creatGroupAction {
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
@@ -238,6 +240,26 @@
         };
     }
 }
+
+- (void)addProjectIntoGroupAction {
+    if (self.sgView.isShow) {
+        [self.sgView hide];
+    } else {
+        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView show];
+        WeakSelf;
+        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@",object);
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                hud.label.text = @"项目已添加至该分组";
+                hud.mode = MBProgressHUDModeText;
+                [hud hideAnimated:YES afterDelay:1.0];
+            }
+        };
+    }
+}
+
 
 - (void)loadUserInfo {
     NSDictionary *dic = [MockDatas testerInfo];
@@ -279,7 +301,7 @@
             [wself.navigationController pushViewController:groupVC animated:YES];
         };
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
-            [wself addCirclesAction];
+            [wself creatGroupAction];
         };
     }
     return _pView;
@@ -298,6 +320,21 @@
         }];
     }
     return _gView;
+}
+
+- (SelectGroupView *)sgView {
+    if (!_sgView) {
+        _sgView = LoadFromNib(@"SelectGroupView");
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:_sgView];
+        [_sgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+    }
+    return _sgView;
 }
 
 @end
