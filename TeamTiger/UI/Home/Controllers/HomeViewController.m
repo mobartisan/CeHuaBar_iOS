@@ -307,7 +307,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    bgTableView = self.tableView;
     bView = self.view;
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:self.allData];
@@ -504,7 +503,7 @@
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
+
 }
 
 - (void)handleConvertId:(NSNotification *)notification {
