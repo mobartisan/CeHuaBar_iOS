@@ -186,6 +186,9 @@
             [self.superview layoutIfNeeded];
         }];
         [keyWindow bringSubviewToFront:self];
+        
+        //初始化
+        self.nameTxtField.text = nil;
     }
 }
 
