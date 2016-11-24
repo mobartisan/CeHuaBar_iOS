@@ -549,6 +549,12 @@
 }
 
 - (void)handleConvertId:(NSNotification *)notification {
+    //loading
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"正在拼命加载...";
+    hud.mode = MBProgressHUDModeIndeterminate;
+    [hud hideAnimated:YES afterDelay:1.0];
+    //data
     [self getDataWithProjectId:notification.object];
 }
 
