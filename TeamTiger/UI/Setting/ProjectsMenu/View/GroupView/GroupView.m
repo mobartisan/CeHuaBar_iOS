@@ -28,6 +28,7 @@
 
     self.nameTxtField.leftView = v;
     self.nameTxtField.leftViewMode = UITextFieldViewModeAlways;
+    [self.nameTxtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [Common removeExtraCellLines:self.table];
 }
 
@@ -95,6 +96,26 @@
     }
     [self.selProjects replaceObjectAtIndex:indexPath.row withObject:number];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] init];
+    UILabel *titleLab = [[UILabel alloc] init];
+    titleLab.text = @"项目";
+    titleLab.textColor = ColorRGB(157.0, 157.0, 157.0);
+    titleLab.font = [UIFont systemFontOfSize:12];
+    [view addSubview:titleLab];
+    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(view.mas_left).offset(15);
+        make.top.equalTo(view.mas_top).offset(10);
+        make.bottom.equalTo(view.mas_bottom);
+        make.right.equalTo(view.mas_right);
+    }];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 20.0;
 }
 
 #pragma -mark UIButtonAction

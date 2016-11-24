@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,35 +16,39 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZM1-aO-MA9">
+                    <rect key="frame" x="0.0" y="0.0" width="64" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="rLE-k2-twY"/>
                         <constraint firstAttribute="height" constant="44" id="wSA-pg-L5q"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="确定">
-                        <color key="titleColor" red="0.0" green="0.1647058824" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" red="0.34901960784313724" green="0.42745098039215684" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
-                        <action selector="confirmBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="zUF-3w-kBx"/>
+                        <action selector="cancelBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="94I-XV-i6S"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbi-CV-8GI">
+                    <rect key="frame" x="316" y="0.0" width="64" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="Pwq-04-OGx"/>
                         <constraint firstAttribute="height" constant="44" id="w3h-IZ-XUI"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="取消">
-                        <color key="titleColor" red="0.0" green="0.1647058824" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="创建">
+                        <color key="titleColor" red="0.11764705882352941" green="0.43529411764705883" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
-                        <action selector="cancelBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="81u-Wa-Pfp"/>
+                        <action selector="confirmBtnAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="DfV-5G-Tmy"/>
                     </connections>
                 </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入组名称" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Tk-CB-Bwi">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="创建一个新组" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1Tk-CB-Bwi">
+                    <rect key="frame" x="16" y="52" width="348" height="42"/>
                     <color key="backgroundColor" red="0.88627450980392153" green="0.8901960784313725" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="32T-Zs-pCv"/>
                     </constraints>
@@ -49,8 +56,11 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vvf-bH-aKi">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="55" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vvf-bH-aKi">
+                    <rect key="frame" x="4" y="102" width="372" height="528"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="separatorColor" red="0.67450980392156867" green="0.69019607843137254" blue="0.70588235294117641" alpha="1" colorSpace="calibratedRGB"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                     <connections>
                         <outlet property="dataSource" destination="iN0-l3-epB" id="KNB-Ad-U9k"/>
                         <outlet property="delegate" destination="iN0-l3-epB" id="ehz-M1-hhv"/>
@@ -59,11 +69,11 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Vvf-bH-aKi" secondAttribute="trailing" id="1di-P3-d5z"/>
+                <constraint firstAttribute="trailing" secondItem="Vvf-bH-aKi" secondAttribute="trailing" constant="4" id="1di-P3-d5z"/>
                 <constraint firstAttribute="trailing" secondItem="Gbi-CV-8GI" secondAttribute="trailing" id="4eR-Gw-uZ6"/>
                 <constraint firstItem="Vvf-bH-aKi" firstAttribute="top" secondItem="1Tk-CB-Bwi" secondAttribute="bottom" constant="8" id="B3b-zY-MT3"/>
                 <constraint firstItem="ZM1-aO-MA9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Kpn-9f-Yj4"/>
-                <constraint firstItem="Vvf-bH-aKi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="OMQ-Ga-u0Z"/>
+                <constraint firstItem="Vvf-bH-aKi" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="OMQ-Ga-u0Z"/>
                 <constraint firstItem="Gbi-CV-8GI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Oul-Zz-5eN"/>
                 <constraint firstItem="1Tk-CB-Bwi" firstAttribute="top" secondItem="ZM1-aO-MA9" secondAttribute="bottom" constant="8" id="UCA-H7-tor"/>
                 <constraint firstItem="ZM1-aO-MA9" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UX8-ts-qss"/>
@@ -79,8 +89,8 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="cancelBtn" destination="Gbi-CV-8GI" id="Mkj-0n-zZP"/>
-                <outlet property="confirmBtn" destination="ZM1-aO-MA9" id="h6P-uE-02e"/>
+                <outlet property="cancelBtn" destination="ZM1-aO-MA9" id="f3a-Qn-hzO"/>
+                <outlet property="confirmBtn" destination="Gbi-CV-8GI" id="x8Q-TH-5ed"/>
                 <outlet property="nameTxtField" destination="1Tk-CB-Bwi" id="DNS-O9-4sV"/>
                 <outlet property="table" destination="Vvf-bH-aKi" id="4AB-nd-jMY"/>
             </connections>
