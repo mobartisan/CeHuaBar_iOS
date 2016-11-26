@@ -281,6 +281,7 @@
         ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];
         customView.aLB.text = arr[idx];
         customView.aTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", ticket, ticket.floatValue * 10];
+        customView.aProgressView.progress = ticket.floatValue / 10.0;
         customView.hidden = NO;
         customView.frame = CGRectMake(0, idx * (itemH + margin), itemW, itemH);
     }];

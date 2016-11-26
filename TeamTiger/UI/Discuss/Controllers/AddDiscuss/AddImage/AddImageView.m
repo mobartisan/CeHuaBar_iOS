@@ -410,7 +410,7 @@ static const double kColumn = 4.0f;
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        
+        [self printAssetsName:assets];
     }];
     
     [self.viewController presentViewController:imagePickerVc animated:YES completion:nil];
@@ -536,6 +536,21 @@ static const double kColumn = 4.0f;
         tableView = tableView.superview;
     }
     return (UITableView *)tableView;
+}
+
+// 打印图片名字
+- (void)printAssetsName:(NSArray *)assets {
+    NSString *fileName;
+    for (id asset in assets) {
+        if ([asset isKindOfClass:[PHAsset class]]) {
+            PHAsset *phAsset = (PHAsset *)asset;
+            fileName = [phAsset valueForKey:@"filename"];
+        } else if ([asset isKindOfClass:[ALAsset class]]) {
+            ALAsset *alAsset = (ALAsset *)asset;
+            fileName = alAsset.defaultRepresentation.filename;;
+        }
+        NSLog(@"图片名字:%@",fileName);
+    }
 }
 
 #pragma mark - Override

@@ -204,8 +204,8 @@
     _homeModel = homeModel;
     
     [self.tableView reloadData];
-    
-    self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
+
+    self.iconImV.image = [YYImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;
@@ -254,7 +254,7 @@
     
     //亮点
     UIImageView *imageV = [UIImageView new];
-    imageV.image = kImage(@"img_point");
+    imageV.image = [UIImage imageNamed:@"img_point"];
     [_headerImage addSubview:imageV];
     
     //图片按钮
@@ -270,7 +270,6 @@
     inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
     inputView.maxNumberOfLines = 1;
     inputView.textColor = [UIColor whiteColor];
-    inputView.keyboardAppearance = UIKeyboardAppearanceDark;
     inputView.returnKeyType = UIReturnKeySend;
     inputView.layer.borderWidth = 1;
     inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
@@ -307,8 +306,33 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+#warning to do
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSArray *array = @[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg", @"image_4.jpg"];
+            NSMutableArray *picArr = [NSMutableArray array];
+            for (int i = 0; i < arc4random()%((int)array.count); i++) {
+                [picArr addObject:array[i]];
+            }
+            NSDictionary *dic = @{@"name":@"曹兴星",
+                                  @"content":textView.text,
+                                  @"photeNameArry":picArr,
+                                  @"time":[Common getCurrentSystemTime]};
+            HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+            HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+            commentModelF.homeCommentModel = commentModel;
+            [_homeModel.comment insertObject:commentModelF atIndex:0];
+            _homeModel.index += 1;
+            _homeModel.partHeight +=commentModelF.cellHeight;
+            _homeModel.totalHeight +=commentModelF.cellHeight;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+                    [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+                }
+            });
+        });
+       
         return NO;
     }
     return YES;

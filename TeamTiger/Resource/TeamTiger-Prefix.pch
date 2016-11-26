@@ -28,6 +28,7 @@
 #import "MJRefresh.h"
 #import "NetworkManager.h"
 #import "QiniuUpoadManager.h"
+#import "YYKit.h"
 #endif
 
 #endif /* TeamTiger_Prefix_pch */

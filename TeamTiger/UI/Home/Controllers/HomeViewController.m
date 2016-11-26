@@ -29,7 +29,6 @@
 #import "SelectBgImageVC.h"
 #import "UIImage+YYAdd.h"
 
-
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *allData;
@@ -325,6 +324,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
@@ -448,23 +448,26 @@
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
-    HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
-    CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
-    CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
-    CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
-    CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
-    
-    CGPoint offset = self.tableView.contentOffset;
-    offset.y += delt;
-    if (offset.y < 0) {
-        offset.y = 0;
-    }
-
-    [UIView animateWithDuration:0.3 animations:^{
-        [self.tableView setContentOffset:offset animated:YES];
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
+        CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
+        CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
+        CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
+        CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
+        
+        CGPoint offset = self.tableView.contentOffset;
+        offset.y += delt;
+        if (offset.y < 0) {
+            offset.y = 0;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.tableView setContentOffset:offset animated:YES];
+            }];
+        });
+    });
 }
 
 #pragma mark UITableViewDataSource
@@ -539,6 +542,10 @@
     }else {
         [self.dataSource setArray:self.allData];
     }
+    [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        ((HomeModel *)obj).open = NO;
+    }];
+    
     [self.tableView reloadData];
 }
 

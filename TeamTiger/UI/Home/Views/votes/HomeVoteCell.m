@@ -137,7 +137,6 @@
     self.projectLB.text = homeModel.project;
     self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
     self.voteBottomView.ticketArr = homeModel.ticketArry;
-    NSLog(@"%@------%@", NSStringFromCGRect(self.photoContainerView.frame), NSStringFromCGRect(self.voteBottomView.frame));
     self.timeLB.text = homeModel.time;
 }
 
