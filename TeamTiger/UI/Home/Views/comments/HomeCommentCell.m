@@ -165,9 +165,10 @@
     if (![Common isEmptyString:homeCommentModel.content]) {
         self.desLB.frame = self.modelFrame.contentF;
     }
+    
+    self.photoContainerView.frame = self.modelFrame.pictureF;
     if (![Common isEmptyArr:homeCommentModel.photeNameArry]) {// 有配图
         self.photoContainerView.hidden = NO;
-        self.photoContainerView.frame = self.modelFrame.pictureF;
     }else {
         self.photoContainerView.hidden = YES;
     }

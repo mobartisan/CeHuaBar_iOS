@@ -133,10 +133,10 @@
     
     CGFloat itemW = [self itemWidthForPicPathArray:_picPathStringsArray];
     CGFloat itemH = 0.0;
-    if (is40inch) {
-        itemH = 100;
+    if (is40inch || is47inch) {
+        itemH = (kScreenWidth - 67 - 25 - 14) / 3 + 27;
     }else {
-        itemH = 120;
+        itemH = 130;
     }
     //    if (_picPathStringsArray.count == 1) {
     //        UIImage *image = [UIImage imageNamed:_picPathStringsArray.firstObject];
@@ -268,14 +268,15 @@
     if (is40inch) {
         itemW = 228;
     }else if (is47inch) {
-         itemW = 283;
+        itemW = 283;
     }else if (is55inch) {
-        
+        itemW = 320;
     }
+    
     CGFloat itemH = 20.0;
     CGFloat margin = 5;
     NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
-  
+    
     [_ticketArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSString *ticket = (NSString *)obj;
         ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];

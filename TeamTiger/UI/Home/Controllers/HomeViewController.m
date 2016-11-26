@@ -444,30 +444,28 @@
 - (void)handleRefresh:(NSNotification *)notification {
     NSIndexPath *indexPath = notification.object;
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
-        CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
-        CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        UIWindow *window = [UIApplication sharedApplication].keyWindow;
-        HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
-        CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
-        CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
-        
-        CGPoint offset = self.tableView.contentOffset;
-        offset.y += delt;
-        if (offset.y < 0) {
-            offset.y = 0;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.3 animations:^{
-                [self.tableView setContentOffset:offset animated:YES];
-            }];
-        });
-    });
+    
+    HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
+    CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
+    CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:self.currentIndexPath];
+    CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
+    CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
+    
+    CGPoint offset = self.tableView.contentOffset;
+    offset.y += delt;
+    if (offset.y < 0) {
+        offset.y = 0;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.tableView setContentOffset:offset animated:YES];
+    }];
+    
 }
 
 #pragma mark UITableViewDataSource
@@ -506,7 +504,7 @@
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
+    
 }
 
 - (void)handleConvertId:(NSNotification *)notification {
@@ -516,7 +514,9 @@
     hud.mode = MBProgressHUDModeIndeterminate;
     [hud hideAnimated:YES afterDelay:1.0];
     //data
-    [self getDataWithProjectId:notification.object];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getDataWithProjectId:notification.object];
+    });
 }
 
 

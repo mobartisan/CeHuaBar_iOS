@@ -20,6 +20,11 @@
 
 - (void)setHomeCommentModel:(HomeCommentModel *)homeCommentModel {
     _homeCommentModel = homeCommentModel;
+    
+    CGFloat margin = 0.0;
+    if (is55inch) {
+        margin = 10.0;
+    }
     /**
      *  上时间线的frame
      */
@@ -32,11 +37,10 @@
     /**
      *  亮点的frame
      */
-    CGFloat imageW = 15;
-    CGFloat imageH = 15;
-    CGFloat imageX = CGRectGetMidX(_lineF) - imageW / 2;
-    CGFloat imageY = CGRectGetMaxY(_lineF) - imageW / 2;
-    _imageF = CGRectMake(imageX, imageY, imageW, imageH);
+    CGFloat imageWH = 15;
+    CGFloat imageX = CGRectGetMidX(_lineF) - imageWH / 2;
+    CGFloat imageY = CGRectGetMaxY(_lineF) - imageWH / 2;
+    _imageF = CGRectMake(imageX, imageY, imageWH, imageWH);
     
     /**
      *  时间的frame
@@ -96,12 +100,12 @@
         CGFloat picW = maxW;
         CGFloat picH = 52;
         _pictureF = CGRectMake(picX, picY, picW, picH);
-        line1H = CGRectGetMaxY(_pictureF);
+        line1H = CGRectGetMaxY(_pictureF) + margin;
     }else {
         if (![Common isEmptyString:homeCommentModel.content]) {
             line1H = CGRectGetMaxY(_contentF);
         }else {
-            line1H = CGRectGetMaxY(_timeF) + 10;
+            line1H = CGRectGetMaxY(_timeF);
         }
     }
     //此处为时间节点
@@ -122,6 +126,10 @@
      *  cell的高度
      */
     _cellHeight = CGRectGetMaxY(_line1F);
+    if (homeCommentModel.show) {
+        _cellHeight = CGRectGetMaxY(_line1F) + margin;
+    }
+    
 }
 
 

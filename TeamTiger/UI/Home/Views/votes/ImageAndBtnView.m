@@ -27,7 +27,7 @@
         maxWidth = (kScreenWidth - 67 - 25 - 14) / 3;
     }else {
         margin = 10;
-        maxWidth = 102.1;
+        maxWidth = 103;
     }
     
     self.imageV = [UIImageView new];
