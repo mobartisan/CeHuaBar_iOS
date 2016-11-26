@@ -13,10 +13,13 @@
 #import "TTSettingViewController.h"
 #import "GroupHeadView.h"
 #import "UIViewController+MMDrawerController.h"
+#import "SelectGroupView.h"
 
 @interface TTGroupViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)NSMutableDictionary *groupInfo;
+
+@property(nonatomic,strong)SelectGroupView *sgView;
 
 @end
 
@@ -67,13 +70,12 @@
     __weak typeof(cell) tempCell = cell;
     //设置删除cell回调block
     ((ProjectsCell *)cell).deleteMember = ^{
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+        [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
         }];
     };
     //增加成员的cell回调block
     ((ProjectsCell *)cell).addMember = ^{
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要添加该项目至组？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-        }];
+        [self addProjectIntoGroupAction];
     };
     //设置当cell左滑时，关闭其他cell的左滑
     ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
@@ -99,9 +101,7 @@
     }    
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-#warning to do
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row][@"Id"]];
-        [self.navigationController popViewControllerAnimated:NO];
     }];
 }
 
@@ -169,4 +169,39 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)addProjectIntoGroupAction {
+    if (self.sgView.isShow) {
+        [self.sgView hide];
+    } else {
+        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView show];
+        WeakSelf;
+        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@",object);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                    hud.label.text = @"项目已添加至该分组";
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                });
+            }
+        };
+    }
+}
+
+- (SelectGroupView *)sgView {
+    if (!_sgView) {
+        _sgView = LoadFromNib(@"SelectGroupView");
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:_sgView];
+        [_sgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+    }
+    return _sgView;
+}
 @end
