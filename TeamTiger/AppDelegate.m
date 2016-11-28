@@ -17,6 +17,8 @@
 #import "WXApiManager.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
+#import "Analyticsmanager.h"
+
 #import "TTProjectsMenuViewController.h"
 
 @interface AppDelegate ()
@@ -179,6 +181,8 @@
     
     //七牛
     [[QiniuUpoadManager sharedInstance] createToken];
+    //应用统计
+    [Analyticsmanager startAppAnalytics];
 }
 
 - (void)initialGlobalData {

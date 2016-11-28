@@ -7,6 +7,11 @@
 //
 
 #import "MessageManager.h"
+#import <UserNotifications/UserNotifications.h>
+
+NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
+NSString *const NotificationActionOneIdent = @"ACTION_ONE";
+NSString *const NotificationActionTwoIdent = @"ACTION_TWO";
 
 @implementation MessageManager
 
@@ -36,29 +41,61 @@ static MessageManager *singleton = nil;
 #pragma mark - 用户通知(推送) _自定义方法
 /** 注册用户通知 */
 + (void)registerUserNotification {
-    /*
-     注册通知(推送)
-     申请App需要接受来自服务商提供推送消息
-     */
-    // 判读系统版本是否是“iOS 8.0”以上
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 ||
-        [UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        
-        // 定义用户通知类型(Remote.远程 - Badge.标记 Alert.提示 Sound.声音)
-        UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
-        
-        // 定义用户通知设置
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        
-        // 注册用户通知 - 根据用户通知设置
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    } else { // iOS8.0 以前远程推送设置方式
-        // 定义远程通知类型(Remote.远程 - Badge.标记 Alert.提示 Sound.声音)
-        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-        
-        // 注册远程通知 -根据远程通知类型
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0){
+        //进行用户权限的申请
+        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:UNAuthorizationOptionBadge|
+         UNAuthorizationOptionSound|
+         UNAuthorizationOptionAlert|
+         UNAuthorizationOptionCarPlay
+                                                                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                                                                if (granted) {
+                                                                                    
+                                                                                    [[UIApplication sharedApplication] registerForRemoteNotifications];
+                                                                                }
+                                                                            }];
     }
+    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
+             [[[UIDevice currentDevice] systemVersion] floatValue] < 10.0) {
+        //IOS8 新的通知机制category注册
+        UIMutableUserNotificationAction *action1;
+        action1 = [[UIMutableUserNotificationAction alloc] init];
+        [action1 setActivationMode:UIUserNotificationActivationModeBackground];
+        [action1 setTitle:NSLocalizedString(@"取消",@"")];
+        [action1 setIdentifier:NotificationActionOneIdent];
+        [action1 setDestructive:NO];
+        [action1 setAuthenticationRequired:NO];
+        
+        UIMutableUserNotificationAction *action2;
+        action2 = [[UIMutableUserNotificationAction alloc] init];
+        [action2 setActivationMode:UIUserNotificationActivationModeBackground];
+        [action2 setTitle:NSLocalizedString(@"回复",@"")];
+        [action2 setIdentifier:NotificationActionTwoIdent];
+        [action2 setDestructive:NO];
+        [action2 setAuthenticationRequired:NO];
+        
+        UIMutableUserNotificationCategory *actionCategory;
+        actionCategory = [[UIMutableUserNotificationCategory alloc] init];
+        [actionCategory setIdentifier:NotificationCategoryIdent];
+        [actionCategory setActions:@[action1, action2]
+                        forContext:UIUserNotificationActionContextDefault];
+        
+        NSSet *categories = [NSSet setWithObject:actionCategory];
+        UIUserNotificationType types = (UIUserNotificationTypeAlert|
+                                        UIUserNotificationTypeSound|
+                                        UIUserNotificationTypeBadge);
+        
+        UIUserNotificationSettings *settings;
+        settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    else {
+        UIRemoteNotificationType apn_type = (UIRemoteNotificationType)(UIRemoteNotificationTypeAlert|
+                                                                       UIRemoteNotificationTypeSound|
+                                                                       UIRemoteNotificationTypeBadge);
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:apn_type];
+    }
+    
 }
 
 

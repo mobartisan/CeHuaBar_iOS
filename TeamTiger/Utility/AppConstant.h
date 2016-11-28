@@ -62,12 +62,6 @@ static NSString *const OBJ = @"obj";
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
 
 
-#ifdef DEBUG
-#define NSLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String]);
-#else
-#define NSLog(format, ...)
-#endif
-
 //七牛
 static NSInteger defaultLiveTime = 365;
 static NSString *const QiNiuScope = @"cjdalebbs";

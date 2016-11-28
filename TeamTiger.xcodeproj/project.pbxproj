@@ -444,12 +444,17 @@
 		2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */; };
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
+		2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */; };
+		2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */; };
+		2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */; };
+		2D9674F91DEBD30F002DF6E0 /* Analyticsmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */; };
+		2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */; };
+		2D9674FF1DEBD4AC002DF6E0 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */; };
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DB351391DE56967000521A3 /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351381DE56967000521A3 /* YZInputView.m */; };
 		2DB3513C1DE574F0000521A3 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3513B1DE574F0000521A3 /* HeaderView.m */; };
 		2DB3513E1DE574FF000521A3 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DB3513D1DE574FF000521A3 /* HeaderView.xib */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
-		2DD029EE1DD00E7000CD881F /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
 		2DD029F71DD00EB400CD881F /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
@@ -1295,6 +1300,16 @@
 		2D727A171DDD844E00CBF0BA /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
+		2D9674F01DEBCDBF002DF6E0 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
+		2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		2D9674F71DEBD30F002DF6E0 /* Analyticsmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Analyticsmanager.h; sourceTree = "<group>"; };
+		2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyticsmanager.m; sourceTree = "<group>"; };
+		2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
+		2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
+		2D9674FD1DEBD4AC002DF6E0 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
+		2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2DB351371DE56967000521A3 /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
@@ -1304,8 +1319,6 @@
 		2DB3513D1DE574FF000521A3 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
-		2DD029EA1DD00E7000CD881F /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
-		2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
 		2DD029F11DD00EB400CD881F /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
 		2DD029F21DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
 		2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
@@ -1417,21 +1430,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D09CCC11D3F2B0E00F85E9A /* libz.tbd in Frameworks */,
+				1D09CCBF1D3F2B0600F85E9A /* SystemConfiguration.framework in Frameworks */,
+				1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */,
+				2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */,
+				1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */,
+				2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */,
 				2DDD543F1DB0D52C00C55633 /* libresolv.tbd in Frameworks */,
 				1DBC49D91D65A1B400DB0CD2 /* AddressBookUI.framework in Frameworks */,
+				2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */,
 				1DBC49D71D65A18E00DB0CD2 /* MessageUI.framework in Frameworks */,
 				1DBC49D51D65A17B00DB0CD2 /* libicucore.tbd in Frameworks */,
 				1DBC49C11D65550000DB0CD2 /* CoreBluetooth.framework in Frameworks */,
 				1DBC49BF1D6554F800DB0CD2 /* CoreLocation.framework in Frameworks */,
 				1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */,
 				1DBC49BB1D6554D100DB0CD2 /* AVFoundation.framework in Frameworks */,
-				1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */,
-				1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */,
 				1DD2E3301D59B3DB005D45A9 /* libc++.tbd in Frameworks */,
 				1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */,
-				1D09CCC11D3F2B0E00F85E9A /* libz.tbd in Frameworks */,
 				1DBC49B71D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a in Frameworks */,
-				1D09CCBF1D3F2B0600F85E9A /* SystemConfiguration.framework in Frameworks */,
 				1D09CCBD1D3F2AFC00F85E9A /* MobileCoreServices.framework in Frameworks */,
 				1D09CCBB1D3F2AF300F85E9A /* Accelerate.framework in Frameworks */,
 				1D09CCB91D3F2AE800F85E9A /* AssetsLibrary.framework in Frameworks */,
@@ -2762,6 +2778,7 @@
 		1DA71B741D3DB618007483D2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				2D9674F61DEBD30F002DF6E0 /* AnalyticsManager */,
 				2DDD54361DB0D4D300C55633 /* QiniuUploadManager */,
 				0692CE8F1D74188900299AC2 /* DeviceManager */,
 				1D29415A1D6E7F1E003B9066 /* UploadManager */,
@@ -2781,6 +2798,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				2D9674EE1DEBCDBF002DF6E0 /* TalkingData */,
 				2D727A0E1DDD844E00CBF0BA /* JJPhotoViewer */,
 				2D727A031DDD842300CBF0BA /* SDPhotoBrowser */,
 				2DD029F01DD00EB400CD881F /* SDAutoLayout */,
@@ -2873,14 +2891,14 @@
 		1DA71B8B1D3DCB3A007483D2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				2DD029EA1DD00E7000CD881F /* ButtonIndexPath.h */,
-				2DD029EB1DD00E7000CD881F /* ButtonIndexPath.m */,
 				2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */,
 				2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */,
 				1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */,
 				1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */,
 				1D115F2C1D4B9560003DFBB1 /* UITextView+PlaceHolder.h */,
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
+				2D9674FD1DEBD4AC002DF6E0 /* UIViewController+Extension.h */,
+				2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3234,6 +3252,8 @@
 		2D7279E51DDD811B00CBF0BA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */,
+				2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */,
 				2D7279E61DDD811B00CBF0BA /* comments */,
 				2D7279ED1DDD811B00CBF0BA /* votes */,
 			);
@@ -3305,6 +3325,24 @@
 				2DFA80911DD1BDF100160060 /* Controllers */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		2D9674EE1DEBCDBF002DF6E0 /* TalkingData */ = {
+			isa = PBXGroup;
+			children = (
+				2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */,
+				2D9674F01DEBCDBF002DF6E0 /* TalkingData.h */,
+			);
+			path = TalkingData;
+			sourceTree = "<group>";
+		};
+		2D9674F61DEBD30F002DF6E0 /* AnalyticsManager */ = {
+			isa = PBXGroup;
+			children = (
+				2D9674F71DEBD30F002DF6E0 /* Analyticsmanager.h */,
+				2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */,
+			);
+			path = AnalyticsManager;
 			sourceTree = "<group>";
 		};
 		2DB351361DE56967000521A3 /* InputView */ = {
@@ -3520,6 +3558,8 @@
 		2DDD543D1DB0D52C00C55633 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */,
+				2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */,
 				2DDD543E1DB0D52C00C55633 /* libresolv.tbd */,
 			);
 			name = Frameworks;
@@ -3791,6 +3831,7 @@
 				1D09CC801D3F29C900F85E9A /* UIButton+YYWebImage.m in Sources */,
 				1D09CC741D3F29C900F85E9A /* UIScreen+YYAdd.m in Sources */,
 				1D09CCA21D3F29C900F85E9A /* YYFileHash.m in Sources */,
+				2D9674FF1DEBD4AC002DF6E0 /* UIViewController+Extension.m in Sources */,
 				1DD2E3461D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m in Sources */,
 				1D9580A21D3E207200FD0053 /* MJRefreshAutoFooter.m in Sources */,
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
@@ -3885,6 +3926,7 @@
 				1D09CD1C1D3F550300F85E9A /* UICollectionView+HYBMaonsryKit.m in Sources */,
 				06008F271D58163100A5B3DB /* TTCommonLabelItem.m in Sources */,
 				1D9580D41D3E225200FD0053 /* MASConstraintMaker.m in Sources */,
+				2D9674F91DEBD30F002DF6E0 /* Analyticsmanager.m in Sources */,
 				1D09CC5B1D3F29C900F85E9A /* NSArray+YYAdd.m in Sources */,
 				1D09CC631D3F29C900F85E9A /* NSObject+YYAdd.m in Sources */,
 				1D09CD241D3F550300F85E9A /* UIButton+HYBHelperBlockKit.m in Sources */,
@@ -4025,6 +4067,7 @@
 				1D3E23691D61635C0024A5CA /* ModelsManager.m in Sources */,
 				1D09CC5E1D3F29C900F85E9A /* NSDate+YYAdd.m in Sources */,
 				06B464A21D62A48B00DBC806 /* NSNumber+JZExtension.m in Sources */,
+				2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */,
 				1D115F2E1D4B9560003DFBB1 /* UITextView+PlaceHolder.m in Sources */,
 				1D09CC8F1D3F29C900F85E9A /* YYTextInput.m in Sources */,
 				1DF991CC1D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m in Sources */,
@@ -4071,7 +4114,6 @@
 				06008F431D58249300A5B3DB /* TZPhotoPickerController.m in Sources */,
 				1D09CD5A1D3F59D500F85E9A /* UIImage+WebP.m in Sources */,
 				1D09CD1A1D3F550300F85E9A /* NSTimer+HYBHelperKit.m in Sources */,
-				2DD029EE1DD00E7000CD881F /* ButtonIndexPath.m in Sources */,
 				1D09CD231D3F550300F85E9A /* UIWebView+HYBMasonryKit.m in Sources */,
 				1D09CCA41D3F29C900F85E9A /* YYKeychain.m in Sources */,
 				1D09CC8A1D3F29C900F85E9A /* NSObject+YYModel.m in Sources */,
@@ -4249,6 +4291,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeamTiger/Third/OpenSDK",
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
+					"$(PROJECT_DIR)/TeamTiger/Third/TalkingData",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
@@ -4280,6 +4323,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/TeamTiger/Third/OpenSDK",
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
+					"$(PROJECT_DIR)/TeamTiger/Third/TalkingData",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
