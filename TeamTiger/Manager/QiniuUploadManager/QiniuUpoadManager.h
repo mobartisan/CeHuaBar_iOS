@@ -32,7 +32,7 @@
  */
 + (void)uploadImage:(UIImage *)image progress:(QNUpProgressHandler)progress success:(void (^)(NSString *url))success failure:(void (^)(NSError *error))failure;
 
-// 上传多张图片,按队列依次上传
+// 上传多张图片
 + (void)uploadImages:(NSArray *)imageArray progress:(void (^)(CGFloat progress))progress success:(void (^)(NSArray *urls))success failure:(void (^)(NSError *error))failure;
 
 @end
