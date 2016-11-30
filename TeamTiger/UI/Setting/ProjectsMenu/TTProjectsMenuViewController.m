@@ -305,10 +305,6 @@
         WeakSelf;
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
-//            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
-//            groupVC.groupId = object[@"Gid"];
-//            [wself.navigationController pushViewController:groupVC animated:YES];
-            
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
                     NSString *Id = object[@"Gid"];
@@ -318,6 +314,11 @@
         };
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
             [wself creatGroupAction];
+        };
+        _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
+            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+            groupVC.groupId = object[@"Gid"];
+            [wself.navigationController pushViewController:groupVC animated:YES];
         };
     }
     return _pView;

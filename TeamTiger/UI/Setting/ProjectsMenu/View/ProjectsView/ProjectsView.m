@@ -100,6 +100,11 @@
                 self.addProjectBlock(self);
             }
         };
+        tmpView.longPressItemBlock = ^(ProjectItemView *itemView,id object){
+            if (self.longPressBlock) {
+                self.longPressBlock(self,object);
+            }
+        };
     }
     [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(lastView1.mas_bottom);

@@ -13,11 +13,15 @@ typedef void(^ClickProjectItemBlock)(ProjectItemView *projectV, id object);
 
 typedef void(^ClickAddProjectItemBlock)(ProjectItemView *projectV);
 
+typedef void(^LongPressItemBlock)(ProjectItemView *projectV, id object);
+
 @interface ProjectItemView : UIView
 
 @property(nonatomic, copy)ClickProjectItemBlock clickProjectItemBlock;
 
 @property(nonatomic, copy)ClickAddProjectItemBlock clickAddProjectItemBlock;
+
+@property(nonatomic, copy)LongPressItemBlock longPressItemBlock;
 
 - (instancetype)initWithData:(id)object;
 
