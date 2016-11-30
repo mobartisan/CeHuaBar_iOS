@@ -10,6 +10,15 @@
 
 @interface UIImage (Extension)
 
-- (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth;
+/*
+ *
+ *  压缩图片至目标尺寸
+ *
+ *  @param sourceImage 源图片
+ *  @param targetWidth 图片最终尺寸的宽
+ *
+ *  @return 返回按照源图片的宽、高比例压缩至目标宽、高的图片
+ */
++ (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth;
 
 @end

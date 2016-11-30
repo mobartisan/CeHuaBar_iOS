@@ -222,15 +222,6 @@
 #warning TO DO
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
     NSLog(@"%@", picArr);
-    NSDictionary *dic = @{@"cellType":@"0",
-                          @"Id":@"0001",
-                          @"iconImV":@"1",
-                          @"name":@"唐小旭",
-                          @"project":@"工作牛",
-                          @"content":@"测试数据测试数据测试数据测试数据",
-                          @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_4.jpg", @"image_4.jpg"],
-                          @"time":@"7月17日 9:45",
-                          @"comment":@[]};
-}
+   }
 
 @end

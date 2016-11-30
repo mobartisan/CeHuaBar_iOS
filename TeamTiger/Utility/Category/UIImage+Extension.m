@@ -20,7 +20,7 @@
  *
  *  @return 返回按照源图片的宽、高比例压缩至目标宽、高的图片
  */
-- (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth {
++ (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth {
     CGSize imageSize = sourceImage.size;
     
     CGFloat width = imageSize.width;

@@ -444,14 +444,14 @@
 		2D727A1A1DDD844E00CBF0BA /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A141DDD844E00CBF0BA /* JJPhoto.m */; };
 		2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */; };
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
-		2D7661E21DEE61AC00E6410E /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */; };
+		2D7661EF1DEE7F5B00E6410E /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */; };
+		2D7661F21DEE7FBA00E6410E /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
 		2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */; };
 		2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */; };
 		2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */; };
 		2D9674F91DEBD30F002DF6E0 /* Analyticsmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */; };
 		2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */; };
-		2D9674FF1DEBD4AC002DF6E0 /* UIViewController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */; };
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DB351391DE56967000521A3 /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351381DE56967000521A3 /* YZInputView.m */; };
 		2DB3513C1DE574F0000521A3 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3513B1DE574F0000521A3 /* HeaderView.m */; };
@@ -496,7 +496,6 @@
 		2DDD54331DB0D4AF00C55633 /* QNUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD540B1DB0D4AF00C55633 /* QNUploadManager.m */; };
 		2DDD54341DB0D4AF00C55633 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD540E1DB0D4AF00C55633 /* QNUploadOption.m */; };
 		2DDD54351DB0D4AF00C55633 /* QNUpToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54101DB0D4AF00C55633 /* QNUpToken.m */; };
-		2DDD543B1DB0D4D300C55633 /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */; };
 		2DDD543F1DB0D52C00C55633 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDD543E1DB0D52C00C55633 /* libresolv.tbd */; };
 		2DFA80A41DD1BDF100160060 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80931DD1BDF100160060 /* HomeViewController.m */; };
 		2DFA80A51DD1BDF100160060 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFA80941DD1BDF100160060 /* HomeViewController.xib */; };
@@ -1301,8 +1300,10 @@
 		2D727A151DDD844E00CBF0BA /* JJPhotoManeger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPhotoManeger.h; sourceTree = "<group>"; };
 		2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPhotoManeger.m; sourceTree = "<group>"; };
 		2D727A171DDD844E00CBF0BA /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
-		2D7661E01DEE61AC00E6410E /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
-		2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
+		2D7661ED1DEE7F5B00E6410E /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
+		2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
+		2D7661F01DEE7FBA00E6410E /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
@@ -1313,8 +1314,6 @@
 		2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyticsmanager.m; sourceTree = "<group>"; };
 		2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
 		2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
-		2D9674FD1DEBD4AC002DF6E0 /* UIViewController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Extension.h"; sourceTree = "<group>"; };
-		2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Extension.m"; sourceTree = "<group>"; };
 		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2DB351371DE56967000521A3 /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
@@ -1409,8 +1408,6 @@
 		2DDD540E1DB0D4AF00C55633 /* QNUploadOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNUploadOption.m; sourceTree = "<group>"; };
 		2DDD540F1DB0D4AF00C55633 /* QNUpToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNUpToken.h; sourceTree = "<group>"; };
 		2DDD54101DB0D4AF00C55633 /* QNUpToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNUpToken.m; sourceTree = "<group>"; };
-		2DDD54371DB0D4D300C55633 /* QiniuUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUploadHelper.h; sourceTree = "<group>"; };
-		2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUploadHelper.m; sourceTree = "<group>"; };
 		2DDD543E1DB0D52C00C55633 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		2DFA80921DD1BDF100160060 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2DFA80931DD1BDF100160060 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -2900,10 +2897,10 @@
 				1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */,
 				1D115F2C1D4B9560003DFBB1 /* UITextView+PlaceHolder.h */,
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
-				2D9674FD1DEBD4AC002DF6E0 /* UIViewController+Extension.h */,
-				2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */,
 				2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */,
 				2D6D17701DED552200AFE3BD /* UIImage+Extension.m */,
+				2D7661F01DEE7FBA00E6410E /* NSString+Extension.h */,
+				2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3552,10 +3549,8 @@
 		2DDD54361DB0D4D300C55633 /* QiniuUploadManager */ = {
 			isa = PBXGroup;
 			children = (
-				2DDD54371DB0D4D300C55633 /* QiniuUploadHelper.h */,
-				2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */,
-				2D7661E01DEE61AC00E6410E /* QiniuUpoadManager.h */,
-				2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */,
+				2D7661ED1DEE7F5B00E6410E /* QiniuUpoadManager.h */,
+				2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */,
 			);
 			path = QiniuUploadManager;
 			sourceTree = "<group>";
@@ -3835,7 +3830,6 @@
 				1D09CC801D3F29C900F85E9A /* UIButton+YYWebImage.m in Sources */,
 				1D09CC741D3F29C900F85E9A /* UIScreen+YYAdd.m in Sources */,
 				1D09CCA21D3F29C900F85E9A /* YYFileHash.m in Sources */,
-				2D9674FF1DEBD4AC002DF6E0 /* UIViewController+Extension.m in Sources */,
 				1DD2E3461D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m in Sources */,
 				1D9580A21D3E207200FD0053 /* MJRefreshAutoFooter.m in Sources */,
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
@@ -3955,7 +3949,6 @@
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
 				2D8F25B51D701E5700B28A8C /* Common.m in Sources */,
-				2DDD543B1DB0D4D300C55633 /* QiniuUploadHelper.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
 				1DBFD6DA1D6462340039077D /* SetPassController.m in Sources */,
 				2DDD54141DB0D4AF00C55633 /* QNNetworkInfo.m in Sources */,
@@ -4044,6 +4037,7 @@
 				2DDD54331DB0D4AF00C55633 /* QNUploadManager.m in Sources */,
 				1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */,
 				1DBFD6DD1D6462340039077D /* TTRegisterViewController.m in Sources */,
+				2D7661EF1DEE7F5B00E6410E /* QiniuUpoadManager.m in Sources */,
 				1D09CD621D3F59D500F85E9A /* SDWebImageManager.m in Sources */,
 				1D0EA2D21D45A8AE00B47108 /* TMDiskCache.m in Sources */,
 				1D09CD611D3F59D500F85E9A /* SDWebImageDecoder.m in Sources */,
@@ -4084,7 +4078,6 @@
 				1D09CD581D3F59D500F85E9A /* UIImage+GIF.m in Sources */,
 				1DA0E1A81D54779C008CD6DF /* ItemView.m in Sources */,
 				1D32AEF71DB0C3BE000DF537 /* GroupHeadView.m in Sources */,
-				2D7661E21DEE61AC00E6410E /* QiniuUpoadManager.m in Sources */,
 				2DDD54191DB0D4AF00C55633 /* QNHosts.m in Sources */,
 				1D09CD2C1D3F550300F85E9A /* UIView+HYBHelperKitUIKit.m in Sources */,
 				1D3E23681D61635C0024A5CA /* Models.m in Sources */,
@@ -4140,6 +4133,7 @@
 				1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */,
 				1D115F871D4BA043003DFBB1 /* IQUIScrollView+Additions.m in Sources */,
 				1D9580D81D3E225200FD0053 /* NSArray+MASAdditions.m in Sources */,
+				2D7661F21DEE7FBA00E6410E /* NSString+Extension.m in Sources */,
 				1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */,
 				06008F451D58249300A5B3DB /* TZPhotoPreviewController.m in Sources */,
 				0692CE961D7419D900299AC2 /* SDiPhoneVersion.m in Sources */,

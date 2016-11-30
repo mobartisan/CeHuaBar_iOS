@@ -26,6 +26,9 @@
 //根据16进制显示颜色
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;
 
+
+//返回系统年月日时间 YYYY-MM-DD
++ (NSString *)getCurrentSystemYearMonthDay;
 //返回系统时间
 + (NSString *)getCurrentSystemTime;
 //系统日期

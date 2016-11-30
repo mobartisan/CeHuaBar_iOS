@@ -142,6 +142,11 @@
     return result;
 }
 
+//返回系统年月日时间 YYYY-MM-DD
++ (NSString *)getCurrentSystemYearMonthDay {
+    return [NSString stringWithFormat:@"%ld-%ld-%ld", [[NSDate date] hyb_year], [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
+}
+
 //返回系统时间
 + (NSString *)getCurrentSystemTime {
     return [NSString stringWithFormat:@"%ld月%ld日 %ld:%ld", [[NSDate date] hyb_month], [[NSDate date] hyb_day], [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];

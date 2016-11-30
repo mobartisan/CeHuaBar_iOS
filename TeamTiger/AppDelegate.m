@@ -180,7 +180,7 @@
     [uploadManager startService];
     
     //七牛
-    [[QiniuUpoadManager sharedInstance] createToken];
+    [[QiniuUpoadManager mainQiniuUpoadManager] createToken];
     //应用统计
     [Analyticsmanager startAppAnalytics];
 }
