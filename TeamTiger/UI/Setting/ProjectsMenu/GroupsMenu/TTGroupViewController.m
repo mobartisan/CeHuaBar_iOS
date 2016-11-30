@@ -102,6 +102,7 @@
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row][@"Id"]];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }];
 }
 

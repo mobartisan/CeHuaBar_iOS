@@ -19,6 +19,8 @@
 
 @property(nonatomic,strong) UIButton *addBtn;
 
+@property(nonatomic,strong) id tmpObj;
+
 @end
 
 @implementation ProjectItemView
@@ -54,9 +56,24 @@
         }];
         if (!object) {
             [self.addBtn setImage:[UIImage imageNamed:@"icon_add_group"] forState:UIControlStateNormal];
+        } else {
+            //添加长按
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
+            longPress.minimumPressDuration = 0.8; //定义按的时间
+            [self.addBtn addGestureRecognizer:longPress];
+            self.tmpObj = object;//传值用
         }
     }
     return self;
+}
+
+- (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        //long press
+        if (self.longPressItemBlock) {
+            self.longPressItemBlock(self, self.tmpObj);
+        }
+    }
 }
 
 #pragma -mark getter
