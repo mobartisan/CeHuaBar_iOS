@@ -9,7 +9,7 @@
 #import "GroupView.h"
 #import "MBProgressHUD.h"
 
-@interface GroupView ()
+@interface GroupView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton *bgBtn;
 
@@ -117,6 +117,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20.0;
+}
+
+#pragma -mark UITextFieldDelegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 #pragma -mark UIButtonAction

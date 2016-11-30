@@ -263,7 +263,9 @@
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
-    
+    if (!self.currentIndexPath) {
+        return;
+    }
     HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
     CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
     CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
