@@ -305,9 +305,16 @@
         WeakSelf;
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
-            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
-            groupVC.groupId = object[@"Gid"];
-            [wself.navigationController pushViewController:groupVC animated:YES];
+//            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+//            groupVC.groupId = object[@"Gid"];
+//            [wself.navigationController pushViewController:groupVC animated:YES];
+            
+            [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                if (finished) {
+                    NSString *Id = object[@"Gid"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1}];
+                }
+            }];
         };
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
             [wself creatGroupAction];

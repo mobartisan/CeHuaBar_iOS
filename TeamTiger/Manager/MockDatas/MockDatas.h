@@ -23,4 +23,6 @@
 
 + (NSDictionary *)testerInfo;
 
++ (NSArray *)getMomentsWithId:(NSString *)tmpId IsProject:(BOOL)isProject IsAll:(BOOL)isAll;
+
 @end
