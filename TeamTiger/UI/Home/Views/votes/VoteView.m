@@ -38,11 +38,11 @@
 
 - (void)setup {
     NSMutableArray *temp = [NSMutableArray new];
-    
     for (int i = 0; i < 9; i++) {
         ImageAndBtnView *customView = [ImageAndBtnView new];
         customView.imageV.tag = i;
         customView.voteBtn.tag = 100 + i;
+        [customView.voteBtn setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
         [customView.voteBtn addTarget:self action:@selector(handleVoteBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:customView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView:)];

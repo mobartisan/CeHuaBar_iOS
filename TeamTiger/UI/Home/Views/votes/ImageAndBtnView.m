@@ -20,7 +20,6 @@
 }
 
 - (void)setupSubViews {
-    
     CGFloat maxWidth = 0.0, margin = 0.0;
     if (is40inch || is47inch) {
         margin = 5;
@@ -41,14 +40,13 @@
     self.projectLB.font = [UIFont systemFontOfSize:18];
     [self addSubview:self.projectLB];
     
-    self.voteBtn = [UIButton new];
+    self.voteBtn = [ButtonIndexPath new];
     self.voteBtn.layer.borderColor = kRGB(46, 201, 202).CGColor;
     self.voteBtn.layer.borderWidth = 1;
     self.voteBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [self.voteBtn setTitle:@"投票" forState:UIControlStateNormal];
     self.voteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -margin);
     self.voteBtn.imageEdgeInsets = UIEdgeInsetsMake(2, -5, 0, 0);
-    [self.voteBtn setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
     [self addSubview:self.voteBtn];
     
     

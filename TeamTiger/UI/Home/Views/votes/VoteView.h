@@ -18,7 +18,6 @@
 
 @interface VoteBottomView : UIView
 
-
 @property (strong, nonatomic) NSArray *ticketArr;
 
 @end

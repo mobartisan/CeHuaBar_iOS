@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic)  UIImageView *imageV;
 @property (strong, nonatomic)  UILabel *projectLB;
-@property (strong, nonatomic)  UIButton *voteBtn;
+@property (strong, nonatomic)  ButtonIndexPath *voteBtn;
 
 @end
 

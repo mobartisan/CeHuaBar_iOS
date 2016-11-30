@@ -126,7 +126,7 @@
                               @"comment":@[@{@"name":@"唐小旭",
                                              @"sName":@"@卞克",
                                              @"content":@"测试数据测试数据测试数据测试数据",
-                                             @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg"],
+                                             @"photeNameArry":@[@"image_2.jpg", @"image_6.jpg", @"image_3.jpg", @"image_5.jpg"],
                                              @"time":@"11月21日 19:50"},
                                            @{@"name":@"卞克",
                                              @"sName":@"@唐小绪",

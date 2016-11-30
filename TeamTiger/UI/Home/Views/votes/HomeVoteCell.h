@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class HomeModel;
+@class HomeModel, ButtonIndexPath;
 
 @protocol HomeVoteCellDeleagte <NSObject>
 
+- (void)clickVoteBtn:(NSIndexPath *)indexPath;
 - (void)clickVoteProjectBtn:(NSString *)projectId;
 
 @end
@@ -21,6 +22,6 @@
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 @property (strong, nonatomic) HomeModel *homeModel;
 @property (assign, nonatomic) id <HomeVoteCellDeleagte> delegate;
-@property (strong, nonatomic) NSIndexPath *indexPath;
+@property (strong, nonatomic) ButtonIndexPath *projectBtn;
 
 @end

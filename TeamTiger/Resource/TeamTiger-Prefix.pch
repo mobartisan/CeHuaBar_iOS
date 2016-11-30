@@ -31,6 +31,7 @@
 #import "YYKit.h"
 #import "Analyticsmanager.h"
 #import "QiniuUpoadManager.h"
+#import "ButtonIndexPath.h"
 #import "NSString+Extension.h"
 
 #endif

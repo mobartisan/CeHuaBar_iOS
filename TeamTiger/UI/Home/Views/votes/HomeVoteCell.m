@@ -20,16 +20,23 @@
 @property (strong, nonatomic) UIImageView *imageV1;
 @property (strong, nonatomic) UILabel *projectLB;
 @property (strong, nonatomic) UIImageView *imageV2;
-@property (strong, nonatomic) ButtonIndexPath *projectBtn;
 @property (strong, nonatomic) VoteView *photoContainerView;
 @property (strong, nonatomic) VoteBottomView *voteBottomView;
-
 @property (strong, nonatomic) UILabel *timeLB;
 @property (strong, nonatomic) UIView *separLine;
+@property (strong, nonatomic) NSMutableArray *ticketsArr;
 
 @end
 
 @implementation HomeVoteCell
+
+- (NSMutableArray *)ticketsArr {
+    if (_ticketsArr == nil) {
+        _ticketsArr = [NSMutableArray array];
+    }
+    return _ticketsArr;
+}
+
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     static NSString *cellId = @"HomeVoteCell";

@@ -303,6 +303,7 @@
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
         ((HomeVoteCell *)cell).delegate = self;
+        ((HomeVoteCell *)cell).projectBtn.indexPath = indexPath;
     }
     return cell;
 }
@@ -348,15 +349,31 @@
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
+//点击项目名称
 - (void)clickProjectBtn:(NSString *)projectId {
-    [self getDataWithProjectId:projectId];
+    [self showLoadingView:projectId];
 }
 
 #pragma mark HomeVoteCellDeleagte
+//点击项目名称
 - (void)clickVoteProjectBtn:(NSString *)projectId {
-    [self getDataWithProjectId:projectId];
+    [self showLoadingView:projectId];
 }
 
+- (void)clickVoteBtn:(NSIndexPath *)indexPath {
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)showLoadingView:(NSString *)projectId {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"正在拼命加载...";
+    hud.mode = MBProgressHUDModeIndeterminate;
+    [hud hideAnimated:YES afterDelay:1.0];
+    //data
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getDataWithProjectId:projectId];
+    });
+}
 
 - (void)getDataWithProjectId:(NSString *)Id {
     [self.dataSource removeAllObjects];
