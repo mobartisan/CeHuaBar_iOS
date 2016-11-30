@@ -87,12 +87,16 @@
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
-             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-             }];
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [self.unGroupedProjects removeObjectAtIndex:indexPath.row];
+                    [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }];
         };
         //增加项目至分组的cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            [self addProjectIntoGroupAction];
+            [self addProjectIntoGroupAction:projectInfo];
         };
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
@@ -248,7 +252,7 @@
     }
 }
 
-- (void)addProjectIntoGroupAction {
+- (void)addProjectIntoGroupAction:(id)projectInfo {
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
@@ -258,7 +262,30 @@
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //添加至分组
+                NSArray *array = [NSArray arrayWithArray:wself.groups];
+                [array enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj[@"Gid"] isEqualToString:object[@"Gid"]]) {
+                        NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:obj];
+                        NSMutableArray *pids = [NSMutableArray arrayWithArray:[obj[@"Pids"] componentsSeparatedByString:@","]];
+                        [pids addObject:projectInfo[@"Id"]];
+                        NSArray *srcArray = [NSSet setWithArray:pids].allObjects;
+                        NSStringCompareOptions comparisonOptions = NSCaseInsensitiveSearch |NSNumericSearch | NSWidthInsensitiveSearch | NSForcedOrderingSearch;
+                        NSComparator sort = ^(NSString *obj1, NSString *obj2){
+                            NSRange range = NSMakeRange(0, obj1.length);
+                            return [obj1 compare:obj2 options:comparisonOptions range:range];
+                        };
+                        NSArray *resultArray = [srcArray sortedArrayUsingComparator:sort];
+                        NSString *nwPids = [resultArray componentsJoinedByString:@","];
+                        mDic[@"Pids"] = nwPids;
+                        [wself.groups replaceObjectAtIndex:idx withObject:mDic];
+                    }
+                }];
+                //刷新UI
+                [wself.unGroupedProjects removeObject:projectInfo];
+                [wself.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+                //给出提示
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
                     hud.label.text = @"项目已添加至该分组";
                     hud.mode = MBProgressHUDModeText;
