@@ -8,6 +8,7 @@
 
 #import "MessageManager.h"
 #import <UserNotifications/UserNotifications.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"ACTION_ONE";
@@ -154,6 +155,20 @@ static MessageManager *singleton = nil;
 #pragma -mark Handle Message
 - (void)handleOneMessage:(id)msgObj {
     //do a message
+    
+    //play shake
+    if ([UserDefaultsGet(@"USER_KEY_PLAY_SHAKE") integerValue] == 1) {
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
+    //play audio
+    if ([UserDefaultsGet(@"USER_KEY_PLAY_AUDIO") integerValue] == 1) {
+        static SystemSoundID soundIDTest = 0;
+        NSString * path = [[NSBundle mainBundle] pathForResource:@"cat" ofType:@"caf"];
+        if (path) {
+            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+        }
+        AudioServicesPlaySystemSound(soundIDTest);
+    }
 }
 
 @end

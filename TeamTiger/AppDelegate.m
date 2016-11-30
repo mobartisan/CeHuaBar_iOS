@@ -18,7 +18,6 @@
 #import "MessageManager.h"
 #import "UploadManager.h"
 #import "Analyticsmanager.h"
-
 #import "TTProjectsMenuViewController.h"
 
 @interface AppDelegate ()

@@ -398,6 +398,8 @@
 		1DDE9E701D533106005926FE /* TTMyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E6E1D533106005926FE /* TTMyProfileViewController.xib */; };
 		1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */; };
 		1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */; };
+		1DDF39F31DEEABB10059207B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDF39F21DEEABB10059207B /* AudioToolbox.framework */; };
+		1DDF39F51DEEAC7B0059207B /* cat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1DDF39F41DEEAC7B0059207B /* cat.caf */; };
 		1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */; };
 		1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */; };
 		1DF0A1AC1D4DB898002D91DB /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A19A1D4DB898002D91DB /* 1.png */; };
@@ -1227,6 +1229,8 @@
 		1DDE9E721D535DDA005926FE /* TTAddDiscussViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddDiscussViewController.h; sourceTree = "<group>"; };
 		1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddDiscussViewController.m; sourceTree = "<group>"; };
 		1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddDiscussViewController.xib; sourceTree = "<group>"; };
+		1DDF39F21DEEABB10059207B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1DDF39F41DEEAC7B0059207B /* cat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat.caf; sourceTree = "<group>"; };
 		1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCircleViewControllerForSetting.m; sourceTree = "<group>"; };
 		1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCircleViewControllerForSetting.h; sourceTree = "<group>"; };
 		1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
@@ -1430,6 +1434,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DDF39F31DEEABB10059207B /* AudioToolbox.framework in Frameworks */,
 				1D09CCC11D3F2B0E00F85E9A /* libz.tbd in Frameworks */,
 				1D09CCBF1D3F2B0600F85E9A /* SystemConfiguration.framework in Frameworks */,
 				1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */,
@@ -2858,6 +2863,7 @@
 		1DA71B7B1D3DB982007483D2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				1DDF39F41DEEAC7B0059207B /* cat.caf */,
 				1DA71B811D3DBA67007483D2 /* main.m */,
 				1DA71B861D3DBDDB007483D2 /* TeamTiger-Prefix.pch */,
 				1DA71B7F1D3DBA67007483D2 /* Info.plist */,
@@ -3558,6 +3564,7 @@
 		2DDD543D1DB0D52C00C55633 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DDF39F21DEEABB10059207B /* AudioToolbox.framework */,
 				2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */,
 				2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */,
 				2DDD543E1DB0D52C00C55633 /* libresolv.tbd */,
@@ -3766,6 +3773,7 @@
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,
 				1DF0A1B91D4DB898002D91DB /* 5.png in Resources */,
 				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
+				1DDF39F51DEEAC7B0059207B /* cat.caf in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
 				06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */,

@@ -84,6 +84,16 @@
             make.centerY.equalTo(self.contentView.mas_centerY);
         }];
         _tSwitch.changeHandler = ^(BOOL on){
+            if ((self.tag - 2016) / 1000 == 2 &&
+                (self.tag - 2016) % 1000 == 0) {
+                NSNumber *switchValue = on ? @1 : @0;
+                UserDefaultsSave(switchValue, @"USER_KEY_PLAY_AUDIO");
+            }
+            if ((self.tag - 2016) / 1000 == 2 &&
+                (self.tag - 2016) % 1000 == 1) {
+                NSNumber *switchValue = on ? @1 : @0;
+                UserDefaultsSave(switchValue, @"USER_KEY_PLAY_SHAKE");
+            }
             NSLog(@"%d",on);
         };
     }

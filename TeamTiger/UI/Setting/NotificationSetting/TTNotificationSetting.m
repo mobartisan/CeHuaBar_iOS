@@ -48,11 +48,22 @@
 - (NSMutableArray *)datas {
     if (!_datas) {
 
+        //play shake
+        NSString *isShake = @"0";
+        if ([UserDefaultsGet(@"USER_KEY_PLAY_SHAKE") integerValue] == 1) {
+            isShake = @"1";
+        }
+        //play audio
+        NSString *isAudio = @"0";
+        if ([UserDefaultsGet(@"USER_KEY_PLAY_AUDIO") integerValue] == 1) {
+            isAudio = @"1";
+        }
+
         _datas = @[
   @{@"Name":@"接收信息消息通知",@"Type":@"0",@"Content":@"已开启",@"Description":@"如果你要关闭或开启策话吧的新消息通知，请在“设置” - “通知”功能中，找到应用程序“策话吧”更改。"},
     @{@"Name":@"通知显示消息详情",@"Type":@"1",@"Content":@"0",@"Description":@"关闭后，当收到策话吧信息时，通知提示将不显示发表人和内容摘要。"},
-    @{@"Name":@"声音",@"Type":@"1",@"Content":@"1",@"Description":@""},
-    @{@"Name":@"振动",@"Type":@"1",@"Content":@"0",@"Description":@"当策话吧在运行时，你可以设置是否需要声音或振动。"},
+    @{@"Name":@"声音",@"Type":@"1",@"Content":isAudio,@"Description":@""},
+    @{@"Name":@"振动",@"Type":@"1",@"Content":isShake,@"Description":@"当策话吧在运行时，你可以设置是否需要声音或振动。"},
   ].mutableCopy;
     }
     return _datas;
@@ -78,6 +89,7 @@
         cell = [[NotificationCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.tag = 2016 + 1000 * indexPath.section + indexPath.row;
     if (indexPath.section == 0 && indexPath.row == 0) {
         [cell reloadCellData:self.datas[0]];
     } else if (indexPath.section == 1 && indexPath.row == 0) {
