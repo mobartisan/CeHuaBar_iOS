@@ -139,6 +139,8 @@
         v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         _table.backgroundView = v;
         _table.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        _table.separatorColor = [UIColor clearColor];
+        _table.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _table;
 }

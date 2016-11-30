@@ -20,6 +20,7 @@
     
     self.addBtn.alpha = 0.0;
     self.deleteBtn.alpha = 0.0;
+    self.isOpenLeft = NO;
     
     self.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
@@ -51,6 +52,10 @@
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
+        //alpha = 0
+        self.addBtn.alpha = 0.0;
+        self.deleteBtn.alpha = 0.0;
+        self.isOpenLeft = NO;
     }
 }
 
