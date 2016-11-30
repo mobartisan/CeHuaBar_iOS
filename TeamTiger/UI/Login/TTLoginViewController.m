@@ -138,16 +138,23 @@
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"请求access的response = %@", responseObject);
         NSDictionary *accessDict = [NSDictionary dictionaryWithDictionary:responseObject];
-        NSString *accessToken = [accessDict objectForKey:WX_ACCESS_TOKEN];
-        NSString *openID = [accessDict objectForKey:WX_OPEN_ID];
-        NSString *refreshToken = [accessDict objectForKey:WX_REFRESH_TOKEN];
-        // 本地持久化，以便access_token的使用、刷新或者持续
-        if (![Common isEmptyString:accessToken] && ![Common isEmptyString:openID]) {
-            UserDefaultsSave(accessToken, WX_ACCESS_TOKEN);
-            UserDefaultsSave(openID, WX_OPEN_ID);
-            UserDefaultsSave(refreshToken, WX_REFRESH_TOKEN);
+        if([accessDict.allKeys containsObject:@"errcode"] ||
+           [accessDict.allKeys containsObject:@"errmsg"]) {
+            [super showHudWithText:@"登录微信失败"];
+            [super hideHudAfterSeconds:1.0];
+            [self hideLaunchImage];//隐藏启动页
+        } else {
+            NSString *accessToken = [accessDict objectForKey:WX_ACCESS_TOKEN];
+            NSString *openID = [accessDict objectForKey:WX_OPEN_ID];
+            NSString *refreshToken = [accessDict objectForKey:WX_REFRESH_TOKEN];
+            // 本地持久化，以便access_token的使用、刷新或者持续
+            if (![Common isEmptyString:accessToken] && ![Common isEmptyString:openID]) {
+                UserDefaultsSave(accessToken, WX_ACCESS_TOKEN);
+                UserDefaultsSave(openID, WX_OPEN_ID);
+                UserDefaultsSave(refreshToken, WX_REFRESH_TOKEN);
+            }
+            [self getAccess_Token:accessToken openId:openID];
         }
-        [self getAccess_Token:accessToken openId:openID];;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
         [super showHudWithText:@"登录微信失败"];
