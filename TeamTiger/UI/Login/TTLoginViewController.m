@@ -71,10 +71,13 @@
     if ([WXApi isWXAppInstalled]) {
         //转圈
         [super showHudWithText:@"正在登录..."];
-        [WXApiRequestHandler sendAuthRequestScope:kAuthScope
-                                            State:kAuthState
-                                           OpenID:kAuthOpenID
-                                 InViewController:self];
+        BOOL isSuccess = [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+                                                             State:kAuthState
+                                                            OpenID:kAuthOpenID
+                                                  InViewController:self];
+        if (!isSuccess) {
+            [super hideHudAfterSeconds:1.0];
+        }
     } else {
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 0) {
