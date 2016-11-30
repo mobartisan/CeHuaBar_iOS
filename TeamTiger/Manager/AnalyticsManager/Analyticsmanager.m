@@ -14,6 +14,15 @@
 
 @implementation Analyticsmanager
 
++ (instancetype)mainAnalyticsmanager {
+    static Analyticsmanager *analyticManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        analyticManager = [[Analyticsmanager alloc] init];
+    });
+    return analyticManager;
+}
+
 + (void)startAppAnalytics {
     //捕捉程序崩溃记录
     [TalkingData setExceptionReportEnabled:YES];

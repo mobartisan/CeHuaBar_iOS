@@ -15,7 +15,6 @@
 #import "QiniuUploadHelper.h"
 
 
-
 @interface QiniuUpoadManager ()
 
 @property (nonatomic, assign) NSInteger index;
@@ -45,6 +44,7 @@ static QiniuUpoadManager *manager = nil;
 }
 
 - (void)createToken {
+    
     [self registerWithScope:QiNiuScope accessKey:QiNiuAccessKey secretKey:QiNiuSecretKey liveTime:defaultLiveTime];
     
     if (!self.scope.length || !self.accessKey.length || !self.secretKey.length) {
@@ -108,14 +108,12 @@ static QiniuUpoadManager *manager = nil;
     }
     return randomString;
 }
-// 从服务器获取七牛上传token
-+ (void)getQiniuUploadToken:(void (^)(NSString *token))success failure:(void (^)())failure {
-    
-}
+
 
 //上传单张图片
 - (void)uploadImage:(UIImage *)image progress:(QNUpProgressHandler)progress success:(void (^)(NSString *url))success failure:(void (^)())failure {
-        NSData *data = UIImageJPEGRepresentation(image, 0.3);
+    [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
+        NSData *data = UIImageJPEGRepresentation(image, 0.7);
         if (!data) {
             if (failure) {
                 failure();
@@ -127,21 +125,23 @@ static QiniuUpoadManager *manager = nil;
         QNUploadManager *uploadManager = [QNUploadManager sharedInstanceWithConfiguration:nil];
         [uploadManager putData:data
                            key:fileName
-                         token:self.uploadToken
+                         token:token
                       complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                          
                           if (info.statusCode == 200 && resp) {
                               NSString *url= [NSString stringWithFormat:@"%@%@", QiNiuBaseUrl, resp[@"key"]];
                               if (success) {
                                   success(url);
                               }
-                          }
-                          else {
+                          }else {
                               if (failure) {
                                   failure();
                               }
                           }
                       } option:option];
+    } failure:^{
+        NSLog(@"获取Token失败");
+    }];
+    
 }
 
 //上传多张图片
@@ -174,6 +174,14 @@ static QiniuUpoadManager *manager = nil;
         }
     };
     [manager uploadImage:imageArray[0] progress:nil success:weakHelper.singleSuccessBlock failure:weakHelper.singleFailureBlock];
+}
+
+
+//服务器获取七牛的token
++ (void)getQiniuUploadToken:(void (^)(NSString *token))success failure:(void (^)())failure {
+    success([QiniuUpoadManager sharedInstance].uploadToken);
+    //网络请求七牛token
+  
 }
 
 

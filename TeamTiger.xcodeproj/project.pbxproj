@@ -427,6 +427,7 @@
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
+		2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D17701DED552200AFE3BD /* UIImage+Extension.m */; };
 		2D7279F71DDD811B00CBF0BA /* HomeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279D91DDD811B00CBF0BA /* HomeCommentModel.m */; };
 		2D7279F81DDD811B00CBF0BA /* HomeCommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279DB1DDD811B00CBF0BA /* HomeCommentModelFrame.m */; };
 		2D7279F91DDD811B00CBF0BA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279DD1DDD811B00CBF0BA /* HomeModel.m */; };
@@ -443,6 +444,7 @@
 		2D727A1A1DDD844E00CBF0BA /* JJPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A141DDD844E00CBF0BA /* JJPhoto.m */; };
 		2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */; };
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
+		2D7661E21DEE61AC00E6410E /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
 		2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */; };
 		2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */; };
@@ -495,7 +497,6 @@
 		2DDD54341DB0D4AF00C55633 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD540E1DB0D4AF00C55633 /* QNUploadOption.m */; };
 		2DDD54351DB0D4AF00C55633 /* QNUpToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54101DB0D4AF00C55633 /* QNUpToken.m */; };
 		2DDD543B1DB0D4D300C55633 /* QiniuUploadHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */; };
-		2DDD543C1DB0D4D300C55633 /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD543A1DB0D4D300C55633 /* QiniuUpoadManager.m */; };
 		2DDD543F1DB0D52C00C55633 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDD543E1DB0D52C00C55633 /* libresolv.tbd */; };
 		2DFA80A41DD1BDF100160060 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80931DD1BDF100160060 /* HomeViewController.m */; };
 		2DFA80A51DD1BDF100160060 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFA80941DD1BDF100160060 /* HomeViewController.xib */; };
@@ -1266,6 +1267,8 @@
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
+		2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
+		2D6D17701DED552200AFE3BD /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		2D7279D81DDD811B00CBF0BA /* HomeCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentModel.h; sourceTree = "<group>"; };
 		2D7279D91DDD811B00CBF0BA /* HomeCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCommentModel.m; sourceTree = "<group>"; };
 		2D7279DA1DDD811B00CBF0BA /* HomeCommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentModelFrame.h; sourceTree = "<group>"; };
@@ -1298,6 +1301,8 @@
 		2D727A151DDD844E00CBF0BA /* JJPhotoManeger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJPhotoManeger.h; sourceTree = "<group>"; };
 		2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJPhotoManeger.m; sourceTree = "<group>"; };
 		2D727A171DDD844E00CBF0BA /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
+		2D7661E01DEE61AC00E6410E /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
+		2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
@@ -1406,8 +1411,6 @@
 		2DDD54101DB0D4AF00C55633 /* QNUpToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNUpToken.m; sourceTree = "<group>"; };
 		2DDD54371DB0D4D300C55633 /* QiniuUploadHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUploadHelper.h; sourceTree = "<group>"; };
 		2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUploadHelper.m; sourceTree = "<group>"; };
-		2DDD54391DB0D4D300C55633 /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
-		2DDD543A1DB0D4D300C55633 /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
 		2DDD543E1DB0D52C00C55633 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		2DFA80921DD1BDF100160060 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2DFA80931DD1BDF100160060 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -2899,6 +2902,8 @@
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
 				2D9674FD1DEBD4AC002DF6E0 /* UIViewController+Extension.h */,
 				2D9674FE1DEBD4AC002DF6E0 /* UIViewController+Extension.m */,
+				2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */,
+				2D6D17701DED552200AFE3BD /* UIImage+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3549,8 +3554,8 @@
 			children = (
 				2DDD54371DB0D4D300C55633 /* QiniuUploadHelper.h */,
 				2DDD54381DB0D4D300C55633 /* QiniuUploadHelper.m */,
-				2DDD54391DB0D4D300C55633 /* QiniuUpoadManager.h */,
-				2DDD543A1DB0D4D300C55633 /* QiniuUpoadManager.m */,
+				2D7661E01DEE61AC00E6410E /* QiniuUpoadManager.h */,
+				2D7661E11DEE61AC00E6410E /* QiniuUpoadManager.m */,
 			);
 			path = QiniuUploadManager;
 			sourceTree = "<group>";
@@ -3802,7 +3807,6 @@
 				1D115F8C1D4BA043003DFBB1 /* IQKeyboardManager.m in Sources */,
 				1D09CC641D3F29C900F85E9A /* NSObject+YYAddForARC.m in Sources */,
 				1D09CC6D1D3F29C900F85E9A /* UIBezierPath+YYAdd.m in Sources */,
-				2DDD543C1DB0D4D300C55633 /* QiniuUpoadManager.m in Sources */,
 				1D9580E61D3E23E100FD0053 /* APP_SETTINGS.m in Sources */,
 				1DD2E3391D59B871005D45A9 /* WXApiManager.m in Sources */,
 				1D09CD631D3F59D500F85E9A /* SDWebImagePrefetcher.m in Sources */,
@@ -3998,6 +4002,7 @@
 				0604B4651D4C5A5B00EF1703 /* CCDraggableCardView.m in Sources */,
 				06008F3F1D58249300A5B3DB /* TZAssetModel.m in Sources */,
 				2DDD54211DB0D4AF00C55633 /* README.md in Sources */,
+				2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */,
 				06008F421D58249300A5B3DB /* TZImagePickerController.m in Sources */,
 				1D09CC9B1D3F29C900F85E9A /* YYTextRubyAnnotation.m in Sources */,
 				2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */,
@@ -4079,6 +4084,7 @@
 				1D09CD581D3F59D500F85E9A /* UIImage+GIF.m in Sources */,
 				1DA0E1A81D54779C008CD6DF /* ItemView.m in Sources */,
 				1D32AEF71DB0C3BE000DF537 /* GroupHeadView.m in Sources */,
+				2D7661E21DEE61AC00E6410E /* QiniuUpoadManager.m in Sources */,
 				2DDD54191DB0D4AF00C55633 /* QNHosts.m in Sources */,
 				1D09CD2C1D3F550300F85E9A /* UIView+HYBHelperKitUIKit.m in Sources */,
 				1D3E23681D61635C0024A5CA /* Models.m in Sources */,
