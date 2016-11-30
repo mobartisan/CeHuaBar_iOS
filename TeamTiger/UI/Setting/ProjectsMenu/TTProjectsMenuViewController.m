@@ -52,7 +52,7 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+    [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
@@ -126,6 +126,7 @@
             }];
         } else {
             [cell addSubview:self.pView];
+            [self.pView loadGroupsInfos:self.groups];
             [self.pView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.mas_equalTo(cell);
             }];
@@ -241,7 +242,9 @@
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [wself.groups addObject:object];
+                [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
                     hud.label.text = @"创建分组成功";
                     hud.mode = MBProgressHUDModeText;
@@ -327,7 +330,7 @@
 
 - (ProjectsView *)pView {
     if (!_pView) {
-        _pView = [[ProjectsView alloc] initWithDatas:self.groups];
+        _pView = [[ProjectsView alloc] initWithDatas:[NSArray array]];
         
         WeakSelf;
         //data handle

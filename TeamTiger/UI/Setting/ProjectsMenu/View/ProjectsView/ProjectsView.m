@@ -16,6 +16,8 @@
 
 @property(nonatomic, strong)UIScrollView *scrollView;
 
+@property(nonatomic, strong)UIView *contentView;
+
 @end
 
 @implementation ProjectsView
@@ -23,13 +25,13 @@
 - (instancetype)initWithDatas:(NSArray *)datas {
     self = [super init];
     if (self) {
-        [self initScrollViewWithDats:datas];
+        [self initScrollViewWithDats:datas IsInit:YES];
     }
     return self;
 }
 
-- (void)loadProjectsInfos:(NSArray *)projects {
-    
+- (void)loadGroupsInfos:(NSArray *)groups {
+    [self initScrollViewWithDats:groups IsInit:NO];
 }
 
 + (CGFloat)heightOfProjectsView:(NSArray *)projects {
@@ -38,22 +40,31 @@
     return (rows + 1) * 5.0 + rows * kSizeHeight;
 }
 
-#pragma -mark 
-- (void)initScrollViewWithDats:(NSArray *)datas {
-    //scrollview
-    self.scrollView = [[UIScrollView alloc] init];
-    [self addSubview:self.scrollView];
-    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-    //contentview
-    UIView *contentView = [[UIView alloc] init];
-    [self.scrollView addSubview:contentView];
-    [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.scrollView);
-        make.width.equalTo(self.scrollView);
-    }];
-    
+#pragma -mark
+- (void)initScrollViewWithDats:(NSArray *)datas IsInit:(BOOL)isInit {
+    if (isInit) {
+        //scrollview
+        self.scrollView = [[UIScrollView alloc] init];
+        [self addSubview:self.scrollView];
+        [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        //contentview
+        self.contentView = [[UIView alloc] init];
+        [self.scrollView addSubview:self.contentView];
+        [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.scrollView);
+            make.width.equalTo(self.scrollView);
+        }];
+    } else {
+        //scrollview
+        for (NSInteger i = self.scrollView.subviews.count - 1; i >= 0; i--) {
+            UIView *v = self.scrollView.subviews[i];
+            if (v && [v isKindOfClass:[ProjectItemView class]]) {
+                [v removeFromSuperview];
+            }
+        }
+    }
     __block UIView *lastView1 = nil, *lastView2 = nil, *lastView3 = nil;
     NSUInteger count = datas.count;
     for (int i = 0; i < count + 1; i++) {
@@ -67,7 +78,7 @@
                 if (lastView1){
                     make.top.mas_equalTo(lastView1.mas_bottom).offset(5.0);
                 } else {
-                    make.top.mas_equalTo(contentView.mas_top).offset(5.0);
+                    make.top.mas_equalTo(self.contentView.mas_top).offset(5.0);
                 }
                 lastView1 = tmpView;
             }
@@ -75,7 +86,7 @@
                 if (lastView2){
                     make.top.mas_equalTo(lastView2.mas_bottom).offset(5.0);
                 } else {
-                    make.top.mas_equalTo(contentView.mas_top).offset(5.0);
+                    make.top.mas_equalTo(self.contentView.mas_top).offset(5.0);
                 }
                 lastView2 = tmpView;
             }
@@ -83,7 +94,7 @@
                 if (lastView3){
                     make.top.mas_equalTo(lastView3.mas_bottom).offset(5.0);
                 } else {
-                    make.top.mas_equalTo(contentView.mas_top).offset(5.0);
+                    make.top.mas_equalTo(self.contentView.mas_top).offset(5.0);
                 }
                 lastView3 = tmpView;
             }
@@ -106,7 +117,7 @@
             }
         };
     }
-    [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(lastView1.mas_bottom);
     }];
 }

@@ -71,9 +71,7 @@
             [self.selGroups replaceObjectAtIndex:i withObject:@0];
         }
     }
-    NSNumber *number = self.selGroups[indexPath.row];
-    number = @1;
-    [self.selGroups replaceObjectAtIndex:indexPath.row withObject:number];
+    [self.selGroups replaceObjectAtIndex:indexPath.row withObject:@1];
     [tableView reloadData];
 }
 

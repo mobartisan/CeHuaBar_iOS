@@ -208,6 +208,7 @@
                 // 裁减图片
                 CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 wself.imageView.image = [UIImage imageWithCGImage:imgR];
+                CFRelease(imgR);
             };
             
             TTBaseNavigationController *selectNav = [[TTBaseNavigationController alloc] initWithRootViewController:selectBgImageVC];

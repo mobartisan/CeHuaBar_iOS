@@ -25,7 +25,7 @@ typedef void(^LongPressProjectBlock)(ProjectsView *projectV, id projectObj);
 
 - (instancetype)initWithDatas:(NSArray *)datas;
 
-- (void)loadProjectsInfos:(NSArray *)projects;
+- (void)loadGroupsInfos:(NSArray *)groups;
 
 + (CGFloat)heightOfProjectsView:(NSArray *)projects;
 

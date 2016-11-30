@@ -57,6 +57,7 @@
             }
         }];
     } else {
+        self.groupInfo = [NSMutableDictionary dictionary];
         [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [self.selProjects addObject:@0];
         }];
@@ -150,6 +151,9 @@
             [mString replaceOccurrencesOfString:@"," withString:@"" options:NSBackwardsSearch range:NSMakeRange(length - 1, 1)];
             self.groupInfo[@"Pids"] = mString;
         }
+        //creat
+        NSString *uuid = [[[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:NullString] lowercaseString];
+        self.groupInfo[@"Gid"] = uuid;
         self.clickBtnBlock(self, YES, self.groupInfo);
     }
     [self hide];
