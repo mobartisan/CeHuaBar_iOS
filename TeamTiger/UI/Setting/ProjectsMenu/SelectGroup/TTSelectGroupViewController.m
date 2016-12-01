@@ -28,7 +28,7 @@
     }];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     __block NSInteger index = 0;
-    [[MockDatas groups] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [[[MockDatas mainMockDatas] groups] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([obj[@"Gid"] isEqualToString:self.selectedGroup[@"Gid"]]) {
             index = idx;
             *stop = YES;
@@ -101,7 +101,7 @@
 - (NSMutableArray *)groupDatas {
     if (!_groupDatas) {
         _groupDatas = [NSMutableArray array];
-        NSArray *groups = [MockDatas groups];
+        NSArray *groups = [[MockDatas mainMockDatas] groups];
         [groups enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:obj];
             if (idx == self.currentSelectedIndex) {

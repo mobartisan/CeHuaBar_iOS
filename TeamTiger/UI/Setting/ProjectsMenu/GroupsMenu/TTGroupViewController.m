@@ -147,17 +147,16 @@
 
 - (NSMutableArray *)groups {
     if (!_groups) {
-        _groups = [NSMutableArray arrayWithArray:[MockDatas groups]];
+        _groups = [NSMutableArray arrayWithArray:[[MockDatas mainMockDatas] groups]];
     }
     return _groups;
 }
 
 - (void)loadProjects {
-    NSArray *groups = [MockDatas groups];
+    NSArray *groups = [[MockDatas mainMockDatas] groups];
     NSArray *selGroups = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         return [evaluatedObject[@"Gid"] isEqualToString:self.groupId];
     }]];
-    
     self.groupInfo = [NSMutableDictionary dictionaryWithDictionary:selGroups.firstObject];
     NSArray *pids = [selGroups.firstObject[@"Pids"] componentsSeparatedByString:@","];
 
@@ -189,7 +188,7 @@
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
-        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView loadGroups:[[MockDatas mainMockDatas] groups]];
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){

@@ -350,6 +350,7 @@
             self.title = notification.userInfo[@"Title"];
             [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         }
+        [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     });
 }
 

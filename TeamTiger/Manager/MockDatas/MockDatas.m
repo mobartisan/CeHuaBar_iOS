@@ -12,13 +12,33 @@
 
 @implementation MockDatas
 
+static MockDatas *mockDatas = nil;
++ (instancetype)mainMockDatas {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        mockDatas = [[MockDatas alloc] init];
+    });
+    return mockDatas;
+}
+
+- (NSMutableArray *)groups {
+    if (_groups == nil) {
+        _groups =  @[
+                     @{@"Name":@"我管理的项目",@"Gid":@"00001",@"Pids":@"0001,0002"},
+                     @{@"Name":@"我关注的项目",@"Gid":@"00002",@"Pids":@"0002,0004"},
+                     @{@"Name":@"南京的项目",@"Gid":@"00003",@"Pids":@"0001,0002,0003,0004"},
+                     @{@"Name":@"北京的项目",@"Gid":@"00004",@"Pids":@"0001,0003"}].mutableCopy;
+    }
+    return _groups;
+}
+
 //for test
-+ (NSArray *)groups {
-    NSArray *groups = @[
++ (NSMutableArray *)groups {
+    NSMutableArray *groups = @[
                           @{@"Name":@"我管理的项目",@"Gid":@"00001",@"Pids":@"0001,0002"},
                           @{@"Name":@"我关注的项目",@"Gid":@"00002",@"Pids":@"0002,0004"},
                           @{@"Name":@"南京的项目",@"Gid":@"00003",@"Pids":@"0001,0002,0003,0004"},
-                          @{@"Name":@"北京的项目",@"Gid":@"00004",@"Pids":@"0001,0003"}];
+                          @{@"Name":@"北京的项目",@"Gid":@"00004",@"Pids":@"0001,0003"}].mutableCopy;
     return groups;
 }
 
@@ -302,7 +322,7 @@
             [resArray addObjectsFromArray:arr];
         } else {
             //分组
-            NSArray *group = [[MockDatas groups] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            NSArray *group = [mockDatas.groups filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
                 return [evaluatedObject[@"Gid"] isEqualToString:tmpId];
             }]];
             if (group && group.count > 0 && group.firstObject) {

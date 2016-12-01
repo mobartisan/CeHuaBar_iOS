@@ -203,7 +203,7 @@
 #pragma -mark Data Handle
 - (NSMutableArray *)groups {
     if (!_groups) {
-        _groups = [NSMutableArray arrayWithArray:[MockDatas groups]];
+        _groups = [NSMutableArray arrayWithArray:[[MockDatas mainMockDatas] groups]];
     }
     return _groups;
 }
@@ -243,6 +243,7 @@
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
+                [[MockDatas mainMockDatas].groups addObject:object];
                 [wself.groups addObject:object];
                 [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -260,7 +261,7 @@
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
-        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView loadGroups:[[MockDatas mainMockDatas] groups]];
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
