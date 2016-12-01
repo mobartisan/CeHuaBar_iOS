@@ -79,8 +79,6 @@
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
         [self getAccess_Token:accessToken openId:openID];
-#warning TO DO 固定数据传给后端
-        [self longiApi];
     } else {
         //隐藏 手动登录
         [self hideLaunchImage];//隐藏启动页
@@ -99,10 +97,9 @@
         if (!isSuccess) {
             [super hideHudAfterSeconds:1.0];
         }
-    } else {
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"取消", @"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            [self longiApi];
-            if (buttonIndex == 1) {
+    }else {
+        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            if (buttonIndex == 0) {
 #warning to do
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
                 UIWindow *window = kAppDelegate.window;
@@ -190,8 +187,6 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-#warning TO DO 固定数据传给后端
-        [self longiApi];
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
