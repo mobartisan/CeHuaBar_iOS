@@ -53,6 +53,9 @@
     [self.table reloadData];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -138,6 +141,10 @@
         headView.groupNameLab.text = @"项目列表";
     }
     return headView;
+}
+
+- (void)tapAction:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
 }
 
 #pragma -mark getter
