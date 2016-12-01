@@ -195,6 +195,10 @@
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
+        [SQLITEMANAGER setDataBasePath:user.user_id];
+        if ([UserDefaultsGet(@"LastIsLogOut") intValue] != 1) {
+            [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
+        }
         //2.隐藏转圈 跳转
         [super showHudWithText:@"登录成功"];
         [super hideHudAfterSeconds:1.0];

@@ -28,6 +28,8 @@ static NSString *const SYSTEM = @"SYSTEM";//系统数据库名字
 
 static NSString *const TABLE_APP_SETTINGS = @"APP_SETTINGS";//数据库表名
 
+static NSString *const TABLE_TT_Group = @"TT_Group";
+
 static NSString *const TABLE_TT_Project = @"TT_Project";
 
 static NSString *const TABLE_TT_Project_Members = @"TT_Project_Members";

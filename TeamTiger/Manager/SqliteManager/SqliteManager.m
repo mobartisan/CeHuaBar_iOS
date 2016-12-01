@@ -381,11 +381,20 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
          ];
         
         
+        //        TABLE_TT_Group
+        [self checkTable:database
+               tableName:TABLE_TT_Group
+               allFields:@[@"group_id",@"name",@"pids",@"description",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id"].mutableCopy
+           allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"varchar",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar"].mutableCopy
+             primaryKeys:nil
+      isFieldTypeChanged:NO
+         ];
+
 //        TABLE_TT_Project
         [self checkTable:database
                tableName:TABLE_TT_Project
-           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar"].mutableCopy
+           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
+       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -450,6 +459,29 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
+        
+        
+        //add preparePredefineDatas
+        [self preparePredefineDatas:database
+                           commands:
+         @[
+           //groups
+           @"delete from TT_Group",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00001','我管理的项目','0001,0002',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00002','我关注的项目','0002,0004',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00003','南京的项目','0001,0002,0003,0004',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00004','北京的项目','0001,0003',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+
+           //projects
+           @"delete from TT_Project",
+           @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0001','工作牛',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
+           @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0002','易会',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
+           @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0003','末端融合',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
+           @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0004','电动汽车',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
+           @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0005','主网抢修',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',0)",
+           ].mutableCopy
+         ];
+
     }
     else {
         //T_APP_SETTINGS
@@ -461,16 +493,18 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
       isFieldTypeChanged:NO
          ];
         
-        //
-        //    //add preparePredefineDatas
-        //    [SqliteManager preparePredefineDatas:database commands:
-        //     [@[
-        //
-        //
-        //
-        //        @"delete from T_APP_APPLICATION_MSG",
-        //        @"INSERT INTO T_APP_APPLICATION_MSG(__id__,application_msg_id, application_id, content, is_valid, is_visit) VALUES(1,'cf3ca900804743fc9334c5a8a4c4fc72','092ad3c991374d7a83ca62cb3f01c837','项目组已报批9月6日全网检修票。',1,1)",
-        //        ]mutableCopy] userId:userId];
+        
+//            //add preparePredefineDatas
+//            [self preparePredefineDatas:database
+//                                        commands:
+//             @[
+//        
+//        
+//        
+//                @"delete from T_APP_APPLICATION_MSG",
+//                @"INSERT INTO T_APP_APPLICATION_MSG(__id__,application_msg_id, application_id, content, is_valid, is_visit) VALUES(1,'cf3ca900804743fc9334c5a8a4c4fc72','092ad3c991374d7a83ca62cb3f01c837','项目组已报批9月6日全网检修票。',1,1)"
+//                ].mutableCopy
+//             ];
         
     }
     return YES;
