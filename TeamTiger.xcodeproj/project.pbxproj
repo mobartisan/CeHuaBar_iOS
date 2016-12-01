@@ -246,6 +246,8 @@
 		1D32AEF91DB0C451000DF537 /* GroupHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D32AEF81DB0C451000DF537 /* GroupHeadView.xib */; };
 		1D32AEFD1DB0CB61000DF537 /* ProjectsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D32AEFB1DB0CB61000DF537 /* ProjectsCell.m */; };
 		1D32AEFE1DB0CB61000DF537 /* ProjectsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D32AEFC1DB0CB61000DF537 /* ProjectsCell.xib */; };
+		1D34D50C1DEFC045002CBFF8 /* TTSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D50A1DEFC045002CBFF8 /* TTSelectGroupViewController.m */; };
+		1D34D50D1DEFC045002CBFF8 /* TTSelectGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
@@ -420,8 +422,6 @@
 		1DF0A1BB1D4DB898002D91DB /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1A91D4DB898002D91DB /* 7.png */; };
 		1DF0A1BC1D4DB898002D91DB /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1AA1D4DB898002D91DB /* 8.png */; };
 		1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1AB1D4DB898002D91DB /* 9.png */; };
-		1DF984D91DAE13510046698C /* TTSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF984D71DAE13510046698C /* TTSelectGroupViewController.m */; };
-		1DF984DA1DAE13510046698C /* TTSelectGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DF984D81DAE13510046698C /* TTSelectGroupViewController.xib */; };
 		1DF991CC1D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C51D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m */; };
 		1DF991CD1D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C71D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m */; };
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
@@ -977,6 +977,9 @@
 		1D32AEFA1DB0CB61000DF537 /* ProjectsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectsCell.h; sourceTree = "<group>"; };
 		1D32AEFB1DB0CB61000DF537 /* ProjectsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectsCell.m; sourceTree = "<group>"; };
 		1D32AEFC1DB0CB61000DF537 /* ProjectsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProjectsCell.xib; sourceTree = "<group>"; };
+		1D34D5091DEFC045002CBFF8 /* TTSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSelectGroupViewController.h; sourceTree = "<group>"; };
+		1D34D50A1DEFC045002CBFF8 /* TTSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSelectGroupViewController.m; sourceTree = "<group>"; };
+		1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSelectGroupViewController.xib; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
@@ -1253,9 +1256,6 @@
 		1DF0A1A91D4DB898002D91DB /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		1DF0A1AA1D4DB898002D91DB /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		1DF0A1AB1D4DB898002D91DB /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
-		1DF984D61DAE13510046698C /* TTSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSelectGroupViewController.h; sourceTree = "<group>"; };
-		1DF984D71DAE13510046698C /* TTSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSelectGroupViewController.m; sourceTree = "<group>"; };
-		1DF984D81DAE13510046698C /* TTSelectGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSelectGroupViewController.xib; sourceTree = "<group>"; };
 		1DF991C31D488C0F00E7D1B8 /* TYLaunchAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLaunchAnimationProtocol.h; sourceTree = "<group>"; };
 		1DF991C41D488C0F00E7D1B8 /* TYLaunchBaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLaunchBaseAnimation.h; sourceTree = "<group>"; };
 		1DF991C51D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYLaunchBaseAnimation.m; sourceTree = "<group>"; };
@@ -2332,6 +2332,8 @@
 		1D32AEEC1DB084EC000DF537 /* ProjectsMenu */ = {
 			isa = PBXGroup;
 			children = (
+				1D34D5071DEFC045002CBFF8 /* GroupSetting */,
+				1D34D5081DEFC045002CBFF8 /* SelectGroup */,
 				1D5487211DCB260F00DB4D89 /* GroupsMenu */,
 				1D32AEF21DB0C370000DF537 /* View */,
 				1D32AEED1DB08546000DF537 /* TTProjectsMenuViewController.h */,
@@ -2370,6 +2372,23 @@
 				1D32AEF81DB0C451000DF537 /* GroupHeadView.xib */,
 			);
 			path = HeadView;
+			sourceTree = "<group>";
+		};
+		1D34D5071DEFC045002CBFF8 /* GroupSetting */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GroupSetting;
+			sourceTree = "<group>";
+		};
+		1D34D5081DEFC045002CBFF8 /* SelectGroup */ = {
+			isa = PBXGroup;
+			children = (
+				1D34D5091DEFC045002CBFF8 /* TTSelectGroupViewController.h */,
+				1D34D50A1DEFC045002CBFF8 /* TTSelectGroupViewController.m */,
+				1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */,
+			);
+			path = SelectGroup;
 			sourceTree = "<group>";
 		};
 		1D3E235B1D61635C0024A5CA /* ModelsManager */ = {
@@ -3202,16 +3221,6 @@
 			path = portraits;
 			sourceTree = "<group>";
 		};
-		1DF984D51DAE131F0046698C /* SelectGroup */ = {
-			isa = PBXGroup;
-			children = (
-				1DF984D61DAE13510046698C /* TTSelectGroupViewController.h */,
-				1DF984D71DAE13510046698C /* TTSelectGroupViewController.m */,
-				1DF984D81DAE13510046698C /* TTSelectGroupViewController.xib */,
-			);
-			path = SelectGroup;
-			sourceTree = "<group>";
-		};
 		1DF991C21D488C0F00E7D1B8 /* TYLaunchAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3232,7 +3241,6 @@
 			isa = PBXGroup;
 			children = (
 				1D32AEEC1DB084EC000DF537 /* ProjectsMenu */,
-				1DF984D51DAE131F0046698C /* SelectGroup */,
 				1DBFD6C91D640C620039077D /* NotificationSetting */,
 				1DDE9E6B1D5330ED005926FE /* MyProfile */,
 				1DDE9E5F1D52DADA005926FE /* AddProject */,
@@ -3736,7 +3744,6 @@
 				2DB3513E1DE574FF000521A3 /* HeaderView.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
-				1DF984DA1DAE13510046698C /* TTSelectGroupViewController.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
 				1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */,
 				1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */,
@@ -3782,6 +3789,7 @@
 				1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */,
 				1DB5A58B1D4B3F36009E6170 /* round-switch-mask@2x.png in Resources */,
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
+				1D34D50D1DEFC045002CBFF8 /* TTSelectGroupViewController.xib in Resources */,
 				1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */,
 				1DB5A5891D4B3F36009E6170 /* switchToggle@2x.png in Resources */,
 				0604B4791D4C5A9B00EF1703 /* image_6.jpg in Resources */,
@@ -3874,6 +3882,7 @@
 				1D01696E1DB30F6F00F828E4 /* ProjectsView.m in Sources */,
 				1D09CC651D3F29C900F85E9A /* NSObject+YYAddForKVO.m in Sources */,
 				1D9580D31D3E225200FD0053 /* MASConstraint.m in Sources */,
+				1D34D50C1DEFC045002CBFF8 /* TTSelectGroupViewController.m in Sources */,
 				1D09CD551D3F59D500F85E9A /* MKAnnotationView+WebCache.m in Sources */,
 				1D6D02CB1D58139F00EE0C2E /* TTPickerView.m in Sources */,
 				1D115F8A1D4BA043003DFBB1 /* IQUIViewController+Additions.m in Sources */,
@@ -4065,7 +4074,6 @@
 				06893D011D59F16A00921900 /* SelectCircleViewController.m in Sources */,
 				1D9580AD1D3E207200FD0053 /* MJRefreshGifHeader.m in Sources */,
 				1D09CC881D3F29C900F85E9A /* YYWebImageManager.m in Sources */,
-				1DF984D91DAE13510046698C /* TTSelectGroupViewController.m in Sources */,
 				1D09CC991D3F29C900F85E9A /* YYTextAttribute.m in Sources */,
 				2D727A021DDD811B00CBF0BA /* VoteView.m in Sources */,
 				2DDD54281DB0D4AF00C55633 /* QNPHAssetFile.m in Sources */,
