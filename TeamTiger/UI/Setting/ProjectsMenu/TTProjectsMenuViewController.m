@@ -183,7 +183,7 @@
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         if (finished) {
             NSString *Id = self.unGroupedProjects[indexPath.row][@"Id"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":self.unGroupedProjects[indexPath.row][@"Name"], @"ISGROUP":@0}];
         }
     }];
 }
@@ -195,7 +195,7 @@
 
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@""];
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@"" userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
     }];
 }
 
@@ -338,7 +338,7 @@
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
                     NSString *Id = object[@"Gid"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1, @"Title":object[@"Name"]}];
                 }
             }];
         };

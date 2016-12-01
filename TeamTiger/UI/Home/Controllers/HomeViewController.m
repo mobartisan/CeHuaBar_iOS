@@ -31,12 +31,14 @@
 #import "MockDatas.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UIView *headerView;
-@property (nonatomic, weak) UIImageView *imageView;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UIButton *setBtn;
 
 @end
 
@@ -87,7 +89,8 @@
         [setBtn setBackgroundImage:[UIImage imageNamed:@"btn_project_setting"] forState:UIControlStateNormal];
         setBtn.layer.cornerRadius = 15;
         setBtn.layer.masksToBounds = YES;
-        [setBtn addTarget:self action:@selector(handleSetBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [setBtn addTarget:self action:@selector(handleSetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        _setBtn = setBtn;
         [_headerView addSubview:setBtn];
         
         imageView.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
@@ -112,9 +115,14 @@
 }
 
 //设置按钮
-- (void)handleSetBtnAction {
-    TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-    [self.navigationController pushViewController:settingVC animated:YES];
+- (void)handleSetBtnAction:(UIButton *)sender {
+    if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
+        TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+        [self.navigationController pushViewController:settingVC animated:YES];
+    }else {
+        NSLog(@"分组设置");
+    }
+    
 }
 
 - (void)viewDidLoad {
@@ -334,9 +342,13 @@
     //data
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (notification.userInfo && [notification.userInfo[@"ISGROUP"] intValue] == 1) {
-            [self getDataWithProjectId:notification.object IsGroup:notification.userInfo[@"ISGROUP"]];
+            [self getDataWithProjectId:notification.object IsGroup:((BOOL)(notification.userInfo[@"ISGROUP"]))];
+            self.title = notification.userInfo[@"Title"];
+            [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         } else {
             [self getDataWithProjectId:notification.object];
+            self.title = notification.userInfo[@"Title"];
+            [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         }
     });
 }
