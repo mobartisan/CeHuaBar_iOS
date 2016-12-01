@@ -121,7 +121,7 @@
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
-        TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] initWithNibName:@"TTGroupSettingViewController" bundle:nil];
+        TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
         [self.navigationController pushViewController:settingVC animated:YES];
     }
     
