@@ -69,10 +69,16 @@
 
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        //long press
-        if (self.longPressItemBlock) {
-            self.longPressItemBlock(self, self.tmpObj);
-        }
+        self.transform = CGAffineTransformIdentity;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
+        }completion:^(BOOL finished) {
+            self.transform = CGAffineTransformIdentity;
+            //long press
+            if (self.longPressItemBlock) {
+                self.longPressItemBlock(self, self.tmpObj);
+            }
+        }];
     }
 }
 
