@@ -100,8 +100,8 @@
             [super hideHudAfterSeconds:1.0];
         }
     } else {
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            if (buttonIndex == 0) {
+        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"取消", @"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            if (buttonIndex == 1) {
 #warning to do
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
                 UIWindow *window = kAppDelegate.window;
