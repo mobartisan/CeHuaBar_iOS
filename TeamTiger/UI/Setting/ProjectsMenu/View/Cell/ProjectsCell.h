@@ -12,6 +12,8 @@
 
 @interface ProjectsCell : UITableViewCell
 
+@property(nonatomic, weak) IBOutlet UIImageView *arrowImgV;
+
 @property(nonatomic, weak) IBOutlet UIImageView *pointImgV;
 
 @property(nonatomic, weak) IBOutlet UILabel *projectNameLab;

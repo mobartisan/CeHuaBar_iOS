@@ -248,6 +248,9 @@
 		1D32AEFE1DB0CB61000DF537 /* ProjectsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D32AEFC1DB0CB61000DF537 /* ProjectsCell.xib */; };
 		1D34D50C1DEFC045002CBFF8 /* TTSelectGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D50A1DEFC045002CBFF8 /* TTSelectGroupViewController.m */; };
 		1D34D50D1DEFC045002CBFF8 /* TTSelectGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */; };
+		1D34D5101DEFC16E002CBFF8 /* TTGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D50E1DEFC16E002CBFF8 /* TTGroupSettingViewController.m */; };
+		1D34D5141DEFC370002CBFF8 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D5121DEFC370002CBFF8 /* GroupCell.m */; };
+		1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D5131DEFC370002CBFF8 /* GroupCell.xib */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
@@ -980,6 +983,11 @@
 		1D34D5091DEFC045002CBFF8 /* TTSelectGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSelectGroupViewController.h; sourceTree = "<group>"; };
 		1D34D50A1DEFC045002CBFF8 /* TTSelectGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSelectGroupViewController.m; sourceTree = "<group>"; };
 		1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSelectGroupViewController.xib; sourceTree = "<group>"; };
+		1D34D50E1DEFC16E002CBFF8 /* TTGroupSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupSettingViewController.m; sourceTree = "<group>"; };
+		1D34D50F1DEFC16E002CBFF8 /* TTGroupSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupSettingViewController.h; sourceTree = "<group>"; };
+		1D34D5111DEFC370002CBFF8 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
+		1D34D5121DEFC370002CBFF8 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
+		1D34D5131DEFC370002CBFF8 /* GroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCell.xib; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
@@ -2360,6 +2368,9 @@
 				1D32AEFA1DB0CB61000DF537 /* ProjectsCell.h */,
 				1D32AEFB1DB0CB61000DF537 /* ProjectsCell.m */,
 				1D32AEFC1DB0CB61000DF537 /* ProjectsCell.xib */,
+				1D34D5111DEFC370002CBFF8 /* GroupCell.h */,
+				1D34D5121DEFC370002CBFF8 /* GroupCell.m */,
+				1D34D5131DEFC370002CBFF8 /* GroupCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2377,6 +2388,8 @@
 		1D34D5071DEFC045002CBFF8 /* GroupSetting */ = {
 			isa = PBXGroup;
 			children = (
+				1D34D50F1DEFC16E002CBFF8 /* TTGroupSettingViewController.h */,
+				1D34D50E1DEFC16E002CBFF8 /* TTGroupSettingViewController.m */,
 			);
 			path = GroupSetting;
 			sourceTree = "<group>";
@@ -3745,6 +3758,7 @@
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
+				1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */,
 				1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */,
 				1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */,
 				1DA0E1951D54243F008CD6DF /* ProfileCell.xib in Resources */,
@@ -4037,6 +4051,7 @@
 				1D09CC671D3F29C900F85E9A /* NSThread+YYAdd.m in Sources */,
 				06008F3E1D58249300A5B3DB /* TZAssetCell.m in Sources */,
 				2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */,
+				1D34D5141DEFC370002CBFF8 /* GroupCell.m in Sources */,
 				1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				063B088A1D6F144F008AB592 /* MMPopupItem.m in Sources */,
 				2DDD54161DB0D4AF00C55633 /* QNDnspodEnterprise.m in Sources */,
@@ -4157,6 +4172,7 @@
 				068E96521D4F488C0074229C /* MMDrawerBarButtonItem.m in Sources */,
 				2DDD54341DB0D4AF00C55633 /* QNUploadOption.m in Sources */,
 				1D9580721D3E1ADD00FD0053 /* MBProgressHUD.m in Sources */,
+				1D34D5101DEFC16E002CBFF8 /* TTGroupSettingViewController.m in Sources */,
 				06008F281D58163100A5B3DB /* TTCommonSwitchItem.m in Sources */,
 				1D09CC851D3F29C900F85E9A /* YYImageCache.m in Sources */,
 				06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */,

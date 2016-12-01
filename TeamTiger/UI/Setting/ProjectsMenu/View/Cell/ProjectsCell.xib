@@ -113,6 +113,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="addBtn" destination="zTz-2y-fVu" id="gC9-St-TVw"/>
+                <outlet property="arrowImgV" destination="dHC-CX-JRX" id="cep-tf-pXb"/>
                 <outlet property="containerView" destination="nQl-TQ-tL3" id="GFW-hT-il4"/>
                 <outlet property="deleteBtn" destination="Jbu-hY-v7X" id="Oxc-Pn-Bkz"/>
                 <outlet property="msgNumBGImgV" destination="GI4-og-lQG" id="Cxy-S0-yiy"/>
