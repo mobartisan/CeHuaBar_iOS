@@ -450,7 +450,8 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
-    } else {
+    }
+    else {
         //T_APP_SETTINGS
         [self checkTable:database
                tableName:TABLE_APP_SETTINGS
