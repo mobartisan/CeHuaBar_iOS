@@ -257,7 +257,6 @@
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
-		1D3E23691D61635C0024A5CA /* ModelsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23651D61635C0024A5CA /* ModelsManager.m */; };
 		1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5487231DCB263200DB4D89 /* TTGroupViewController.m */; };
 		1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */; };
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
@@ -1001,8 +1000,6 @@
 		1D3E23611D61635C0024A5CA /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
 		1D3E23621D61635C0024A5CA /* Models.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
 		1D3E23631D61635C0024A5CA /* Models.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Models.m; sourceTree = "<group>"; };
-		1D3E23641D61635C0024A5CA /* ModelsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelsManager.h; sourceTree = "<group>"; };
-		1D3E23651D61635C0024A5CA /* ModelsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelsManager.m; sourceTree = "<group>"; };
 		1D5487221DCB263200DB4D89 /* TTGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupViewController.h; sourceTree = "<group>"; };
 		1D5487231DCB263200DB4D89 /* TTGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupViewController.m; sourceTree = "<group>"; };
 		1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingViewController.xib; sourceTree = "<group>"; };
@@ -2426,8 +2423,6 @@
 				1D3E235C1D61635C0024A5CA /* Encode */,
 				1D3E23621D61635C0024A5CA /* Models.h */,
 				1D3E23631D61635C0024A5CA /* Models.m */,
-				1D3E23641D61635C0024A5CA /* ModelsManager.h */,
-				1D3E23651D61635C0024A5CA /* ModelsManager.m */,
 			);
 			path = ModelsManager;
 			sourceTree = "<group>";
@@ -4112,7 +4107,6 @@
 				2DDD54281DB0D4AF00C55633 /* QNPHAssetFile.m in Sources */,
 				1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */,
 				1D09CC9E1D3F29C900F85E9A /* YYLabel.m in Sources */,
-				1D3E23691D61635C0024A5CA /* ModelsManager.m in Sources */,
 				1D09CC5E1D3F29C900F85E9A /* NSDate+YYAdd.m in Sources */,
 				06B464A21D62A48B00DBC806 /* NSNumber+JZExtension.m in Sources */,
 				2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */,

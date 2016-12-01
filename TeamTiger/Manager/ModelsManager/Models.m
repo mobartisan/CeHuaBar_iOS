@@ -89,13 +89,16 @@
 }
 @end
 
+
 #pragma mark - 
 @implementation TT_Discuss
 
 @synthesize discuss_id = _discuss_id;
 @synthesize project_id = _project_id;
 @synthesize discuss_type = _discuss_type;
-@synthesize image_url = _image_url;
+@synthesize head_image_url = _head_image_url;
+@synthesize user_name = _user_name;
+@synthesize discuss_label = _discuss_label;
 @synthesize content = _content;
 @synthesize current_state = _current_state;
 @synthesize is_allow_comment = _is_allow_comment;
@@ -104,13 +107,18 @@
 @synthesize create_user_id = _create_user_id;
 @synthesize last_edit_date = _last_edit_date;
 @synthesize last_edit_user_id = _last_edit_user_id;
+@synthesize is_has_image = _is_has_image;
+@synthesize is_has_result = _is_has_result;
+@synthesize comment_count = _comment_count;
 
 - (NSString *)description
 {
     NSLog(@"discuss_id:%@", _discuss_id);
     NSLog(@"project_id:%@", _project_id);
     NSLog(@"discuss_type:%@", @(_discuss_type));
-    NSLog(@"image_url:%@", _image_url);
+    NSLog(@"head_image_url:%@", _head_image_url);
+    NSLog(@"user_name:%@", _user_name);
+    NSLog(@"discuss_label:%@", _discuss_label);
     NSLog(@"content:%@", _content);
     NSLog(@"current_state:%@", @(_current_state));
     NSLog(@"is_allow_comment:%@", @(_is_allow_comment));
@@ -119,6 +127,9 @@
     NSLog(@"create_user_id:%@", _create_user_id);
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
+    NSLog(@"is_has_image:%@", @(_is_has_image));
+    NSLog(@"is_has_result:%@", @(_is_has_result));
+    NSLog(@"comment_count:%@", @(_comment_count));
 
     return [super description];
 }
@@ -143,30 +154,35 @@
 }
 @end
 
-#pragma mark - 
+
+#pragma mark -
 @implementation TT_Comment
 
 @synthesize comment_id = _comment_id;
 @synthesize discuss_id = _discuss_id;
 @synthesize content = _content;
-@synthesize image_url = _image_url;
+@synthesize name = _name;
+@synthesize at_name = _at_name;
 @synthesize is_allow_delete = _is_allow_delete;
 @synthesize create_date = _create_date;
 @synthesize create_user_id = _create_user_id;
 @synthesize last_edit_date = _last_edit_date;
 @synthesize last_edit_user_id = _last_edit_user_id;
+@synthesize is_has_image = _is_has_image;
 
 - (NSString *)description
 {
     NSLog(@"comment_id:%@", _comment_id);
     NSLog(@"discuss_id:%@", _discuss_id);
     NSLog(@"content:%@", _content);
-    NSLog(@"image_url:%@", _image_url);
+    NSLog(@"name:%@", _name);
+    NSLog(@"at_name:%@", _at_name);
     NSLog(@"is_allow_delete:%@", @(_is_allow_delete));
     NSLog(@"create_date:%@", _create_date);
     NSLog(@"create_user_id:%@", _create_user_id);
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
+    NSLog(@"is_has_image:%@", @(_is_has_image));
 
     return [super description];
 }

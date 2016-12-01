@@ -391,6 +391,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
       isFieldTypeChanged:NO
          ];
 
+        
 //        TABLE_TT_Project
         [self checkTable:database
                tableName:TABLE_TT_Project
@@ -424,8 +425,8 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
 //        TABLE_TT_Discuss
         [self checkTable:database
                tableName:TABLE_TT_Discuss
-           allFields:@[@"discuss_id",@"project_id",@"discuss_type",@"image_url",@"content",@"current_state",@"is_allow_comment",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"integer",@"varchar",@"varchar",@"integer",@"boolean",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar"].mutableCopy
+           allFields:@[@"discuss_id",@"project_id",@"discuss_type",@"head_image_url",@"user_name",@"discuss_label",@"content",@"current_state",@"is_allow_comment",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_has_image",@"is_has_result",@"comment_count"].mutableCopy
+       allFieldTypes:@[@"varchar",@"varchar",@"integer",@"varchar",@"varchar",@"varchar",@"varchar",@"integer",@"boolean",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean",@"boolean",@"integer"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -434,8 +435,8 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
 //      TABLE_TT_Comment
         [self checkTable:database
                tableName:TABLE_TT_Comment
-           allFields:@[@"comment_id",@"discuss_id",@"content",@"image_url",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"varchar",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar"].mutableCopy
+           allFields:@[@"comment_id",@"discuss_id",@"content",@"name",@"at_name",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_has_image"].mutableCopy
+       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -482,7 +483,6 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0005','主网抢修',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',0)",
            
            //project members
-           
            @"delete from TT_Project_Members",
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000001','曹兴星','1.png')",
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000002','刘鹏','3.png')",
@@ -545,9 +545,112 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000051','魏武帝','5.png')",
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000052','秦始皇','7.png')",
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000053','光武帝','9.png')",
+           
+           
+
+           //moments
+           @"delete from TT_Discuss",
+           @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00001', '0001', 0, '1.png', '唐小旭', '工作牛', '测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-11-17 09:45:00'), 'xxcao', datetime('2016-11-17 09:45:00'), 'xxcao', 1, 0, 4)",
+           @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00002', '0002', 1, '2.png', '刘鹏', '易会', '测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-10-26 09:45:00'), 'xxcao', datetime('2016-10-26 09:45:00'), 'xxcao', 1, 1, 0)",
+           @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00003', '0003', 0, '9.png', '唐小旭', '营配班组', '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-09-20 09:45:00'), 'xxcao', datetime('2016-09-20 09:45:00'), 'xxcao', 1, 0, 6)",
+           @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00004', '0004', 0, '3.png', '曹兴星', '电动汽车', '测试数据测试数据测试数据', 0, 1, 0, datetime('2016-08-20 09:45:00'), 'xxcao', datetime('2016-08-20 09:45:00'), 'xxcao', 1, 0, 4)",
+           @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00005', '0005', 0, '4.png', '赵瑞', '主网抢修', '测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-08-10 09:30:00'), 'xxcao', datetime('2016-08-10 09:30:00'), 'xxcao', 1, 0, 3)",
+            @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00006', '0001', 0, '10.png', '曹兴星', '工作牛', '测试数据测试数据测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-07-10 12:31:00'), 'xxcao', datetime('2016-07-10 12:31:00'), 'xxcao', 1, 0, 4)",
+            @"INSERT INTO TT_Discuss(discuss_id, project_id, discuss_type, head_image_url, user_name, discuss_label, content, current_state, is_allow_comment, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image, is_has_result, comment_count) VALUES('D00007', '0005', 1, '2.png', '刘鹏', '主网抢修', '测试数据测试数据测试数据测试数据', 0, 1, 0, datetime('2016-06-10 12:20:00'), 'xxcao', datetime('2016-06-10 12:20:00'), 'xxcao',  1, 1, 0)",
+           
+           //discuss_result
+           @"delete from TT_Discuss_Result",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00002_001', 'D00002', '7', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00002_002', 'D00002', '2', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00002_003', 'D00002', '1', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_001', 'D00007', '7', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_002', 'D00007', '2', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_003', 'D00007', '1', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_004', 'D00007', '3', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_005', 'D00007', '5', null)",
+           @"INSERT INTO TT_Discuss_Result(discuss_result_id, discuss_id, discuss_result, discuss_result_description) VALUES('D00007_006', 'D00007', '9', null)",
+           
+           //comments
+           @"delete from TT_Comment",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00001_C00001', 'D00001', '测试数据测试数据测试数据测试数据', '唐小旭', '@卞克', 0, datetime('2016-11-21 19:50:00'), 'xxcao', datetime('2016-11-21 19:50:00'), 'xxcao', 1)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00001_C00002', 'D00001', '哈哈哈', '卞克', '@唐小绪', 0, datetime('2016-07-26 13:55:00'), 'xxcao', datetime('2016-07-26 13:55:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00001_C00003', 'D00001', '有点意思', '俞弦', '', 0, datetime('2016-07-25 14:17:00'), 'xxcao', datetime('2016-07-25 14:17:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00001_C00004', 'D00001', '滴滴滴滴的', '齐云猛', '', 0, datetime('2016-07-18 09:30:00'), 'xxcao', datetime('2016-07-18 09:30:00'), 'xxcao', 0)",
+           
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00001', 'D00003', '测试数据测试数据测试数据测试数据', '唐小旭', '@卞克', 0, datetime('2016-11-22 20:30:00'), 'xxcao', datetime('2016-11-22 20:30:00'), 'xxcao', 0)",
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00002', 'D00003', '哈哈哈', '曹兴星', '@唐小绪', 0, datetime('2016-07-23 15:05:00'), 'xxcao', datetime('2016-07-23 15:05:00'), 'xxcao', 1)",
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00003', 'D00003', '有点意思', '俞弦', '', 0, datetime('2016-07-22 12:01:00'), 'xxcao', datetime('2016-07-22 12:01:00'), 'xxcao', 0)",
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00004', 'D00003', '滴滴滴滴的', '齐云猛', '', 0, datetime('2016-07-22 11:30:00'), 'xxcao', datetime('2016-07-22 11:30:00'), 'xxcao', 0)",
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00005', 'D00003', '测试数据测试数据', '刘鹏', '', 0, datetime('2016-07-20 12:01:00'), 'xxcao', datetime('2016-07-20 12:01:00'), 'xxcao', 1)",
+            @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00003_C00006', 'D00003', '滴滴滴滴的', '齐云猛', '', 0, datetime('2016-07-20 11:30:00'), 'xxcao', datetime('2016-07-20 11:30:00'), 'xxcao', 0)",
+           
+           
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00004_C00001', 'D00004', '测试数据测试数据测试数据测试数据', '唐小旭', '@卞克', 0, datetime('2016-07-23 20:30:00'), 'xxcao', datetime('2016-07-23 20:30:00'), 'xxcao', 1)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00004_C00002', 'D00004', '哈哈哈', '卞克', '@唐小绪', 0, datetime('2016-07-23 15:05:00'), 'xxcao', datetime('2016-07-23 15:05:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00004_C00003', 'D00004', '有点意思', '俞弦', '', 0, datetime('2016-07-23 12:01:00'), 'xxcao', datetime('2016-07-23 12:01:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00004_C00004', 'D00004', '滴滴滴滴的', '齐云猛', '', 0, datetime('2016-07-22 11:30:00'), 'xxcao', datetime('2016-07-22 11:30:00'), 'xxcao', 0)",
+           
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00005_C00001', 'D00005', '测试数据测试数据测试数据测试数据', '唐小旭', '', 0, datetime('2016-07-24 20:30:00'), 'xxcao', datetime('2016-07-24 20:30:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00005_C00002', 'D00005', '哈哈哈', '卞克', '@唐小绪', 0, datetime('2016-07-24 15:05:00'), 'xxcao', datetime('2016-07-24 15:05:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00005_C00003', 'D00005', '有点意思', '俞弦', '', 0, datetime('2016-07-21 12:01:00'), 'xxcao', datetime('2016-07-21 12:01:00'), 'xxcao', 0)",
+           
+           
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00006_C00001', 'D00006', '测试数据测试数据测试数据测试数据', '唐小旭', '', 0, datetime('2016-08-21 19:50:00'), 'xxcao', datetime('2016-08-21 19:50:00'), 'xxcao', 1)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00006_C00002', 'D00006', '哈哈哈哈哈哈哈哈哈', '琳琳', '@卞克', 0, datetime('2016-08-20 13:55:00'), 'xxcao', datetime('2016-08-20 13:55:00'), 'xxcao', 0)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00006_C00003', 'D00006', '有点意思有点意思', '俞弦', '', 0, datetime('2016-08-16 20:17:00'), 'xxcao', datetime('2016-08-16 20:17:00'), 'xxcao', 1)",
+           @"INSERT INTO TT_Comment(comment_id, discuss_id, content, name, at_name, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_has_image) VALUES('D00006_C00004', 'D00006', '滴滴滴滴的滴滴滴滴的滴滴滴滴的', '赵瑞', '', 0, datetime('2016-08-16 16:31:00'), 'xxcao', datetime('2016-08-16 16:31:00'), 'xxcao', 0)",
+
+           
+           //attachment
+           @"delete from TT_Attachment",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000001', 'D00001', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000002', 'D00001', null, 'image_6.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000003', 'D00001', null, 'image_4.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000004', 'D00001', null, 'image_4.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000005', 'D00001_C00001', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000006', 'D00001_C00001', null, 'image_6.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000007', 'D00001_C00001', null, 'image_3.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000008', 'D00001_C00001', null, 'image_5.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000009', 'D00002', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000010', 'D00002', null, 'image_6.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000011', 'D00002', null, 'image_7.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000012', 'D00003', null, 'image_1.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000013', 'D00003', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000014', 'D00003', null, 'image_3.jpg')",
+           
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000015', 'D00003_C00002', null, 'image_1.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000016', 'D00003_C00002', null, 'image_2.jpg')",
+           
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000017', 'D00003_C00005', null, 'image_5.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000018', 'D00003_C00005', null, 'image_6.jpg')",
+           
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000019', 'D00004', null, 'image_4.jpg')",
+           
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000020', 'D00004_00001', null, 'image_8.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000021', 'D00004_00001', null, 'image_9.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000022', 'D00005', null, 'image_4.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000023', 'D00005', null, 'image_9.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000024', 'D00006', null, 'image_4.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000025', 'D00006_00001', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000026', 'D00006_00001', null, 'image_6.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000027', 'D00006_00001', null, 'image_1.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000028', 'D00006_00003', null, 'image_2.jpg')",
+
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000029', 'D00007', null, 'image_2.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000030', 'D00007', null, 'image_6.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000031', 'D00007', null, 'image_7.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000032', 'D00007', null, 'image_1.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000033', 'D00007', null, 'image_8.jpg')",
+           @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000034', 'D00007', null, 'image_5.jpg')",
            ].mutableCopy
          ];
-
     }
     else {
         //T_APP_SETTINGS

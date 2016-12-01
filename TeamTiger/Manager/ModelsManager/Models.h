@@ -53,11 +53,16 @@
 @property(nonatomic, strong) NSString *discuss_id;  // discuss_id
 @property(nonatomic, strong) NSString *project_id;  // project_id
 @property(nonatomic)         NSInteger discuss_type;  // discuss_type
-@property(nonatomic, strong) NSString *image_url;  // image_url
+@property(nonatomic, strong) NSString *head_image_url;  // head_image_url
+@property(nonatomic, strong) NSString *user_name;  // user_name
+@property(nonatomic, strong) NSString *discuss_label;  // discuss_label
 @property(nonatomic, strong) NSString *content;  // content
 @property(nonatomic)         NSInteger current_state;  // current_state
 @property(nonatomic)         BOOL is_allow_comment;  // is_allow_comment
 @property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
+@property(nonatomic)         BOOL is_has_image;  // is_has_image
+@property(nonatomic)         BOOL is_has_result;  // is_has_result
+@property(nonatomic)         NSInteger comment_count;  // comment_count
 @property(nonatomic, strong) NSDate *create_date;  // create_date
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
@@ -74,17 +79,22 @@
 @end
 
 
-#pragma mark - 
+
+
+#pragma mark -
 @interface TT_Comment : NSObject
 @property(nonatomic, strong) NSString *comment_id;  // comment_id
 @property(nonatomic, strong) NSString *discuss_id;  // discuss_id
 @property(nonatomic, strong) NSString *content;  // content
-@property(nonatomic, strong) NSString *image_url;  // image_url
+@property(nonatomic, strong) NSString *name;  // name
+@property(nonatomic, strong) NSString *at_name;  // at_name
 @property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
 @property(nonatomic, strong) NSDate *create_date;  // create_date
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+@property(nonatomic)         BOOL is_has_image;  // is_has_image
+
 @end
 
 
