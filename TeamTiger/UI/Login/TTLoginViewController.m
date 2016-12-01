@@ -101,6 +101,7 @@
         }
     } else {
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"取消", @"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            [self longiApi];
             if (buttonIndex == 1) {
 #warning to do
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
