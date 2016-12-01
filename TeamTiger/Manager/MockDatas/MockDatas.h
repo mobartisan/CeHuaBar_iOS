@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface MockDatas : NSObject
-+ (instancetype)mainMockDatas;
-@property (strong, nonatomic) NSMutableArray *groups;
+
 //for test
-//+ (NSMutableArray *)groups;
++ (NSMutableArray *)groups;
 
 + (NSArray *)projects;
 

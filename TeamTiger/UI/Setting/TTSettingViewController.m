@@ -164,7 +164,7 @@
 #pragma -mark getter
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
-        NSDictionary *group = [[MockDatas mainMockDatas] groups].firstObject;
+        NSDictionary *group = [MockDatas  groups].firstObject;
         //当前分组
         self.currentGroupInfo = group.mutableCopy;
 

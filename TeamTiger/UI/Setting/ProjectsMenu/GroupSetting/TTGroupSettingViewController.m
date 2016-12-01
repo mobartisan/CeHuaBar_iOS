@@ -188,7 +188,7 @@
 }
 
 - (void)loadProjects {
-    NSArray *groups = [MockDatas groups];
+    NSArray *groups = [MockDatas  groups];
     NSArray *selGroups = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         return [evaluatedObject[@"Gid"] isEqualToString:self.groupId];
     }]];
@@ -224,7 +224,7 @@
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
-        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView loadGroups:[MockDatas  groups]];
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){

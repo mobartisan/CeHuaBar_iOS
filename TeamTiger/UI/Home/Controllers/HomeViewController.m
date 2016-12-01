@@ -29,6 +29,7 @@
 #import "SelectBgImageVC.h"
 #import "UIImage+YYAdd.h"
 #import "MockDatas.h"
+#import "TTGroupSettingViewController.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 
@@ -120,7 +121,8 @@
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
-        NSLog(@"分组设置");
+        TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] initWithNibName:@"TTGroupSettingViewController" bundle:nil];
+        [self.navigationController pushViewController:settingVC animated:YES];
     }
     
 }
