@@ -251,6 +251,8 @@
 		1D34D5101DEFC16E002CBFF8 /* TTGroupSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D50E1DEFC16E002CBFF8 /* TTGroupSettingViewController.m */; };
 		1D34D5141DEFC370002CBFF8 /* GroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D5121DEFC370002CBFF8 /* GroupCell.m */; };
 		1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D5131DEFC370002CBFF8 /* GroupCell.xib */; };
+		1D34D5191DEFCFED002CBFF8 /* DeleteFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */; };
+		1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
@@ -988,6 +990,9 @@
 		1D34D5111DEFC370002CBFF8 /* GroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCell.h; sourceTree = "<group>"; };
 		1D34D5121DEFC370002CBFF8 /* GroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCell.m; sourceTree = "<group>"; };
 		1D34D5131DEFC370002CBFF8 /* GroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupCell.xib; sourceTree = "<group>"; };
+		1D34D5171DEFCFED002CBFF8 /* DeleteFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteFooterView.h; sourceTree = "<group>"; };
+		1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteFooterView.m; sourceTree = "<group>"; };
+		1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeleteFooterView.xib; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
@@ -2388,6 +2393,7 @@
 		1D34D5071DEFC045002CBFF8 /* GroupSetting */ = {
 			isa = PBXGroup;
 			children = (
+				1D34D5161DEFCFC9002CBFF8 /* View */,
 				1D34D50F1DEFC16E002CBFF8 /* TTGroupSettingViewController.h */,
 				1D34D50E1DEFC16E002CBFF8 /* TTGroupSettingViewController.m */,
 			);
@@ -2402,6 +2408,16 @@
 				1D34D50B1DEFC045002CBFF8 /* TTSelectGroupViewController.xib */,
 			);
 			path = SelectGroup;
+			sourceTree = "<group>";
+		};
+		1D34D5161DEFCFC9002CBFF8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1D34D5171DEFCFED002CBFF8 /* DeleteFooterView.h */,
+				1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */,
+				1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1D3E235B1D61635C0024A5CA /* ModelsManager */ = {
@@ -3781,6 +3797,7 @@
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
 				1D32AEF91DB0C451000DF537 /* GroupHeadView.xib in Resources */,
 				1DD2E3481D59C589005D45A9 /* icon@2x.png in Resources */,
+				1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */,
 				1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */,
 				1DF0A1B31D4DB898002D91DB /* 16.png in Resources */,
 				1DD2E32E1D59B30F005D45A9 /* README.txt in Resources */,
@@ -4073,6 +4090,7 @@
 				1D09CD621D3F59D500F85E9A /* SDWebImageManager.m in Sources */,
 				1D0EA2D21D45A8AE00B47108 /* TMDiskCache.m in Sources */,
 				1D09CD611D3F59D500F85E9A /* SDWebImageDecoder.m in Sources */,
+				1D34D5191DEFCFED002CBFF8 /* DeleteFooterView.m in Sources */,
 				1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */,
 				1D9580381D3E123800FD0053 /* AFSecurityPolicy.m in Sources */,
 				1DBFD6DB1D6462340039077D /* TTLogonViewController.m in Sources */,

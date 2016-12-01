@@ -16,6 +16,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "SelectGroupView.h"
 #import "IQKeyboardManager.h"
+#import "DeleteFooterView.h"
 
 @interface TTGroupSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -24,6 +25,8 @@
 @property(nonatomic,strong)NSMutableArray *groups;
 
 @property(nonatomic,strong)SelectGroupView *sgView;
+
+@property(nonatomic,strong)DeleteFooterView *footView;
 
 @end
 
@@ -155,6 +158,24 @@
         _table.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         _table.separatorColor = [UIColor clearColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        self.footView = LoadFromNib(@"DeleteFooterView");
+        self.footView.deleteGroupBlock = ^(DeleteFooterView *view){
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该分组吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    
+                }
+            }];
+        };
+        UIView *tmpView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 1)];
+        [tmpView addSubview:self.footView];
+        [self.footView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(tmpView);
+        }];
+        CGRect frame = tmpView.frame;
+        frame.size.height = 60.0;
+        tmpView.frame = frame;
+        self.table.tableFooterView = tmpView;
     }
     return _table;
 }
