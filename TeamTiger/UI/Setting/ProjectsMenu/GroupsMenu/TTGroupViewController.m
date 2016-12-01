@@ -107,7 +107,7 @@
     }    
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row][@"Id"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row][@"Id"] userInfo:@{@"Title":self.projects[indexPath.row][@"Name"], @"ISGROUP":@0}];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
 }

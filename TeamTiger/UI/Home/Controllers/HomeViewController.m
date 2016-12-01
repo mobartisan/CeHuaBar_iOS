@@ -35,7 +35,8 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
-@property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) UIView *sectionHeader;
+@property (strong, nonatomic) UIView *tableHeader;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
 @property (strong, nonatomic) UIImageView *imageView;
@@ -53,18 +54,18 @@
 }
 
 //talbeView 页眉
-- (UIView *)headerView {
-    if (!_headerView) {
-        _headerView = [UIView new];
-        _headerView.clipsToBounds = YES;
-        _headerView.backgroundColor = kRGBColor(28, 37, 51);
+- (UIView *)sectionHeader {
+    if (!_sectionHeader) {
+        _sectionHeader = [UIView new];
+        _sectionHeader.clipsToBounds = YES;
+        _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
         
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
         imageView.image = [UIImage imageNamed:@"image_3.jpg"];
-        [_headerView addSubview:imageView];
+        [_sectionHeader addSubview:imageView];
         _imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(handleTapImageAction)];
@@ -77,7 +78,7 @@
         textLB.text = @"轻触设置moment封面";
         textLB.textColor = [Common colorFromHexRGB:@"3f608b"];
         textLB.backgroundColor = [Common colorFromHexRGB:@"212e41"];
-        [_headerView addSubview:textLB];
+        [_sectionHeader addSubview:textLB];
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
         [textLB addGestureRecognizer:tapLB];
         
@@ -92,18 +93,27 @@
         setBtn.layer.masksToBounds = YES;
         [setBtn addTarget:self action:@selector(handleSetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         _setBtn = setBtn;
-        [_headerView addSubview:setBtn];
+        [_sectionHeader addSubview:setBtn];
         
-        imageView.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
+        imageView.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
         
-        textLB.sd_layout.leftSpaceToView(_headerView, 0).topSpaceToView(_headerView, 0).rightSpaceToView(_headerView, 0).heightIs(imageViewH);
+        textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
         
-        setBtn.sd_layout.topSpaceToView(_headerView, imageViewH - 20).rightSpaceToView(_headerView, 17).widthIs(122).heightIs(40);
+        setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
         
-        [_headerView setupAutoHeightWithBottomView:setBtn bottomMargin:5];
-        [_headerView layoutSubviews];
+        [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:5];
+        [_sectionHeader layoutSubviews];
     }
-    return _headerView;
+    return _sectionHeader;
+}
+
+- (UIView *)tableHeader {
+    if (_tableHeader == nil) {
+        _tableHeader = LoadFromNib(@"HomeTableHeader");
+        _tableHeader.backgroundColor = [UIColor redColor];
+        _tableHeader.frame = CGRectMake(0, 0, 0, 50);
+    }
+    return _tableHeader;
 }
 
 //点击图片
@@ -139,7 +149,9 @@
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
-    self.tableView.tableHeaderView = self.headerView;
+    self.tableView.tableHeaderView = self.tableHeader;
+    self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionHeaderHeight = 250;
     [Common removeExtraCellLines:self.tableView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
@@ -212,7 +224,7 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-                [_headerView viewWithTag:1001].hidden = YES;
+                [_sectionHeader viewWithTag:1001].hidden = YES;
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片
@@ -296,6 +308,10 @@
 }
 
 #pragma mark UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
@@ -328,6 +344,10 @@
         currentClass = [HomeVoteCell class];
     }
     return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [self sectionHeader];
 }
 
 #pragma mark UIScrollViewDelegate
