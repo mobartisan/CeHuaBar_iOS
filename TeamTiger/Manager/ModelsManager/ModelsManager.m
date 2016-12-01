@@ -158,7 +158,6 @@ static ModelsManager *_sModelsManager = nil;
            for (NSArray *array in allDatas) {
 
                 TT_Project_Members  *object = [[TT_Project_Members alloc] init];
-                object.project_members_id = (NSString *)[array objectAtIndex:AUTO_PLIST_TT_PROJECT_MEMBERS_INDEX_PROJECT_MEMBERS_ID];  // project_members_id
                 object.project_id = (NSString *)[array objectAtIndex:AUTO_PLIST_TT_PROJECT_MEMBERS_INDEX_PROJECT_ID];  // project_id
                 object.user_id = (NSString *)[array objectAtIndex:AUTO_PLIST_TT_PROJECT_MEMBERS_INDEX_USER_ID];  // user_id
                 [_tT_Project_Memberss addObject:object];

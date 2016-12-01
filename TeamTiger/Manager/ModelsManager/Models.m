@@ -8,6 +8,37 @@
 #import "Models.h"
 
 #pragma mark - 
+@implementation TT_Group
+
+@synthesize group_id = _group_id;
+@synthesize name = _name;
+@synthesize pids = _pids;
+@synthesize description = _description;
+@synthesize current_state = _current_state;
+@synthesize is_allow_delete = _is_allow_delete;
+@synthesize create_date = _create_date;
+@synthesize create_user_id = _create_user_id;
+@synthesize last_edit_date = _last_edit_date;
+@synthesize last_edit_user_id = _last_edit_user_id;
+
+- (NSString *)description
+{
+    NSLog(@"group_id:%@", _group_id);
+    NSLog(@"name:%@", _name);
+    NSLog(@"pids:%@", _pids);
+    NSLog(@"description:%@", _description);
+    NSLog(@"current_state:%@", @(_current_state));
+    NSLog(@"is_allow_delete:%@", @(_is_allow_delete));
+    NSLog(@"create_date:%@", _create_date);
+    NSLog(@"create_user_id:%@", _create_user_id);
+    NSLog(@"last_edit_date:%@", _last_edit_date);
+    NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
+    
+    return [super description];
+}
+@end
+
+
 @implementation TT_Project
 
 @synthesize project_id = _project_id;
@@ -20,7 +51,7 @@
 @synthesize create_user_id = _create_user_id;
 @synthesize last_edit_date = _last_edit_date;
 @synthesize last_edit_user_id = _last_edit_user_id;
-
+@synthesize is_grouped = _is_grouped;
 - (NSString *)description
 {
     NSLog(@"project_id:%@", _project_id);
@@ -33,23 +64,26 @@
     NSLog(@"create_user_id:%@", _create_user_id);
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
-
+    NSLog(@"is_grouped:%@", @(_is_grouped));
     return [super description];
 }
 @end
 
-#pragma mark - 
+
+#pragma mark -
 @implementation TT_Project_Members
 
-@synthesize project_members_id = _project_members_id;
 @synthesize project_id = _project_id;
 @synthesize user_id = _user_id;
+@synthesize user_name = _user_name;
+@synthesize user_img_url = _user_img_url;
 
 - (NSString *)description
 {
-    NSLog(@"project_members_id:%@", _project_members_id);
     NSLog(@"project_id:%@", _project_id);
     NSLog(@"user_id:%@", _user_id);
+    NSLog(@"user_name:%@", _user_name);
+    NSLog(@"user_img_url:%@", _user_img_url);
 
     return [super description];
 }
