@@ -21,6 +21,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
 #import "TTGroupViewController.h"
+#import "TTGroupSettingViewController.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -346,7 +347,13 @@
             [wself creatGroupAction];
         };
         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
-            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+//            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+//            groupVC.groupId = object[@"Gid"];
+//            [wself.navigationController pushViewController:groupVC animated:YES];
+            
+            
+//            for test
+            TTGroupSettingViewController *groupVC = [[TTGroupSettingViewController alloc] init];
             groupVC.groupId = object[@"Gid"];
             [wself.navigationController pushViewController:groupVC animated:YES];
         };
