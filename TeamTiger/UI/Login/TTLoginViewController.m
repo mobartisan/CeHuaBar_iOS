@@ -24,9 +24,28 @@
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
 @property (nonatomic,strong)UIImageView *screenImageView;
+@property (strong, nonatomic) NSDictionary *tempDic;
+
 @end
 
 @implementation TTLoginViewController
+
+-(NSDictionary *)tempDic {
+    if (_tempDic == nil) {
+        _tempDic = @{@"openid":@"oxfOpv6lfRcFcsePHG0Eb1gPHV0U",
+                     @"city" : @"Nanjing",
+                     @"country" : @"CN",
+                     @"nickname" : @"我和你💓",
+                     @"privilege" : @[],
+                     @"language" : @"zh_CN",
+                     @"headimgurl" : @"http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0",
+                     @"unionid" : @"owxiavzm0OwPxg5snUVVKRmEOllA",
+                     @"sex" : @"1",
+                     @"province" : @"Jiangsu"
+                     };
+    }
+    return _tempDic;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,6 +79,8 @@
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
         [self getAccess_Token:accessToken openId:openID];
+#warning TO DO 固定数据传给后端
+        [self longiApi];
     } else {
         //隐藏 手动登录
         [self hideLaunchImage];//隐藏启动页
@@ -136,7 +157,6 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WXDoctor_App_ID, WXDoctor_App_Secret, response.code];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"请求access的response = %@", responseObject);
         NSDictionary *accessDict = [NSDictionary dictionaryWithDictionary:responseObject];
         if([accessDict.allKeys containsObject:@"errcode"] ||
            [accessDict.allKeys containsObject:@"errmsg"]) {
@@ -169,7 +189,8 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@", responseObject);
+#warning TO DO 固定数据传给后端
+        [self longiApi];
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
@@ -191,6 +212,16 @@
         [super showHudWithText:@"登录微信失败"];
         [super hideHudAfterSeconds:1.0];
         [self hideLaunchImage];//隐藏启动页
+    }];
+}
+
+- (void)longiApi {
+    LoginApi *login = [[LoginApi alloc] init];
+    login.requestArgument = self.tempDic;
+    [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"成功");
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
     }];
 }
 
