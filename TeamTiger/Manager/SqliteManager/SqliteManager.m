@@ -371,11 +371,12 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
          ];
         
         
+        
 //        TABLE_TT_Project_Members
         [self checkTable:database
                tableName:TABLE_TT_Project_Members
-               allFields:@[@"project_members_id",@"project_id",@"user_id"].mutableCopy
-           allFieldTypes:@[@"varchar",@"varchar",@"varchar"].mutableCopy
+               allFields:@[@"project_id",@"user_id",@"user_name",@"user_img_url"].mutableCopy
+           allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"varchar"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -479,6 +480,71 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0003','末端融合',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0004','电动汽车',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0005','主网抢修',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',0)",
+           
+           //project members
+           
+           @"delete from TT_Project_Members",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000001','曹兴星','1.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000002','刘鹏','3.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000003','陈杰','5.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000004','赵瑞','7.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000005','琳琳','9.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000006','俞弦','11.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000007','董宇鹏','13.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000008','齐云猛','15.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000009','焦兰兰','17.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000010','严必庆','2.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000011','陆毅全','4.png')",
+
+           
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000012','刘德华','11.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000013','张学友','3.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000014','郭富城','4.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000015','黎明','6.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000016','周星驰','9.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000017','周润发','1.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000018','成龙','12.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0002','000019','张国荣','8.png')",
+           
+           
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000020','葫芦娃','11.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000021','路飞','3.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000022','鸣人','4.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000023','黑猫警长','6.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000024','阿童木','9.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000025','沙加','1.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000026','穆先生','12.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000027','索隆','7.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000028','佐助','13.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000029','喜洋洋','14.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000030','灰太狼','8.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0003','000031','白胡子','2.png')",
+           
+           
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000032','郭靖','1.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000033','杨过','2.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000034','慕容复','3.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000035','胡斐','4.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000036','阿朱','5.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000037','杨铁心','6.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000038','李寻欢','7.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000039','花无缺','8.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000040','沈浪','9.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000041','陆小凤','10.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0004','000042','楚留香','11.png')",
+
+           
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000043','乾隆','2.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000044','万历','4.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000045','忽必烈','6.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000046','李世明','8.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000047','赵匡胤','10.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000048','明成祖','12.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000049','李寻欢','14.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000050','溥仪','3.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000051','魏武帝','5.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000052','秦始皇','7.png')",
+           @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0005','000053','光武帝','9.png')",
            ].mutableCopy
          ];
 

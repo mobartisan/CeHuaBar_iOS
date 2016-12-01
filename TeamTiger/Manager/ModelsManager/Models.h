@@ -37,11 +37,14 @@
 @end
 
 
-#pragma mark - 
+
+#pragma mark -
 @interface TT_Project_Members : NSObject
-@property(nonatomic, strong) NSString *project_members_id;  // project_members_id
 @property(nonatomic, strong) NSString *project_id;  // project_id
 @property(nonatomic, strong) NSString *user_id;  // user_id
+@property(nonatomic, strong) NSString *user_name;  // user_name
+@property(nonatomic, strong) NSString *user_img_url;  // user_img_url
+
 @end
 
 

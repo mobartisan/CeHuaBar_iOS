@@ -69,18 +69,21 @@
 }
 @end
 
-#pragma mark - 
+
+#pragma mark -
 @implementation TT_Project_Members
 
-@synthesize project_members_id = _project_members_id;
 @synthesize project_id = _project_id;
 @synthesize user_id = _user_id;
+@synthesize user_name = _user_name;
+@synthesize user_img_url = _user_img_url;
 
 - (NSString *)description
 {
-    NSLog(@"project_members_id:%@", _project_members_id);
     NSLog(@"project_id:%@", _project_id);
     NSLog(@"user_id:%@", _user_id);
+    NSLog(@"user_name:%@", _user_name);
+    NSLog(@"user_img_url:%@", _user_img_url);
 
     return [super description];
 }
