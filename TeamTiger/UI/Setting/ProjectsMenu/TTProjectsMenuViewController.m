@@ -178,8 +178,8 @@
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         if (finished) {
-            NSString *Id = self.unGroupedProjects[indexPath.row][@"Id"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":self.unGroupedProjects[indexPath.row][@"Name"], @"ISGROUP":@0}];
+            NSString *Id = [self.unGroupedProjects[indexPath.row] project_id];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupedProjects[indexPath.row] name], @"ISGROUP":@0}];
         }
     }];
 }
@@ -336,8 +336,8 @@
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
-                    NSString *Id = object[@"Gid"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1, @"Title":object[@"Name"]}];
+                    NSString *Id = [object group_id];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1, @"Title":[object name]}];
                 }
             }];
         };
