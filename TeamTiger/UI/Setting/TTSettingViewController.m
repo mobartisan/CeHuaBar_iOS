@@ -11,7 +11,6 @@
 #import "MockDatas.h"
 #import "ProjectCell.h"
 #import "SelectCircleViewControllerForSetting.h"
-#import "TTSelectGroupViewController.h"
 #import "TTSettingViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
