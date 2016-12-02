@@ -32,10 +32,11 @@
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
 
-    if (object && [object isKindOfClass:[NSDictionary class]]) {
+    if (object && [object isKindOfClass:[TT_Project class]]) {
+        TT_Project *project = (TT_Project *)object;
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
-        self.projectNameLab.text = object[@"Name"];
+        self.projectNameLab.text = project.name;
 
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];

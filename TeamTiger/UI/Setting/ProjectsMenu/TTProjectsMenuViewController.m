@@ -214,34 +214,29 @@
 
 - (NSMutableArray *)projects {
     if (!_projects) {
-        _projects = [NSMutableArray arrayWithArray:[MockDatas projects]];
+        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Project];
+        NSArray *projects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
+        _projects = [NSMutableArray arrayWithArray:projects];
     }
     return _projects;
 }
 
 - (NSMutableArray *)unGroupedProjects {
     if (!_unGroupedProjects) {
-        _unGroupedProjects = [NSMutableArray arrayWithArray:[MockDatas unGroupedProjects]];
+        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ where is_grouped = 0 order by create_date",TABLE_TT_Project];
+        NSArray *ungroupedProjects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
+        _unGroupedProjects = [NSMutableArray arrayWithArray:ungroupedProjects];
     }
     return _unGroupedProjects;
-}
-
-- (NSDictionary *)projectsByPid:(NSString *)pid {
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject[@"Id"] isEqualToString:pid];
-    }];
-    NSArray *results = [self.projects filteredArrayUsingPredicate:predicate];
-    if (results && results.count > 0) {
-        return results.firstObject;
-    }
-    return nil;
 }
 
 - (void)creatGroupAction {
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
-        [self.gView loadGroupInfo:nil AllProjects:[MockDatas projects]];
+        [self.gView loadGroupInfo:nil AllProjects:self.projects];
         [self.gView show];
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
@@ -356,7 +351,7 @@
         };
         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
             TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
-            groupVC.groupId = object[@"Gid"];
+            groupVC.groupId = [object group_id];
             [wself.navigationController pushViewController:groupVC animated:YES];
         };
     }

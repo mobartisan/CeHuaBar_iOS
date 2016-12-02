@@ -52,7 +52,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = self.groups[indexPath.row][@"Name"];
+    cell.textLabel.text = [self.groups[indexPath.row] name];
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.textLabel.textColor = [Common colorFromHexRGB:@"333333"];
     if ([self.selGroups[indexPath.row] intValue] == 0) {

@@ -8,7 +8,6 @@
 
 #import "TTGroupViewController.h"
 #import "ProjectsCell.h"
-#import "MockDatas.h"
 #import "TTAddProjectViewController.h"
 #import "TTSettingViewController.h"
 #import "GroupHeadView.h"
@@ -147,24 +146,29 @@
 
 - (NSMutableArray *)groups {
     if (!_groups) {
-        _groups = [NSMutableArray arrayWithArray:[MockDatas  groups]];
+        TT_User *user = [TT_User sharedInstance];
+        [SQLITEMANAGER setDataBasePath:user.user_id];
+        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
+        NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
+        _groups = [NSMutableArray arrayWithArray:groups];
     }
     return _groups;
 }
 
 - (void)loadProjects {
-    NSArray *groups = [MockDatas  groups];
-    NSArray *selGroups = [groups filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject[@"Gid"] isEqualToString:self.groupId];
-    }]];
-    self.groupInfo = [NSMutableDictionary dictionaryWithDictionary:selGroups.firstObject];
-    NSArray *pids = [selGroups.firstObject[@"Pids"] componentsSeparatedByString:@","];
-
-    NSArray *projects = [MockDatas projects];
-    NSArray *selProjects = [projects filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [pids containsObject:evaluatedObject[@"Id"]];
-    }]];
+    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
+    NSArray *groups = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group];
+    TT_Group *group = groups.firstObject;
+    NSMutableString *mStr = [NSMutableString string];
+    for (NSString *str in [group.pids componentsSeparatedByString:@","]) {
+        [mStr appendFormat:@"'%@',",str];
+    }
+    [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
     
+    sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date",TABLE_TT_Project, mStr];
+    
+    NSArray *selProjects = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project];
     if (!self.projects) {
         self.projects = [NSMutableArray arrayWithArray:selProjects];
     } else {
@@ -188,7 +192,7 @@
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
-        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView loadGroups:self.groups];
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
