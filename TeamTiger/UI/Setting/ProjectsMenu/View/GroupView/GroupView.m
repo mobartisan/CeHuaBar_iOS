@@ -77,7 +77,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.textLabel.text = self.projects[indexPath.row][@"Name"];
+    cell.textLabel.text = [self.projects[indexPath.row] name];
     cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.textLabel.textColor = [Common colorFromHexRGB:@"333333"];
     if ([self.selProjects[indexPath.row] intValue] == 0) {
@@ -150,7 +150,7 @@
             NSMutableString *mString = [NSMutableString string];
             [self.projects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if ([self.selProjects[idx] intValue] == 1) {
-                    [mString appendFormat:@"%@,",obj[@"Id"]];
+                    [mString appendFormat:@"%@,",[obj project_id]];
                 }
             }];
             NSUInteger length = mString.length;

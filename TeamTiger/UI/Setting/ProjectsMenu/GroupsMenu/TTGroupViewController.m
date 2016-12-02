@@ -65,7 +65,7 @@
         cell = LoadFromNib(@"ProjectsCell");
     }
     cell.tag = indexPath.section * 1000  + indexPath.row;
-    NSDictionary *projectInfo = self.projects[indexPath.row];
+    id projectInfo = self.projects[indexPath.row];
     [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.projects.count - 1];
     
     __weak typeof(cell) tempCell = cell;
@@ -73,6 +73,14 @@
     ((ProjectsCell *)cell).deleteMember = ^{
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 1) {
+                [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+                //从分组中删除
+                TT_Group *group = [SQLITEMANAGER selectDatasSql:[NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId] Class:TABLE_TT_Group].firstObject;
+                NSMutableArray *pids = [group.pids componentsSeparatedByString:@","].mutableCopy;
+                [pids removeObject:[projectInfo project_id]];
+                NSString *nwPids = [pids componentsJoinedByString:@","];
+                NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
+                [SQLITEMANAGER executeSql:updateSql];
                 [self.projects removeObjectAtIndex:indexPath.row];
                 [self.table reloadData];
             }
@@ -198,35 +206,30 @@
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
-                //添加至分组
-                NSArray *array = [NSArray arrayWithArray:wself.groups];
-                [array enumerateObjectsUsingBlock:^(NSDictionary *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([obj[@"Gid"] isEqualToString:object[@"Gid"]]) {
-                        NSMutableDictionary *mDic = [NSMutableDictionary dictionaryWithDictionary:obj];
-                        NSMutableArray *pids = [NSMutableArray arrayWithArray:[obj[@"Pids"] componentsSeparatedByString:@","]];
-                        [pids addObject:projectInfo[@"Id"]];
-                        NSArray *srcArray = [NSSet setWithArray:pids].allObjects;
-                        NSStringCompareOptions comparisonOptions = NSCaseInsensitiveSearch |NSNumericSearch | NSWidthInsensitiveSearch | NSForcedOrderingSearch;
-                        NSComparator sort = ^(NSString *obj1, NSString *obj2){
-                            NSRange range = NSMakeRange(0, obj1.length);
-                            return [obj1 compare:obj2 options:comparisonOptions range:range];
-                        };
-                        NSArray *resultArray = [srcArray sortedArrayUsingComparator:sort];
-                        NSString *nwPids = [resultArray componentsJoinedByString:@","];
-                        mDic[@"Pids"] = nwPids;
-                        [wself.groups replaceObjectAtIndex:idx withObject:mDic];
-                    }
-                }];
-                //刷新UI
-                [wself.projects removeObject:projectInfo];
-                [wself.table reloadData];
-                //给出提示
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                    hud.label.text = @"项目已添加至该分组";
-                    hud.mode = MBProgressHUDModeText;
-                    [hud hideAnimated:YES afterDelay:1.5];
-                });
+                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
+                if ([pids containsObject:[projectInfo project_id]]) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                        hud.label.text = @"项目已存在该分组";
+                        hud.mode = MBProgressHUDModeText;
+                        [hud hideAnimated:YES afterDelay:1.5];
+                    });
+                    return;
+                } else {
+                    //添加至分组
+                    [pids addObject:[projectInfo project_id]];
+                    NSString *nwPids = [pids componentsJoinedByString:@","];
+                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
+                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+                    [SQLITEMANAGER executeSql:updateSql];
+                    //给出提示
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                        hud.label.text = @"项目已添加至该分组";
+                        hud.mode = MBProgressHUDModeText;
+                        [hud hideAnimated:YES afterDelay:1.5];
+                    });
+                }
             }
         };
     }
