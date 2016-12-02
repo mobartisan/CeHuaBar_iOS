@@ -89,7 +89,7 @@
     
     // 2.给cell传递模型数据
     id object = self.data[indexPath.section];
-    TTCommonItem *item = [TTCommonItem itemWithTitle:object[@"Name"]];
+    TTCommonItem *item = [TTCommonItem itemWithTitle:[object name]];
     cell.item = item;
     cell.lastRowInSection = 0;
     // 3.返回cell
