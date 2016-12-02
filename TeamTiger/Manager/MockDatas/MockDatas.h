@@ -19,4 +19,5 @@
 + (NSDictionary *)testerInfo;
 
 + (NSArray *)getMoments2WithId:(NSString *)tmpId IsProject:(BOOL)isProject IsAll:(BOOL)isAll;
+
 @end

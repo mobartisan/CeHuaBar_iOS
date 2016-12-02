@@ -138,9 +138,11 @@
            [gesture isKindOfClass:[UIPanGestureRecognizer class]]){
             TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawerController.centerViewController;
             //判断哪个控制器可以滑到抽屉
-            if([mainNav.topViewController isKindOfClass:[HomeViewController class]]
-               ) {
-                shouldRecognizeTouch = YES;//返回yes表示可以滑动到左右侧抽屉
+            if([mainNav.topViewController isKindOfClass:[HomeViewController class]]){
+                shouldRecognizeTouch = YES;
+            }else{
+                //返回yes表示可以滑动到左右侧抽屉
+                shouldRecognizeTouch = NO;
             }
         }
         return shouldRecognizeTouch;

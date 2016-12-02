@@ -156,7 +156,7 @@
     if (!_groups) {
         TT_User *user = [TT_User sharedInstance];
         [SQLITEMANAGER setDataBasePath:user.user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
+        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Group];
         NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
         _groups = [NSMutableArray arrayWithArray:groups];
     }

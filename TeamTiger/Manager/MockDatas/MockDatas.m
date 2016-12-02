@@ -116,6 +116,7 @@
     return userInfo;
 }
 
+//已废弃，供参考数据格式
 + (NSArray *)getMomentsWithId:(NSString *)tmpId IsProject:(BOOL)isProject IsAll:(BOOL)isAll {
     NSMutableArray *tmpArr = @[
                             @{@"cellType":@"0",

@@ -25,6 +25,7 @@
 #import "GroupHeadView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "TTProjectsMenuViewController.h"
+#import "HomeViewController.h"
 
 CGFloat const MMDrawerDefaultWidth = 283.0f;
 CGFloat const MMDrawerDefaultAnimationVelocity = 840.0f;
@@ -1370,6 +1371,10 @@ static inline CGFloat originXForDrawerOriginAndTargetOriginOffset(CGFloat origin
     if(self.openSide == MMDrawerSideNone){
         MMOpenDrawerGestureMode possibleOpenGestureModes = [self possibleOpenGestureModesForGestureRecognizer:gestureRecognizer
                                                                                                     withTouch:touch];
+        TTBaseNavigationController *mainNav = (TTBaseNavigationController *)self.centerViewController;
+        if(![mainNav.topViewController isKindOfClass:[HomeViewController class]]) {
+            return NO;
+        }
         return ((self.openDrawerGestureModeMask & possibleOpenGestureModes)>0);
     }
     else{

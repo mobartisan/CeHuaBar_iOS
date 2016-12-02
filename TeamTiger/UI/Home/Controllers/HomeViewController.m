@@ -43,6 +43,9 @@
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
 
+@property (copy, nonatomic) NSString *current_group_id;
+
+@property (copy, nonatomic) NSString *current_project_id;
 
 @end
 
@@ -172,12 +175,13 @@
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+        settingVC.project_id = self.current_project_id;
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
+        settingVC.groupId = self.current_group_id;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
-    
 }
 
 - (void)viewDidLoad {
@@ -414,10 +418,14 @@
             [self getDataWithProjectId:notification.object IsGroup:((BOOL)(notification.userInfo[@"ISGROUP"]))];
             self.title = notification.userInfo[@"Title"];
             [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
+            self.current_group_id = notification.object;
+            self.current_project_id = nil;
         } else {
             [self getDataWithProjectId:notification.object];
             self.title = notification.userInfo[@"Title"];
             [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+            self.current_project_id = notification.object;
+            self.current_group_id = nil;
         }
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     });

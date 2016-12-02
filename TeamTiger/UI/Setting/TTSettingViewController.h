@@ -13,4 +13,6 @@
 
 @property(nonatomic,weak)IBOutlet UITableView *contentTable;
 
+@property(nonatomic,copy)NSString *project_id;
+
 @end
