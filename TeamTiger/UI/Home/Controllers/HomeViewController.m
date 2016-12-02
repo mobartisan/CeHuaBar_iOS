@@ -41,6 +41,8 @@
 
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UIButton *setBtn;
+@property (assign, nonatomic) BOOL showTableHeader;
+
 
 @end
 
@@ -109,11 +111,52 @@
 
 - (UIView *)tableHeader {
     if (_tableHeader == nil) {
-        _tableHeader = LoadFromNib(@"HomeTableHeader");
-        _tableHeader.backgroundColor = [UIColor redColor];
+        _tableHeader = [UIView new];
+        _tableHeader.backgroundColor = [UIColor clearColor];
         _tableHeader.frame = CGRectMake(0, 0, 0, 50);
+        
+        UIImageView *bellImage = [UIImageView new];
+        bellImage.image = kImage(@"icon_bell");
+        [_tableHeader addSubview:bellImage];
+        
+        UILabel *countLB = [UILabel new];
+        countLB.text = @"4";
+        countLB.textColor = [UIColor whiteColor];
+        countLB.backgroundColor = kRGB(45, 201, 202);
+        countLB.textAlignment = NSTextAlignmentCenter;
+        countLB.layer.cornerRadius = 10;
+        countLB.layer.masksToBounds = YES;
+        [_tableHeader addSubview:countLB];
+        
+        
+        UIButton *bellBtn = [UIButton new];
+        [bellBtn addTarget:self action:@selector(handleBellBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [_tableHeader addSubview:bellBtn];
+        
+        [bellImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(30);
+            make.height.mas_equalTo(30);
+            make.centerY.equalTo(_tableHeader);
+            make.centerX.equalTo(_tableHeader);
+        }];
+        
+        [countLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(25);
+            make.height.mas_equalTo(20);
+            make.centerX.equalTo(_tableHeader).offset(15);
+            make.centerY.equalTo(_tableHeader).offset(-20 / 2);
+        }];
+        
+        [bellBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_tableHeader);
+        }];
     }
     return _tableHeader;
+}
+
+- (void)handleBellBtnAction {
+    DiscussViewController *discussVC = [[DiscussViewController alloc] init];
+    [self.navigationController pushViewController:discussVC animated:YES];
 }
 
 //点击图片
@@ -144,15 +187,19 @@
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:[MockDatas getMomentsWithId:nil IsProject:NO IsAll:YES]];
     [self configureNavigationItem];
-#warning TO DO ....
-    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
-    self.tableView.tableHeaderView = self.tableHeader;
     self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 250;
+#warning TO DO ....
+    [self handleRefreshAction];
     [Common removeExtraCellLines:self.tableView];
+    if (self.showTableHeader) {
+        self.tableView.tableHeaderView = self.tableHeader;
+
+    }
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
@@ -348,6 +395,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return [self sectionHeader];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return [UIScreen mainScreen].scale;
 }
 
 #pragma mark UIScrollViewDelegate

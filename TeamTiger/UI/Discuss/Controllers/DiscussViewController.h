@@ -6,8 +6,8 @@
 //  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TTBaseViewController.h"
 
-@interface DiscussViewController : UIViewController
+@interface DiscussViewController : TTBaseViewController
 
 @end
