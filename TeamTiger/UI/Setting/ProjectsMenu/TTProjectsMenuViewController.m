@@ -239,7 +239,7 @@
                 NSLog(@"%@",object);
                 TT_User *user = [TT_User sharedInstance];
                 [SQLITEMANAGER setDataBasePath:user.user_id];
-                NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,0,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
+                NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,1,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
                 [SQLITEMANAGER executeSql:sqlString];
                 [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
                 [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];

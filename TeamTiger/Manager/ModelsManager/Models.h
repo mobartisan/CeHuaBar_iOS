@@ -13,7 +13,7 @@
 @property(nonatomic, strong) NSString *name;  // name
 @property(nonatomic, strong) NSString *pids;  //pids
 @property(nonatomic, strong) NSString *description;  // description
-@property(nonatomic)         NSInteger current_state;  // current_state
+@property(nonatomic)         NSInteger current_state;  // current_state 0代表当前可以用  1代表已删除
 @property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
 @property(nonatomic, strong) NSDate *create_date;  // create_date
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id

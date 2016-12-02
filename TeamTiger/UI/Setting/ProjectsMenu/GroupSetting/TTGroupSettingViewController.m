@@ -178,7 +178,9 @@
         self.footView.deleteGroupBlock = ^(DeleteFooterView *view){
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该分组吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-#warning to do here
+                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+                    NSString *sql = [NSString stringWithFormat:@"update %@ set current_state = 1",TABLE_TT_Group];//设置为删除状态
+                    [SQLITEMANAGER executeSql:sql];
                 }
             }];
         };

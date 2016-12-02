@@ -469,10 +469,10 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
          @[
            //groups
            @"delete from TT_Group",
-           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00001','我管理的项目','0001,0002',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
-           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00002','我关注的项目','0002,0004',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
-           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00003','南京的项目','0001,0002,0003,0004',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
-           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00004','北京的项目','0001,0003',null,0,0,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00001','我管理的项目','0001,0002',null,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00002','我关注的项目','0002,0004',null,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00003','南京的项目','0001,0002,0003,0004',null,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
+           @"INSERT INTO TT_Group(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('00004','北京的项目','0001,0003',null,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao')",
 
            //projects
            @"delete from TT_Project",
