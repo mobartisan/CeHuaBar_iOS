@@ -73,21 +73,11 @@
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
             SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
-            selectCircleVC.groupInfo = self.currentGroupInfo;
             WeakSelf;
             selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
                 [wself loadProjectDataByInfo:selectObject];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
-        }
-        else if (type == EProjectGroup) {
-            TTSelectGroupViewController *selectGroupVC = [[TTSelectGroupViewController alloc] initWithNibName:@"TTSelectGroupViewController" bundle:nil];
-            selectGroupVC.selectedGroup = self.currentGroupInfo;
-            WeakSelf;
-            selectGroupVC.selectGroupBlock = ^(TTSelectGroupViewController *sgVC, NSMutableDictionary *mDic){
-                [wself loadGroupDataByInfo:mDic];
-            };
-            [self.navigationController pushViewController:selectGroupVC animated:YES];
         }
         else if (type == EProjectAddMember){
             NSLog(@"跳转微信，增加人员");
@@ -100,7 +90,7 @@
                                      InScene:WXSceneSession];
         } else if (type == EProjectDleteProject){
             NSLog(@"删除并退出");
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"确定",@"取消"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     //TO DO HERE
                 }
@@ -111,14 +101,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 0) {
         return 10;
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 0) {
         UIView *bgView = [[UIView alloc] init];
         bgView.backgroundColor = kRGB(27, 36, 50);
         return bgView;
@@ -129,80 +119,52 @@
 #pragma -mark Customer Methods
 - (void)loadProjectDataByInfo:(id)projectInfo {
     NSMutableDictionary *projectDic = self.dataSource[0];
-    projectDic[@"Description"] = projectInfo[@"Name"];
+    projectDic[@"Description"] = [projectInfo name];
 
-    NSMutableDictionary *membersDic = self.dataSource[2];
-    membersDic[@"Members"] = [MockDatas membersOfproject:projectInfo[@"Id"]];
-
-    [self.contentTable reloadData];
-}
-
-- (void)loadGroupDataByInfo:(id)groupInfo {
-    NSString *projectId = [groupInfo[@"Pids"] componentsSeparatedByString:@","].firstObject;
+    NSMutableDictionary *membersDic = self.dataSource[1];
     
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-        return [evaluatedObject[@"Id"] isEqualToString:projectId];
-    }];
-    NSArray *resArray = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
-    if (resArray && resArray.count > 0) {
-
-        NSMutableDictionary *projectDic = self.dataSource[0];
-        projectDic[@"Description"] = resArray.firstObject[@"Name"];
-        
-        NSMutableDictionary *groupDic = self.dataSource[1];
-        groupDic[@"Description"] = groupInfo[@"Name"];
-        
-        NSMutableDictionary *membersDic = self.dataSource[2];
-        membersDic[@"Members"] = [MockDatas membersOfproject:projectId];
-        
-        [self.contentTable reloadData];
-        //当前分组
-        self.currentGroupInfo = groupInfo;
-    }
+    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project_Members,[projectInfo project_id]];
+    NSArray *members = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project_Members];
+    membersDic[@"Members"] = members;
+    [self.contentTable reloadData];
 }
 
 #pragma -mark getter
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
-        NSDictionary *group = [MockDatas  groups].firstObject;
-        //当前分组
-        self.currentGroupInfo = group.mutableCopy;
-
-        NSString *projectId = [group[@"Pids"] componentsSeparatedByString:@","].firstObject;
-        
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-            return [evaluatedObject[@"Id"] isEqualToString:projectId];
-        }];
-        NSArray *resArray = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
-        if (resArray && resArray.count > 0) {
-            _dataSource = @[
-                            @{@"Type":@0,
-                              @"Name":@"项目",
-                              @"Description":resArray.firstObject[@"Name"],
-                              @"ShowAccessory":@1,
-                              @"IsEdit":@0,
-                              @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                            @{@"Type":@1,
-                              @"Name":@"组",
-                              @"Description":group[@"Name"],
-                              @"ShowAccessory":@1,
-                              @"IsEdit":@0,
-                              @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                            @{@"Type":@2,
-                              @"Name":@"项目成员",
-                              @"Description":@"",
-                              @"ShowAccessory":@0,
-                              @"IsEdit":@0,
-                              @"Color":kRGB(27.0, 41.0, 58.0),
-                              @"Members":[MockDatas membersOfproject:projectId]}.mutableCopy,
-                            
-                            @{@"Type":@3,
-                              @"Name":@"",
-                              @"Description":@"",
-                              @"ShowAccessory":@0,
-                              @"IsEdit":@0,
-                              @"Color":[UIColor clearColor]}.mutableCopy].mutableCopy;
+        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+        NSString *sql = nil;
+        if ([Common isEmptyString:self.project_id]) {
+            sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc limit 1",TABLE_TT_Project];
+        } else {
+            sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project,self.project_id];
         }
+        TT_Project *project = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].firstObject;
+        
+        NSString *memberSql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project_Members,project.project_id];
+        NSArray *members = [SQLITEMANAGER selectDatasSql:memberSql Class:TABLE_TT_Project_Members];
+
+        _dataSource = @[
+                        @{@"Type":@0,
+                          @"Name":@"项目",
+                          @"Description":project.name,
+                          @"ShowAccessory":@1,
+                          @"IsEdit":@0,
+                          @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
+                        @{@"Type":@1,
+                          @"Name":@"项目成员",
+                          @"Description":@"",
+                          @"ShowAccessory":@0,
+                          @"IsEdit":@0,
+                          @"Color":kRGB(27.0, 41.0, 58.0),
+                          @"Members":members}.mutableCopy,
+                        @{@"Type":@2,
+                          @"Name":@"",
+                          @"Description":@"",
+                          @"ShowAccessory":@0,
+                          @"IsEdit":@0,
+                          @"Color":[UIColor clearColor]}.mutableCopy].mutableCopy;
     }
     return _dataSource;
 }

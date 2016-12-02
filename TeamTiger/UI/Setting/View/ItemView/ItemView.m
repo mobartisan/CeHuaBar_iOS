@@ -13,8 +13,7 @@
 - (instancetype)initWithData:(id)object {
     self = [super init];
     if (self) {
-        NSDictionary *dic = [NSDictionary dictionaryWithDictionary:object];
-        
+        TT_Project_Members *member = (TT_Project_Members *)object;
         _headImgV = [[UIImageView alloc] init];
         _headImgV.backgroundColor = [UIColor colorWithRed:205.0 / 255.0 green:205.0 / 255.0  blue:205.0 / 255.0  alpha:1.0];
         
@@ -29,8 +28,8 @@
             make.top.equalTo(@10);
         }];
         
-        if (![Common isEmptyString:dic[@"Image"]]) {
-            _headImgV.image = [UIImage imageNamed:dic[@"Image"]];
+        if (![Common isEmptyString:member.user_img_url]) {
+            _headImgV.image = [UIImage imageNamed:member.user_img_url];
         }
         
         _nameLab = [[UILabel alloc] init];
@@ -45,8 +44,8 @@
             make.top.mas_equalTo(_headImgV.mas_bottom).offset(2);
         }];
         
-        if (![Common isEmptyString:dic[@"Name"]]) {
-            _nameLab.text = dic[@"Name"];
+        if (![Common isEmptyString:member.user_name]) {
+            _nameLab.text = member.user_name;
         }
         
         

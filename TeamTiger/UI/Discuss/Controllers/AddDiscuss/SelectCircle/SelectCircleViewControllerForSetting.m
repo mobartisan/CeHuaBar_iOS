@@ -51,24 +51,10 @@
 
 #pragma mark - Initial Methods
 - (void)setupGroups {
-    NSArray *pids = [self.groupInfo[@"Pids"] componentsSeparatedByString:@","];
-    NSMutableString *mString = [NSMutableString string];
-    for (NSString *str in pids) {
-        [mString appendFormat:@"'%@',",str];
-    }
-    [mString replaceCharactersInRange:NSMakeRange(mString.length - 1, 1) withString:NullString];
-    
     [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-    NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@)",TABLE_TT_Project,mString];
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Project];
     self.data = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].mutableCopy;
 }
-#pragma mark - Target Methods
-
-
-#pragma mark - Notification Methods
-
-
-#pragma mark - KVO Methods
 
 
 #pragma mark - UITableViewDelegate, UITableViewDataSource
