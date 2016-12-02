@@ -33,6 +33,10 @@
 + (NSString *)getCurrentSystemTime;
 //系统日期
 + (NSString *)getCurrentSystemDate;
+
+//处理时间
++ (NSString *)handleDate:(NSString *)dateStr;
+
 //比较时间大小
 - (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
 

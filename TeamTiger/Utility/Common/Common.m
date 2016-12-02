@@ -157,6 +157,12 @@
     return [NSString stringWithFormat:@"%ld月%ld日", [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
 }
 
+//处理时间
++ (NSString *)handleDate:(NSString *)dateStr {
+    NSDate *date = [NSDate hyb_dateWithString:dateStr format:@"yyyy-MM-dd HH:mm:ss"];
+    return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu", [date hyb_month], [date hyb_day],[date hyb_hour],[date hyb_minute]];
+}
+
 //比较时间大小
 - (NSDateComponents *)differencewithDate:(NSString *)dateString withDate:(NSString *)anotherdateString {
     NSDate *createDate = [self.dateFormatter dateFromString:dateString];

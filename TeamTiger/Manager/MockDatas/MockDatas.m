@@ -328,7 +328,8 @@
     if (isAll) {
         NSString *sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Discuss];
         discusses = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss];
-    } else {
+    }
+    else {
         if (isProject) {
             NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@' order by create_date desc", TABLE_TT_Discuss, tmpId];
             discusses = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss];
@@ -354,7 +355,7 @@
         discussDic[@"name"] = discuss.user_name;
         discussDic[@"project"] = discuss.discuss_label;
         discussDic[@"content"] = discuss.content;
-        discussDic[@"time"] = discuss.create_date;
+        discussDic[@"time"] = [Common handleDate:(NSString *)discuss.create_date];
         if (discuss.is_has_image) {
             NSString *sql = [NSString stringWithFormat:@"select * from %@ where current_item_id = '%@'",TABLE_TT_Attachment,discuss.discuss_id];
             NSArray *attachments = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Attachment];
@@ -382,7 +383,7 @@
             commentDic[@"name"] = comment.name;
             commentDic[@"sName"] = comment.at_name;
             commentDic[@"content"] = comment.content;
-            commentDic[@"time"] = comment.create_date;
+            commentDic[@"time"] = [Common handleDate:(NSString *)comment.create_date];
             
             NSString *sql = [NSString stringWithFormat:@"select * from %@ where current_item_id = '%@'",TABLE_TT_Attachment,comment.comment_id];
             NSArray *attachments = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Attachment];
