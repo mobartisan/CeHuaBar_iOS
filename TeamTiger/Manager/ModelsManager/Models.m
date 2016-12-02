@@ -36,6 +36,21 @@
     
     return [super description];
 }
+
++ (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic {
+    TT_Group *group = [[TT_Group alloc] init];
+    group.name = dic[@"Name"];
+    group.pids = dic[@"Pids"];
+    group.group_id = dic[@"Gid"];
+    group.description = @"";
+    group.current_state = 0;
+    group.is_allow_delete = 1;
+    group.create_date = [NSDate date];
+    group.create_user_id = [TT_User sharedInstance].user_id;
+    group.last_edit_date = [NSDate date];
+    group.last_edit_user_id = [TT_User sharedInstance].user_id;
+    return group;
+}
 @end
 
 

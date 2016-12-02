@@ -298,7 +298,8 @@ YYSYNTH_DUMMY_CLASS(NSString_YYAdd)
     CFUUIDRef uuid = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, uuid);
     CFRelease(uuid);
-    return (__bridge_transfer NSString *)string;
+    NSString *uuidStr = (__bridge_transfer NSString *)string;
+    return [[uuidStr stringByReplacingOccurrencesOfString:@"-" withString:NullString] lowercaseString];
 }
 
 + (NSString *)stringWithUTF32Char:(UTF32Char)char32 {

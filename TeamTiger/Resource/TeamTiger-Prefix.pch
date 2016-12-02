@@ -33,7 +33,7 @@
 #import "QiniuUpoadManager.h"
 #import "ButtonIndexPath.h"
 #import "NSString+Extension.h"
-
+#import "Models.h"
 #endif
 
 #endif /* TeamTiger_Prefix_pch */

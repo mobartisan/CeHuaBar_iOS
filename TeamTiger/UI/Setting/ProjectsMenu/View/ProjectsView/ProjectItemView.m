@@ -29,14 +29,15 @@
     self = [super init];
     if (self) {
         self.backgroundColor = [Common colorFromHexRGB:@"202e41"];
-        if (object && [object isKindOfClass:[NSDictionary class]]) {
+        if (object && [object isKindOfClass:[TT_Group class]]) {
+            TT_Group *group = (TT_Group *)object;
             self.msgLabel.text = @(arc4random() % 10).stringValue;
             if (self.msgLabel.text.integerValue > 0) {
                 self.unreadMsgImgV.hidden = NO;
             } else {
                 self.unreadMsgImgV.hidden = YES;
             }
-            self.projectNameLabel.text = object[@"Name"];
+            self.projectNameLabel.text = group.name;
             self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         }
         self.addBtn = [UIButton hyb_buttonWithImage:nil superView:self constraints:^(MASConstraintMaker *make) {

@@ -19,6 +19,9 @@
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+
++ (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic;
+
 @end
 
 @interface TT_Project : NSObject

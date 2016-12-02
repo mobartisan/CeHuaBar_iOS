@@ -21,6 +21,7 @@
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
 #import "TTGroupViewController.h"
+#import "NSString+YYAdd.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -202,7 +203,11 @@
 #pragma -mark Data Handle
 - (NSMutableArray *)groups {
     if (!_groups) {
-        _groups = [NSMutableArray arrayWithArray:[MockDatas  groups]];
+        TT_User *user = [TT_User sharedInstance];
+        [SQLITEMANAGER setDataBasePath:user.user_id];
+        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
+        NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
+        _groups = [NSMutableArray arrayWithArray:groups];
     }
     return _groups;
 }
@@ -242,8 +247,11 @@
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@",object);
-                [[MockDatas groups] addObject:object];
-                [wself.groups addObject:object];
+                TT_User *user = [TT_User sharedInstance];
+                [SQLITEMANAGER setDataBasePath:user.user_id];
+                NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,0,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
+                [SQLITEMANAGER executeSql:sqlString];
+                [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
                 [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
@@ -260,7 +268,7 @@
     if (self.sgView.isShow) {
         [self.sgView hide];
     } else {
-        [self.sgView loadGroups:[MockDatas groups]];
+        [self.sgView loadGroups:self.groups];
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
