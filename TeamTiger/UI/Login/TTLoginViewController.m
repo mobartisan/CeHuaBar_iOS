@@ -20,6 +20,7 @@
 #import "UIView+TYLaunchAnimation.h"
 #import "UIImage+TYLaunchImage.h"
 #import "TYLaunchFadeScaleAnimation.h"
+#import "NSString+Utils.h"
 
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
@@ -41,7 +42,9 @@
                      @"headimgurl" : @"http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0",
                      @"unionid" : @"owxiavzm0OwPxg5snUVVKRmEOllA",
                      @"sex" : @"1",
-                     @"province" : @"Jiangsu"
+                     @"province" : @"Jiangsu",
+                     @"os_description" : [NSString iphoneOS_description],
+                     @"os_type" : @"ios"
                      };
     }
     return _tempDic;
@@ -75,6 +78,7 @@
     }];
     id num = UserDefaultsGet(@"LastIsLogOut");
     if ([self isCanAutoLogin] && [num intValue] == 1) {
+        [self longiApi];
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
@@ -99,6 +103,7 @@
         }
     }else {
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            [self longiApi];
             if (buttonIndex == 0) {
 #warning to do
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
@@ -187,6 +192,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self longiApi];
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
@@ -219,7 +225,7 @@
     LoginApi *login = [[LoginApi alloc] init];
     login.requestArgument = self.tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"成功");
+        NSLog(@"%@", request.responseJSONObject);
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
     }];

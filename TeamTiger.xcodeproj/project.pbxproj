@@ -431,7 +431,6 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
-		2D04D25F1DF02C1B00AE5BDB /* HomeTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D04D25E1DF02C1B00AE5BDB /* HomeTableHeader.xib */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
 		2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D17701DED552200AFE3BD /* UIImage+Extension.m */; };
@@ -452,7 +451,6 @@
 		2D727A1B1DDD844E00CBF0BA /* JJPhotoManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D727A161DDD844E00CBF0BA /* JJPhotoManeger.m */; };
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
 		2D7661EF1DEE7F5B00E6410E /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */; };
-		2D7661F21DEE7FBA00E6410E /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
 		2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */; };
 		2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */; };
@@ -1278,7 +1276,6 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
-		2D04D25E1DF02C1B00AE5BDB /* HomeTableHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTableHeader.xib; sourceTree = "<group>"; };
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
@@ -1318,8 +1315,6 @@
 		2D727A171DDD844E00CBF0BA /* none.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = none.png; sourceTree = "<group>"; };
 		2D7661ED1DEE7F5B00E6410E /* QiniuUpoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuUpoadManager.h; sourceTree = "<group>"; };
 		2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
-		2D7661F01DEE7FBA00E6410E /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
-		2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
 		2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
@@ -2950,8 +2945,6 @@
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
 				2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */,
 				2D6D17701DED552200AFE3BD /* UIImage+Extension.m */,
-				2D7661F01DEE7FBA00E6410E /* NSString+Extension.h */,
-				2D7661F11DEE7FBA00E6410E /* NSString+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -3296,7 +3289,6 @@
 			children = (
 				2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */,
 				2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */,
-				2D04D25E1DF02C1B00AE5BDB /* HomeTableHeader.xib */,
 				2D7279E61DDD811B00CBF0BA /* comments */,
 				2D7279ED1DDD811B00CBF0BA /* votes */,
 			);
@@ -3817,7 +3809,6 @@
 				1DF0A1B41D4DB898002D91DB /* 17.png in Resources */,
 				1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */,
 				1DB5A58B1D4B3F36009E6170 /* round-switch-mask@2x.png in Resources */,
-				2D04D25F1DF02C1B00AE5BDB /* HomeTableHeader.xib in Resources */,
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
 				1D34D50D1DEFC045002CBFF8 /* TTSelectGroupViewController.xib in Resources */,
 				1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */,
@@ -4180,7 +4171,6 @@
 				1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */,
 				1D115F871D4BA043003DFBB1 /* IQUIScrollView+Additions.m in Sources */,
 				1D9580D81D3E225200FD0053 /* NSArray+MASAdditions.m in Sources */,
-				2D7661F21DEE7FBA00E6410E /* NSString+Extension.m in Sources */,
 				1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */,
 				06008F451D58249300A5B3DB /* TZPhotoPreviewController.m in Sources */,
 				0692CE961D7419D900299AC2 /* SDiPhoneVersion.m in Sources */,

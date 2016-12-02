@@ -17,5 +17,8 @@
  */
 - (NSString *)pinyin;
 
++ (NSString *)iphoneOS_description;
+
++ (NSString *)randomStringWithLength:(int)len;
 
 @end
