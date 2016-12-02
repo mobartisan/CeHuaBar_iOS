@@ -185,7 +185,7 @@
     // Do any additional setup after loading the view from its nib.
     bView = self.view;
     self.title = @"Moments";
-    [self.dataSource addObjectsFromArray:[MockDatas getMomentsWithId:nil IsProject:NO IsAll:YES]];
+    [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:nil IsProject:NO IsAll:YES]];
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -460,9 +460,9 @@
 - (void)getDataWithProjectId:(NSString *)Id {
     [self.dataSource removeAllObjects];
     if (![Common isEmptyString:Id]) {
-        [self.dataSource addObjectsFromArray:[MockDatas getMomentsWithId:Id IsProject:YES IsAll:NO]];
+        [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:NO]];
     }else {
-        [self.dataSource setArray:[MockDatas getMomentsWithId:Id IsProject:YES IsAll:YES]];
+        [self.dataSource setArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:YES]];
     }
     [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         ((HomeModel *)obj).open = NO;
@@ -476,9 +476,9 @@
         //group
         [self.dataSource removeAllObjects];
         if (![Common isEmptyString:Id]) {
-            [self.dataSource addObjectsFromArray:[MockDatas getMomentsWithId:Id IsProject:NO IsAll:NO]];
+            [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:Id IsProject:NO IsAll:NO]];
         }else {
-            [self.dataSource setArray:[MockDatas getMomentsWithId:Id IsProject:YES IsAll:YES]];
+            [self.dataSource setArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:YES]];
         }
         [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             ((HomeModel *)obj).open = NO;

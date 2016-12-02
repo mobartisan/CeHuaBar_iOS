@@ -52,11 +52,15 @@
 #pragma mark - Initial Methods
 - (void)setupGroups {
     NSArray *pids = [self.groupInfo[@"Pids"] componentsSeparatedByString:@","];
-    NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
-         return [pids containsObject:evaluatedObject[@"Id"]];
-    }];
-    NSArray *projects = [[MockDatas projects] filteredArrayUsingPredicate:predicate];
-    self.data = projects.mutableCopy;
+    NSMutableString *mString = [NSMutableString string];
+    for (NSString *str in pids) {
+        [mString appendFormat:@"'%@',",str];
+    }
+    [mString replaceCharactersInRange:NSMakeRange(mString.length - 1, 1) withString:NullString];
+    
+    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+    NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@)",TABLE_TT_Project,mString];
+    self.data = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].mutableCopy;
 }
 #pragma mark - Target Methods
 

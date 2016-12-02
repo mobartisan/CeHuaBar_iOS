@@ -318,12 +318,97 @@
         }
     }
     //dictionary---> model
-    NSMutableArray *moments = [NSMutableArray array];
-    for (NSDictionary *dic in resArray) {
-        HomeModel *homeModel = [HomeModel modelWithDic:dic];
-        [moments addObject:homeModel];
+    return [MockDatas transeferModelsFromDictionarys:resArray];
+}
+
+
++ (NSArray *)getMoments2WithId:(NSString *)tmpId IsProject:(BOOL)isProject IsAll:(BOOL)isAll {
+    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+    NSArray *discusses = nil;
+    if (isAll) {
+        NSString *sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Discuss];
+        discusses = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss];
+    } else {
+        if (isProject) {
+            NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@' order by create_date desc", TABLE_TT_Discuss, tmpId];
+            discusses = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss];
+        } else {
+            NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'", TABLE_TT_Group, tmpId];
+            TT_Group *group = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group].firstObject;
+            NSMutableString *mStr = [NSMutableString string];
+            NSArray *pids = [group.pids componentsSeparatedByString:@","];
+            for (NSString *str in pids) {
+                [mStr appendFormat:@"'%@',",str];
+            }
+            [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
+            sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date desc", TABLE_TT_Discuss, mStr];
+            discusses = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss];
+        }
     }
-    return moments;
+    NSMutableArray *tmpDiscusses = [NSMutableArray array];
+    for (TT_Discuss *discuss in discusses) {
+        NSMutableDictionary *discussDic = [NSMutableDictionary dictionary];
+        discussDic[@"cellType"] = @(discuss.discuss_type).stringValue;
+        discussDic[@"Id"] = discuss.project_id;
+        discussDic[@"iconImV"] = discuss.head_image_url;
+        discussDic[@"name"] = discuss.user_name;
+        discussDic[@"project"] = discuss.discuss_label;
+        discussDic[@"content"] = discuss.content;
+        discussDic[@"time"] = discuss.create_date;
+        if (discuss.is_has_image) {
+            NSString *sql = [NSString stringWithFormat:@"select * from %@ where current_item_id = '%@'",TABLE_TT_Attachment,discuss.discuss_id];
+            NSArray *attachments = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Attachment];
+            NSMutableArray *images = [NSMutableArray array];
+            for (TT_Attachment *attachment in attachments) {
+                [images addObject:attachment.attachment_content];
+            }
+            discussDic[@"photeNameArry"] = images;
+        }
+        if (discuss.is_has_result) {
+            NSString *sql = [NSString stringWithFormat:@"select * from %@ where discuss_id = '%@'",TABLE_TT_Discuss_Result,discuss.discuss_id];
+            NSArray *discuss_results = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Discuss_Result];
+            NSMutableArray *results = [NSMutableArray array];
+            for (TT_Discuss_Result *result in discuss_results) {
+                [results addObject:result.discuss_result];
+            }
+            discussDic[@"ticketArry"] = results;
+        }
+        
+        NSString *sql = [NSString stringWithFormat:@"select * from %@ where discuss_id = '%@'",TABLE_TT_Comment,discuss.discuss_id];
+        NSArray *comments = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Comment];
+        NSMutableArray *tmpComments = [NSMutableArray array];
+        for (TT_Comment *comment in comments) {
+            NSMutableDictionary *commentDic = [NSMutableDictionary dictionary];
+            commentDic[@"name"] = comment.name;
+            commentDic[@"sName"] = comment.at_name;
+            commentDic[@"content"] = comment.content;
+            commentDic[@"time"] = comment.create_date;
+            
+            NSString *sql = [NSString stringWithFormat:@"select * from %@ where current_item_id = '%@'",TABLE_TT_Attachment,comment.comment_id];
+            NSArray *attachments = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Attachment];
+            NSMutableArray *images = [NSMutableArray array];
+            for (TT_Attachment *attachment in attachments) {
+                [images addObject:attachment.attachment_content];
+            }
+            commentDic[@"photeNameArry"] = images;
+            [tmpComments addObject:commentDic];
+        }
+        discussDic[@"comment"] = tmpComments;
+
+        [tmpDiscusses addObject:discussDic];
+    }
+    return [MockDatas transeferModelsFromDictionarys:tmpDiscusses];
+}
+
+#pragma -mark 字典 转 HomeModel
++ (NSMutableArray *)transeferModelsFromDictionarys:(NSMutableArray *)datas {
+    //dictionary---> model
+    NSMutableArray *discusses = [NSMutableArray array];
+    for (NSDictionary *dic in datas) {
+        HomeModel *homeModel = [HomeModel modelWithDic:dic];
+        [discusses addObject:homeModel];
+    }
+    return discusses;
 }
 
 @end
