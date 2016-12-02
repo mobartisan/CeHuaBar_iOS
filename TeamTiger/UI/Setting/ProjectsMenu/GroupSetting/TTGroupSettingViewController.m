@@ -181,6 +181,7 @@
                     [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                     NSString *sql = [NSString stringWithFormat:@"update %@ set current_state = 1",TABLE_TT_Group];//设置为删除状态
                     [SQLITEMANAGER executeSql:sql];
+#warning TO DO HERE 跳回主页面，并刷新
                 }
             }];
         };

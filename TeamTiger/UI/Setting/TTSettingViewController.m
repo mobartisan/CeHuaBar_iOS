@@ -91,7 +91,10 @@
             NSLog(@"删除并退出");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    //TO DO HERE
+                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+                    NSString *sql = [NSString stringWithFormat:@"update %@ set current_state = 1",TABLE_TT_Project];//设置为删除状态
+                    [SQLITEMANAGER executeSql:sql];
+#warning TO DO HERE 跳回主页面，并刷新
                 }
             }];
         }
