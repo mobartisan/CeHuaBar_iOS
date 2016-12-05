@@ -53,6 +53,7 @@ static NSString *const CODE = @"code";
 static NSString *const MSG = @"msg";
 static NSString *const SUCCESS = @"success";
 static NSString *const OBJ = @"obj";
+static NSString *const TOKEN = @"token";
 
 //微信相关
 #define WXDoctor_App_ID @"wx6103c7337b6114c0"  // 注册微信时的AppID

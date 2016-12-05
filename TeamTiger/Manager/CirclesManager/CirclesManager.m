@@ -10,8 +10,6 @@
 
 @implementation CirclesManager
 
-
-
 //static NSMutableArray *circles = nil;
 + (CirclesManager *)sharedInstance {
     
@@ -26,8 +24,35 @@
     return circlesManager;
 }
 
+
 - (void)loadingGlobalCirclesInfo {
-    self.circles = [NSMutableArray arrayWithArray:@[@"所有项目",@"工作牛",@"易会",@"MPP",@"营配"]];
+#warning TO DO
+    AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
+    [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@-------", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+//        [super showHudWithText:@"获取项目失败"];
+//        [super hideHudAfterSeconds:1.0];
+    }];
+    //    {
+    //        code = 1000,
+    //        success = 0,
+    //        obj = {
+    //            data = (
+    //                    {
+    //                        _id = 5844e4d205bba03115f27a88,
+    //                        uid = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+    //                        name = jlil,
+    //                        description =
+    //                    }
+    //                    )
+    //
+    //        },
+    //        msg = 查询成功
+    //    }
+    
+    self.circles = [NSMutableArray arrayWithArray:@[@"所有项目",@"工作牛",@"易会",@"MPP",@"营配",@"BBS"]];
     self.selectIndex = 0;
     self.selectCircle = self.circles[_selectIndex];
 }

@@ -106,6 +106,7 @@
     return headerView;
 }
 
+#pragma mark 创建项目
 - (void)createProjectWith:(NSString *)name  is_private:(BOOL)is_private {
     if ([Common isEmptyString:name]) {
         [self showHudWithText:@"名称或描述不能为空"];
@@ -114,9 +115,7 @@
     }
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"name":name,
-                                         @"is_private":@(is_private),
-                                         @"current_state":@(0),
-                                         @"is_allow_delete":@(NO)
+                                         @"uids":@"",
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);

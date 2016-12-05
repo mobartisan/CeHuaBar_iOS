@@ -54,8 +54,6 @@
 - (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
-        NSArray *commentArr = [SQLITEMANAGER selectDatasSql:@"select * from TT_Discuss" Class:nil];
-        NSLog(@"%@", commentArr);
     }
     return _dataSource;
 }
@@ -192,6 +190,7 @@
     bView = self.view;
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:nil IsProject:NO IsAll:YES]];
+    NSLog(@"%@", self.dataSource);
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -211,6 +210,40 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
+#warning TO DO
+//    [self handlNetwork];
+//    [self handleProject];
+}
+
+- (void)handleProject {
+    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+}
+
+- (void)handlNetwork {
+    ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
+    projectsApi.requestArgument = @{@"page":@"1",
+                                    @"rows":@"10"};
+    [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showHudWithText:@"获取Moments失败"];
+        [super hideHudAfterSeconds:1.0];
+    }];
+//返回类型
+//    {
+//        code = 1000,
+//        success = 0,
+//        obj = {
+//            message = 查询成功,
+//            data = (
+//            )
+//            ,
+//            code = 1000
+//        },
+//        msg = 查询成功
+//    }
+    
 }
 
 

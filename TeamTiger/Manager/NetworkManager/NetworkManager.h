@@ -57,7 +57,7 @@
 
 @end
 
-//创建讨论
+//创建discuss
 @interface DiscussCreateApi : LCBaseRequest<LCAPIRequest>
 
 @end
@@ -72,8 +72,8 @@
 
 @end
 
-//创建评论
-@interface CommentCreateApi : LCBaseRequest<LCAPIRequest>
+//创建Moment
+@interface MomentCreateApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
@@ -88,3 +88,15 @@
 @property(nonatomic,strong)UploadModel *uploadModel;
 
 @end
+
+//所有项目名称
+@interface AllProjectsApi : LCBaseRequest<LCAPIRequest>
+
+
+@end
+
+
+
+
+
+

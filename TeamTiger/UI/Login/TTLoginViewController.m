@@ -78,7 +78,6 @@
     }];
     id num = UserDefaultsGet(@"LastIsLogOut");
     if ([self isCanAutoLogin] && [num intValue] == 1) {
-        [self longiApi];
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
@@ -103,9 +102,9 @@
         }
     }else {
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            [self longiApi];
             if (buttonIndex == 0) {
 #warning to do
+                [self testApi];
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
                 UIWindow *window = kAppDelegate.window;
                 window.rootViewController = rootVC;
@@ -113,6 +112,41 @@
             }
         }];
     }
+}
+
+- (void)testApi {
+    NSMutableArray *mediasArr = [NSMutableArray array];
+    UIImage *image1 = kImage(@"1");
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:image1, image1, nil];
+    [QiniuUpoadManager uploadImages:arr progress:^(CGFloat progress) {
+        NSLog(@"%f", progress);
+    } success:^(NSArray *urls) {
+        for (NSString *url in urls) {
+            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
+                                  @"type":@"0",
+                                  @"from":@"1",
+                                  @"url":url};
+            [mediasArr addObject:dic];
+        }
+        MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
+        momentCreatApi.requestArgument = @{@"text":@"测试数据",
+                                           @"pid":@"5844e4d205bba03115f27a88",
+                                           @"type":@"1",
+                                           @"mediaarray":@[]};
+        [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            NSLog(@"%@", request.responseJSONObject);
+            [super showHudWithText:@"发起讨论成功"];
+            [super hideHudAfterSeconds:1.0];
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@", error);
+            [super showHudWithText:@"发起讨论失败"];
+            [super hideHudAfterSeconds:1.0];
+        }];
+        
+    } failure:^(NSError *error) {
+        [super showHudWithText:@"上传图片失败"];
+        [super hideHudAfterSeconds:1.0];
+    }];
 }
 
 - (BOOL)isCanAutoLogin {
@@ -192,7 +226,8 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self longiApi];
+#warning to do
+//        [self longiApi:responseObject];
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
@@ -221,14 +256,39 @@
     }];
 }
 
-- (void)longiApi {
+#warning TO DO...
+- (void)longiApi:(id)tempDic {
     LoginApi *login = [[LoginApi alloc] init];
-    login.requestArgument = self.tempDic;
+    login.requestArgument = tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
+        gSession = request.responseJSONObject[OBJ][TOKEN];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
     }];
 }
+
+//{
+//    code = 1000,
+//    success = 1,
+//    obj = {
+//        user_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+//        token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjMwZmIyYTEwLWJhOWMtMTFlNi04ZDY3LThkYjBhNTczMGJhNiIsImlhdCI6MTQ4MDkyNDk3MSwiZXhwIjoxNDgwOTI4NTcxfQ.gYal01M9UKtgjRPAwS4kYhFp3U0txK-nBLJ5GwQiGD8,
+//        data = {
+//            _id = 5844e10cdb061496141cd166,
+//            uid = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+//            phone = ,
+//            nick_name = 我和你💓,
+//            city = Nanjing,
+//            country = CN,
+//            email = ,
+//            username = o4vxEmYWRjUw,
+//            language = zh_CN,
+//            head_img_from = 1,
+//            head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
+//        }
+//    },
+//    msg = 登录成功
+//}
 
 @end

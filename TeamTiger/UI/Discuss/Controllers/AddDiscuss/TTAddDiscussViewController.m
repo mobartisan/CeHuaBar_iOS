@@ -33,6 +33,9 @@
 @property (nonatomic, strong) AddImageView *addImageView;
 @property(nonatomic,strong) UIButton *startMomentBtn;
 @property (nonatomic, strong) TTCommonArrowItem *tagItem;
+
+@property (strong, nonatomic) TTCommonItem *tempDescribe;
+
 @end
 
 @implementation TTAddDiscussViewController
@@ -62,11 +65,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
-//    [self.data removeAllObjects];
-//
-//    NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)];
-//    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    //    [self.data removeAllObjects];
+    //
+    //    NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)];
+    //    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
+    //    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView reloadData];
 }
 
@@ -87,7 +90,7 @@
     TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
     self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
-    
+    self.tempDescribe = describe;
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = [NSMutableArray arrayWithArray:@[tag,describe]];
     [self.data addObject:group];
@@ -98,7 +101,7 @@
  */
 - (void)setupGroup1
 {
-
+    
     AddImageView *customView = [AddImageView addImageViewWithType:AddImageViewDefual AndOption:@"Moment"];
     TTCommonItem *attachment = [TTCommonCustomViewItem itemWithCustomView:customView];
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
@@ -108,10 +111,10 @@
 
 - (void)setupGroup2
 {
-
+    
     UIView *startView = [[UIView alloc] init];
     startView.backgroundColor = kColorForBackgroud;
-
+    
     [startView addSubview:self.startMomentBtn];
     [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(startView);
@@ -205,7 +208,7 @@
 -(UIButton *)startMomentBtn{
     if (!_startMomentBtn) {
         _startMomentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//        _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
+        //        _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 8);
         [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
@@ -221,7 +224,37 @@
 - (void)actionStartMoment {
 #warning TO DO
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
-    NSLog(@"%@", picArr);
-   }
+    NSMutableArray *mediasArr = [NSMutableArray array];
+    [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+    } success:^(NSArray *urls) {
+        for (NSString *url in urls) {
+            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
+                                  @"type":@"0",
+                                  @"from":@"1",
+                                  @"url":url};
+            [mediasArr addObject:dic];
+        }
+        MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
+        momentCreatApi.requestArgument = @{@"text":@"测试数据",
+                                           @"pid":@"5844e4d205bba03115f27a88",
+                                           @"type":@"1",
+                                           @"mediaarray":@[]};
+        [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            NSLog(@"%@", request.responseJSONObject);
+            [super showHudWithText:@"发起讨论成功"];
+            [super hideHudAfterSeconds:1.0];
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@", error);
+            [super showHudWithText:@"发起讨论失败"];
+            [super hideHudAfterSeconds:1.0];
+        }];
+        
+    } failure:^(NSError *error) {
+        [super showHudWithText:@"上传图片失败"];
+        [super hideHudAfterSeconds:1.0];
+    }];
+    // 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6 user_id
+    //
+}
 
 @end

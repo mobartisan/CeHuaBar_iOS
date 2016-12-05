@@ -31,8 +31,8 @@
     if(!self.window){
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
+    NSLog(@"%@", NSHomeDirectory());
     [self initialMethods];
-    [self initialGlobalData];
     
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
@@ -187,11 +187,7 @@
 }
 
 - (void)initialGlobalData {
-    //    NSMutableArray *circles = [NSMutableArray arrayWithArray:@[@"所有项目",@"工作牛",@"易会",@"MPP",@"营配"]];
-    //    [CacheManager sharedInstance].cacheType = ECacheTypeMemory;
-    //    [[CacheManager sharedInstance] setObject:circles ForKey:TTCircle_Cache_Key];
     
-    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
 }
 
 @end
