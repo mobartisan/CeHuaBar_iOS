@@ -54,6 +54,8 @@
 - (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
+        NSArray *commentArr = [SQLITEMANAGER selectDatasSql:@"select * from TT_Discuss" Class:nil];
+        NSLog(@"%@", commentArr);
     }
     return _dataSource;
 }
