@@ -211,8 +211,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
 #warning TO DO
-//    [self handlNetwork];
-//    [self handleProject];
+#if 0
+    [self handlNetwork];
+    [self handleProject];
+#endif
 }
 
 - (void)handleProject {

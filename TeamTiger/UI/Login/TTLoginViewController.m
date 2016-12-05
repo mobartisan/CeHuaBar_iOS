@@ -227,7 +227,7 @@
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 #warning to do
-//        [self longiApi:responseObject];
+        [self longiApi:responseObject];
         //1.user
         TT_User *user = [TT_User sharedInstance];
         [user createUser:responseObject];
@@ -259,7 +259,7 @@
 #warning TO DO...
 - (void)longiApi:(id)tempDic {
     LoginApi *login = [[LoginApi alloc] init];
-    login.requestArgument = tempDic;
+    login.requestArgument = self.tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         gSession = request.responseJSONObject[OBJ][TOKEN];
