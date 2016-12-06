@@ -403,7 +403,9 @@ typedef enum : NSUInteger {
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
-
+    if (self.actionBlock) {
+        self.actionBlock(textView.text);
+    }
 }
 
 

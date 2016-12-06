@@ -104,7 +104,6 @@
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 0) {
 #warning to do
-                [self testApi];
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
                 UIWindow *window = kAppDelegate.window;
                 window.rootViewController = rootVC;
@@ -112,41 +111,6 @@
             }
         }];
     }
-}
-
-- (void)testApi {
-    NSMutableArray *mediasArr = [NSMutableArray array];
-    UIImage *image1 = kImage(@"1");
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:image1, image1, nil];
-    [QiniuUpoadManager uploadImages:arr progress:^(CGFloat progress) {
-        NSLog(@"%f", progress);
-    } success:^(NSArray *urls) {
-        for (NSString *url in urls) {
-            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
-                                  @"type":@"0",
-                                  @"from":@"1",
-                                  @"url":url};
-            [mediasArr addObject:dic];
-        }
-        MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
-        momentCreatApi.requestArgument = @{@"text":@"测试数据",
-                                           @"pid":@"5844e4d205bba03115f27a88",
-                                           @"type":@"1",
-                                           @"mediaarray":@[]};
-        [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            NSLog(@"%@", request.responseJSONObject);
-            [super showHudWithText:@"发起讨论成功"];
-            [super hideHudAfterSeconds:1.0];
-        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            NSLog(@"%@", error);
-            [super showHudWithText:@"发起讨论失败"];
-            [super hideHudAfterSeconds:1.0];
-        }];
-        
-    } failure:^(NSError *error) {
-        [super showHudWithText:@"上传图片失败"];
-        [super hideHudAfterSeconds:1.0];
-    }];
 }
 
 - (BOOL)isCanAutoLogin {

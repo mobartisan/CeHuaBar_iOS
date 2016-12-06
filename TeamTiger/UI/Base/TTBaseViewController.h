@@ -20,4 +20,6 @@
 
 - (void)hideHudAfterSeconds:(int)seconds;
 
+- (void)showText:(NSString *)text afterSeconds:(int)seconds;
+
 @end

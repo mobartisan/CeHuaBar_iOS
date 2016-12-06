@@ -26,12 +26,7 @@
 #import "IQKeyboardManager.h"
 #import "AddImageView.h"
 #import "MMAlertView.h"
-// Controllers
 
-// Model
-
-// Views
-//#define <#macro#> <#value#>
 static const int STR_OPTION_MAX = 9;
 static const char* kOptionStr[STR_OPTION_MAX] = {
     "A", "B", "C", "D", "E","F", "G", "H", "I"};
@@ -80,7 +75,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
+    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle][@"name"];
     
     OptionType optionType = [CirclesManager sharedInstance].optionType;
     
@@ -116,7 +111,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
  */
 - (void)setupGroup0
 {
-    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"项目" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"项目" subtitle:[[CirclesManager sharedInstance] selectCircle][@"name"] destVcClass:[SelectCircleViewController class]];
     self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"内容" textViewPlaceholder:@"请输入内容"];
     

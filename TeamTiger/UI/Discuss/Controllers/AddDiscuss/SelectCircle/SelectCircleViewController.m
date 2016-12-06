@@ -59,7 +59,8 @@
 - (void)setupGroups {
     self.circles = [CirclesManager sharedInstance].circles;
     
-    for (NSString *title in self.circles) {
+    for (NSDictionary *dic in self.circles) {
+        NSString *title = dic[@"name"];
         TTCommonItem *vote = [TTCommonArrowItem itemWithTitle:title subtitle:nil destVcClass:nil];
         
         TTCommonGroup *group = [[TTCommonGroup alloc] init];

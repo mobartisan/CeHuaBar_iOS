@@ -190,7 +190,6 @@
     bView = self.view;
     self.title = @"Moments";
     [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:nil IsProject:NO IsAll:YES]];
-    NSLog(@"%@", self.dataSource);
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -211,7 +210,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
 #warning TO DO
-#if 0
+#if 1
     [self handlNetwork];
     [self handleProject];
 #endif

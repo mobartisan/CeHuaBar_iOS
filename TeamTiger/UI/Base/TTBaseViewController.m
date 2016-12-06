@@ -56,6 +56,11 @@
     [self.hud hideAnimated:YES afterDelay:seconds];
 }
 
+- (void)showText:(NSString *)text afterSeconds:(int)seconds; {
+    self.hud.label.text = text;
+    [self.hud showAnimated:YES];
+    [self.hud hideAnimated:YES afterDelay:seconds];
+}
 
 - (MBProgressHUD *)hud {
     if (!_hud) {

@@ -227,7 +227,6 @@
     }];
     
     [self presentViewController:imagePickerVc animated:YES completion:nil];
-//    [self.navigationController pushViewController:imagePickerVc animated:YES];
 }
 
 

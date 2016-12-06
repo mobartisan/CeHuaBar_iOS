@@ -27,7 +27,9 @@
 #import "TTAddVoteViewController.h"
 
 @interface TTAddDiscussViewController ()
-
+{
+    NSString *_text;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) AddImageView *addImageView;
@@ -44,15 +46,13 @@
     [super viewDidLoad];
     self.title = @"发起讨论";
     [Common removeExtraCellLines:self.tableView];
-    WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
+        [Common customPopAnimationFromNavigation:self.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
     }];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 77;
-    //    self.tableView.rowHeight = 77;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 0.添加数据
@@ -64,18 +64,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tagItem.subtitle = [[CirclesManager sharedInstance] selectCircle];
-    //    [self.data removeAllObjects];
-    //
-    //    NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 1)];
-    //    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationNone];
-    //    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    self.tagItem.subtitle = ((NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"]));
     [self.tableView reloadData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)dealloc {
@@ -87,7 +77,7 @@
  */
 - (void)setupGroup0
 {
-    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle] destVcClass:[SelectCircleViewController class]];
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle][@"name"] destVcClass:[SelectCircleViewController class]];
     self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     self.tempDescribe = describe;
@@ -157,6 +147,9 @@
     TTCommonGroup *group = self.data[indexPath.section];
     cell.item = group.items[indexPath.row];
     cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
+    cell.actionBlock = ^ (NSString *text) {
+        _text = text;
+    };
     
     // 3.返回cell
     return cell;
@@ -208,20 +201,24 @@
 -(UIButton *)startMomentBtn{
     if (!_startMomentBtn) {
         _startMomentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        //        _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 8);
         [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
-        //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateNormal];
-        //        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateHighlighted];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
         _startMomentBtn.backgroundColor = [UIColor clearColor];
-        //        _startMeetingBtn.bounds = (CGRect){CGPointZero, _startMeetingBtn.currentBackgroundImage.size};
     }
     return _startMomentBtn;
 }
 
 - (void)actionStartMoment {
+    if ([Common isEmptyString:self.tagItem.subtitle]) {
+        [super showText:@"请选择项目" afterSeconds:1.0];
+        return;
+    }
+    if ([Common isEmptyString:_text]) {
+        [super showText:@"请输入描述" afterSeconds:1.0];
+        return;
+    }
 #warning TO DO
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
     NSMutableArray *mediasArr = [NSMutableArray array];
@@ -253,8 +250,6 @@
         [super showHudWithText:@"上传图片失败"];
         [super hideHudAfterSeconds:1.0];
     }];
-    // 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6 user_id
-    //
 }
 
 @end

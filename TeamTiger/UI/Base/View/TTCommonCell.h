@@ -11,6 +11,7 @@
 @interface TTCommonCell : UITableViewCell
 @property (nonatomic, strong) TTCommonItem *item;
 @property (nonatomic, assign, getter = isLastRowInSection) BOOL lastRowInSection;
+@property (copy, nonatomic) void (^actionBlock)(NSString *text);
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

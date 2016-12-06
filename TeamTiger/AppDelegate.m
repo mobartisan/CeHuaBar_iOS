@@ -31,9 +31,7 @@
     if(!self.window){
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
-    NSLog(@"%@", NSHomeDirectory());
     [self initialMethods];
-    
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
@@ -184,10 +182,6 @@
     [[QiniuUpoadManager mainQiniuUpoadManager] createToken];
     //应用统计
     [Analyticsmanager startAppAnalytics];
-}
-
-- (void)initialGlobalData {
-    
 }
 
 @end

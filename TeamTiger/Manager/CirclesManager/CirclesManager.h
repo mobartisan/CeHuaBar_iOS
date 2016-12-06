@@ -24,7 +24,7 @@ typedef enum : NSUInteger {
 - (void)delectCircleWithIndex:(NSInteger)index OrTitle:(NSString *)title;
 
 @property(nonatomic, strong) NSMutableArray *circles;
-@property(nonatomic, strong) NSString *selectCircle;
+@property(nonatomic, strong) NSDictionary *selectCircle;
 @property(nonatomic, assign) NSInteger selectIndex;
 @property(nonatomic, assign) OptionType optionType;
 @end
