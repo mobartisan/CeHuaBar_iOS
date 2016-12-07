@@ -31,7 +31,7 @@
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@-------", request.responseJSONObject);
         ;
-        for (NSDictionary *dic in request.responseJSONObject[OBJ][@"data"]) {
+        for (NSDictionary *dic in request.responseJSONObject[OBJ][DATA]) {
             
         }
         

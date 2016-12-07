@@ -9,7 +9,7 @@
 #ifndef Constant_h
 #define Constant_h
 
-static NSString *const Dev_Server = @"http://192.168.0.113:3001/";
+static NSString *const Dev_Server = @"http://192.168.3.41:3001/";
 static NSString *const Pro_Server = @"http://www.cehuabar.com:3001/";
 //GeTui
 
@@ -54,6 +54,7 @@ static NSString *const MSG = @"msg";
 static NSString *const SUCCESS = @"success";
 static NSString *const OBJ = @"obj";
 static NSString *const TOKEN = @"token";
+static NSString *const DATA = @"data";
 
 //微信相关
 #define WXDoctor_App_ID @"wx6103c7337b6114c0"  // 注册微信时的AppID

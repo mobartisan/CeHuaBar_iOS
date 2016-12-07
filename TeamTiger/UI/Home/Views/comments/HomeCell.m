@@ -204,7 +204,7 @@
     _homeModel = homeModel;
     
     [self.tableView reloadData];
-
+    
     self.iconImV.image = [YYImage imageNamed:homeModel.iconImV];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
@@ -282,7 +282,7 @@
     inputImageV.sd_layout.leftSpaceToView(_headerImage, 33).topSpaceToView(_headerImage, 25).widthIs(13).heightIs(13);//20 + 13
     
     imageV.sd_layout.leftSpaceToView(_headerImage, 63 - 15 / 2).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
-
+    
     imgBtn.sd_layout.rightSpaceToView(_headerImage, 5).topSpaceToView(_headerImage, 23).widthIs(20).heightIs(20);
     
     //20 + 30
@@ -309,33 +309,64 @@
 #warning to do
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSArray *array = @[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg", @"image_4.jpg"];
-            NSMutableArray *picArr = [NSMutableArray array];
-            for (int i = 0; i < arc4random()%((int)array.count); i++) {
-                [picArr addObject:array[i]];
-            }
-            NSDictionary *dic = @{@"name":@"曹兴星",
-                                  @"content":textView.text,
-                                  @"photeNameArry":picArr,
-                                  @"time":[Common getCurrentSystemTime]};
-            HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
-            HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
-            commentModelF.homeCommentModel = commentModel;
-            [_homeModel.comment insertObject:commentModelF atIndex:0];
-            _homeModel.index += 1;
-            _homeModel.partHeight +=commentModelF.cellHeight;
-            _homeModel.totalHeight +=commentModelF.cellHeight;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
-                    [self.delegate clickCommentBtn:self.commentBtn.indexPath];
-                }
-            });
-        });
-       
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+            NSLog(@"调试接口");
+            
+            
+            NSMutableArray *mediasArr = [NSMutableArray array];
+            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
+                                  @"type":@0,
+                                  @"from":@1,
+                                  @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png"};
+            [mediasArr addObject:dic];
+            
+            
+            NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
+            discussCreatApi.requestArgument = @{@"text":textView.text,
+                                               @"pid":@"5844e4d205bba03115f27a88",
+                                               @"type":@0,
+                                               @"medias":urlsStr,
+                                               @"mid":@"5847736fba4a3f500645ac64"};
+            [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                NSLog(@"%@", request.responseJSONObject);
+            } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                NSLog(@"%@", error);
+                
+            }];
+            
+        
+                       
+
+//                       NSArray *array = @[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg", @"image_4.jpg"];
+//                       NSMutableArray *picArr = [NSMutableArray array];
+//                       for (int i = 0; i < arc4random()%((int)array.count); i++) {
+//                           [picArr addObject:array[i]];
+//                       }
+//                       NSDictionary *dic = @{@"name":@"曹兴星",
+//                                             @"content":textView.text,
+//                                             @"photeNameArry":picArr,
+//                                             @"time":[Common getCurrentSystemTime]};
+//                       HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+//                       HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+//                       commentModelF.homeCommentModel = commentModel;
+//                       [_homeModel.comment insertObject:commentModelF atIndex:0];
+//                       _homeModel.index += 1;
+//                       _homeModel.partHeight +=commentModelF.cellHeight;
+//                       _homeModel.totalHeight +=commentModelF.cellHeight;
+//                       dispatch_async(dispatch_get_main_queue(), ^{
+//            if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+//                [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+//            }
+//        });
+    
         return NO;
     }
     return YES;
+
+                       
 }
 
 #pragma mark UITableViewDataSource

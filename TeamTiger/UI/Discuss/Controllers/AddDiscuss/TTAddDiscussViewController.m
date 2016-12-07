@@ -223,19 +223,23 @@
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
     NSMutableArray *mediasArr = [NSMutableArray array];
     [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+        NSLog(@"%f", progress);
     } success:^(NSArray *urls) {
         for (NSString *url in urls) {
             NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
-                                  @"type":@"0",
-                                  @"from":@"1",
+                                  @"type":@0,
+                                  @"from":@1,
                                   @"url":url};
             [mediasArr addObject:dic];
         }
+
+        NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
-        momentCreatApi.requestArgument = @{@"text":@"测试数据",
+        momentCreatApi.requestArgument = @{@"text":_text,
                                            @"pid":@"5844e4d205bba03115f27a88",
-                                           @"type":@"1",
-                                           @"mediaarray":@[]};
+                                           @"type":@1,
+                                           @"medias":urlsStr};
         [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
             NSLog(@"%@", request.responseJSONObject);
             [super showHudWithText:@"发起讨论成功"];

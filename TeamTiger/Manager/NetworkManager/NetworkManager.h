@@ -27,17 +27,9 @@
 
 @end
 
-@interface TestApi : LCBaseRequest<LCAPIRequest>
 
-@end
-
-//项目
-@interface ProjectsApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//项目详情
-@interface ProjectDetailApi : LCBaseRequest<LCAPIRequest>
+//所有的Moments
+@interface AllMomentsApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
@@ -46,14 +38,9 @@
 
 @end
 
-//退出项目
-@interface ProjectExitApi : LCBaseRequest<LCAPIRequest>
 
-@end
-
-
-//讨论
-@interface DiscussesApi : LCBaseRequest<LCAPIRequest>
+//创建Moment
+@interface MomentCreateApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
@@ -62,25 +49,6 @@
 
 @end
 
-//删除讨论
-@interface DiscussDeleteApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//评论
-@interface CommentsApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//创建Moment
-@interface MomentCreateApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//删除评论
-@interface CommentDeleteApi : LCBaseRequest<LCAPIRequest>
-
-@end
 
 //上传图片
 @interface ImageUploadApi : LCBaseRequest<LCAPIRequest>
@@ -92,10 +60,23 @@
 //所有项目名称
 @interface AllProjectsApi : LCBaseRequest<LCAPIRequest>
 
-
 @end
 
 
+//项目详情
+@interface ProjectDetailApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//退出项目
+@interface ProjectExitApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//分组
+@interface AllGroupsApi : LCBaseRequest<LCAPIRequest>
+
+@end
 
 
 

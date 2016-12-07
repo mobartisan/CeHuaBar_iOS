@@ -223,7 +223,7 @@
 #warning TO DO...
 - (void)longiApi:(id)tempDic {
     LoginApi *login = [[LoginApi alloc] init];
-    login.requestArgument = self.tempDic;
+    login.requestArgument = tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         gSession = request.responseJSONObject[OBJ][TOKEN];

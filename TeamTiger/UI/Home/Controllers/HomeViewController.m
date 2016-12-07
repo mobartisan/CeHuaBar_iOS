@@ -201,7 +201,7 @@
     [Common removeExtraCellLines:self.tableView];
     if (self.showTableHeader) {
         self.tableView.tableHeaderView = self.tableHeader;
-
+        
     }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
@@ -221,7 +221,7 @@
 }
 
 - (void)handlNetwork {
-    ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
+    AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = @{@"page":@"1",
                                     @"rows":@"10"};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -231,19 +231,55 @@
         [super showHudWithText:@"获取Moments失败"];
         [super hideHudAfterSeconds:1.0];
     }];
-//返回类型
-//    {
-//        code = 1000,
-//        success = 0,
-//        obj = {
-//            message = 查询成功,
-//            data = (
-//            )
-//            ,
-//            code = 1000
-//        },
-//        msg = 查询成功
-//    }
+    //返回类型
+    //    {
+    //        code = 1000,
+    //        success = 1,
+    //        obj = {
+    //            message = 查询成功,
+    //            data = (
+    //                    {
+    //                        prid = {
+    //                            nick_name = 我和你💓,
+    //                            username = o4vxEmYWRjUw
+    //                        },
+    //                        comments = (
+    //                        )
+    //                        ,
+    //                        create_date = 2016-12-07 10:25:55,
+    //                        uid = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+    //                        update_date = 2016-12-07 10:25:55,
+    //                        create_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+    //                        _id = 5847736fba4a3f500645ac64,
+    //                        medias = (
+    //                                  {
+    //                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_e4ZT9z1b.png
+    //                                  },
+    //                                  {
+    //                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png
+    //                                  }
+    //                                  )
+    //                        ,
+    //                        type = 1,
+    //                        update_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
+    //                        deleted = 0,
+    //                        comment_date = 2016-12-07 10:25:55,
+    //                        text = cvg,
+    //                        __v = 0,
+    //                        pid = {
+    //                            name = jlil
+    //                        },
+    //                        votes = (
+    //                        )
+    //
+    //                    }
+    //                    )
+    //            ,
+    //            code = 1000
+    //        },
+    //        msg = 查询成功
+    //    }
+    
     
 }
 

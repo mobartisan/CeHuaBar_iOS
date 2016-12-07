@@ -88,71 +88,11 @@ static double const timeOutInterval = 15.0;
 @end
 
 
-@implementation TestApi
-
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-@implementation ProjectsApi
+//所有的Moments
+@implementation AllMomentsApi
 
 - (NSString *)apiMethodName {
     return @"bbs/api/v1.0/moment/list.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-@implementation ProjectDetailApi
-
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -242,128 +182,8 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-@implementation DiscussesApi
 
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-@implementation DiscussCreateApi
-
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/moment/add.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-@implementation DiscussDeleteApi
-
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-@implementation CommentsApi
-
-- (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
+//创建Moment
 @implementation MomentCreateApi
 
 - (NSString *)apiMethodName {
@@ -393,14 +213,15 @@ static double const timeOutInterval = 15.0;
 @end
 
 
-@implementation CommentDeleteApi
+//创建discuss
+@implementation DiscussCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
+    return @"bbs/api/v1.0/discuss/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
+    return LCRequestMethodPost;
 }
 
 - (NSTimeInterval)requestTimeoutInterval {
@@ -411,9 +232,6 @@ static double const timeOutInterval = 15.0;
     return YES;
 }
 
-- (BOOL)cacheResponse {
-    return NO;
-}
 
 - (NSDictionary *)requestHeaderValue {
     return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
@@ -482,8 +300,72 @@ static double const timeOutInterval = 15.0;
     
 }
 
+@end
+
+//项目详情
+@implementation ProjectDetailApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/point2.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
 
 @end
+
+//分组
+@implementation AllGroupsApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/project/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+
+
 
 
 
