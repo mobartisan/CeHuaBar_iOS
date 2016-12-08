@@ -10,7 +10,7 @@
 #pragma mark - 
 @interface TT_Group : NSObject
 @property(nonatomic, strong) NSString *group_id;  // group_id
-@property(nonatomic, strong) NSString *name;  // name
+@property(nonatomic, strong) NSString *group_name;  // name
 @property(nonatomic, strong) NSString *pids;  //pids
 @property(nonatomic, strong) NSString *description;  // description
 @property(nonatomic)         NSInteger current_state;  // current_state 0代表当前可以用  1代表已删除

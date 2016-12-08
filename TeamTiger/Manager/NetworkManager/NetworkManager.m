@@ -120,7 +120,7 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-
+//创建项目
 @implementation ProjectCreateApi
 
 - (NSString *)apiMethodName {
@@ -240,6 +240,7 @@ static double const timeOutInterval = 15.0;
 @end
 
 
+//上传图片
 @implementation ImageUploadApi
 
 - (NSString *)apiMethodName {
@@ -338,7 +339,7 @@ static double const timeOutInterval = 15.0;
 @implementation AllGroupsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/project/list.app";
+    return @"bbs/api/v1.0/group/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -357,6 +358,34 @@ static double const timeOutInterval = 15.0;
     return NO;
 }
 
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//分组下的项目列表
+@implementation ProjectsApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/group/project/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
 
 - (NSDictionary *)requestHeaderValue {
     return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
@@ -364,6 +393,64 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//删除分组下的项目
+@implementation DeleteProjectApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/group/project/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+
+//移动分组下的项目
+@implementation MoveProjectApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/group/project/move.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
 
 
 

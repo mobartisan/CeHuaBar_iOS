@@ -17,5 +17,6 @@
 
 @property(nonatomic, copy) NSString *groupId;
 
+@property (copy, nonatomic) NSString *gid;
 
 @end

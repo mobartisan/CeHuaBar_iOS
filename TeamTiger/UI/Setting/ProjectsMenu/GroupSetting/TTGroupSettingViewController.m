@@ -84,7 +84,7 @@
         if (!cell) {
             cell = LoadFromNib(@"GroupCell");
         }
-        cell.nameTxtField.text = self.groupInfo.name;
+        cell.nameTxtField.text = self.groupInfo.group_name;
         cell.endEditBlock = ^(GroupCell *cell, NSString *nameStr) {
             
         };
@@ -106,6 +106,7 @@
         ((ProjectsCell *)cell).deleteMember = ^{
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
+#warning to do...                    
                     [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                     //从分组中删除
                     TT_Group *group = [SQLITEMANAGER selectDatasSql:[NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId] Class:TABLE_TT_Group].firstObject;

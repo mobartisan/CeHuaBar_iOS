@@ -31,6 +31,8 @@
 #import "MockDatas.h"
 #import "TTGroupSettingViewController.h"
 
+
+
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,7 +46,6 @@
 @property (assign, nonatomic) BOOL showTableHeader;
 
 @property (copy, nonatomic) NSString *current_group_id;
-
 @property (copy, nonatomic) NSString *current_project_id;
 
 @end
@@ -189,7 +190,12 @@
     // Do any additional setup after loading the view from its nib.
     bView = self.view;
     self.title = @"Moments";
+    [self getAllProjects];
+    [self getAllMoments];
+#if TEST
     [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:nil IsProject:NO IsAll:YES]];
+#endif
+    
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -209,76 +215,74 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
-#warning TO DO
-#if 1
-    [self handlNetwork];
-    [self handleProject];
-#endif
 }
 
-- (void)handleProject {
+- (void)getAllProjects {
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
 }
 
-- (void)handlNetwork {
+#warning to do 获取所有Moments
+- (void)getAllMoments {
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = @{@"page":@"1",
                                     @"rows":@"10"};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
+        NSLog(@"getAllMoments:%@", request.responseJSONObject);
+#if !TEST
+        for (NSDictionary *dic in request.responseJSONObject[OBJ][DATA]) {
+            HomeModel *homeModel = [HomeModel modelWithDic:dic];
+            [self.dataSource addObject:homeModel];
+        }
+        [self.tableView reloadData];
+#endif
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showHudWithText:@"获取Moments失败"];
         [super hideHudAfterSeconds:1.0];
     }];
-    //返回类型
-    //    {
-    //        code = 1000,
-    //        success = 1,
-    //        obj = {
-    //            message = 查询成功,
-    //            data = (
-    //                    {
-    //                        prid = {
-    //                            nick_name = 我和你💓,
-    //                            username = o4vxEmYWRjUw
-    //                        },
-    //                        comments = (
-    //                        )
-    //                        ,
-    //                        create_date = 2016-12-07 10:25:55,
-    //                        uid = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
-    //                        update_date = 2016-12-07 10:25:55,
-    //                        create_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
-    //                        _id = 5847736fba4a3f500645ac64,
-    //                        medias = (
-    //                                  {
-    //                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_e4ZT9z1b.png
-    //                                  },
-    //                                  {
-    //                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png
-    //                                  }
-    //                                  )
-    //                        ,
-    //                        type = 1,
-    //                        update_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
-    //                        deleted = 0,
-    //                        comment_date = 2016-12-07 10:25:55,
-    //                        text = cvg,
-    //                        __v = 0,
-    //                        pid = {
-    //                            name = jlil
-    //                        },
-    //                        votes = (
-    //                        )
-    //
-    //                    }
-    //                    )
-    //            ,
-    //            code = 1000
-    //        },
-    //        msg = 查询成功
-    //    }
+//    {
+//        code = 1000,
+//        success = 1,
+//        obj = {
+//            message = 查询成功,
+//            data = (
+//                    {
+//                        _id = 5848160f909730b8140bce41,
+//                        comments = (
+//                        )
+//                        ,
+//                        medias = (
+//                                  {
+//                                      _id = 5848160f909730b8140bce40,
+//                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_3I11xWQi.png,
+//                                      type = 0,
+//                                      from = 1
+//                                  }
+//                                  )
+//                        ,
+//                        votes = (
+//                        )
+//                        ,
+//                        comment_date = 2016-12-07 22:0:35,
+//                        text = 可口可乐了了,
+//                        prid = {
+//                            nick_name = 我和你💓,
+//                            username = tnCjdrcsyPuK,
+//                            _id = 58480dc7fba548ca132b59b8,
+//                            head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
+//                        },
+//                        type = 1,
+//                        pid = {
+//                            _id = 58480dfcfba548ca132b59bf,
+//                            name = 测试项目
+//                        }
+//                    }
+//                    )
+//            ,
+//            code = 1000
+//        },
+//        msg = 查询成功
+//    }
     
     
 }
@@ -297,6 +301,8 @@
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+#warning to do
+        [self getAllMoments];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];

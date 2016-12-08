@@ -226,7 +226,7 @@
         NSLog(@"%f", progress);
     } success:^(NSArray *urls) {
         for (NSString *url in urls) {
-            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
+            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
                                   @"type":@0,
                                   @"from":@1,
                                   @"url":url};
@@ -237,7 +237,7 @@
         NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
         momentCreatApi.requestArgument = @{@"text":_text,
-                                           @"pid":@"5844e4d205bba03115f27a88",
+                                           @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),//pid  项目id
                                            @"type":@1,
                                            @"medias":urlsStr};
         [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {

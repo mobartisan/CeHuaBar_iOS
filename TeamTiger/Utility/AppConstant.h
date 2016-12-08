@@ -9,7 +9,7 @@
 #ifndef Constant_h
 #define Constant_h
 
-static NSString *const Dev_Server = @"http://192.168.3.41:3001/";
+static NSString *const Dev_Server = @"http://192.168.3.41:3001/";//http://192.168.68.91:3001/
 static NSString *const Pro_Server = @"http://www.cehuabar.com:3001/";
 //GeTui
 

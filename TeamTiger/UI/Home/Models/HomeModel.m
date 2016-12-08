@@ -13,8 +13,39 @@
 
 @implementation HomeModel
 
+- (NSMutableArray *)photeNameArry {
+    if (_photeNameArry == nil) {
+        _photeNameArry = [NSMutableArray array];
+    }
+    return _photeNameArry;
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"prid"]) {
+        self.iconImV = value[@"head_img_url"];
+    }
+    if ([key isEqualToString:@"prid"]) {
+        self.name = value[@"nick_name"];
+    }
     
+    if ([key isEqualToString:@"pid"]) {
+        self.project = value[@"name"];
+    }
+    
+    if ([key isEqualToString:@"text"]) {
+        self.content = value;
+    }
+    if ([key isEqualToString:@"medias"]) {
+        for (NSDictionary *mediasDic in value) {
+            [self.photeNameArry addObject:mediasDic[@"url"]];
+        }
+    }
+    if ([key isEqualToString:@"comment_date"]) {
+        self.time = [Common handleDate:value];
+    }
+    if ([key isEqualToString:@"comments"]) {
+        self.comment = value;
+    }
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {

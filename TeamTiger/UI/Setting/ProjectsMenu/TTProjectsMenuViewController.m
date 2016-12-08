@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self getAllGroups];
     self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
@@ -45,6 +46,24 @@
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
     self.menuTable.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+}
+
+#warning to do 获取所有分组
+- (void)getAllGroups {
+    AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
+    [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"getAllGroups:%@", request.responseJSONObject);
+        for (NSDictionary *existlistDic in request.responseJSONObject[OBJ][@"existlist"]) {
+            TT_Group *group = [[TT_Group alloc] init];
+            group.group_id = existlistDic[@"_id"];
+            group.group_name = existlistDic[@"group_name"];
+            group.create_date = existlistDic[@"group_create_date"];
+            [self.groups addObject:group];
+        }
+        [self.menuTable reloadData];
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"getAllGroups:%@", error);
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -92,7 +111,12 @@
         };
         //增加项目至分组的cell回调block
         ((ProjectsCell *)cell).addMember = ^{
+#if TEST
+            [self moveProject];
+            
+#else
             [self addProjectIntoGroupAction:projectInfo];
+#endif
         };
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
@@ -129,6 +153,19 @@
         }
     }
     return cell;
+}
+
+#warning 移动未分组项目到某个分组下
+- (void)moveProject {
+    MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
+    moveProjectApi.requestArgument = @{@"from_gid":@"58480dc8fba548ca132b59ba",//
+                                       @"to_gid":@"58480dc8fba548ca132b59bd",
+                                       @"pid":@"58480dfcfba548ca132b59bf"};//pid 项目id
+    [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"moveProject:%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"moveProject:%@", error);
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -191,28 +228,43 @@
 
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@"" userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@"" userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
     }];
 }
 
 #pragma -mark Data Handle
 - (NSMutableArray *)groups {
     if (!_groups) {
+#warning to do
+#if TEST
         TT_User *user = [TT_User sharedInstance];
         [SQLITEMANAGER setDataBasePath:user.user_id];
         NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
         NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
         _groups = [NSMutableArray arrayWithArray:groups];
+#else
+        _groups = [NSMutableArray array];
+#endif
     }
     return _groups;
 }
 
 - (NSMutableArray *)projects {
     if (!_projects) {
+#if TEST
         [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
         NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Project];
         NSArray *projects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
         _projects = [NSMutableArray arrayWithArray:projects];
+#else
+        _projects = [NSMutableArray array];
+        for (NSDictionary *projectDic in [CirclesManager sharedInstance].circles) {
+            TT_Project *tt_Project = [[TT_Project alloc] init];
+            tt_Project.project_id = projectDic[@"_id"];
+            tt_Project.name = projectDic[@"name"];
+            [_projects addObject:tt_Project];
+        }
+#endif
     }
     return _projects;
 }
@@ -330,7 +382,6 @@
 - (ProjectsView *)pView {
     if (!_pView) {
         _pView = [[ProjectsView alloc] initWithDatas:[NSArray array]];
-        
         WeakSelf;
         //data handle
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
@@ -347,6 +398,7 @@
         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
             TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
             groupVC.groupId = [object group_id];
+            groupVC.gid = @"58480dc8fba548ca132b59ba";
             [wself.navigationController pushViewController:groupVC animated:YES];
         };
     }

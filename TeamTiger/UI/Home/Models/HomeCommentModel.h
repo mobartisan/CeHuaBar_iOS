@@ -14,7 +14,7 @@
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *sName;
 @property (copy, nonatomic) NSString *content;
-@property (strong, nonatomic) NSArray *photeNameArry;
+@property (strong, nonatomic) NSMutableArray *photeNameArry;
 
 //是否显示更多按钮
 @property (assign, nonatomic) BOOL show;

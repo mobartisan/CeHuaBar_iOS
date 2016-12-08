@@ -47,8 +47,19 @@
     [self.table reloadData];
 }
 
+- (void)getProjectsList {
+    ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
+    projectsApi.requestArgument = @{@"gid":self.gid};
+    [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"getProjectsList:%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self getProjectsList];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
@@ -73,6 +84,10 @@
     ((ProjectsCell *)cell).deleteMember = ^{
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 1) {
+#warning to do....从分组中删除
+#if TEST
+                [self deleteProject];
+#else
                 [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                 //从分组中删除
                 TT_Group *group = [SQLITEMANAGER selectDatasSql:[NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId] Class:TABLE_TT_Group].firstObject;
@@ -83,6 +98,7 @@
                 [SQLITEMANAGER executeSql:updateSql];
                 [self.projects removeObjectAtIndex:indexPath.row];
                 [self.table reloadData];
+#endif
             }
         }];
     };
@@ -99,6 +115,17 @@
         }
     };
     return cell;
+}
+
+- (void)deleteProject {
+    DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
+    deleteProjectApi.requestArgument = @{@"pid":@"58480dfcfba548ca132b59bf",//项目ID
+                                         @"gid":@"58480dc8fba548ca132b59ba"};//分组ID
+    [deleteProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

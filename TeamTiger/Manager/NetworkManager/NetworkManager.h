@@ -78,6 +78,20 @@
 
 @end
 
+//分组下的项目列表
+@interface ProjectsApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//删除分组下的项目
+@interface DeleteProjectApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//移动分组下的项目
+@interface MoveProjectApi : LCBaseRequest<LCAPIRequest>
+
+@end
 
 
 

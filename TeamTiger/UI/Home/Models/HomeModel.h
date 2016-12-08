@@ -10,7 +10,7 @@
 
 @class HomeCommentModelFrame;
 
-typedef NS_ENUM(NSInteger, HomeModelCellType) {
+typedef NS_ENUM(int, HomeModelCellType) {
     HomeModelCellTypeComment = 0,
     HomeModelCellTypeVote
 };
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, HomeModelCellType) {
 //内容
 @property (copy, nonatomic) NSString *content;
 //图片数组
-@property (strong, nonatomic) NSArray *photeNameArry;
+@property (strong, nonatomic) NSMutableArray *photeNameArry;
 //投票个数数组
 @property (strong, nonatomic) NSMutableArray *ticketArry;
 //时间

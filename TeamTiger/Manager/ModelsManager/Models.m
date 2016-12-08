@@ -11,7 +11,7 @@
 @implementation TT_Group
 
 @synthesize group_id = _group_id;
-@synthesize name = _name;
+@synthesize group_name = _group_name;
 @synthesize pids = _pids;
 @synthesize description = _description;
 @synthesize current_state = _current_state;
@@ -24,7 +24,7 @@
 - (NSString *)description
 {
     NSLog(@"group_id:%@", _group_id);
-    NSLog(@"name:%@", _name);
+    NSLog(@"name:%@", _group_name);
     NSLog(@"pids:%@", _pids);
     NSLog(@"description:%@", _description);
     NSLog(@"current_state:%@", @(_current_state));
@@ -39,7 +39,7 @@
 
 + (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic {
     TT_Group *group = [[TT_Group alloc] init];
-    group.name = dic[@"Name"];
+    group.group_name = dic[@"Name"];
     group.pids = dic[@"Pids"];
     group.group_id = dic[@"Gid"];
     group.description = @"";

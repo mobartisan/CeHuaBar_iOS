@@ -37,7 +37,7 @@
             } else {
                 self.unreadMsgImgV.hidden = YES;
             }
-            self.projectNameLabel.text = group.name;
+            self.projectNameLabel.text = group.group_name;
             self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         }
         self.addBtn = [UIButton hyb_buttonWithImage:nil superView:self constraints:^(MASConstraintMaker *make) {
