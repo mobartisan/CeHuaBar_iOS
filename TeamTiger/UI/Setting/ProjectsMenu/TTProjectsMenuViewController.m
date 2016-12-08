@@ -315,7 +315,8 @@
     return _unGroupedProjects;
 }
  */
-
+//数据库数据 58492a3ae66dce5c23f7eef2
+/*
 - (void)creatGroupAction {
     if (self.gView.isShow) {
         [self.gView hide];
@@ -332,6 +333,41 @@
                 [SQLITEMANAGER executeSql:sqlString];
                 [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
                 [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                    hud.label.text = @"创建分组成功";
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                });
+            }
+        };
+    }
+}
+*/
+
+- (void)creatGroupAction {
+    if (self.gView.isShow) {
+        [self.gView hide];
+    } else {
+        [self.gView loadGroupInfo:nil AllProjects:self.projects];
+        [self.gView show];
+        WeakSelf;
+        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@, %@",object[@"Name"], object[@"Pids"]);
+                
+                NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
+                NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                GroupCreatApi *groupCreatApi = [[GroupCreatApi alloc] init];
+                groupCreatApi.requestArgument = @{@"group_name":object[@"Name"],
+                                                  @"pids":strPids};
+                [groupCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                    NSLog(@"%@", request.requestArgument);
+                } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                    NSLog(@"%@", error);
+                }];
+                
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
                     hud.label.text = @"创建分组成功";
@@ -444,7 +480,7 @@
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
                     NSString *Id = [object group_id];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"ISGROUP":@1, @"Title":[object name]}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@0}];
                 }
             }];
         };

@@ -309,15 +309,14 @@
 #warning to do 添加discuss
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              
               NSMutableArray *mediasArr = [NSMutableArray array];
               NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户唯一标识
                                     @"type":@0,
                                     @"from":@1,
                                     @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png"};
               [mediasArr addObject:dic];
-              
               
               NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
               NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -329,36 +328,28 @@
                                                   @"mid":@"5847736fba4a3f500645ac64"};
               [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
                   NSLog(@"%@", request.responseJSONObject);
+//                  NSDictionary *dic = @{@"name":@"曹兴星",
+//                                        @"content":textView.text,
+//                                        @"photeNameArry":mediasArr,
+//                                        @"time":[Common getCurrentSystemTime]};
+//                  HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+//                  HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+//                  commentModelF.homeCommentModel = commentModel;
+//                  [_homeModel.comment insertObject:commentModelF atIndex:0];
+//                  _homeModel.index += 1;
+//                  _homeModel.partHeight +=commentModelF.cellHeight;
+//                  _homeModel.totalHeight +=commentModelF.cellHeight;
+//                  dispatch_async(dispatch_get_main_queue(), ^{
+//                      if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+//                          [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+//                      }
+//                  });
               } failure:^(__kindof LCBaseRequest *request, NSError *error) {
                   NSLog(@"%@", error);
                   
               }];
           });
-            
         
-
-//                       NSArray *array = @[@"image_1.jpg", @"image_2.jpg", @"image_3.jpg", @"image_4.jpg"];
-//                       NSMutableArray *picArr = [NSMutableArray array];
-//                       for (int i = 0; i < arc4random()%((int)array.count); i++) {
-//                           [picArr addObject:array[i]];
-//                       }
-//                       NSDictionary *dic = @{@"name":@"曹兴星",
-//                                             @"content":textView.text,
-//                                             @"photeNameArry":picArr,
-//                                             @"time":[Common getCurrentSystemTime]};
-//                       HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
-//                       HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
-//                       commentModelF.homeCommentModel = commentModel;
-//                       [_homeModel.comment insertObject:commentModelF atIndex:0];
-//                       _homeModel.index += 1;
-//                       _homeModel.partHeight +=commentModelF.cellHeight;
-//                       _homeModel.totalHeight +=commentModelF.cellHeight;
-//                       dispatch_async(dispatch_get_main_queue(), ^{
-//            if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
-//                [self.delegate clickCommentBtn:self.commentBtn.indexPath];
-//            }
-//        });
-    
         return NO;
     }
     return YES;

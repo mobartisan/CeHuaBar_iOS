@@ -27,11 +27,14 @@
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"loadingGlobalCirclesInfo:%@", request.responseJSONObject);
         ;
-        for (NSDictionary *dataDic in request.responseJSONObject[OBJ][DATA]) {
-            [self.circles addObject:dataDic];
+        if ([request.responseJSONObject[OBJ][DATA] count] > 0) {
+            for (NSDictionary *dataDic in request.responseJSONObject[OBJ][DATA]) {
+                [self.circles addObject:dataDic];
+            }
+            self.selectIndex = 0;
+            self.selectCircle = self.circles[_selectIndex];
         }
-        self.selectIndex = 0;
-        self.selectCircle = self.circles[_selectIndex];
+        
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         //        [super showHudWithText:@"获取项目失败"];

@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目";
+    self.projects = [NSMutableArray array];
     //left
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(0, 0, 23, 23);
@@ -50,7 +51,15 @@
     ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
     projectsApi.requestArgument = @{@"gid":self.gid};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getProjectsList:%@", request.responseJSONObject);
+        NSLog(@"getProjectsList:%@", request.responseJSONObject[OBJ][DATA][@"pids"]);
+        NSArray *pidsArr = request.responseJSONObject[OBJ][DATA][@"pids"];
+        for (NSDictionary *projectDic in pidsArr) {
+            TT_Project *tt_project = [[TT_Project alloc] init];
+            tt_project.name = projectDic[@"name"];
+            tt_project.project_id = projectDic[@"_id"];
+            [_projects addObject:tt_project];
+        }
+        [self.table reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -58,7 +67,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self getProjectsList];
+     [self getProjectsList];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
@@ -116,6 +125,7 @@
     return cell;
 }
 
+#warning to do....
 - (void)deleteProject {
     DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
     deleteProjectApi.requestArgument = @{@"pid":@"58480dfcfba548ca132b59bf",//项目ID
@@ -140,7 +150,7 @@
     }    
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[self.projects[indexPath.row] project_id] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"ISGROUP":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[self.projects[indexPath.row] project_id] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
 }

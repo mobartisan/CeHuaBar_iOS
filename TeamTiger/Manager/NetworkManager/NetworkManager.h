@@ -93,5 +93,9 @@
 
 @end
 
+//添加分组
+@interface GroupCreatApi : LCBaseRequest<LCAPIRequest>
+
+@end
 
 

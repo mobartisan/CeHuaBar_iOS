@@ -191,11 +191,8 @@
     bView = self.view;
     self.title = @"Moments";
     [self getAllProjects];
-    [self getAllMoments];
-#if TEST
-    [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:nil IsProject:NO IsAll:YES]];
-#endif
-    
+    [self getAllMoments:@{@"page":@"1",
+                          @"rows":@"10"}];
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -209,7 +206,6 @@
         self.tableView.tableHeaderView = self.tableHeader;
         
     }
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
@@ -222,19 +218,16 @@
 }
 
 #warning to do 获取所有Moments
-- (void)getAllMoments {
+- (void)getAllMoments:(NSDictionary *)requestDic {
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
-    projectsApi.requestArgument = @{@"page":@"1",
-                                    @"rows":@"10"};
+    projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
-#if !TEST
         for (NSDictionary *dic in request.responseJSONObject[OBJ][DATA]) {
             HomeModel *homeModel = [HomeModel modelWithDic:dic];
             [self.dataSource addObject:homeModel];
         }
         [self.tableView reloadData];
-#endif
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showHudWithText:@"获取Moments失败"];
@@ -301,8 +294,6 @@
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-#warning to do
-        [self getAllMoments];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -492,19 +483,19 @@
     [hud hideAnimated:YES afterDelay:1.0];
     //data
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (notification.userInfo && [notification.userInfo[@"ISGROUP"] intValue] == 1) {
-            [self getDataWithProjectId:notification.object IsGroup:((BOOL)(notification.userInfo[@"ISGROUP"]))];
-            self.title = notification.userInfo[@"Title"];
-            [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
-            self.current_group_id = notification.object;
-            self.current_project_id = nil;
-        } else {
-            [self getDataWithProjectId:notification.object];
-            self.title = notification.userInfo[@"Title"];
-            [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
-            self.current_project_id = notification.object;
-            self.current_group_id = nil;
+        if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+            [self.dataSource removeAllObjects];
+            [self getAllMoments:@{@"page":@"1",
+                                  @"rows":@"10",
+                                  @"gid":notification.object}];
+            
+        }else {
+            [self.dataSource removeAllObjects];
+            [self getAllMoments:@{@"page":@"1",
+                                  @"rows":@"10",
+                                  @"pid":@"58492a3ae66dce5c23f7eef2"}];//58492a3ae66dce5c23f7eef2
         }
+        self.title = notification.userInfo[@"Title"];
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     });
 }

@@ -13,7 +13,7 @@
 #define kColorForCommonCellBackgroud [Common colorFromHexRGB:@"1a293b"]
 #define kColorForCommonCellSelectedBackgroud [Common colorFromHexRGB:@"272d39"]
 
-#define TEST 0
+#define TEST 1
 
 static const double default_NavigationHeight = 64.0;
 static const double kDistanceToHSide = 16.0f;
