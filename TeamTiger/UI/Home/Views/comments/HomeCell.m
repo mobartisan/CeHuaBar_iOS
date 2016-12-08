@@ -306,13 +306,13 @@
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-#warning to do
+#warning to do 添加discuss
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
               NSMutableArray *mediasArr = [NSMutableArray array];
-              NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",
+              NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户唯一标识
                                     @"type":@0,
                                     @"from":@1,
                                     @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png"};
@@ -323,7 +323,7 @@
               NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
               DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
               discussCreatApi.requestArgument = @{@"text":textView.text,
-                                                  @"pid":@"5844e4d205bba03115f27a88",
+                                                  @"pid":_homeModel.Id,
                                                   @"type":@0,
                                                   @"medias":urlsStr,
                                                   @"mid":@"5847736fba4a3f500645ac64"};

@@ -43,7 +43,6 @@
     [rightBtn addTarget:self action:@selector(addProject:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     //data
-    [self loadProjects];
     [self.table reloadData];
 }
 
@@ -190,6 +189,7 @@
     return _groups;
 }
 
+//数据库数据
 - (void)loadProjects {
     [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
