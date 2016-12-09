@@ -55,6 +55,11 @@
     AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllGroups:%@", request.responseJSONObject);
+        
+        //分组数据
+        if (![Common isEmptyArr:self.groups]) {
+            [self.groups removeAllObjects];
+        }
         NSDictionary *objDic =  request.responseJSONObject[OBJ];
         for (NSDictionary *existlistDic in objDic[@"existlist"]) {
             TT_Group *group = [[TT_Group alloc] init];
@@ -64,6 +69,10 @@
             [self.groups addObject:group];
         }
         
+        //未分组
+        if (![Common isEmptyArr:self.unGroupedProjects]) {
+            [self.unGroupedProjects removeAllObjects];
+        }
         NSDictionary *noexistlistDic = [objDic[@"noexistlist"] firstObject];
         self.unGroup_id = noexistlistDic[@"_id"];
         if ([(noexistlistDic[@"pids"]) count] > 0) {
@@ -84,6 +93,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.menuTable reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -315,7 +325,7 @@
     return _unGroupedProjects;
 }
  */
-//数据库数据 58492a3ae66dce5c23f7eef2
+//数据库数据
 /*
 - (void)creatGroupAction {
     if (self.gView.isShow) {
@@ -345,6 +355,7 @@
 }
 */
 
+#pragma mark 创建分组...
 - (void)creatGroupAction {
     if (self.gView.isShow) {
         [self.gView hide];
@@ -355,7 +366,6 @@
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
                 NSLog(@"%@, %@",object[@"Name"], object[@"Pids"]);
-                
                 NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
                 NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -363,17 +373,15 @@
                 groupCreatApi.requestArgument = @{@"group_name":object[@"Name"],
                                                   @"pids":strPids};
                 [groupCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-                    NSLog(@"%@", request.requestArgument);
+                    NSLog(@"creatGroupAction:%@", request.requestArgument);
+                    [wself getAllGroups];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [super showText:@"创建分组成功" afterSeconds:1.5];
+                    });
                 } failure:^(__kindof LCBaseRequest *request, NSError *error) {
                     NSLog(@"%@", error);
+                    [super showText:@"创建分组失败" afterSeconds:1.5];
                 }];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                    hud.label.text = @"创建分组成功";
-                    hud.mode = MBProgressHUDModeText;
-                    [hud hideAnimated:YES afterDelay:1.5];
-                });
             }
         };
     }
@@ -480,7 +488,7 @@
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
                     NSString *Id = [object group_id];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@0}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
                 }
             }];
         };

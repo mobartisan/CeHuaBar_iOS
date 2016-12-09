@@ -52,6 +52,9 @@
     projectsApi.requestArgument = @{@"gid":self.gid};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getProjectsList:%@", request.responseJSONObject[OBJ][DATA][@"pids"]);
+        if (![Common isEmptyArr:self.projects]) {
+            [self.projects removeAllObjects];
+        }
         NSArray *pidsArr = request.responseJSONObject[OBJ][DATA][@"pids"];
         for (NSDictionary *projectDic in pidsArr) {
             TT_Project *tt_project = [[TT_Project alloc] init];
@@ -67,7 +70,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-     [self getProjectsList];
+    [self getProjectsList];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
@@ -94,7 +97,8 @@
             if (buttonIndex == 1) {
 #warning to do....从分组中删除
 #if TEST
-                [self deleteProject];
+                [self.projects removeObject:projectInfo];
+                [self deleteProjectGid:self.gid pid:[projectInfo project_id]];
 #else
                 [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                 //从分组中删除
@@ -126,12 +130,16 @@
 }
 
 #warning to do....
-- (void)deleteProject {
+- (void)deleteProjectGid:(NSString *)gid pid:(NSString *)pid {
     DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
-    deleteProjectApi.requestArgument = @{@"pid":@"58480dfcfba548ca132b59bf",//项目ID
-                                         @"gid":@"58480dc8fba548ca132b59ba"};//分组ID
+    deleteProjectApi.requestArgument = @{@"pid":pid,//项目ID
+                                         @"gid":gid};//分组ID
     [deleteProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showText:@"删除项目成功" afterSeconds:1.0];
+            [self.table reloadData];
+        }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
     }];
@@ -200,6 +208,7 @@
 }
 
 //数据库数据
+/*
 - (void)loadProjects {
     [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
     NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
@@ -221,7 +230,8 @@
         [self.projects addObjectsFromArray:selProjects];
     }
 }
-
+*/
+ 
 - (void)addProject:(id)sender {
     // add project
     TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];

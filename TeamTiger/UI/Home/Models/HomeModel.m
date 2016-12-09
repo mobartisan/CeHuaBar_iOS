@@ -32,6 +32,10 @@
         self.project = value[@"name"];
     }
     
+    if ([key isEqualToString:@"pid"]) {
+        self.Id = value[@"_id"];
+    }
+    
     if ([key isEqualToString:@"text"]) {
         self.content = value;
     }

@@ -191,8 +191,6 @@
     bView = self.view;
     self.title = @"Moments";
     [self getAllProjects];
-    [self getAllMoments:@{@"page":@"1",
-                          @"rows":@"10"}];
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -284,6 +282,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    [self getAllMoments:@{@"page":@"1",
+                          @"rows":@"10"}];
     
 }
 
@@ -375,6 +375,10 @@
     [self.view endEditing:YES];
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     MMPopupItemHandler block = ^(NSInteger index){
+        if (![Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
+            [[CirclesManager sharedInstance].circles removeAllObjects];
+            [self getAllProjects];
+        }
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
@@ -487,13 +491,13 @@
             [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
-                                  @"gid":notification.object}];
-            
+                                  @"gid":notification.object}];//测试项目 id-58495512cd583fde27c7a2a8
+            //策话吧  584936a1b48b4a9123a29120
         }else {
             [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
-                                  @"pid":@"58492a3ae66dce5c23f7eef2"}];//58492a3ae66dce5c23f7eef2
+                                  @"pid":notification.object}];//58492a3ae66dce5c23f7eef2
         }
         self.title = notification.userInfo[@"Title"];
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
