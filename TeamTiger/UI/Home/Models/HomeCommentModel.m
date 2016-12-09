@@ -23,7 +23,21 @@
 }
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"prid"]) {
+        self.name = value[@"nick_name"];
+    }
     
+    if ([key isEqualToString:@"text"]) {
+        self.content = value;
+    }
+    if ([key isEqualToString:@"medias"]) {
+        for (NSDictionary *mediasDic in value) {
+            [self.photeNameArry addObject:mediasDic[@"url"]];
+        }
+    }
+    if ([key isEqualToString:@"comment_date"]) {
+        self.time = [Common handleDate:value];
+    }
 }
 
 @end

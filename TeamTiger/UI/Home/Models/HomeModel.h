@@ -34,9 +34,10 @@ typedef NS_ENUM(int, HomeModelCellType) {
 @property (copy, nonatomic) NSString *time;
 //讨论数据
 @property (strong, nonatomic) NSMutableArray *comment;
+//mid  moment的id
+@property (copy, nonatomic) NSString *moment_id;
 //讨论数据的个数
 @property (copy, nonatomic) NSString *count;
-
 
 //时间节点所在的评论Model
 @property (strong, nonatomic) HomeCommentModelFrame *indexModel;

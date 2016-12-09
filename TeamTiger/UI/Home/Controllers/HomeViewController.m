@@ -443,7 +443,7 @@
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
-    } else {
+    } else { 
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
         ((HomeVoteCell *)cell).delegate = self;

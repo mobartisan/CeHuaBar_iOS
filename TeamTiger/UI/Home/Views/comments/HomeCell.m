@@ -325,25 +325,25 @@
                                                   @"pid":_homeModel.Id,
                                                   @"type":@0,
                                                   @"medias":urlsStr,
-                                                  @"mid":@"5847736fba4a3f500645ac64"};
+                                                  @"mid":_homeModel.moment_id};
               [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
                   NSLog(@"%@", request.responseJSONObject);
-//                  NSDictionary *dic = @{@"name":@"曹兴星",
-//                                        @"content":textView.text,
-//                                        @"photeNameArry":mediasArr,
-//                                        @"time":[Common getCurrentSystemTime]};
-//                  HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
-//                  HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
-//                  commentModelF.homeCommentModel = commentModel;
-//                  [_homeModel.comment insertObject:commentModelF atIndex:0];
-//                  _homeModel.index += 1;
-//                  _homeModel.partHeight +=commentModelF.cellHeight;
-//                  _homeModel.totalHeight +=commentModelF.cellHeight;
-//                  dispatch_async(dispatch_get_main_queue(), ^{
-//                      if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
-//                          [self.delegate clickCommentBtn:self.commentBtn.indexPath];
-//                      }
-//                  });
+                  NSDictionary *dic = @{@"name":@"曹兴星",
+                                        @"content":textView.text,
+                                        @"photeNameArry":mediasArr,
+                                        @"time":[Common getCurrentSystemTime]};
+                  HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+                  HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+                  commentModelF.homeCommentModel = commentModel;
+                  [_homeModel.comment insertObject:commentModelF atIndex:0];
+                  _homeModel.index += 1;
+                  _homeModel.partHeight +=commentModelF.cellHeight;
+                  _homeModel.totalHeight +=commentModelF.cellHeight;
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+                          [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+                      }
+                  });
               } failure:^(__kindof LCBaseRequest *request, NSError *error) {
                   NSLog(@"%@", error);
                   

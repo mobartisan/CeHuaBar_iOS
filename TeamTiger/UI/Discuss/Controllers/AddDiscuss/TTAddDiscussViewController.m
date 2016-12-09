@@ -213,49 +213,78 @@
 #warning to do
 - (void)actionStartMoment {
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
-    if ([Common isEmptyArr:picArr]) {
-        [super showText:@"请选择图片" afterSeconds:1.0];
+    
+    if ([Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {
+        [super showText:@"请输入描述或添加图片" afterSeconds:1.0];
         return;
     }
     NSMutableArray *mediasArr = [NSMutableArray array];
-    [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
-        NSLog(@"%f", progress);
-    } success:^(NSArray *urls) {
-        for (NSString *url in urls) {
-            NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
-                                  @"type":@0,
-                                  @"from":@1,
-                                  @"url":url};
-            [mediasArr addObject:dic];
-        }
+    if ([Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//没有图片,有文字
+        [self creatMomentAction:mediasArr text:_text];
+    }else if (![Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {//有图片无文字
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+                
+            } success:^(NSArray *urls) {
+                for (NSString *url in urls) {
+                    NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
+                                          @"type":@0,
+                                          @"from":@1,
+                                          @"url":url};
+                    [mediasArr addObject:dic];
+                }
+                [self creatMomentAction:mediasArr text:@""];
+                
+            } failure:^(NSError *error) {
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+            }];
+        });
+    }else if (![Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//有图片有文字
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+                
+            } success:^(NSArray *urls) {
+                for (NSString *url in urls) {
+                    NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
+                                          @"type":@0,
+                                          @"from":@1,
+                                          @"url":url};
+                    [mediasArr addObject:dic];
+                }
+                [self creatMomentAction:mediasArr text:_text];
+                
+            } failure:^(NSError *error) {
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+            }];
+        });
+    }
+}
 
-        NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
-        momentCreatApi.requestArgument = @{@"text":_text,
-                                           @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),//pid  项目id
-                                           @"type":@1,
-                                           @"medias":urlsStr};
-        [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            NSLog(@"%@", request.responseJSONObject);
-            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                [super showText:@"发起讨论成功" afterSeconds:1.0];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self.navigationController popViewControllerAnimated:YES];
-                });
-            } else {
-                //创建失败
-                [super showHudWithText:request.responseJSONObject[MSG]];
-                [super hideHudAfterSeconds:3.0];
-            }
-        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            NSLog(@"%@", error);
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        }];
-        
-    } failure:^(NSError *error) {
+- (void)creatMomentAction:(NSArray *)mediasArr text:(NSString *)text{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
+    momentCreatApi.requestArgument = @{@"text":text,
+                                       @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),//pid  项目id
+                                       @"type":@1,
+                                       @"medias":urlsStr};
+    [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showText:@"发起讨论成功" afterSeconds:1.0];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        } else {
+            //创建失败
+            [super showHudWithText:request.responseJSONObject[MSG]];
+            [super hideHudAfterSeconds:3.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
+
 
 @end

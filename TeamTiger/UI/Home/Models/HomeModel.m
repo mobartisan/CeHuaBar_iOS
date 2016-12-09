@@ -53,7 +53,9 @@
     if ([key isEqualToString:@"type"]) {
         self.cellType = [value intValue];
     }
-    
+    if ([key isEqualToString:@"_id"]) {
+        self.moment_id = value;
+    }
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {
