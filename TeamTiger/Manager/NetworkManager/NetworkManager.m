@@ -483,5 +483,34 @@ static double const timeOutInterval = 15.0;
 @end
 
 
+//创建投票Moment
+@implementation VoteCreateApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/vote/add.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
 
 

@@ -11,12 +11,6 @@
 #import "TTCommonItem.h"
 #import "TTCommonGroup.h"
 #import "TTCommonArrowItem.h"
-// Controllers
-
-// Model
-
-// Views
-//#define <#macro#> <#value#>
 
 @interface SelectOptionTypeVC ()<UITableViewDelegate,UITableViewDataSource>
 

@@ -120,9 +120,10 @@
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showHudWithText:request.responseJSONObject[MSG]];
-            [super hideHudAfterSeconds:3.0];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [super showText:@"项目创建成功" afterSeconds:1.0];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            });
         } else {
             //创建失败
             [super showHudWithText:request.responseJSONObject[MSG]];

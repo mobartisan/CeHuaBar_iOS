@@ -98,4 +98,9 @@
 
 @end
 
+//创建投票Moment
+@interface VoteCreateApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 

@@ -210,17 +210,13 @@
     return _startMomentBtn;
 }
 
+#warning to do
 - (void)actionStartMoment {
-    if ([Common isEmptyString:self.tagItem.subtitle]) {
-        [super showText:@"请选择项目" afterSeconds:1.0];
-        return;
-    }
-    if ([Common isEmptyString:_text]) {
-        [super showText:@"请输入描述" afterSeconds:1.0];
-        return;
-    }
-#warning TO DO
     id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
+    if ([Common isEmptyArr:picArr]) {
+        [super showText:@"请选择图片" afterSeconds:1.0];
+        return;
+    }
     NSMutableArray *mediasArr = [NSMutableArray array];
     [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
         NSLog(@"%f", progress);
@@ -242,17 +238,23 @@
                                            @"medias":urlsStr};
         [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
             NSLog(@"%@", request.responseJSONObject);
-            [super showHudWithText:@"发起讨论成功"];
-            [super hideHudAfterSeconds:1.0];
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                [super showText:@"发起讨论成功" afterSeconds:1.0];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self.navigationController popViewControllerAnimated:YES];
+                });
+            } else {
+                //创建失败
+                [super showHudWithText:request.responseJSONObject[MSG]];
+                [super hideHudAfterSeconds:3.0];
+            }
         } failure:^(__kindof LCBaseRequest *request, NSError *error) {
             NSLog(@"%@", error);
-            [super showHudWithText:@"发起讨论失败"];
-            [super hideHudAfterSeconds:1.0];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }];
         
     } failure:^(NSError *error) {
-        [super showHudWithText:@"上传图片失败"];
-        [super hideHudAfterSeconds:1.0];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 

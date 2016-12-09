@@ -50,6 +50,10 @@
     if ([key isEqualToString:@"comments"]) {
         self.comment = value;
     }
+    if ([key isEqualToString:@"type"]) {
+        self.cellType = [value intValue];
+    }
+    
 }
 
 - (instancetype)initWithDic:(NSDictionary *)dic {

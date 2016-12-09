@@ -15,13 +15,6 @@ typedef NS_ENUM(int, HomeModelCellType) {
     HomeModelCellTypeVote
 };
 
-
-//工作牛      0001
-//易会       0002
-//营配班组    0003
-//电动汽车    0004
-//主网抢修    0005
-
 @interface HomeModel : NSObject
 //项目id
 @property (copy, nonatomic) NSString *Id;

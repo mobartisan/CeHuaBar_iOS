@@ -31,6 +31,9 @@ static const int STR_OPTION_MAX = 9;
 static const char* kOptionStr[STR_OPTION_MAX] = {
     "A", "B", "C", "D", "E","F", "G", "H", "I"};
 @interface TTAddVoteViewController ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+{
+    NSString *_text;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) AddImageView *addImageView;
@@ -93,18 +96,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [[SelectPhotosManger sharedInstance] cleanSelectAssets];
     [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
 }
-/**
- *  第0组数据
- */
-//- (void)setupGroup0
-//{
-//    
-//    TTCommonItem *voteName = [TTCommonTextViewItem itemWithTitle:@"名称" textViewPlaceholder:@"请输入投票名称"];
-//    
-//    TTCommonGroup *group = [[TTCommonGroup alloc] init];
-//    group.items = [NSMutableArray arrayWithArray: @[voteName]];
-//    [self.data addObject:group];
-//}
 
 /**
  *  第0组数据
@@ -192,7 +183,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [addOptionBtn setImage:kImage(@"icon_add_options") forState:UIControlStateNormal];
     [addOptionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     addOptionBtn.tintColor = [UIColor whiteColor];
-//    [addOptionBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -25)];
     [addOptionBtn addTarget:self action:@selector(addOptionBtnAction) forControlEvents:UIControlEventTouchUpInside];
 
     
@@ -209,7 +199,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     if (self.optionIndex < STR_OPTION_MAX) {
         NSString *option = [NSString stringWithUTF8String:kOptionStr[self.optionIndex++]];
         AddImageView *customView0 = [AddImageView addImageViewWithType:AddImageViewVote AndOption:option];
-        //    self.addImageView = customView;
         TTCommonItem *attachment0 = [TTCommonCustomViewItem itemWithCustomView:customView0];
         
         
@@ -262,6 +251,10 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     TTCommonGroup *group = self.data[indexPath.section];
     cell.item = group.items[indexPath.row];
     cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
+    
+    cell.actionBlock = ^ (NSString *text) {
+        _text = text;
+    };
     
     // 3.返回cell
     return cell;
@@ -325,18 +318,55 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 5);
         [_startMomentBtn setTitle:@"发布" forState:UIControlStateNormal];
-//        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateNormal];
-//        [_startMomentBtn setBackgroundImage:[UIImage imageNamed:@"group-detail-createmeetingIcon"] forState:UIControlStateHighlighted];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
         _startMomentBtn.backgroundColor = [UIColor clearColor];
-        //        _startMeetingBtn.bounds = (CGRect){CGPointZero, _startMeetingBtn.currentBackgroundImage.size};
     }
     return _startMomentBtn;
 }
 
 - (void)actionStartMoment {
     NSLog(@"创建Moment");
+    if ([Common isEmptyString:_text]) {
+        [super showText:@"请输入描述" afterSeconds:1.0];
+        return;
+    }
+    NSArray *votesArr = @[@{@"vote_name":@"A",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]},
+                          @{@"vote_name":@"B",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]},
+                          @{@"vote_name":@"C",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]}
+                          ];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:votesArr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *dic = @{@"votes":votesStr,
+                          @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],
+                          @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
+                          @"vote_title":_text,
+                          @"type":@2 //1为普通的moment 2为投票类型
+                          };
+    VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
+    voteCreatApi.requestArgument = dic;
+    [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showText:@"发表投票Moment成功" afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        if (error) {
+            [super showText:@"发表投票Moment失败" afterSeconds:1.0];
+        }
+    }];
 }
+
 
 #pragma mark - Override
 

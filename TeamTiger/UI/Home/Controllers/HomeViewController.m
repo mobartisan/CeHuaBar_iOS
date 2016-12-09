@@ -366,7 +366,6 @@
     
     MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
                                                           items:items];
-    //    sheetView.attachedView = self.view;
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
 }
@@ -428,7 +427,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.tableView setContentOffset:offset animated:YES];
     }];
-    
 }
 
 #pragma mark UITableViewDataSource
@@ -440,7 +438,7 @@
     HomeModel *model = self.dataSource[indexPath.row];
     // 定义唯一标识
     UITableViewCell *cell = nil;
-    if (model.cellType == 0) {
+    if (model.cellType == 1) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).delegate = self;
@@ -458,7 +456,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = self.dataSource[indexPath.row];
     Class currentClass;
-    if (model.cellType == 0) {
+    if (model.cellType == 1) {
         currentClass = [HomeCell class];
     } else {
         currentClass = [HomeVoteCell class];
@@ -491,13 +489,12 @@
             [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
-                                  @"gid":notification.object}];//测试项目 id-58495512cd583fde27c7a2a8
-            //策话吧  584936a1b48b4a9123a29120
+                                  @"gid":notification.object}];//gid 分组id
         }else {
             [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
-                                  @"pid":notification.object}];//58492a3ae66dce5c23f7eef2
+                                  @"pid":notification.object}];//pid 项目id
         }
         self.title = notification.userInfo[@"Title"];
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
