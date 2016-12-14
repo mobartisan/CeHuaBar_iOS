@@ -20,6 +20,13 @@
     return _photeNameArry;
 }
 
+- (NSMutableArray *)vote {
+    if (_vote == nil) {
+        _vote = [NSMutableArray array];
+    }
+    return _vote;
+}
+
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"prid"]) {
         self.iconImV = value[@"head_img_url"];
@@ -55,6 +62,13 @@
     }
     if ([key isEqualToString:@"_id"]) {
         self.moment_id = value;
+    }
+    if ([key isEqualToString:@"votes"]) {
+        for (NSDictionary *voteDic in value) {
+            for (NSDictionary *mediasDic in voteDic[@"medias"]) {
+                [self.vote addObject:mediasDic[@"url"]];
+            }
+        }
     }
 }
 

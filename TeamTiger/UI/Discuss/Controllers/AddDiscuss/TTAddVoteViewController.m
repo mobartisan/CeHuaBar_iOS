@@ -284,9 +284,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == self.data.count-1) {
+    if (section == self.data.count - 1) {
         return 50;
-    } else if (section == self.data.count-2) {
+    } else if (section == self.data.count - 2) {
         return 20;
     }
     return 10;
@@ -324,8 +324,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     return _startMomentBtn;
 }
 
+#warning to do ....创建投票类型的Moment
 - (void)actionStartMoment {
-    NSLog(@"创建Moment");
     if ([Common isEmptyString:_text]) {
         [super showText:@"请输入描述" afterSeconds:1.0];
         return;
@@ -333,15 +333,15 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     NSArray *votesArr = @[@{@"vote_name":@"A",
                             @"medias":@[@{@"type":@0,
                                           @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]},
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
                           @{@"vote_name":@"B",
                             @"medias":@[@{@"type":@0,
                                           @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]},
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]},
                           @{@"vote_name":@"C",
                             @"medias":@[@{@"type":@0,
                                           @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-9_lrBkzqgQ.png"}]}
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]}
                           ];
     NSData *data = [NSJSONSerialization dataWithJSONObject:votesArr options:NSJSONWritingPrettyPrinted error:nil];
     NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -350,7 +350,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
                           @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],
                           @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
                           @"vote_title":_text,
-                          @"type":@2 //1为普通的moment 2为投票类型
+                          @"type":@2 //1为普通的moment  2为投票类型
                           };
     VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
     voteCreatApi.requestArgument = dic;
@@ -358,11 +358,13 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:@"发表投票Moment成功" afterSeconds:1.0];
+        }else {
+            [super showText:@"发表投票Moment失败" afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         if (error) {
-            [super showText:@"发表投票Moment失败" afterSeconds:1.0];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }
     }];
 }

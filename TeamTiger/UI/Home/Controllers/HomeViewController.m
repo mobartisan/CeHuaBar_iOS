@@ -204,9 +204,7 @@
         
     }
     
-    [self getAllMoments:@{@"page":@"1",
-                          @"rows":@"10"}];
-    
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
@@ -226,7 +224,7 @@
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        NSLog(@"getAllMoments:%@", request.responseJSONObject[OBJ]);
         if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
             for (NSDictionary *dic in request.responseJSONObject[OBJ]) {
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
@@ -290,6 +288,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
+    [self getAllMoments:@{@"page":@"1",
+                          @"rows":@"10"}];
     [self getAllProjects];
     
 }

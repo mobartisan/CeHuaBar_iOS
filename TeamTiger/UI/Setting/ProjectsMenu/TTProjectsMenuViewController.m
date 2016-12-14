@@ -185,15 +185,15 @@
     [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"项目已添加至该分组" afterSeconds:1];
+            [super showText:@"项目已添加至该分组" afterSeconds:1.0];
             [self getAllGroups];
         }else {
-            [super showText:@"项目添加至该分组失败" afterSeconds:1];
+            [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"moveProject:%@", error);
         if (error) {
-            [super showText:@"您的网络好像有问题~" afterSeconds:1];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }
     }];
 }

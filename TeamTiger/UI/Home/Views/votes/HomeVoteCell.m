@@ -139,10 +139,10 @@
 
 - (void)setHomeModel:(HomeModel *)homeModel {
     _homeModel = homeModel;
-    self.iconImV.image = [UIImage imageNamed:homeModel.iconImV];
+    [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"1")];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
-    self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
+    self.photoContainerView.picPathStringsArray = homeModel.vote;
     self.voteBottomView.ticketArr = homeModel.ticketArry;
     self.timeLB.text = homeModel.time;
 }

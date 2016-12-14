@@ -45,9 +45,9 @@
     /**
      *  时间的frame
      */
-    CGFloat timeW = 47;//47 38
+    CGFloat timeW = 47;
     CGFloat timeH = 20;
-    CGFloat timeX = 3;//3   8
+    CGFloat timeX = 3;
     CGFloat timeY = CGRectGetMidY(_imageF) - timeH / 2;
     _timeF = CGRectMake(timeX, timeY, timeW, timeH);
 
@@ -65,6 +65,7 @@
     CGFloat nameW = [self sizeWithText:homeCommentModel.name font:font maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
     CGFloat nameH = 20;
     _nameF = CGRectMake(nameX, nameY, nameW, nameH);
+    
     /**
      *  第二个姓名的frame
      */
@@ -73,6 +74,7 @@
     CGFloat name1W = [self sizeWithText:homeCommentModel.sName font:KNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
     CGFloat name1H = 20;
     _name1F = CGRectMake(name1X, name1Y, name1W, name1H);
+    
     /**
      *  正文的frame
      */

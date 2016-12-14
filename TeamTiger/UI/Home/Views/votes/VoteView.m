@@ -158,7 +158,7 @@
         ImageAndBtnView *customView  = [_imageViewsArray objectAtIndex:idx];
         customView.projectLB.text = arr[idx];
         customView.hidden = NO;
-        customView.imageV.image = [UIImage imageNamed:obj];
+        [customView.imageV sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(@"image_1.jpg")];
         customView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
         [self.imageArr addObject:customView.imageV];
     }];
