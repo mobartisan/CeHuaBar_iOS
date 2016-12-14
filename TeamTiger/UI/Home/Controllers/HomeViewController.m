@@ -221,11 +221,13 @@
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
-        for (NSDictionary *dic in request.responseJSONObject[OBJ][DATA]) {
-            HomeModel *homeModel = [HomeModel modelWithDic:dic];
-            [self.dataSource addObject:homeModel];
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
+            for (NSDictionary *dic in request.responseJSONObject[OBJ]) {
+                HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                [self.dataSource addObject:homeModel];
+            }
+            [self.tableView reloadData];
         }
-        [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showHudWithText:@"获取Moments失败"];

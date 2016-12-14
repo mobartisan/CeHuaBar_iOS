@@ -30,7 +30,7 @@
     self.title = @"添加项目";
     [Common removeExtraCellLines:self.contentTable];
     
-    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back1"] block:^(UIButton *sender) {
+    [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
 
@@ -109,13 +109,13 @@
 #pragma mark 创建项目
 - (void)createProjectWith:(NSString *)name  is_private:(BOOL)is_private {
     if ([Common isEmptyString:name]) {
-        [self showHudWithText:@"名称或描述不能为空"];
+        [self showHudWithText:@"项目名称不能为空"];
         [self hideHudAfterSeconds:3.0];
         return;
     }
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"name":name,
-                                         @"uids":@"",
+                                         @"uids":@"",//假设项目中有可以添加的成员,如果有,uids表示所有成员的uid,没有的话给空
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
@@ -126,13 +126,13 @@
             });
         } else {
             //创建失败
-            [super showHudWithText:request.responseJSONObject[MSG]];
-            [super hideHudAfterSeconds:3.0];
+            [super showHudWithText:@"项目创建失败"];
+            [super hideHudAfterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@",error.description);
         [self showHudWithText:@"您的网络好像有问题~"];
-        [self hideHudAfterSeconds:3.0];
+        [self hideHudAfterSeconds:1.0];
     }];
 }
 

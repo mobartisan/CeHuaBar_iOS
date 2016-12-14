@@ -61,11 +61,11 @@
             [self.groups removeAllObjects];
         }
         NSDictionary *objDic =  request.responseJSONObject[OBJ];
-        for (NSDictionary *existlistDic in objDic[@"existlist"]) {
+        
+        for (NSDictionary *existlistDic in objDic[@"groups"]) {
             TT_Group *group = [[TT_Group alloc] init];
             group.group_id = existlistDic[@"_id"];
             group.group_name = existlistDic[@"group_name"];
-            group.create_date = existlistDic[@"group_create_date"];
             [self.groups addObject:group];
         }
         
@@ -73,10 +73,9 @@
         if (![Common isEmptyArr:self.unGroupedProjects]) {
             [self.unGroupedProjects removeAllObjects];
         }
-        NSDictionary *noexistlistDic = [objDic[@"noexistlist"] firstObject];
-        self.unGroup_id = noexistlistDic[@"_id"];
-        if ([(noexistlistDic[@"pids"]) count] > 0) {
-            for (NSDictionary *pidsDic in noexistlistDic[@"pids"]) {
+        
+        if (![Common isEmptyArr:objDic[@"projects"]]) {
+            for (NSDictionary *pidsDic in objDic[@"projects"]) {
                 TT_Project *project = [[TT_Project alloc] init];
                 project.project_id = pidsDic[@"_id"];
                 project.name = pidsDic[@"name"];
@@ -176,7 +175,7 @@
     return cell;
 }
 
-#warning 移动未分组项目到某个分组下
+#warning to do...移动未分组项目到某个分组下
 - (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(NSString *)pid {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
     moveProjectApi.requestArgument = @{@"from_gid":from_gid,

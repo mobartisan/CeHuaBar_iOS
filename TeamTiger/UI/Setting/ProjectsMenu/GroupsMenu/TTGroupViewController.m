@@ -51,20 +51,25 @@
     ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
     projectsApi.requestArgument = @{@"gid":self.gid};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getProjectsList:%@", request.responseJSONObject[OBJ][DATA][@"pids"]);
-        if (![Common isEmptyArr:self.projects]) {
-            [self.projects removeAllObjects];
+        NSLog(@"getProjectsList:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            if (![Common isEmptyArr:self.projects]) {
+                [self.projects removeAllObjects];
+            }
+            NSArray *pidsArr = [request.responseJSONObject[OBJ] firstObject][@"pids"];
+            for (NSDictionary *projectDic in pidsArr) {
+                TT_Project *tt_project = [[TT_Project alloc] init];
+                tt_project.name = projectDic[@"name"];
+                tt_project.project_id = projectDic[@"_id"];
+                [_projects addObject:tt_project];
+            }
+            [self.table reloadData];
+        } else {
+            [super showText:@"项目查询失败" afterSeconds:1.0];
         }
-        NSArray *pidsArr = request.responseJSONObject[OBJ][DATA][@"pids"];
-        for (NSDictionary *projectDic in pidsArr) {
-            TT_Project *tt_project = [[TT_Project alloc] init];
-            tt_project.name = projectDic[@"name"];
-            tt_project.project_id = projectDic[@"_id"];
-            [_projects addObject:tt_project];
-        }
-        [self.table reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
@@ -155,7 +160,7 @@
             ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
             ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
         }];
-    }    
+    }
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[self.projects[indexPath.row] project_id] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
@@ -209,29 +214,29 @@
 
 //数据库数据
 /*
-- (void)loadProjects {
-    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-    NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
-    NSArray *groups = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group];
-    TT_Group *group = groups.firstObject;
-    NSMutableString *mStr = [NSMutableString string];
-    for (NSString *str in [group.pids componentsSeparatedByString:@","]) {
-        [mStr appendFormat:@"'%@',",str];
-    }
-    [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
-    
-    sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date",TABLE_TT_Project, mStr];
-    
-    NSArray *selProjects = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project];
-    if (!self.projects) {
-        self.projects = [NSMutableArray arrayWithArray:selProjects];
-    } else {
-        [self.projects removeAllObjects];
-        [self.projects addObjectsFromArray:selProjects];
-    }
-}
-*/
+ - (void)loadProjects {
+ [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+ NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
+ NSArray *groups = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group];
+ TT_Group *group = groups.firstObject;
+ NSMutableString *mStr = [NSMutableString string];
+ for (NSString *str in [group.pids componentsSeparatedByString:@","]) {
+ [mStr appendFormat:@"'%@',",str];
+ }
+ [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
  
+ sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date",TABLE_TT_Project, mStr];
+ 
+ NSArray *selProjects = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project];
+ if (!self.projects) {
+ self.projects = [NSMutableArray arrayWithArray:selProjects];
+ } else {
+ [self.projects removeAllObjects];
+ [self.projects addObjectsFromArray:selProjects];
+ }
+ }
+ */
+
 - (void)addProject:(id)sender {
     // add project
     TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];

@@ -220,7 +220,6 @@
     }];
 }
 
-#warning TO DO...
 - (void)longiApi:(id)tempDic {
     LoginApi *login = [[LoginApi alloc] init];
     login.requestArgument = tempDic;

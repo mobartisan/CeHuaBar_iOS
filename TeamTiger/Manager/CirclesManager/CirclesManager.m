@@ -22,12 +22,13 @@
 
 
 - (void)loadingGlobalCirclesInfo {
-#warning TO DO
+#warning to do 获取所有项目的名称 
+    /*
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"loadingGlobalCirclesInfo:%@", request.responseJSONObject);
         ;
-        if ([request.responseJSONObject[OBJ][DATA] count] > 0) {
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ][DATA]]) {
             for (NSDictionary *dataDic in request.responseJSONObject[OBJ][DATA]) {
                 [self.circles addObject:dataDic];
             }
@@ -57,7 +58,7 @@
     //        msg = 查询成功
     //    }
     
-    
+  */
 }
 
 - (void)addCircle:(NSString *)circle {
