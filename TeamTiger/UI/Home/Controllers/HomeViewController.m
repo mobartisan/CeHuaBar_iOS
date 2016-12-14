@@ -190,7 +190,6 @@
     // Do any additional setup after loading the view from its nib.
     bView = self.view;
     self.title = @"Moments";
-    [self getAllProjects];
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -204,6 +203,10 @@
         self.tableView.tableHeaderView = self.tableHeader;
         
     }
+    
+    [self getAllMoments:@{@"page":@"1",
+                          @"rows":@"10"}];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
@@ -217,6 +220,9 @@
 
 #warning to do 获取所有Moments
 - (void)getAllMoments:(NSDictionary *)requestDic {
+    if (![Common isEmptyArr:self.dataSource]) {
+        [self.dataSource removeAllObjects];
+    }
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -236,47 +242,47 @@
 //    {
 //        code = 1000,
 //        success = 1,
-//        obj = {
-//            message = 查询成功,
-//            data = (
-//                    {
-//                        _id = 5848160f909730b8140bce41,
-//                        comments = (
-//                        )
-//                        ,
-//                        medias = (
-//                                  {
-//                                      _id = 5848160f909730b8140bce40,
-//                                      url = http://ohcjw5fss.bkt.clouddn.com/2016-12-7_3I11xWQi.png,
-//                                      type = 0,
-//                                      from = 1
-//                                  }
-//                                  )
-//                        ,
-//                        votes = (
-//                        )
-//                        ,
-//                        comment_date = 2016-12-07 22:0:35,
-//                        text = 可口可乐了了,
-//                        prid = {
-//                            nick_name = 我和你💓,
-//                            username = tnCjdrcsyPuK,
-//                            _id = 58480dc7fba548ca132b59b8,
-//                            head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
-//                        },
-//                        type = 1,
-//                        pid = {
-//                            _id = 58480dfcfba548ca132b59bf,
-//                            name = 测试项目
-//                        }
-//                    }
-//                    )
-//            ,
-//            code = 1000
-//        },
+//        obj = (
+//               {
+//                   _id = 5850ba35784c035a4fd06b0b,
+//                   vote_total_count = 0,
+//                   comments = (
+//                   )
+//                   ,
+//                   votes = (
+//                   )
+//                   ,
+//                   medias = (
+//                             {
+//                                 _id = 5850ba35784c035a4fd06b09,
+//                                 url = http://ohcjw5fss.bkt.clouddn.com/2016-12-14_PH4F0h6e.png
+//                             },
+//                             {
+//                                 _id = 5850ba35784c035a4fd06b0a,
+//                                 url = http://ohcjw5fss.bkt.clouddn.com/2016-12-14_w2HwdSL2.png
+//                             }
+//                             )
+//                   ,
+//                   comment_date = 2016-12-14 11:18:31,
+//                   text = 策话吧,
+//                   update_date = 2016-12-14 11:19:17,
+//                   prid = {
+//                       nick_name = 我和你💓,
+//                       username = HWaO5T9eoV6G,
+//                       _id = 5850b84ebaacefcc4e63d76f,
+//                       head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
+//                   },
+//                   type = 1,
+//                   pid = {
+//                       _id = 5850b87bbaacefcc4e63d776,
+//                       name = 策话吧
+//                   }
+//               }
+//               )
+//        ,
 //        msg = 查询成功
 //    }
-    
+//    
     
 }
 
@@ -284,8 +290,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
-    [self getAllMoments:@{@"page":@"1",
-                          @"rows":@"10"}];
+    [self getAllProjects];
     
 }
 

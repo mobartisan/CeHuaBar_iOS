@@ -55,37 +55,39 @@
     AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllGroups:%@", request.responseJSONObject);
-        
-        //分组数据
-        if (![Common isEmptyArr:self.groups]) {
-            [self.groups removeAllObjects];
-        }
-        NSDictionary *objDic =  request.responseJSONObject[OBJ];
-        
-        for (NSDictionary *existlistDic in objDic[@"groups"]) {
-            TT_Group *group = [[TT_Group alloc] init];
-            group.group_id = existlistDic[@"_id"];
-            group.group_name = existlistDic[@"group_name"];
-            [self.groups addObject:group];
-        }
-        
-        //未分组
-        if (![Common isEmptyArr:self.unGroupedProjects]) {
-            [self.unGroupedProjects removeAllObjects];
-        }
-        
-        if (![Common isEmptyArr:objDic[@"projects"]]) {
-            for (NSDictionary *pidsDic in objDic[@"projects"]) {
-                TT_Project *project = [[TT_Project alloc] init];
-                project.project_id = pidsDic[@"_id"];
-                project.name = pidsDic[@"name"];
-                [self.unGroupedProjects addObject:project];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSDictionary *objDic =  request.responseJSONObject[OBJ];
+
+            //分组数据
+            if (![Common isEmptyArr:self.groups]) {
+                [self.groups removeAllObjects];
             }
+            for (NSDictionary *groupDic in objDic[@"groups"]) {
+                TT_Group *group = [[TT_Group alloc] init];
+                group.group_id = groupDic[@"_id"];
+                group.group_name = groupDic[@"group_name"];
+                [self.groups addObject:group];
+            }
+            
+            //未分组
+            if (![Common isEmptyArr:self.unGroupedProjects]) {
+                [self.unGroupedProjects removeAllObjects];
+            }
+            NSArray *projects = [objDic[@"projects"] firstObject][@"pids"];
+            self.unGroup_id = [objDic[@"projects"] firstObject][@"_id"];
+            if (![Common isEmptyArr:projects]) {
+                for (NSDictionary *pidsDic in projects) {
+                    TT_Project *project = [[TT_Project alloc] init];
+                    project.project_id = pidsDic[@"_id"];
+                    project.name = pidsDic[@"name"];
+                    [self.unGroupedProjects addObject:project];
+                }
+            }
+            [self.menuTable reloadData];
         }
-        
-        [self.menuTable reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"getAllGroups:%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
@@ -93,7 +95,6 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroups];
-    [self.menuTable reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -169,28 +170,30 @@
             [self.pView loadGroupsInfos:self.groups];
             [self.pView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.mas_equalTo(cell);
-            }];
+                }];
         }
     }
     return cell;
 }
 
 #warning to do...移动未分组项目到某个分组下
-- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(NSString *)pid {
+- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
     moveProjectApi.requestArgument = @{@"from_gid":from_gid,
                                        @"to_gid":to_gid,
-                                       @"pid":pid};//pid 项目id
+                                       @"pid":[pid project_id]};//pid 项目id
     [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:@"项目已添加至该分组" afterSeconds:1];
             [self getAllGroups];
+        }else {
+            [super showText:@"项目添加至该分组失败" afterSeconds:1];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"moveProject:%@", error);
         if (error) {
-            [super showText:@"项目添加至该分组失败" afterSeconds:1];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1];
         }
     }];
 }
@@ -262,18 +265,18 @@
 #pragma -mark Data Handle
 //数据库
 /*
-- (NSMutableArray *)groups {
-    if (!_groups) {
-        TT_User *user = [TT_User sharedInstance];
-        [SQLITEMANAGER setDataBasePath:user.user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
-        NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
-        _groups = [NSMutableArray arrayWithArray:groups];
-
-    }
-    return _groups;
-}
-*/
+ - (NSMutableArray *)groups {
+ if (!_groups) {
+ TT_User *user = [TT_User sharedInstance];
+ [SQLITEMANAGER setDataBasePath:user.user_id];
+ NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Group];
+ NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
+ _groups = [NSMutableArray arrayWithArray:groups];
+ 
+ }
+ return _groups;
+ }
+ */
 - (NSMutableArray *)groups {
     if (!_groups) {
         _groups = [NSMutableArray array];
@@ -304,56 +307,56 @@
 
 //数据库数据
 /*
-- (NSMutableArray *)projects {
-    if (!_projects) {
-        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Project];
-        NSArray *projects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
-        _projects = [NSMutableArray arrayWithArray:projects];
-    }
-    return _projects;
-}
+ - (NSMutableArray *)projects {
+ if (!_projects) {
+ [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+ NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date",TABLE_TT_Project];
+ NSArray *projects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
+ _projects = [NSMutableArray arrayWithArray:projects];
+ }
+ return _projects;
+ }
  
-- (NSMutableArray *)unGroupedProjects {
-    if (!_unGroupedProjects) {
-        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ where is_grouped = 0 order by create_date",TABLE_TT_Project];
-        NSArray *ungroupedProjects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
-        _unGroupedProjects = [NSMutableArray arrayWithArray:ungroupedProjects];
-
-    }
-    return _unGroupedProjects;
-}
+ - (NSMutableArray *)unGroupedProjects {
+ if (!_unGroupedProjects) {
+ [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+ NSString *sqlString = [NSString stringWithFormat:@"select * from %@ where is_grouped = 0 order by create_date",TABLE_TT_Project];
+ NSArray *ungroupedProjects = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Project];
+ _unGroupedProjects = [NSMutableArray arrayWithArray:ungroupedProjects];
+ 
+ }
+ return _unGroupedProjects;
+ }
  */
 //数据库数据
 /*
-- (void)creatGroupAction {
-    if (self.gView.isShow) {
-        [self.gView hide];
-    } else {
-        [self.gView loadGroupInfo:nil AllProjects:self.projects];
-        [self.gView show];
-        WeakSelf;
-        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                NSLog(@"%@",object);
-                TT_User *user = [TT_User sharedInstance];
-                [SQLITEMANAGER setDataBasePath:user.user_id];
-                NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,1,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
-                [SQLITEMANAGER executeSql:sqlString];
-                [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
-                [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                    hud.label.text = @"创建分组成功";
-                    hud.mode = MBProgressHUDModeText;
-                    [hud hideAnimated:YES afterDelay:1.5];
-                });
-            }
-        };
-    }
-}
-*/
+ - (void)creatGroupAction {
+ if (self.gView.isShow) {
+ [self.gView hide];
+ } else {
+ [self.gView loadGroupInfo:nil AllProjects:self.projects];
+ [self.gView show];
+ WeakSelf;
+ self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+ if (isConfirm) {
+ NSLog(@"%@",object);
+ TT_User *user = [TT_User sharedInstance];
+ [SQLITEMANAGER setDataBasePath:user.user_id];
+ NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,1,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
+ [SQLITEMANAGER executeSql:sqlString];
+ [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
+ [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+ MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+ hud.label.text = @"创建分组成功";
+ hud.mode = MBProgressHUDModeText;
+ [hud hideAnimated:YES afterDelay:1.5];
+ });
+ }
+ };
+ }
+ }
+ */
 
 #pragma mark 创建分组...
 - (void)creatGroupAction {
@@ -397,59 +400,59 @@
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
-                [wself moveProjectFrom_gid:wself.unGroup_id to_gid:[object group_id] pid:projectInfo.project_id];
+                [wself moveProjectFrom_gid:wself.unGroup_id to_gid:[object group_id] pid:projectInfo];
             }
         };
     }
 }
 //数据库数据
 /*
-- (void)addProjectIntoGroupAction:(id)projectInfo {
-    if (self.sgView.isShow) {
-        [self.sgView hide];
-    } else {
-        [self.sgView loadGroups:self.groups];
-        [self.sgView show];
-        WeakSelf;
-        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            
-            if (isConfirm) {
-                NSLog(@"%@",object);
-                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
-                if([pids containsObject:[projectInfo project_id]]) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已存在该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                } else {
-                    //添加至分组
-                    [pids addObject:[projectInfo project_id]];
-                    NSString *nwPids = [pids componentsJoinedByString:@","];
-                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    [SQLITEMANAGER executeSql:updateSql];
-                    //更改项目状态
-                    updateSql = [NSString stringWithFormat:@"update %@ set is_grouped = 1",TABLE_TT_Project];
-                    [SQLITEMANAGER executeSql:updateSql];
-                    //刷新UI
-                    [wself.unGroupedProjects removeObject:projectInfo];
-                    [wself.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
-                    //给出提示
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已添加至该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                }
-            }
-
-        };
-    }
-}
-*/
+ - (void)addProjectIntoGroupAction:(id)projectInfo {
+ if (self.sgView.isShow) {
+ [self.sgView hide];
+ } else {
+ [self.sgView loadGroups:self.groups];
+ [self.sgView show];
+ WeakSelf;
+ self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
+ 
+ if (isConfirm) {
+ NSLog(@"%@",object);
+ NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
+ if([pids containsObject:[projectInfo project_id]]) {
+ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+ MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+ hud.label.text = @"项目已存在该分组";
+ hud.mode = MBProgressHUDModeText;
+ [hud hideAnimated:YES afterDelay:1.5];
+ });
+ } else {
+ //添加至分组
+ [pids addObject:[projectInfo project_id]];
+ NSString *nwPids = [pids componentsJoinedByString:@","];
+ NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
+ [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+ [SQLITEMANAGER executeSql:updateSql];
+ //更改项目状态
+ updateSql = [NSString stringWithFormat:@"update %@ set is_grouped = 1",TABLE_TT_Project];
+ [SQLITEMANAGER executeSql:updateSql];
+ //刷新UI
+ [wself.unGroupedProjects removeObject:projectInfo];
+ [wself.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+ //给出提示
+ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+ MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+ hud.label.text = @"项目已添加至该分组";
+ hud.mode = MBProgressHUDModeText;
+ [hud hideAnimated:YES afterDelay:1.5];
+ });
+ }
+ }
+ 
+ };
+ }
+ }
+ */
 
 - (void)loadUserInfo {
     NSDictionary *dic = [MockDatas testerInfo];

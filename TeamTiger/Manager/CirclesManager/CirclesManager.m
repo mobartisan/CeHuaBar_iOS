@@ -21,15 +21,14 @@
 }
 
 
+#warning to do 获取所有项目的名称
 - (void)loadingGlobalCirclesInfo {
-#warning to do 获取所有项目的名称 
-    /*
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"loadingGlobalCirclesInfo:%@", request.responseJSONObject);
         ;
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ][DATA]]) {
-            for (NSDictionary *dataDic in request.responseJSONObject[OBJ][DATA]) {
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
+            for (NSDictionary *dataDic in request.responseJSONObject[OBJ]) {
                 [self.circles addObject:dataDic];
             }
             self.selectIndex = 0;
@@ -58,7 +57,7 @@
     //        msg = 查询成功
     //    }
     
-  */
+  
 }
 
 - (void)addCircle:(NSString *)circle {

@@ -65,7 +65,7 @@
             }
             [self.table reloadData];
         } else {
-            [super showText:@"项目查询失败" afterSeconds:1.0];
+            [super showText:@"分组下项目查询失败" afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
@@ -100,10 +100,9 @@
     ((ProjectsCell *)cell).deleteMember = ^{
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 1) {
-#warning to do....从分组中删除
+#warning to do....从分组中删除某个项目
 #if TEST
-                [self.projects removeObject:projectInfo];
-                [self deleteProjectGid:self.gid pid:[projectInfo project_id]];
+                [self deleteProjectGid:self.gid pid:projectInfo];
 #else
                 [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                 //从分组中删除
@@ -135,15 +134,18 @@
 }
 
 #warning to do....
-- (void)deleteProjectGid:(NSString *)gid pid:(NSString *)pid {
+- (void)deleteProjectGid:(NSString *)gid pid:(TT_Project *)project {
     DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
-    deleteProjectApi.requestArgument = @{@"pid":pid,//项目ID
+    deleteProjectApi.requestArgument = @{@"pid":project.project_id,//项目ID
                                          @"gid":gid};//分组ID
     [deleteProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:@"删除项目成功" afterSeconds:1.0];
+            [self.projects removeObject:project];
             [self.table reloadData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
@@ -256,37 +258,61 @@
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                NSLog(@"%@",object);
-                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
-                if ([pids containsObject:[projectInfo project_id]]) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已存在该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                    return;
-                } else {
-                    //添加至分组
-                    [pids addObject:[projectInfo project_id]];
-                    NSString *nwPids = [pids componentsJoinedByString:@","];
-                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    [SQLITEMANAGER executeSql:updateSql];
-                    //给出提示
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已添加至该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                }
-            }
+            [wself moveProjectFrom_gid:wself.groupId to_gid:@"5850e66122c6f2f15197a11f" pid:projectInfo];//
+            //            if (isConfirm) {
+            NSLog(@"object:%@",[object group_id]);
+            //                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
+            //                if ([pids containsObject:[projectInfo project_id]]) {
+            //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            //                        hud.label.text = @"项目已存在该分组";
+            //                        hud.mode = MBProgressHUDModeText;
+            //                        [hud hideAnimated:YES afterDelay:1.5];
+            //                    });
+            //                    return;
+            //                } else {
+            //                    //添加至分组
+            //                    [pids addObject:[projectInfo project_id]];
+            //                    NSString *nwPids = [pids componentsJoinedByString:@","];
+            //                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
+            //                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+            //                    [SQLITEMANAGER executeSql:updateSql];
+            //                    //给出提示
+            //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            //                        hud.label.text = @"项目已添加至该分组";
+            //                        hud.mode = MBProgressHUDModeText;
+            //                        [hud hideAnimated:YES afterDelay:1.5];
+            //                    });
+            //                }
+            //            }
         };
     }
 }
 
+
+//移动分组下某个项目到另一个分组
+- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
+    MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
+    moveProjectApi.requestArgument = @{@"from_gid":from_gid,
+                                       @"to_gid":to_gid,
+                                       @"pid":[pid project_id]};//pid 项目id
+    [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"moveProject:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.groups removeObject:pid];
+            [self.table reloadData];
+            [super showText:@"项目已添加至该分组" afterSeconds:1];
+        }else {
+            [super showText:@"项目添加至该分组失败" afterSeconds:1];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"moveProject:%@", error);
+        if (error) {
+            [super showText:@"您的网络好像有问题~" afterSeconds:1];
+        }
+    }];
+}
 
 - (SelectGroupView *)sgView {
     if (!_sgView) {

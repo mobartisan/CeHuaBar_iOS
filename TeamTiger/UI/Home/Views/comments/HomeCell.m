@@ -305,8 +305,8 @@
     
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 #warning to do 添加discuss
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -315,7 +315,7 @@
               NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户唯一标识
                                     @"type":@0,
                                     @"from":@1,
-                                    @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-7_qkAktrRD.png"};
+                                    @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_qGVkdKC7.png"};
               [mediasArr addObject:dic];
               
               NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];

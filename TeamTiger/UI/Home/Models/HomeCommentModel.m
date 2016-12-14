@@ -40,4 +40,11 @@
     }
 }
 
+- (NSMutableArray *)photeNameArry {
+    if (_photeNameArry == nil) {
+        _photeNameArry = [NSMutableArray array];
+    }
+    return _photeNameArry;
+}
+
 @end
