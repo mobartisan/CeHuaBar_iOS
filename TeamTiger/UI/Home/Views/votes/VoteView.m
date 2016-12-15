@@ -114,8 +114,10 @@
     }else {
         [sender setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
     }
+    if (self.voteClickBlock) {
+        self.voteClickBlock();
+    }
 }
-
 
 - (void)setPicPathStringsArray:(NSArray *)picPathStringsArray {
     _picPathStringsArray = picPathStringsArray;
@@ -152,7 +154,8 @@
     if (![Common isEmptyArr:self.imageArr]) {
         [self.imageArr removeAllObjects];
     }
-    [_picPathStringsArray enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    [_picPathStringsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         long columnIndex = idx % perRowItemCount;
         long rowIndex = idx / perRowItemCount;
         ImageAndBtnView *customView  = [_imageViewsArray objectAtIndex:idx];

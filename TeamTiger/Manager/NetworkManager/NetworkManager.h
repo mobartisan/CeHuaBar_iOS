@@ -103,4 +103,11 @@
 
 @end
 
+//投票事件
+@interface VoteClickApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
+
 

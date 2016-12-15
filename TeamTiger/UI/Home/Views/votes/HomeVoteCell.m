@@ -89,6 +89,9 @@
     
     //图片
     self.photoContainerView = [[VoteView alloc] init];
+    self.photoContainerView.voteClickBlock = ^(){
+        [self voteClick];
+    };
     [self.contentView addSubview:self.photoContainerView];
     
     self.voteBottomView = [[VoteBottomView alloc] init];
@@ -152,6 +155,20 @@
     if ([self.delegate respondsToSelector:@selector(clickVoteProjectBtn:)]) {
         [self.delegate clickVoteProjectBtn:_homeModel.Id];
     }
+}
+
+#warning to do... 投票点击事件
+- (void)voteClick {
+    VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
+    votecClickApi.requestArgument = @{@"pid":_homeModel.Id,
+                                      @"mid":_homeModel.moment_id,
+                                      @"vid":@"",
+                                      @"isvote":@1}; //0未投票状态 1投票状态
+    [votecClickApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        
+    }];
 }
 
 @end

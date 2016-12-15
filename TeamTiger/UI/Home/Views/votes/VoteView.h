@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^VoteClickBlock)();
+
 @interface VoteView : UIView
 
 @property (nonatomic, strong) NSArray *picPathStringsArray;
 @property (copy, nonatomic) NSString *content;
+@property (copy, nonatomic) VoteClickBlock voteClickBlock;
 
 @end
 
