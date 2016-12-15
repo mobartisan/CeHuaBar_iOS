@@ -278,11 +278,11 @@
         } else {
             //创建失败
             [super showHudWithText:request.responseJSONObject[MSG]];
-            [super hideHudAfterSeconds:3.0];
+            [super hideHudAfterSeconds:1.5];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
     }];
 }
 

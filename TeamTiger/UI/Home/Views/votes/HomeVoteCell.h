@@ -14,6 +14,8 @@
 
 - (void)clickVoteBtn:(NSIndexPath *)indexPath;
 - (void)clickVoteProjectBtn:(NSString *)projectId;
+- (void)clickVoteSuccess:(NSIndexPath *)indexPath homeModel:(HomeModel *)model;
+
 
 @end
 

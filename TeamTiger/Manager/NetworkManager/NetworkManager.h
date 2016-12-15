@@ -108,6 +108,9 @@
 
 @end
 
+//上传图片
+@interface UploadImageApi : LCBaseRequest<LCAPIRequest>
 
+@end
 
 

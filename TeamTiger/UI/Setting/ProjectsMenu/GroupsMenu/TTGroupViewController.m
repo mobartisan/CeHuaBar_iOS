@@ -250,6 +250,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#warning to do  移动分组项目
 - (void)addProjectIntoGroupAction:(id)projectInfo {
     if (self.sgView.isShow) {
         [self.sgView hide];
@@ -258,7 +259,7 @@
         [self.sgView show];
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            [wself moveProjectFrom_gid:wself.groupId to_gid:@"5850e66122c6f2f15197a11f" pid:projectInfo];//
+            [wself moveProjectFrom_gid:wself.groupId to_gid:@"5851f9752a5997555b67fa3f" pid:projectInfo];//
             //            if (isConfirm) {
             NSLog(@"object:%@",[object group_id]);
             //                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;

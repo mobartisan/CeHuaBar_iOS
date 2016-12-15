@@ -10,6 +10,8 @@
 #import "NSString+Utils.h"
 #import "HomeCommentModel.h"
 #import "HomeCommentModelFrame.h"
+#import "VoteModel.h"
+
 
 @implementation HomeModel
 
@@ -65,9 +67,9 @@
     }
     if ([key isEqualToString:@"votes"]) {
         for (NSDictionary *voteDic in value) {
-            for (NSDictionary *mediasDic in voteDic[@"medias"]) {
-                [self.vote addObject:mediasDic[@"url"]];
-            }
+            VoteModel *voteModel = [[VoteModel alloc] init];
+            [voteModel setValuesForKeysWithDictionary:voteDic];
+            [self.vote addObject:voteModel];
         }
     }
 }

@@ -91,7 +91,7 @@
     
     self.aLB.sd_layout.leftSpaceToView(self, 0).topSpaceToView(self, 0).widthIs(12).heightIs(20);
     
-    self.aTicket.sd_layout.rightSpaceToView(self, 0).centerYEqualToView(self.aLB).heightIs(20).widthIs(65);
+    self.aTicket.sd_layout.rightSpaceToView(self, 0).centerYEqualToView(self.aLB).heightIs(20).widthIs(70);
     
     self.aProgressView.sd_layout.leftSpaceToView(self.aLB, 10).centerYEqualToView(self.aLB).rightSpaceToView(self.aTicket, 10).heightIs(4);
     

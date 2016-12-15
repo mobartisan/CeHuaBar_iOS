@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^VoteClickBlock)();
+
+@class VoteModel;
+typedef void(^VoteClickBlock)(VoteModel *voteModel);
 
 @interface VoteView : UIView
 
@@ -22,5 +24,6 @@ typedef void(^VoteClickBlock)();
 @interface VoteBottomView : UIView
 
 @property (strong, nonatomic) NSArray *ticketArr;
+@property (assign, nonatomic) CGFloat total_count;
 
 @end

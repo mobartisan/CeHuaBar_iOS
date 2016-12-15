@@ -341,6 +341,18 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
                           @{@"vote_name":@"C",
                             @"medias":@[@{@"type":@0,
                                           @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
+                          @{@"vote_name":@"D",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]},
+                          @{@"vote_name":@"E",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
+                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
+                          @{@"vote_name":@"F",
+                            @"medias":@[@{@"type":@0,
+                                          @"from":@2,
                                           @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]}
                           ];
     NSData *data = [NSJSONSerialization dataWithJSONObject:votesArr options:NSJSONWritingPrettyPrinted error:nil];
@@ -357,14 +369,17 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"发表投票Moment成功" afterSeconds:1.0];
+            [super showText:@"发表投票Moment成功" afterSeconds:1.5];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }else {
-            [super showText:@"发表投票Moment失败" afterSeconds:1.0];
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.5];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         if (error) {
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
         }
     }];
 }

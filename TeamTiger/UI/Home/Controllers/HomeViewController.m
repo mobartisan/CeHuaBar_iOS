@@ -47,6 +47,7 @@
 
 @property (copy, nonatomic) NSString *current_group_id;
 @property (copy, nonatomic) NSString *current_project_id;
+@property (strong, nonatomic) UIButton *titleView;
 
 @end
 
@@ -189,7 +190,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     bView = self.view;
-    self.title = @"Moments";
+    [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
+    self.navigationItem.titleView = self.titleView;
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -216,6 +218,15 @@
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
 }
 
+- (UIButton *)titleView {
+    if (_titleView == nil) {
+        _titleView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _titleView.enabled = NO;
+        _titleView.frame = CGRectMake(0, 0, 300, 40);
+    }
+    return _titleView;
+}
+
 #warning to do 获取所有Moments
 - (void)getAllMoments:(NSDictionary *)requestDic {
     if (![Common isEmptyArr:self.dataSource]) {
@@ -230,8 +241,8 @@
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
                 [self.dataSource addObject:homeModel];
             }
-            [self.tableView reloadData];
         }
+        [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showHudWithText:@"获取Moments失败"];
@@ -301,6 +312,8 @@
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getAllMoments:@{@"page":@"1",
+                              @"rows":@"10"}];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -486,24 +499,23 @@
 
 - (void)handleConvertId:(NSNotification *)notification {
     //loading
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = @"正在拼命加载...";
-    hud.mode = MBProgressHUDModeIndeterminate;
-    [hud hideAnimated:YES afterDelay:1.0];
+    [super showText:@"正在拼命加载..." afterSeconds:1.0];
     //data
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
-            [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
                                   @"gid":notification.object}];//gid 分组id
+            
+            [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
+            self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         }else {
-            [self.dataSource removeAllObjects];
             [self getAllMoments:@{@"page":@"1",
                                   @"rows":@"10",
                                   @"pid":notification.object}];//pid 项目id
+            [self.titleView setImage:kImage(@"") forState:UIControlStateNormal];
         }
-        self.title = notification.userInfo[@"Title"];
+        [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
     });
 }
@@ -529,6 +541,12 @@
 
 - (void)clickVoteBtn:(NSIndexPath *)indexPath {
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)clickVoteSuccess:(NSIndexPath *)indexPath homeModel:(HomeModel *)model {
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    [self.dataSource insertObject:model atIndex:indexPath.row];
+    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)showLoadingView:(NSString *)projectId {

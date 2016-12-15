@@ -10,6 +10,8 @@
 #import "UIView+SDAutoLayout.h"
 #import "ImageAndBtnView.h"
 #import "JJPhotoManeger.h"
+#import "VoteModel.h"
+
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 
 @interface VoteView () <JJPhotoDelegate>
@@ -54,68 +56,8 @@
 }
 
 - (void)handleVoteBtnAction:(UIButton *)sender {
-    switch (sender.tag) {
-        case 100:
-        {
-            
-            
-        }
-            break;
-        case 101:
-        {
-            
-        }
-            break;
-        case 102:
-        {
-            
-        }
-            break;
-        case 103:
-        {
-            
-        }
-            break;
-        case 104:
-        {
-            
-        }
-            break;
-        case 105:
-        {
-            
-        }
-            break;
-        case 106:
-        {
-            
-        }
-            break;
-        case 107:
-        {
-            
-        }
-            break;
-        case 108:
-        {
-            
-        }
-            break;
-        default:
-            break;
-    }
-    [self setImageWith:sender];
-}
-
-- (void)setImageWith:(UIButton *)sender {
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        [sender setImage:kImage(@"icon_like") forState:UIControlStateNormal];
-    }else {
-        [sender setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
-    }
     if (self.voteClickBlock) {
-        self.voteClickBlock();
+        self.voteClickBlock([_picPathStringsArray objectAtIndex:(sender.tag - 100)]);
     }
 }
 
@@ -154,17 +96,23 @@
     if (![Common isEmptyArr:self.imageArr]) {
         [self.imageArr removeAllObjects];
     }
-
+    
     [_picPathStringsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         long columnIndex = idx % perRowItemCount;
         long rowIndex = idx / perRowItemCount;
         ImageAndBtnView *customView  = [_imageViewsArray objectAtIndex:idx];
         customView.projectLB.text = arr[idx];
         customView.hidden = NO;
-        [customView.imageV sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(@"image_1.jpg")];
+        [customView.imageV sd_setImageWithURL:[NSURL URLWithString:((VoteModel *)obj).url] placeholderImage:kImage(@"image_1.jpg")];
         customView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
         [self.imageArr addObject:customView.imageV];
+        if (((VoteModel *)obj).isvote) {
+            [customView.voteBtn setImage:kImage(@"icon_like") forState:UIControlStateNormal];
+        }else {
+            [customView.voteBtn setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
+        }
     }];
+    
     
     CGFloat w = perRowItemCount * itemW + (perRowItemCount - 1) * margin;
     int columnCount = ceilf(_picPathStringsArray.count * 1.0 / perRowItemCount);
@@ -281,13 +229,20 @@
     NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
     
     [_ticketArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *ticket = (NSString *)obj;
+        NSString *ticket = nil;
+        if (self.total_count == 0) {
+            ticket = [NSString stringWithFormat:@"%.f",0.0];
+        }else {
+            ticket = [NSString stringWithFormat:@"%.f",((VoteModel *)obj).count / self.total_count * 100.0];
+        }
+        
         ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];
         customView.aLB.text = arr[idx];
-        customView.aTicket.text = [NSString stringWithFormat:@"%@票(%0.f%%)", ticket, ticket.floatValue * 10];
-        customView.aProgressView.progress = ticket.floatValue / 10.0;
+        customView.aTicket.text = [NSString stringWithFormat:@"%.f票(%@%%)", ((VoteModel *)obj).count, ticket];
+        customView.aProgressView.progress = ticket.floatValue / 100.0;
         customView.hidden = NO;
         customView.frame = CGRectMake(0, idx * (itemH + margin), itemW, itemH);
+        
     }];
     
     CGFloat h = itemH * (_ticketArr.count) + margin * (_ticketArr.count - 1);

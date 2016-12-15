@@ -541,3 +541,31 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//上传图片
+@implementation UploadImageApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/vote/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end

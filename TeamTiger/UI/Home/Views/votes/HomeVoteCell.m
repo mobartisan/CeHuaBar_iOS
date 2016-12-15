@@ -12,6 +12,8 @@
 #import "SDWeiXinPhotoContainerView.h"
 #import "VoteView.h"
 #import "ButtonIndexPath.h"
+#import "VoteModel.h"
+#import "MBProgressHUD.h"
 
 @interface HomeVoteCell ()
 
@@ -89,9 +91,7 @@
     
     //图片
     self.photoContainerView = [[VoteView alloc] init];
-    self.photoContainerView.voteClickBlock = ^(){
-        [self voteClick];
-    };
+    
     [self.contentView addSubview:self.photoContainerView];
     
     self.voteBottomView = [[VoteBottomView alloc] init];
@@ -141,12 +141,19 @@
 }
 
 - (void)setHomeModel:(HomeModel *)homeModel {
+    WeakSelf;
     _homeModel = homeModel;
+    
+    self.photoContainerView.voteClickBlock = ^(VoteModel *voteModel){
+        [wself voteClick:voteModel];
+    };
+    
     [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"1")];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
     self.photoContainerView.picPathStringsArray = homeModel.vote;
-    self.voteBottomView.ticketArr = homeModel.ticketArry;
+    self.voteBottomView.total_count = homeModel.vcount;
+    self.voteBottomView.ticketArr = homeModel.vote;
     self.timeLB.text = homeModel.time;
 }
 
@@ -158,16 +165,26 @@
 }
 
 #warning to do... 投票点击事件
-- (void)voteClick {
+- (void)voteClick:(VoteModel *)voteModel {
     VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
-    votecClickApi.requestArgument = @{@"pid":_homeModel.Id,
-                                      @"mid":_homeModel.moment_id,
-                                      @"vid":@"",
-                                      @"isvote":@1}; //0未投票状态 1投票状态
+    votecClickApi.requestArgument = @{@"pid":_homeModel.Id, //项目id
+                                      @"mid":_homeModel.moment_id,//moment id
+                                      @"vid":voteModel._id, //投票id
+                                      @"isvote":@(voteModel.isvote)};
     [votecClickApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            HomeModel *homeModel = [HomeModel modelWithDic: request.responseJSONObject[OBJ]];
+            if ([self.delegate respondsToSelector:@selector(clickVoteSuccess:homeModel:)]) {
+                [self.delegate clickVoteSuccess:self.projectBtn.indexPath homeModel:homeModel];
+            }
+        }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        
+        NSLog(@"%@", error);
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+        hud.label.text = @"您的网络好像有问题~";
+        hud.mode = MBProgressHUDModeText;
+        [hud hideAnimated:YES afterDelay:1.5];
     }];
 }
 

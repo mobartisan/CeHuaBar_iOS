@@ -429,6 +429,7 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
+		2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
 		2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D17701DED552200AFE3BD /* UIImage+Extension.m */; };
@@ -1271,6 +1272,8 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
+		2D1DF87E1E023F8C00E8A4DA /* VoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteModel.h; sourceTree = "<group>"; };
+		2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteModel.m; sourceTree = "<group>"; };
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
@@ -3264,6 +3267,8 @@
 				2D7279DB1DDD811B00CBF0BA /* HomeCommentModelFrame.m */,
 				2D7279DC1DDD811B00CBF0BA /* HomeModel.h */,
 				2D7279DD1DDD811B00CBF0BA /* HomeModel.m */,
+				2D1DF87E1E023F8C00E8A4DA /* VoteModel.h */,
+				2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4080,6 +4085,7 @@
 				1D9580AD1D3E207200FD0053 /* MJRefreshGifHeader.m in Sources */,
 				1D09CC881D3F29C900F85E9A /* YYWebImageManager.m in Sources */,
 				1D09CC991D3F29C900F85E9A /* YYTextAttribute.m in Sources */,
+				2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */,
 				2D727A021DDD811B00CBF0BA /* VoteView.m in Sources */,
 				2DDD54281DB0D4AF00C55633 /* QNPHAssetFile.m in Sources */,
 				1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */,
