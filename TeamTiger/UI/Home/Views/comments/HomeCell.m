@@ -312,9 +312,9 @@
           dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
               
               NSMutableArray *mediasArr = [NSMutableArray array];
-              NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户唯一标识
+              NSDictionary *dic = @{@"uid":@"82054c40-c2a0-11e6-bec6-71b7651bef6e",//用户唯一标识
                                     @"type":@0,
-                                    @"from":@1,
+                                    @"from":@0,
                                     @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_qGVkdKC7.png"};
               [mediasArr addObject:dic];
               

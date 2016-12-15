@@ -326,6 +326,11 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 #warning to do ....创建投票类型的Moment
 - (void)actionStartMoment {
+    if ([Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
+        [super showText:@"请先创建项目" afterSeconds:1.0];
+        return;
+    }
+    
     if ([Common isEmptyString:_text]) {
         [super showText:@"请输入描述" afterSeconds:1.0];
         return;

@@ -286,16 +286,14 @@
 
 
 - (NSMutableArray *)projects {
-    if (!_projects) {
-        _projects = [NSMutableArray array];
+        NSMutableArray  *projects = [NSMutableArray array];
         for (NSDictionary *projectDic in [CirclesManager sharedInstance].circles) {
             TT_Project *tt_Project = [[TT_Project alloc] init];
             tt_Project.project_id = projectDic[@"_id"];
             tt_Project.name = projectDic[@"name"];
-            [_projects addObject:tt_Project];
+            [projects addObject:tt_Project];
         }
-    }
-    return _projects;
+    return projects;
 }
 
 - (NSMutableArray *)unGroupedProjects {
@@ -363,7 +361,10 @@
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
-        [self.gView loadGroupInfo:nil AllProjects:self.projects];
+        if (![Common isEmptyArr:[self projects]]) {
+            [[self projects] removeAllObjects];
+        }
+        [self.gView loadGroupInfo:nil AllProjects:[self projects]];
         [self.gView show];
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
@@ -383,7 +384,7 @@
                     });
                 } failure:^(__kindof LCBaseRequest *request, NSError *error) {
                     NSLog(@"%@", error);
-                    [super showText:@"创建分组失败" afterSeconds:1.5];
+                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
                 }];
             }
         };

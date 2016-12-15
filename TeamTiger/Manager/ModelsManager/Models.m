@@ -256,15 +256,17 @@ static TT_User *singleton = nil;
     if (userDic) {
         self.city = userDic[@"city"];
         self.country = userDic[@"country"];
-        self.headimgurl = userDic[@"headimgurl"];
+        self.headimgurl = userDic[@"head_img_url"];
         self.language = userDic[@"language"];
-        self.nickname = userDic[@"nickname"];
-        self.openid = userDic[@"openid"];//equal user_id
-        self.user_id = userDic[@"openid"];
-        self.privilege = [NSArray arrayWithArray:userDic[@"privilege"]];
-        self.province = userDic[@"province"];
-        self.sex = userDic[@"sex"];//1 男  0 女
-        self.unionid = userDic[@"unionid"];
+        self.nickname = userDic[@"nick_name"];
+        self.user_id = userDic[@"uid"];
+        
+#warning to do ...
+        self.openid = userDic[@"phone"];//phone
+        self.privilege = userDic[@"head_img_from"];
+        self.province = userDic[@"username"];//username
+        self.sex = userDic[@"_id"];//1 男  0 女
+        self.unionid = userDic[@"email"];//email
         return YES;
     }
     return NO;

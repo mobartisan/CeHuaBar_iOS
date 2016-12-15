@@ -16,7 +16,7 @@ static double const timeOutInterval = 15.0;
 
 + (void)configerNetworking {
     LCNetworkConfig *config = [LCNetworkConfig sharedInstance];
-    config.mainBaseUrl = Dev_Server;
+    config.mainBaseUrl = Pro_Server;
     LCProcessFilter *filter = [[LCProcessFilter alloc] init];
     config.processRule = filter;
 }
@@ -545,7 +545,7 @@ static double const timeOutInterval = 15.0;
 @implementation UploadImageApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/vote/update.app";
+    return @"bbs/api/v1.0/banner/update.app";
 }
 
 - (LCRequestMethod)requestMethod {

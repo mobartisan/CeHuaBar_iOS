@@ -212,10 +212,14 @@
 
 #warning to do
 - (void)actionStartMoment {
-    id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
+    if ([Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
+        [super showText:@"请先创建项目" afterSeconds:1.5];
+        return;
+    }
     
+    id picArr = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:@"Moment"];
     if ([Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {
-        [super showText:@"请输入描述或添加图片" afterSeconds:1.0];
+        [super showText:@"请输入描述或添加图片" afterSeconds:1.5];
         return;
     }
     NSMutableArray *mediasArr = [NSMutableArray array];
@@ -236,7 +240,7 @@
                 [self creatMomentAction:mediasArr text:@""];
                 
             } failure:^(NSError *error) {
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
             }];
         });
     }else if (![Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//有图片有文字
@@ -245,7 +249,7 @@
                 
             } success:^(NSArray *urls) {
                 for (NSString *url in urls) {
-                    NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
+                    NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
                                           @"type":@0,
                                           @"from":@1,
                                           @"url":url};
@@ -254,7 +258,7 @@
                 [self creatMomentAction:mediasArr text:_text];
                 
             } failure:^(NSError *error) {
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
             }];
         });
     }
@@ -271,7 +275,7 @@
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"发起讨论成功" afterSeconds:1.0];
+            [super showText:@"发起讨论成功" afterSeconds:1.5];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.navigationController popViewControllerAnimated:YES];
             });

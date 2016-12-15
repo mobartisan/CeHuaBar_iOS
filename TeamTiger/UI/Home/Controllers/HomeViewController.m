@@ -89,6 +89,11 @@
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
         [textLB addGestureRecognizer:tapLB];
         
+        NSDictionary *tmpDic = UserDefaultsGet(@"isUser");
+        if ([tmpDic[@"isClick"] intValue] == 1) {
+            textLB.hidden = YES;
+            [imageView sd_setImageWithURL:[NSURL URLWithString:tmpDic[@"url"]]];
+        }
         
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
@@ -235,9 +240,9 @@
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getAllMoments:%@", request.responseJSONObject[OBJ]);
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
-            for (NSDictionary *dic in request.responseJSONObject[OBJ]) {
+        NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
+            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
                 [self.dataSource addObject:homeModel];
             }
@@ -248,51 +253,6 @@
         [super showHudWithText:@"获取Moments失败"];
         [super hideHudAfterSeconds:1.0];
     }];
-//    {
-//        code = 1000,
-//        success = 1,
-//        obj = (
-//               {
-//                   _id = 5850ba35784c035a4fd06b0b,
-//                   vote_total_count = 0,
-//                   comments = (
-//                   )
-//                   ,
-//                   votes = (
-//                   )
-//                   ,
-//                   medias = (
-//                             {
-//                                 _id = 5850ba35784c035a4fd06b09,
-//                                 url = http://ohcjw5fss.bkt.clouddn.com/2016-12-14_PH4F0h6e.png
-//                             },
-//                             {
-//                                 _id = 5850ba35784c035a4fd06b0a,
-//                                 url = http://ohcjw5fss.bkt.clouddn.com/2016-12-14_w2HwdSL2.png
-//                             }
-//                             )
-//                   ,
-//                   comment_date = 2016-12-14 11:18:31,
-//                   text = 策话吧,
-//                   update_date = 2016-12-14 11:19:17,
-//                   prid = {
-//                       nick_name = 我和你💓,
-//                       username = HWaO5T9eoV6G,
-//                       _id = 5850b84ebaacefcc4e63d76f,
-//                       head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
-//                   },
-//                   type = 1,
-//                   pid = {
-//                       _id = 5850b87bbaacefcc4e63d776,
-//                       name = 策话吧
-//                   }
-//               }
-//               )
-//        ,
-//        msg = 查询成功
-//    }
-//    
-    
 }
 
 
@@ -364,6 +324,7 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
+                UserDefaultsRemove(@"isUser");
                 [_sectionHeader viewWithTag:1001].hidden = YES;
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
@@ -371,6 +332,29 @@
                 CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 wself.imageView.image = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
+#warning to do 改变封面
+                NSDictionary *bgImageDic = @{@"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-15_9PgnjJdq.png",
+                                             @"isClick":@1};
+                UserDefaultsSave(bgImageDic, @"isUser");
+
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [QiniuUpoadManager uploadImage:wself.imageView.image progress:^(NSString *key, float percent) {
+                        
+                    } success:^(NSString *url) {
+                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
+                                              @"url":url,
+                                              @"type":@0,
+                                              @"from":@3};//0-discuss  1-moments  2-vote  3-banner
+                        NSArray *arr = @[dic];
+                        NSData *data = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
+                        NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        [self bannerUpdate:@{@"medias":urlsStr}];
+                    } failure:^(NSError *error) {
+                        NSLog(@"%@", error);
+                        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                    }];
+                });
+                
             };
             
             TTBaseNavigationController *selectNav = [[TTBaseNavigationController alloc] initWithRootViewController:selectBgImageVC];
@@ -388,6 +372,24 @@
                                                           items:items];
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
+}
+
+//更改封面
+- (void)bannerUpdate:(NSDictionary *)requestDic {
+    UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
+    uploadImageApi.requestArgument = requestDic;
+    [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"bannerUpdate:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"bannerUpdate:%@", error);
+        if (error) {
+            [super showText:@"您的网络好像有问题~" afterSeconds:1];
+        }
+    }];
+    
 }
 
 - (void)handleRightBtnAction {

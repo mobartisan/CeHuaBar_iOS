@@ -17,7 +17,6 @@
 @property(nonatomic, strong) IBOutlet UILabel *nameLab;
 @property(nonatomic, strong) IBOutlet UILabel *remarkLab;
 
-@property(nonatomic, strong) NSMutableArray *projects;
 
 @property(nonatomic, strong) NSMutableArray *unGroupedProjects;
 

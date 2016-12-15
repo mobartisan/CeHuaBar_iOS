@@ -9,12 +9,13 @@
 #import "Constant.h"
 #import "IQKeyboardManager.h"
 #import "SettingCell.h"
-//#import "TTAddContactorViewController.h"
 #import "TTAddProjectViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
 #import "WXApiRequestHandler.h"
 #import "AFNetworking.h"
+#import "CirclesManager.h"
+
 
 @interface TTAddProjectViewController ()<WXApiManagerDelegate>{
      NSString *_name;
@@ -121,6 +122,7 @@
         NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:@"项目创建成功" afterSeconds:1.0];
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self dismissViewControllerAnimated:YES completion:nil];
             });

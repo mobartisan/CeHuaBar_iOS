@@ -192,9 +192,24 @@
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 #warning to do
         [self longiApi:responseObject];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"获取access_token时出错 = %@", error);
+        [super showHudWithText:@"登录微信失败"];
+        [super hideHudAfterSeconds:1.0];
+        [self hideLaunchImage];//隐藏启动页
+    }];
+}
+
+- (void)longiApi:(id)tempDic {
+    LoginApi *login = [[LoginApi alloc] init];
+    login.requestArgument = tempDic;
+    [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        gSession = request.responseJSONObject[OBJ][TOKEN];
+
         //1.user
         TT_User *user = [TT_User sharedInstance];
-        [user createUser:responseObject];
+        [user createUser:request.responseJSONObject[OBJ][DATA]];
         [SQLITEMANAGER setDataBasePath:user.user_id];
         if ([UserDefaultsGet(@"LastIsLogOut") intValue] != 1) {
             [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
@@ -212,20 +227,7 @@
             [window makeKeyAndVisible];
             [self hideLaunchImage];//隐藏启动页
         });
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"获取access_token时出错 = %@", error);
-        [super showHudWithText:@"登录微信失败"];
-        [super hideHudAfterSeconds:1.0];
-        [self hideLaunchImage];//隐藏启动页
-    }];
-}
-
-- (void)longiApi:(id)tempDic {
-    LoginApi *login = [[LoginApi alloc] init];
-    login.requestArgument = tempDic;
-    [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        gSession = request.responseJSONObject[OBJ][TOKEN];
+ 
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
     }];
