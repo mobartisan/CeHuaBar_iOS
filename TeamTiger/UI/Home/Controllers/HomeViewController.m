@@ -89,12 +89,6 @@
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
         [textLB addGestureRecognizer:tapLB];
         
-        NSDictionary *tmpDic = UserDefaultsGet(@"isUser");
-        if ([tmpDic[@"isClick"] intValue] == 1) {
-            textLB.hidden = YES;
-            [imageView sd_setImageWithURL:[NSURL URLWithString:tmpDic[@"url"]]];
-        }
-        
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         setBtn.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -211,7 +205,7 @@
         
     }
     
-
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
@@ -241,6 +235,14 @@
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
+            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"banner"]) {
+                HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                [self.dataSource addObject:homeModel];
+            }
+        }
+        
         if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
             for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
@@ -324,7 +326,6 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-                UserDefaultsRemove(@"isUser");
                 [_sectionHeader viewWithTag:1001].hidden = YES;
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
@@ -332,11 +333,7 @@
                 CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 wself.imageView.image = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
-#warning to do 改变封面
-                NSDictionary *bgImageDic = @{@"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-15_9PgnjJdq.png",
-                                             @"isClick":@1};
-                UserDefaultsSave(bgImageDic, @"isUser");
-
+#warning to do 封面
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [QiniuUpoadManager uploadImage:wself.imageView.image progress:^(NSString *key, float percent) {
                         
@@ -465,7 +462,7 @@
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
-    } else { 
+    } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
         ((HomeVoteCell *)cell).delegate = self;
