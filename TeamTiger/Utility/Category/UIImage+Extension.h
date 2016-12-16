@@ -21,4 +21,5 @@
  */
 + (UIImage *)compressImage:(UIImage *)sourceImage toTargetWidth:(CGFloat)targetWidth;
 
+- (UIImage *)normalizedImage;
 @end

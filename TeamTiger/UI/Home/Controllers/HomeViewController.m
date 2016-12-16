@@ -30,7 +30,7 @@
 #import "UIImage+YYAdd.h"
 #import "MockDatas.h"
 #import "TTGroupSettingViewController.h"
-
+#import "UIImage+Extension.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
@@ -327,10 +327,12 @@
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
                 [_sectionHeader viewWithTag:1001].hidden = YES;
+                
+                UIImage *normalImage = [selectImage normalizedImage];
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片
-                CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
+                CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 wself.imageView.image = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
 #warning to do 封面
