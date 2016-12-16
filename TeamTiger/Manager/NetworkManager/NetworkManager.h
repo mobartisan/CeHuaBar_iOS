@@ -113,4 +113,9 @@
 
 @end
 
+//登出
+@interface ExistAppApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 

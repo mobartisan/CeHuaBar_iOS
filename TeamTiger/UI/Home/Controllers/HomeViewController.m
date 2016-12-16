@@ -41,13 +41,16 @@
 @property (strong, nonatomic) UIView *tableHeader;
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;
 
+@property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
 
 @property (copy, nonatomic) NSString *current_group_id;
 @property (copy, nonatomic) NSString *current_project_id;
-@property (strong, nonatomic) UIButton *titleView;
+@property (copy, nonatomic) NSString *bannerImageURL;
+
 
 @end
 
@@ -60,7 +63,7 @@
     return _dataSource;
 }
 
-//talbeView 页眉
+//talbeView 分区页眉
 - (UIView *)sectionHeader {
     if (!_sectionHeader) {
         _sectionHeader = [UIView new];
@@ -73,21 +76,22 @@
         imageView.userInteractionEnabled = YES;
         imageView.image = [UIImage imageNamed:@"image_3.jpg"];
         [_sectionHeader addSubview:imageView];
-        _imageView = imageView;
+        self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
         [tap addTarget:self action:@selector(handleTapImageAction)];
         [imageView addGestureRecognizer:tap];
         
         UILabel *textLB = [UILabel new];
         textLB.userInteractionEnabled = YES;
-        textLB.tag = 1001;
         textLB.textAlignment = NSTextAlignmentCenter;
         textLB.text = @"轻触设置moment封面";
         textLB.textColor = [Common colorFromHexRGB:@"3f608b"];
         textLB.backgroundColor = [Common colorFromHexRGB:@"212e41"];
+        self.textLB = textLB;
         [_sectionHeader addSubview:textLB];
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
         [textLB addGestureRecognizer:tapLB];
+        
         
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
@@ -191,6 +195,7 @@
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
+
     [self configureNavigationItem];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -204,7 +209,6 @@
         self.tableView.tableHeaderView = self.tableHeader;
         
     }
-    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
@@ -237,12 +241,11 @@
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         
         if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
-            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"banner"]) {
-                HomeModel *homeModel = [HomeModel modelWithDic:dic];
-                [self.dataSource addObject:homeModel];
-            }
+            NSDictionary *bannerDic =[(request.responseJSONObject[OBJ][@"banner"]) firstObject];
+            self.textLB.hidden = YES;
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"1")];
         }
-        
+       
         if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
             for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
@@ -326,7 +329,7 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-                [_sectionHeader viewWithTag:1001].hidden = YES;
+                self.textLB.hidden = YES;
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片

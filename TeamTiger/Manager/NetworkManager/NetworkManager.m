@@ -569,3 +569,33 @@ static double const timeOutInterval = 15.0;
 }
 
 @end
+
+//登出
+@implementation ExistAppApi
+
+- (NSString *)apiMethodName {
+    return @"bbs/api/v1.0/user/logout.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
