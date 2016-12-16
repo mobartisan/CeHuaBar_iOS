@@ -41,9 +41,16 @@
     self.layer.mask = maskLayer;
 }
 
+- (NSMutableArray *)projects {
+    if (_projects == nil) {
+        _projects = [NSMutableArray array];
+    }
+    return _projects;
+}
 
 - (void)loadGroupInfo:(id)groupInfo AllProjects:(NSArray *)projects {
-    self.projects = [NSMutableArray arrayWithArray:projects];
+    [self.projects removeAllObjects];
+    [self.projects addObjectsFromArray:projects];
     self.selProjects = [NSMutableArray array];
     if (groupInfo) {
         self.groupInfo = [NSMutableDictionary dictionaryWithDictionary:groupInfo];
@@ -221,5 +228,6 @@
         [self.nameTxtField resignFirstResponder];
     }
 }
+
 
 @end

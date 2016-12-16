@@ -239,24 +239,26 @@
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
-        
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
-            NSDictionary *bannerDic =[(request.responseJSONObject[OBJ][@"banner"]) firstObject];
-            self.textLB.hidden = YES;
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"1")];
-        }
-       
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
-            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
-                HomeModel *homeModel = [HomeModel modelWithDic:dic];
-                [self.dataSource addObject:homeModel];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            
+//            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
+//                NSDictionary *bannerDic =[(request.responseJSONObject[OBJ][@"banner"]) firstObject];
+//                self.textLB.hidden = YES;
+//                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"1")];
+//            }
+            
+            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
+                for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
+                    HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                    [self.dataSource addObject:homeModel];
+                }
             }
         }
+        
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        [super showHudWithText:@"获取Moments失败"];
-        [super hideHudAfterSeconds:1.0];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
     }];
 }
 
@@ -277,8 +279,6 @@
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getAllMoments:@{@"page":@"1",
-                              @"rows":@"10"}];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -329,13 +329,8 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-<<<<<<< HEAD
                 self.textLB.hidden = YES;
-=======
-                [_sectionHeader viewWithTag:1001].hidden = YES;
-                
                 UIImage *normalImage = [selectImage normalizedImage];
->>>>>>> origin/master
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片

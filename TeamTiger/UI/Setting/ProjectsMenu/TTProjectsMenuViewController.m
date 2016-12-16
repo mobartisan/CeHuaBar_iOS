@@ -57,7 +57,7 @@
         NSLog(@"getAllGroups:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic =  request.responseJSONObject[OBJ];
-
+            
             //分组数据
             if (![Common isEmptyArr:self.groups]) {
                 [self.groups removeAllObjects];
@@ -170,7 +170,7 @@
             [self.pView loadGroupsInfos:self.groups];
             [self.pView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.mas_equalTo(cell);
-                }];
+            }];
         }
     }
     return cell;
@@ -286,13 +286,13 @@
 
 
 - (NSMutableArray *)projects {
-        NSMutableArray  *projects = [NSMutableArray array];
-        for (NSDictionary *projectDic in [CirclesManager sharedInstance].circles) {
-            TT_Project *tt_Project = [[TT_Project alloc] init];
-            tt_Project.project_id = projectDic[@"_id"];
-            tt_Project.name = projectDic[@"name"];
-            [projects addObject:tt_Project];
-        }
+    NSMutableArray  *projects = [NSMutableArray array];
+    for (NSDictionary *projectDic in [CirclesManager sharedInstance].circles) {
+        TT_Project *tt_Project = [[TT_Project alloc] init];
+        tt_Project.project_id = projectDic[@"_id"];
+        tt_Project.name = projectDic[@"name"];
+        [projects addObject:tt_Project];
+    }
     return projects;
 }
 
@@ -361,9 +361,6 @@
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
-        if (![Common isEmptyArr:[self projects]]) {
-            [[self projects] removeAllObjects];
-        }
         [self.gView loadGroupInfo:nil AllProjects:[self projects]];
         [self.gView show];
         WeakSelf;
@@ -501,6 +498,7 @@
         };
         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
             TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+            groupVC.allGroups = wself.groups;
             groupVC.groupId = [object group_id];
             groupVC.gid = [object group_id];
             [wself.navigationController pushViewController:groupVC animated:YES];

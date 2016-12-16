@@ -65,7 +65,6 @@
     }
 }
 
-
 - (NSMutableArray *)circles {
     if (!_circles) {
         _circles = [NSMutableArray array];

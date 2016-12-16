@@ -19,4 +19,6 @@
 
 @property (copy, nonatomic) NSString *gid;
 
+@property (strong, nonatomic) NSMutableArray *allGroups;
+
 @end
