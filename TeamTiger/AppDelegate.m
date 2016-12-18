@@ -31,6 +31,7 @@
     if(!self.window){
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
+    NSLog(@"%@", NSHomeDirectory());
     [self initialMethods];
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];

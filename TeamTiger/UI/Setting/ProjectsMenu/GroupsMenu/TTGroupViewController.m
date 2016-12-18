@@ -132,7 +132,7 @@
     return cell;
 }
 
-#warning to do....
+#pragma mark  从某个分组删除项目
 - (void)deleteProjectGid:(NSString *)gid pid:(TT_Project *)project {
     DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
     deleteProjectApi.requestArgument = @{@"pid":project.project_id,//项目ID
@@ -148,6 +148,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
@@ -248,35 +249,9 @@
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
-                NSLog(@"object:%@",[object group_id]);
                 [wself moveProjectFrom_gid:wself.groupId to_gid:[object group_id] pid:projectInfo];
             }
-            //            if (isConfirm) {
-            //                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
-            //                if ([pids containsObject:[projectInfo project_id]]) {
-            //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            //                        hud.label.text = @"项目已存在该分组";
-            //                        hud.mode = MBProgressHUDModeText;
-            //                        [hud hideAnimated:YES afterDelay:1.5];
-            //                    });
-            //                    return;
-            //                } else {
-            //                    //添加至分组
-            //                    [pids addObject:[projectInfo project_id]];
-            //                    NSString *nwPids = [pids componentsJoinedByString:@","];
-            //                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-            //                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-            //                    [SQLITEMANAGER executeSql:updateSql];
-            //                    //给出提示
-            //                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            //                        hud.label.text = @"项目已添加至该分组";
-            //                        hud.mode = MBProgressHUDModeText;
-            //                        [hud hideAnimated:YES afterDelay:1.5];
-            //                    });
-            //                }
-            //            }
+       
         };
     }
 }

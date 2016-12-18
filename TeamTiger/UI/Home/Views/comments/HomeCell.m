@@ -144,7 +144,7 @@
     self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 9).widthIs(8).heightIs(10);
     
     self.projectLB.sd_layout.leftSpaceToView(self.imageV1, 2).topSpaceToView(self.nameLB, 7).heightIs(13);
-    [self.projectLB setSingleLineAutoResizeWithMaxWidth:80];
+    [self.projectLB setSingleLineAutoResizeWithMaxWidth:200];
     
     
     self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
@@ -309,52 +309,57 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if( [text isEqualToString:@"\n"]){
         [textView resignFirstResponder];
-          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-              
-              NSMutableArray *mediasArr = [NSMutableArray array];
-              NSDictionary *dic = @{@"uid":@"82054c40-c2a0-11e6-bec6-71b7651bef6e",//用户唯一标识
-                                    @"type":@0,
-                                    @"from":@0,
-                                    @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_qGVkdKC7.png"};
-              [mediasArr addObject:dic];
-              
-              NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
-              NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
-              discussCreatApi.requestArgument = @{@"text":textView.text,
-                                                  @"pid":_homeModel.Id,
-                                                  @"type":@0,
-                                                  @"medias":urlsStr,
-                                                  @"mid":_homeModel.moment_id};
-              [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-                  NSLog(@"%@", request.responseJSONObject);
-                  NSDictionary *dic = @{@"name":@"曹兴星",
-                                        @"content":textView.text,
-                                        @"photeNameArry":mediasArr,
-                                        @"time":[Common getCurrentSystemTime]};
-                  HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
-                  HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
-                  commentModelF.homeCommentModel = commentModel;
-                  [_homeModel.comment insertObject:commentModelF atIndex:0];
-                  _homeModel.index += 1;
-                  _homeModel.partHeight +=commentModelF.cellHeight;
-                  _homeModel.totalHeight +=commentModelF.cellHeight;
-                  dispatch_async(dispatch_get_main_queue(), ^{
-                      if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
-                          [self.delegate clickCommentBtn:self.commentBtn.indexPath];
-                      }
-                  });
-              } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-                  NSLog(@"%@", error);
-                  
-              }];
-          });
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            NSMutableArray *mediasArr = [NSMutableArray array];
+            NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
+            discussCreatApi.requestArgument = @{@"text":textView.text,
+                                                @"pid":_homeModel.Id,
+                                                @"type":@0,
+                                                @"medias":urlsStr,
+                                                @"mid":_homeModel.moment_id};
+            [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                NSLog(@"%@", request.responseJSONObject);
+                if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                    NSDictionary *dic = @{@"name":[TT_User sharedInstance].nickname,
+                                          @"content":textView.text,
+                                          @"photeNameArry":mediasArr,
+                                          @"time":[Common getCurrentSystemTime]};
+                    HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+                    HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+                    commentModelF.homeCommentModel = commentModel;
+                    [_homeModel.comment insertObject:commentModelF atIndex:0];
+                    _homeModel.index += 1;
+                    _homeModel.partHeight += commentModelF.cellHeight;
+                    _homeModel.totalHeight += commentModelF.cellHeight;
+                }else {
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+                    hud.label.text = request.responseJSONObject[MSG];
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+                        [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+                    }
+                });
+            } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                NSLog(@"%@", error);
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+                hud.label.text = @"您的网络好像有问题~";
+                hud.mode = MBProgressHUDModeText;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }];
+        });
         
         return NO;
     }
     return YES;
-
-                       
+    
+    
 }
 
 #pragma mark UITableViewDataSource

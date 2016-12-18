@@ -393,10 +393,18 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
 
         
 //        TABLE_TT_Project
+//        [self checkTable:database
+//               tableName:TABLE_TT_Project
+//           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
+//       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
+//             primaryKeys:nil
+//      isFieldTypeChanged:NO
+//         ];
+        
         [self checkTable:database
                tableName:TABLE_TT_Project
-           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
+               allFields:@[@"project_id",@"name"].mutableCopy
+           allFieldTypes:@[@"varchar",@"varchar"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -462,7 +470,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
       isFieldTypeChanged:NO
          ];
         
-        
+/*
         //add preparePredefineDatas
         [self preparePredefineDatas:database
                            commands:
@@ -651,6 +659,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000034', 'D00007', null, 'image_5.jpg')",
            ].mutableCopy
          ];
+*/
     }
     else {
         //T_APP_SETTINGS

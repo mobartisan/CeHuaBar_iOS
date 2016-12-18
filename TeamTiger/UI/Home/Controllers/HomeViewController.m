@@ -215,6 +215,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
+    [self.dataSource removeAllObjects];
+    
 }
 
 - (void)getAllProjects {
@@ -240,12 +243,6 @@
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            
-//            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
-//                NSDictionary *bannerDic =[(request.responseJSONObject[OBJ][@"banner"]) firstObject];
-//                self.textLB.hidden = YES;
-//                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"1")];
-//            }
             
             if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
                 for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {

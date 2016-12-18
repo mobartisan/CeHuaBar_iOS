@@ -176,7 +176,7 @@
     return cell;
 }
 
-#warning to do...移动未分组项目到某个分组下
+#pragma mark 移动未分组项目到某个分组下
 - (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
     moveProjectApi.requestArgument = @{@"from_gid":from_gid,
@@ -325,36 +325,34 @@
  }
  return _unGroupedProjects;
  }
- */
-//数据库数据
-/*
- - (void)creatGroupAction {
- if (self.gView.isShow) {
- [self.gView hide];
- } else {
- [self.gView loadGroupInfo:nil AllProjects:self.projects];
- [self.gView show];
- WeakSelf;
- self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
- if (isConfirm) {
- NSLog(@"%@",object);
- TT_User *user = [TT_User sharedInstance];
- [SQLITEMANAGER setDataBasePath:user.user_id];
- NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,1,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
- [SQLITEMANAGER executeSql:sqlString];
- [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
- [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
- dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
- MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
- hud.label.text = @"创建分组成功";
- hud.mode = MBProgressHUDModeText;
- [hud hideAnimated:YES afterDelay:1.5];
- });
- }
- };
- }
- }
- */
+
+- (void)creatGroupAction1 {
+    if (self.gView.isShow) {
+        [self.gView hide];
+    } else {
+        [self.gView loadGroupInfo:nil AllProjects:self.projects];
+        [self.gView show];
+        WeakSelf;
+        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@",object);
+                TT_User *user = [TT_User sharedInstance];
+                [SQLITEMANAGER setDataBasePath:user.user_id];
+                NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(group_id, name, pids, description, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id) VALUES('%@','%@','%@',null,0,1,datetime('now','localtime'),'%@',datetime('now','localtime'),'%@')",TABLE_TT_Group, object[@"Gid"], object[@"Name"], object[@"Pids"] ,user.user_id, user.user_id];
+                [SQLITEMANAGER executeSql:sqlString];
+                [wself.groups addObject:[TT_Group creatGroupWithDictionary:object]];
+                [wself.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+                    hud.label.text = @"创建分组成功";
+                    hud.mode = MBProgressHUDModeText;
+                    [hud hideAnimated:YES afterDelay:1.5];
+                });
+            }
+        };
+    }
+}
+*/
 
 #pragma mark 创建分组...
 - (void)creatGroupAction {

@@ -222,6 +222,8 @@
         [super showText:@"请输入描述或添加图片" afterSeconds:1.5];
         return;
     }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     NSMutableArray *mediasArr = [NSMutableArray array];
     if ([Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//没有图片,有文字
         [self creatMomentAction:mediasArr text:_text];
@@ -231,7 +233,7 @@
                 
             } success:^(NSArray *urls) {
                 for (NSString *url in urls) {
-                    NSDictionary *dic = @{@"uid":@"30fb2a10-ba9c-11e6-8d67-8db0a5730ba6",//用户ID
+                    NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,//用户ID
                                           @"type":@0,
                                           @"from":@1,
                                           @"url":url};
@@ -275,10 +277,8 @@
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"发起讨论成功" afterSeconds:1.5];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             //创建失败
             [super showHudWithText:request.responseJSONObject[MSG]];

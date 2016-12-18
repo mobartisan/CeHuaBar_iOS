@@ -18,8 +18,8 @@
 
 
 @interface TTAddProjectViewController ()<WXApiManagerDelegate>{
-     NSString *_name;
-     BOOL isPrivate;
+    NSString *_name;
+    BOOL isPrivate;
 }
 
 @end
@@ -34,10 +34,10 @@
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
-
+    
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [WXApiManager sharedManager].delegate = self;
-
+    
     self.contentTable.estimatedRowHeight = 77;
     self.contentTable.rowHeight = UITableViewAutomaticDimension;
 }
@@ -50,7 +50,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return self.datas.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -128,13 +128,11 @@
             });
         } else {
             //创建失败
-            [super showHudWithText:@"项目创建失败"];
-            [super hideHudAfterSeconds:1.0];
+            [super showText:@"项目创建失败" afterSeconds:1.5];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@",error.description);
-        [self showHudWithText:@"您的网络好像有问题~"];
-        [self hideHudAfterSeconds:1.0];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
     }];
 }
 
@@ -143,8 +141,8 @@
     if (!_datas) {
         _datas = [NSMutableArray arrayWithObjects:
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目名称:",@"TYPE":@"0"},
-//                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
-                  @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
+                  //                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
+//                  @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
                   @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
                   @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"4"},nil];
     }

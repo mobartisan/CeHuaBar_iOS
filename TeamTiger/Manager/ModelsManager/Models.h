@@ -28,15 +28,15 @@
 
 @property(nonatomic, strong) NSString *project_id;  // project_id
 @property(nonatomic, strong) NSString *name;  // name
-@property(nonatomic, strong) NSString *description;  // description
-@property(nonatomic)         BOOL is_private;  // is_private
-@property(nonatomic)         NSInteger current_state;  // current_state
-@property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
-@property(nonatomic, strong) NSDate *create_date;  // create_date
-@property(nonatomic, strong) NSString *create_user_id;  // create_user_id
-@property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
-@property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
-@property(nonatomic)         BOOL is_grouped;  // is_grouped
+//@property(nonatomic, strong) NSString *description;  // description
+//@property(nonatomic)         BOOL is_private;  // is_private
+//@property(nonatomic)         NSInteger current_state;  // current_state
+//@property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
+//@property(nonatomic, strong) NSDate *create_date;  // create_date
+//@property(nonatomic, strong) NSString *create_user_id;  // create_user_id
+//@property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
+//@property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+//@property(nonatomic)         BOOL is_grouped;  // is_grouped
 
 @end
 

@@ -138,7 +138,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 {
     TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"投票类型" subtitle:@"单选" destVcClass:[SelectOptionTypeVC class]];
     self.optionTypeItem = (TTCommonArrowItem *)tag;
-
+    
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = [NSMutableArray arrayWithArray:@[tag]];
     [self.data addObject:group];
@@ -174,7 +174,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     addOptionView.backgroundColor = [UIColor clearColor];
     
     UIButton *addOptionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    addOptionBtn.frame = CGRectMake(0, 0, 30, 100);
+    //    addOptionBtn.frame = CGRectMake(0, 0, 30, 100);
     [addOptionBtn setTitle:@"添加更多选项   " forState:UIControlStateNormal];
     [addOptionBtn.titleLabel setFont:FONT(13)];
     [addOptionBtn.titleLabel setLineBreakMode:NSLineBreakByWordWrapping];
@@ -184,7 +184,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [addOptionBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, 0)];
     addOptionBtn.tintColor = [UIColor whiteColor];
     [addOptionBtn addTarget:self action:@selector(addOptionBtnAction) forControlEvents:UIControlEventTouchUpInside];
-
+    
     
     [addOptionView addSubview:addOptionBtn];
     [addOptionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -335,54 +335,60 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [super showText:@"请输入描述" afterSeconds:1.0];
         return;
     }
-    NSArray *votesArr = @[@{@"vote_name":@"A",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
-                          @{@"vote_name":@"B",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]},
-                          @{@"vote_name":@"C",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
-                          @{@"vote_name":@"D",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]},
-                          @{@"vote_name":@"E",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_kMX7x5su.png"}]},
-                          @{@"vote_name":@"F",
-                            @"medias":@[@{@"type":@0,
-                                          @"from":@2,
-                                          @"url":@"http://ohcjw5fss.bkt.clouddn.com/2016-12-14_iiRb09Ia.png"}]}
-                          ];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:votesArr options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSDictionary *dic = @{@"votes":votesStr,
-                          @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],
-                          @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
-                          @"vote_title":_text,
-                          @"type":@2 //1为普通的moment  2为投票类型
-                          };
-    VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
-    voteCreatApi.requestArgument = dic;
-    [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"发表投票Moment成功" afterSeconds:1.5];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.5];
+   
+    NSMutableArray *imageArr = [NSMutableArray array];
+    for (NSInteger i = 0; i < 9 ; i++) {
+        NSString *option = [NSString stringWithUTF8String:kOptionStr[i]];
+        UIImage *image = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:option];
+        if (image == nil) continue;
+        [imageArr addObject:image];
+    }
+    
+    if ([Common isEmptyArr:imageArr]) {
+        [super showText:@"请选择图片" afterSeconds:1.0];
+        return;
+    }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSMutableArray *mediasArr = [NSMutableArray array];
+    [QiniuUpoadManager uploadImages:imageArr progress:^(CGFloat progress) {
+        
+    } success:^(NSArray *urls) {
+        for (int i = 0; i < urls.count; i++) {
+            NSDictionary *dic = @{@"vote_name":[NSString stringWithUTF8String:kOptionStr[i]],
+                                  @"medias":@[@{@"type":@0,
+                                                @"from":@2,
+                                                @"url":urls[i]}]};
+            [mediasArr addObject:dic];
         }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
+       
+        NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        NSDictionary *dic = @{@"votes":votesStr,
+                              @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
+                              @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
+                              @"vote_title":_text,
+                              @"type":@2 //1为普通的moment  2为投票类型
+                              };
+        VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
+        voteCreatApi.requestArgument = dic;
+        [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }else {
+                [super showText:request.responseJSONObject[MSG] afterSeconds:1.5];
+            }
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@", error);
+            if (error) {
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+            }
+        }];
+    } failure:^(NSError *error) {
         if (error) {
             [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
         }

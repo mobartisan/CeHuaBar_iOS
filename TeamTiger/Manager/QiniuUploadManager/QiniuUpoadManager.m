@@ -66,7 +66,6 @@ static QiniuUpoadManager *manager = nil;
 
 - (void)createToken {
     [self registerWithScope:QiNiuScope accessKey:QiNiuAccessKey secretKey:QiNiuSecretKey liveTime:defaultLiveTime];
-    
     if (!self.scope.length || !self.accessKey.length || !self.secretKey.length) {
         return;
     }
@@ -114,38 +113,44 @@ static QiniuUpoadManager *manager = nil;
 
 //上传单张图片
 + (void)uploadImage:(UIImage *)image progress:(QNUpProgressHandler)progress success:(void (^)(NSString *url))success failure:(void (^)(NSError *error))failure {
-    [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
-        NSError *tempError;
-        NSData *data = UIImageJPEGRepresentation(image, 0.7);
-        if (!data) {
-            if (failure) {
-                failure(tempError);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
+            NSError *tempError;
+            NSData *data = nil;
+            if (UIImagePNGRepresentation(image) == nil) {
+                data = UIImageJPEGRepresentation(image, 0.7);
+            } else {
+                data = UIImagePNGRepresentation(image);
             }
-            return;
-        }
-        NSString *fileName = [NSString stringWithFormat:@"%@_%@.png", [Common getCurrentSystemYearMonthDay], [NSString randomStringWithLength:8]];
-        QNUploadOption *option = [[QNUploadOption alloc] initWithMime:nil progressHandler:progress params:nil checkCrc:YES cancellationSignal:nil];
-        QNUploadManager *uploadManager = [QNUploadManager sharedInstanceWithConfiguration:nil];
-        //如果key为nil,默认上传文件保存名称为hash名:resp[@"hash"]
-        [uploadManager putData:data
-                           key:fileName
-                         token:token
-                      complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-                          if (info.statusCode == 200 && resp) {
-                              NSString *url= [NSString stringWithFormat:@"%@%@", QiNiuBaseUrl, resp[@"key"]];
-                              if (success) {
-                                  success(url);
+            if (!data) {
+                if (failure) {
+                    failure(tempError);
+                }
+                return;
+            }
+            NSString *fileName = [NSString stringWithFormat:@"%@_%@.png", [Common getCurrentSystemYearMonthDay], [NSString randomStringWithLength:8]];
+            QNUploadOption *option = [[QNUploadOption alloc] initWithMime:nil progressHandler:progress params:nil checkCrc:YES cancellationSignal:nil];
+            QNUploadManager *uploadManager = [QNUploadManager sharedInstanceWithConfiguration:nil];
+            //如果key为nil,默认上传文件保存名称为hash名:resp[@"hash"]
+            [uploadManager putData:data
+                               key:fileName
+                             token:token
+                          complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                              if (info.statusCode == 200 && resp) {
+                                  NSString *url= [NSString stringWithFormat:@"%@%@", QiNiuBaseUrl, resp[@"key"]];
+                                  if (success) {
+                                      success(url);
+                                  }
+                              }else {
+                                  if (failure) {
+                                      failure(tempError);
+                                  }
                               }
-                          }else {
-                              if (failure) {
-                                  failure(tempError);
-                              }
-                          }
-                      } option:option];
-    } failure:^(NSError *tokenError) {
-        NSLog(@"获取Token失败:%@", tokenError);
-    }];
-    
+                          } option:option];
+        } failure:^(NSError *tokenError) {
+            NSLog(@"获取Token失败:%@", tokenError);
+        }];
+    });
 }
 
 //上传多张图片

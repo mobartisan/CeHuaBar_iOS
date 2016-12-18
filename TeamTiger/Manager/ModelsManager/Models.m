@@ -58,28 +58,29 @@
 
 @synthesize project_id = _project_id;
 @synthesize name = _name;
-@synthesize description = _description;
-@synthesize is_private = _is_private;
-@synthesize current_state = _current_state;
-@synthesize is_allow_delete = _is_allow_delete;
-@synthesize create_date = _create_date;
-@synthesize create_user_id = _create_user_id;
-@synthesize last_edit_date = _last_edit_date;
-@synthesize last_edit_user_id = _last_edit_user_id;
-@synthesize is_grouped = _is_grouped;
+//@synthesize description = _description;
+//@synthesize is_private = _is_private;
+//@synthesize current_state = _current_state;
+//@synthesize is_allow_delete = _is_allow_delete;
+//@synthesize create_date = _create_date;
+//@synthesize create_user_id = _create_user_id;
+//@synthesize last_edit_date = _last_edit_date;
+//@synthesize last_edit_user_id = _last_edit_user_id;
+//@synthesize is_grouped = _is_grouped;
+
 - (NSString *)description
 {
     NSLog(@"project_id:%@", _project_id);
     NSLog(@"name:%@", _name);
-    NSLog(@"description:%@", _description);
-    NSLog(@"is_private:%@", @(_is_private));
-    NSLog(@"current_state:%@", @(_current_state));
-    NSLog(@"is_allow_delete:%@", @(_is_allow_delete));
-    NSLog(@"create_date:%@", _create_date);
-    NSLog(@"create_user_id:%@", _create_user_id);
-    NSLog(@"last_edit_date:%@", _last_edit_date);
-    NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
-    NSLog(@"is_grouped:%@", @(_is_grouped));
+//    NSLog(@"description:%@", _description);
+//    NSLog(@"is_private:%@", @(_is_private));
+//    NSLog(@"current_state:%@", @(_current_state));
+//    NSLog(@"is_allow_delete:%@", @(_is_allow_delete));
+//    NSLog(@"create_date:%@", _create_date);
+//    NSLog(@"create_user_id:%@", _create_user_id);
+//    NSLog(@"last_edit_date:%@", _last_edit_date);
+//    NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
+//    NSLog(@"is_grouped:%@", @(_is_grouped));
     return [super description];
 }
 @end

@@ -22,6 +22,7 @@
 @property (strong, nonatomic) UIImageView *imageV1;
 @property (strong, nonatomic) UILabel *projectLB;
 @property (strong, nonatomic) UIImageView *imageV2;
+@property (strong, nonatomic) UILabel *contentLB;
 @property (strong, nonatomic) VoteView *photoContainerView;
 @property (strong, nonatomic) VoteBottomView *voteBottomView;
 @property (strong, nonatomic) UILabel *timeLB;
@@ -89,9 +90,14 @@
     [self.projectBtn addTarget:self action:@selector(handleClickProjectBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.projectBtn];
     
+    //内容
+    self.contentLB = [UILabel new];
+    self.contentLB.textColor = [Common colorFromHexRGB:@"ffffff"];
+    self.contentLB.font = [UIFont systemFontOfSize:16];
+    [self.contentView addSubview:self.contentLB];
+    
     //图片
     self.photoContainerView = [[VoteView alloc] init];
-    
     [self.contentView addSubview:self.photoContainerView];
     
     self.voteBottomView = [[VoteBottomView alloc] init];
@@ -119,14 +125,17 @@
     self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 9).widthIs(8).heightIs(10);
     
     self.projectLB.sd_layout.leftSpaceToView(self.imageV1, 2).topSpaceToView(self.nameLB, 7).heightIs(13);
-    [self.projectLB setSingleLineAutoResizeWithMaxWidth:80];
+    [self.projectLB setSingleLineAutoResizeWithMaxWidth:200];
     
     
     self.imageV2.sd_layout.leftSpaceToView(self.projectLB, 2).topEqualToView(self.imageV1).widthIs(8).heightIs(10);
     
     self.projectBtn.sd_layout.leftEqualToView(self.imageV1).rightEqualToView(self.imageV2).topSpaceToView(self.nameLB, 7).heightIs(20);
     
-    self.photoContainerView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.projectLB, 10);
+    self.contentLB.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.imageV1, 10).rightSpaceToView(self.contentView, 10).autoHeightRatio(0);
+    [self.contentLB setMaxNumberOfLinesToShow:6];
+    
+    self.photoContainerView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.contentLB, 10);
     
     self.voteBottomView.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.photoContainerView, 10);
     
@@ -144,14 +153,15 @@
     WeakSelf;
     _homeModel = homeModel;
     
-    self.photoContainerView.voteClickBlock = ^(VoteModel *voteModel){
-        [wself voteClick:voteModel];
-    };
     
     [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"1")];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
+    self.contentLB.text = homeModel.content;
     self.photoContainerView.picPathStringsArray = homeModel.vote;
+    self.photoContainerView.voteClickBlock = ^(VoteModel *voteModel){
+        [wself voteClick:voteModel];
+    };
     self.voteBottomView.total_count = homeModel.vcount;
     self.voteBottomView.ticketArr = homeModel.vote;
     self.timeLB.text = homeModel.time;
@@ -164,7 +174,6 @@
     }
 }
 
-#warning to do... 投票点击事件
 - (void)voteClick:(VoteModel *)voteModel {
     VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
     votecClickApi.requestArgument = @{@"pid":_homeModel.Id, //项目id

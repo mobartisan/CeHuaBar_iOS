@@ -16,7 +16,7 @@ static double const timeOutInterval = 15.0;
 
 + (void)configerNetworking {
     LCNetworkConfig *config = [LCNetworkConfig sharedInstance];
-    config.mainBaseUrl = Pro_Server;
+    config.mainBaseUrl = Pro_Server;//Dev_Server
     LCProcessFilter *filter = [[LCProcessFilter alloc] init];
     config.processRule = filter;
 }
