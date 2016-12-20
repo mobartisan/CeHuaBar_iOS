@@ -38,6 +38,13 @@
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
     if (object && [object isKindOfClass:[TT_Project class]]) {
         TT_Project *project = (TT_Project *)object;
+        if (project.isTop) {
+            self.contentView.backgroundColor = kRGB(50, 50, 50);
+        }else {
+            self.contentView.backgroundColor = kRGB(21, 27, 38);
+        }
+        
+        
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
         self.projectNameLab.text = project.name;

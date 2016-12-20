@@ -24,7 +24,7 @@
 
 @implementation ProjectItemView
 
-- (instancetype)initWithData:(id)object {
+- (instancetype)initWithData:(id)object  {
     self = [super init];
     if (self) {
         self.backgroundColor = [Common colorFromHexRGB:@"202e41"];

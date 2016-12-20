@@ -142,8 +142,10 @@
         } else {
             sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project,self.project_id];
         }
-        TT_Project *project = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].firstObject;
-        
+//        TT_Project *project = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].firstObject;
+        TT_Project *project = [[TT_Project alloc] init];
+        project.name = @"工作牛";
+        project.project_id = @"0003";
         NSString *memberSql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project_Members,project.project_id];
         NSArray *members = [SQLITEMANAGER selectDatasSql:memberSql Class:TABLE_TT_Project_Members];
 

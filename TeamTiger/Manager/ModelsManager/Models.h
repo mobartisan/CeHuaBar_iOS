@@ -28,6 +28,8 @@
 
 @property(nonatomic, strong) NSString *project_id;  // project_id
 @property(nonatomic, strong) NSString *name;  // name
+@property (assign, nonatomic) BOOL isTop;
+
 //@property(nonatomic, strong) NSString *description;  // description
 //@property(nonatomic)         BOOL is_private;  // is_private
 //@property(nonatomic)         NSInteger current_state;  // current_state

@@ -41,8 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getAllProjects];
     [self getAllGroups];
+    [self getAllProjects];
     self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
@@ -58,6 +58,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroups];
+    [self getAllProjects];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -99,13 +100,26 @@
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目?" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     NSLog(@"删除项目");
+                    [self.allProjects removeObject:projectInfo];
+                    [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
             }];
             
         };
         //增加项目至分组的cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            NSLog(@"置顶");
+            [self.allProjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx != indexPath.row) {
+                    ((TT_Project *)obj).isTop = NO;
+                }
+            }];
+            
+            TT_Project *tmpProject = projectInfo;
+            tmpProject.isTop = YES;
+            [self.allProjects removeObject:projectInfo];
+            [self.allProjects insertObject:tmpProject atIndex:0];
+        
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
         };
         //免打扰
         ((ProjectsCell *)cell).noDisturbBlokc = ^{
@@ -245,7 +259,12 @@
 
 //获取所有的项目
 - (void)getAllProjects {
+    [self.allProjects removeAllObjects];
     CirclesManager *circleManager = [CirclesManager sharedInstance];
+    if (![Common isEmptyArr:circleManager.circles]) {
+        [circleManager.circles removeAllObjects];
+    }
+    
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllProjects:%@", request.responseJSONObject);
@@ -278,15 +297,15 @@
         NSLog(@"getAllGroups:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic =  request.responseJSONObject[OBJ];
-            
             //分组数据
             if (![Common isEmptyArr:self.groups]) {
                 [self.groups removeAllObjects];
             }
-            for (NSDictionary *groupDic in objDic[@"groups"]) {
+            NSArray *groupArr = objDic[@"groups"];
+            for (int i = 2; i < groupArr.count; i++) {
                 TT_Group *group = [[TT_Group alloc] init];
-                group.group_id = groupDic[@"_id"];
-                group.group_name = groupDic[@"group_name"];
+                group.group_id = groupArr[i][@"_id"];
+                group.group_name = groupArr[i][@"group_name"];
                 [self.groups addObject:group];
             }
             
@@ -407,13 +426,13 @@
             [wself creatGroupAction];
         };
         /*
-        _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
-            TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
-            groupVC.allGroups = wself.groups;
-            groupVC.groupId = [object group_id];
-            groupVC.gid = [object group_id];
-            [wself.navigationController pushViewController:groupVC animated:YES];
-        };
+         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
+         TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
+         groupVC.allGroups = wself.groups;
+         groupVC.groupId = [object group_id];
+         groupVC.gid = [object group_id];
+         [wself.navigationController pushViewController:groupVC animated:YES];
+         };
          */
     }
     return _pView;

@@ -180,7 +180,7 @@
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-        settingVC.project_id = @"0001";
+//        settingVC.project_id = @"0001";
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
@@ -315,6 +315,7 @@
     [self.view endEditing:YES];
     //项目列表
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
+    
 }
 
 - (void)handleBgImageTap {
@@ -394,10 +395,6 @@
     [self.view endEditing:YES];
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     MMPopupItemHandler block = ^(NSInteger index){
-        if (![Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
-            [[CirclesManager sharedInstance].circles removeAllObjects];
-            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-        }
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
@@ -446,9 +443,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.tableView setContentOffset:offset animated:YES];
     }];
-    if (keyBoradFrame.origin.y == kScreenHeight) {
-        [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-    }
 }
 
 #pragma mark UITableViewDataSource

@@ -336,15 +336,14 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         return;
     }
     
-   
+    
     NSMutableArray *imageArr = [NSMutableArray array];
     for (NSInteger i = 0; i < 9 ; i++) {
         NSString *option = [NSString stringWithUTF8String:kOptionStr[i]];
-        UIImage *image = [[SelectPhotosManger sharedInstance] getPhotoesWithOption:option];
+        UIImage *image = [[[SelectPhotosManger sharedInstance] getPhotoesWithOption:option] firstObject];
         if (image == nil) continue;
         [imageArr addObject:image];
     }
-    
     if ([Common isEmptyArr:imageArr]) {
         [super showText:@"请选择图片" afterSeconds:1.0];
         return;
@@ -362,7 +361,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
                                                 @"url":urls[i]}]};
             [mediasArr addObject:dic];
         }
-       
+        
         NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
         NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         

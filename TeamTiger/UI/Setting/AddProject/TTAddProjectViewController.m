@@ -123,9 +123,8 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:@"项目创建成功" afterSeconds:1.0];
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
-            });
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
         } else {
             //创建失败
             [super showText:@"项目创建失败" afterSeconds:1.5];

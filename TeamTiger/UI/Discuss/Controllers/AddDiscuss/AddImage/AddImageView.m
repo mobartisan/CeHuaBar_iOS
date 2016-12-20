@@ -540,7 +540,7 @@ static const double kColumn = 4.0f;
 
 // 打印图片名字
 - (void)printAssetsName:(NSArray *)assets {
-    NSString *fileName;
+    NSString *fileName = nil;
     for (id asset in assets) {
         if ([asset isKindOfClass:[PHAsset class]]) {
             PHAsset *phAsset = (PHAsset *)asset;
