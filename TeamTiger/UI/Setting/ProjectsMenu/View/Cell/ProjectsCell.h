@@ -27,6 +27,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *deleteBtn; //底层删除按钮
 
 @property (nonatomic, weak) IBOutlet UIButton *addBtn; //底层添加按钮
+@property (weak, nonatomic) IBOutlet UIButton *noDisturbBtn;
 
 @property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动
 
@@ -35,6 +36,8 @@
 @property (nonatomic, copy) void (^deleteMember)(); //删除会员block回调方法
 
 @property (nonatomic, copy) void (^addMember)(); //增加会员block回调方法
+
+@property (copy, nonatomic) void (^noDisturbBlokc)();//免打扰
 
 @property (nonatomic, copy) void (^closeOtherCellSwipe)(); //关闭其他cell的左滑
 

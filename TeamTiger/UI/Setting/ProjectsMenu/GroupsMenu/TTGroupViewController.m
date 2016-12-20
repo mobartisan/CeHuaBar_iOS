@@ -100,20 +100,8 @@
         [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
             if (buttonIndex == 1) {
 #warning to do....从分组中删除某个项目
-#if TEST
                 [self deleteProjectGid:self.gid pid:projectInfo];
-#else
-                [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                //从分组中删除
-                TT_Group *group = [SQLITEMANAGER selectDatasSql:[NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId] Class:TABLE_TT_Group].firstObject;
-                NSMutableArray *pids = [group.pids componentsSeparatedByString:@","].mutableCopy;
-                [pids removeObject:[projectInfo project_id]];
-                NSString *nwPids = [pids componentsJoinedByString:@","];
-                NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-                [SQLITEMANAGER executeSql:updateSql];
-                [self.projects removeObjectAtIndex:indexPath.row];
-                [self.table reloadData];
-#endif
+
             }
         }];
     };
@@ -202,31 +190,6 @@
     }
     return _table;
 }
-
-//数据库数据
-/*
- - (void)loadProjects {
- [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
- NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
- NSArray *groups = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group];
- TT_Group *group = groups.firstObject;
- NSMutableString *mStr = [NSMutableString string];
- for (NSString *str in [group.pids componentsSeparatedByString:@","]) {
- [mStr appendFormat:@"'%@',",str];
- }
- [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
- 
- sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date",TABLE_TT_Project, mStr];
- 
- NSArray *selProjects = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project];
- if (!self.projects) {
- self.projects = [NSMutableArray arrayWithArray:selProjects];
- } else {
- [self.projects removeAllObjects];
- [self.projects addObjectsFromArray:selProjects];
- }
- }
- */
 
 - (void)addProject:(id)sender {
     // add project

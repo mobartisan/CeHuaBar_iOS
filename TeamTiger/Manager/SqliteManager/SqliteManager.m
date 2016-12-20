@@ -470,7 +470,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
       isFieldTypeChanged:NO
          ];
         
-/*
+
         //add preparePredefineDatas
         [self preparePredefineDatas:database
                            commands:
@@ -659,7 +659,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000034', 'D00007', null, 'image_5.jpg')",
            ].mutableCopy
          ];
-*/
+
     }
     else {
         //T_APP_SETTINGS

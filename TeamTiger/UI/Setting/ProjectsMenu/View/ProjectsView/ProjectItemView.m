@@ -7,7 +7,6 @@
 //
 
 #import "ProjectItemView.h"
-#import "UIButton+HYBHelperBlockKit.h"
 
 @interface ProjectItemView ()
 
@@ -57,13 +56,14 @@
         }];
         if (!object) {
             [self.addBtn setImage:[UIImage imageNamed:@"icon_add_group"] forState:UIControlStateNormal];
-        } else {
-            //添加长按
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
-            longPress.minimumPressDuration = 0.8; //定义按的时间
-            [self.addBtn addGestureRecognizer:longPress];
-            self.tmpObj = object;//传值用
         }
+//        else {
+//            //添加长按
+//            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
+//            longPress.minimumPressDuration = 0.8; //定义按的时间
+//            [self.addBtn addGestureRecognizer:longPress];
+//            self.tmpObj = object;//传值用
+//        }
     }
     return self;
 }
@@ -119,7 +119,6 @@
 - (UIImageView *)unreadMsgImgV {
     if (!_unreadMsgImgV) {
         _unreadMsgImgV = [[UIImageView alloc] init];
-        _unreadMsgImgV.backgroundColor = ColorRGB(251, 11, 62);
         [self addSubview:_unreadMsgImgV];
         [_unreadMsgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(10);

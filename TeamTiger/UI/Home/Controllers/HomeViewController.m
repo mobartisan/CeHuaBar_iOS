@@ -180,17 +180,18 @@
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-        settingVC.project_id = self.current_project_id;
+        settingVC.project_id = @"0001";
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
-        settingVC.groupId = self.current_group_id;
+//        settingVC.groupId = self.current_group_id;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
@@ -220,9 +221,7 @@
     
 }
 
-- (void)getAllProjects {
-    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-}
+
 
 - (UIButton *)titleView {
     if (_titleView == nil) {
@@ -244,7 +243,7 @@
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             
-            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
+            if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
                 for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                     HomeModel *homeModel = [HomeModel modelWithDic:dic];
                     [self.dataSource addObject:homeModel];
@@ -265,7 +264,6 @@
     [IQKeyboardManager sharedManager].enable = NO;
     [self getAllMoments:@{@"page":@"1",
                           @"rows":@"10"}];
-    [self getAllProjects];
     
 }
 
@@ -276,6 +274,8 @@
 
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getAllMoments:@{@"page":@"1",
+                              @"rows":@"10"}];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -396,7 +396,7 @@
     MMPopupItemHandler block = ^(NSInteger index){
         if (![Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
             [[CirclesManager sharedInstance].circles removeAllObjects];
-            [self getAllProjects];
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
         }
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
@@ -416,7 +416,6 @@
     
     MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
                                                           items:items];
-    //    sheetView.attachedView = self.view;
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
 }
@@ -447,6 +446,9 @@
     [UIView animateWithDuration:0.3 animations:^{
         [self.tableView setContentOffset:offset animated:YES];
     }];
+    if (keyBoradFrame.origin.y == kScreenHeight) {
+        [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    }
 }
 
 #pragma mark UITableViewDataSource

@@ -85,7 +85,7 @@
         //y 用于 让判断只执行一次
         int y = 0;
         int commentCount = (int)self.comment.count;
-        self.count = [NSString stringWithFormat:@"%d", commentCount];
+        self.count = commentCount;
         for (int i = 0; i < commentCount; i++) {
             NSDictionary *dic = self.comment[i];
             //model赋值
@@ -135,6 +135,7 @@
             int index = [indexArr[i] intValue] + i;
             [_comment insertObject:commentModelFrame atIndex:index];
         }
+        
         self.totalHeight = [self caculteCellHeight:self.comment.count];
         self.partHeight = [self caculteCellHeight:self.index];
     }
@@ -142,6 +143,10 @@
 }
 
 - (CGFloat)caculteCellHeight:(NSInteger)count {
+    if (count == 0) {
+        return self.totalHeight;
+    }
+    
     CGFloat totalHeight = 0;
     for (NSInteger i = 0; i < count; i++) {
         totalHeight += ((HomeCommentModelFrame *)self.comment[i]).cellHeight;;

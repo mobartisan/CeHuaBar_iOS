@@ -22,6 +22,8 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *editBtn; //底层删除按钮
 
+@property (strong, nonatomic) UIButton *addProjectBtn;//创建项目按钮
+
 @property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动
 
 @property (nonatomic, assign) BOOL isEnabledSwipe; //是否允许左滑动
@@ -30,6 +32,7 @@
 
 @property (nonatomic, copy) void (^deleteGroup)();
 @property (nonatomic, copy) void (^editGroup)();
+@property (copy, nonatomic) void (^addProjectBlock)();
 @property (nonatomic, copy) void (^closeOtherCellSwipe)(); //关闭其他cell的左滑
 
 - (void)closeLeftSwipe; //关闭左滑

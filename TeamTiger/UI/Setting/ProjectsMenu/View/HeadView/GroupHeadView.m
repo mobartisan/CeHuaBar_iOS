@@ -10,8 +10,19 @@
 
 #define kViewHeight     60.0
 #define kEditViewWidth  110.0
+#define kAddProjectBtnW    30.0
 
 @implementation GroupHeadView
+
+- (UIButton *)addProjectBtn {
+    if (_addProjectBtn == nil) {
+        _addProjectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addProjectBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
+        [_addProjectBtn addTarget:self action:@selector(handleAddProjectAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_addProjectBtn];
+    }
+    return _addProjectBtn;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -29,11 +40,13 @@
 - (void)loadHeadViewIndex:(NSInteger)index {
     self.messageNumLab.hidden = YES;
     if (index == 1) {
-        self.groupNameLab.text = @"项目分组";
+        self.addProjectBtn.hidden = YES;
+        self.groupNameLab.text = @"我的分组";
         self.backgroundColor = [UIColor clearColor];
         self.containerView.backgroundColor = [UIColor clearColor];
     } else if (index == 2) {
-        self.groupNameLab.text = @"未分组";
+        self.addProjectBtn.hidden = NO;
+        self.groupNameLab.text = @"所有项目";
         self.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
         self.containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
     }
@@ -55,10 +68,17 @@
 
 //子控件布局
 - (void)layoutSubviews{
+    self.addProjectBtn.frame = CGRectMake(Screen_Width - kAddProjectBtnW - 10, 5, kAddProjectBtnW, kAddProjectBtnW);
     self.deleteView.frame = CGRectMake(Screen_Width - kEditViewWidth, 0, kEditViewWidth, kViewHeight);
     self.containerView.frame = self.bounds;
 }
 
+//添加项目
+- (void)handleAddProjectAction {
+    if (self.addProjectBlock) {
+        self.addProjectBlock();
+    }
+}
 
 //删除会员
 - (IBAction)deleteGroup: (UIButton *)sender{

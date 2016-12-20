@@ -19,7 +19,7 @@
 #import "HomeCommentModelFrame.h"
 
 
-@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextViewDelegate>
+@interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) UIImageView *iconImV;
 @property (strong, nonatomic) UILabel *nameLB;
@@ -125,6 +125,8 @@
     self.tableView.scrollEnabled = NO;
     [Common removeExtraCellLines:self.tableView];
     [self.contentView addSubview:self.tableView];
+    self.tableView.tableHeaderView = [self headerImage];
+
     
     //分割线
     self.separLine = [UIView new];
@@ -199,7 +201,9 @@
 
 
 - (void)setHomeModel:(HomeModel *)homeModel {
-    self.tableView.tableHeaderView = [self headerImage];
+//    [self.headerImage viewWithTag:1000].hidden = (homeModel.count == 0) ? YES : NO;
+    
+    
     
     _homeModel = homeModel;
     
@@ -210,7 +214,7 @@
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;
     self.timeLB.text = homeModel.time;
-    [self.commentBtn setTitle:homeModel.count forState:UIControlStateNormal];
+    [self.commentBtn setTitle:[NSString stringWithFormat:@"%d", homeModel.count] forState:UIControlStateNormal];
     self.photoContainerView.picPathStringsArray = homeModel.photeNameArry;
     self.photoContainerView.content = homeModel.content;
     
@@ -222,9 +226,9 @@
     }
     if (_homeModel.open) {
         if (_homeModel.indexModel.homeCommentModel.show) {
-            self.tableView.sd_layout.heightIs(homeModel.partHeight + self.headerViewH);
+            self.tableView.sd_layout.heightIs(homeModel.partHeight + 60);
         }else {
-            self.tableView.sd_layout.heightIs(homeModel.totalHeight + self.headerViewH);
+            self.tableView.sd_layout.heightIs(homeModel.totalHeight + 60);
         }
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
     }else {
@@ -236,131 +240,155 @@
 }
 
 - (UIImageView *)headerImage {
-    _headerImage = [UIImageView new];
-    _headerImage.userInteractionEnabled = YES;
-    _headerImage.backgroundColor = kRGBColor(28, 37, 51);
-    UIImage *img = [UIImage imageNamed:@"bg_discussion"];
-    _headerImage.image = [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height - 1, img.size.width * 0.5, 1, img.size.width * 0.5) resizingMode:UIImageResizingModeStretch];
-    
-    //输入视图
-    UIImageView *inputImageV = [UIImageView new];
-    inputImageV.image = kImage(@"icon_write");
-    [_headerImage addSubview:inputImageV];
-    
-    //时间线
-    UIView *lineView = [UIView new];
-    lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
-    [_headerImage addSubview:lineView];
-    
-    //亮点
-    UIImageView *imageV = [UIImageView new];
-    imageV.image = [UIImage imageNamed:@"img_point"];
-    [_headerImage addSubview:imageV];
-    
-    //图片按钮
-    ButtonIndexPath *imgBtn = [ButtonIndexPath buttonWithType:UIButtonTypeCustom];
-    [imgBtn setBackgroundImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
-    [imgBtn addTarget:self action:@selector(handelImageAction:) forControlEvents:UIControlEventTouchUpInside];
-    [_headerImage addSubview:imgBtn];
-    
-    YZInputView *inputView= [[YZInputView alloc] init];
-    inputView.delegate = self;
-    inputView.font = [UIFont systemFontOfSize:16];
-    inputView.placeholder = @" 讨论:";
-    inputView.placeholderColor = [Common colorFromHexRGB:@"525c6b"];
-    inputView.maxNumberOfLines = 1;
-    inputView.textColor = [UIColor whiteColor];
-    inputView.returnKeyType = UIReturnKeySend;
-    inputView.layer.borderWidth = 1;
-    inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
-    inputView.layer.cornerRadius = 3;
-    inputView.layer.masksToBounds = YES;
-    inputView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
-    [_headerImage addSubview:inputView];
-    
-    
-    inputImageV.sd_layout.leftSpaceToView(_headerImage, 33).topSpaceToView(_headerImage, 25).widthIs(13).heightIs(13);//20 + 13
-    
-    imageV.sd_layout.leftSpaceToView(_headerImage, 63 - 15 / 2).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
-    
-    imgBtn.sd_layout.rightSpaceToView(_headerImage, 5).topSpaceToView(_headerImage, 23).widthIs(20).heightIs(20);
-    
-    //20 + 30
-    // 监听文本框文字高度改变
-    __weak typeof(inputView) weakInput = inputView;
-    inputView.yz_textHeightChangeBlock = ^(NSString *text,CGFloat textHeight){
-        CGFloat h = textHeight + 20;
-        self.headerViewH = h;
-        weakInput.sd_layout.leftSpaceToView(_headerImage, 78).rightSpaceToView(imgBtn, 5).topSpaceToView(_headerImage, 15).heightIs(textHeight);
+    if (_headerImage == nil) {
+        _headerImage = [UIImageView new];
+        _headerImage.userInteractionEnabled = YES;
+        _headerImage.backgroundColor = kRGBColor(28, 37, 51);
+        UIImage *img = [UIImage imageNamed:@"bg_discussion"];
+        _headerImage.image = [img resizableImageWithCapInsets:UIEdgeInsetsMake(img.size.height - 1, img.size.width * 0.5, 1, img.size.width * 0.5) resizingMode:UIImageResizingModeStretch];
         
-        lineView.sd_layout.leftSpaceToView(_headerImage, 61).topEqualToView(inputImageV).widthIs(4).heightIs(textHeight);
-    };
-    
-    [_headerImage setupAutoHeightWithBottomView:lineView bottomMargin:0];
-    [_headerImage layoutSubviews];
+        //图片
+        UIImageView *inputImageV = [UIImageView new];
+        inputImageV.userInteractionEnabled = YES;
+        inputImageV.image = kImage(@"icon_image");
+        [_headerImage addSubview:inputImageV];
+        UITapGestureRecognizer *tapInputImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapInputImage:)];
+        [inputImageV addGestureRecognizer:tapInputImage];
+        
+        
+        
+        //时间线
+        UIView *lineView = [UIView new];
+        lineView.tag = 1000;
+        lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
+        [_headerImage addSubview:lineView];
+        
+        //亮点
+        UIImageView *imageV = [UIImageView new];
+        imageV.image = [UIImage imageNamed:@"img_point"];
+        [_headerImage addSubview:imageV];
+        
+        //输入框
+        UITextField *inputView= [[UITextField alloc] init];
+        inputView.delegate = self;
+        inputView.font = [UIFont systemFontOfSize:16];
+        inputView.placeholder = @" 讨论:";
+        [inputView setValue:[Common colorFromHexRGB:@"525c6b"] forKeyPath:@"_placeholderLabel.textColor"];
+        inputView.textColor = [UIColor whiteColor];
+        inputView.returnKeyType = UIReturnKeyDone;
+        inputView.layer.borderWidth = 1;
+        inputView.layer.borderColor = [Common colorFromHexRGB:@"344357"].CGColor;
+        inputView.layer.cornerRadius = 3;
+        inputView.layer.masksToBounds = YES;
+        inputView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+        [_headerImage addSubview:inputView];
+        
+        
+        inputImageV.sd_layout.leftSpaceToView(_headerImage, 33).topSpaceToView(_headerImage, 25).widthIs(13).heightIs(13);//13 + 25
+        
+        imageV.sd_layout.leftSpaceToView(_headerImage, 63 - 15 / 2).centerYEqualToView(inputImageV).widthIs(15).heightIs(15);
+        
+        
+        inputView.sd_layout.leftSpaceToView(_headerImage, 78).rightSpaceToView(_headerImage, 5).topSpaceToView(_headerImage, 15).heightIs(35);//15 + 35
+        
+        lineView.sd_layout.leftSpaceToView(_headerImage, 61).topEqualToView(inputImageV).widthIs(4).heightIs(35); //25 + 35
+        
+        
+        
+        UIImageView *sendImage = [UIImageView new];
+        sendImage.userInteractionEnabled = YES;
+        sendImage.frame = CGRectMake(0, 0, 30, 20);
+        sendImage.image = kImage(@"icon_send");
+        sendImage.contentMode = UIViewContentModeCenter;
+        inputView.rightView = sendImage;
+        inputView.rightViewMode = UITextFieldViewModeAlways;
+        UITapGestureRecognizer *tapSendImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapSendImage:)];
+        [sendImage addGestureRecognizer:tapSendImage];
+        
+        
+        
+        [_headerImage setupAutoHeightWithBottomView:lineView bottomMargin:0];
+        [_headerImage layoutSubviews];
+    }
     return _headerImage;
 }
 
-- (void)handelImageAction:(ButtonIndexPath *)sender {
+- (void)handleTapInputImage:(UITapGestureRecognizer *)tap {
+    NSLog(@"handleTapInputImage");
+    
+}
+
+- (void)handleTapSendImage:(UITapGestureRecognizer *)tap {
+    UITextField *textF = (UITextField *)tap.view.superview;
+    if ([Common isEmptyString:textF.text]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.label.text = @"请输入讨论内容";
+        [hud hideAnimated:YES afterDelay:1.5];
+        return;
+    }
+    [textF resignFirstResponder];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *mediasArr = [NSMutableArray array];
+        NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+        NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
+        discussCreatApi.requestArgument = @{@"text":textF.text,
+                                            @"pid":_homeModel.Id,
+                                            @"type":@0,
+                                            @"medias":urlsStr,
+                                            @"mid":_homeModel.moment_id};
+        [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            NSLog(@"%@", request.responseJSONObject);
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                NSDictionary *dic = @{@"name":[TT_User sharedInstance].nickname,
+                                      @"content":textF.text,
+                                      @"photeNameArry":mediasArr,
+                                      @"time":[Common getCurrentSystemTime]};
+                HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
+                HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
+                commentModelF.homeCommentModel = commentModel;
+                [_homeModel.comment insertObject:commentModelF atIndex:0];
+                _homeModel.index += 1;
+                _homeModel.count += 1;
+                _homeModel.partHeight += commentModelF.cellHeight;
+                _homeModel.totalHeight += commentModelF.cellHeight;
+                
+            }else {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+                hud.label.text = request.responseJSONObject[MSG];
+                hud.mode = MBProgressHUDModeText;
+                [hud hideAnimated:YES afterDelay:1.5];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
+                    [self.delegate clickCommentBtn:self.commentBtn.indexPath];
+                }
+            });
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@", error);
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+            hud.label.text = @"您的网络好像有问题~";
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.5];
+        }];
+    });
     
 }
 
 #warning to do 添加discuss
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if( [text isEqualToString:@"\n"]){
-        [textView resignFirstResponder];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            NSMutableArray *mediasArr = [NSMutableArray array];
-            NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            DiscussCreateApi *discussCreatApi = [[DiscussCreateApi alloc] init];
-            discussCreatApi.requestArgument = @{@"text":textView.text,
-                                                @"pid":_homeModel.Id,
-                                                @"type":@0,
-                                                @"medias":urlsStr,
-                                                @"mid":_homeModel.moment_id};
-            [discussCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-                NSLog(@"%@", request.responseJSONObject);
-                if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                    NSDictionary *dic = @{@"name":[TT_User sharedInstance].nickname,
-                                          @"content":textView.text,
-                                          @"photeNameArry":mediasArr,
-                                          @"time":[Common getCurrentSystemTime]};
-                    HomeCommentModelFrame *commentModelF = [[HomeCommentModelFrame alloc] init];
-                    HomeCommentModel *commentModel = [HomeCommentModel homeCommentModelWithDict:dic];
-                    commentModelF.homeCommentModel = commentModel;
-                    [_homeModel.comment insertObject:commentModelF atIndex:0];
-                    _homeModel.index += 1;
-                    _homeModel.partHeight += commentModelF.cellHeight;
-                    _homeModel.totalHeight += commentModelF.cellHeight;
-                }else {
-                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
-                    hud.label.text = request.responseJSONObject[MSG];
-                    hud.mode = MBProgressHUDModeText;
-                    [hud hideAnimated:YES afterDelay:1.5];
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
-                        [self.delegate clickCommentBtn:self.commentBtn.indexPath];
-                    }
-                });
-            } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-                NSLog(@"%@", error);
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
-                hud.label.text = @"您的网络好像有问题~";
-                hud.mode = MBProgressHUDModeText;
-                [hud hideAnimated:YES afterDelay:1.5];
-            }];
-        });
-        
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if( [string isEqualToString:@"\n"]){
+        [textField resignFirstResponder];
         return NO;
     }
     return YES;
     
     
 }
+
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -21,7 +21,6 @@ typedef enum : NSUInteger {
 
 - (void)addCircle:(NSString *)circle;
 
-- (void)delectCircleWithIndex:(NSInteger)index OrTitle:(NSString *)title;
 
 @property(nonatomic, strong) NSMutableArray *circles;
 

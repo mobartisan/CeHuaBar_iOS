@@ -31,7 +31,6 @@
         if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
             for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
                 [self.circles addObject:objDic];
-                [self writeToSQLite:objDic];
             }
             self.selectIndex = 0;
             self.selectCircle = self.circles[_selectIndex];
@@ -110,15 +109,6 @@
     }
     
   */
-    
-}
-
-
-- (void)writeToSQLite:(NSDictionary *)projectDic {
-        TT_User *user = [TT_User sharedInstance];
-        [SQLITEMANAGER setDataBasePath:user.user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"INSERT INTO %@(project_id, name) VALUES('%@','%@')",TABLE_TT_Project, projectDic[@"_id"], projectDic[@"name"]];
-        [SQLITEMANAGER executeSql:sqlString];
     
 }
 

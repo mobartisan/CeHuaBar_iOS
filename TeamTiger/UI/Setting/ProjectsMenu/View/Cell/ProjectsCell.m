@@ -8,7 +8,11 @@
 
 #import "ProjectsCell.h"
 
-#define  kEditViewWidth  (64.0 + 100.0)
+#define kBtnW  64.0
+#define kNoDisturbBtnW 100.0
+#define kEditViewWidth  (kBtnW * 2 + kNoDisturbBtnW)
+
+
 
 @implementation ProjectsCell
 
@@ -20,6 +24,7 @@
     
     self.addBtn.alpha = 0.0;
     self.deleteBtn.alpha = 0.0;
+    self.noDisturbBtn.alpha = 0.0;
     self.isOpenLeft = NO;
     
     self.backgroundColor = [UIColor clearColor];
@@ -31,7 +36,6 @@
 }
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
-
     if (object && [object isKindOfClass:[TT_Project class]]) {
         TT_Project *project = (TT_Project *)object;
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
@@ -56,6 +60,7 @@
         //alpha = 0
         self.addBtn.alpha = 0.0;
         self.deleteBtn.alpha = 0.0;
+        self.noDisturbBtn.alpha = 0.0;
         self.isOpenLeft = NO;
     }
 }
@@ -68,6 +73,9 @@
     
     //绑定增加会员事件
     [self.addBtn addTarget:self action:@selector(addMember:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //免打扰
+    [self.noDisturbBtn addTarget:self action:@selector(noDisturbBtn:) forControlEvents:UIControlEventTouchUpInside];
     
     //3、给容器containerView绑定左右滑动清扫手势
     UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
@@ -85,12 +93,12 @@
 
 //子控件布局
 - (void)layoutSubviews{
-    CGFloat deleteWidth = 64.0; //设置删除按钮宽度
-    self.deleteBtn.frame = CGRectMake(Screen_Width - 64.0, 0, deleteWidth, CELLHEIGHT - 1);
+    self.noDisturbBtn.frame = CGRectMake(Screen_Width - kBtnW * 2 - kNoDisturbBtnW, 0, kNoDisturbBtnW, CELLHEIGHT);
     
-    CGFloat addWidth = 100.0; //
-    self.addBtn.frame = CGRectMake(Screen_Width - 164.0, 0, addWidth, CELLHEIGHT - 1);
-
+    self.addBtn.frame = CGRectMake(Screen_Width - kBtnW * 2, 0, kBtnW, CELLHEIGHT);
+    
+    self.deleteBtn.frame = CGRectMake(Screen_Width - kBtnW, 0, kBtnW, CELLHEIGHT);
+    
     self.containerView.frame = self.contentView.bounds;
 }
 
@@ -108,6 +116,13 @@
         self.addMember();
 }
 
+//消息免打扰
+- (void)noDisturbBtn:(UIButton *)sender {
+    if (self.noDisturbBlokc) {
+        self.noDisturbBlokc();
+    }
+}
+
 //左滑动和右滑动手势
 - (void)swipe: (UISwipeGestureRecognizer *)sender
 {
@@ -123,6 +138,7 @@
             sender.view.center = CGPointMake(Screen_Width * 0.5 - kEditViewWidth, tmpPoint.y);
             self.addBtn.alpha = 1.0;
             self.deleteBtn.alpha = 1.0;
+            self.noDisturbBtn.alpha = 1.0;
         }];
         self.isOpenLeft = YES;
     }
@@ -140,6 +156,7 @@
         self.containerView.center = CGPointMake(Screen_Width * 0.5, tmpPoint.y);
         self.addBtn.alpha = 0.0;
         self.deleteBtn.alpha = 0.0;
+        self.noDisturbBtn.alpha = 0.0;
     }];
     self.isOpenLeft = NO;
 }
