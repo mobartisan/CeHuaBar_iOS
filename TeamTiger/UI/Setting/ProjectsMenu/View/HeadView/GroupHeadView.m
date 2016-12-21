@@ -37,7 +37,7 @@
     }
 }
 
-- (void)loadHeadViewIndex:(NSInteger)index {
+- (void)loadHeadViewIndex:(NSInteger)index projectCount:(NSUInteger)projectCount {
     self.messageNumLab.hidden = YES;
     if (index == 1) {
         self.addProjectBtn.hidden = YES;
@@ -46,7 +46,7 @@
         self.containerView.backgroundColor = [UIColor clearColor];
     } else if (index == 2) {
         self.addProjectBtn.hidden = NO;
-        self.groupNameLab.text = @"所有项目";
+        self.groupNameLab.text = [NSString stringWithFormat:@"所有项目(%lu个)", projectCount];
         self.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
         self.containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
     }

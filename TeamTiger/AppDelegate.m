@@ -116,7 +116,6 @@
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
     return mainNav;
 #else
-    
     HomeViewController *homeVC = [[HomeViewController alloc] init];
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
     

@@ -39,6 +39,6 @@
 
 - (void)loadHeadViewData:(id)object;//from data
 
-- (void)loadHeadViewIndex:(NSInteger)index;//from index
+- (void)loadHeadViewIndex:(NSInteger)index projectCount:(NSUInteger)projectCount;//from index
 
 @end

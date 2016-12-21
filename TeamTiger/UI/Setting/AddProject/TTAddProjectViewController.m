@@ -109,30 +109,28 @@
 
 #pragma mark 创建项目
 - (void)createProjectWith:(NSString *)name  is_private:(BOOL)is_private {
-    if ([Common isEmptyString:name]) {
-        [self showHudWithText:@"项目名称不能为空"];
-        [self hideHudAfterSeconds:3.0];
-        return;
-    }
-    ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
-    projectCreateApi.requestArgument = @{@"name":name,
-                                         @"uids":@"",//假设项目中有可以添加的成员,如果有,uids表示所有成员的uid,没有的话给空
-                                         };
-    [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"项目创建成功" afterSeconds:1.0];
-            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
-        } else {
-            //创建失败
-            [super showText:@"项目创建失败" afterSeconds:1.5];
+        if ([Common isEmptyString:name]) {
+            [self showHudWithText:@"项目名称不能为空"];
+            [self hideHudAfterSeconds:3.0];
+            return;
         }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error.description);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
-    }];
+        ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
+        projectCreateApi.requestArgument = @{@"name":name,
+                                             @"uids":@"",//假设项目中有可以添加的成员,如果有,uids表示所有成员的uid,没有的话给空
+                                             };
+        [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
+            }
+        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+            NSLog(@"%@",error.description);
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        }];
 }
 
 #pragma -mark getters

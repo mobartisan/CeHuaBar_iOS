@@ -34,6 +34,8 @@
 @property (strong, nonatomic) NSString *unGroup_id;
 
 @property (strong, nonatomic) NSMutableArray *allProjects;
+@property (assign, nonatomic) NSUInteger projectsCount;
+
 
 @end
 
@@ -41,12 +43,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getAllGroups];
     [self getAllProjects];
+    
     self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    
-    NSLog(@"circles.count:%lu", [CirclesManager sharedInstance].circles.count);
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
@@ -58,7 +58,15 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroups];
-    [self getAllProjects];
+    if (self.projectsCount != [[CirclesManager sharedInstance].circles count]) {
+        for (NSDictionary *objDic in [CirclesManager sharedInstance].circles) {
+            TT_Project *tt_Project = [[TT_Project alloc] init];
+            tt_Project.project_id = objDic[@"_id"];
+            tt_Project.name = objDic[@"name"];
+            [self.allProjects addObject:tt_Project];
+            
+        }
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -118,7 +126,7 @@
             tmpProject.isTop = YES;
             [self.allProjects removeObject:projectInfo];
             [self.allProjects insertObject:tmpProject atIndex:0];
-        
+            
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
         };
         //免打扰
@@ -183,7 +191,7 @@
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
     if (section >= 1) {
         headView.isEnabledSwipe = NO;
-        [headView loadHeadViewIndex:section];
+        [headView loadHeadViewIndex:section projectCount:self.allProjects.count];
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
@@ -234,53 +242,28 @@
     }];
 }
 
-#pragma mark 移动未分组项目到某个分组下
-- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
-    MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
-    moveProjectApi.requestArgument = @{@"from_gid":from_gid,
-                                       @"to_gid":to_gid,
-                                       @"pid":[pid project_id]};//pid 项目id
-    [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"moveProject:%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"项目已添加至该分组" afterSeconds:1.0];
-            [self getAllGroups];
-        }else {
-            [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"moveProject:%@", error);
-        if (error) {
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        }
-    }];
-}
-
-
 //获取所有的项目
 - (void)getAllProjects {
-    [self.allProjects removeAllObjects];
     CirclesManager *circleManager = [CirclesManager sharedInstance];
-    if (![Common isEmptyArr:circleManager.circles]) {
-        [circleManager.circles removeAllObjects];
-    }
-    
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllProjects:%@", request.responseJSONObject);
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
-            for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
-                [circleManager.circles addObject:objDic];
-                TT_Project *tt_Project = [[TT_Project alloc] init];
-                tt_Project.project_id = objDic[@"_id"];
-                tt_Project.name = objDic[@"name"];
-                [self.allProjects addObject:tt_Project];
-                
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
+                for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
+                    [circleManager.circles addObject:objDic];
+                    TT_Project *tt_Project = [[TT_Project alloc] init];
+                    tt_Project.project_id = objDic[@"_id"];
+                    tt_Project.name = objDic[@"name"];
+                    [self.allProjects addObject:tt_Project];
+                    
+                }
+                circleManager.selectIndex = 0;
+                circleManager.selectCircle = (circleManager.circles)[circleManager.selectIndex];
             }
-            circleManager.selectIndex = 0;
-            circleManager.selectCircle = (circleManager.circles)[circleManager.selectIndex];
+            self.projectsCount = circleManager.circles.count;
+            [self.menuTable reloadData];
         }
-        [self.menuTable reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -290,7 +273,7 @@
     }];
 }
 
-#warning to do 获取所有分组
+#pragma mark 获取所有分组
 - (void)getAllGroups {
     AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -308,7 +291,6 @@
                 group.group_name = groupArr[i][@"group_name"];
                 [self.groups addObject:group];
             }
-            
             [self.menuTable reloadData];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -330,55 +312,6 @@
         _allProjects = [NSMutableArray array];
     }
     return _allProjects;
-}
-
-
-#pragma mark 创建分组
-- (void)creatGroupAction {
-    if (self.gView.isShow) {
-        [self.gView hide];
-    } else {
-        [self.gView loadGroupInfo:nil AllProjects:self.allProjects];
-        [self.gView show];
-        WeakSelf;
-        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                NSLog(@"%@, %@",object[@"Name"], object[@"Pids"]);
-                NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
-                NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
-                NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                GroupCreatApi *groupCreatApi = [[GroupCreatApi alloc] init];
-                groupCreatApi.requestArgument = @{@"group_name":object[@"Name"],
-                                                  @"pids":strPids};
-                [groupCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-                    NSLog(@"creatGroupAction:%@", request.requestArgument);
-                    [wself getAllGroups];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [super showText:@"创建分组成功" afterSeconds:1.5];
-                    });
-                } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-                    NSLog(@"%@", error);
-                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
-                }];
-            }
-        };
-    }
-}
-
-#warning to do  未分组项目移动到某个分组
-- (void)addProjectIntoGroupAction:(TT_Project *)projectInfo {
-    if (self.sgView.isShow) {
-        [self.sgView hide];
-    } else {
-        [self.sgView loadGroups:self.groups];
-        [self.sgView show];
-        WeakSelf;
-        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                [wself moveProjectFrom_gid:wself.unGroup_id to_gid:[object group_id] pid:projectInfo];
-            }
-        };
-    }
 }
 
 - (void)loadUserInfo {
@@ -422,6 +355,7 @@
                 }
             }];
         };
+        //添加分组
         _pView.addProjectBlock = ^(ProjectsView *tmpView){
             [wself creatGroupAction];
         };
@@ -453,6 +387,38 @@
     return _gView;
 }
 
+#pragma mark 创建分组
+- (void)creatGroupAction {
+    if (self.gView.isShow) {
+        [self.gView hide];
+    } else {
+        [self.gView loadGroupInfo:nil AllProjects:self.allProjects];
+        [self.gView show];
+        WeakSelf;
+        self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                NSLog(@"%@, %@",object[@"Name"], object[@"Pids"]);
+                NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
+                NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                GroupCreatApi *groupCreatApi = [[GroupCreatApi alloc] init];
+                groupCreatApi.requestArgument = @{@"group_name":object[@"Name"],
+                                                  @"pids":strPids};
+                [groupCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                    NSLog(@"creatGroupAction:%@", request.responseJSONObject);
+                    [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+                    if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                        [wself getAllGroups];
+                    }
+                } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                    NSLog(@"%@", error);
+                    [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+                }];
+            }
+        };
+    }
+}
+
 - (SelectGroupView *)sgView {
     if (!_sgView) {
         _sgView = LoadFromNib(@"SelectGroupView");
@@ -467,5 +433,44 @@
     }
     return _sgView;
 }
+#pragma mark  移动未分组项目移动到某个分组
+- (void)addProjectIntoGroupAction:(TT_Project *)projectInfo {
+    if (self.sgView.isShow) {
+        [self.sgView hide];
+    } else {
+        [self.sgView loadGroups:self.groups];
+        [self.sgView show];
+        WeakSelf;
+        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
+            if (isConfirm) {
+                [wself moveProjectFrom_gid:wself.unGroup_id to_gid:[object group_id] pid:projectInfo];
+            }
+        };
+    }
+}
+
+- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
+    MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
+    moveProjectApi.requestArgument = @{@"from_gid":from_gid,
+                                       @"to_gid":to_gid,
+                                       @"pid":[pid project_id]};//pid 项目id
+    [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"moveProject:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showText:@"项目已添加至该分组" afterSeconds:1.0];
+            [self getAllGroups];
+        }else {
+            [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"moveProject:%@", error);
+        if (error) {
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        }
+    }];
+}
+
+
+
 
 @end
