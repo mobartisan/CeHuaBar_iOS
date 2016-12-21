@@ -11,12 +11,15 @@
 #define CELLHEIGHT  53.0
 
 @interface ProjectsCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *pointImg;
 
 @property(nonatomic, weak) IBOutlet UIImageView *arrowImgV;
 
 @property(nonatomic, weak) IBOutlet UIImageView *pointImgV;
 
 @property(nonatomic, weak) IBOutlet UILabel *projectNameLab;
+
+@property (weak, nonatomic) IBOutlet UIImageView *notdisturbImgV;
 
 @property(nonatomic, weak) IBOutlet UILabel *msgNumLab;
 
@@ -26,7 +29,8 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *deleteBtn; //底层删除按钮
 
-@property (nonatomic, weak) IBOutlet UIButton *addBtn; //底层添加按钮
+@property (nonatomic, weak) IBOutlet UIButton *addBtn; //底层置顶按钮
+
 @property (weak, nonatomic) IBOutlet UIButton *noDisturbBtn;
 
 @property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动

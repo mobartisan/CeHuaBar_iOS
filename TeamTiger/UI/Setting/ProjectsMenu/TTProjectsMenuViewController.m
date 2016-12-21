@@ -35,6 +35,7 @@
 
 @property (strong, nonatomic) NSMutableArray *allProjects;
 @property (assign, nonatomic) NSUInteger projectsCount;
+@property (assign, nonatomic) NSInteger index;
 
 
 @end
@@ -101,7 +102,6 @@
         cell.tag = indexPath.section * 1000  + indexPath.row;
         TT_Project *projectInfo = self.allProjects[indexPath.row];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.allProjects.count - 1];
-        
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
@@ -114,24 +114,31 @@
             }];
             
         };
-        //增加项目至分组的cell回调block
+        //置顶cell回调block
         ((ProjectsCell *)cell).addMember = ^{
+            self.index = indexPath.row;
             [self.allProjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (idx != indexPath.row) {
                     ((TT_Project *)obj).isTop = NO;
                 }
             }];
             
-            TT_Project *tmpProject = projectInfo;
-            tmpProject.isTop = YES;
+            TT_Project *tmpProject = [[TT_Project alloc] init];
+            tmpProject.name = projectInfo.name;
+            tmpProject.project_id = projectInfo.project_id;
+            tmpProject.isTop = !tmpProject.isTop;
             [self.allProjects removeObject:projectInfo];
-            [self.allProjects insertObject:tmpProject atIndex:0];
-            
+            if (tmpProject.isTop) {
+                [self.allProjects insertObject:tmpProject atIndex:self.index];
+            }else {
+                [self.allProjects insertObject:tmpProject atIndex:0];
+            }
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
         };
         //免打扰
         ((ProjectsCell *)cell).noDisturbBlokc = ^{
-            NSLog(@"免打扰");
+            projectInfo.isNoDisturb = !projectInfo.isNoDisturb;
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
         };
         
         //设置当cell左滑时，关闭其他cell的左滑

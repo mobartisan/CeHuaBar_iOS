@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,36 +20,36 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbu-hY-v7X">
-                        <rect key="frame" x="256" y="0.0" width="64" height="53"/>
-                        <color key="backgroundColor" red="0.99607843137254903" green="0.2627450980392157" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="280" y="0.0" width="40" height="53"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="64" id="IL9-BP-qx8"/>
+                            <constraint firstAttribute="width" constant="40" id="IL9-BP-qx8"/>
                             <constraint firstAttribute="height" constant="53" id="omF-9C-Ybc"/>
                         </constraints>
-                        <state key="normal" title="删除"/>
+                        <state key="normal" image="icon_delete"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTz-2y-fVu">
-                        <rect key="frame" x="192" y="0.0" width="64" height="52.5"/>
-                        <color key="backgroundColor" red="0.43529411764705883" green="0.51372549019607838" blue="0.61568627450980395" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="240" y="0.0" width="40" height="52.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="64" id="a1Y-JM-mQa"/>
+                            <constraint firstAttribute="width" constant="40" id="a1Y-JM-mQa"/>
                         </constraints>
-                        <state key="normal" title="置顶"/>
+                        <state key="normal" image="icon_top"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgA-g1-Qjs" userLabel="Not Disturb Btn">
-                        <rect key="frame" x="92" y="0.0" width="100" height="53"/>
-                        <color key="backgroundColor" red="0.58823529411764708" green="0.58823529411764708" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="200" y="0.0" width="40" height="53"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="100" id="8sc-in-e5v"/>
+                            <constraint firstAttribute="width" constant="40" id="8sc-in-e5v"/>
                             <constraint firstAttribute="height" constant="53" id="y24-tJ-tsK"/>
                         </constraints>
-                        <state key="normal" title="免打扰"/>
+                        <state key="normal" image="icon_do_not_disturb"/>
                     </button>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQl-TQ-tL3">
+                    <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQl-TQ-tL3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工作牛" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w36-UU-QsC">
-                                <rect key="frame" x="62" y="16" width="46" height="22.5"/>
+                                <rect key="frame" x="64" y="16" width="46" height="22.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -72,7 +73,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uyb-jI-AhL">
-                                <rect key="frame" x="18" y="12" width="30" height="30"/>
+                                <rect key="frame" x="20" y="12" width="30" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.83921568629999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="gJi-6L-hX9"/>
@@ -86,10 +87,26 @@
                                     <constraint firstAttribute="width" constant="10" id="zOu-A4-uN6"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UbC-rb-uHh">
+                                <rect key="frame" x="8" y="22.5" width="6" height="6"/>
+                                <color key="backgroundColor" red="0.1764705882352941" green="0.792156862745098" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="6" id="lqF-FG-c41"/>
+                                    <constraint firstAttribute="width" secondItem="UbC-rb-uHh" secondAttribute="height" multiplier="1:1" id="uTZ-Pk-lkG"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_do_not_disturb" translatesAutoresizingMaskIntoConstraints="NO" id="Fe3-vw-mWU">
+                                <rect key="frame" x="115" y="19" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="7ur-fq-Vz2"/>
+                                    <constraint firstAttribute="width" secondItem="Fe3-vw-mWU" secondAttribute="height" id="HCh-Gb-Iag"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.082352941176470587" green="0.10588235294117647" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6G5-2I-DZR" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="17" id="0rG-Cs-Qhv"/>
+                            <constraint firstItem="Fe3-vw-mWU" firstAttribute="leading" secondItem="w36-UU-QsC" secondAttribute="trailing" constant="5" id="0u5-Xh-OyQ"/>
                             <constraint firstAttribute="bottom" secondItem="6G5-2I-DZR" secondAttribute="bottom" constant="15" id="6ej-he-eBB"/>
                             <constraint firstAttribute="trailing" secondItem="6G5-2I-DZR" secondAttribute="trailing" constant="30" id="6yQ-xv-JYc"/>
                             <constraint firstAttribute="bottom" secondItem="GI4-og-lQG" secondAttribute="bottom" constant="15" id="J9t-YK-IcL"/>
@@ -97,11 +114,14 @@
                             <constraint firstAttribute="bottom" secondItem="w36-UU-QsC" secondAttribute="bottom" constant="14.5" id="LPH-1J-gaJ"/>
                             <constraint firstItem="GI4-og-lQG" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="17" id="NPS-ye-jdE"/>
                             <constraint firstItem="Uyb-jI-AhL" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="12" id="QV4-dE-ORU"/>
+                            <constraint firstItem="UbC-rb-uHh" firstAttribute="centerY" secondItem="nQl-TQ-tL3" secondAttribute="centerY" id="SKw-76-qsv"/>
                             <constraint firstAttribute="trailing" secondItem="dHC-CX-JRX" secondAttribute="trailing" constant="15" id="YUo-N6-LRK"/>
                             <constraint firstItem="w36-UU-QsC" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="16" id="a9X-JI-WKe"/>
                             <constraint firstAttribute="trailing" secondItem="GI4-og-lQG" secondAttribute="trailing" constant="30" id="eBp-Zx-ibc"/>
+                            <constraint firstItem="UbC-rb-uHh" firstAttribute="leading" secondItem="nQl-TQ-tL3" secondAttribute="leading" constant="8" id="fLH-B6-Dka"/>
+                            <constraint firstItem="Fe3-vw-mWU" firstAttribute="centerY" secondItem="nQl-TQ-tL3" secondAttribute="centerY" id="hhE-pn-rKf"/>
                             <constraint firstAttribute="bottom" secondItem="Uyb-jI-AhL" secondAttribute="bottom" constant="10" id="pYb-J2-GXi"/>
-                            <constraint firstItem="Uyb-jI-AhL" firstAttribute="leading" secondItem="nQl-TQ-tL3" secondAttribute="leading" constant="18" id="x7J-88-sFc"/>
+                            <constraint firstItem="Uyb-jI-AhL" firstAttribute="leading" secondItem="nQl-TQ-tL3" secondAttribute="leading" constant="20" id="x7J-88-sFc"/>
                             <constraint firstItem="dHC-CX-JRX" firstAttribute="top" secondItem="nQl-TQ-tL3" secondAttribute="top" constant="18" id="ySo-YD-Ocn"/>
                             <constraint firstAttribute="bottom" secondItem="dHC-CX-JRX" secondAttribute="bottom" constant="18" id="zAW-fQ-aQO"/>
                         </constraints>
@@ -130,13 +150,18 @@
                 <outlet property="msgNumBGImgV" destination="GI4-og-lQG" id="Cxy-S0-yiy"/>
                 <outlet property="msgNumLab" destination="6G5-2I-DZR" id="X1m-Fb-UTa"/>
                 <outlet property="noDisturbBtn" destination="RgA-g1-Qjs" id="J67-HJ-YRn"/>
+                <outlet property="notdisturbImgV" destination="Fe3-vw-mWU" id="cGb-hE-Kra"/>
+                <outlet property="pointImg" destination="UbC-rb-uHh" id="9ij-sV-xTd"/>
                 <outlet property="pointImgV" destination="Uyb-jI-AhL" id="wPl-Q1-PJ8"/>
                 <outlet property="projectNameLab" destination="w36-UU-QsC" id="beU-Sv-0rf"/>
             </connections>
-            <point key="canvasLocation" x="-10" y="52"/>
+            <point key="canvasLocation" x="-451" y="-230.5"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_delete" width="17" height="19"/>
+        <image name="icon_do_not_disturb" width="19" height="16"/>
         <image name="icon_enter2" width="10" height="16"/>
+        <image name="icon_top" width="17" height="16"/>
     </resources>
 </document>
