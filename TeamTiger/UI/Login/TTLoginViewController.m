@@ -25,30 +25,10 @@
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
 @property (nonatomic,strong)UIImageView *screenImageView;
-@property (strong, nonatomic) NSDictionary *tempDic;
 
 @end
 
 @implementation TTLoginViewController
-
--(NSDictionary *)tempDic {
-    if (_tempDic == nil) {
-        _tempDic = @{@"openid":@"oxfOpv6lfRcFcsePHG0Eb1gPHV0U",
-                     @"city" : @"Nanjing",
-                     @"country" : @"CN",
-                     @"nickname" : @"我和你💓",
-                     @"privilege" : @[],
-                     @"language" : @"zh_CN",
-                     @"headimgurl" : @"http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0",
-                     @"unionid" : @"owxiavzm0OwPxg5snUVVKRmEOllA",
-                     @"sex" : @"1",
-                     @"province" : @"Jiangsu",
-                     @"os_description" : [NSString iphoneOS_description],
-                     @"os_type" : @"ios"
-                     };
-    }
-    return _tempDic;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -129,7 +109,6 @@
                                              options:NSJSONReadingMutableContainers
                                                error:&error];
     if (error) {
-        NSLog(@"%@",[error description]);
         return NO;
     }
     
@@ -205,31 +184,37 @@
     login.requestArgument = tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
-        gSession = request.responseJSONObject[OBJ][TOKEN];
-
-        //1.user
-        TT_User *user = [TT_User sharedInstance];
-        [user createUser:request.responseJSONObject[OBJ][DATA]];
-        [SQLITEMANAGER setDataBasePath:user.user_id];
-        if ([UserDefaultsGet(@"LastIsLogOut") intValue] != 1) {
-            [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            gSession = request.responseJSONObject[OBJ][TOKEN];
+            //1.user
+            TT_User *user = [TT_User sharedInstance];
+            [user createUser:request.responseJSONObject[OBJ][DATA]];
+            [SQLITEMANAGER setDataBasePath:user.user_id];
+            if ([UserDefaultsGet(@"LastIsLogOut") intValue] != 1) {
+                [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
+            }
+            //2.隐藏转圈 跳转
+            [super showHudWithText:@"登录成功"];
+            [super hideHudAfterSeconds:1.0];
+            //3.标记变量
+            UserDefaultsSave(@1, @"LastIsLogOut");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //4.jump new page
+                UIViewController *rootVC = [kAppDelegate creatHomeVC];
+                UIWindow *window = kAppDelegate.window;
+                window.rootViewController = rootVC;
+                [window makeKeyAndVisible];
+                
+            });
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
-        //2.隐藏转圈 跳转
-        [super showHudWithText:@"登录成功"];
-        [super hideHudAfterSeconds:1.0];
-        //3.标记变量
-        UserDefaultsSave(@1, @"LastIsLogOut");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //4.jump new page
-            UIViewController *rootVC = [kAppDelegate creatHomeVC];
-            UIWindow *window = kAppDelegate.window;
-            window.rootViewController = rootVC;
-            [window makeKeyAndVisible];
-            [self hideLaunchImage];//隐藏启动页
-        });
+        [self hideLaunchImage];//隐藏启动页
  
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [super showText:@"登录失败" afterSeconds:1.0];
+        [self hideLaunchImage];
     }];
 }
 
