@@ -19,7 +19,6 @@ typedef enum : NSUInteger {
 
 - (void)loadingGlobalCirclesInfo;
 
-- (void)addCircle:(NSString *)circle;
 
 
 @property(nonatomic, strong) NSMutableArray *circles;
@@ -28,4 +27,7 @@ typedef enum : NSUInteger {
 @property(nonatomic, strong) NSDictionary *selectCircle;
 @property(nonatomic, assign) NSInteger selectIndex;
 @property(nonatomic, assign) OptionType optionType;
+
+@property (strong, nonatomic) NSMutableArray *views;
+
 @end

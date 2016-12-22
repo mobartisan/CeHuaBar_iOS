@@ -66,8 +66,9 @@
         self.isOpenLeft = NO;
         
         self.arrowImgV.hidden = NO;
-        self.msgNumLab.hidden = NO;
-        self.msgNumBGImgV.hidden = NO;
+        
+        self.msgNumLab.hidden = project.isNoDisturb;
+        self.msgNumBGImgV.hidden = project.isNoDisturb;
         
         
         NSString *addBtnName = project.isTop ? @"icon_top" : @"icon_top-1";
@@ -77,6 +78,10 @@
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
         NSString *noDisturbBtnName = project.isNoDisturb ? @"icon_do_not_disturb-1" : @"icon_do_not_disturb";
         [self.noDisturbBtn setImage:kImage(noDisturbBtnName) forState:UIControlStateNormal];
+        
+        
+    
+        
     }
 }
 

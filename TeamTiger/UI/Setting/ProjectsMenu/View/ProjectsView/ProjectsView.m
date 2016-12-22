@@ -65,6 +65,7 @@
             }
         }
     }
+    [[CirclesManager sharedInstance].views removeAllObjects];
     __block UIView *lastView1 = nil, *lastView2 = nil, *lastView3 = nil;
     NSUInteger count = datas.count;
     for (int i = 0; i < count + 1; i++) {
@@ -98,7 +99,14 @@
                 }
                 lastView3 = tmpView;
             }
+            
+            
         }];
+        if (!isInit) {
+            if (i < count) {
+                [[CirclesManager sharedInstance].views addObject:tmpView];
+            }
+        }
         
         //data handle
         tmpView.clickProjectItemBlock = ^(ProjectItemView *itemView,id object){
@@ -120,6 +128,7 @@
     [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(lastView1.mas_bottom);
     }];
+    
 }
 
 @end

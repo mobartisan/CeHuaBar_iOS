@@ -135,19 +135,10 @@
 #pragma -mark getter
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
-        [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-        NSString *sql = nil;
-        if ([Common isEmptyString:self.project_id]) {
-            sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc limit 1",TABLE_TT_Project];
-        } else {
-            sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project,self.project_id];
-        }
-//        TT_Project *project = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].firstObject;
         TT_Project *project = [[TT_Project alloc] init];
         project.name = @"工作牛";
         project.project_id = @"0003";
-        NSString *memberSql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project_Members,project.project_id];
-        NSArray *members = [SQLITEMANAGER selectDatasSql:memberSql Class:TABLE_TT_Project_Members];
+      
 
         _dataSource = @[
                         @{@"Type":@0,
@@ -162,7 +153,7 @@
                           @"ShowAccessory":@0,
                           @"IsEdit":@0,
                           @"Color":kRGB(27.0, 41.0, 58.0),
-                          @"Members":members}.mutableCopy,
+                          @"Members":@[]}.mutableCopy,
                         @{@"Type":@2,
                           @"Name":@"",
                           @"Description":@"",

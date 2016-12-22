@@ -22,6 +22,7 @@
 #import "TTSettingViewController.h"
 #import "TTGroupViewController.h"
 #import "NSString+YYAdd.h"
+#import "ProjectItemView.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -34,9 +35,11 @@
 @property (strong, nonatomic) NSString *unGroup_id;
 
 @property (strong, nonatomic) NSMutableArray *allProjects;
+@property (strong, nonatomic) NSMutableArray *touchPoints;
+
 @property (assign, nonatomic) NSUInteger projectsCount;
 @property (assign, nonatomic) NSInteger index;
-
+@property (strong, nonatomic) NSMutableArray *viewFrames;
 
 @end
 
@@ -53,21 +56,14 @@
     v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     self.menuTable.backgroundView = v;
     self.menuTable.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroups];
-    if (self.projectsCount != [[CirclesManager sharedInstance].circles count]) {
-        for (NSDictionary *objDic in [CirclesManager sharedInstance].circles) {
-            TT_Project *tt_Project = [[TT_Project alloc] init];
-            tt_Project.project_id = objDic[@"_id"];
-            tt_Project.name = objDic[@"name"];
-            [self.allProjects addObject:tt_Project];
-            
-        }
-    }
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -102,6 +98,12 @@
         cell.tag = indexPath.section * 1000  + indexPath.row;
         TT_Project *projectInfo = self.allProjects[indexPath.row];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.allProjects.count - 1];
+        
+        //长按手势
+        if (![Common isEmptyArr:self.groups]) {
+            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+            [(ProjectsCell *)cell addGestureRecognizer:longPress];
+        }
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
@@ -116,21 +118,19 @@
         };
         //置顶cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            self.index = indexPath.row;
             [self.allProjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (idx != indexPath.row) {
                     ((TT_Project *)obj).isTop = NO;
                 }
             }];
-            
-            TT_Project *tmpProject = [[TT_Project alloc] init];
-            tmpProject.name = projectInfo.name;
-            tmpProject.project_id = projectInfo.project_id;
-            tmpProject.isTop = !tmpProject.isTop;
+            TT_Project *tmpProject = projectInfo;
             [self.allProjects removeObject:projectInfo];
             if (tmpProject.isTop) {
+                tmpProject.isTop = NO;
                 [self.allProjects insertObject:tmpProject atIndex:self.index];
             }else {
+                self.index = indexPath.row;
+                tmpProject.isTop = YES;
                 [self.allProjects insertObject:tmpProject atIndex:0];
             }
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -202,6 +202,19 @@
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+        addProfileVC.requestData = ^() {
+            [self.allProjects removeAllObjects];
+            for (NSDictionary *objDic in [CirclesManager sharedInstance].circles) {
+                TT_Project *tt_Project = [[TT_Project alloc] init];
+                tt_Project.project_id = objDic[@"_id"];
+                tt_Project.name = objDic[@"name"];
+                [self.allProjects addObject:tt_Project];
+                
+            }
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+        };
+        
+        
         TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
         [self.navigationController presentViewController:baseNav animated:YES completion:nil];
     };
@@ -298,6 +311,7 @@
                 group.group_name = groupArr[i][@"group_name"];
                 [self.groups addObject:group];
             }
+            self.unGroup_id = [objDic[@"projects"] firstObject][@"_id"];
             [self.menuTable reloadData];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -312,6 +326,15 @@
         _groups = [NSMutableArray array];
     }
     return _groups;
+}
+
+
+
+- (NSMutableArray *)touchPoints {
+    if (_touchPoints == nil) {
+        _touchPoints = [NSMutableArray array];
+    }
+    return _touchPoints;
 }
 
 - (NSMutableArray *)allProjects {
@@ -450,22 +473,21 @@
         WeakSelf;
         self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
             if (isConfirm) {
-                [wself moveProjectFrom_gid:wself.unGroup_id to_gid:[object group_id] pid:projectInfo];
+                [wself moveProjectFrom_gid:wself.unGroup_id to_group:object pid:projectInfo];
             }
         };
     }
 }
 
-- (void)moveProjectFrom_gid:(NSString *)from_gid to_gid:(NSString *)to_gid pid:(TT_Project *)pid {
+- (void)moveProjectFrom_gid:(NSString *)from_gid to_group:(TT_Group *)group pid:(TT_Project *)pid {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
-    moveProjectApi.requestArgument = @{@"from_gid":from_gid,
-                                       @"to_gid":to_gid,
+    moveProjectApi.requestArgument = @{@"from_gid":self.unGroup_id,
+                                       @"to_gid":group.group_id,
                                        @"pid":[pid project_id]};//pid 项目id
     [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [super showText:@"项目已添加至该分组" afterSeconds:1.0];
-            [self getAllGroups];
+            [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
         }else {
             [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
         }
@@ -477,6 +499,142 @@
     }];
 }
 
+- (void)getViewFrames {
+    self.viewFrames = [NSMutableArray array];
+    int count = (int)[CirclesManager sharedInstance].views.count;
+    for (int i = 0; i < count; i++) {
+        UIView *tmpView = [CirclesManager sharedInstance].views[i];
+        CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];
+        [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
+    }
+}
+
+#pragma mark 长按手势方法
+- (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)longPress {
+    [self getViewFrames];
+    
+    UIGestureRecognizerState state = longPress.state;
+    CGPoint location = [longPress locationInView:self.menuTable];
+    NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
+    TT_Project *project = [self.allProjects objectAtIndex:indexPath.row];
+    static UIView *snapshot = nil;
+    static NSIndexPath  *sourceIndexPath = nil;
+    switch (state) {
+            // 已经开始按下
+        case UIGestureRecognizerStateBegan: {
+            // 判断是不是按在了cell上面
+            if (indexPath) {
+                sourceIndexPath = indexPath;
+                UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:indexPath];
+                // 为拖动的cell添加一个快照
+                snapshot = [self customSnapshoFromView:cell];
+                // 添加快照至tableView中
+                __block CGPoint center = cell.center;
+                snapshot.center = center;
+                snapshot.alpha = 0.0;
+                [self.menuTable addSubview:snapshot];
+                // 按下的瞬间执行动画
+                [UIView animateWithDuration:0.25 animations:^{
+                    center.y = location.y;
+                    snapshot.center = center;
+                    snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                    snapshot.alpha = 0.98;
+                    snapshot.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+                    cell.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    cell.hidden = YES;
+                    
+                }];
+            }
+            break;
+        }
+            // 移动过程中
+        case UIGestureRecognizerStateChanged: {
+            // 这里保持数组里面只有最新的两次触摸点的坐标
+            [self.touchPoints addObject:[NSValue valueWithCGPoint:location]];
+            if (self.touchPoints.count > 2) {
+                [self.touchPoints removeObjectAtIndex:0];
+            }
+            CGPoint center = snapshot.center;
+            // 快照随触摸点y值移动（当然也可以根据触摸点的y轴移动量来移动）
+            center.y = location.y;
+            // 快照随触摸点x值改变量移动
+            CGPoint Ppoint = [[self.touchPoints firstObject] CGPointValue];
+            CGPoint Npoint = [[self.touchPoints lastObject] CGPointValue];
+            CGFloat moveX = Npoint.x - Ppoint.x;
+            center.x += moveX;
+            snapshot.center = center;
+            break;
+        }
+        case UIGestureRecognizerStateEnded: {
+            // 清空数组，非常重要，不然会发生坐标突变！
+            [self.touchPoints removeAllObjects];
+            UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:sourceIndexPath];
+            
+            for (NSValue *frameValue in self.viewFrames) {
+                BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
+                if (isContain) {
+                    
+                    //1.取出下标
+                    NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
+                    
+                    // 将快照放到分组里面
+                    [UIView animateWithDuration:0.25 animations:^{
+                        snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);
+                        //                        snapshot.alpha = 0.0;
+                    } completion:^(BOOL finished) {
+                        [snapshot removeFromSuperview];
+                        snapshot = nil;
+                    }];
+                    
+                    //2.取出对应的模型
+                    TT_Group *group = self.groups[index];
+                    //3.刷新UI
+                    [self.allProjects removeObject:project];
+                    [self.menuTable reloadData];
+                    //4.移动分组
+                    [self moveProjectFrom_gid:self.unGroup_id to_group:group pid:project];
+                }else {
+                    cell.hidden = NO;
+                    // 将快照恢复到初始状态
+                    [UIView animateWithDuration:0.25 animations:^{
+                        snapshot.center = cell.center;
+                        snapshot.transform = CGAffineTransformIdentity;
+                        snapshot.alpha = 0.0;
+                        cell.alpha = 1.0;
+                    } completion:^(BOOL finished) {
+                        [snapshot removeFromSuperview];
+                        snapshot = nil;
+                        
+                    }];
+                }
+            }
+            break;
+        }
+        default: {
+            
+            break;
+        }
+    }
+    
+}
+
+#pragma mark 创建cell的快照
+- (UIView *)customSnapshoFromView:(UIView *)inputView {
+    // 用cell的图层生成UIImage，方便一会显示
+    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
+    [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    // 自定义这个快照的样子（下面的一些参数可以自己随意设置）
+    UIView *snapshot = [[UIImageView alloc] initWithImage:image];
+    snapshot.layer.masksToBounds = NO;
+    snapshot.layer.cornerRadius = 0.0;
+    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
+    snapshot.layer.shadowRadius = 5.0;
+    snapshot.layer.shadowOpacity = 0.4;
+    return snapshot;
+}
 
 
 

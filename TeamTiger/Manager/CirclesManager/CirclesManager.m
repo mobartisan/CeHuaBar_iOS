@@ -64,4 +64,11 @@
     return _circles;
 }
 
+- (NSMutableArray *)views {
+    if (!_views) {
+        _views = [NSMutableArray array];
+    }
+    return _views;
+}
+
 @end

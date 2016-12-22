@@ -33,7 +33,6 @@
     [self.view addSubview:self.tableView];
     [self layoutSubviews];
     
-    [self setupGroups];
 }
 
 -(void)layoutSubviews{
@@ -50,10 +49,19 @@
 #pragma mark - Override
 
 #pragma mark - Initial Methods
-- (void)setupGroups {
-    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-    NSString *sql = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Project];
-    self.data = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project].mutableCopy;
+
+
+- (NSMutableArray *)data {
+    if (!_data) {
+        _data = [NSMutableArray array];
+        for (NSDictionary *objDic in [CirclesManager sharedInstance].circles) {
+            TT_Project *tt_Project = [[TT_Project alloc] init];
+            tt_Project.project_id = objDic[@"_id"];
+            tt_Project.name = objDic[@"name"];
+            [_data addObject:tt_Project];
+        }
+    }
+    return _data;
 }
 
 
@@ -122,12 +130,5 @@
     return _tableView;
 }
 
-- (NSMutableArray *)data
-{
-    if (_data == nil) {
-        _data = [NSMutableArray array];
-    }
-    return _data;
-}
 
 @end

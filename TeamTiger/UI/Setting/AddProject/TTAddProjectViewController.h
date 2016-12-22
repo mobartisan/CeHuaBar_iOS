@@ -15,4 +15,6 @@
 
 @property (strong, nonatomic)NSMutableArray *datas;
 
+@property (copy, nonatomic) void (^requestData)();
+
 @end

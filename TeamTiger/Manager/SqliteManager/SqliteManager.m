@@ -393,13 +393,13 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
 
         
 //        TABLE_TT_Project
-//        [self checkTable:database
-//               tableName:TABLE_TT_Project
-//           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
-//       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
-//             primaryKeys:nil
-//      isFieldTypeChanged:NO
-//         ];
+        [self checkTable:database
+               tableName:TABLE_TT_Project
+           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
+       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
+             primaryKeys:nil
+      isFieldTypeChanged:NO
+         ];
         
         [self checkTable:database
                tableName:TABLE_TT_Project

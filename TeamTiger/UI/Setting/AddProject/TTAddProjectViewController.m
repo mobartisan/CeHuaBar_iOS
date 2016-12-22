@@ -17,10 +17,8 @@
 #import "CirclesManager.h"
 
 
-@interface TTAddProjectViewController ()<WXApiManagerDelegate>{
-    NSString *_name;
-    BOOL isPrivate;
-}
+@interface TTAddProjectViewController ()<WXApiManagerDelegate>
+@property (copy, nonatomic) NSString *name;
 
 @end
 
@@ -48,6 +46,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.contentTable endEditing:YES];
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.datas.count;
@@ -72,7 +75,6 @@
                 break;
             }
             case ECellTypeSwitch:{
-                isPrivate = (BOOL)obj;
                 break;
             }
             case ECellTypeAccessory:{
@@ -87,7 +89,7 @@
                 break;
             }
             case ECellTypeBottom:{
-                [self createProjectWith:_name is_private:isPrivate];
+                [self createProjectWith:self.name];
                 break;
             }
             default:
@@ -108,11 +110,11 @@
 }
 
 #pragma mark 创建项目
-- (void)createProjectWith:(NSString *)name  is_private:(BOOL)is_private {
+- (void)createProjectWith:(NSString *)name {
         if ([Common isEmptyString:name]) {
             [self showHudWithText:@"项目名称不能为空"];
-            [self hideHudAfterSeconds:3.0];
-            return;
+            [self hideHudAfterSeconds:1.0];
+           return;
         }
         ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
         projectCreateApi.requestArgument = @{@"name":name,
@@ -124,6 +126,9 @@
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (self.requestData) {
+                        self.requestData();
+                    }
                     [self dismissViewControllerAnimated:YES completion:nil];
                 });
             }
@@ -161,6 +166,7 @@
 
 - (void)managerDidRecvMessageResponse:(SendMessageToWXResp *)response {
     //    返回应用时，收到消息回调
+    [self.contentTable endEditing:YES];
 }
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
