@@ -183,7 +183,7 @@
     _homeModel.open = !_homeModel.open;
     if (_homeModel.open) {
         _homeModel.indexModel.homeCommentModel.show = YES;
-    }else {
+    } else {
         for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
             commentModelF.homeCommentModel.open = NO;
         }
@@ -201,9 +201,6 @@
 
 
 - (void)setHomeModel:(HomeModel *)homeModel {
-//    [self.headerImage viewWithTag:1000].hidden = (homeModel.count == 0) ? YES : NO;
-    
-    
     
     _homeModel = homeModel;
     

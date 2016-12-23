@@ -51,6 +51,7 @@
     group.last_edit_user_id = [TT_User sharedInstance].user_id;
     return group;
 }
+
 @end
 
 
@@ -58,31 +59,25 @@
 
 @synthesize project_id = _project_id;
 @synthesize name = _name;
-//@synthesize description = _description;
-//@synthesize is_private = _is_private;
-//@synthesize current_state = _current_state;
-//@synthesize is_allow_delete = _is_allow_delete;
-//@synthesize create_date = _create_date;
-//@synthesize create_user_id = _create_user_id;
-//@synthesize last_edit_date = _last_edit_date;
-//@synthesize last_edit_user_id = _last_edit_user_id;
-//@synthesize is_grouped = _is_grouped;
+@synthesize isTop = _isTop;
+@synthesize isNoDisturb = _isNoDisturb;
+@synthesize newscount = _newscount;
 
-- (NSString *)description
-{
-    NSLog(@"project_id:%@", _project_id);
-    NSLog(@"name:%@", _name);
-//    NSLog(@"description:%@", _description);
-//    NSLog(@"is_private:%@", @(_is_private));
-//    NSLog(@"current_state:%@", @(_current_state));
-//    NSLog(@"is_allow_delete:%@", @(_is_allow_delete));
-//    NSLog(@"create_date:%@", _create_date);
-//    NSLog(@"create_user_id:%@", _create_user_id);
-//    NSLog(@"last_edit_date:%@", _last_edit_date);
-//    NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
-//    NSLog(@"is_grouped:%@", @(_is_grouped));
-    return [super description];
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"_id"]) {
+        self.project_id = value;
+    }else if ([key isEqualToString:@"name"]) {
+        self.name = value;
+    }else if ([key isEqualToString:@"position"]) {
+        if ([value intValue] == 1) {
+            self.isTop = NO;
+        }else {
+            self.isTop = YES;
+        }
+    }
 }
+
+
 @end
 
 

@@ -22,28 +22,34 @@
 }
 
 
-#warning to do 获取所有项目的名称
+#pragma mark  获取所有的项目
 - (void)loadingGlobalCirclesInfo {
     if (![Common isEmptyArr:self.circles]) {
         [self.circles removeAllObjects];
     }
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"loadingGlobalCirclesInfo:%@", request.responseJSONObject);
+        NSLog(@"AllProjectsApi:%@", request.responseJSONObject);
         ;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
                 for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
                     [self.circles addObject:objDic];
                 }
+                self.selectCircle = (self.circles)[self.selectIndex];
             }
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            hud.label.text = [NSString stringWithFormat:@"%@", request.responseJSONObject[MSG]];
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
         hud.label.text = @"您的网络好像有问题~";
         hud.mode = MBProgressHUDModeText;
-        [hud hideAnimated:YES afterDelay:1.5];
+        [hud hideAnimated:YES afterDelay:1.0];
     }];
 }
 

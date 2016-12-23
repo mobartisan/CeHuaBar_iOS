@@ -17,6 +17,12 @@
 
 @end
 
+//删除用户数据
+@interface DeleteAllDataApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
 //注册
 @interface RegisterApi : LCBaseRequest<LCAPIRequest>
 
@@ -98,6 +104,11 @@
 
 @end
 
+//删除分组
+@interface GroupDeleteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 //创建投票Moment
 @interface VoteCreateApi : LCBaseRequest<LCAPIRequest>
 
@@ -117,5 +128,20 @@
 @interface ExistAppApi : LCBaseRequest<LCAPIRequest>
 
 @end
+
+//项目删除
+@interface ProjectDeleteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//项目置顶
+@interface ProjectTopApi : LCBaseRequest<LCAPIRequest>
+
+@end
+//项目免打扰
+@interface ProjectDisturbApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 
 

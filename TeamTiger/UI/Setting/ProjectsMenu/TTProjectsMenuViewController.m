@@ -32,9 +32,8 @@
 
 @property(nonatomic,strong)SelectGroupView *sgView;
 
-@property (strong, nonatomic) NSString *unGroup_id;
-
-@property (strong, nonatomic) NSMutableArray *allProjects;
+@property (strong, nonatomic) NSMutableArray *unGroupProjects;
+@property(nonatomic, strong) NSMutableArray *groups;
 @property (strong, nonatomic) NSMutableArray *touchPoints;
 
 @property (assign, nonatomic) NSUInteger projectsCount;
@@ -47,8 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getAllProjects];
-    
+    [self getAllGroupsAndProjectsData];
+    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
     self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [Common removeExtraCellLines:self.menuTable];
@@ -62,7 +61,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self getAllGroups];
     
 }
 
@@ -71,10 +69,111 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSMutableArray *)groups {
+    if (!_groups) {
+        _groups = [NSMutableArray array];
+    }
+    return _groups;
 }
+
+- (NSMutableArray *)touchPoints {
+    if (_touchPoints == nil) {
+        _touchPoints = [NSMutableArray array];
+    }
+    return _touchPoints;
+}
+
+- (NSMutableArray *)unGroupProjects {
+    if (_unGroupProjects == nil) {
+        _unGroupProjects = [NSMutableArray array];
+    }
+    return _unGroupProjects;
+}
+
+- (ProjectsView *)pView {
+    if (!_pView) {
+        _pView = [[ProjectsView alloc] initWithDatas:[NSArray array]];
+        WeakSelf;
+        //data handle
+        _pView.projectBlock = ^(ProjectsView *tmpView, id object){
+            [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                if (finished) {
+                    NSString *Id = [object group_id];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
+                }
+            }];
+        };
+        //创建分组
+        _pView.addProjectBlock = ^(ProjectsView *tmpView){
+            [wself creatGroupAction];
+        };
+        //长按删除分组
+        _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
+            [wself groupDeleteWithGroup:object];
+        };
+        
+    }
+    return _pView;
+}
+
+- (GroupView *)gView {
+    if (!_gView) {
+        _gView = LoadFromNib(@"GroupView");
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:_gView];
+        [_gView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+    }
+    return _gView;
+}
+
+- (SelectGroupView *)sgView {
+    if (!_sgView) {
+        _sgView = LoadFromNib(@"SelectGroupView");
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        [keyWindow addSubview:_sgView];
+        [_sgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
+            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
+            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+    }
+    return _sgView;
+}
+
+- (void)loadUserInfo {
+    NSDictionary *dic = [MockDatas testerInfo];
+    self.nameLab.text = dic[@"Name"];
+    self.remarkLab.text = dic[@"Remarks"];
+    if (![Common isEmptyString:dic[@"HeadImage"]]) {
+        NSString *urlString = dic[@"HeadImage"];
+        NSMutableString *mString = [NSMutableString string];
+        if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
+            mString = urlString.mutableCopy;
+        } else {
+            NSArray *components = [urlString componentsSeparatedByString:@"/"];
+            NSInteger count = components.count;
+            [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx != count - 1) {
+                    [mString appendFormat:@"%@/",obj];
+                } else {
+                    [mString appendString:@"132"];//头像大小 46 64 96 132
+                }
+            }];
+        }
+        NSURL *url = [NSURL URLWithString:mString];
+        [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            image = [image imageByRoundCornerRadius:66];
+            self.headImgV.image = image;
+        }];
+    }
+}
+
 
 #pragma -mark UITableView DataSource & Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -82,7 +181,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section > 1) {
-        return self.allProjects.count;
+        return self.unGroupProjects.count;
     }
     return  1;
 }
@@ -96,8 +195,8 @@
             cell = LoadFromNib(@"ProjectsCell");
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
-        TT_Project *projectInfo = self.allProjects[indexPath.row];
-        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.allProjects.count - 1];
+        TT_Project *projectInfo = self.unGroupProjects[indexPath.row];
+        [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.unGroupProjects.count - 1];
         
         //长按手势
         if (![Common isEmptyArr:self.groups]) {
@@ -110,35 +209,21 @@
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目?" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     NSLog(@"删除项目");
-                    [self.allProjects removeObject:projectInfo];
-                    [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self projectDeleteWithProject:projectInfo];
                 }
             }];
             
         };
         //置顶cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            [self.allProjects enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx != indexPath.row) {
-                    ((TT_Project *)obj).isTop = NO;
-                }
-            }];
-            TT_Project *tmpProject = projectInfo;
-            [self.allProjects removeObject:projectInfo];
-            if (tmpProject.isTop) {
-                tmpProject.isTop = NO;
-                [self.allProjects insertObject:tmpProject atIndex:self.index];
-            }else {
-                self.index = indexPath.row;
-                tmpProject.isTop = YES;
-                [self.allProjects insertObject:tmpProject atIndex:0];
-            }
-            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+            projectInfo.isTop = !projectInfo.isTop;
+            [self projectTopWithProject:projectInfo];
+            
         };
         //免打扰
         ((ProjectsCell *)cell).noDisturbBlokc = ^{
             projectInfo.isNoDisturb = !projectInfo.isNoDisturb;
-            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self projectDisturbWithProject:projectInfo];
         };
         
         //设置当cell左滑时，关闭其他cell的左滑
@@ -149,8 +234,7 @@
                 }
             }
         };
-    }
-    else {
+    }else {
         static NSString *cellID = @"CellIdentify";
         cell = [tableView dequeueReusableCellWithIdentifier:cellID];
         if (!cell) {
@@ -198,23 +282,13 @@
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
     if (section >= 1) {
         headView.isEnabledSwipe = NO;
-        [headView loadHeadViewIndex:section projectCount:self.allProjects.count];
+        [headView loadHeadViewIndex:section projectCount:self.unGroupProjects.count];
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
         addProfileVC.requestData = ^() {
-            [self.allProjects removeAllObjects];
-            for (NSDictionary *objDic in [CirclesManager sharedInstance].circles) {
-                TT_Project *tt_Project = [[TT_Project alloc] init];
-                tt_Project.project_id = objDic[@"_id"];
-                tt_Project.name = objDic[@"name"];
-                [self.allProjects addObject:tt_Project];
-                
-            }
-            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self getAllGroupsAndProjectsData];
         };
-        
-        
         TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
         [self.navigationController presentViewController:baseNav animated:YES completion:nil];
     };
@@ -245,8 +319,8 @@
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         if (finished) {
-            NSString *Id = [self.allProjects[indexPath.row] project_id];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.allProjects[indexPath.row] name], @"ISGROUP":@0}];
+            NSString *Id = [self.unGroupProjects[indexPath.row] project_id];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
         }
     }];
 }
@@ -262,159 +336,115 @@
     }];
 }
 
-//获取所有的项目
-- (void)getAllProjects {
-    CirclesManager *circleManager = [CirclesManager sharedInstance];
-    AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
-    [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getAllProjects:%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
-                for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
-                    [circleManager.circles addObject:objDic];
-                    TT_Project *tt_Project = [[TT_Project alloc] init];
-                    tt_Project.project_id = objDic[@"_id"];
-                    tt_Project.name = objDic[@"name"];
-                    [self.allProjects addObject:tt_Project];
-                    
-                }
-                circleManager.selectIndex = 0;
-                circleManager.selectCircle = (circleManager.circles)[circleManager.selectIndex];
-            }
-            self.projectsCount = circleManager.circles.count;
-            [self.menuTable reloadData];
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
-        hud.label.text = @"您的网络好像有问题~";
-        hud.mode = MBProgressHUDModeText;
-        [hud hideAnimated:YES afterDelay:1.5];
-    }];
-}
-
-#pragma mark 获取所有分组
-- (void)getAllGroups {
+#pragma mark 请求数据
+- (void)getAllGroupsAndProjectsData {
     AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getAllGroups:%@", request.responseJSONObject);
+        NSLog(@"AllGroupsApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic =  request.responseJSONObject[OBJ];
             //分组数据
             if (![Common isEmptyArr:self.groups]) {
                 [self.groups removeAllObjects];
             }
-            NSArray *groupArr = objDic[@"groups"];
-            for (int i = 2; i < groupArr.count; i++) {
+            NSArray *groupArray = objDic[@"groups"];
+            for (NSDictionary *groupDic in groupArray) {
                 TT_Group *group = [[TT_Group alloc] init];
-                group.group_id = groupArr[i][@"_id"];
-                group.group_name = groupArr[i][@"group_name"];
+                group.group_id = groupDic[@"_id"];
+                group.group_name = groupDic[@"group_name"];
                 [self.groups addObject:group];
             }
-            self.unGroup_id = [objDic[@"projects"] firstObject][@"_id"];
+            
+            //未分组项目
+            if (![Common isEmptyArr:self.unGroupProjects]) {
+                [self.unGroupProjects removeAllObjects];
+            }
+            NSArray *projectsArray = objDic[@"projects"];
+            for (NSDictionary *projectDic in projectsArray) {
+                TT_Project *project = [[TT_Project alloc] init];
+                [project setValuesForKeysWithDictionary:projectDic];
+                [self.unGroupProjects addObject:project];
+            }
             [self.menuTable reloadData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"getAllGroups:%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
-#pragma -mark Data Handle
-- (NSMutableArray *)groups {
-    if (!_groups) {
-        _groups = [NSMutableArray array];
-    }
-    return _groups;
-}
-
-
-
-- (NSMutableArray *)touchPoints {
-    if (_touchPoints == nil) {
-        _touchPoints = [NSMutableArray array];
-    }
-    return _touchPoints;
-}
-
-- (NSMutableArray *)allProjects {
-    if (_allProjects == nil) {
-        _allProjects = [NSMutableArray array];
-    }
-    return _allProjects;
-}
-
-- (void)loadUserInfo {
-    NSDictionary *dic = [MockDatas testerInfo];
-    self.nameLab.text = dic[@"Name"];
-    self.remarkLab.text = dic[@"Remarks"];
-    if (![Common isEmptyString:dic[@"HeadImage"]]) {
-        NSString *urlString = dic[@"HeadImage"];
-        NSMutableString *mString = [NSMutableString string];
-        if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
-            mString = urlString.mutableCopy;
-        } else {
-            NSArray *components = [urlString componentsSeparatedByString:@"/"];
-            NSInteger count = components.count;
-            [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx != count - 1) {
-                    [mString appendFormat:@"%@/",obj];
-                } else {
-                    [mString appendString:@"132"];//头像大小 46 64 96 132
-                }
-            }];
+#pragma mark 项目删除
+- (void)projectDeleteWithProject:(TT_Project *)project {
+    ProjectDeleteApi *projectDeleteApi = [[ProjectDeleteApi alloc] init];
+    projectDeleteApi.requestArgument = @{@"pid":project.project_id};
+    [projectDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.unGroupProjects removeObject:project];
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
-        NSURL *url = [NSURL URLWithString:mString];
-        [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            image = [image imageByRoundCornerRadius:66];
-            self.headImgV.image = image;
-        }];
-    }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+#pragma mark 项目置顶
+- (void)projectTopWithProject:(TT_Project *)project {
+    NSNumber *position = project.isTop ? @2 : @1;
+    ProjectTopApi *projectTopApi = [[ProjectTopApi alloc] init];
+    projectTopApi.requestArgument = @{@"pid":project.project_id,
+                                      @"position":position};
+    [projectTopApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self getAllGroupsAndProjectsData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
 }
 
-- (ProjectsView *)pView {
-    if (!_pView) {
-        _pView = [[ProjectsView alloc] initWithDatas:[NSArray array]];
-        WeakSelf;
-        //data handle
-        _pView.projectBlock = ^(ProjectsView *tmpView, id object){
-            [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-                if (finished) {
-                    NSString *Id = [object group_id];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
-                }
-            }];
-        };
-        //添加分组
-        _pView.addProjectBlock = ^(ProjectsView *tmpView){
-            [wself creatGroupAction];
-        };
-        /*
-         _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
-         TTGroupViewController *groupVC = [[TTGroupViewController alloc] init];
-         groupVC.allGroups = wself.groups;
-         groupVC.groupId = [object group_id];
-         groupVC.gid = [object group_id];
-         [wself.navigationController pushViewController:groupVC animated:YES];
-         };
-         */
-    }
-    return _pView;
+#pragma mark  免打扰
+- (void)projectDisturbWithProject:(TT_Project *)project {
+    NSNumber *isDisturb = [NSNumber numberWithBool:project.isNoDisturb];
+    ProjectDisturbApi *projectDisturbApi = [[ProjectDisturbApi alloc] init];
+    projectDisturbApi.requestArgument = @{@"pid":project.project_id,
+                                          @"isDisturb":isDisturb};
+    [projectDisturbApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDisturbApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"ProjectDisturbApi:%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
 }
 
-- (GroupView *)gView {
-    if (!_gView) {
-        _gView = LoadFromNib(@"GroupView");
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [keyWindow addSubview:_gView];
-        [_gView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
-            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
-            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
-            make.height.mas_equalTo(Screen_Height - 100);
-        }];
-    }
-    return _gView;
+#pragma mark 删除分组
+- (void)groupDeleteWithGroup:(TT_Group *)group {
+    GroupDeleteApi *groupDeleteApi = [[GroupDeleteApi alloc] init];
+    groupDeleteApi.requestArgument = @{@"gid":group.group_id};
+    [groupDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"GroupDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self getAllGroupsAndProjectsData];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"GroupDeleteApi:%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
 }
 
 #pragma mark 创建分组
@@ -422,7 +452,7 @@
     if (self.gView.isShow) {
         [self.gView hide];
     } else {
-        [self.gView loadGroupInfo:nil AllProjects:self.allProjects];
+        [self.gView loadGroupInfo:nil AllProjects:self.unGroupProjects];
         [self.gView show];
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
@@ -438,7 +468,7 @@
                     NSLog(@"creatGroupAction:%@", request.responseJSONObject);
                     [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
                     if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                        [wself getAllGroups];
+                        [wself getAllGroupsAndProjectsData];
                     }
                 } failure:^(__kindof LCBaseRequest *request, NSError *error) {
                     NSLog(@"%@", error);
@@ -449,41 +479,11 @@
     }
 }
 
-- (SelectGroupView *)sgView {
-    if (!_sgView) {
-        _sgView = LoadFromNib(@"SelectGroupView");
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [keyWindow addSubview:_sgView];
-        [_sgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
-            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
-            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
-            make.height.mas_equalTo(Screen_Height - 100);
-        }];
-    }
-    return _sgView;
-}
-#pragma mark  移动未分组项目移动到某个分组
-- (void)addProjectIntoGroupAction:(TT_Project *)projectInfo {
-    if (self.sgView.isShow) {
-        [self.sgView hide];
-    } else {
-        [self.sgView loadGroups:self.groups];
-        [self.sgView show];
-        WeakSelf;
-        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                [wself moveProjectFrom_gid:wself.unGroup_id to_group:object pid:projectInfo];
-            }
-        };
-    }
-}
 
-- (void)moveProjectFrom_gid:(NSString *)from_gid to_group:(TT_Group *)group pid:(TT_Project *)pid {
+- (void)moveProjectTo_group:(TT_Group *)group project:(TT_Project *)project {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
-    moveProjectApi.requestArgument = @{@"from_gid":self.unGroup_id,
-                                       @"to_gid":group.group_id,
-                                       @"pid":[pid project_id]};//pid 项目id
+    moveProjectApi.requestArgument = @{@"to_gid":group.group_id,
+                                       @"pid":[project project_id]};//pid 项目id
     [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
@@ -499,16 +499,6 @@
     }];
 }
 
-- (void)getViewFrames {
-    self.viewFrames = [NSMutableArray array];
-    int count = (int)[CirclesManager sharedInstance].views.count;
-    for (int i = 0; i < count; i++) {
-        UIView *tmpView = [CirclesManager sharedInstance].views[i];
-        CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];
-        [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
-    }
-}
-
 #pragma mark 长按手势方法
 - (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)longPress {
     [self getViewFrames];
@@ -516,7 +506,7 @@
     UIGestureRecognizerState state = longPress.state;
     CGPoint location = [longPress locationInView:self.menuTable];
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
-    TT_Project *project = [self.allProjects objectAtIndex:indexPath.row];
+    TT_Project *project = [self.unGroupProjects objectAtIndex:indexPath.row];
     static UIView *snapshot = nil;
     static NSIndexPath  *sourceIndexPath = nil;
     switch (state) {
@@ -590,10 +580,10 @@
                     //2.取出对应的模型
                     TT_Group *group = self.groups[index];
                     //3.刷新UI
-                    [self.allProjects removeObject:project];
+                    [self.unGroupProjects removeObject:project];
                     [self.menuTable reloadData];
                     //4.移动分组
-                    [self moveProjectFrom_gid:self.unGroup_id to_group:group pid:project];
+                    [self moveProjectTo_group:group project:project];
                 }else {
                     cell.hidden = NO;
                     // 将快照恢复到初始状态
@@ -617,6 +607,16 @@
         }
     }
     
+}
+
+- (void)getViewFrames {
+    self.viewFrames = [NSMutableArray array];
+    int count = (int)[CirclesManager sharedInstance].views.count;
+    for (int i = 0; i < count; i++) {
+        UIView *tmpView = [CirclesManager sharedInstance].views[i];
+        CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];
+        [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
+    }
 }
 
 #pragma mark 创建cell的快照

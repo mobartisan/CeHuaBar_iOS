@@ -162,6 +162,15 @@
     return _tableHeader;
 }
 
+- (UIButton *)titleView {
+    if (_titleView == nil) {
+        _titleView = [UIButton buttonWithType:UIButtonTypeCustom];
+        _titleView.enabled = NO;
+        _titleView.frame = CGRectMake(0, 0, 300, 40);
+    }
+    return _titleView;
+}
+
 - (void)handleBellBtnAction {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
     [self.navigationController pushViewController:discussVC animated:YES];
@@ -179,32 +188,41 @@
 //设置按钮
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
+        [self deleteAllData];
+        return;
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-//        settingVC.project_id = @"0001";
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
-//        settingVC.groupId = self.current_group_id;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
 }
+#warning to do... 删除用户所有数据
+- (void)deleteAllData {
+    DeleteAllDataApi *deleteApi = [[DeleteAllDataApi alloc] init];
+    [deleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"DeleteAllDataApi:%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"DeleteAllDataApi:%@", error);
+    }];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    // Do any additional setup after loading the view from its nib.
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
-
+    [self getAllMoments:@{@"page":@1,
+                          @"rows":@10}];
     [self configureNavigationItem];
+    [self handleRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
     self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedSectionHeaderHeight = 250;
-#warning TO DO ....
-    [self handleRefreshAction];
     [Common removeExtraCellLines:self.tableView];
     if (self.showTableHeader) {
         self.tableView.tableHeaderView = self.tableHeader;
@@ -217,19 +235,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-    [self.dataSource removeAllObjects];
-    
-}
-
-
-
-- (UIButton *)titleView {
-    if (_titleView == nil) {
-        _titleView = [UIButton buttonWithType:UIButtonTypeCustom];
-        _titleView.enabled = NO;
-        _titleView.frame = CGRectMake(0, 0, 300, 40);
-    }
-    return _titleView;
 }
 
 #warning to do 获取所有Moments
@@ -242,7 +247,6 @@
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            
             if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
                 for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                     HomeModel *homeModel = [HomeModel modelWithDic:dic];
@@ -254,7 +258,7 @@
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
@@ -262,9 +266,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [IQKeyboardManager sharedManager].enable = NO;
-    [self getAllMoments:@{@"page":@"1",
-                          @"rows":@"10"}];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -272,16 +273,13 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
+#pragma mark 上拉加载, 下拉刷新
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getAllMoments:@{@"page":@"1",
-                              @"rows":@"10"}];
-        [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
     self.tableView.mj_header = header;
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self.tableView reloadData];
         [self.tableView.mj_footer endRefreshing];
         
     }];
@@ -378,12 +376,12 @@
     UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
     uploadImageApi.requestArgument = requestDic;
     [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"bannerUpdate:%@", request.responseJSONObject);
+        NSLog(@"UploadImageApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"bannerUpdate:%@", error);
+        NSLog(@"UploadImageApi:%@", error);
         if (error) {
             [super showText:@"您的网络好像有问题~" afterSeconds:1];
         }

@@ -23,10 +23,40 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+
+//删除用户数据
+@implementation DeleteAllDataApi
+
+- (NSString *)apiMethodName {
+    return @"user/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+
+
 @implementation RegisterApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/user/register.app";
+    return @"user/register.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -60,7 +90,7 @@ static double const timeOutInterval = 15.0;
 @implementation LoginApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/user/login.app";
+    return @"user/login.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -92,7 +122,7 @@ static double const timeOutInterval = 15.0;
 @implementation AllMomentsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/moment/list.app";
+    return @"moment/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -124,7 +154,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/project/add.app";
+    return @"project/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -157,7 +187,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectExitApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
+    return @"point2.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -187,7 +217,7 @@ static double const timeOutInterval = 15.0;
 @implementation MomentCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/moment/add.app";
+    return @"moment/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -217,7 +247,7 @@ static double const timeOutInterval = 15.0;
 @implementation DiscussCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/discuss/add.app";
+    return @"discuss/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -276,7 +306,7 @@ static double const timeOutInterval = 15.0;
 @implementation AllProjectsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/project/list.app";
+    return @"project/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -307,7 +337,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectDetailApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/point2.app";
+    return @"point2.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -339,7 +369,7 @@ static double const timeOutInterval = 15.0;
 @implementation AllGroupsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/group/list.app";
+    return @"group/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -368,7 +398,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectsApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/group/project/list.app";
+    return @"group/project/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -397,7 +427,7 @@ static double const timeOutInterval = 15.0;
 @implementation DeleteProjectApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/group/project/delete.app";
+    return @"group/project/delete.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -427,7 +457,7 @@ static double const timeOutInterval = 15.0;
 @implementation MoveProjectApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/group/project/move.app";
+    return @"group/project/move.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -457,11 +487,40 @@ static double const timeOutInterval = 15.0;
 @implementation GroupCreatApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/group/add.app";
+    return @"group/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
     return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//删除分组
+@implementation GroupDeleteApi
+
+- (NSString *)apiMethodName {
+    return @"group/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
 }
 
 - (NSTimeInterval)requestTimeoutInterval {
@@ -487,7 +546,7 @@ static double const timeOutInterval = 15.0;
 @implementation VoteCreateApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/vote/add.app";
+    return @"vote/add.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -516,7 +575,7 @@ static double const timeOutInterval = 15.0;
 @implementation VoteClickApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/vote/update.app";
+    return @"vote/update.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -545,7 +604,7 @@ static double const timeOutInterval = 15.0;
 @implementation UploadImageApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/banner/update.app";
+    return @"banner/update.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -574,11 +633,98 @@ static double const timeOutInterval = 15.0;
 @implementation ExistAppApi
 
 - (NSString *)apiMethodName {
-    return @"bbs/api/v1.0/user/logout.app";
+    return @"user/logout.app";
 }
 
 - (LCRequestMethod)requestMethod {
     return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//项目置顶
+@implementation ProjectTopApi
+
+- (NSString *)apiMethodName {
+    return @"project/top.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//项目免打扰
+@implementation ProjectDisturbApi
+
+- (NSString *)apiMethodName {
+    return @"project/disturb.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//项目删除
+@implementation ProjectDeleteApi
+
+- (NSString *)apiMethodName {
+    return @"project/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
 }
 
 - (NSTimeInterval)requestTimeoutInterval {

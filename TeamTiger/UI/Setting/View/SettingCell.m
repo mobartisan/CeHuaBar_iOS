@@ -46,7 +46,7 @@
     self.titleLab.text = dic[@"TITLE"];
     switch ([dic[@"TYPE"] intValue]) {
         case ECellTypeTextField:{
-            self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
+            self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:nil superView:self.contentView constraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.titleLab.mas_right).offset(10);
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
                 make.top.mas_equalTo(self.contentView.mas_top).offset(22);
@@ -56,6 +56,7 @@
             self.textField.tintColor = [UIColor whiteColor];
             [self.textField setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
             self.textField.font = [UIFont systemFontOfSize:17];
+            [self.textField addTarget:self action:@selector(textLengthChange:) forControlEvents:UIControlEventEditingChanged];
             break;
         }
         case ECellTypeTextView:{
@@ -169,7 +170,7 @@
     }
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
+- (void)textLengthChange:(UITextField *)textField {
     if (self.actionBlock) {
         self.actionBlock(self, ECellTypeTextField, textField.text);
     }

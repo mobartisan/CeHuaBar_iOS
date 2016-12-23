@@ -9,6 +9,7 @@
 
 #pragma mark - 
 @interface TT_Group : NSObject
+
 @property(nonatomic, strong) NSString *group_id;  // group_id
 @property(nonatomic, strong) NSString *group_name;  // name
 @property(nonatomic, strong) NSString *pids;  //pids
@@ -20,6 +21,7 @@
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
 
+
 + (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic;
 
 @end
@@ -28,18 +30,9 @@
 
 @property(nonatomic, strong) NSString *project_id;  // project_id
 @property(nonatomic, strong) NSString *name;  // name
-@property (assign, nonatomic) BOOL isTop;
-@property (assign, nonatomic) BOOL isNoDisturb;
-
-//@property(nonatomic, strong) NSString *description;  // description
-//@property(nonatomic)         BOOL is_private;  // is_private
-//@property(nonatomic)         NSInteger current_state;  // current_state
-//@property(nonatomic)         BOOL is_allow_delete;  // is_allow_delete
-//@property(nonatomic, strong) NSDate *create_date;  // create_date
-//@property(nonatomic, strong) NSString *create_user_id;  // create_user_id
-//@property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
-//@property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
-//@property(nonatomic)         BOOL is_grouped;  // is_grouped
+@property (assign, nonatomic) BOOL isTop; //置顶状态:1-取消置顶，2-置顶
+@property (assign, nonatomic) BOOL isNoDisturb; //免打扰标识:0-接受项目消息,1-设置免打扰"
+@property (strong, nonatomic) NSString *newscount;
 
 @end
 

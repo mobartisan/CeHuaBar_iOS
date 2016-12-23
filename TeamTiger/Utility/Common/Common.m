@@ -144,17 +144,17 @@
 
 //返回系统年月日时间 YYYY-MM-DD
 + (NSString *)getCurrentSystemYearMonthDay {
-    return [NSString stringWithFormat:@"%ld-%ld-%ld", [[NSDate date] hyb_year], [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
+    return [NSString stringWithFormat:@"%02tu-%02tu-%02tu", [[NSDate date] hyb_year], [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
 }
 
 //返回系统时间
 + (NSString *)getCurrentSystemTime {
-    return [NSString stringWithFormat:@"%ld月%ld日 %ld:%ld", [[NSDate date] hyb_month], [[NSDate date] hyb_day], [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
+    return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu", [[NSDate date] hyb_month], [[NSDate date] hyb_day], [[NSDate date] hyb_hour], [[NSDate date] hyb_minute]];
 }
 
 //系统日期
 + (NSString *)getCurrentSystemDate {
-    return [NSString stringWithFormat:@"%ld月%ld日", [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
+    return [NSString stringWithFormat:@"%02tu月%02tu日", [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
 }
 
 //处理时间

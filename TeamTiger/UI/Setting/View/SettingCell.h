@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, ECellType) {
 
 typedef void(^NeedActionblock)(SettingCell *settingCell, ECellType type, id obj);
 
-@interface SettingCell : UITableViewCell<UITextFieldDelegate,UITextViewDelegate>
+@interface SettingCell : UITableViewCell<UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
 @property (weak, nonatomic) IBOutlet UIButton *createBtn;

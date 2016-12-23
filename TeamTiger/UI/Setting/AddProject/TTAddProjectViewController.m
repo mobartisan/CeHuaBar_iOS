@@ -71,7 +71,7 @@
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeTextField:{
-                _name = obj;
+                self.name = obj;
                 break;
             }
             case ECellTypeSwitch:{
@@ -89,7 +89,7 @@
                 break;
             }
             case ECellTypeBottom:{
-                [self createProjectWith:self.name];
+                [self createProjectWithProjectName:self.name];
                 break;
             }
             default:
@@ -110,7 +110,7 @@
 }
 
 #pragma mark 创建项目
-- (void)createProjectWith:(NSString *)name {
+- (void)createProjectWithProjectName:(NSString *)name {
         if ([Common isEmptyString:name]) {
             [self showHudWithText:@"项目名称不能为空"];
             [self hideHudAfterSeconds:1.0];
@@ -121,7 +121,7 @@
                                              @"uids":@"",//假设项目中有可以添加的成员,如果有,uids表示所有成员的uid,没有的话给空
                                              };
         [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            NSLog(@"request.responseJSONObject : %@", request.responseJSONObject);
+            NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
@@ -133,7 +133,7 @@
                 });
             }
         } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            NSLog(@"%@",error.description);
+            NSLog(@"ProjectCreateApi:%@",error.description);
             [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }];
 }

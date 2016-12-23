@@ -18,6 +18,4 @@
 @property(nonatomic, strong) IBOutlet UILabel *remarkLab;
 
 
-@property(nonatomic, strong) NSMutableArray *groups;
-
 @end
