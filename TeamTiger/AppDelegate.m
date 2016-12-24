@@ -71,14 +71,25 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSLog(@"sourceApplication: %@", sourceApplication);
+    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL query: %@", [url query]);
+    //    if ([sourceApplication isEqualToString:@"com.mobartisan.cehuaBar"]){
+    //    }
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 
 //MARK: iOS9 After
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     NSLog(@"Calling Application Bundle ID: %@", options[UIApplicationOpenURLOptionsSourceApplicationKey]);
-    NSLog(@"URL : %@", url);
+    NSLog(@"URL scheme:%@", [url scheme]);
+    NSLog(@"URL query: %@", [url query]);
+    //方式一：
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    
+    //方式二：
+    //    [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
+    //    return YES;
 }
 
 
