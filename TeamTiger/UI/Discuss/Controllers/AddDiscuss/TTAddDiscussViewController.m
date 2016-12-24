@@ -278,6 +278,9 @@
         NSLog(@"%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if (self.addDiscussBlock) {
+                self.addDiscussBlock();
+            }
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             //创建失败

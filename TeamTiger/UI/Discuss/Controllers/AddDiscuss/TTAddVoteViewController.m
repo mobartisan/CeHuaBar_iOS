@@ -374,57 +374,26 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
         voteCreatApi.requestArgument = dic;
         [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+                if (self.addVoteBlock) {
+                    self.addVoteBlock();
+                }
                 [self.navigationController popViewControllerAnimated:YES];
                 
-            }else {
-                [super showText:request.responseJSONObject[MSG] afterSeconds:1.5];
             }
         } failure:^(__kindof LCBaseRequest *request, NSError *error) {
             NSLog(@"%@", error);
             if (error) {
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
             }
         }];
     } failure:^(NSError *error) {
         if (error) {
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }
     }];
 }
-
-
-#pragma mark - Override
-
-#pragma mark - Initial Methods
-
-#pragma mark - Target Methods
-
-
-#pragma mark - Notification Methods
-
-
-#pragma mark - KVO Methods
-
-
-#pragma mark - UITableViewDelegate, UITableViewDataSource
-
-
-#pragma mark - Privater Methods
-
-
-#pragma mark - Setter Getter Methods
-
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

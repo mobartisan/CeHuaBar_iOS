@@ -457,7 +457,11 @@
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
-                NSLog(@"%@, %@",object[@"Name"], object[@"Pids"]);
+                NSLog(@"%@, Pids:%@",object[@"Name"], object[@"Pids"]);
+                if (!object[@"Pids"]) {
+                    NSLog(@"Pids");
+                }
+                return ;
                 NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
                 NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];

@@ -36,20 +36,16 @@
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataSource;
-@property (strong, nonatomic) UIView *sectionHeader;
-@property (strong, nonatomic) UIView *tableHeader;
-@property (strong, nonatomic) NSIndexPath *currentIndexPath;
+@property (strong, nonatomic) NSMutableArray *dataSource;//数据源
+@property (strong, nonatomic) UIView *sectionHeader;//分区页眉
+@property (strong, nonatomic) UIView *tableHeader;//tableView 页眉
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时duiyingcell的indexPath
 
 @property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
-
-@property (copy, nonatomic) NSString *current_group_id;
-@property (copy, nonatomic) NSString *current_project_id;
-@property (copy, nonatomic) NSString *bannerImageURL;
 
 
 @end
@@ -210,7 +206,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
@@ -231,7 +227,6 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleRefresh:) name:@"refresh" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
@@ -253,6 +248,7 @@
                     [self.dataSource addObject:homeModel];
                 }
             }
+            
         }
         
         [self.tableView reloadData];
@@ -276,6 +272,9 @@
 #pragma mark 上拉加载, 下拉刷新
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getAllMoments:@{@"page":@1,
+                              @"rows":@10}];
+         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
     self.tableView.mj_header = header;
@@ -362,11 +361,9 @@
     MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
         NSLog(@"animation complete");
     };
-    NSArray *items =
-    @[MMItemMake(@"更换相册封面", MMItemTypeNormal, block)];
+    NSArray *items = @[MMItemMake(@"更换相册封面", MMItemTypeNormal, block)];
     
-    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
-                                                          items:items];
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil items:items];
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
 }
@@ -379,12 +376,13 @@
         NSLog(@"UploadImageApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"UploadImageApi:%@", error);
-        if (error) {
-            [super showText:@"您的网络好像有问题~" afterSeconds:1];
-        }
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        
     }];
     
 }
@@ -395,10 +393,18 @@
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
+            addDiscussVC.addDiscussBlock = ^() {
+                [self getAllMoments:@{@"page":@1,
+                                      @"rows":@10}];
+            };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
-            TTAddVoteViewController *voteVC = [[TTAddVoteViewController alloc] init];
-            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:voteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+            TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
+            addVoteVC.addVoteBlock = ^() {
+                [self getAllMoments:@{@"page":@1,
+                                      @"rows":@10}];
+            };
+            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         }
     };
     
@@ -408,17 +414,9 @@
     NSArray *items =
     @[MMItemMake(@"创建Moment", MMItemTypeNormal, block),
       MMItemMake(@"发起投票", MMItemTypeNormal, block)];
-    
-    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil
-                                                          items:items];
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil items:items];
     sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
     [sheetView showWithBlock:completeBlock];
-}
-
-- (void)handleRefresh:(NSNotification *)notification {
-    NSIndexPath *indexPath = notification.object;
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
@@ -443,7 +441,7 @@
     }];
 }
 
-#pragma mark UITableViewDataSource
+#pragma mark UITableViewDataSource && Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
 }
@@ -457,6 +455,10 @@
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
+        ((HomeCell *)cell).clickMoreBtnBlock = ^(NSIndexPath *tmpIndexPath) {
+            [self.tableView reloadRowsAtIndexPaths:@[tmpIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView scrollToRowAtIndexPath:tmpIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        };
     } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
@@ -466,7 +468,7 @@
     return cell;
 }
 
-#pragma mark UITableViewDelegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = self.dataSource[indexPath.row];
     Class currentClass;

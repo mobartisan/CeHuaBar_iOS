@@ -22,6 +22,7 @@
 @property (strong, nonatomic) ButtonIndexPath *commentBtn;
 @property (strong, nonatomic) UITableView *tableView;
 @property (assign, nonatomic) id <HomeCellDelegate> delegate;
+@property (copy, nonatomic) void (^clickMoreBtnBlock)(NSIndexPath *indexPath);
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

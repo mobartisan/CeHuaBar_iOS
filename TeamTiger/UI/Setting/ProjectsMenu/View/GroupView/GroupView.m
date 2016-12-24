@@ -143,14 +143,14 @@
             return;
         }
         
-        id count = [self.selProjects valueForKeyPath:@"@sum.intValue"];
-        if ([count intValue] == 0) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
-            hud.label.text = @"组必须包含至少一个项目";
-            hud.mode = MBProgressHUDModeText;
-            [hud hideAnimated:YES afterDelay:1.0];
-            return;
-        }
+//        id count = [self.selProjects valueForKeyPath:@"@sum.intValue"];
+//        if ([count intValue] == 0) {
+//            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+//            hud.label.text = @"组必须包含至少一个项目";
+//            hud.mode = MBProgressHUDModeText;
+//            [hud hideAnimated:YES afterDelay:1.0];
+//            return;
+//        }
         
         if (self.groupInfo) {
             self.groupInfo[@"Name"] = self.nameTxtField.text;

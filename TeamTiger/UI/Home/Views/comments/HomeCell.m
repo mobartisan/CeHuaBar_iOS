@@ -222,13 +222,15 @@
         _photoContainerView.sd_layout.topSpaceToView(self.contentLB,0);
     }
     if (_homeModel.open) {
+        self.tableView.hidden = NO;
         if (_homeModel.indexModel.homeCommentModel.show) {
             self.tableView.sd_layout.heightIs(homeModel.partHeight + 60);
         }else {
             self.tableView.sd_layout.heightIs(homeModel.totalHeight + 60);
         }
         self.separLine.sd_layout.topSpaceToView(self.tableView, 10);
-    }else {
+    } else {
+        self.tableView.hidden = YES;
         self.tableView.sd_layout.heightIs(0);
         self.separLine.sd_layout.topSpaceToView(self.timeLB, 10);
     }
@@ -417,7 +419,10 @@
     for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
         commentModelF.homeCommentModel.open = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:self.commentBtn.indexPath];
+    if (self.clickMoreBtnBlock) {
+        self.clickMoreBtnBlock(self.commentBtn.indexPath);
+    }
+    
 }
 
 @end

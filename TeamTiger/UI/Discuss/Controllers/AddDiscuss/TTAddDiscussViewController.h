@@ -10,4 +10,6 @@
 
 @interface TTAddDiscussViewController : TTBaseViewController
 
+@property (copy, nonatomic) void (^addDiscussBlock)();
+
 @end
