@@ -40,7 +40,7 @@ static NSString *kVideoTitle = @"乔布斯访谈";
 static NSString *kVideoDescription = @"饿着肚皮，傻逼着。";
 
 static NSString *kAPPContentTitle = @"App消息";
-static NSString *kAPPContentDescription = @"这种消息只有App自己才能理解，由App指定打开方式";
+static NSString *kAPPContentDescription = @"如打开显示下载失败，请前往cattlesaas.com:9999下载app";
 static NSString *kAppContentExInfo = @"<xml>extend info</xml>";
 static NSString *kAppContnetExURL = @"http://weixin.qq.com";
 static NSString *kAppMessageExt = @"这是第三方带的测试字段";
