@@ -32,12 +32,23 @@
 				<string>wx6103c7337b6114c0</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>bbs</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>cehuabar</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
+		<string>cehuabar</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

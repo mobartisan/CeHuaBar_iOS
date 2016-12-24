@@ -3669,7 +3669,7 @@
 		1DA71B521D3DB5A1007483D2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = MobileArtisan;
 				TargetAttributes = {
 					1DA71B591D3DB5A1007483D2 = {

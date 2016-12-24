@@ -80,13 +80,17 @@
         }
         else if (type == EProjectAddMember){
             NSLog(@"跳转微信，增加人员");
-            UIImage *thumbImage = [UIImage imageNamed:@"2.png"];
-            [WXApiRequestHandler sendLinkURL:kLinkURL
-                                     TagName:kLinkTagName
-                                       Title:kLinkTitle
-                                 Description:kLinkDescription
-                                  ThumbImage:thumbImage
-                                     InScene:WXSceneSession];
+            UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
+            NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
+            [WXApiRequestHandler sendAppContentData:data
+                                            ExtInfo:kAppContentExInfo //拼接参数
+                                             ExtURL:kAppContnetExURL //可以填app的下载地址
+                                              Title:kAPPContentTitle
+                                        Description:kAPPContentDescription
+                                         MessageExt:kAppMessageExt
+                                      MessageAction:kAppMessageAction
+                                         ThumbImage:thumbImage
+                                            InScene:WXSceneSession];
         } else if (type == EProjectDleteProject){
             NSLog(@"删除并退出");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
@@ -171,7 +175,8 @@
 }
 
 - (void)managerDidRecvShowMessageReq:(ShowMessageFromWXReq *)request {
-    
+    //微信回传消息
+    [UIAlertView hyb_showWithTitle:@"提示" message:[request.message.mediaObject extInfo] buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {}];
 }
 
 - (void)managerDidRecvLaunchFromWXReq:(LaunchFromWXReq *)request {
