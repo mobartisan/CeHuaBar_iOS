@@ -84,12 +84,12 @@
     NSLog(@"Calling Application Bundle ID: %@", options[UIApplicationOpenURLOptionsSourceApplicationKey]);
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
-    //方式一：
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//    //方式一：
+//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
-    //方式二：
-    //    [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
-    //    return YES;
+//    方式二：
+        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
+        return YES;
 }
 
 

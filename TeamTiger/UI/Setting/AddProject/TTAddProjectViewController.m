@@ -80,24 +80,26 @@
             case ECellTypeAccessory:{
                 NSLog(@"跳转微信，增加人员");
                 UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
-//              方式一:
-                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
-                [WXApiRequestHandler sendAppContentData:data
-                                                ExtInfo:kAppContentExInfo //拼接参数
-                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
-                                                  Title:kAPPContentTitle
-                                            Description:kAPPContentDescription
-                                             MessageExt:kAppMessageExt
-                                          MessageAction:kAppMessageAction
-                                             ThumbImage:thumbImage
-                                                InScene:WXSceneSession];
-////              方式二:
-//                [WXApiRequestHandler sendLinkURL:@"cehuabar://?name=xxcao&phone=18662724884"
-//                                         TagName:kLinkTagName
-//                                           Title:kLinkTitle
-//                                     Description:kLinkDescription
-//                                      ThumbImage:thumbImage
-//                                         InScene:WXSceneSession];
+////              方式一:
+//                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
+//                [WXApiRequestHandler sendAppContentData:data
+//                                                ExtInfo:kAppContentExInfo //拼接参数
+//                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
+//                                                  Title:kAPPContentTitle
+//                                            Description:kAPPContentDescription
+//                                             MessageExt:kAppMessageExt
+//                                          MessageAction:kAppMessageAction
+//                                             ThumbImage:thumbImage
+//                                                InScene:WXSceneSession];
+//              方式二:
+                NSString *urlString = @"http://101.200.138.176:9080/test.html";
+//                NSString *urlScheme = @"cehuabar://?name=xxcao&phone=18662724884";
+                [WXApiRequestHandler sendLinkURL:urlString
+                                         TagName:kLinkTagName
+                                           Title:kLinkTitle
+                                     Description:kLinkDescription
+                                      ThumbImage:thumbImage
+                                         InScene:WXSceneSession];
                 break;
             }
             case ECellTypeBottom:{
