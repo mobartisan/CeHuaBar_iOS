@@ -84,10 +84,10 @@
     NSLog(@"Calling Application Bundle ID: %@", options[UIApplicationOpenURLOptionsSourceApplicationKey]);
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
-//    //方式一：
-//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+//  方式一：
+    //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
-//    方式二：
+//  方式二：
     if ([url.absoluteString containsString:@"cehuabar"]) {
         [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
     } else {
