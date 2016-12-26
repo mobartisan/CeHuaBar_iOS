@@ -80,7 +80,7 @@
             case ECellTypeAccessory:{
                 NSLog(@"跳转微信，增加人员");
                 UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
-////              方式一:
+//              方式一:
 //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
 //                [WXApiRequestHandler sendAppContentData:data
 //                                                ExtInfo:kAppContentExInfo //拼接参数
@@ -92,9 +92,10 @@
 //                                             ThumbImage:thumbImage
 //                                                InScene:WXSceneSession];
 //              方式二:
-                NSString *urlString = @"http://101.200.138.176:9080/test.html";
-//                NSString *urlScheme = @"cehuabar://?name=xxcao&phone=18662724884";
-                [WXApiRequestHandler sendLinkURL:urlString
+                NSString *name = @"name=xxcao";
+                NSString *phone = @"phone=18662724884";
+                NSString *composeURL = [NSString stringWithFormat:@"%@?%@&%@",kLinkURL, name, phone];
+                [WXApiRequestHandler sendLinkURL:composeURL
                                          TagName:kLinkTagName
                                            Title:kLinkTitle
                                      Description:kLinkDescription

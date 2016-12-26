@@ -88,8 +88,12 @@
 //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
 //    方式二：
+    if ([url.absoluteString containsString:@"cehuabar"]) {
         [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
-        return YES;
+    } else {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    return YES;
 }
 
 

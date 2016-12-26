@@ -180,6 +180,22 @@
 }
 
 - (void)longiApi:(id)tempDic {
+#if 0
+    //2.隐藏转圈 跳转
+    [super showHudWithText:@"登录成功"];
+    [super hideHudAfterSeconds:1.0];
+    //3.标记变量
+    UserDefaultsSave(@1, @"LastIsLogOut");
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //4.jump new page
+        UIViewController *rootVC = [kAppDelegate creatHomeVC];
+        UIWindow *window = kAppDelegate.window;
+        window.rootViewController = rootVC;
+        [window makeKeyAndVisible];
+        
+    });
+    [self hideLaunchImage];//隐藏启动页
+#else
     LoginApi *login = [[LoginApi alloc] init];
     login.requestArgument = tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -216,6 +232,7 @@
         [super showText:@"登录失败" afterSeconds:1.0];
         [self hideLaunchImage];
     }];
+#endif
 }
 
 //{
