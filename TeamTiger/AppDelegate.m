@@ -88,7 +88,7 @@
 //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
 //    方式二：
-        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
+//        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
         return YES;
 }
 

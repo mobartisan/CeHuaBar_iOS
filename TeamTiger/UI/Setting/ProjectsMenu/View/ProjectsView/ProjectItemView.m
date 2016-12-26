@@ -20,6 +20,8 @@
 
 @property(nonatomic,strong) id tmpObj;
 
+@property (strong, nonatomic) UIButton *deleteBtn;
+
 @end
 
 @implementation ProjectItemView
@@ -68,6 +70,7 @@
     return self;
 }
 
+#warning to do 长按手势
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         self.transform = CGAffineTransformIdentity;
@@ -129,6 +132,37 @@
         setViewCorner(_unreadMsgImgV, 5);
     }
     return _unreadMsgImgV;
+}
+
+- (UIButton *)deleteBtn {
+    if (!_deleteBtn) {
+        _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        _deleteBtn.hidden = YES;
+        [_deleteBtn addTarget:self action:@selector(handleDeleteBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_deleteBtn];
+        [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(0);
+            make.top.mas_equalTo(0);
+            make.width.mas_equalTo(20);
+            make.height.mas_equalTo(20);
+        }];
+    }
+    return _deleteBtn;
+}
+
+- (void)handleDeleteBtnAction {
+    
+}
+
+
+- (void)vibrateAnimation:(UIView *)animationView {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"transform.rotation";
+    CGFloat angle = M_PI_4/15;
+    animation.values = @[@(-angle),@(angle),@(-angle)];
+    animation.repeatCount = MAXFLOAT;
+    [animationView.layer addAnimation:animation forKey:@"shake"];
 }
 
 @end
