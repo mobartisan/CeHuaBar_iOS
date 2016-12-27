@@ -252,9 +252,10 @@
 		1D34D5191DEFCFED002CBFF8 /* DeleteFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */; };
 		1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
-		1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E235E1D61635C0024A5CA /* GTMBase64.m */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
+		1D49DA051E1209CE00433B2C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D49DA011E1209CE00433B2C /* GTMBase64.m */; };
+		1D49DA061E1209CE00433B2C /* JKEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D49DA041E1209CE00433B2C /* JKEncrypt.m */; };
 		1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5487231DCB263200DB4D89 /* TTGroupViewController.m */; };
 		1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */; };
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
@@ -988,13 +989,15 @@
 		1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteFooterView.m; sourceTree = "<group>"; };
 		1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeleteFooterView.xib; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
-		1D3E235D1D61635C0024A5CA /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
-		1D3E235E1D61635C0024A5CA /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
-		1D3E235F1D61635C0024A5CA /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		1D3E23601D61635C0024A5CA /* NSString+Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encode.h"; sourceTree = "<group>"; };
 		1D3E23611D61635C0024A5CA /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
 		1D3E23621D61635C0024A5CA /* Models.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Models.h; sourceTree = "<group>"; };
 		1D3E23631D61635C0024A5CA /* Models.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Models.m; sourceTree = "<group>"; };
+		1D49DA001E1209CE00433B2C /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		1D49DA011E1209CE00433B2C /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		1D49DA021E1209CE00433B2C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1D49DA031E1209CE00433B2C /* JKEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEncrypt.h; sourceTree = "<group>"; };
+		1D49DA041E1209CE00433B2C /* JKEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEncrypt.m; sourceTree = "<group>"; };
 		1D5487221DCB263200DB4D89 /* TTGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupViewController.h; sourceTree = "<group>"; };
 		1D5487231DCB263200DB4D89 /* TTGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupViewController.m; sourceTree = "<group>"; };
 		1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingViewController.xib; sourceTree = "<group>"; };
@@ -2414,13 +2417,22 @@
 		1D3E235C1D61635C0024A5CA /* Encode */ = {
 			isa = PBXGroup;
 			children = (
-				1D3E235D1D61635C0024A5CA /* GTMBase64.h */,
-				1D3E235E1D61635C0024A5CA /* GTMBase64.m */,
-				1D3E235F1D61635C0024A5CA /* GTMDefines.h */,
 				1D3E23601D61635C0024A5CA /* NSString+Encode.h */,
 				1D3E23611D61635C0024A5CA /* NSString+Encode.m */,
 			);
 			path = Encode;
+			sourceTree = "<group>";
+		};
+		1D49D9F11E11FE8800433B2C /* AESCrypt */ = {
+			isa = PBXGroup;
+			children = (
+				1D49DA001E1209CE00433B2C /* GTMBase64.h */,
+				1D49DA011E1209CE00433B2C /* GTMBase64.m */,
+				1D49DA021E1209CE00433B2C /* GTMDefines.h */,
+				1D49DA031E1209CE00433B2C /* JKEncrypt.h */,
+				1D49DA041E1209CE00433B2C /* JKEncrypt.m */,
+			);
+			path = AESCrypt;
 			sourceTree = "<group>";
 		};
 		1D5487211DCB260F00DB4D89 /* GroupsMenu */ = {
@@ -2830,6 +2842,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D49D9F11E11FE8800433B2C /* AESCrypt */,
 				2D9674EE1DEBCDBF002DF6E0 /* TalkingData */,
 				2D727A0E1DDD844E00CBF0BA /* JJPhotoViewer */,
 				2D727A031DDD842300CBF0BA /* SDPhotoBrowser */,
@@ -3984,6 +3997,7 @@
 				1DBFD6CC1D640C8D0039077D /* TTNotificationSetting.m in Sources */,
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
 				2DDD54311DB0D4AF00C55633 /* QNFormUpload.m in Sources */,
+				1D49DA051E1209CE00433B2C /* GTMBase64.m in Sources */,
 				1D09CC891D3F29C900F85E9A /* YYWebImageOperation.m in Sources */,
 				1D09CC9D1D3F29C900F85E9A /* YYTextUtilities.m in Sources */,
 				2D727A0B1DDD842300CBF0BA /* SDBrowserImageView.m in Sources */,
@@ -4051,7 +4065,6 @@
 				2DDD54161DB0D4AF00C55633 /* QNDnspodEnterprise.m in Sources */,
 				1D87130A1DE6B91800C17D01 /* SelectGroupView.m in Sources */,
 				1D9580A31D3E207200FD0053 /* MJRefreshBackFooter.m in Sources */,
-				1D3E23661D61635C0024A5CA /* GTMBase64.m in Sources */,
 				1D09CC7E1D3F29C900F85E9A /* CALayer+YYWebImage.m in Sources */,
 				1D09CD111D3F550300F85E9A /* NSArray+HYBHelperKit.m in Sources */,
 				1D115F8D1D4BA043003DFBB1 /* IQKeyboardReturnKeyHandler.m in Sources */,
@@ -4131,6 +4144,7 @@
 				06008F401D58249300A5B3DB /* TZImageManager.m in Sources */,
 				1DA71B8F1D3DCC3D007483D2 /* TTBaseViewController.m in Sources */,
 				06B464A31D62A48B00DBC806 /* UINavigationBar+JZExtension.m in Sources */,
+				1D49DA061E1209CE00433B2C /* JKEncrypt.m in Sources */,
 				1D9580AF1D3E207200FD0053 /* MJRefreshStateHeader.m in Sources */,
 				1D9408651D41BA47009E2E11 /* NetworkManager.m in Sources */,
 				1D09CC811D3F29C900F85E9A /* UIImageView+YYWebImage.m in Sources */,
