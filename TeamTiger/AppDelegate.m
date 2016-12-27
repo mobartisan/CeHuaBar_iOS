@@ -19,7 +19,7 @@
 #import "UploadManager.h"
 #import "Analyticsmanager.h"
 #import "TTProjectsMenuViewController.h"
-
+#import "JKEncrypt.h"
 @interface AppDelegate ()
 
 @end
@@ -84,12 +84,23 @@
     NSLog(@"Calling Application Bundle ID: %@", options[UIApplicationOpenURLOptionsSourceApplicationKey]);
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
-//    //方式一：
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+
+//  方式一：
+    //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+
     
-//    方式二：
-//        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
-        return YES;
+//  方式二：
+    if ([url.absoluteString containsString:@"cehuabar"]) {
+        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
+        NSString *queryString = [url query];
+        NSDictionary *dic = [Common unEncyptWithString:queryString];
+        JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+        NSLog(@"name : %@",[jkEncrypt doDecEncryptHex:dic[@"name"]]);
+        NSLog(@"phone : %@",[jkEncrypt doDecEncryptHex:dic[@"phone"]])
+    } else {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    return YES;
 }
 
 

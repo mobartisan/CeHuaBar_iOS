@@ -52,4 +52,8 @@
                                 Selector:(void(^)())block;
 
 
++ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic;
+
++ (NSDictionary *)unEncyptWithString:(NSString *)srcStr;
+
 @end

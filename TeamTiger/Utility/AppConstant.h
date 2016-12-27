@@ -65,7 +65,6 @@ static NSString *const DATA = @"data";
 #define WX_UNION_ID @"unionid"
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
 
-
 //七牛
 static NSInteger defaultLiveTime = 365;
 static NSString *const QiNiuScope = @"cjdale";

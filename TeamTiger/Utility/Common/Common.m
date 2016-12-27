@@ -8,6 +8,7 @@
 
 #import "Common.h"
 #import "HYBHelperBlocksKit.h"
+#import "JKEncrypt.h"
 
 @interface Common()
 
@@ -223,6 +224,30 @@
     }
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     return barItem;
+}
+
+//对字典加密 返回 key=value&key1=value2
++ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic {
+    NSMutableString *mString = [NSMutableString string];
+    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+    [srcDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSString *tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptHex:obj]];
+        [mString appendFormat:@"%@&",tmpStr];
+    }];
+    [mString replaceCharactersInRange:NSMakeRange(mString.length - 1, 1) withString:@""];
+    return mString;
+}
+
++ (NSDictionary *)unEncyptWithString:(NSString *)srcStr {
+    NSArray *array = [srcStr componentsSeparatedByString:@"&"];
+    NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
+    [array enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *keyValues = [obj componentsSeparatedByString:@"="];
+        if (keyValues.count == 2) {
+            mDic[keyValues[0]] = keyValues[1];
+        }
+    }];
+    return mDic;
 }
 
 @end
