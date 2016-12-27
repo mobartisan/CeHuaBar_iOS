@@ -32,6 +32,8 @@
 @property(nonatomic, strong) NSString *name;  // name
 @property (assign, nonatomic) BOOL isTop; //置顶状态:1-取消置顶，2-置顶
 @property (assign, nonatomic) BOOL isNoDisturb; //免打扰标识:0-接受项目消息,1-设置免打扰"
+@property (assign, nonatomic) int member_type;//1-代表我创建的项目  2-代表我加入的项目
+
 @property (strong, nonatomic) NSString *newscount;
 
 @end

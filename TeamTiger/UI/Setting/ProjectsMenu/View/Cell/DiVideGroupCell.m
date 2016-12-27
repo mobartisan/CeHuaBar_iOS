@@ -113,7 +113,8 @@
         [self.collectionView reloadData];
     };
     cell.clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
-        [self.dataSource removeObjectAtIndex:tmpIndexPath.row];
+        self.deleteBtnFlag = YES;
+        self.vibrateAniFlag = YES;
         if (self.clickDeleteBtnBlock) {
             self.clickDeleteBtnBlock();
         }

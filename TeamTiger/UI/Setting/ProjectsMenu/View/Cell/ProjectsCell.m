@@ -43,7 +43,7 @@
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
         self.projectNameLab.text = project.name;
-        
+        self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//绿色-我创建的  橙色-我加入的
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];
         if (!isLast) {

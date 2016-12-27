@@ -39,7 +39,7 @@
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
 @property (strong, nonatomic) UIView *sectionHeader;//分区页眉
 @property (strong, nonatomic) UIView *tableHeader;//tableView 页眉
-@property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时duiyingcell的indexPath
+@property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时对应cell的indexPath
 
 @property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
@@ -248,7 +248,12 @@
                     [self.dataSource addObject:homeModel];
                 }
             }
-            
+        }
+        //封面
+        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
+            self.textLB.hidden = YES;
+            NSDictionary *bannerDic = [request.responseJSONObject[OBJ][@"banner"] firstObject];
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"image_3.jpg")];
         }
         
         [self.tableView reloadData];
@@ -257,7 +262,6 @@
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -280,11 +284,8 @@
     self.tableView.mj_header = header;
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.tableView.mj_footer endRefreshing];
-        
     }];
     self.tableView.mj_footer = footer;
-    
-    
 }
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
