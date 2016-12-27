@@ -12,6 +12,7 @@
 #import "GroupHeadView.h"
 #import "ProjectsCell.h"
 #import "ProjectsView.h"
+#import "DiVideGroupCell.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+YYAdd.h"
 #import "TTMyProfileViewController.h"
@@ -39,6 +40,8 @@
 @property (assign, nonatomic) NSUInteger projectsCount;
 @property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) NSMutableArray *viewFrames;
+@property (assign, nonatomic) BOOL isShowDeleteBtn;
+
 
 @end
 
@@ -108,8 +111,12 @@
             [wself creatGroupAction];
         };
         //长按删除分组
-        _pView.longPressBlock = ^(ProjectsView *tmpView, id object) {
-            [wself groupDeleteWithGroup:object];
+        _pView.longPressBlock = ^(UIView *tmpView, id object) {
+            for (ProjectItemView *itemView in tmpView.subviews) {
+                
+            }
+//            [wself.menuTable reloadData];
+//            [wself groupDeleteWithGroup:object];
         };
         
     }
@@ -235,14 +242,14 @@
             }
         };
     }else {
-        static NSString *cellID = @"CellIdentify";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
         if (indexPath.section == 0) {
+            static NSString *cellID = @"CellIdentify";
+            cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+                cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
             [cell addSubview:self.infoView];
             [self loadUserInfo];
             [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -252,15 +259,41 @@
                 make.bottom.mas_equalTo(cell.mas_bottom).offset(minLineWidth);
             }];
         } else {
-            [cell addSubview:self.pView];
-            [self.pView loadGroupsInfos:self.groups];
-            [self.pView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.mas_equalTo(cell);
-            }];
+            cell = [DiVideGroupCell cellWithTableView:tableView];
+
+            [((DiVideGroupCell *)cell).dataSource removeAllObjects];
+            [((DiVideGroupCell *)cell).dataSource addObjectsFromArray:self.groups];
+            [((DiVideGroupCell *)cell).collectionView reloadData];
+            //点击分组进入moments
+            ((DiVideGroupCell *)cell).clickGroupBlock = ^() {
+                TT_Group *group = self.groups[indexPath.row];
+                [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+                    if (finished) {
+                        NSString *Id = [group group_id];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[group group_name], @"IsGroup":@1}];
+                    }
+                }];
+            };
+            //创建分组
+            ((DiVideGroupCell *)cell).clickAddGroupBlock = ^() {
+                [self creatGroupAction];
+            };
+            //长按
+            ((DiVideGroupCell *)cell).longPressItemBlock = ^() {
+                TT_Group *group = self.groups[indexPath.row];
+                [self groupDeleteWithGroup:group];
+            };
+            //删除分组
+            ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^() {
+                TT_Group *group = self.groups[indexPath.row];
+                [self groupDeleteWithGroup:group];
+            };
+            
         }
     }
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
@@ -301,28 +334,31 @@
     } else if (indexPath.section == 0) {
         return 120.0;
     } else {
-        return [ProjectsView heightOfProjectsView:self.groups] + 10;
+        return [DiVideGroupCell heightOfProjectsView:self.groups] + 10;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
-        ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
-        ((ProjectsCell *)cell).containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
-        [UIView animateWithDuration:0.3 animations:^{
-            ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
-            ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
+    if (indexPath.section != 1) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
+            ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+            ((ProjectsCell *)cell).containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+            [UIView animateWithDuration:0.3 animations:^{
+                ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
+                ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
+            }];
+        }
+        //主页moments
+        [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            if (finished) {
+                NSString *Id = [self.unGroupProjects[indexPath.row] project_id];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
+            }
         }];
     }
-    //主页moments
-    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        if (finished) {
-            NSString *Id = [self.unGroupProjects[indexPath.row] project_id];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
-        }
-    }];
+    
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {
@@ -437,6 +473,7 @@
     [groupDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"GroupDeleteApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.groups removeObject:group];
             [self getAllGroupsAndProjectsData];
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
@@ -457,11 +494,6 @@
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
-                NSLog(@"%@, Pids:%@",object[@"Name"], object[@"Pids"]);
-                if (!object[@"Pids"]) {
-                    NSLog(@"Pids");
-                }
-                return ;
                 NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
                 NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -482,7 +514,6 @@
         };
     }
 }
-
 
 - (void)moveProjectTo_group:(TT_Group *)group project:(TT_Project *)project {
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
@@ -506,7 +537,7 @@
 #pragma mark 长按手势方法
 - (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)longPress {
     [self getViewFrames];
-    
+    NSLog(@"self.groups:%ld", self.groups.count);
     UIGestureRecognizerState state = longPress.state;
     CGPoint location = [longPress locationInView:self.menuTable];
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];

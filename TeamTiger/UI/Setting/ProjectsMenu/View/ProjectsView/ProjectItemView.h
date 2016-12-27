@@ -23,6 +23,8 @@ typedef void(^LongPressItemBlock)(ProjectItemView *projectV, id object);
 
 @property(nonatomic, copy)LongPressItemBlock longPressItemBlock;
 
+
+
 - (instancetype)initWithData:(id)object ;
 
 @end

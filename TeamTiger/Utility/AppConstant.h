@@ -10,7 +10,7 @@
 #define Constant_h
 
 static NSString *const Dev_Server = @"http://120.26.102.93:3002/bbs/api/v1.0/";
-static NSString *const Pro_Server = @"http://www.cehuabar.com:3001/";
+static NSString *const Pro_Server = @"http://www.cehuabar.com:3001/bbs/api/v1.0/";
 //GeTui
 
 static NSString *const gtAppId = @"IDmqL4Had8ARm3iKv9y4g2";

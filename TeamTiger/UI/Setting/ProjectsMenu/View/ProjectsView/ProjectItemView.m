@@ -18,9 +18,11 @@
 
 @property(nonatomic,strong) UIButton *addBtn;
 
+@property (strong, nonatomic) UIButton *deleteBtn;
+
 @property(nonatomic,strong) id tmpObj;
 
-@property (strong, nonatomic) UIButton *deleteBtn;
+
 
 @end
 
@@ -73,15 +75,13 @@
 #warning to do 长按手势
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:0.3 animations:^{
-            self.transform = CGAffineTransformMakeScale(1.2, 1.2);
-        }completion:^(BOOL finished) {
-            self.transform = CGAffineTransformIdentity;
-            //long press
             if (self.longPressItemBlock) {
                 self.longPressItemBlock(self, self.tmpObj);
             }
+            
+        }completion:^(BOOL finished) {
+            //long press
         }];
     }
 }
@@ -138,7 +138,6 @@
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-        _deleteBtn.hidden = YES;
         [_deleteBtn addTarget:self action:@selector(handleDeleteBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_deleteBtn];
         [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {

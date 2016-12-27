@@ -451,6 +451,8 @@
 		2D727A1C1DDD844E00CBF0BA /* none.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D727A171DDD844E00CBF0BA /* none.png */; };
 		2D7661EF1DEE7F5B00E6410E /* QiniuUpoadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */; };
 		2D8F25B51D701E5700B28A8C /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F25B41D701E5700B28A8C /* Common.m */; };
+		2D952E151E1153B100997327 /* DiVideGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D952E141E1153B100997327 /* DiVideGroupCell.m */; };
+		2D952E181E11570700997327 /* GroupCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D952E171E11570700997327 /* GroupCollectionViewCell.m */; };
 		2D9674F11DEBCDBF002DF6E0 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */; };
 		2D9674F31DEBCDE6002DF6E0 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */; };
 		2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */; };
@@ -463,6 +465,7 @@
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
 		2DD029F71DD00EB400CD881F /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */; };
+		2DD48D351E1127B9004BE66E /* YTAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD48D341E1127B9004BE66E /* YTAnimation.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
 		2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BC1DB0D4AF00C55633 /* QNDomain.m */; };
 		2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BE1DB0D4AF00C55633 /* QNLruCache.m */; };
@@ -1315,6 +1318,10 @@
 		2D7661EE1DEE7F5B00E6410E /* QiniuUpoadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QiniuUpoadManager.m; sourceTree = "<group>"; };
 		2D8F25B31D701E5700B28A8C /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		2D8F25B41D701E5700B28A8C /* Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Common.m; sourceTree = "<group>"; };
+		2D952E131E1153B100997327 /* DiVideGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiVideGroupCell.h; sourceTree = "<group>"; };
+		2D952E141E1153B100997327 /* DiVideGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiVideGroupCell.m; sourceTree = "<group>"; };
+		2D952E161E11570700997327 /* GroupCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCollectionViewCell.h; sourceTree = "<group>"; };
+		2D952E171E11570700997327 /* GroupCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCollectionViewCell.m; sourceTree = "<group>"; };
 		2D9674EF1DEBCDBF002DF6E0 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		2D9674F01DEBCDBF002DF6E0 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
 		2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1337,6 +1344,8 @@
 		2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
 		2DD029F41DD00EB400CD881F /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
 		2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
+		2DD48D331E1127B9004BE66E /* YTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTAnimation.h; sourceTree = "<group>"; };
+		2DD48D341E1127B9004BE66E /* YTAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTAnimation.m; sourceTree = "<group>"; };
 		2DDD53B91DB0D4AF00C55633 /* QNDnsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDnsManager.h; sourceTree = "<group>"; };
 		2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNDnsManager.m; sourceTree = "<group>"; };
 		2DDD53BB1DB0D4AF00C55633 /* QNDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDomain.h; sourceTree = "<group>"; };
@@ -2367,6 +2376,10 @@
 				1D34D5111DEFC370002CBFF8 /* GroupCell.h */,
 				1D34D5121DEFC370002CBFF8 /* GroupCell.m */,
 				1D34D5131DEFC370002CBFF8 /* GroupCell.xib */,
+				2D952E131E1153B100997327 /* DiVideGroupCell.h */,
+				2D952E141E1153B100997327 /* DiVideGroupCell.m */,
+				2D952E161E11570700997327 /* GroupCollectionViewCell.h */,
+				2D952E171E11570700997327 /* GroupCollectionViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2915,6 +2928,8 @@
 		1DA71B8A1D3DCAB0007483D2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2DD48D331E1127B9004BE66E /* YTAnimation.h */,
+				2DD48D341E1127B9004BE66E /* YTAnimation.m */,
 				2D8F25B31D701E5700B28A8C /* Common.h */,
 				2D8F25B41D701E5700B28A8C /* Common.m */,
 			);
@@ -3878,6 +3893,7 @@
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
 				1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */,
+				2DD48D351E1127B9004BE66E /* YTAnimation.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,
 				1DD2E33B1D59B871005D45A9 /* WXApiResponseHandler.m in Sources */,
@@ -3902,6 +3918,7 @@
 				1D09CC5C1D3F29C900F85E9A /* NSBundle+YYAdd.m in Sources */,
 				2D7279F91DDD811B00CBF0BA /* HomeModel.m in Sources */,
 				1D09CC921D3F29C900F85E9A /* YYTextLine.m in Sources */,
+				2D952E181E11570700997327 /* GroupCollectionViewCell.m in Sources */,
 				1D09CD561D3F59D500F85E9A /* NSData+ImageContentType.m in Sources */,
 				2DDD54171DB0D4AF00C55633 /* QNDnspodFree.m in Sources */,
 				1D09CD151D3F550300F85E9A /* NSMutableArray+HYBHelperKit.m in Sources */,
@@ -4091,6 +4108,7 @@
 				1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */,
 				1D09CC9E1D3F29C900F85E9A /* YYLabel.m in Sources */,
 				1D09CC5E1D3F29C900F85E9A /* NSDate+YYAdd.m in Sources */,
+				2D952E151E1153B100997327 /* DiVideGroupCell.m in Sources */,
 				06B464A21D62A48B00DBC806 /* NSNumber+JZExtension.m in Sources */,
 				2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */,
 				1D115F2E1D4B9560003DFBB1 /* UITextView+PlaceHolder.m in Sources */,

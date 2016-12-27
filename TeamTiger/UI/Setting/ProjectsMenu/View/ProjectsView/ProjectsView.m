@@ -8,6 +8,7 @@
 
 #import "ProjectsView.h"
 #import "ProjectItemView.h"
+#import "YTAnimation.h"
 
 #define  kSizeWidth   ((Screen_Width - 50) / 3.0)
 #define  kSizeHeight   75.0
@@ -16,7 +17,7 @@
 
 @property(nonatomic, strong)UIScrollView *scrollView;
 
-@property(nonatomic, strong)UIView *contentView;
+
 
 @end
 
@@ -107,7 +108,7 @@
                 [[CirclesManager sharedInstance].views addObject:tmpView];
             }
         }
-        
+        WeakSelf;
         //data handle
         tmpView.clickProjectItemBlock = ^(ProjectItemView *itemView,id object){
             if (self.projectBlock) {
@@ -120,8 +121,8 @@
             }
         };
         tmpView.longPressItemBlock = ^(ProjectItemView *itemView,id object){
-            if (self.longPressBlock) {
-                self.longPressBlock(self,object);
+            if (wself.longPressBlock) {
+                wself.longPressBlock(wself.contentView,object);
             }
         };
     }
@@ -129,6 +130,15 @@
         make.bottom.equalTo(lastView1.mas_bottom);
     }];
     
+}
+
+- (void)vibrateAnimation:(UIView *)animationView {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animation];
+    animation.keyPath = @"transform.rotation";
+    CGFloat angle = M_PI_4/15;
+    animation.values = @[@(-angle),@(angle),@(-angle)];
+    animation.repeatCount = MAXFLOAT;
+    [animationView.layer addAnimation:animation forKey:@"shake"];
 }
 
 @end

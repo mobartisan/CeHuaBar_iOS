@@ -92,8 +92,8 @@
 //                                             ThumbImage:thumbImage
 //                                                InScene:WXSceneSession];
 //              方式二:
-                NSString *urlString = @"http://101.200.138.176:9080/test.html";
-//                NSString *urlScheme = @"cehuabar://?name=xxcao&phone=18662724884";
+//                NSString *urlString = @"http://101.200.138.176:9080/test.html";
+                NSString *urlString = @"cehuabar://?name=xxcao&phone=18662724884";
                 [WXApiRequestHandler sendLinkURL:urlString
                                          TagName:kLinkTagName
                                            Title:kLinkTitle

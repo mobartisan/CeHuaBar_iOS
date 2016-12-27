@@ -13,7 +13,7 @@ typedef void(^ClickProjectBlock)(ProjectsView *projectV, id projectObj);
 
 typedef void(^ClickAddProjectBlock)(ProjectsView *projectV);
 
-typedef void(^LongPressProjectBlock)(ProjectsView *projectV, id projectObj);
+typedef void(^LongPressProjectBlock)(UIView *tmpView, id projectObj);
 
 @interface ProjectsView : UIView
 
@@ -22,6 +22,8 @@ typedef void(^LongPressProjectBlock)(ProjectsView *projectV, id projectObj);
 @property(strong, nonatomic) ClickProjectBlock projectBlock;
 
 @property(strong, nonatomic) LongPressProjectBlock longPressBlock;
+
+@property(nonatomic, strong)UIView *contentView;
 
 - (instancetype)initWithDatas:(NSArray *)datas;
 
