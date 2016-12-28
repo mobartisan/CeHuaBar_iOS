@@ -90,10 +90,9 @@
     }
     TT_Group *group = nil;
     if (indexPath.row != self.dataSource.count) {
-        [[CirclesManager sharedInstance].views removeAllObjects];
         group = self.dataSource[indexPath.row];
         [cell configureCellWithGroup:group];
-        [[CirclesManager sharedInstance].views addObject:cell];
+        
     } else {
         [cell configureCellWithGroup:group];
     }
@@ -116,7 +115,7 @@
         self.deleteBtnFlag = YES;
         self.vibrateAniFlag = YES;
         if (self.clickDeleteBtnBlock) {
-            self.clickDeleteBtnBlock();
+            self.clickDeleteBtnBlock(tmpIndexPath);
         }
     };
     return cell;

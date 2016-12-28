@@ -115,8 +115,8 @@
             for (ProjectItemView *itemView in tmpView.subviews) {
                 
             }
-//            [wself.menuTable reloadData];
-//            [wself groupDeleteWithGroup:object];
+            //            [wself.menuTable reloadData];
+            //            [wself groupDeleteWithGroup:object];
         };
         
     }
@@ -203,13 +203,17 @@
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
         TT_Project *projectInfo = self.unGroupProjects[indexPath.row];
+        NSLog(@"project.isNoDisturb:%zd", projectInfo.isNoDisturb);
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.unGroupProjects.count - 1];
         
         //长按手势
-        if (![Common isEmptyArr:self.groups]) {
-            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-            [(ProjectsCell *)cell addGestureRecognizer:longPress];
-        }
+        //        if (![Common isEmptyArr:self.groups]) {
+        //            UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        //            [(ProjectsCell *)cell addGestureRecognizer:longPress];
+        //        }
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        [(ProjectsCell *)cell addGestureRecognizer:longPress];
+        
         __weak typeof(cell) tempCell = cell;
         //设置删除cell回调block
         ((ProjectsCell *)cell).deleteMember = ^{
@@ -260,7 +264,7 @@
             }];
         } else {
             cell = [DiVideGroupCell cellWithTableView:tableView];
-
+            
             [((DiVideGroupCell *)cell).dataSource removeAllObjects];
             [((DiVideGroupCell *)cell).dataSource addObjectsFromArray:self.groups];
             [((DiVideGroupCell *)cell).collectionView reloadData];
@@ -284,7 +288,7 @@
                 [self groupDeleteWithGroup:group];
             };
             //删除分组
-            ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^() {
+            ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
                 TT_Group *group = self.groups[indexPath.row];
                 [self groupDeleteWithGroup:group];
             };
@@ -374,6 +378,7 @@
 
 #pragma mark 请求数据
 - (void)getAllGroupsAndProjectsData {
+    [[CirclesManager sharedInstance].views removeAllObjects];
     AllGroupsApi *groupsApi = [[AllGroupsApi alloc] init];
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"AllGroupsApi:%@", request.responseJSONObject);
@@ -537,7 +542,6 @@
 #pragma mark 长按手势方法
 - (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)longPress {
     [self getViewFrames];
-    NSLog(@"self.groups:%ld", self.groups.count);
     UIGestureRecognizerState state = longPress.state;
     CGPoint location = [longPress locationInView:self.menuTable];
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
@@ -595,16 +599,15 @@
             // 清空数组，非常重要，不然会发生坐标突变！
             [self.touchPoints removeAllObjects];
             UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:sourceIndexPath];
-            
             for (NSValue *frameValue in self.viewFrames) {
                 BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
                 if (isContain) {
-                    
+                    [[CirclesManager sharedInstance].views removeAllObjects];
+
                     //1.取出下标
                     NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
-                    
                     // 将快照放到分组里面
-                    [UIView animateWithDuration:0.25 animations:^{
+                    [UIView animateWithDuration:0.5 animations:^{
                         snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);
                         //                        snapshot.alpha = 0.0;
                     } completion:^(BOOL finished) {
@@ -634,10 +637,24 @@
                     }];
                 }
             }
+            
+            if ([Common isEmptyArr:[CirclesManager sharedInstance].views]) {
+                cell.hidden = NO;
+                // 将快照恢复到初始状态
+                [UIView animateWithDuration:0.25 animations:^{
+                    snapshot.center = cell.center;
+                    snapshot.transform = CGAffineTransformIdentity;
+                    snapshot.alpha = 0.0;
+                    cell.alpha = 1.0;
+                } completion:^(BOOL finished) {
+                    [snapshot removeFromSuperview];
+                    snapshot = nil;
+                    
+                }];
+            }
             break;
         }
         default: {
-            
             break;
         }
     }

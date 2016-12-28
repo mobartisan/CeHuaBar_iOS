@@ -46,6 +46,8 @@
         [self.addBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
         [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
     }else {
+        [[CirclesManager sharedInstance].views addObject:self];
+        NSLog(@"%lu", [CirclesManager sharedInstance].views.count);
         [self isHidden:NO];
         self.msgLabel.text = @(arc4random() % 10).stringValue;
         self.projectNameLabel.text = group.group_name;
@@ -80,6 +82,9 @@
 }
 
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
+    [(UIButton *)gestureRecognizer.view removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
+    [(UIButton *)gestureRecognizer.view removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
+    
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         if (self.longPressItemBlock) {
             self.longPressItemBlock();

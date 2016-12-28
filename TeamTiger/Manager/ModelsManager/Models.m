@@ -66,14 +66,16 @@
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"_id"]) {
         self.project_id = value;
-    }else if ([key isEqualToString:@"name"]) {
+    } else if ([key isEqualToString:@"name"]) {
         self.name = value;
-    }else if ([key isEqualToString:@"position"]) {
+    } else if ([key isEqualToString:@"position"]) {
         if ([value intValue] == 1) {
             self.isTop = NO;
-        }else {
+        } else {
             self.isTop = YES;
         }
+    }else if ([key isEqualToString:@"isDisturb"]) {
+        self.isNoDisturb = [value boolValue];
     }
 }
 

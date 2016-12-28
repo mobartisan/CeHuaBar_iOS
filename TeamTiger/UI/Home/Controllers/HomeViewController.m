@@ -184,8 +184,6 @@
 //设置按钮
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
-        [self deleteAllData];
-        return;
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
@@ -276,9 +274,8 @@
 #pragma mark 上拉加载, 下拉刷新
 - (void)handleRefreshAction {
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getAllMoments:@{@"page":@1,
-                              @"rows":@10}];
-         [self.tableView reloadData];
+        [self deleteAllData];
+        [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
     self.tableView.mj_header = header;

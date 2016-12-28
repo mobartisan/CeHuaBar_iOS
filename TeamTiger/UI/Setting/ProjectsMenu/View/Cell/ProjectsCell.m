@@ -39,7 +39,6 @@
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast{
     if (object && [object isKindOfClass:[TT_Project class]]) {
         TT_Project *project = (TT_Project *)object;
-        
         self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
         self.projectNameLab.text = project.name;
@@ -67,13 +66,13 @@
         
         self.arrowImgV.hidden = NO;
         
-        self.msgNumLab.hidden = project.isNoDisturb;
-        self.msgNumBGImgV.hidden = project.isNoDisturb;
-        
         
         NSString *addBtnName = project.isTop ? @"icon_top" : @"icon_top-1";
         [self.addBtn setImage:kImage(addBtnName) forState:UIControlStateNormal];
         
+        
+        self.msgNumLab.hidden = project.isNoDisturb;
+        self.msgNumBGImgV.hidden = project.isNoDisturb;
         
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
         NSString *noDisturbBtnName = project.isNoDisturb ? @"icon_do_not_disturb-1" : @"icon_do_not_disturb";
