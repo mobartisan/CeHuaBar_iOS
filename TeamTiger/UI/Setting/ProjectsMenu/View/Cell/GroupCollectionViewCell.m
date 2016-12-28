@@ -11,12 +11,10 @@
 @interface GroupCollectionViewCell()
 
 @property(nonatomic,strong) UILabel *projectNameLabel;
-
 @property(nonatomic,strong) UILabel *msgLabel;
-
 @property(nonatomic,strong) UIImageView *unreadMsgImgV;
-
-
+@property(nonatomic,strong) UIButton *addBtn;
+@property (strong, nonatomic) UIButton *deleteBtn;
 
 @end
 
@@ -27,8 +25,8 @@
     if (self) {
         self.contentView.backgroundColor = [Common colorFromHexRGB:@"202e41"];
         [self msgLabel];
-        [self unreadMsgImgV];
         [self projectNameLabel];
+        [self unreadMsgImgV];
         [self addBtn];
         [self deleteBtn];
     }
@@ -36,21 +34,27 @@
 }
 
 - (void)setGroup:(TT_Group *)group {
+    _group = group;
     if (!group) {
         [self isHidden:YES];
-        self.deleteBtn.hidden = YES;
-        [self.addBtn removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
         [self.addBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
+        [self.addBtn removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
         [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
     }else {
-        _group = group;
-        self.deleteBtn.hidden = NO;
-        [[CirclesManager sharedInstance].views addObject:self];
         [self isHidden:NO];
+        [[CirclesManager sharedInstance].views addObject:self];
+        CGSize size = [self sizeWithText:group.group_name font:kFontWithSize(16.0) maxSize:CGSizeMake(kSizeWidth, 20)];
+        
+        [self.unreadMsgImgV mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(size.width + 4);
+            make.top.equalTo(self.projectNameLabel).offset(-1);
+            make.width.mas_equalTo(8);
+            make.height.mas_equalTo(8);
+        }];
+        
         self.msgLabel.text = @(arc4random() % 10).stringValue;
         self.projectNameLabel.text = group.group_name;
         self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
-        
         if ([self.msgLabel.text init] == 0) {
             self.unreadMsgImgV.hidden = YES;
             self.msgLabel.hidden = YES;
@@ -59,8 +63,8 @@
             self.msgLabel.hidden = NO;
         }
         
-        [self.addBtn removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
         [self.addBtn setImage:nil forState:UIControlStateNormal];
+        [self.addBtn removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
         [self.addBtn addTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
         
         //        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
@@ -70,40 +74,8 @@
 }
 
 
-- (void)configureCellWithGroup:(TT_Group *)group {
-    if (!group) {
-        [self isHidden:YES];
-        self.deleteBtn.hidden = YES;
-        [self.addBtn removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.addBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
-        [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
-    }else {
-        self.deleteBtn.hidden = NO;
-        [[CirclesManager sharedInstance].views addObject:self];
-        [self isHidden:NO];
-        self.msgLabel.text = @(arc4random() % 10).stringValue;
-        self.projectNameLabel.text = group.group_name;
-        self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
-        
-        if ([self.msgLabel.text init] == 0) {
-            self.unreadMsgImgV.hidden = YES;
-            self.msgLabel.hidden = YES;
-        } else {
-            self.unreadMsgImgV.hidden = NO;
-            self.msgLabel.hidden = NO;
-        }
-        
-        [self.addBtn removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
-        [self.addBtn setImage:nil forState:UIControlStateNormal];
-        [self.addBtn addTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
-        
-//        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
-//        longPress.minimumPressDuration = 0.8; //定义按的时间
-//        [self.addBtn addGestureRecognizer:longPress];
-    }
-}
-
 - (void)isHidden:(BOOL)isHidden {
+    self.deleteBtn.hidden = isHidden;
     self.msgLabel.hidden = isHidden;
     self.projectNameLabel.hidden = isHidden;
     self.unreadMsgImgV.hidden = isHidden;
@@ -115,11 +87,16 @@
         self.clickAddGroupBlock();
     }
 }
-
 //点击分组
 - (void)handleGroupAction {
     if (self.clickGroupBlock) {
         self.clickGroupBlock(_group);
+    }
+}
+//删除分组
+- (void)handleDeleteBtnAction {
+    if (self.clickDeleteBtnBlock) {
+        self.clickDeleteBtnBlock(_group);
     }
 }
 
@@ -132,13 +109,6 @@
         }
     }
 }
-
-- (void)handleDeleteBtnAction {
-    if (self.clickDeleteBtnBlock) {
-        self.clickDeleteBtnBlock(self.indexPath);
-    }
-}
-
 #pragma -mark getter
 - (UILabel *)projectNameLabel {
     if (!_projectNameLabel) {
@@ -177,12 +147,12 @@
         _unreadMsgImgV = [[UIImageView alloc] init];
         [self.contentView addSubview:_unreadMsgImgV];
         [_unreadMsgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(10);
-            make.top.mas_equalTo(8);
-            make.width.mas_equalTo(10);
-            make.height.mas_equalTo(10);
+            make.left.mas_equalTo(8);
+            make.top.equalTo(self.projectNameLabel);
+            make.width.mas_equalTo(8);
+            make.height.mas_equalTo(8);
         }];
-        setViewCorner(_unreadMsgImgV, 5);
+        setViewCorner(_unreadMsgImgV, 4);
     }
     return _unreadMsgImgV;
 }

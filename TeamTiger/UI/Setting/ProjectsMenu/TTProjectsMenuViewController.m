@@ -287,9 +287,8 @@
             //                [self groupDeleteWithGroup:group];
             //            };
             //删除分组
-            ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
-                TT_Group *group = self.groups[indexPath.row];
-                [self groupDeleteWithGroup:group];
+            ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^(TT_Group *tmpGroup) {
+                [self groupDeleteWithGroup:tmpGroup];
             };
             
         }
@@ -342,8 +341,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section != 1) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
             ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
@@ -361,7 +360,6 @@
             }
         }];
     }
-    
 }
 
 - (IBAction)clickHeadInfoAction:(id)sender {

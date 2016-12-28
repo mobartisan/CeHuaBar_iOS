@@ -394,7 +394,6 @@
 		1DD2E3441D59B8E0005D45A9 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2E33F1D59B8E0005D45A9 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m */; };
 		1DD2E3451D59B8E0005D45A9 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2E3411D59B8E0005D45A9 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */; };
 		1DD2E3461D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2E3431D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m */; };
-		1DD2E3481D59C589005D45A9 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3471D59C589005D45A9 /* icon@2x.png */; };
 		1DDE9E631D52DAF8005926FE /* TTAddProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E611D52DAF8005926FE /* TTAddProjectViewController.m */; };
 		1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E621D52DAF8005926FE /* TTAddProjectViewController.xib */; };
 		1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E671D531B66005926FE /* TTLoginViewController.m */; };
@@ -1230,7 +1229,6 @@
 		1DD2E3411D59B8E0005D45A9 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SendMessageToWXReq+requestWithTextOrMediaMessage.m"; sourceTree = "<group>"; };
 		1DD2E3421D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXMediaMessage+messageConstruct.h"; sourceTree = "<group>"; };
 		1DD2E3431D59B8E0005D45A9 /* WXMediaMessage+messageConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXMediaMessage+messageConstruct.m"; sourceTree = "<group>"; };
-		1DD2E3471D59C589005D45A9 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		1DDE9E601D52DAF8005926FE /* TTAddProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddProjectViewController.h; sourceTree = "<group>"; };
 		1DDE9E611D52DAF8005926FE /* TTAddProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddProjectViewController.m; sourceTree = "<group>"; };
 		1DDE9E621D52DAF8005926FE /* TTAddProjectViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddProjectViewController.xib; sourceTree = "<group>"; };
@@ -2920,7 +2918,6 @@
 				1DA71B811D3DBA67007483D2 /* main.m */,
 				1DA71B861D3DBDDB007483D2 /* TeamTiger-Prefix.pch */,
 				1DA71B7F1D3DBA67007483D2 /* Info.plist */,
-				1DD2E3471D59C589005D45A9 /* icon@2x.png */,
 				1DA71B801D3DBA67007483D2 /* Assets.xcassets */,
 				1DA71B7C1D3DBA67007483D2 /* Base.lproj */,
 				1D87130B1DE6DC0900C17D01 /* loginBG */,
@@ -3803,7 +3800,6 @@
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
 				1D32AEF91DB0C451000DF537 /* GroupHeadView.xib in Resources */,
-				1DD2E3481D59C589005D45A9 /* icon@2x.png in Resources */,
 				1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */,
 				1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */,
 				1DF0A1B31D4DB898002D91DB /* 16.png in Resources */,

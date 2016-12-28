@@ -38,6 +38,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -51,9 +52,6 @@
         flowLayout.minimumInteritemSpacing = 5.0;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth - 20 * 2, 50) collectionViewLayout:flowLayout];
         _collectionView.scrollEnabled = NO;
-        UIView *v = [[UIView alloc] init];
-        v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
-        _collectionView.backgroundView = v;
         _collectionView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         
         _collectionView.delegate = self;
@@ -86,7 +84,6 @@
     cell.group = group;
     
     cell.clickGroupBlock = ^(TT_Group *tmpGroup) {
-        NSLog(@"%@", tmpGroup);
         if (self.clickGroupBlock) {
             self.clickGroupBlock(tmpGroup);
         }
@@ -96,9 +93,9 @@
             self.clickAddGroupBlock();
         }
     };
-    cell.clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
+    cell.clickDeleteBtnBlock = ^(TT_Group *tmpGroup) {
         if (self.clickDeleteBtnBlock) {
-            self.clickDeleteBtnBlock(tmpIndexPath);
+            self.clickDeleteBtnBlock(tmpGroup);
         }
     };
 //    cell.longPressItemBlock = ^() {
