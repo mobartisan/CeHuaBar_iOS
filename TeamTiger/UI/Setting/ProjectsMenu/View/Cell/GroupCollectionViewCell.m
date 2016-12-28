@@ -7,7 +7,6 @@
 //
 
 #import "GroupCollectionViewCell.h"
-#import "YTAnimation.h"
 
 @interface GroupCollectionViewCell()
 
@@ -36,6 +35,39 @@
     return self;
 }
 
+- (void)setGroup:(TT_Group *)group {
+    if (!group) {
+        [self isHidden:YES];
+        self.deleteBtn.hidden = YES;
+        [self.addBtn removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.addBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
+        [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
+    }else {
+        _group = group;
+        self.deleteBtn.hidden = NO;
+        [[CirclesManager sharedInstance].views addObject:self];
+        [self isHidden:NO];
+        self.msgLabel.text = @(arc4random() % 10).stringValue;
+        self.projectNameLabel.text = group.group_name;
+        self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
+        
+        if ([self.msgLabel.text init] == 0) {
+            self.unreadMsgImgV.hidden = YES;
+            self.msgLabel.hidden = YES;
+        } else {
+            self.unreadMsgImgV.hidden = NO;
+            self.msgLabel.hidden = NO;
+        }
+        
+        [self.addBtn removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
+        [self.addBtn setImage:nil forState:UIControlStateNormal];
+        [self.addBtn addTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
+        
+        //        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
+        //        longPress.minimumPressDuration = 0.8; //定义按的时间
+        //        [self.addBtn addGestureRecognizer:longPress];
+    }
+}
 
 
 - (void)configureCellWithGroup:(TT_Group *)group {
@@ -46,20 +78,28 @@
         [self.addBtn setImage:kImage(@"icon_add_group") forState:UIControlStateNormal];
         [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
     }else {
+        self.deleteBtn.hidden = NO;
         [[CirclesManager sharedInstance].views addObject:self];
-        NSLog(@"%lu", [CirclesManager sharedInstance].views.count);
         [self isHidden:NO];
         self.msgLabel.text = @(arc4random() % 10).stringValue;
         self.projectNameLabel.text = group.group_name;
         self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         
+        if ([self.msgLabel.text init] == 0) {
+            self.unreadMsgImgV.hidden = YES;
+            self.msgLabel.hidden = YES;
+        } else {
+            self.unreadMsgImgV.hidden = NO;
+            self.msgLabel.hidden = NO;
+        }
+        
         [self.addBtn removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
         [self.addBtn setImage:nil forState:UIControlStateNormal];
         [self.addBtn addTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
         
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
-        longPress.minimumPressDuration = 0.8; //定义按的时间
-        [self.addBtn addGestureRecognizer:longPress];
+//        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressItem:)];
+//        longPress.minimumPressDuration = 0.8; //定义按的时间
+//        [self.addBtn addGestureRecognizer:longPress];
     }
 }
 
@@ -69,28 +109,30 @@
     self.unreadMsgImgV.hidden = isHidden;
 }
 
+//添加分组
 - (void)handleAddGroupAction {
     if (self.clickAddGroupBlock) {
         self.clickAddGroupBlock();
     }
 }
 
+//点击分组
 - (void)handleGroupAction {
     if (self.clickGroupBlock) {
-        self.clickGroupBlock();
+        self.clickGroupBlock(_group);
     }
 }
 
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
     [(UIButton *)gestureRecognizer.view removeTarget:self action:@selector(handleGroupAction) forControlEvents:UIControlEventTouchUpInside];
     [(UIButton *)gestureRecognizer.view removeTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
-    
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         if (self.longPressItemBlock) {
             self.longPressItemBlock();
         }
     }
 }
+
 - (void)handleDeleteBtnAction {
     if (self.clickDeleteBtnBlock) {
         self.clickDeleteBtnBlock(self.indexPath);
@@ -159,18 +201,23 @@
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _deleteBtn.hidden = YES;
-        [_deleteBtn setImage:[UIImage imageNamed:@"cross"] forState:UIControlStateNormal];
+        [_deleteBtn setImage:[UIImage imageNamed:@"icon_delete-group"] forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(handleDeleteBtnAction) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_deleteBtn];
+        [self.contentView addSubview:_deleteBtn];
         [_deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(0);
+            make.left.mas_equalTo(0);
             make.top.mas_equalTo(0);
             make.width.mas_equalTo(20);
             make.height.mas_equalTo(20);
         }];
     }
     return _deleteBtn;
+}
+
+
+- (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize {
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
 @end

@@ -10,15 +10,10 @@
 #import "GroupCollectionViewCell.h"
 #import "YTAnimation.h"
 
-#define  kSizeWidth   ((Screen_Width - 50) / 3.0)
-#define  kSizeHeight   75.0
+
 
 
 @interface DiVideGroupCell()<UICollectionViewDelegate, UICollectionViewDataSource>
-
-@property (assign, nonatomic) BOOL deleteBtnFlag;
-@property (assign, nonatomic) BOOL vibrateAniFlag;
-
 
 @end
 
@@ -43,8 +38,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
-        self.deleteBtnFlag = YES;
-        self.vibrateAniFlag = YES;
     }
     return self;
 }
@@ -85,20 +78,17 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     GroupCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"GroupCollectionViewCell" forIndexPath:indexPath];
-    if (indexPath.row != self.dataSource.count && ![Common isEmptyArr:self.dataSource]) {
-        [self setCellVibrate:cell IndexPath:indexPath];
-    }
+    
     TT_Group *group = nil;
     if (indexPath.row != self.dataSource.count) {
         group = self.dataSource[indexPath.row];
-        [cell configureCellWithGroup:group];
-        
-    } else {
-        [cell configureCellWithGroup:group];
     }
-    cell.clickGroupBlock = ^() {
+    cell.group = group;
+    
+    cell.clickGroupBlock = ^(TT_Group *tmpGroup) {
+        NSLog(@"%@", tmpGroup);
         if (self.clickGroupBlock) {
-            self.clickGroupBlock();
+            self.clickGroupBlock(tmpGroup);
         }
     };
     cell.clickAddGroupBlock = ^() {
@@ -106,29 +96,15 @@
             self.clickAddGroupBlock();
         }
     };
-    cell.longPressItemBlock = ^() {
-        self.deleteBtnFlag = NO;
-        self.vibrateAniFlag = NO;
-        [self.collectionView reloadData];
-    };
     cell.clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
-        self.deleteBtnFlag = YES;
-        self.vibrateAniFlag = YES;
         if (self.clickDeleteBtnBlock) {
             self.clickDeleteBtnBlock(tmpIndexPath);
         }
     };
+//    cell.longPressItemBlock = ^() {
+//        [self.collectionView reloadData];
+//    };
     return cell;
-}
-
-- (void)setCellVibrate:(GroupCollectionViewCell *)cell IndexPath:(NSIndexPath *)indexPath{
-    cell.indexPath = indexPath;
-    cell.deleteBtn.hidden = self.deleteBtnFlag ? YES : NO;
-    if (!self.vibrateAniFlag) {
-        [YTAnimation vibrateAnimation:cell];
-    }else{
-        [self.layer removeAnimationForKey:@"shake"];
-    }
 }
 
 

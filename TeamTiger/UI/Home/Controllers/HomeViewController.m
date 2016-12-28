@@ -208,10 +208,9 @@
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
-    [self getAllMoments:@{@"page":@1,
-                          @"rows":@10}];
+    [self getAllMoments:nil];
     [self configureNavigationItem];
-    [self handleRefreshAction];
+    [self handleLowRefreshAction];
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
@@ -230,7 +229,7 @@
     
 }
 
-#warning to do 获取所有Moments
+#pragma mark 获取Moments
 - (void)getAllMoments:(NSDictionary *)requestDic {
     if (![Common isEmptyArr:self.dataSource]) {
         [self.dataSource removeAllObjects];
@@ -240,7 +239,7 @@
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
+            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
                 for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                     HomeModel *homeModel = [HomeModel modelWithDic:dic];
                     [self.dataSource addObject:homeModel];
@@ -271,18 +270,20 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
-#pragma mark 上拉加载, 下拉刷新
-- (void)handleRefreshAction {
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+#pragma mark 下拉刷新
+- (void)handleLowRefreshAction {
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self deleteAllData];
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
     }];
-    self.tableView.mj_header = header;
-    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+}
+
+#pragma mark 上拉加载
+- (void)handleRefreshAction {
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.tableView.mj_footer endRefreshing];
     }];
-    self.tableView.mj_footer = footer;
 }
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
@@ -392,15 +393,13 @@
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             addDiscussVC.addDiscussBlock = ^() {
-                [self getAllMoments:@{@"page":@1,
-                                      @"rows":@10}];
+                [self getAllMoments:nil];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
             addVoteVC.addVoteBlock = ^() {
-                [self getAllMoments:@{@"page":@1,
-                                      @"rows":@10}];
+                [self getAllMoments:nil];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         }
@@ -497,16 +496,12 @@
     //data
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
-            [self getAllMoments:@{@"page":@"1",
-                                  @"rows":@"10",
-                                  @"gid":notification.object}];//gid 分组id
+            [self getAllMoments:@{@"gid":notification.object}];//gid 分组id
             
             [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
             self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         }else {
-            [self getAllMoments:@{@"page":@"1",
-                                  @"rows":@"10",
-                                  @"pid":notification.object}];//pid 项目id
+            [self getAllMoments:@{@"pid":notification.object}];//pid 项目id
             [self.titleView setImage:kImage(@"") forState:UIControlStateNormal];
         }
         [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];

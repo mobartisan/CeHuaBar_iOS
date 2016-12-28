@@ -269,12 +269,11 @@
             [((DiVideGroupCell *)cell).dataSource addObjectsFromArray:self.groups];
             [((DiVideGroupCell *)cell).collectionView reloadData];
             //点击分组进入moments
-            ((DiVideGroupCell *)cell).clickGroupBlock = ^() {
-                TT_Group *group = self.groups[indexPath.row];
+            ((DiVideGroupCell *)cell).clickGroupBlock = ^(TT_Group *tmpGroup) {
                 [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                     if (finished) {
-                        NSString *Id = [group group_id];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[group group_name], @"IsGroup":@1}];
+                        NSString *Id = [tmpGroup group_id];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[tmpGroup group_name], @"IsGroup":@1}];
                     }
                 }];
             };
@@ -283,10 +282,10 @@
                 [self creatGroupAction];
             };
             //长按
-            ((DiVideGroupCell *)cell).longPressItemBlock = ^() {
-                TT_Group *group = self.groups[indexPath.row];
-                [self groupDeleteWithGroup:group];
-            };
+            //            ((DiVideGroupCell *)cell).longPressItemBlock = ^() {
+            //                TT_Group *group = self.groups[indexPath.row];
+            //                [self groupDeleteWithGroup:group];
+            //            };
             //删除分组
             ((DiVideGroupCell *)cell).clickDeleteBtnBlock = ^(NSIndexPath *tmpIndexPath) {
                 TT_Group *group = self.groups[indexPath.row];
@@ -433,6 +432,7 @@
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
+
 #pragma mark 项目置顶
 - (void)projectTopWithProject:(TT_Project *)project {
     NSNumber *position = project.isTop ? @2 : @1;
@@ -528,6 +528,8 @@
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
+            [self.unGroupProjects removeObject:project];
+            [self.menuTable reloadData];
         }else {
             [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
         }
@@ -603,7 +605,7 @@
                 BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
                 if (isContain) {
                     [[CirclesManager sharedInstance].views removeAllObjects];
-
+                    
                     //1.取出下标
                     NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
                     // 将快照放到分组里面
@@ -617,10 +619,7 @@
                     
                     //2.取出对应的模型
                     TT_Group *group = self.groups[index];
-                    //3.刷新UI
-                    [self.unGroupProjects removeObject:project];
-                    [self.menuTable reloadData];
-                    //4.移动分组
+                    //3.移动分组
                     [self moveProjectTo_group:group project:project];
                 }else {
                     cell.hidden = NO;

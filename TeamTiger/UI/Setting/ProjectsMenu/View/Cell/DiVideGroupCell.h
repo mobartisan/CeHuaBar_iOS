@@ -14,8 +14,8 @@
 + (CGFloat)heightOfProjectsView:(NSArray *)projects;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UICollectionView *collectionView;
-@property (copy, nonatomic) void(^clickAddGroupBlock)();
-@property (copy, nonatomic) void(^clickGroupBlock)();
+@property (copy, nonatomic) void(^clickAddGroupBlock)();//添加分组
+@property (copy, nonatomic) void(^clickGroupBlock)(TT_Group *group);//点击分组
 @property (copy, nonatomic) void(^longPressItemBlock)();//长按删除
 @property (copy, nonatomic) void (^clickDeleteBtnBlock)(NSIndexPath *tmpIndePath);//删除按钮
 
