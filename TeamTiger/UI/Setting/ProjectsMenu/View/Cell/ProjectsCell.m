@@ -27,7 +27,6 @@
     self.deleteBtn.alpha = 0.0;
     self.noDisturbBtn.alpha = 0.0;
     self.isOpenLeft = NO;
-    
     self.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
 }
@@ -63,9 +62,8 @@
         self.deleteBtn.alpha = 0.0;
         self.noDisturbBtn.alpha = 0.0;
         self.isOpenLeft = NO;
-        
+        self.backgroundColor = [UIColor clearColor];
         self.arrowImgV.hidden = NO;
-        
         
         NSString *addBtnName = project.isTop ? @"icon_top" : @"icon_top-1";
         [self.addBtn setImage:kImage(addBtnName) forState:UIControlStateNormal];
@@ -164,6 +162,7 @@
         }];
         
         self.isOpenLeft = YES;
+        self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
     }
     else if (sender.direction == UISwipeGestureRecognizerDirectionRight){
         [self closeLeftSwipe]; //关闭左滑
@@ -186,6 +185,7 @@
     }];
     
     self.isOpenLeft = NO;
+    self.backgroundColor = [UIColor clearColor];
 }
 
 @end
