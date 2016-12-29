@@ -65,7 +65,7 @@
     if ([key isEqualToString:@"_id"]) {
         self.moment_id = value;
     }
-    if ([key isEqualToString:@"votes"]) {
+    if ([key isEqualToString:@"vote_options"]) {
         for (NSDictionary *voteDic in value) {
             VoteModel *voteModel = [[VoteModel alloc] init];
             [voteModel setValuesForKeysWithDictionary:voteDic];

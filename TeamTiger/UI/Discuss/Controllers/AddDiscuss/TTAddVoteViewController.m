@@ -362,6 +362,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
             [mediasArr addObject:dic];
         }
         
+        
         NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
         NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         
@@ -374,9 +375,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
         voteCreatApi.requestArgument = dic;
         [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 if (self.addVoteBlock) {
                     self.addVoteBlock();
                 }
@@ -386,11 +387,13 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         } failure:^(__kindof LCBaseRequest *request, NSError *error) {
             NSLog(@"%@", error);
             if (error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
             }
         }];
     } failure:^(NSError *error) {
         if (error) {
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }
     }];

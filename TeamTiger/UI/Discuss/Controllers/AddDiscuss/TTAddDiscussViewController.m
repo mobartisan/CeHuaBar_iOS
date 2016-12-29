@@ -260,6 +260,7 @@
                 [self creatMomentAction:mediasArr text:_text];
                 
             } failure:^(NSError *error) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
             }];
         });
@@ -276,8 +277,8 @@
                                        @"medias":urlsStr};
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
             if (self.addDiscussBlock) {
                 self.addDiscussBlock();
             }
@@ -289,6 +290,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
     }];
 }

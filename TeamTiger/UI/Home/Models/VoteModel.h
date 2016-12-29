@@ -11,9 +11,12 @@
 @interface VoteModel : NSObject
 
 @property (copy, nonatomic) NSString *_id;
-@property (copy, nonatomic) NSString *url;
-@property (assign, nonatomic) BOOL isvote;
+@property (copy, nonatomic) NSString *vote_title;
 @property (copy, nonatomic) NSString *vote_name;
+@property (copy, nonatomic) NSString *url;
 @property (assign, nonatomic) CGFloat count;
+@property (assign, nonatomic) BOOL isvote;
+@property (copy, nonatomic) NSString *rate;
+
 
 @end

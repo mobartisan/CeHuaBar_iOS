@@ -30,6 +30,7 @@
     
     self.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -62,14 +63,15 @@
         self.addBtn.alpha = 0.0;
         self.deleteBtn.alpha = 0.0;
         self.noDisturbBtn.alpha = 0.0;
+        self.arrowImgV.hidden = NO;
+        
         self.isOpenLeft = NO;
         
-        self.arrowImgV.hidden = NO;
+        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         
         
         NSString *addBtnName = project.isTop ? @"icon_top" : @"icon_top-1";
         [self.addBtn setImage:kImage(addBtnName) forState:UIControlStateNormal];
-        
         
         self.msgNumLab.hidden = project.isNoDisturb;
         self.msgNumBGImgV.hidden = project.isNoDisturb;
@@ -146,6 +148,7 @@
 {
     if (sender.direction == UISwipeGestureRecognizerDirectionLeft){
         if (self.isOpenLeft) return; //已经打开左滑，不再执行
+        self.contentView.backgroundColor = [Common colorFromHexRGB:@"1f2c3e"];
         [self.contentView sendSubviewToBack:self.containerView];
         //开始左滑： 先调用block关闭其他可能左滑的cell
         if (self.closeOtherCellSwipe)
@@ -166,6 +169,7 @@
         self.isOpenLeft = YES;
     }
     else if (sender.direction == UISwipeGestureRecognizerDirectionRight){
+        self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         [self closeLeftSwipe]; //关闭左滑
     }
 }
@@ -173,6 +177,7 @@
 //关闭左滑，恢复原状
 - (void)closeLeftSwipe{
     if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
+    self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
     [UIView animateWithDuration:0.5 animations:^{
         self.arrowImgV.hidden = NO;
         self.msgNumLab.hidden = NO;

@@ -46,7 +46,7 @@
 @property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
-
+@property (strong, nonatomic) NSString *nextUrl;
 
 @end
 
@@ -238,24 +238,95 @@
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        NSDictionary *objDic = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"list"]]) {
-                for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
+            if (![Common isEmptyArr:objDic[@"list"]]) {
+                for (NSDictionary *dic in objDic[@"list"]) {
                     HomeModel *homeModel = [HomeModel modelWithDic:dic];
                     [self.dataSource addObject:homeModel];
                 }
             }
         }
         //封面
-        if (![Common isEmptyArr:request.responseJSONObject[OBJ][@"banner"]]) {
+        if (![Common isEmptyArr:objDic[@"banner"]]) {
             self.textLB.hidden = YES;
-            NSDictionary *bannerDic = [request.responseJSONObject[OBJ][@"banner"] firstObject];
+            NSDictionary *bannerDic = [objDic[@"banner"] firstObject];
             [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"image_3.jpg")];
+        } else {
+            self.textLB.hidden = NO;
+        }
+        
+        //更多数据
+        if (![Common isEmptyString:objDic[@"next"]]) {
+            [self handleRefreshAction:objDic[@"next"]];
         }
         
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark 下拉刷新
+- (void)handleLowRefreshAction {
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        [self deleteAllData];
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+    }];
+}
+
+#pragma mark 上拉加载
+- (void)handleRefreshAction:(NSString *)url {
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        if(!(self.dataSource.count % 10)){
+            [self getMoreDataWithUrl:url];
+        } else {
+            [super showText:@"暂无更多数据" afterSeconds:1.5];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+        
+    }];
+}
+
+- (void)getMoreDataWithUrl:(NSString *)urlString {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
+    NSDictionary *headerFieldValueDictionary = @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+    if (headerFieldValueDictionary != nil) {
+        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+            NSString *value = headerFieldValueDictionary[httpHeaderField];
+            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+        }
+    }
+    manager.requestSerializer = requestSerializer;
+    
+    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *objDic = responseObject[OBJ];
+        if ([responseObject[SUCCESS] intValue] == 1) {
+            if (![Common isEmptyArr:objDic[@"list"]]) {
+                for (NSDictionary *dic in objDic[@"list"]) {
+                    HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                    [self.dataSource addObject:homeModel];
+                }
+            }
+            
+            //更多数据
+            if (![Common isEmptyString:objDic[@"next"]]) {
+                [self handleRefreshAction:objDic[@"next"]];
+            } else {
+                [self.tableView.mj_footer endRefreshing];
+            }
+            [self.tableView reloadData];
+            
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@":%@", error);
+        [self.tableView.mj_footer endRefreshing];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
@@ -268,22 +339,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [IQKeyboardManager sharedManager].enable = YES;
-}
-
-#pragma mark 下拉刷新
-- (void)handleLowRefreshAction {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self deleteAllData];
-        [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
-    }];
-}
-
-#pragma mark 上拉加载
-- (void)handleRefreshAction {
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [self.tableView.mj_footer endRefreshing];
-    }];
 }
 
 - (void)handleTapTableViewAction:(UIGestureRecognizer *)tap {
@@ -331,7 +386,6 @@
                 CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 wself.imageView.image = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
-#warning to do 封面
                 dispatch_async(dispatch_get_global_queue(0, 0), ^{
                     [QiniuUpoadManager uploadImage:wself.imageView.image progress:^(NSString *key, float percent) {
                         
@@ -486,7 +540,7 @@
 }
 
 #pragma mark UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
 }
 
@@ -502,7 +556,7 @@
             self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         }else {
             [self getAllMoments:@{@"pid":notification.object}];//pid 项目id
-            [self.titleView setImage:kImage(@"") forState:UIControlStateNormal];
+            [self.titleView setImage:nil forState:UIControlStateNormal];
         }
         [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
         [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];

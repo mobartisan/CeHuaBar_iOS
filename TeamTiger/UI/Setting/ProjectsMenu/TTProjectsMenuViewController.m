@@ -269,11 +269,11 @@
             [((DiVideGroupCell *)cell).dataSource addObjectsFromArray:self.groups];
             [((DiVideGroupCell *)cell).collectionView reloadData];
             //点击分组进入moments
-            ((DiVideGroupCell *)cell).clickGroupBlock = ^(TT_Group *tmpGroup) {
+            ((DiVideGroupCell *)cell).clickGroupBlock = ^(TT_Group *tempGroup) {
                 [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                     if (finished) {
-                        NSString *Id = [tmpGroup group_id];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[tmpGroup group_name], @"IsGroup":@1}];
+                        NSString *Id = [tempGroup group_id];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[tempGroup group_name], @"IsGroup":@1}];
                     }
                 }];
             };
