@@ -107,6 +107,8 @@
                     hud.label.text = response;
                 } else if (resType == ResponseStatusOffline){
                     hud.label.text = @"网络出错了~";
+                } else if (resType == ResponseStatusSuccess){
+                    hud.label.text = @"加入新项目成功";
                 }
                 [hud hideAnimated:YES afterDelay:1.5];
             }];
