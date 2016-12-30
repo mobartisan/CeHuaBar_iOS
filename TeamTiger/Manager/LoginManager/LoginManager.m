@@ -61,6 +61,13 @@ static LoginManager *loginManager = nil;
                 [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
             }
             UserDefaultsSave(@1, @"LastIsLogOut");
+#warning to do 
+            self.isLogin = YES;//表明当前已登录
+            if(self.loginSucAfterParas) {
+                //如果参数有值，直接干事情
+                //to do something
+                //end 做完之后记得清空参数队列
+            }
             resBlock(ResponseStatusSuccess, request.responseJSONObject);
         } else {
             resBlock(ResponseStatusFailure, request.responseJSONObject[MSG]);
@@ -81,14 +88,5 @@ static LoginManager *loginManager = nil;
         resBlock(ResponseStatusOffline,error);
     }];
 }
-
-
-/** token 失效的报文
- code = 2000,
- success = 0,
- obj = <null>,
- msg = token无效，请重新登录
- */
-
 
 @end
