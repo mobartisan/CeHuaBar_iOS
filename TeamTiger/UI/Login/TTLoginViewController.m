@@ -16,11 +16,11 @@
 #import "UIAlertView+HYBHelperKit.h"
 #import "NetworkManager.h"
 #import "AFNetworking.h"
-#import "Models.h"
 #import "UIView+TYLaunchAnimation.h"
 #import "UIImage+TYLaunchImage.h"
 #import "TYLaunchFadeScaleAnimation.h"
 #import "NSString+Utils.h"
+#import "LoginManager.h"
 
 @interface TTLoginViewController () <WXApiManagerDelegate>
 
@@ -56,8 +56,7 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
-    id num = UserDefaultsGet(@"LastIsLogOut");
-    if ([self isCanAutoLogin] && [num intValue] == 1) {
+    if ([[LoginManager sharedInstace] isCanAutoLogin]) {
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
@@ -90,37 +89,6 @@
                 [window makeKeyAndVisible];
             }
         }];
-    }
-}
-
-- (BOOL)isCanAutoLogin {
-    NSString *refreshToken = UserDefaultsGet(WX_REFRESH_TOKEN);
-    if([Common isEmptyString:refreshToken]) {
-        return NO;
-    }
-    NSString *urlString = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",WXDoctor_App_ID,refreshToken];
-    NSURL *url = [NSURL URLWithString:urlString];
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    if (!data || data.length == 0) {
-        return NO;
-    }
-    NSError *error = nil;
-    id obj = [NSJSONSerialization JSONObjectWithData:data
-                                             options:NSJSONReadingMutableContainers
-                                               error:&error];
-    if (error) {
-        return NO;
-    }
-    
-    NSString *reAccessToken = [obj objectForKey:WX_ACCESS_TOKEN];
-    if (reAccessToken) {
-        UserDefaultsSave(reAccessToken, WX_ACCESS_TOKEN);
-        UserDefaultsSave([obj objectForKey:WX_OPEN_ID], WX_OPEN_ID);
-        UserDefaultsSave([obj objectForKey:WX_REFRESH_TOKEN], WX_REFRESH_TOKEN);
-        return YES;
-    }
-    else {
-        return NO;
     }
 }
 
@@ -170,7 +138,7 @@
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 #warning to do
-        [self longiApi:responseObject];
+        [self startLogin:responseObject];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"获取access_token时出错 = %@", error);
         [super showHudWithText:@"登录微信失败"];
@@ -179,60 +147,29 @@
     }];
 }
 
-- (void)longiApi:(id)tempDic {
-#if 0
-    //2.隐藏转圈 跳转
-    [super showHudWithText:@"登录成功"];
-    [super hideHudAfterSeconds:1.0];
-    //3.标记变量
-    UserDefaultsSave(@1, @"LastIsLogOut");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //4.jump new page
-        UIViewController *rootVC = [kAppDelegate creatHomeVC];
-        UIWindow *window = kAppDelegate.window;
-        window.rootViewController = rootVC;
-        [window makeKeyAndVisible];
-        
-    });
-    [self hideLaunchImage];//隐藏启动页
-#else
-    LoginApi *login = [[LoginApi alloc] init];
-    login.requestArgument = tempDic;
-    [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            gSession = request.responseJSONObject[OBJ][TOKEN];
-            //1.user
-            TT_User *user = [TT_User sharedInstance];
-            [user createUser:request.responseJSONObject[OBJ][DATA]];
-            [SQLITEMANAGER setDataBasePath:user.user_id];
-            if ([UserDefaultsGet(@"LastIsLogOut") intValue] != 1) {
-                [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
-            }
-            //2.隐藏转圈 跳转
+- (void)startLogin:(id)tempDic {
+    //
+    LoginManager *loginManager = [LoginManager sharedInstace];
+    [loginManager loginAppWithParameters:tempDic Response:^(EResponseType resType, id response) {
+        if (resType == ResponseStatusSuccess) {
+            //1.隐藏转圈 跳转(UI)
             [super showHudWithText:@"登录成功"];
             [super hideHudAfterSeconds:1.0];
-            //3.标记变量
-            UserDefaultsSave(@1, @"LastIsLogOut");
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 //4.jump new page
                 UIViewController *rootVC = [kAppDelegate creatHomeVC];
                 UIWindow *window = kAppDelegate.window;
                 window.rootViewController = rootVC;
                 [window makeKeyAndVisible];
-                
             });
-        }else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        } else if (resType == ResponseStatusFailure) {
+            [super showText:response afterSeconds:1.0];
+        } else {
+            NSLog(@"%@", response);
+            [super showText:@"登录失败" afterSeconds:1.0];
         }
-        [self hideLaunchImage];//隐藏启动页
- 
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        [super showText:@"登录失败" afterSeconds:1.0];
         [self hideLaunchImage];
     }];
-#endif
 }
 
 //{

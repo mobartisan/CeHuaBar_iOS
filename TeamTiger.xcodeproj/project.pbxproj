@@ -333,6 +333,7 @@
 		1DA71B851D3DBA67007483D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA71B811D3DBA67007483D2 /* main.m */; };
 		1DA71B8F1D3DCC3D007483D2 /* TTBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA71B8E1D3DCC3D007483D2 /* TTBaseViewController.m */; };
 		1DA71B921D3DCC9D007483D2 /* TTBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA71B911D3DCC9D007483D2 /* TTBaseNavigationController.m */; };
+		1DAB77DB1E15F30700DF43B8 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAB77DA1E15F30700DF43B8 /* LoginManager.m */; };
 		1DB5A5701D4B3EF1009E6170 /* TTFadeSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB5A56C1D4B3EF1009E6170 /* TTFadeSwitch.m */; };
 		1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB5A56E1D4B3EF1009E6170 /* TTSwitch.m */; };
 		1DB5A5861D4B3F36009E6170 /* switchGreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB5A5741D4B3F36009E6170 /* switchGreen@2x.png */; };
@@ -1145,6 +1146,8 @@
 		1DA71B8E1D3DCC3D007483D2 /* TTBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBaseViewController.m; sourceTree = "<group>"; };
 		1DA71B901D3DCC9D007483D2 /* TTBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTBaseNavigationController.h; sourceTree = "<group>"; };
 		1DA71B911D3DCC9D007483D2 /* TTBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTBaseNavigationController.m; sourceTree = "<group>"; };
+		1DAB77D91E15F30700DF43B8 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		1DAB77DA1E15F30700DF43B8 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		1DB5A56B1D4B3EF1009E6170 /* TTFadeSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTFadeSwitch.h; sourceTree = "<group>"; };
 		1DB5A56C1D4B3EF1009E6170 /* TTFadeSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTFadeSwitch.m; sourceTree = "<group>"; };
 		1DB5A56D1D4B3EF1009E6170 /* TTSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSwitch.h; sourceTree = "<group>"; };
@@ -2833,6 +2836,7 @@
 		1DA71B741D3DB618007483D2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				1DAB77D81E15F2D300DF43B8 /* LoginManager */,
 				2D9674F61DEBD30F002DF6E0 /* AnalyticsManager */,
 				2DDD54361DB0D4D300C55633 /* QiniuUploadManager */,
 				0692CE8F1D74188900299AC2 /* DeviceManager */,
@@ -2972,6 +2976,15 @@
 				1DA71B911D3DCC9D007483D2 /* TTBaseNavigationController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		1DAB77D81E15F2D300DF43B8 /* LoginManager */ = {
+			isa = PBXGroup;
+			children = (
+				1DAB77D91E15F30700DF43B8 /* LoginManager.h */,
+				1DAB77DA1E15F30700DF43B8 /* LoginManager.m */,
+			);
+			path = LoginManager;
 			sourceTree = "<group>";
 		};
 		1DB5A56A1D4B3EF1009E6170 /* TTSwitch */ = {
@@ -4080,6 +4093,7 @@
 				1D9580A31D3E207200FD0053 /* MJRefreshBackFooter.m in Sources */,
 				1D09CC7E1D3F29C900F85E9A /* CALayer+YYWebImage.m in Sources */,
 				1D09CD111D3F550300F85E9A /* NSArray+HYBHelperKit.m in Sources */,
+				1DAB77DB1E15F30700DF43B8 /* LoginManager.m in Sources */,
 				1D115F8D1D4BA043003DFBB1 /* IQKeyboardReturnKeyHandler.m in Sources */,
 				1D09CC6F1D3F29C900F85E9A /* UIControl+YYAdd.m in Sources */,
 				1D09CCA11D3F29C900F85E9A /* YYDispatchQueuePool.m in Sources */,
