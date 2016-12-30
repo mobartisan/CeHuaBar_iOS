@@ -26,4 +26,6 @@ typedef void(^ResponseBlock)(EResponseType resType, id response);
 
 - (void)loginAppWithParameters:(id)tempDic Response:(ResponseBlock) resBlock;
 
+- (void)getAccessToken:(NSString *)access_Token OpenId:(NSString *)openId Response:(ResponseBlock) resBlock;
+
 @end

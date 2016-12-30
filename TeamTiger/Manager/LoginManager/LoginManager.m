@@ -22,7 +22,7 @@ static LoginManager *loginManager = nil;
     return loginManager;
 }
 
-
+//MARK:--判断是否能够自动登录
 - (BOOL)isCanAutoLogin {
     BOOL canAutoLogin = NO;
     NSString *refreshToken = UserDefaultsGet(WX_REFRESH_TOKEN);
@@ -47,12 +47,7 @@ static LoginManager *loginManager = nil;
     return canAutoLogin;
 }
 
-/** token 失效的报文
-code = 2000,
-success = 0,
-obj = <null>,
-msg = token无效，请重新登录
- */
+//MARK:--登录方法
 - (void)loginAppWithParameters:(id)tempDic Response:(ResponseBlock) resBlock{
     LoginApi *login = [[LoginApi alloc] init];
     login.requestArgument = tempDic;
@@ -74,5 +69,26 @@ msg = token无效，请重新登录
         resBlock(ResponseStatusOffline, error);
     }];
 }
+
+//MARK: --微信刷新token
+- (void)getAccessToken:(NSString *)access_Token OpenId:(NSString *)openId Response:(ResponseBlock) resBlock {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
+    NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
+    [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        resBlock(ResponseStatusSuccess,responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        resBlock(ResponseStatusOffline,error);
+    }];
+}
+
+
+/** token 失效的报文
+ code = 2000,
+ success = 0,
+ obj = <null>,
+ msg = token无效，请重新登录
+ */
+
 
 @end

@@ -5,7 +5,6 @@
 //  Created by xxcao on 16/8/4.
 //  Copyright © 2016年 MobileArtisan. All rights reserved.
 //
-
 #import "TTLoginViewController.h"
 #import "UIControl+YYAdd.h"
 #import "WXApiManager.h"
@@ -15,7 +14,6 @@
 #import "WXApi.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "NetworkManager.h"
-#import "AFNetworking.h"
 #import "UIView+TYLaunchAnimation.h"
 #import "UIImage+TYLaunchImage.h"
 #import "TYLaunchFadeScaleAnimation.h"
@@ -47,7 +45,7 @@
     }
     [WXApiManager sharedManager].delegate = self;
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self login];
+        [self loginButtonAction];
     }];
     
     //launch image
@@ -56,49 +54,28 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
+    //自动登录 逻辑判断
     if ([[LoginManager sharedInstace] isCanAutoLogin]) {
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
-        [self getAccess_Token:accessToken openId:openID];
+        [[LoginManager sharedInstace]getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
+            if (resType == ResponseStatusSuccess ||
+                resType == ResponseStatusFailure) {
+                [self startLogin:response];
+            } else {
+                NSLog(@"获取access_token时出错 = %@", response);
+                [super showHudWithText:@"登录微信失败"];
+                [super hideHudAfterSeconds:1.0];
+                [self hideLaunchImage];//隐藏启动页
+            }
+        }];
     } else {
         //隐藏 手动登录
         [self hideLaunchImage];//隐藏启动页
     }
 }
 
-- (void)login {
-    //微信跳转
-    if ([WXApi isWXAppInstalled]) {
-        //转圈
-        [super showHudWithText:@"正在登录..."];
-        BOOL isSuccess = [WXApiRequestHandler sendAuthRequestScope:kAuthScope
-                                                             State:kAuthState
-                                                            OpenID:kAuthOpenID
-                                                  InViewController:self];
-        if (!isSuccess) {
-            [super hideHudAfterSeconds:1.0];
-        }
-    }else {
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            if (buttonIndex == 0) {
-#warning to do 没有安装微信....
-                UIViewController *rootVC = [kAppDelegate creatHomeVC];
-                UIWindow *window = kAppDelegate.window;
-                window.rootViewController = rootVC;
-                [window makeKeyAndVisible];
-            }
-        }];
-    }
-}
-
-- (void)hideLaunchImage {
-    //隐藏启动页
-    [self.screenImageView hideWithAnimation:[TYLaunchFadeScaleAnimation fadeScaleAnimation] completion:^(BOOL finished) {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    }];
-}
 #pragma -mark 跳转微信回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -121,7 +98,17 @@
                 UserDefaultsSave(openID, WX_OPEN_ID);
                 UserDefaultsSave(refreshToken, WX_REFRESH_TOKEN);
             }
-            [self getAccess_Token:accessToken openId:openID];
+            //微信登录
+            [[LoginManager sharedInstace] getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
+                if (resType == ResponseStatusSuccess ||
+                    resType == ResponseStatusFailure) {
+                    [self startLogin:response];
+                } else {
+                    [super showHudWithText:@"登录微信失败"];
+                    [super hideHudAfterSeconds:1.0];
+                    [self hideLaunchImage];//隐藏启动页
+                }
+            }];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"用refresh_token来更新accessToken时出错 = %@", error);
@@ -131,22 +118,7 @@
     }];
 }
 
-#pragma -mark 微信登录
-- (void)getAccess_Token:(NSString *)access_Token openId:(NSString *)openId {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
-    NSString *accessUrlStr = [NSString stringWithFormat:@"%@/userinfo?access_token=%@&openid=%@", WX_BASE_URL, access_Token, openId];
-    [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-#warning to do
-        [self startLogin:responseObject];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"获取access_token时出错 = %@", error);
-        [super showHudWithText:@"登录微信失败"];
-        [super hideHudAfterSeconds:1.0];
-        [self hideLaunchImage];//隐藏启动页
-    }];
-}
-
+#pragma -mark 登录相关
 - (void)startLogin:(id)tempDic {
     //
     LoginManager *loginManager = [LoginManager sharedInstace];
@@ -169,6 +141,40 @@
             [super showText:@"登录失败" afterSeconds:1.0];
         }
         [self hideLaunchImage];
+    }];
+}
+
+- (void)loginButtonAction {
+    //微信跳转
+    if ([WXApi isWXAppInstalled]) {
+        //转圈
+        [super showHudWithText:@"正在登录..."];
+        BOOL isSuccess = [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+                                                             State:kAuthState
+                                                            OpenID:kAuthOpenID
+                                                  InViewController:self];
+        if (!isSuccess) {
+            [super hideHudAfterSeconds:1.0];
+        }
+    }else {
+        [UIAlertView hyb_showWithTitle:@"提醒" message:@"不装微信怎么玩儿？" buttonTitles:@[@"去装"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+#if TARGET_IPHONE_SIMULATOR
+            if (buttonIndex == 0) {
+                UIViewController *rootVC = [kAppDelegate creatHomeVC];
+                UIWindow *window = kAppDelegate.window;
+                window.rootViewController = rootVC;
+                [window makeKeyAndVisible];
+            }
+#endif
+        }];
+    }
+}
+
+- (void)hideLaunchImage {
+    //隐藏启动页
+    [self.screenImageView hideWithAnimation:[TYLaunchFadeScaleAnimation fadeScaleAnimation] completion:^(BOOL finished) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
 }
 
