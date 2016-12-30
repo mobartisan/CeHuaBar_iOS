@@ -56,7 +56,7 @@
 @implementation HomeViewController
 
 
-//talbeView 分区页眉
+#pragma mark - 分区页眉
 - (UIView *)sectionHeader {
     if (!_sectionHeader) {
         _sectionHeader = [UIView new];
@@ -87,6 +87,7 @@
         
         
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        setBtn.hidden = YES;
         [setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         setBtn.titleLabel.font = [UIFont systemFontOfSize:16];
         [setBtn setTitleColor:[Common colorFromHexRGB:@"ffffff"] forState:UIControlStateNormal];
@@ -95,7 +96,7 @@
         setBtn.layer.cornerRadius = 15;
         setBtn.layer.masksToBounds = YES;
         [setBtn addTarget:self action:@selector(handleSetBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        _setBtn = setBtn;
+        self.setBtn = setBtn;
         [_sectionHeader addSubview:setBtn];
         
         imageView.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
@@ -110,6 +111,7 @@
     return _sectionHeader;
 }
 
+#pragma mark - tableView页眉
 - (UIView *)tableHeader {
     if (_tableHeader == nil) {
         _tableHeader = [UIView new];
@@ -184,6 +186,7 @@
         CirclesManager *circleManager = [CirclesManager sharedInstance];
         NSDictionary *dic = circleManager.selectCircle;
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+        settingVC.project_id = self.tempProjectId;
         settingVC.project_id = dic[@"_id"];
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
@@ -225,9 +228,10 @@
         self.tableView.tableHeaderView = self.tableHeader;
         
     }
-    
+    self.setBtn.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
@@ -545,14 +549,16 @@
     return [UIScreen mainScreen].scale;
 }
 
-#pragma mark UIScrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
 }
 
+#pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
     NSDictionary *parameterDic = nil;
     if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+        self.setBtn.hidden = NO;
         self.tempGroupId = notification.object;
         parameterDic = @{@"gid":notification.object};
         [self getAllMoments:parameterDic];//gid 分组id
@@ -560,11 +566,14 @@
         [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {
+        self.setBtn.hidden = NO;
+        self.tempGroupId = notification.object;
         parameterDic = @{@"pid":notification.object};
         [self getAllMoments:parameterDic];//pid 项目id
         [self.titleView setImage:nil forState:UIControlStateNormal];
         [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     } else {
+        self.setBtn.hidden = YES;
         [self getAllMoments:parameterDic];
     }
     self.tempDic = parameterDic;
