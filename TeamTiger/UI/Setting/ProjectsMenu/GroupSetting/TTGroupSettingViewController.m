@@ -169,6 +169,7 @@
     GroupHeadView *headView = LoadFromNib(@"GroupHeadView");
     headView.isEnabledSwipe = NO;
     headView.messageNumLab.hidden = YES;
+    headView.addProjectBtn.hidden = YES;
     if (section == 0) {
         headView.groupNameLab.text = @"分组名称";
     } else {
