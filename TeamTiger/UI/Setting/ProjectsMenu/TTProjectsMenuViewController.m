@@ -633,6 +633,22 @@
                     }];
                 }
             }
+            
+            if ([Common isEmptyArr:[CirclesManager sharedInstance].views]) {
+                [self.menuTable reloadData];
+                cell.hidden = NO;
+                // 将快照恢复到初始状态
+                [UIView animateWithDuration:0.25 animations:^{
+                    snapshot.center = cell.center;
+                    snapshot.transform = CGAffineTransformIdentity;
+                    snapshot.alpha = 0.0;
+                    cell.alpha = 1.0;
+                } completion:^(BOOL finished) {
+                    [snapshot removeFromSuperview];
+                    snapshot = nil;
+                    
+                }];
+            }
             break;
         }
         default: {
@@ -642,116 +658,6 @@
     
 }
 
-/*
- - (void)longPressGestureRecognized:(UILongPressGestureRecognizer *)longPress {
- [self getViewFrames];
- 
- UIGestureRecognizerState state = longPress.state;
- CGPoint location = [longPress locationInView:self.menuTable];
- NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
- TT_Project *project = [self.unGroupProjects objectAtIndex:indexPath.row];
- static UIView *snapshot = nil;
- static NSIndexPath  *sourceIndexPath = nil;
- switch (state) {
- // 已经开始按下
- case UIGestureRecognizerStateBegan: {
- // 判断是不是按在了cell上面
- if (indexPath) {
- sourceIndexPath = indexPath;
- UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:indexPath];
- // 为拖动的cell添加一个快照
- snapshot = [self customSnapshoFromView:cell];
- // 添加快照至tableView中
- __block CGPoint center = cell.center;
- snapshot.center = center;
- snapshot.alpha = 0.0;
- [self.menuTable addSubview:snapshot];
- // 按下的瞬间执行动画
- [UIView animateWithDuration:0.25 animations:^{
- center.y = location.y;
- snapshot.center = center;
- snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
- snapshot.alpha = 0.98;
- snapshot.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
- cell.alpha = 0.0;
- } completion:^(BOOL finished) {
- cell.hidden = YES;
- 
- }];
- }
- break;
- }
- // 移动过程中
- case UIGestureRecognizerStateChanged: {
- // 这里保持数组里面只有最新的两次触摸点的坐标
- [self.touchPoints addObject:[NSValue valueWithCGPoint:location]];
- if (self.touchPoints.count > 2) {
- [self.touchPoints removeObjectAtIndex:0];
- }
- CGPoint center = snapshot.center;
- // 快照随触摸点y值移动（当然也可以根据触摸点的y轴移动量来移动）
- center.y = location.y;
- // 快照随触摸点x值改变量移动
- CGPoint Ppoint = [[self.touchPoints firstObject] CGPointValue];
- CGPoint Npoint = [[self.touchPoints lastObject] CGPointValue];
- CGFloat moveX = Npoint.x - Ppoint.x;
- center.x += moveX;
- snapshot.center = center;
- break;
- }
- case UIGestureRecognizerStateEnded: {
- // 清空数组，非常重要，不然会发生坐标突变！
- [self.touchPoints removeAllObjects];
- UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:sourceIndexPath];
- 
- for (NSValue *frameValue in self.viewFrames) {
- BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
- if (isContain) {
- 
- //1.取出下标
- NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
- 
- // 将快照放到分组里面
- [UIView animateWithDuration:0.25 animations:^{
- snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);
- //                        snapshot.alpha = 0.0;
- } completion:^(BOOL finished) {
- [snapshot removeFromSuperview];
- snapshot = nil;
- }];
- 
- //2.取出对应的模型
- TT_Group *group = self.groups[index];
- //3.刷新UI
- [self.unGroupProjects removeObject:project];
- [self.menuTable reloadData];
- //4.移动分组
- [self moveProjectTo_group:group project:project];
- }else {
- cell.hidden = NO;
- // 将快照恢复到初始状态
- [UIView animateWithDuration:0.25 animations:^{
- snapshot.center = cell.center;
- snapshot.transform = CGAffineTransformIdentity;
- snapshot.alpha = 0.0;
- cell.alpha = 1.0;
- } completion:^(BOOL finished) {
- [snapshot removeFromSuperview];
- snapshot = nil;
- 
- }];
- }
- }
- break;
- }
- default: {
- 
- break;
- }
- }
- 
- }
- */
 #pragma mark - 创建cell的快照
 - (UIView *)customSnapshoFromView:(UIView *)inputView {
     // 用cell的图层生成UIImage，方便一会显示

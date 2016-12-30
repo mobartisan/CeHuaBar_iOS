@@ -48,20 +48,48 @@
     rightBtn.tintColor = [UIColor whiteColor];
     [rightBtn addTarget:self action:@selector(addProject:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    //data
-    [self loadProjects];
-    [self.table reloadData];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tap];
+    [self getProjectsList];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f]];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+- (void)getProjectsList {
+    ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
+    projectsApi.requestArgument = @{@"gid":self.groupId};
+    [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"getProjectsList:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSDictionary *objDic = request.responseJSONObject[OBJ];
+            TT_Group *group = [[TT_Group alloc] init];
+            group.group_id = objDic[@"_id"];
+            group.group_name = objDic[@"group_name"];
+            self.groupInfo = group;
+
+            self.projects = [NSMutableArray array];
+            NSArray *pidsArr = request.responseJSONObject[OBJ][@"pids"];
+            for (NSDictionary *projectDic in pidsArr) {
+                TT_Project *tt_project = [[TT_Project alloc] init];
+                tt_project.name = projectDic[@"name"];
+                tt_project.project_id = projectDic[@"_id"];
+                [self.projects addObject:tt_project];
+            }
+            [self.table reloadData];
+        } else {
+            [super showText:@"分组下项目查询失败" afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
 }
 
 #pragma -mark UITableView DataSource & Delegate
@@ -207,28 +235,6 @@
     return _groups;
 }
 
-- (void)loadProjects {
-    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-    NSString *sql = [NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId];
-    NSArray *groups = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Group];
-    TT_Group *group = groups.firstObject;
-    self.groupInfo = group;
-    NSMutableString *mStr = [NSMutableString string];
-    for (NSString *str in [group.pids componentsSeparatedByString:@","]) {
-        [mStr appendFormat:@"'%@',",str];
-    }
-    [mStr replaceCharactersInRange:NSMakeRange(mStr.length - 1, 1) withString:NullString];
-    
-    sql = [NSString stringWithFormat:@"select * from %@ where project_id in (%@) order by create_date",TABLE_TT_Project, mStr];
-    
-    NSArray *selProjects = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project];
-    if (!self.projects) {
-        self.projects = [NSMutableArray arrayWithArray:selProjects];
-    } else {
-        [self.projects removeAllObjects];
-        [self.projects addObjectsFromArray:selProjects];
-    }
-}
 
 
 - (void)addProject:(id)sender {

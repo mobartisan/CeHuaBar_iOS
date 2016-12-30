@@ -32,12 +32,6 @@
 #import "TTGroupSettingViewController.h"
 #import "UIImage+Extension.h"
 
-typedef NS_ENUM(NSInteger, MomentsType) {
-    MomentsTypeAll = 0,
-    MomentsTypeGroup,
-    MomentsTypeProject
-};
-
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 
@@ -52,8 +46,10 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 @property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
-@property (assign, nonatomic) NSInteger momentsType;
+
 @property (strong, nonatomic) NSDictionary *tempDic;
+@property (copy, nonatomic) NSString *tempGroupId;
+@property (copy, nonatomic) NSString *tempProjectId;
 
 @end
 
@@ -189,6 +185,7 @@ typedef NS_ENUM(NSInteger, MomentsType) {
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
+        settingVC.groupId = self.tempGroupId;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
 }
@@ -295,6 +292,7 @@ typedef NS_ENUM(NSInteger, MomentsType) {
     self.tableView.mj_footer = footer;
 }
 
+//MARK: - 加载更多数据
 - (void)getMoreDataWithUrl:(NSString *)urlString {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -552,14 +550,17 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 - (void)handleConvertId:(NSNotification *)notification {
     NSDictionary *parameterDic = nil;
     if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+        self.tempGroupId = notification.object;
         parameterDic = @{@"gid":notification.object};
         [self getAllMoments:parameterDic];//gid 分组id
         [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
+        [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {
         parameterDic = @{@"pid":notification.object};
         [self getAllMoments:parameterDic];//pid 项目id
         [self.titleView setImage:nil forState:UIControlStateNormal];
+        [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     } else {
         [self getAllMoments:parameterDic];
     }
@@ -568,7 +569,7 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 }
 
 
-#pragma mark HomeCellDelegate
+#pragma mark - HomeCellDelegate
 - (void)clickCommentBtn:(NSIndexPath *)indexPath {
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     self.currentIndexPath = indexPath;
@@ -580,7 +581,7 @@ typedef NS_ENUM(NSInteger, MomentsType) {
     [self getAllMoments:@{@"pid":projectId}];//pid 项目id
 }
 
-#pragma mark HomeVoteCellDeleagte
+#pragma mark - HomeVoteCellDeleagte
 //点击项目名称
 - (void)clickVoteProjectBtn:(NSString *)projectId {
     [self getAllMoments:@{@"pid":projectId}];//pid 项目id
