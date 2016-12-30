@@ -203,7 +203,6 @@
         }
         cell.tag = indexPath.section * 1000  + indexPath.row;
         TT_Project *projectInfo = self.unGroupProjects[indexPath.row];
-        NSLog(@"project.isNoDisturb:%zd", projectInfo.isNoDisturb);
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.unGroupProjects.count - 1];
         
         //长按手势
@@ -519,6 +518,7 @@
 }
 
 - (void)moveProjectTo_group:(TT_Group *)group project:(TT_Project *)project {
+    NSLog(@"project:%@", project.project_id);
     MoveProjectApi *moveProjectApi = [[MoveProjectApi alloc] init];
     moveProjectApi.requestArgument = @{@"to_gid":group.group_id,
                                        @"pid":[project project_id]};//pid 项目id
@@ -526,10 +526,9 @@
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
-            [self.unGroupProjects removeObject:project];
             [self.menuTable reloadData];
         }else {
-            [super showText:@"项目添加至该分组失败" afterSeconds:1.0];
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"moveProject:%@", error);
@@ -636,6 +635,7 @@
             }
             
             if ([Common isEmptyArr:[CirclesManager sharedInstance].views]) {
+                [self.menuTable reloadData];
                 cell.hidden = NO;
                 // 将快照恢复到初始状态
                 [UIView animateWithDuration:0.25 animations:^{
@@ -661,6 +661,7 @@
 - (void)getViewFrames {
     self.viewFrames = [NSMutableArray array];
     int count = (int)[CirclesManager sharedInstance].views.count;
+    NSLog(@"CirclesManager:%d", count);
     for (int i = 0; i < count; i++) {
         UIView *tmpView = [CirclesManager sharedInstance].views[i];
         CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];

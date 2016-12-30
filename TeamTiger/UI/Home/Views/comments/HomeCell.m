@@ -377,17 +377,6 @@
     
 }
 
-#warning to do 添加discuss
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if( [string isEqualToString:@"\n"]){
-        [textField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-    
-    
-}
-
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

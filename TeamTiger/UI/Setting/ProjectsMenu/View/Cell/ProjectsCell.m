@@ -65,11 +65,10 @@
         self.arrowImgV.hidden = NO;
         
         self.isOpenLeft = NO;
-
+  
         
-//        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
 
-        self.backgroundColor = [UIColor clearColor];
         self.arrowImgV.hidden = NO;
 
         

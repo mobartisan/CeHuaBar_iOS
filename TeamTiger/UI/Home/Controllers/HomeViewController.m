@@ -32,6 +32,12 @@
 #import "TTGroupSettingViewController.h"
 #import "UIImage+Extension.h"
 
+typedef NS_ENUM(NSInteger, MomentsType) {
+    MomentsTypeAll = 0,
+    MomentsTypeGroup,
+    MomentsTypeProject
+};
+
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
 
@@ -46,18 +52,13 @@
 @property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;
 @property (assign, nonatomic) BOOL showTableHeader;
-@property (strong, nonatomic) NSString *nextUrl;
+@property (assign, nonatomic) NSInteger momentsType;
+@property (strong, nonatomic) NSDictionary *tempDic;
 
 @end
 
 @implementation HomeViewController
 
-- (NSMutableArray *)dataSource {
-    if (_dataSource == nil) {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
-}
 
 //talbeView 分区页眉
 - (UIView *)sectionHeader {
@@ -208,9 +209,12 @@
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
-    [self getAllMoments:nil];
+    self.tempDic = nil;
+    [self getAllMoments:self.tempDic];
     [self configureNavigationItem];
-    [self handleLowRefreshAction];
+    //下拉刷新
+    [self handleDownRefreshAction];
+    
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
@@ -231,13 +235,14 @@
 
 #pragma mark 获取Moments
 - (void)getAllMoments:(NSDictionary *)requestDic {
-    if (![Common isEmptyArr:self.dataSource]) {
-        [self.dataSource removeAllObjects];
-    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        self.dataSource = [NSMutableArray array];
         NSDictionary *objDic = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (![Common isEmptyArr:objDic[@"list"]]) {
@@ -258,36 +263,35 @@
         
         //更多数据
         if (![Common isEmptyString:objDic[@"next"]]) {
-            [self handleRefreshAction:objDic[@"next"]];
+            [self handleUpRefreshAction:objDic[@"next"]];
         }
         
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
 #pragma mark 下拉刷新
-- (void)handleLowRefreshAction {
+- (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        [self deleteAllData];
-        [self.tableView reloadData];
+        [self getAllMoments:self.tempDic];
         [self.tableView.mj_header endRefreshing];
     }];
 }
 
-#pragma mark 上拉加载
-- (void)handleRefreshAction:(NSString *)url {
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        if(!(self.dataSource.count % 10)){
-            [self getMoreDataWithUrl:url];
+#pragma mark 上拉刷新
+- (void)handleUpRefreshAction:(NSString *)tempURL {
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        if (![Common isEmptyString:tempURL] && !(self.dataSource.count % 10) && ![Common isEmptyArr:self.dataSource]) {
+            [self getMoreDataWithUrl:tempURL];
         } else {
-            [super showText:@"暂无更多数据" afterSeconds:1.5];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         }
-        
     }];
+    self.tableView.mj_footer = footer;
 }
 
 - (void)getMoreDataWithUrl:(NSString *)urlString {
@@ -317,12 +321,12 @@
             
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {
-                [self handleRefreshAction:objDic[@"next"]];
+                [self handleUpRefreshAction:objDic[@"next"]];
             } else {
-                [self.tableView.mj_footer endRefreshing];
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
-            [self.tableView reloadData];
             
+            [self.tableView reloadData];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@":%@", error);
@@ -545,22 +549,19 @@
 }
 
 - (void)handleConvertId:(NSNotification *)notification {
-    //loading
-    [super showText:@"正在拼命加载..." afterSeconds:1.0];
-    //data
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
-            [self getAllMoments:@{@"gid":notification.object}];//gid 分组id
-            
-            [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
-            self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-        }else {
-            [self getAllMoments:@{@"pid":notification.object}];//pid 项目id
-            [self.titleView setImage:nil forState:UIControlStateNormal];
-        }
-        [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
-        [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-    });
+    NSDictionary *parameterDic = nil;
+    if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+        parameterDic = @{@"gid":notification.object};
+        [self getAllMoments:parameterDic];//gid 分组id
+        [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
+        self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+    }else {
+        parameterDic = @{@"pid":notification.object};
+        [self getAllMoments:parameterDic];//pid 项目id
+        [self.titleView setImage:nil forState:UIControlStateNormal];
+    }
+    self.tempDic = parameterDic;
+    [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
 }
 
 
@@ -593,14 +594,7 @@
 }
 
 - (void)showLoadingView:(NSString *)projectId {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.label.text = @"正在拼命加载...";
-    hud.mode = MBProgressHUDModeIndeterminate;
-    [hud hideAnimated:YES afterDelay:1.0];
-    //data
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getDataWithProjectId:projectId];
-    });
+    [self getDataWithProjectId:projectId];
 }
 
 - (void)getDataWithProjectId:(NSString *)Id {
