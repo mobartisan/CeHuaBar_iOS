@@ -20,7 +20,7 @@ typedef void(^ResponseBlock)(EResponseType resType, id response);
 
 @property(assign, nonatomic) BOOL isLogin;//判断当前是否登录
 
-@property(strong, nonatomic) id loginSucAfterParas;//登陆成功后要做事情的所须参数
+@property(strong, nonatomic) NSMutableArray *loginSucAfterParas;//登陆成功后要做事情的所须参数
 
 + (instancetype)sharedInstace;
 

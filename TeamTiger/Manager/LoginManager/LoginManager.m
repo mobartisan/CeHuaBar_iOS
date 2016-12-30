@@ -22,6 +22,13 @@ static LoginManager *loginManager = nil;
     return loginManager;
 }
 
+- (NSMutableArray *)loginSucAfterParas {
+    if (!_loginSucAfterParas) {
+        _loginSucAfterParas = [NSMutableArray array];
+    }
+    return _loginSucAfterParas;
+}
+
 //MARK:--判断是否能够自动登录
 - (BOOL)isCanAutoLogin {
     BOOL canAutoLogin = NO;
@@ -62,12 +69,13 @@ static LoginManager *loginManager = nil;
             }
             UserDefaultsSave(@1, @"LastIsLogOut");
 #warning to do 
-            self.isLogin = YES;//表明当前已登录
             if(self.loginSucAfterParas) {
                 //如果参数有值，直接干事情
                 //to do something
                 //end 做完之后记得清空参数队列
+                [self doSomethingAfterLoginSucceed];
             }
+            self.isLogin = YES;//表明当前已登录
             resBlock(ResponseStatusSuccess, request.responseJSONObject);
         } else {
             resBlock(ResponseStatusFailure, request.responseJSONObject[MSG]);
@@ -87,6 +95,11 @@ static LoginManager *loginManager = nil;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         resBlock(ResponseStatusOffline,error);
     }];
+}
+
+//MARK: --登陆成功之后做事情
+- (void)doSomethingAfterLoginSucceed {
+    
 }
 
 @end

@@ -20,6 +20,7 @@
 #import "Analyticsmanager.h"
 #import "TTProjectsMenuViewController.h"
 #import "JKEncrypt.h"
+#import "LoginManager.h"
 @interface AppDelegate ()
 
 @end
@@ -97,6 +98,15 @@
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
         NSLog(@"project_id : %@",[jkEncrypt doDecEncryptHex:dic[@"project_id"]]);
         NSLog(@"phone : %@",[jkEncrypt doDecEncryptHex:dic[@"phone"]])
+#warning put user_id into project
+        LoginManager *loginManager = [LoginManager sharedInstace];
+        if (loginManager.isLogin) {
+            //把自己加入project request
+        } else {
+            if (dic) {
+                [loginManager.loginSucAfterParas addObject:dic];
+            }
+        }
     } else {
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
