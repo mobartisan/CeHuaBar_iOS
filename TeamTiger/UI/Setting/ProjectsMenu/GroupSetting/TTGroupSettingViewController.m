@@ -174,6 +174,7 @@
     } else {
         headView.groupNameLab.text = @"项目列表";
     }
+    headView.addProjectBtn.hidden = YES;
     return headView;
 }
 
