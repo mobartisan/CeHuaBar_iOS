@@ -100,6 +100,11 @@
         if (loginManager.isLogin) {
             //直接发请求
             [loginManager projectMemberJoin:project_id Response:nil];
+            //hud
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+            hud.label.text = @"正在帮您加入新的项目。。。";
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.5];
         } else {
             //如果没登录，保存数据
             [loginManager saveParametersBeforeLogin:project_id];
