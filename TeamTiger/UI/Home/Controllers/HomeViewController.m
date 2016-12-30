@@ -277,16 +277,16 @@ typedef NS_ENUM(NSInteger, MomentsType) {
     }];
 }
 
-#pragma mark 下拉刷新
+#pragma mark - 下拉刷新
 - (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self deleteAllData];
-//        [self getAllMoments:self.tempDic];
+//        [self deleteAllData];
+        [self getAllMoments:self.tempDic];
         [self.tableView.mj_header endRefreshing];
     }];
 }
 
-#pragma mark 上拉刷新
+#pragma mark - 上拉刷新
 - (void)handleUpRefreshAction:(NSString *)tempURL {
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         if (![Common isEmptyString:tempURL] && !(self.dataSource.count % 10) && ![Common isEmptyArr:self.dataSource]) {
@@ -580,13 +580,13 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 
 //点击项目名称
 - (void)clickProjectBtn:(NSString *)projectId {
-    [self showLoadingView:projectId];
+    [self getAllMoments:@{@"pid":projectId}];//pid 项目id
 }
 
 #pragma mark HomeVoteCellDeleagte
 //点击项目名称
 - (void)clickVoteProjectBtn:(NSString *)projectId {
-    [self showLoadingView:projectId];
+    [self getAllMoments:@{@"pid":projectId}];//pid 项目id
 }
 
 - (void)clickVoteBtn:(NSIndexPath *)indexPath {
@@ -597,43 +597,6 @@ typedef NS_ENUM(NSInteger, MomentsType) {
     [self.dataSource removeObjectAtIndex:indexPath.row];
     [self.dataSource insertObject:model atIndex:indexPath.row];
     [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)showLoadingView:(NSString *)projectId {
-    [self getDataWithProjectId:projectId];
-}
-
-- (void)getDataWithProjectId:(NSString *)Id {
-    [self.dataSource removeAllObjects];
-    if (![Common isEmptyString:Id]) {
-        [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:NO]];
-    }else {
-        [self.dataSource setArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:YES]];
-    }
-    [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        ((HomeModel *)obj).open = NO;
-    }];
-    
-    [self.tableView reloadData];
-}
-
-- (void)getDataWithProjectId:(NSString *)Id IsGroup:(BOOL)isGroup {
-    if (isGroup) {
-        //group
-        [self.dataSource removeAllObjects];
-        if (![Common isEmptyString:Id]) {
-            [self.dataSource addObjectsFromArray:[MockDatas getMoments2WithId:Id IsProject:NO IsAll:NO]];
-        }else {
-            [self.dataSource setArray:[MockDatas getMoments2WithId:Id IsProject:YES IsAll:YES]];
-        }
-        [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            ((HomeModel *)obj).open = NO;
-        }];
-        [self.tableView reloadData];
-    } else {
-        //project
-        [self getDataWithProjectId:Id];
-    }
 }
 
 - (void)dealloc {
