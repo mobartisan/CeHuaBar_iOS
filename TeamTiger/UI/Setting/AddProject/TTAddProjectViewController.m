@@ -76,6 +76,7 @@
         cell = [SettingCell loadCellWithData:dic];
     }
     [cell reloadCell:dic];
+    
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeTextField:{
@@ -103,7 +104,6 @@
     };
     return cell;
 }
-
 
 - (void)handleAddMember {
     UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
@@ -157,8 +157,9 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            self.name = nil;
             self.project_id = request.responseJSONObject[OBJ][@"pid"];
-            
+            [self.contentTable reloadData];
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -199,10 +200,6 @@
     //    返回应用时，收到消息回调
     NSLog(@"%@--%@", response.lang, response.country);
     [self.contentTable endEditing:YES];
-    if (self.requestData) {
-        self.requestData();
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
