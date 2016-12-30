@@ -550,15 +550,17 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 
 - (void)handleConvertId:(NSNotification *)notification {
     NSDictionary *parameterDic = nil;
-    if (notification.userInfo && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+    if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {
         parameterDic = @{@"gid":notification.object};
         [self getAllMoments:parameterDic];//gid 分组id
         [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    }else {
+    }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {
         parameterDic = @{@"pid":notification.object};
         [self getAllMoments:parameterDic];//pid 项目id
         [self.titleView setImage:nil forState:UIControlStateNormal];
+    } else {
+        [self getAllMoments:parameterDic];
     }
     self.tempDic = parameterDic;
     [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];

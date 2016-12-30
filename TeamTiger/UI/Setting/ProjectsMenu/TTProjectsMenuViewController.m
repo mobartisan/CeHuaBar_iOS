@@ -101,8 +101,7 @@
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
-                    NSString *Id = [object group_id];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[object group_id] userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
                 }
             }];
         };
@@ -112,9 +111,6 @@
         };
         //长按删除分组
         _pView.longPressBlock = ^(UIView *tmpView, id object) {
-            for (ProjectItemView *itemView in tmpView.subviews) {
-                
-            }
             //            [wself.menuTable reloadData];
             //            [wself groupDeleteWithGroup:object];
         };
@@ -368,7 +364,7 @@
 
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:@"" userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:nil userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
     }];
 }
 
