@@ -22,6 +22,13 @@ static LoginManager *loginManager = nil;
     return loginManager;
 }
 
+- (NSMutableArray *)loginSucAfterParas {
+    if (!_loginSucAfterParas) {
+        _loginSucAfterParas = [NSMutableArray array];
+    }
+    return _loginSucAfterParas;
+}
+
 //MARK:--判断是否能够自动登录
 - (BOOL)isCanAutoLogin {
     BOOL canAutoLogin = NO;
@@ -61,6 +68,14 @@ static LoginManager *loginManager = nil;
                 [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
             }
             UserDefaultsSave(@1, @"LastIsLogOut");
+#warning to do 
+            if(self.loginSucAfterParas) {
+                //如果参数有值，直接干事情
+                //to do something
+                //end 做完之后记得清空参数队列
+                [self doSomethingAfterLoginSucceed];
+            }
+            self.isLogin = YES;//表明当前已登录
             resBlock(ResponseStatusSuccess, request.responseJSONObject);
         } else {
             resBlock(ResponseStatusFailure, request.responseJSONObject[MSG]);
@@ -82,13 +97,9 @@ static LoginManager *loginManager = nil;
     }];
 }
 
-
-/** token 失效的报文
- code = 2000,
- success = 0,
- obj = <null>,
- msg = token无效，请重新登录
- */
-
+//MARK: --登陆成功之后做事情
+- (void)doSomethingAfterLoginSucceed {
+    
+}
 
 @end

@@ -98,6 +98,7 @@
         NSDictionary *dic = [Common unEncyptWithString:queryString];
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
         NSLog(@"project_id : %@",[jkEncrypt doDecEncryptHex:dic[@"project_id"]]);
+
         NSString *project_id = [jkEncrypt doDecEncryptHex:dic[@"project_id"]];
         tempProject_id = project_id;
         [self projectMemberJoin:project_id];

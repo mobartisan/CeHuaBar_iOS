@@ -28,6 +28,7 @@
 #import "LCNetworkConfig.h"
 #import "TMCache.h"
 #import "NSTimer+HYBHelperKit.h"
+#import "LoginManager.h"
 
 @interface LCBaseRequest ()
 
@@ -117,6 +118,22 @@
         responseJSONObject = [self.child responseProcess:_responseJSONObject];
         return responseJSONObject;
     }
+
+    /** token 失效的报文
+     code = 2000,
+     success = 0,
+     obj = <null>,
+     msg = token无效，请重新登录
+     */
+#warning has dangerous issues here
+    if ([_responseJSONObject[@"code"] intValue] == 2000 &&
+        [_responseJSONObject[@"success"] intValue] == 0 &&
+        ([(NSString *)_responseJSONObject[@"msg"] containsString:@"token无效"] ||
+         [(NSString *)_responseJSONObject[@"msg"] containsString:@"token失效"] ||
+         [(NSString *)_responseJSONObject[@"msg"] containsString:@"重新登录"])) {
+            LoginManager *loginManager = [LoginManager sharedInstace];
+            loginManager.isLogin = NO;
+        }
     return _responseJSONObject;
 }
 
