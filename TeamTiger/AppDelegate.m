@@ -95,7 +95,7 @@
         NSString *queryString = [url query];
         NSDictionary *dic = [Common unEncyptWithString:queryString];
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
-        NSLog(@"name : %@",[jkEncrypt doDecEncryptHex:dic[@"name"]]);
+        NSLog(@"project_id : %@",[jkEncrypt doDecEncryptHex:dic[@"project_id"]]);
         NSLog(@"phone : %@",[jkEncrypt doDecEncryptHex:dic[@"phone"]])
     } else {
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];

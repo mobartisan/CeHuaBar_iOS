@@ -50,7 +50,7 @@
 }
 
 - (void)handleAddMember {
-    NSLog(@"跳转微信，增加人员");
+    self.project_id = @"测试ID";
     if ([Common isEmptyString:self.project_id]) {
         [super showText:@"请先添加项目" afterSeconds:1.5];
         return;
