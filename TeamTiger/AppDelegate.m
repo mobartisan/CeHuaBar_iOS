@@ -93,38 +93,32 @@
     
     //  方式二：
     if ([url.absoluteString containsString:@"cehuabar"]) {
-        //        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
-        NSString *queryString = [url query];
-        NSDictionary *dic = [Common unEncyptWithString:queryString];
+        NSDictionary *dic = [Common unEncyptWithString:url.query];
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
-        NSLog(@"project_id : %@",[jkEncrypt doDecEncryptHex:dic[@"project_id"]]);
-
         NSString *project_id = [jkEncrypt doDecEncryptHex:dic[@"project_id"]];
-        tempProject_id = project_id;
-        [self projectMemberJoin:project_id];
+        LoginManager *loginManager = [LoginManager sharedInstace];
+        if (loginManager.isLogin) {
+            //直接发请求
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+            hud.label.text = @"正在帮您加入新的项目。。。";
+            hud.mode = MBProgressHUDModeText;
+            [loginManager projectMemberJoin:project_id Response:^(EResponseType resType, id response) {
+                if (resType == ResponseStatusFailure) {
+                    hud.label.text = response;
+                } else if (resType == ResponseStatusOffline){
+                    hud.label.text = @"网络出错了~";
+                }
+                [hud hideAnimated:YES afterDelay:1.5];
+            }];
+        } else {
+            //如果没登录，保存数据
+            [loginManager saveParametersBeforeLogin:project_id];
+        }
     } else {
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return YES;
 }
-
-//加入项目
-- (void)projectMemberJoin:(NSString *)project_id {
-    ProjectMemberJoinApi *projectMemberJoinApi = [[ProjectMemberJoinApi alloc] init];
-    projectMemberJoinApi.requestArgument = @{@"pid":project_id};
-    [projectMemberJoinApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-#warning message 后续优化
-        if ([request.responseJSONObject[MSG] isEqualToString:@"token无效，请重新登录"]) {
-
-            [self projectMemberJoin:project_id];
-        } else {
-            
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-    }];
-}
-
 
 #pragma mark - 用户通知(推送)回调 _IOS 8.0以上使用
 /** 已登记用户通知 */

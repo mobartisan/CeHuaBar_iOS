@@ -94,7 +94,7 @@
 //                                             ThumbImage:thumbImage
 //                                                InScene:WXSceneSession];
 //          方式二:
-            NSString *subString = [Common encyptWithDictionary:@{@"name": @"xxcao", @"phone": @"18662724884"}];
+            NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
             NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
             [WXApiRequestHandler sendLinkURL:composeURL
                                      TagName:kLinkTagName

@@ -34,11 +34,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     
-//    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
-//    addBtn.frame = CGRectMake(0, 0, 80, 30);
-//    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    //    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
+    //    addBtn.frame = CGRectMake(0, 0, 80, 30);
+    //    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
@@ -46,6 +46,35 @@
     
     self.contentTable.estimatedRowHeight = 77;
     self.contentTable.rowHeight = UITableViewAutomaticDimension;
+}
+
+- (void)handleAddMember {
+    if ([Common isEmptyString:self.project_id]) {
+        [super showText:@"请先添加项目" afterSeconds:1.5];
+        return;
+    }
+    UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
+    //              方式一:
+    //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
+    //                [WXApiRequestHandler sendAppContentData:data
+    //                                                ExtInfo:kAppContentExInfo //拼接参数
+    //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
+    //                                                  Title:kAPPContentTitle
+    //                                            Description:kAPPContentDescription
+    //                                             MessageExt:kAppMessageExt
+    //                                          MessageAction:kAppMessageAction
+    //                                             ThumbImage:thumbImage
+    //                                                InScene:WXSceneSession];
+    //              方式二:
+    
+    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
+    NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
+    [WXApiRequestHandler sendLinkURL:composeURL
+                             TagName:kLinkTagName
+                               Title:kLinkTitle
+                         Description:kLinkDescription
+                          ThumbImage:thumbImage
+                             InScene:WXSceneSession];
 }
 
 
@@ -105,32 +134,6 @@
     return cell;
 }
 
-- (void)handleAddMember {
-    UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
-    //              方式一:
-    //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
-    //                [WXApiRequestHandler sendAppContentData:data
-    //                                                ExtInfo:kAppContentExInfo //拼接参数
-    //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
-    //                                                  Title:kAPPContentTitle
-    //                                            Description:kAPPContentDescription
-    //                                             MessageExt:kAppMessageExt
-    //                                          MessageAction:kAppMessageAction
-    //                                             ThumbImage:thumbImage
-    //                                                InScene:WXSceneSession];
-    //              方式二:
-    
-    //                NSString *urlString = @"http://101.200.138.176:9080/test.html";
-    
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
-    NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
-    [WXApiRequestHandler sendLinkURL:composeURL
-                             TagName:kLinkTagName
-                               Title:kLinkTitle
-                         Description:kLinkDescription
-                          ThumbImage:thumbImage
-                             InScene:WXSceneSession];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20;
@@ -157,6 +160,7 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+//            [self.datas removeObjectAtIndex:1];
             self.name = nil;
             self.project_id = request.responseJSONObject[OBJ][@"pid"];
             [self.contentTable reloadData];
