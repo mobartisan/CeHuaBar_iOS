@@ -139,12 +139,19 @@ static LoginManager *loginManager = nil;
                     }];
                 }
             }];
-        } else if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-           //成功
+        }
+        else if ([request.responseJSONObject[CODE] intValue] == 2000 ||
+                 [request.responseJSONObject[SUCCESS] intValue] == 0) {
+            //失败
+            resBlock(ResponseStatusFailure,request.responseJSONObject[MSG]);
+        }
+        else if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            //成功
             resBlock(ResponseStatusSuccess,nil);
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        resBlock(ResponseStatusOffline,error);
     }];
 }
 
