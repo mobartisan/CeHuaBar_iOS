@@ -138,10 +138,14 @@
 @interface ProjectTopApi : LCBaseRequest<LCAPIRequest>
 
 @end
+
 //项目免打扰
 @interface ProjectDisturbApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
+//项目人员加入项目
+@interface ProjectMemberJoinApi : LCBaseRequest<LCAPIRequest>
 
+@end
 

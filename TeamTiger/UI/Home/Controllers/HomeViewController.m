@@ -277,7 +277,8 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 #pragma mark 下拉刷新
 - (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getAllMoments:self.tempDic];
+        [self deleteAllData];
+//        [self getAllMoments:self.tempDic];
         [self.tableView.mj_header endRefreshing];
     }];
 }

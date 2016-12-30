@@ -59,10 +59,12 @@
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
         NSString *openID = UserDefaultsGet(WX_OPEN_ID);
-        [[LoginManager sharedInstace]getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
+        [[LoginManager sharedInstace] getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
             if (resType == ResponseStatusSuccess ||
                 resType == ResponseStatusFailure) {
-                [self startLogin:response];
+                NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
+                [tempDic setValue:tempProject_id forKey:@"pid"];
+                [self startLogin:tempDic];
             } else {
                 NSLog(@"获取access_token时出错 = %@", response);
                 [super showHudWithText:@"登录微信失败"];
@@ -102,7 +104,9 @@
             [[LoginManager sharedInstace] getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
                 if (resType == ResponseStatusSuccess ||
                     resType == ResponseStatusFailure) {
-                    [self startLogin:response];
+                    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
+                    [tempDic setValue:tempProject_id forKey:@"pid"];
+                    [self startLogin:tempDic];
                 } else {
                     [super showHudWithText:@"登录微信失败"];
                     [super hideHudAfterSeconds:1.0];
@@ -178,27 +182,5 @@
     }];
 }
 
-//{
-//    code = 1000,
-//    success = 1,
-//    obj = {
-//        user_id = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
-//        token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjMwZmIyYTEwLWJhOWMtMTFlNi04ZDY3LThkYjBhNTczMGJhNiIsImlhdCI6MTQ4MDkyNDk3MSwiZXhwIjoxNDgwOTI4NTcxfQ.gYal01M9UKtgjRPAwS4kYhFp3U0txK-nBLJ5GwQiGD8,
-//        data = {
-//            _id = 5844e10cdb061496141cd166,
-//            uid = 30fb2a10-ba9c-11e6-8d67-8db0a5730ba6,
-//            phone = ,
-//            nick_name = 我和你💓,
-//            city = Nanjing,
-//            country = CN,
-//            email = ,
-//            username = o4vxEmYWRjUw,
-//            language = zh_CN,
-//            head_img_from = 1,
-//            head_img_url = http://wx.qlogo.cn/mmopen/ysyAxM1rgX1e4x1IsebUYCdHrH4JOWc765icBsriaH1awzbE7oLWGNnuMBbkBSV5hfiayzobH0DVWeyV8b3OxTC9ia9TtT2GiadH4/0
-//        }
-//    },
-//    msg = 登录成功
-//}
 
 @end

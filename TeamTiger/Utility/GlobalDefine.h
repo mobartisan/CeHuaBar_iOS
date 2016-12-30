@@ -28,5 +28,6 @@ static const char* kColorAr[STR_COLOR_MAX] = {
 
 NSString *gSession;
 UIView *bView;
+NSString *tempProject_id;
 
 #endif /* GlobalDefine_h */

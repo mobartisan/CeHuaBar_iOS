@@ -745,3 +745,32 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//项目人员加入项目
+@implementation ProjectMemberJoinApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/join.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+

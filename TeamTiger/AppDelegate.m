@@ -20,6 +20,8 @@
 #import "Analyticsmanager.h"
 #import "TTProjectsMenuViewController.h"
 #import "JKEncrypt.h"
+#import "LoginManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -31,13 +33,13 @@
     if(!self.window){
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
-
+    
     [self initialMethods];
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
-
+    
     return YES;
 }
 
@@ -84,23 +86,41 @@
     NSLog(@"Calling Application Bundle ID: %@", options[UIApplicationOpenURLOptionsSourceApplicationKey]);
     NSLog(@"URL scheme:%@", [url scheme]);
     NSLog(@"URL query: %@", [url query]);
-
-//  方式一：
-    //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-
     
-//  方式二：
+    //  方式一：
+    //    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    
+    
+    //  方式二：
     if ([url.absoluteString containsString:@"cehuabar"]) {
-        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
+        //        [UIAlertView hyb_showWithTitle:@"提示" message:[NSString stringWithFormat:@"scheme:%@\n query:%@",[url scheme], [url query]] buttonTitles:@[@"确定"] block:nil];
         NSString *queryString = [url query];
         NSDictionary *dic = [Common unEncyptWithString:queryString];
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
         NSLog(@"project_id : %@",[jkEncrypt doDecEncryptHex:dic[@"project_id"]]);
-        NSLog(@"phone : %@",[jkEncrypt doDecEncryptHex:dic[@"phone"]])
+        NSString *project_id = [jkEncrypt doDecEncryptHex:dic[@"project_id"]];
+        tempProject_id = project_id;
+        [self projectMemberJoin:project_id];
     } else {
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return YES;
+}
+
+//加入项目
+- (void)projectMemberJoin:(NSString *)project_id {
+    ProjectMemberJoinApi *projectMemberJoinApi = [[ProjectMemberJoinApi alloc] init];
+    projectMemberJoinApi.requestArgument = @{@"pid":project_id};
+    [projectMemberJoinApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+#warning message 后续优化
+        if ([request.responseJSONObject[MSG] isEqualToString:@"token无效，请重新登录"]) {
+            [self projectMemberJoin:project_id];
+        } else {
+            
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 
@@ -195,10 +215,10 @@
     //推送相关
     [MessageManager registerUserNotification];
     [[MessageManager sharedInstance] startGeTui];
-
+    
     //配置网络
     [NetworkManager configerNetworking];
-
+    
     //向微信注册
     [WXApi registerApp:@"wx6103c7337b6114c0" withDescription:@"策话吧1.0"];
     //向微信注册支持的文件类型
