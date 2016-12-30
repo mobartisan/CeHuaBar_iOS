@@ -63,7 +63,6 @@
             if (resType == ResponseStatusSuccess ||
                 resType == ResponseStatusFailure) {
                 NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
-                [tempDic setValue:tempProject_id forKey:@"pid"];
                 [self startLogin:tempDic];
             } else {
                 NSLog(@"获取access_token时出错 = %@", response);
@@ -104,9 +103,7 @@
             [[LoginManager sharedInstace] getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
                 if (resType == ResponseStatusSuccess ||
                     resType == ResponseStatusFailure) {
-                    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
-                    [tempDic setValue:tempProject_id forKey:@"pid"];
-                    [self startLogin:tempDic];
+                    [self startLogin:response];
                 } else {
                     [super showHudWithText:@"登录微信失败"];
                     [super hideHudAfterSeconds:1.0];

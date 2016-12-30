@@ -22,13 +22,6 @@ static LoginManager *loginManager = nil;
     return loginManager;
 }
 
-- (NSMutableArray *)loginSucAfterParas {
-    if (!_loginSucAfterParas) {
-        _loginSucAfterParas = [NSMutableArray array];
-    }
-    return _loginSucAfterParas;
-}
-
 //MARK:--判断是否能够自动登录
 - (BOOL)isCanAutoLogin {
     BOOL canAutoLogin = NO;
@@ -68,12 +61,12 @@ static LoginManager *loginManager = nil;
                 [SQLITEMANAGER createDataBaseIsNeedUpdate:YES isForUser:YES];
             }
             UserDefaultsSave(@1, @"LastIsLogOut");
-#warning to do 
-            if(self.loginSucAfterParas) {
+
+            NSMutableArray *tmpArray = [self getParametersBeforeLogin];
+            if(tmpArray && tmpArray.count > 0) {
                 //如果参数有值，直接干事情
-                //to do something
                 //end 做完之后记得清空参数队列
-                [self doSomethingAfterLoginSucceed];
+                [self doSomethingAfterLoginSucceed:tmpArray];
             }
             self.isLogin = YES;//表明当前已登录
             resBlock(ResponseStatusSuccess, request.responseJSONObject);
@@ -98,8 +91,61 @@ static LoginManager *loginManager = nil;
 }
 
 //MARK: --登陆成功之后做事情
-- (void)doSomethingAfterLoginSucceed {
-    
+- (void)doSomethingAfterLoginSucceed:(NSMutableArray *)paras {
+    NSMutableArray *srcArray = [NSMutableArray arrayWithArray:paras];//copy一份
+    [paras enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self projectMemberJoin:obj Response:^(EResponseType resType, id response) {
+            if (resType == ResponseStatusSuccess) {
+                [srcArray removeObject:obj];
+                UserDefaultsSave(srcArray, @"USER_DEFAULT_KEY_JOIN");
+            }
+        }] ;
+    }];
+}
+
+- (BOOL)saveParametersBeforeLogin:(id)para {
+    NSMutableArray *mArray = UserDefaultsGet(@"USER_DEFAULT_KEY_JOIN");
+    if (![mArray containsObject:para]) {
+        [mArray addObject:para];
+        UserDefaultsSave(mArray, @"USER_DEFAULT_KEY_JOIN");
+    }
+    return YES;
+}
+
+- (NSMutableArray *)getParametersBeforeLogin {
+    NSMutableArray *mArray = UserDefaultsGet(@"USER_DEFAULT_KEY_JOIN");
+    if (mArray && mArray.count > 0) {
+        return mArray;
+    }
+    return nil;
+}
+
+//MARK:加入项目
+- (void)projectMemberJoin:(NSString *)project_id Response:(ResponseBlock) resBlock{
+    ProjectMemberJoinApi *projectMemberJoinApi = [[ProjectMemberJoinApi alloc] init];
+    projectMemberJoinApi.requestArgument = @{@"pid":project_id};
+    [projectMemberJoinApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        if ([request.responseJSONObject[MSG] isEqualToString:@"token无效，请重新登录"]) {
+            NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
+            NSString *openID = UserDefaultsGet(WX_OPEN_ID);
+            [self getAccessToken:accessToken OpenId:openID Response:^(EResponseType resType, id response) {
+                if (resType == ResponseStatusSuccess ||
+                    resType == ResponseStatusFailure) {
+                    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
+                    [self loginAppWithParameters:tempDic Response:^(EResponseType resType, id response) {
+                        if (resType == ResponseStatusSuccess) {
+                            [self projectMemberJoin:project_id Response:resBlock];
+                        }
+                    }];
+                }
+            }];
+        } else if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+           //成功
+            resBlock(ResponseStatusSuccess,nil);
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 @end

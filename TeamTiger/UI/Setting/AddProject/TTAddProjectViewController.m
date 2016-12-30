@@ -21,6 +21,8 @@
 
 @property (copy, nonatomic) NSString *name;
 
+@property (copy, nonatomic) NSString *cur_project_id;
+
 @end
 
 @implementation TTAddProjectViewController
@@ -49,8 +51,7 @@
 }
 
 - (void)handleAddMember {
-    NSLog(@"%@", tempProject_id);
-    if ([Common isEmptyString:tempProject_id]) {
+    if ([Common isEmptyString:self.cur_project_id]) {
         [super showText:@"请先添加项目" afterSeconds:1.5];
         return;
     }
@@ -68,9 +69,7 @@
     //                                                InScene:WXSceneSession];
     //              方式二:
     
-    //                NSString *urlString = @"http://101.200.138.176:9080/test.html";
-    
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":tempProject_id}];
+    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.cur_project_id}];
     NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
     [WXApiRequestHandler sendLinkURL:composeURL
                              TagName:kLinkTagName
@@ -156,7 +155,7 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            tempProject_id = request.responseJSONObject[OBJ][@"pid"];
+            self.cur_project_id = request.responseJSONObject[OBJ][@"pid"];
             [self.datas removeObjectAtIndex:1];
             [self.contentTable reloadData];
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];

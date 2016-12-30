@@ -185,7 +185,10 @@ typedef NS_ENUM(NSInteger, MomentsType) {
 //设置按钮
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
+        CirclesManager *circleManager = [CirclesManager sharedInstance];
+        NSDictionary *dic = circleManager.selectCircle;
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
+        settingVC.project_id = dic[@"_id"];
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];

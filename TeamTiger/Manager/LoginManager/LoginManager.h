@@ -20,8 +20,6 @@ typedef void(^ResponseBlock)(EResponseType resType, id response);
 
 @property(assign, nonatomic) BOOL isLogin;//判断当前是否登录
 
-@property(strong, nonatomic) NSMutableArray *loginSucAfterParas;//登陆成功后要做事情的所须参数
-
 + (instancetype)sharedInstace;
 
 - (BOOL)isCanAutoLogin;
@@ -29,5 +27,13 @@ typedef void(^ResponseBlock)(EResponseType resType, id response);
 - (void)loginAppWithParameters:(id)tempDic Response:(ResponseBlock) resBlock;
 
 - (void)getAccessToken:(NSString *)access_Token OpenId:(NSString *)openId Response:(ResponseBlock) resBlock;
+
+- (void)projectMemberJoin:(NSString *)project_id Response:(ResponseBlock) resBlock;
+
+//存队列
+- (BOOL)saveParametersBeforeLogin:(id)para;
+
+//取队列
+- (NSMutableArray *)getParametersBeforeLogin;
 
 @end
