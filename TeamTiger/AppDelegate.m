@@ -115,6 +115,7 @@
     [projectMemberJoinApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
 #warning message 后续优化
         if ([request.responseJSONObject[MSG] isEqualToString:@"token无效，请重新登录"]) {
+
             [self projectMemberJoin:project_id];
         } else {
             

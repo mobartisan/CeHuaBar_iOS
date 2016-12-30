@@ -20,7 +20,7 @@
 @interface TTAddProjectViewController ()<WXApiManagerDelegate>
 
 @property (copy, nonatomic) NSString *name;
-
+@property (strong, nonatomic) NSString *project_id;
 @end
 
 @implementation TTAddProjectViewController
@@ -34,11 +34,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
-    addBtn.frame = CGRectMake(0, 0, 80, 30);
-    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+//    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
+//    addBtn.frame = CGRectMake(0, 0, 80, 30);
+//    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
@@ -48,37 +48,6 @@
     self.contentTable.rowHeight = UITableViewAutomaticDimension;
 }
 
-- (void)handleAddMember {
-    NSLog(@"%@", tempProject_id);
-    if ([Common isEmptyString:tempProject_id]) {
-        [super showText:@"请先添加项目" afterSeconds:1.5];
-        return;
-    }
-    UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
-    //              方式一:
-    //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
-    //                [WXApiRequestHandler sendAppContentData:data
-    //                                                ExtInfo:kAppContentExInfo //拼接参数
-    //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
-    //                                                  Title:kAPPContentTitle
-    //                                            Description:kAPPContentDescription
-    //                                             MessageExt:kAppMessageExt
-    //                                          MessageAction:kAppMessageAction
-    //                                             ThumbImage:thumbImage
-    //                                                InScene:WXSceneSession];
-    //              方式二:
-    
-    //                NSString *urlString = @"http://101.200.138.176:9080/test.html";
-    
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":tempProject_id}];
-    NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
-    [WXApiRequestHandler sendLinkURL:composeURL
-                             TagName:kLinkTagName
-                               Title:kLinkTitle
-                         Description:kLinkDescription
-                          ThumbImage:thumbImage
-                             InScene:WXSceneSession];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -117,6 +86,10 @@
                 break;
             }
             case ECellTypeAccessory:{
+                if ([Common isEmptyString:self.project_id]) {
+                    [super showText:@"请先添加项目" afterSeconds:1.5];
+                    return ;
+                }
                 [self handleAddMember];
                 break;
             }
@@ -129,6 +102,34 @@
         }
     };
     return cell;
+}
+
+
+- (void)handleAddMember {
+    UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
+    //              方式一:
+    //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
+    //                [WXApiRequestHandler sendAppContentData:data
+    //                                                ExtInfo:kAppContentExInfo //拼接参数
+    //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
+    //                                                  Title:kAPPContentTitle
+    //                                            Description:kAPPContentDescription
+    //                                             MessageExt:kAppMessageExt
+    //                                          MessageAction:kAppMessageAction
+    //                                             ThumbImage:thumbImage
+    //                                                InScene:WXSceneSession];
+    //              方式二:
+    
+    //                NSString *urlString = @"http://101.200.138.176:9080/test.html";
+    
+    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
+    NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
+    [WXApiRequestHandler sendLinkURL:composeURL
+                             TagName:kLinkTagName
+                               Title:kLinkTitle
+                         Description:kLinkDescription
+                          ThumbImage:thumbImage
+                             InScene:WXSceneSession];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -156,9 +157,8 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            tempProject_id = request.responseJSONObject[OBJ][@"pid"];
-            [self.datas removeObjectAtIndex:1];
-            [self.contentTable reloadData];
+            self.project_id = request.responseJSONObject[OBJ][@"pid"];
+            
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -174,7 +174,7 @@
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目名称:",@"TYPE":@"0"},
                   //                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
                   //                  @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
-//                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
+                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
                   @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"4"},nil];
     }
     return _datas;
