@@ -20,9 +20,7 @@
 @interface TTAddProjectViewController ()<WXApiManagerDelegate>
 
 @property (copy, nonatomic) NSString *name;
-
-@property (copy, nonatomic) NSString *cur_project_id;
-
+@property (strong, nonatomic) NSString *project_id;
 @end
 
 @implementation TTAddProjectViewController
@@ -36,11 +34,11 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     
-    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
-    addBtn.frame = CGRectMake(0, 0, 80, 30);
-    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+    //    UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    [addBtn setTitle:@"添加成员" forState:UIControlStateNormal];
+    //    addBtn.frame = CGRectMake(0, 0, 80, 30);
+    //    [addBtn addTarget:self action:@selector(handleAddMember) forControlEvents:UIControlEventTouchUpInside];
+    //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
     
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
@@ -51,7 +49,7 @@
 }
 
 - (void)handleAddMember {
-    if ([Common isEmptyString:self.cur_project_id]) {
+    if ([Common isEmptyString:self.project_id]) {
         [super showText:@"请先添加项目" afterSeconds:1.5];
         return;
     }
@@ -69,7 +67,7 @@
     //                                                InScene:WXSceneSession];
     //              方式二:
     
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.cur_project_id}];
+    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
     NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
     [WXApiRequestHandler sendLinkURL:composeURL
                              TagName:kLinkTagName
@@ -78,6 +76,7 @@
                           ThumbImage:thumbImage
                              InScene:WXSceneSession];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,6 +105,7 @@
         cell = [SettingCell loadCellWithData:dic];
     }
     [cell reloadCell:dic];
+    
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeTextField:{
@@ -116,6 +116,10 @@
                 break;
             }
             case ECellTypeAccessory:{
+                if ([Common isEmptyString:self.project_id]) {
+                    [super showText:@"请先添加项目" afterSeconds:1.5];
+                    return ;
+                }
                 [self handleAddMember];
                 break;
             }
@@ -129,6 +133,7 @@
     };
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 20;
@@ -155,8 +160,9 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            self.cur_project_id = request.responseJSONObject[OBJ][@"pid"];
-            [self.datas removeObjectAtIndex:1];
+//            [self.datas removeObjectAtIndex:1];
+            self.name = nil;
+            self.project_id = request.responseJSONObject[OBJ][@"pid"];
             [self.contentTable reloadData];
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
         }
@@ -173,7 +179,7 @@
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目名称:",@"TYPE":@"0"},
                   //                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
                   //                  @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
-//                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
+                  @{@"NAME":@"个体户头昏眼花与银行业和银行业和银行业测试",@"TITLE":@"添加成员",@"TYPE":@"3"},
                   @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"4"},nil];
     }
     return _datas;
@@ -198,10 +204,6 @@
     //    返回应用时，收到消息回调
     NSLog(@"%@--%@", response.lang, response.country);
     [self.contentTable endEditing:YES];
-    if (self.requestData) {
-        self.requestData();
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
