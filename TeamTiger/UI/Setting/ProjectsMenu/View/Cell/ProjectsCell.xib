@@ -16,35 +16,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbu-hY-v7X">
-                        <rect key="frame" x="280" y="0.0" width="40" height="53"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="IL9-BP-qx8"/>
-                            <constraint firstAttribute="height" constant="53" id="omF-9C-Ybc"/>
-                        </constraints>
-                        <state key="normal" image="icon_delete"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTz-2y-fVu">
-                        <rect key="frame" x="240" y="0.0" width="40" height="52.5"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="a1Y-JM-mQa"/>
-                        </constraints>
-                        <state key="normal" image="icon_top"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgA-g1-Qjs" userLabel="Not Disturb Btn">
-                        <rect key="frame" x="200" y="0.0" width="40" height="53"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="40" id="8sc-in-e5v"/>
-                            <constraint firstAttribute="height" constant="53" id="y24-tJ-tsK"/>
-                        </constraints>
-                        <state key="normal" image="icon_do_not_disturb"/>
-                    </button>
                     <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQl-TQ-tL3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
                         <subviews>
@@ -126,25 +100,63 @@
                             <constraint firstAttribute="bottom" secondItem="dHC-CX-JRX" secondAttribute="bottom" constant="18" id="zAW-fQ-aQO"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEu-kc-CLZ" userLabel="btn View">
+                        <rect key="frame" x="200" y="0.0" width="120" height="52.5"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbu-hY-v7X">
+                                <rect key="frame" x="80" y="0.0" width="40" height="53"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="4s8-xB-S0D"/>
+                                    <constraint firstAttribute="height" constant="53" id="You-0w-pVv"/>
+                                </constraints>
+                                <state key="normal" image="icon_delete"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTz-2y-fVu">
+                                <rect key="frame" x="40" y="0.0" width="40" height="52.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="09Q-4X-efh"/>
+                                </constraints>
+                                <state key="normal" image="icon_top"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgA-g1-Qjs" userLabel="Not Disturb Btn">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="52"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="255-Lf-2xa"/>
+                                </constraints>
+                                <state key="normal" image="icon_do_not_disturb"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Jbu-hY-v7X" firstAttribute="leading" secondItem="zTz-2y-fVu" secondAttribute="trailing" id="10x-5k-V3V"/>
+                            <constraint firstItem="zTz-2y-fVu" firstAttribute="top" secondItem="DEu-kc-CLZ" secondAttribute="top" id="AnA-Aj-Wtk"/>
+                            <constraint firstAttribute="width" constant="120" id="Ric-bP-Fim"/>
+                            <constraint firstAttribute="bottom" secondItem="zTz-2y-fVu" secondAttribute="bottom" id="cMk-ke-1wU"/>
+                            <constraint firstItem="RgA-g1-Qjs" firstAttribute="top" secondItem="DEu-kc-CLZ" secondAttribute="top" id="kc9-E3-saX"/>
+                            <constraint firstAttribute="trailing" secondItem="Jbu-hY-v7X" secondAttribute="trailing" id="mEy-ZC-GnE"/>
+                            <constraint firstAttribute="bottom" secondItem="RgA-g1-Qjs" secondAttribute="bottom" id="r3r-wE-yIj"/>
+                            <constraint firstItem="Jbu-hY-v7X" firstAttribute="top" secondItem="DEu-kc-CLZ" secondAttribute="top" id="uYV-lL-E9B"/>
+                            <constraint firstItem="zTz-2y-fVu" firstAttribute="leading" secondItem="RgA-g1-Qjs" secondAttribute="trailing" id="vph-AR-ruH"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="RgA-g1-Qjs" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="999-sL-J9q"/>
                     <constraint firstAttribute="trailing" secondItem="nQl-TQ-tL3" secondAttribute="trailing" id="DFN-rA-B62"/>
                     <constraint firstItem="nQl-TQ-tL3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="EeT-v3-M7n"/>
-                    <constraint firstItem="Jbu-hY-v7X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mxg-qv-agY"/>
                     <constraint firstItem="nQl-TQ-tL3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Q2p-5w-sUB"/>
-                    <constraint firstItem="zTz-2y-fVu" firstAttribute="leading" secondItem="RgA-g1-Qjs" secondAttribute="trailing" id="SZ6-4W-tAa"/>
-                    <constraint firstItem="Jbu-hY-v7X" firstAttribute="leading" secondItem="zTz-2y-fVu" secondAttribute="trailing" id="j2L-cF-BeO"/>
-                    <constraint firstAttribute="trailing" secondItem="Jbu-hY-v7X" secondAttribute="trailing" id="lFE-ih-FLN"/>
-                    <constraint firstAttribute="bottom" secondItem="Jbu-hY-v7X" secondAttribute="bottom" id="q7i-XC-A1P"/>
+                    <constraint firstItem="DEu-kc-CLZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Qiz-7r-UbT"/>
+                    <constraint firstAttribute="trailing" secondItem="DEu-kc-CLZ" secondAttribute="trailing" id="RkU-o7-kkh"/>
+                    <constraint firstAttribute="bottom" secondItem="DEu-kc-CLZ" secondAttribute="bottom" id="TLS-iC-Y6L"/>
                     <constraint firstAttribute="bottom" secondItem="nQl-TQ-tL3" secondAttribute="bottom" id="qM0-d7-2zm"/>
-                    <constraint firstAttribute="bottom" secondItem="zTz-2y-fVu" secondAttribute="bottom" id="se4-e9-EEf"/>
-                    <constraint firstItem="zTz-2y-fVu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="swL-8K-1Ig"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addBtn" destination="zTz-2y-fVu" id="gC9-St-TVw"/>
                 <outlet property="arrowImgV" destination="dHC-CX-JRX" id="cep-tf-pXb"/>
+                <outlet property="btnView" destination="DEu-kc-CLZ" id="aVk-QU-2Kz"/>
                 <outlet property="containerView" destination="nQl-TQ-tL3" id="GFW-hT-il4"/>
                 <outlet property="deleteBtn" destination="Jbu-hY-v7X" id="Oxc-Pn-Bkz"/>
                 <outlet property="msgNumBGImgV" destination="GI4-og-lQG" id="Cxy-S0-yiy"/>
@@ -155,7 +167,7 @@
                 <outlet property="pointImgV" destination="Uyb-jI-AhL" id="wPl-Q1-PJ8"/>
                 <outlet property="projectNameLab" destination="w36-UU-QsC" id="beU-Sv-0rf"/>
             </connections>
-            <point key="canvasLocation" x="-451" y="-230.5"/>
+            <point key="canvasLocation" x="-165" y="-285"/>
         </tableViewCell>
     </objects>
     <resources>

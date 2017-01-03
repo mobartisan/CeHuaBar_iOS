@@ -33,7 +33,7 @@
 #import "UIImage+Extension.h"
 
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDeleagte>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
@@ -44,12 +44,13 @@
 @property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *textLB;
-@property (strong, nonatomic) UIButton *setBtn;
+@property (strong, nonatomic) UIButton *setBtn;//设置按钮
+@property (strong, nonatomic) UIButton *leftBtn;//左侧按钮
 @property (assign, nonatomic) BOOL showTableHeader;
 
 @property (strong, nonatomic) NSDictionary *tempDic;
-@property (copy, nonatomic) NSString *tempGroupId;
-@property (copy, nonatomic) NSString *tempProjectId;
+@property (copy, nonatomic) NSString *tempGroupId;//分组ID
+@property (strong, nonatomic) TT_Project *tempProject;//项目
 
 @end
 
@@ -183,14 +184,14 @@
 //设置按钮
 - (void)handleSetBtnAction:(UIButton *)sender {
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
-        CirclesManager *circleManager = [CirclesManager sharedInstance];
-        NSDictionary *dic = circleManager.selectCircle;
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
-        settingVC.project_id = self.tempProjectId;
-        settingVC.project_id = dic[@"_id"];
+        settingVC.project = self.tempProject;
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
+        settingVC.requestData = ^(NSString *groupId){
+            self.tempDic = @{@"gid":groupId};
+        };
         settingVC.groupId = self.tempGroupId;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
@@ -247,27 +248,34 @@
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataSource = [NSMutableArray array];
-        NSDictionary *objDic = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            if (![Common isEmptyArr:objDic[@"list"]]) {
-                for (NSDictionary *dic in objDic[@"list"]) {
-                    HomeModel *homeModel = [HomeModel modelWithDic:dic];
-                    [self.dataSource addObject:homeModel];
+            NSDictionary *objDic = request.responseJSONObject[OBJ];
+            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                if (![Common isEmptyArr:objDic[@"list"]]) {
+                    for (NSDictionary *dic in objDic[@"list"]) {
+                        HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                        [self.dataSource addObject:homeModel];
+                    }
                 }
             }
-        }
-        //封面
-        if (![Common isEmptyArr:objDic[@"banner"]]) {
-            self.textLB.hidden = YES;
-            NSDictionary *bannerDic = [objDic[@"banner"] firstObject];
-            [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"image_3.jpg")];
+            //封面
+            if (![Common isEmptyArr:objDic[@"banner"]]) {
+                self.textLB.hidden = YES;
+                NSDictionary *bannerDic = [objDic[@"banner"] firstObject];
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"image_3.jpg")];
+            } else {
+                self.textLB.hidden = NO;
+            }
+            
+            //更多数据
+            if (![Common isEmptyString:objDic[@"next"]]) {
+                [self handleUpRefreshAction:objDic[@"next"]];
+            }
         } else {
-            self.textLB.hidden = NO;
-        }
-        
-        //更多数据
-        if (![Common isEmptyString:objDic[@"next"]]) {
-            [self handleUpRefreshAction:objDic[@"next"]];
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            self.setBtn.hidden = YES;
+            [self.titleView setImage:nil forState:UIControlStateNormal];
+            [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
         }
         
         [self.tableView reloadData];
@@ -299,7 +307,7 @@
     self.tableView.mj_footer = footer;
 }
 
-//MARK: - 加载更多数据
+#pragma mark - 加载更多数据
 - (void)getMoreDataWithUrl:(NSString *)urlString {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
@@ -363,6 +371,7 @@
     leftBtn.tintColor = [UIColor whiteColor];
     [leftBtn addTarget:self action:@selector(handleProjectsBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.leftBtn = leftBtn;
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 30, 20);
@@ -376,7 +385,36 @@
     [self.view endEditing:YES];
     //项目列表
     [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
+}
+
+- (void)handleRightBtnAction {
+    [self.view endEditing:YES];
+    [MMPopupWindow sharedWindow].touchWildToHide = YES;
+    MMPopupItemHandler block = ^(NSInteger index){
+        if (index == 0) {
+            TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
+            addDiscussVC.addDiscussBlock = ^() {
+                [self getAllMoments:nil];
+            };
+            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+        } else if (index == 1) {
+            TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
+            addVoteVC.addVoteBlock = ^() {
+                [self getAllMoments:nil];
+            };
+            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
+        }
+    };
     
+    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
+        NSLog(@"animation complete");
+    };
+    NSArray *items =
+    @[MMItemMake(@"创建Moment", MMItemTypeNormal, block),
+      MMItemMake(@"发起投票", MMItemTypeNormal, block)];
+    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil items:items];
+    sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
+    [sheetView showWithBlock:completeBlock];
 }
 
 - (void)handleBgImageTap {
@@ -431,7 +469,7 @@
     [sheetView showWithBlock:completeBlock];
 }
 
-//更改封面
+#pragma mark - 更改封面
 - (void)bannerUpdate:(NSDictionary *)requestDic {
     UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
     uploadImageApi.requestArgument = requestDic;
@@ -448,36 +486,6 @@
         
     }];
     
-}
-
-- (void)handleRightBtnAction {
-    [self.view endEditing:YES];
-    [MMPopupWindow sharedWindow].touchWildToHide = YES;
-    MMPopupItemHandler block = ^(NSInteger index){
-        if (index == 0) {
-            TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
-            addDiscussVC.addDiscussBlock = ^() {
-                [self getAllMoments:nil];
-            };
-            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
-        } else if (index == 1) {
-            TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
-            addVoteVC.addVoteBlock = ^() {
-                [self getAllMoments:nil];
-            };
-            [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
-        }
-    };
-    
-    MMPopupCompletionBlock completeBlock = ^(MMPopupView *popupView, BOOL finished){
-        NSLog(@"animation complete");
-    };
-    NSArray *items =
-    @[MMItemMake(@"创建Moment", MMItemTypeNormal, block),
-      MMItemMake(@"发起投票", MMItemTypeNormal, block)];
-    MMSheetView *sheetView = [[MMSheetView alloc] initWithTitle:nil items:items];
-    sheetView.attachedView.mm_dimBackgroundBlurEnabled = NO;
-    [sheetView showWithBlock:completeBlock];
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
@@ -556,8 +564,9 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
+    [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
     NSDictionary *parameterDic = nil;
-    if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {
+    if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
         self.setBtn.hidden = NO;
         self.tempGroupId = notification.object;
         parameterDic = @{@"gid":notification.object};
@@ -565,10 +574,10 @@
         [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
         [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {
+    }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
         self.setBtn.hidden = NO;
-        self.tempGroupId = notification.object;
-        parameterDic = @{@"pid":notification.object};
+        self.tempProject = notification.object;
+        parameterDic = @{@"pid":[notification.object project_id]};
         [self getAllMoments:parameterDic];//pid 项目id
         [self.titleView setImage:nil forState:UIControlStateNormal];
         [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
@@ -589,15 +598,26 @@
 }
 
 //点击项目名称
-- (void)clickProjectBtn:(NSString *)projectId {
-    [self getAllMoments:@{@"pid":projectId}];//pid 项目id
+- (void)clickProjectBtn:(TT_Project *)project {
+    self.setBtn.hidden = NO;
+    self.tempProject = project;
+    [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+    [self.titleView setImage:nil forState:UIControlStateNormal];
+    [self.titleView setTitle:project.name forState:UIControlStateNormal];
+    [self getAllMoments:@{@"pid":project.project_id}];//pid 项目id
 }
 
 #pragma mark - HomeVoteCellDeleagte
 //点击项目名称
-- (void)clickVoteProjectBtn:(NSString *)projectId {
-    [self getAllMoments:@{@"pid":projectId}];//pid 项目id
+- (void)clickVoteProjectBtn:(TT_Project *)project {
+    self.setBtn.hidden = NO;
+    self.tempProject = project;
+    [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+    [self.titleView setImage:nil forState:UIControlStateNormal];
+    [self.titleView setTitle:project.name forState:UIControlStateNormal];
+    [self getAllMoments:@{@"pid":project.project_id}];//pid 项目id
 }
+
 
 - (void)clickVoteBtn:(NSIndexPath *)indexPath {
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];

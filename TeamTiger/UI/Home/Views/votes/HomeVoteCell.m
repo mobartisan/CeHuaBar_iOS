@@ -169,8 +169,11 @@
 
 
 - (void)handleClickProjectBtnAction:(ButtonIndexPath *)sender {
+    TT_Project *tempProject = [[TT_Project alloc] init];
+    tempProject.project_id = _homeModel.Id;
+    tempProject.name = _homeModel.project;
     if ([self.delegate respondsToSelector:@selector(clickVoteProjectBtn:)]) {
-        [self.delegate clickVoteProjectBtn:_homeModel.Id];
+        [self.delegate clickVoteProjectBtn:tempProject];
     }
 }
 

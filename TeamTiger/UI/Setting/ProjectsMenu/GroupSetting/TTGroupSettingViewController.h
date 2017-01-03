@@ -17,5 +17,6 @@
 
 @property(nonatomic, copy) NSString *groupId;
 
+@property (copy, nonatomic) void(^requestData)(NSString *groupId);
 
 @end

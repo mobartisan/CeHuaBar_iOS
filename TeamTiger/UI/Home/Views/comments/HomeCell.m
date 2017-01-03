@@ -174,8 +174,11 @@
 }
 
 - (void)handleClickProjectBtnAction:(ButtonIndexPath *)sender {
+    TT_Project *tempProject = [[TT_Project alloc] init];
+    tempProject.project_id = _homeModel.Id;
+    tempProject.name = _homeModel.project;
     if ([self.delegate respondsToSelector:@selector(clickProjectBtn:)]) {
-        [self.delegate clickProjectBtn:_homeModel.Id];
+        [self.delegate clickProjectBtn:tempProject];
     }
 }
 
@@ -235,7 +238,6 @@
         self.separLine.sd_layout.topSpaceToView(self.timeLB, 10);
     }
     [self setupAutoHeightWithBottomView:self.separLine bottomMargin:0];
-    
 }
 
 - (UIImageView *)headerImage {

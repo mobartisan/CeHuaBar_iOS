@@ -15,12 +15,12 @@
 #import "UIAlertView+HYBHelperKit.h"
 #import "WXApiManager.h"
 #import "WXApiRequestHandler.h"
-
+#import "Models.h"
 
 @interface TTSettingViewController ()<WXApiManagerDelegate>
 
 @property(nonatomic,strong)NSMutableArray *dataSource;
-
+@property (strong, nonatomic) NSMutableArray *projectMembersArr;
 @property(nonatomic,strong)NSMutableDictionary *currentGroupInfo;
 
 @end
@@ -30,11 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目设置";
+    [self getProjectMemberList];
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
     }];
-    
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [WXApiManager sharedManager].delegate = self;
 }
@@ -48,6 +48,61 @@
     [super viewDidDisappear:animated];
 }
 
+#pragma mark - 获取成员列表
+- (void)getProjectMemberList {
+    ProjectMemberListApi *listApi = [[ProjectMemberListApi alloc] init];
+    listApi.requestArgument = @{@"pid":self.project.project_id};
+    [listApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"getProjectMemberList:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            self.projectMembersArr = [NSMutableArray array];
+            for (NSDictionary *membersDic in request.responseJSONObject[OBJ][@"members"]) {
+                TT_Project_Members *projectMember = [[TT_Project_Members alloc] init];
+                [projectMember setValuesForKeysWithDictionary:membersDic];
+                [self.projectMembersArr addObject:projectMember];
+            }
+            NSLog(@"projectMembersArr:%lu", self.projectMembersArr.count);
+            self.dataSource = @[
+                                @{@"Type":@0,
+                                  @"Name":@"项目",
+                                  @"Description":self.project.name,
+                                  @"ShowAccessory":@1,
+                                  @"IsEdit":@0,
+                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+//                                @{@"Type":@0,
+//                                  @"Name":@"组",
+//                                  @"Description":self.project.name,
+//                                  @"ShowAccessory":@1,
+//                                  @"IsEdit":@0,
+//                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+                                @{@"Type":@1,
+                                  @"Name":@"项目成员",
+                                  @"Description":@"",
+                                  @"ShowAccessory":@0,
+                                  @"IsEdit":@0,
+                                  @"Color":kRGB(27.0, 41.0, 58.0),
+                                  @"Members":self.projectMembersArr},
+                                @{@"Type":@2,
+                                  @"Name":@"",
+                                  @"Description":@"",
+                                  @"ShowAccessory":@0,
+                                  @"IsEdit":@0,
+                                  @"Color":[UIColor clearColor]}].mutableCopy;
+            
+            [self.contentTable reloadData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+    
+    
+    
+}
+
+#pragma mark - UITableViewDataSource && Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -72,9 +127,10 @@
     cell.block = ^(ProjectCell *cell,int type){
         if (type == EProjectSelect) {
             SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
-            WeakSelf;
             selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
-                [wself loadProjectDataByInfo:selectObject];
+                NSLog(@"%@", [selectObject name]);
+                self.project = selectObject;
+                [self getProjectMemberList];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
         }
@@ -94,7 +150,7 @@
 //                                             ThumbImage:thumbImage
 //                                                InScene:WXSceneSession];
 //          方式二:
-            NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
+            NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project.project_id}];
             NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
             [WXApiRequestHandler sendLinkURL:composeURL
                                      TagName:kLinkTagName
@@ -147,37 +203,6 @@
     [self.contentTable reloadData];
 }
 
-#pragma -mark getter
-- (NSMutableArray *)dataSource {
-    if (!_dataSource) {
-        TT_Project *project = [[TT_Project alloc] init];
-        project.name = @"工作牛";
-        project.project_id = @"0003";
-      
-
-        _dataSource = @[
-                        @{@"Type":@0,
-                          @"Name":@"项目",
-                          @"Description":project.name,
-                          @"ShowAccessory":@1,
-                          @"IsEdit":@0,
-                          @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                        @{@"Type":@1,
-                          @"Name":@"项目成员",
-                          @"Description":@"",
-                          @"ShowAccessory":@0,
-                          @"IsEdit":@0,
-                          @"Color":kRGB(27.0, 41.0, 58.0),
-                          @"Members":@[]}.mutableCopy,
-                        @{@"Type":@2,
-                          @"Name":@"",
-                          @"Description":@"",
-                          @"ShowAccessory":@0,
-                          @"IsEdit":@0,
-                          @"Color":[UIColor clearColor]}.mutableCopy].mutableCopy;
-    }
-    return _dataSource;
-}
 
 
 #pragma -mark WXApiManagerDelegate

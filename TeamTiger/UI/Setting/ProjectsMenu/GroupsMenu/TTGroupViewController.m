@@ -153,7 +153,7 @@
     }
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[self.projects[indexPath.row] project_id] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
 }
@@ -199,6 +199,7 @@
 }
 
 - (void)popVC:(id)sender {
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 

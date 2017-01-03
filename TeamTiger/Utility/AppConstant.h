@@ -56,6 +56,7 @@ static NSString *const OBJ = @"obj";
 static NSString *const TOKEN = @"token";
 static NSString *const DATA = @"data";
 
+
 //微信相关
 #define WXDoctor_App_ID @"wx6103c7337b6114c0"  // 注册微信时的AppID
 #define WXDoctor_App_Secret @"822233ed08a3484e00ff4f10d8608c1a" // 注册时得到的AppSecret

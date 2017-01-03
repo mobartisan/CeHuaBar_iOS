@@ -39,4 +39,6 @@ typedef enum {
 // 图片下载进度指示器内部控件间的间距
 #define SDWaitingViewItemMargin 10
 
+//内容字体大小
+#define kFont [UIFont systemFontOfSize:17.0]
 

@@ -39,11 +39,15 @@
 
 @property (nonatomic, copy) void (^deleteMember)(); //删除会员block回调方法
 
-@property (nonatomic, copy) void (^addMember)(); //增加会员block回调方法
+@property (nonatomic, copy) void (^addMember)(); //置顶block回调方法
 
 @property (copy, nonatomic) void (^noDisturbBlokc)();//免打扰
 
 @property (nonatomic, copy) void (^closeOtherCellSwipe)(); //关闭其他cell的左滑
+
+@property (weak, nonatomic) IBOutlet UIView *btnView;
+
+@property (strong, nonatomic) TT_Project *project;
 
 - (void)closeLeftSwipe; //关闭左滑
 

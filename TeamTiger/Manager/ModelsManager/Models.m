@@ -91,6 +91,16 @@
 @synthesize user_name = _user_name;
 @synthesize user_img_url = _user_img_url;
 
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
+    if ([key isEqualToString:@"nick_name"]) {
+        self.user_name = value;
+    } else if ([key isEqualToString:@"_id"]) {
+        self.user_id = value;
+    } else if ([key isEqualToString:@"head_img_url"]) {
+        self.user_img_url = value;
+    }
+}
+
 - (NSString *)description
 {
     NSLog(@"project_id:%@", _project_id);

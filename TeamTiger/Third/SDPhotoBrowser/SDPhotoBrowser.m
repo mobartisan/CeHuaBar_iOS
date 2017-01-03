@@ -86,8 +86,13 @@
     
     //3.内容label
     UILabel *contentLB = [UILabel new];
+    contentLB.lineBreakMode = NSLineBreakByCharWrapping;
+    contentLB.font = kFont;
     contentLB.textColor = [UIColor whiteColor];
+    contentLB.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     contentLB.numberOfLines = 0;
+    contentLB.layer.cornerRadius = 5;
+    contentLB.clipsToBounds = YES;
     _contentLB = contentLB;
     [self addSubview:contentLB];
     
@@ -263,7 +268,10 @@
     
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35);
 //    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 50, 25);
-    _contentLB.frame = CGRectMake(15, self.bounds.size.height - 100, kScreenWidth - 15, 80);
+    CGFloat width = kScreenWidth - 10 * 2;
+    CGSize size = [NSString sizeWithText:self.content font:kFont maxSize:CGSizeMake(width, 200)];
+
+    _contentLB.frame = CGRectMake(10, kScreenHeight - 150, kScreenWidth - 10 * 2, size.height + 25);
     _contentLB.text = self.content;
 }
 

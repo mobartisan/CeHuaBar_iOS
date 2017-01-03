@@ -43,19 +43,19 @@
     }else {
         [self isHidden:NO];
         [[CirclesManager sharedInstance].views addObject:self];
-        CGSize size = [self sizeWithText:group.group_name font:kFontWithSize(16.0) maxSize:CGSizeMake(kSizeWidth, 20)];
         
-        [self.unreadMsgImgV mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(size.width + 4);
-            make.top.equalTo(self.projectNameLabel).offset(-1);
-            make.width.mas_equalTo(8);
-            make.height.mas_equalTo(8);
-        }];
+//        CGSize size = [self sizeWithText:group.group_name font:kFontWithSize(16.0) maxSize:CGSizeMake(kSizeWidth, 20)];
+//        [self.unreadMsgImgV mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.left.mas_equalTo(size.width + 4);
+//            make.top.equalTo(self.projectNameLabel).offset(-1);
+//            make.width.mas_equalTo(8);
+//            make.height.mas_equalTo(8);
+//        }];
         
         self.msgLabel.text = @(arc4random() % 10).stringValue;
         self.projectNameLabel.text = group.group_name;
         self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
-        if ([self.msgLabel.text init] == 0) {
+        if ([self.msgLabel.text intValue] == 0) {
             self.unreadMsgImgV.hidden = YES;
             self.msgLabel.hidden = YES;
         } else {
@@ -75,7 +75,6 @@
 
 
 - (void)isHidden:(BOOL)isHidden {
-    self.deleteBtn.hidden = isHidden;
     self.msgLabel.hidden = isHidden;
     self.projectNameLabel.hidden = isHidden;
     self.unreadMsgImgV.hidden = isHidden;
@@ -117,7 +116,7 @@
         [_projectNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(8);
             make.top.mas_equalTo(50);
-            make.width.equalTo(self.mas_width);
+            make.width.equalTo(self.mas_width).offset(-5);
         }];
         _projectNameLabel.textColor = [Common colorFromHexRGB:@"ffffff"];
         _projectNameLabel.font = [UIFont systemFontOfSize:16.0];
@@ -148,7 +147,7 @@
         [self.contentView addSubview:_unreadMsgImgV];
         [_unreadMsgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(8);
-            make.top.equalTo(self.projectNameLabel);
+            make.top.mas_equalTo(8);
             make.width.mas_equalTo(8);
             make.height.mas_equalTo(8);
         }];
@@ -171,6 +170,7 @@
 - (UIButton *)deleteBtn {
     if (!_deleteBtn) {
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _deleteBtn.hidden = YES;
         [_deleteBtn setImage:[UIImage imageNamed:@"icon_delete-group"] forState:UIControlStateNormal];
         [_deleteBtn addTarget:self action:@selector(handleDeleteBtnAction) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_deleteBtn];

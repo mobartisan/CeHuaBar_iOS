@@ -11,8 +11,9 @@
 @class HomeModel, ButtonIndexPath, TableViewIndexPath;
 
 @protocol HomeCellDelegate <NSObject>
+
 - (void)clickCommentBtn:(NSIndexPath *)indexPath;
-- (void)clickProjectBtn:(NSString *)projectId;
+- (void)clickProjectBtn:(TT_Project *)project;
 
 @end
 

@@ -22,10 +22,6 @@
 
 @property(nonatomic,strong)TT_Group *groupInfo;
 
-@property(nonatomic,strong)NSMutableArray *groups;
-
-@property(nonatomic,strong)SelectGroupView *sgView;
-
 @property(nonatomic,strong)DeleteFooterView *footView;
 
 @end
@@ -62,6 +58,14 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.requestData) {
+        self.requestData(self.groupId);
+    }
+}
+
+
 - (void)getProjectsList {
     ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
     projectsApi.requestArgument = @{@"gid":self.groupId};
@@ -73,7 +77,7 @@
             group.group_id = objDic[@"_id"];
             group.group_name = objDic[@"group_name"];
             self.groupInfo = group;
-
+            
             self.projects = [NSMutableArray array];
             NSArray *pidsArr = request.responseJSONObject[OBJ][@"pids"];
             for (NSDictionary *projectDic in pidsArr) {
@@ -131,24 +135,18 @@
         ((ProjectsCell *)cell).deleteMember = ^{
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-#warning to do...                    
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    //从分组中删除
-                    TT_Group *group = [SQLITEMANAGER selectDatasSql:[NSString stringWithFormat:@"select * from %@ where group_id = '%@'",TABLE_TT_Group, self.groupId] Class:TABLE_TT_Group].firstObject;
-                    NSMutableArray *pids = [group.pids componentsSeparatedByString:@","].mutableCopy;
-                    [pids removeObject:[projectInfo project_id]];
-                    NSString *nwPids = [pids componentsJoinedByString:@","];
-                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-                    [SQLITEMANAGER executeSql:updateSql];
-                    [self.projects removeObjectAtIndex:indexPath.row];
-                    [self.table reloadData];
+                    [self deleteProjectGid:self.groupId pid:projectInfo];
                 }
             }];
         };
-        //增加成员的cell回调block
+        //置顶cell回调block
         ((ProjectsCell *)cell).addMember = ^{
-            [self addProjectIntoGroupAction:projectInfo];
+            [self projectTopWithProject:projectInfo];
         };
+        ((ProjectsCell *)cell).noDisturbBlokc = ^{
+            [self projectDisturbWithProject:projectInfo];
+        };
+        
         //设置当cell左滑时，关闭其他cell的左滑
         ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
             for (ProjectsCell *item in tableView.visibleCells) {
@@ -183,6 +181,83 @@
     [self.view endEditing:YES];
 }
 
+
+#pragma mark - 项目置顶
+- (void)projectTopWithProject:(TT_Project *)project {
+    NSNumber *position = project.isTop ? @2 : @1;
+    ProjectTopApi *projectTopApi = [[ProjectTopApi alloc] init];
+    projectTopApi.requestArgument = @{@"pid":project.project_id,
+                                      @"position":position};
+    [projectTopApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark - 免打扰
+- (void)projectDisturbWithProject:(TT_Project *)project {
+    NSNumber *isDisturb = [NSNumber numberWithBool:project.isNoDisturb];
+    ProjectDisturbApi *projectDisturbApi = [[ProjectDisturbApi alloc] init];
+    projectDisturbApi.requestArgument = @{@"pid":project.project_id,
+                                          @"isDisturb":isDisturb};
+    [projectDisturbApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDisturbApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.table reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"ProjectDisturbApi:%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark  从某个分组删除项目
+- (void)deleteProjectGid:(NSString *)gid pid:(TT_Project *)project {
+    DeleteProjectApi *deleteProjectApi = [[DeleteProjectApi alloc] init];
+    deleteProjectApi.requestArgument = @{@"pid":project.project_id,//项目ID
+                                         @"gid":gid};//分组ID
+    [deleteProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super showText:@"删除项目成功" afterSeconds:1.0];
+            [self.projects removeObject:project];
+            [self.table reloadData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark - 删除分组
+- (void)groupDeleteWithGroup:(TT_Group *)group {
+    GroupDeleteApi *groupDeleteApi = [[GroupDeleteApi alloc] init];
+    groupDeleteApi.requestArgument = @{@"gid":group.group_id};
+    [groupDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"GroupDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            self.groupInfo = nil;
+            [self.projects removeAllObjects];
+            [self.table reloadData];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"GroupDeleteApi:%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
 #pragma -mark getter
 - (UITableView *)table {
     if (!_table) {
@@ -202,14 +277,16 @@
         _table.separatorColor = [UIColor clearColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         
+        WeakSelf;
         self.footView = LoadFromNib(@"DeleteFooterView");
         self.footView.deleteGroupBlock = ^(DeleteFooterView *view){
+            if (self.groupInfo == nil || [self.groupInfo isEqual:[NSNull null]]) {
+                [super showText:@"该分组已不存在" afterSeconds:1.0];
+                return;
+            }
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该分组吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    NSString *sql = [NSString stringWithFormat:@"update %@ set current_state = 1",TABLE_TT_Group];//设置为删除状态
-                    [SQLITEMANAGER executeSql:sql];
-#warning TO DO HERE 跳回主页面，并刷新
+                    [wself groupDeleteWithGroup:wself.groupInfo];
                 }
             }];
         };
@@ -226,19 +303,6 @@
     return _table;
 }
 
-- (NSMutableArray *)groups {
-    if (!_groups) {
-        TT_User *user = [TT_User sharedInstance];
-        [SQLITEMANAGER setDataBasePath:user.user_id];
-        NSString *sqlString = [NSString stringWithFormat:@"select * from %@ order by create_date desc",TABLE_TT_Group];
-        NSArray *groups = [SQLITEMANAGER selectDatasSql:sqlString Class:TABLE_TT_Group];
-        _groups = [NSMutableArray arrayWithArray:groups];
-    }
-    return _groups;
-}
-
-
-
 - (void)addProject:(id)sender {
     // add project
     TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
@@ -250,58 +314,5 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)addProjectIntoGroupAction:(id)projectInfo {
-    if (self.sgView.isShow) {
-        [self.sgView hide];
-    } else {
-        [self.sgView loadGroups:self.groups];
-        [self.sgView show];
-        WeakSelf;
-        self.sgView.clickBtnBlock = ^(SelectGroupView *sgView, BOOL isConfirm, id object){
-            if (isConfirm) {
-                NSLog(@"%@",object);
-                NSMutableArray *pids = [[object pids] componentsSeparatedByString:@","].mutableCopy;
-                if ([pids containsObject:[projectInfo project_id]]) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已存在该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                    return;
-                } else {
-                    //添加至分组
-                    [pids addObject:[projectInfo project_id]];
-                    NSString *nwPids = [pids componentsJoinedByString:@","];
-                    NSString *updateSql = [NSString stringWithFormat:@"update %@ set pids = '%@'",TABLE_TT_Group, nwPids];
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    [SQLITEMANAGER executeSql:updateSql];
-                    //给出提示
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-                        hud.label.text = @"项目已添加至该分组";
-                        hud.mode = MBProgressHUDModeText;
-                        [hud hideAnimated:YES afterDelay:1.5];
-                    });
-                }
-            }
-        };
-    }
-}
 
-
-- (SelectGroupView *)sgView {
-    if (!_sgView) {
-        _sgView = LoadFromNib(@"SelectGroupView");
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        [keyWindow addSubview:_sgView];
-        [_sgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(keyWindow.mas_left).offset(18);
-            make.right.mas_equalTo(keyWindow.mas_right).offset(-18);
-            make.top.mas_equalTo(keyWindow.mas_top).offset(Screen_Height);
-            make.height.mas_equalTo(Screen_Height - 100);
-        }];
-    }
-    return _sgView;
-}
 @end

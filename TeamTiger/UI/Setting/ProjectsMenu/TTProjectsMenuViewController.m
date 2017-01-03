@@ -34,13 +34,12 @@
 @property(nonatomic,strong)SelectGroupView *sgView;
 
 @property (strong, nonatomic) NSMutableArray *unGroupProjects;
+
 @property(nonatomic, strong) NSMutableArray *groups;
+
 @property (strong, nonatomic) NSMutableArray *touchPoints;
 
-@property (assign, nonatomic) NSUInteger projectsCount;
-@property (assign, nonatomic) NSInteger index;
 @property (strong, nonatomic) NSMutableArray *viewFrames;
-@property (assign, nonatomic) BOOL isShowDeleteBtn;
 
 
 @end
@@ -338,7 +337,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section != 1) {
+    if (indexPath.section == 2) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
             ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
@@ -351,18 +350,20 @@
         //主页moments
         [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
             if (finished) {
-                NSString *Id = [self.unGroupProjects[indexPath.row] project_id];
+                NSString *Id = self.unGroupProjects[indexPath.row];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
             }
         }];
     }
 }
 
+#pragma mark - 个人设置
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 
+#pragma mark - 首页
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:nil userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
@@ -418,7 +419,7 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [self.unGroupProjects removeObject:project];
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
-        }else {
+        } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -473,7 +474,7 @@
         NSLog(@"GroupDeleteApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [self.groups removeObject:group];
-            [self getAllGroupsAndProjectsData];
+            [self.menuTable reloadSection:1 withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
@@ -523,10 +524,10 @@
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
+            [self.menuTable reloadData];
         }else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
-        [self.menuTable reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"moveProject:%@", error);
         if (error) {
@@ -544,7 +545,7 @@
     TT_Project *project = [self.unGroupProjects objectAtIndex:tempIndexPath.row];
     
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
-    NSLog(@"project.name:%@--%ld", project.name, indexPath.row);
+    NSLog(@"project.name:%@--%ld", project.name, tempIndexPath.row);
     static UIView *snapshot = nil;
     static NSIndexPath  *sourceIndexPath = nil;
     switch (state) {

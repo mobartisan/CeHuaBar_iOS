@@ -12,7 +12,7 @@
 @interface TTSettingViewController : TTBaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,weak)IBOutlet UITableView *contentTable;
+@property (strong, nonatomic) TT_Project *project;
 
-@property(nonatomic,copy)NSString *project_id;
 
 @end
