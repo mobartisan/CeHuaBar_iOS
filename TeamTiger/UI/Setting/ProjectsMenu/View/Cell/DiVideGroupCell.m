@@ -37,7 +37,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        self.contentView.backgroundColor = [Common colorFromHexRGB:@"151b27"];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -52,7 +52,7 @@
         flowLayout.minimumInteritemSpacing = 5.0;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 0, kScreenWidth - 20 * 2, 50) collectionViewLayout:flowLayout];
         _collectionView.scrollEnabled = NO;
-        _collectionView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        _collectionView.backgroundColor = [Common colorFromHexRGB:@"151b27"];
         
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

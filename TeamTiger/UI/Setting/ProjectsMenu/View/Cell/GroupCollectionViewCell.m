@@ -23,7 +23,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentView.backgroundColor = [Common colorFromHexRGB:@"202e41"];
+        self.contentView.backgroundColor = [Common colorFromHexRGB:@"21344e"];
         [self msgLabel];
         [self projectNameLabel];
         [self unreadMsgImgV];

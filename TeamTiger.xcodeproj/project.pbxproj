@@ -459,6 +459,9 @@
 		2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */; };
 		2D9674F91DEBD30F002DF6E0 /* Analyticsmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */; };
 		2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */; };
+		2DA5CA541E1F2B62000BFE93 /* TTAddMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */; };
+		2DA5CA551E1F2B62000BFE93 /* TTAddMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */; };
+		2DA5CA561E1F2B62000BFE93 /* TTAddProjectFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */; };
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DB351391DE56967000521A3 /* YZInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351381DE56967000521A3 /* YZInputView.m */; };
 		2DB3513C1DE574F0000521A3 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB3513B1DE574F0000521A3 /* HeaderView.m */; };
@@ -505,6 +508,7 @@
 		2DDD54341DB0D4AF00C55633 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD540E1DB0D4AF00C55633 /* QNUploadOption.m */; };
 		2DDD54351DB0D4AF00C55633 /* QNUpToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD54101DB0D4AF00C55633 /* QNUpToken.m */; };
 		2DDD543F1DB0D52C00C55633 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DDD543E1DB0D52C00C55633 /* libresolv.tbd */; };
+		2DEDED061E2277D600806BA4 /* TTAddMemberCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DEDED051E2277D600806BA4 /* TTAddMemberCell2.xib */; };
 		2DFA80A41DD1BDF100160060 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA80931DD1BDF100160060 /* HomeViewController.m */; };
 		2DFA80A51DD1BDF100160060 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFA80941DD1BDF100160060 /* HomeViewController.xib */; };
 		2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */; };
@@ -1334,6 +1338,11 @@
 		2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyticsmanager.m; sourceTree = "<group>"; };
 		2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
 		2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
+		2DA5CA4F1E1F2B62000BFE93 /* TTAddMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddMemberCell.h; sourceTree = "<group>"; };
+		2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddMemberCell.m; sourceTree = "<group>"; };
+		2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberCell.xib; sourceTree = "<group>"; };
+		2DA5CA521E1F2B62000BFE93 /* TTAddProjectFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddProjectFooterView.h; sourceTree = "<group>"; };
+		2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddProjectFooterView.m; sourceTree = "<group>"; };
 		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2DB351371DE56967000521A3 /* YZInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZInputView.h; sourceTree = "<group>"; };
@@ -1431,6 +1440,7 @@
 		2DDD540F1DB0D4AF00C55633 /* QNUpToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNUpToken.h; sourceTree = "<group>"; };
 		2DDD54101DB0D4AF00C55633 /* QNUpToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNUpToken.m; sourceTree = "<group>"; };
 		2DDD543E1DB0D52C00C55633 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		2DEDED051E2277D600806BA4 /* TTAddMemberCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberCell2.xib; sourceTree = "<group>"; };
 		2DFA80921DD1BDF100160060 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2DFA80931DD1BDF100160060 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		2DFA80941DD1BDF100160060 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -3193,6 +3203,7 @@
 		1DDE9E5F1D52DADA005926FE /* AddProject */ = {
 			isa = PBXGroup;
 			children = (
+				2DA5CA4E1E1F2B53000BFE93 /* Views */,
 				1DDE9E601D52DAF8005926FE /* TTAddProjectViewController.h */,
 				1DDE9E611D52DAF8005926FE /* TTAddProjectViewController.m */,
 				1DDE9E621D52DAF8005926FE /* TTAddProjectViewController.xib */,
@@ -3405,6 +3416,19 @@
 				2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */,
 			);
 			path = AnalyticsManager;
+			sourceTree = "<group>";
+		};
+		2DA5CA4E1E1F2B53000BFE93 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2DA5CA4F1E1F2B62000BFE93 /* TTAddMemberCell.h */,
+				2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */,
+				2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */,
+				2DEDED051E2277D600806BA4 /* TTAddMemberCell2.xib */,
+				2DA5CA521E1F2B62000BFE93 /* TTAddProjectFooterView.h */,
+				2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2DB351361DE56967000521A3 /* InputView */ = {
@@ -3762,6 +3786,7 @@
 				1DF0A1B01D4DB898002D91DB /* 13.png in Resources */,
 				2D727A1C1DDD844E00CBF0BA /* none.png in Resources */,
 				1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */,
+				2DEDED061E2277D600806BA4 /* TTAddMemberCell2.xib in Resources */,
 				1DB5A5901D4B3F36009E6170 /* round-switch-track@2x.png in Resources */,
 				1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */,
 				1D9580D11D3E225200FD0053 /* Info.plist in Resources */,
@@ -3821,6 +3846,7 @@
 				1DBFD6ED1D6463650039077D /* irv.png in Resources */,
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
 				1DF0A1AE1D4DB898002D91DB /* 11.png in Resources */,
+				2DA5CA551E1F2B62000BFE93 /* TTAddMemberCell.xib in Resources */,
 				1D87130F1DE6DC0900C17D01 /* loginBG40@2x.png in Resources */,
 				1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */,
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
@@ -4024,6 +4050,7 @@
 				06008F261D58163100A5B3DB /* TTCommonItem.m in Sources */,
 				2DDD54311DB0D4AF00C55633 /* QNFormUpload.m in Sources */,
 				1D49DA051E1209CE00433B2C /* GTMBase64.m in Sources */,
+				2DA5CA541E1F2B62000BFE93 /* TTAddMemberCell.m in Sources */,
 				1D09CC891D3F29C900F85E9A /* YYWebImageOperation.m in Sources */,
 				1D09CC9D1D3F29C900F85E9A /* YYTextUtilities.m in Sources */,
 				2D727A0B1DDD842300CBF0BA /* SDBrowserImageView.m in Sources */,
@@ -4210,6 +4237,7 @@
 				1D9580721D3E1ADD00FD0053 /* MBProgressHUD.m in Sources */,
 				1D34D5101DEFC16E002CBFF8 /* TTGroupSettingViewController.m in Sources */,
 				06008F281D58163100A5B3DB /* TTCommonSwitchItem.m in Sources */,
+				2DA5CA561E1F2B62000BFE93 /* TTAddProjectFooterView.m in Sources */,
 				1D09CC851D3F29C900F85E9A /* YYImageCache.m in Sources */,
 				06DFEBA71D654E6B00DB49E1 /* TTCommonCustomViewItem.m in Sources */,
 				063B08891D6F144F008AB592 /* MMPopupCategory.m in Sources */,

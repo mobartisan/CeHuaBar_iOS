@@ -9,6 +9,7 @@
 #import "TTBaseViewController.h"
 @class SelectBgImageVC;
 typedef void(^SelectBgImageVCBlock)(UIImage *selectImage, SelectBgImageVC *selectBgImageVC);
+
 @interface SelectBgImageVC : TTBaseViewController
 
 @property (nonatomic, copy)SelectBgImageVCBlock selectCircleVCBlock;

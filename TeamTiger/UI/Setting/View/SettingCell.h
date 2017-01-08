@@ -8,28 +8,31 @@
 
 #import <UIKit/UIKit.h>
 typedef NS_ENUM(NSUInteger, ECellType) {
-    ECellTypeTextField = 0,
-    ECellTypeTextView,
-    ECellTypeSwitch,
-    ECellTypeAccessory,
+    ECellTypeProjectIcon = 0,
+    ECellTypeProjectName,
+    ECellTypeSearch,
+    ECellTypeAddMember,
     ECellTypeBottom,
+    ECellTypeAccessory,
 };
 
-@class SettingCell;
-@class TTFadeSwitch;
+@class ProjectNameTF, SettingCell, TTFadeSwitch;
 
 typedef void(^NeedActionblock)(SettingCell *settingCell, ECellType type, id obj);
 
-@interface SettingCell : UITableViewCell<UITextViewDelegate>
+@interface SettingCell : UITableViewCell<UITextViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
 @property (weak, nonatomic) IBOutlet UIButton *createBtn;
 
 @property (strong, nonatomic) UITextView *textView;
 @property (strong, nonatomic) UITextField *textField;
+@property (strong, nonatomic) UITextField *searchTF;
 @property (strong, nonatomic) TTFadeSwitch *tSwitch;
 @property (strong, nonatomic) UIImageView *accessoryImgV;
-
+@property (strong, nonatomic) UIImageView *projectIcon;
+@property (strong, nonatomic) UIButton *addMemberBtn;
+@property (strong, nonatomic) UIButton *addProjectIcon;
 @property (copy, nonatomic) NeedActionblock actionBlock;
 
 + (instancetype)loadCellWithData:(id)data;

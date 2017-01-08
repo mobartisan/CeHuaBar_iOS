@@ -51,8 +51,126 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+#pragma mark - 用户
+//MARK: - 登录
+@implementation LoginApi
 
+- (NSString *)apiMethodName {
+    return @"user/login.app";
+}
 
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+}
+
+@end
+
+//MARK: - 登出
+@implementation ExistAppApi
+
+- (NSString *)apiMethodName {
+    return @"user/logout.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 修改用户信息
+@implementation UserUpdateApi
+
+- (NSString *)apiMethodName {
+    return @"user/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 根据昵称查询用户
+@implementation UserSearchApi
+
+- (NSString *)apiMethodName {
+    return @"user/search.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 注册
 @implementation RegisterApi
 
 - (NSString *)apiMethodName {
@@ -81,42 +199,7 @@ static double const timeOutInterval = 15.0;
     return NO;
 }
 
-//- (LCRequestSerializerType)requestSerializerType {
-//    return LCRequestSerializerTypeHTTP;
-//}
-
 @end
-
-@implementation LoginApi
-
-- (NSString *)apiMethodName {
-    return @"user/login.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-//1.return NO; 不需要缓存
-    
-//2.return such as 需要缓存并设定时长
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-@end
-
 
 //所有的Moments
 @implementation AllMomentsApi
@@ -609,35 +692,6 @@ static double const timeOutInterval = 15.0;
 
 - (LCRequestMethod)requestMethod {
     return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//登出
-@implementation ExistAppApi
-
-- (NSString *)apiMethodName {
-    return @"user/logout.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
 }
 
 - (NSTimeInterval)requestTimeoutInterval {

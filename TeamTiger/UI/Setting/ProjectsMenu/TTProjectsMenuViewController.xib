@@ -71,12 +71,13 @@
                         <action selector="clickHeadInfoAction:" destination="-1" eventType="touchUpInside" id="fzT-xl-lUl"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-Su-4y0">
-                    <rect key="frame" x="295" y="45" width="80" height="68"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6I-Su-4y0">
+                    <rect key="frame" x="307" y="45" width="68" height="68"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="68" id="9ts-Qe-1o9"/>
-                        <constraint firstAttribute="width" constant="80" id="zmI-rM-4hp"/>
+                        <constraint firstAttribute="width" constant="68" id="zmI-rM-4hp"/>
                     </constraints>
+                    <inset key="imageEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" image="icon_home"/>
                     <connections>
                         <action selector="clickHomeAction:" destination="-1" eventType="touchUpInside" id="gtI-Tb-684"/>

@@ -74,8 +74,10 @@
         } else {
             self.isTop = YES;
         }
-    }else if ([key isEqualToString:@"isDisturb"]) {
+    } else if ([key isEqualToString:@"isDisturb"]) {
         self.isNoDisturb = [value boolValue];
+    } else if ([key isEqualToString:@"banner"]) {
+        self.logoURL = value[@"url"];
     }
 }
 
@@ -218,6 +220,7 @@
 @synthesize password = _password;
 @synthesize name = _name;
 @synthesize nick_name = _nick_name;
+@synthesize remark = _remark;
 @synthesize wx_account = _wx_account;
 @synthesize phone = _phone;
 @synthesize head_img_url = _head_img_url;
@@ -267,6 +270,7 @@ static TT_User *singleton = nil;
         self.headimgurl = userDic[@"head_img_url"];
         self.language = userDic[@"language"];
         self.nickname = userDic[@"nick_name"];
+        self.remark = userDic[@"remark"];
         self.user_id = userDic[@"uid"];
         
 #warning to do ...

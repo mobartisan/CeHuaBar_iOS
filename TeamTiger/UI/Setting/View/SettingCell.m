@@ -14,6 +14,12 @@
 #import "UIControl+YYAdd.h"
 #import "UIImage+YYAdd.h"
 
+@interface SettingCell ()
+
+@property (strong, nonatomic) UIView *leftView;
+
+@end
+
 @implementation SettingCell
 
 - (void)awakeFromNib {
@@ -45,8 +51,40 @@
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:obj];
     self.titleLab.text = dic[@"TITLE"];
     switch ([dic[@"TYPE"] intValue]) {
-        case ECellTypeTextField:{
-            self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:nil superView:self.contentView constraints:^(MASConstraintMaker *make) {
+        case ECellTypeProjectIcon:{
+            self.accessoryImgV = [[UIImageView alloc] init];
+            self.accessoryImgV.image = [UIImage imageNamed:@"icon_enter"];
+            self.accessoryImgV.contentMode = UIViewContentModeCenter;
+            [self.contentView addSubview:self.accessoryImgV];
+            [self.accessoryImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(self.contentView.mas_right).offset(-10);
+                make.width.equalTo(@20);
+                make.height.equalTo(@20);
+                make.centerY.equalTo(self.contentView.mas_centerY);
+            }];
+            
+            self.projectIcon = [[UIImageView alloc] init];
+            self.projectIcon.image = kImage(@"img_logo");
+            self.projectIcon.contentMode = UIViewContentModeCenter;
+            setViewCorner(self.projectIcon, 4.0);
+            [self.contentView addSubview:self.projectIcon];
+            [self.projectIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(self.accessoryImgV.mas_left).offset(-5);
+                make.width.equalTo(@40);
+                make.height.equalTo(@40);
+                make.centerY.equalTo(self.contentView.mas_centerY);
+            }];
+            
+            self.addProjectIcon = [UIButton buttonWithType:UIButtonTypeCustom];
+            [self.addProjectIcon addTarget:self action:@selector(handleAddProjectIcon) forControlEvents:UIControlEventTouchUpInside];
+            [self.contentView addSubview:self.addProjectIcon];
+            [self.addProjectIcon mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.contentView);
+            }];
+            break;
+        }
+        case ECellTypeProjectName:{//@"Type something..."
+            self.textField = [UITextField hyb_textFieldWithHolder:@"Type something..." text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
                 make.left.mas_equalTo(self.titleLab.mas_right).offset(10);
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
                 make.top.mas_equalTo(self.contentView.mas_top).offset(22);
@@ -59,81 +97,37 @@
             [self.textField addTarget:self action:@selector(textLengthChange:) forControlEvents:UIControlEventEditingChanged];
             break;
         }
-        case ECellTypeTextView:{
-            [self.titleLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.contentView.mas_left).offset(16);
-                make.top.mas_equalTo(self.contentView.mas_top).offset(28);
-                make.width.equalTo(@68);
-            }];
-            self.textView = [[UITextView alloc] init];
-            self.textView.showsVerticalScrollIndicator = NO;
-            self.textView.showsHorizontalScrollIndicator = NO;
-            self.textView.scrollEnabled = NO;
-            self.textView.delegate = self;
-            self.textView.textColor = [UIColor whiteColor];
-            self.textView.font = [UIFont systemFontOfSize:15];
-            self.textView.backgroundColor = [UIColor clearColor];
-            self.textView.tintColor = [UIColor whiteColor];
-            [self.contentView addSubview:self.textView];
-            [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.titleLab.mas_right).offset(-24);
+        case ECellTypeSearch:{
+            self.searchTF = [UITextField hyb_textFieldWithHolder:@"名字/微信号" text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
+//                make.left.mas_equalTo(self.contentView.mas_centerX).offset(-50);
+                make.left.equalTo(self.contentView).offset(16);
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
                 make.top.mas_equalTo(self.contentView.mas_top).offset(22);
                 make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
             }];
-            self.textView.placeholder = @"请输入描述";
-            self.textView.maxLength = 200;//最大字数
-            break;
-        }
-
-        case ECellTypeSwitch:{
-            // Fade mode
-            self.tSwitch = [[TTFadeSwitch alloc] init];
-            self.tSwitch.thumbImage = [UIImage imageNamed:@"toggle_handle_on"];
-            self.tSwitch.thumbOffImage = [UIImage imageNamed:@"toggle_handle_off"];
-            self.tSwitch.thumbHighlightImage = [UIImage imageNamed:@"toggle_handle_on"];
-            self.tSwitch.trackMaskImage = [UIImage imageNamed:@"toggle_background_off"];
-            self.tSwitch.trackImageOn = [UIImage imageNamed:@"toggle_background_on"];
-            self.tSwitch.trackImageOff = [UIImage imageNamed:@"toggle_background_off"];
-            self.tSwitch.thumbInsetX = -3.0;
-            self.tSwitch.thumbOffsetY = 0.0;
-            self.tSwitch.transform = CGAffineTransformMakeRotation(M_PI);
-            self.tSwitch.on = YES;
-            [self.contentView addSubview:self.tSwitch];
-            [self.tSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.width.equalTo(@51.5);
-                make.height.equalTo(@31);
-                make.centerY.equalTo(self.contentView.mas_centerY);
-            }];
-            __weak __typeof(self)wself = self;
-            self.tSwitch.changeHandler = ^(BOOL on){
-                if (wself.actionBlock) {
-                    wself.actionBlock(wself, ECellTypeSwitch, @(on));
-                }
-            };
-            break;
-        }
-
-        case ECellTypeAccessory:{
-            self.accessoryImgV = [[UIImageView alloc] init];
-            self.accessoryImgV.image = [UIImage imageNamed:@"icon_enter"];
-            self.accessoryImgV.contentMode = UIViewContentModeCenter;
-            [self.contentView addSubview:self.accessoryImgV];
-            [self.accessoryImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.width.equalTo(@20);
-                make.height.equalTo(@20);
-                make.centerY.equalTo(self.contentView.mas_centerY);
-            }];
             
-            [UIButton hyb_buttonWithSuperView:self.contentView constraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 100, 0, 0));
-            } touchUp:^(UIButton *sender) {
-                if (self.actionBlock) {
-                    self.actionBlock(self,ECellTypeAccessory,nil);
-                }
+            self.searchTF.leftView = self.leftView;
+            self.searchTF.leftViewMode = UITextFieldViewModeAlways;
+            self.searchTF.returnKeyType = UIReturnKeySearch;
+            self.searchTF.textColor = [UIColor whiteColor];
+            self.searchTF.tintColor = [UIColor whiteColor];
+//            [self.searchTF setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
+            self.searchTF.font = [UIFont systemFontOfSize:17];
+            break;
+        }
+        case ECellTypeAddMember:{
+            self.addMemberBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [self.addMemberBtn addTarget:self action:@selector(handleAddMemberAction) forControlEvents:UIControlEventTouchUpInside];
+            [self.contentView addSubview:self.addMemberBtn];
+            [self.addMemberBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.edges.equalTo(self.contentView);
             }];
+//            [self.addMemberBtn setTitle:@"添加成员到项目" forState:UIControlStateNormal];
+//            [self.addMemberBtn setImage:kImage(@"icon_add_members") forState:UIControlStateNormal];
+//            self.addMemberBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//            [self.addMemberBtn setTitleEdgeInsets:UIEdgeInsetsMake(self.addMemberBtn.imageView.frame.size.height + 10, -self.addMemberBtn.imageView.frame.size.width, 0.0, 0.0)];
+//            [self.addMemberBtn setImageEdgeInsets:UIEdgeInsetsMake(-20.0, 0.0,0.0, -self.addMemberBtn.titleLabel.bounds.size.width)];
+//            self.backgroundColor = kRGB(28, 37, 51);
             break;
         }
         case ECellTypeBottom:{
@@ -142,6 +136,18 @@
         default:
             break;
     }
+}
+
+- (UIView *)leftView {
+    if (_leftView == nil) {
+        _leftView = [[UIView alloc] init];
+        _leftView.frame = CGRectMake(0, 0, 25, 15);
+        UIImageView *leftImV = [[UIImageView alloc] init];
+        leftImV.image = kImage(@"icon_search");
+        leftImV.frame = CGRectMake(5, 0, 15, 15);
+        [_leftView addSubview:leftImV];
+    }
+    return _leftView;
 }
 
 
@@ -163,22 +169,89 @@
     return (UITableView *)tableView;
 }
 
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
+- (void)handleAddProjectIcon {
     if (self.actionBlock) {
-        self.actionBlock(self, ECellTypeTextView, textView.text);
+        self.actionBlock(self, ECellTypeProjectIcon, self.projectIcon);
     }
 }
 
 - (void)textLengthChange:(UITextField *)textField {
     if (self.actionBlock) {
-        self.actionBlock(self, ECellTypeTextField, textField.text);
+        self.actionBlock(self, ECellTypeProjectName, textField.text);
     }
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
+
+- (void)handleAddMemberAction {
+    if (self.actionBlock) {
+        self.actionBlock(self, ECellTypeAddMember, nil);
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([Common isEmptyString:textField.text]) {
+        if (textField == self.textField) {
+            self.textField.textAlignment = NSTextAlignmentLeft;
+        } else {
+            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+            }];
+        }
+    } else {
+        if (textField == self.textField) {
+            self.textField.textAlignment = NSTextAlignmentLeft;
+        } else {
+            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+            }];
+        }
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if ([Common isEmptyString:textField.text]) {
+        if (textField == self.textField) {
+            self.textField.textAlignment = NSTextAlignmentLeft;
+        } else {
+            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.contentView.mas_centerX).offset(-50);
+                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+            }];
+        }
+    } else {
+        if (textField == self.textField) {
+            self.textField.textAlignment = NSTextAlignmentRight;
+        } else {
+            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+            }];
+        }
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.searchTF) {
+        if ([string isEqualToString:@"\n"]) {
+            [textField resignFirstResponder];
+            if (self.actionBlock) {
+                self.actionBlock(self, ECellTypeSearch, textField.text);
+            }
+            return NO;
+        }
+    }
     return YES;
 }
+
 
 @end

@@ -17,22 +17,37 @@
 
 @end
 
-//删除用户数据
+#pragma mark - 用户
+//MARK: - 删除用户数据
 @interface DeleteAllDataApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
-
-//注册
-@interface RegisterApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//登录
+//MARK: - 登录
 @interface LoginApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
+//MARK: - 登出
+@interface ExistAppApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 修改用户信息
+@interface UserUpdateApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
+//MARK: - 根据昵称查询用户
+@interface UserSearchApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 注册
+@interface RegisterApi : LCBaseRequest<LCAPIRequest>
+
+@end
 
 //所有的Moments
 @interface AllMomentsApi : LCBaseRequest<LCAPIRequest>
@@ -121,11 +136,6 @@
 
 //上传图片
 @interface UploadImageApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//登出
-@interface ExistAppApi : LCBaseRequest<LCAPIRequest>
 
 @end
 

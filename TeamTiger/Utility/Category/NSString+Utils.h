@@ -24,4 +24,6 @@
 //文字自适应高度
 + (CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize;
 
++(NSString*)NSDictionaryToJson:(NSDictionary *)dic;
+
 @end

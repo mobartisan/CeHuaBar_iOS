@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define CELLHEIGHT  53.0
+#define CELLHEIGHT  60.0
 
 @interface ProjectsCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *pointImg;

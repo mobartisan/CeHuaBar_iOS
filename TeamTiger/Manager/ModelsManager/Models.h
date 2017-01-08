@@ -33,7 +33,7 @@
 @property (assign, nonatomic) BOOL isTop; //置顶状态:1-取消置顶，2-置顶
 @property (assign, nonatomic) BOOL isNoDisturb; //免打扰标识:0-接受项目消息,1-设置免打扰"
 @property (assign, nonatomic) int member_type;//1-代表我创建的项目  2-代表我加入的项目
-
+@property (strong, nonatomic) NSString *logoURL;
 @property (strong, nonatomic) NSString *newscount;
 
 @end
@@ -107,6 +107,7 @@
 @property(nonatomic, strong) NSString *password;  // password
 @property(nonatomic, strong) NSString *name;  // name
 @property(nonatomic, strong) NSString *nick_name;  // nick_name
+@property (strong, nonatomic) NSString *remark;
 @property(nonatomic, strong) NSString *wx_account;  // wx_account
 @property(nonatomic, strong) NSString *phone;  // phone
 @property(nonatomic, strong) NSString *head_img_url;  // head_img_url
@@ -117,6 +118,8 @@
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+@property (assign, nonatomic) BOOL isSelect;
+
 //for wechat
 @property(nonatomic, strong) NSString *city;  // city
 @property(nonatomic, strong) NSString *country;  // country

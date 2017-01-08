@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "TTBaseViewController.h"
 
+@class TTAddProjectViewController;
+
 @interface TTAddProjectViewController : TTBaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *contentTable;
@@ -16,5 +18,6 @@
 @property (strong, nonatomic)NSMutableArray *datas;
 
 @property (copy, nonatomic) void (^requestData)();
+
 
 @end

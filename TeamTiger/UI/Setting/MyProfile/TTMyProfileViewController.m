@@ -17,6 +17,8 @@
 @interface TTMyProfileViewController ()
 
 @property(nonatomic,strong)NSMutableArray *dataSource;
+@property (copy, nonatomic) NSString *nickName;
+@property (copy, nonatomic) NSString *remark;
 
 @end
 
@@ -27,9 +29,13 @@
     self.title = @"个人设置";
     
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        //        [self dismissViewControllerAnimated:YES completion:nil];
         [self.navigationController popViewControllerAnimated:YES];
     }];
+    
+    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
+        [self userUpdate];
+    }];
+    
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
@@ -69,19 +75,7 @@
             NSLog(@"退出登录");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要退出吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    UserDefaultsSave(@0, @"LastIsLogOut");
-                    CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-                    shake.fromValue = [NSNumber numberWithFloat:-M_PI_4 / 24.0];
-                    shake.toValue   = [NSNumber numberWithFloat:+M_PI_4 / 24.0];
-                    shake.duration = 0.1;
-                    shake.autoreverses = YES;
-                    shake.repeatCount = 6;
-                    UIWindow *window = [[UIApplication sharedApplication].delegate window];
-                    [[UIApplication sharedApplication].delegate applicationDidEnterBackground:[UIApplication sharedApplication]];
-                    [window.layer addAnimation:shake forKey:@"shakeAnimation"];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        exit(0);
-                    });
+                    [self existApp];
                 }
             }];
         }
@@ -91,17 +85,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 1 || indexPath.row == 2) {
-            NSMutableDictionary *dic = self.dataSource[indexPath.section][indexPath.row];
-            TTMyModifyViewController *myModifyVC = [[TTMyModifyViewController alloc] init];
-            myModifyVC.name = dic[@"Name"];
+        NSMutableDictionary *dic = self.dataSource[indexPath.section][indexPath.row];
+        TTMyModifyViewController *myModifyVC = [[TTMyModifyViewController alloc] init];
+        myModifyVC.name = dic[@"Name"];
+        if (indexPath.row == 1 ) {
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
+                    self.nickName = value;
+                    dic[@"Description"] = value;
+                    
+                }
+            }];
+        } else if (indexPath.row == 2) {
+            [myModifyVC setPassValue:^(NSString *value) {
+                if (![Common isEmptyString:value]) {
+                    self.remark = value;
                     dic[@"Description"] = value;
                 }
             }];
-            [self.navigationController pushViewController:myModifyVC animated:YES];
         }
+        [self.navigationController pushViewController:myModifyVC animated:YES];
     }else if (indexPath.section == 1) {
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
@@ -131,7 +134,7 @@
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
                             @{@"Type":@1,@"Name":@"名字",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
                             @{@"Type":@1,@"Name":@"备注",@"Description":dic[@"Remarks"],@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
+//                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
                             ],
                         @[
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
@@ -142,4 +145,71 @@
     }
     return  _dataSource;
 }
+
+#pragma mark - 修改用户信息
+- (void)userUpdate {
+    if ([Common isEmptyString:self.nickName] && [Common isEmptyString:self.remark]) {
+        [super showText:@"暂无更改信息" afterSeconds:1.0];
+        return;
+    }
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    TT_User *user = [TT_User sharedInstance];
+    
+    NSDictionary *tempDic = nil;
+    if ([Common isEmptyString:self.nickName]) {
+        tempDic = @{@"remark":self.remark};
+        user.remark = self.remark;
+    } else if ([Common isEmptyString:self.remark]) {
+        tempDic = @{@"nickname":self.nickName};
+        user.nickname = self.nickName;
+    } else {
+        tempDic = @{@"nickname":self.nickName,
+                    @"remark":self.remark};
+        user.remark = self.remark;
+        user.nickname = self.nickName;
+    }
+    UserUpdateApi *api = [[UserUpdateApi alloc] init];
+    api.requestArgument = tempDic;
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@",request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            });
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark -  退出登录
+- (void)existApp {
+    ExistAppApi *api = [[ExistAppApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSLog(@"%@", request.responseJSONObject);
+            UserDefaultsSave(@0, @"LastIsLogOut");
+            CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            shake.fromValue = [NSNumber numberWithFloat:-M_PI_4 / 24.0];
+            shake.toValue   = [NSNumber numberWithFloat:+M_PI_4 / 24.0];
+            shake.duration = 0.1;
+            shake.autoreverses = YES;
+            shake.repeatCount = 6;
+            UIWindow *window = [[UIApplication sharedApplication].delegate window];
+            [[UIApplication sharedApplication].delegate applicationDidEnterBackground:[UIApplication sharedApplication]];
+            [window.layer addAnimation:shake forKey:@"shakeAnimation"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                exit(0);
+            });
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
 @end

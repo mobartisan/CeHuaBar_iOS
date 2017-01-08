@@ -8,9 +8,10 @@
 
 #import "ProjectsCell.h"
 
-#define kBtnW  40.0
-#define kNoDisturbBtnW 40.0
-#define kEditViewWidth  (kBtnW * 2 + kNoDisturbBtnW)
+#define kBtnW           50.0
+#define kSpace          5.0
+#define kMargin         15.0
+#define kEditViewWidth  (kBtnW * 3 + kSpace * 2 + kMargin)
 
 
 
@@ -26,7 +27,7 @@
     self.isOpenLeft = NO;
     self.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
-    self.btnView.backgroundColor = [UIColor clearColor];
+    self.btnView.backgroundColor = [Common colorFromHexRGB:@"283a52"];
     
 }
 
@@ -38,10 +39,12 @@
     if (object && [object isKindOfClass:[TT_Project class]]) {
         TT_Project *project = (TT_Project *)object;
         self.project = project;
-        self.pointImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
+        
+        [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:project.logoURL] placeholderImage:kImage(@"img_logo")];
         self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
         self.projectNameLab.text = project.name;
-        self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//绿色-我创建的  橙色-我加入的
+        NSLog(@"member_type:%zd", project.member_type);
+        self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//1/绿色-我创建的  2/橙色-我加入的
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];
         if (!isLast) {
@@ -51,27 +54,21 @@
             line.backgroundColor = [UIColor darkGrayColor];
             line.alpha = 0.618;
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.mas_left).offset(62.0);
+                make.left.equalTo(self.pointImgV.mas_right).offset(8.0);
                 make.right.equalTo(self.mas_right);
                 make.bottom.equalTo(self.mas_bottom).offset(-minLineWidth);
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
-        self.btnView.hidden = YES;
         self.arrowImgV.hidden = NO;
         self.isOpenLeft = NO;
         
-        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [Common colorFromHexRGB:@"151b27"];
         
-        NSString *addBtnName = project.isTop ? @"icon_top" : @"icon_top-1";
-        [self.addBtn setImage:kImage(addBtnName) forState:UIControlStateNormal];
-        
-        self.msgNumLab.hidden = project.isNoDisturb;
-        self.msgNumBGImgV.hidden = project.isNoDisturb;
         
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
-        NSString *noDisturbBtnName = project.isNoDisturb ? @"icon_do_not_disturb-1" : @"icon_do_not_disturb";
-        [self.noDisturbBtn setImage:kImage(noDisturbBtnName) forState:UIControlStateNormal];
+        self.msgNumLab.hidden = project.isNoDisturb;
+        self.msgNumBGImgV.hidden = project.isNoDisturb;
     }
 }
 
@@ -103,6 +100,10 @@
 //子控件布局
 - (void)layoutSubviews{
     self.containerView.frame = self.contentView.bounds;
+    self.btnView.frame = CGRectMake(kScreenWidth, 0, kEditViewWidth, CELLHEIGHT);
+    self.noDisturbBtn.frame = CGRectMake(kMargin, 0, kBtnW, CELLHEIGHT);
+    self.addBtn.frame = CGRectMake(kBtnW + kSpace + kMargin, 0, kBtnW, CELLHEIGHT);
+    self.deleteBtn.frame = CGRectMake(kBtnW * 2 + kSpace * 2 + kMargin, 0, kBtnW, CELLHEIGHT);
 }
 
 
@@ -131,21 +132,22 @@
 {
     if (sender.direction == UISwipeGestureRecognizerDirectionLeft){
         if (self.isOpenLeft) return; //已经打开左滑，不再执行
-        self.contentView.backgroundColor = [Common colorFromHexRGB:@"1f2c3e"];
         
         //开始左滑： 先调用block关闭其他可能左滑的cell
         if (self.closeOtherCellSwipe)
             self.closeOtherCellSwipe();
         
         [UIView animateWithDuration:0.5 animations:^{
-            self.arrowImgV.hidden = YES;
             self.msgNumLab.hidden = YES;
             self.msgNumBGImgV.hidden = YES;
         } completion:^(BOOL finished) {
             if (finished) {
-                self.btnView.hidden = NO;
+                
+                CGPoint btnViewCenter = self.btnView.center;
+                self.btnView.center = CGPointMake(btnViewCenter.x - kEditViewWidth, btnViewCenter.y);
+                
                 CGPoint center = self.containerView.center;
-                self.containerView.center = CGPointMake(center.x - kBtnW - 10, center.y);
+                self.containerView.center = CGPointMake(center.x - kEditViewWidth, center.y);
             }
         }];
         
@@ -153,7 +155,6 @@
         self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
     }
     else if (sender.direction == UISwipeGestureRecognizerDirectionRight){
-        self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
         [self closeLeftSwipe]; //关闭左滑
     }
 }
@@ -161,7 +162,7 @@
 //关闭左滑，恢复原状
 - (void)closeLeftSwipe{
     if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
-    self.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+    
     
     [UIView animateWithDuration:0.5 animations:^{
         if (self.project.isNoDisturb) {
@@ -171,12 +172,14 @@
             self.msgNumBGImgV.hidden = NO;
             self.msgNumLab.hidden = NO;
         }
-        self.arrowImgV.hidden = NO;
     } completion:^(BOOL finished) {
         if (finished) {
+            
+            CGPoint btnViewCenter = self.btnView.center;
+            self.btnView.center = CGPointMake(btnViewCenter.x + kEditViewWidth, btnViewCenter.y);
+            
             CGPoint center = self.containerView.center;
-            self.containerView.center = CGPointMake(center.x + kBtnW + 10, center.y);
-            self.btnView.hidden = YES;
+            self.containerView.center = CGPointMake(center.x + kEditViewWidth, center.y);
         }
     }];
     

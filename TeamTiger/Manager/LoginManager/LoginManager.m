@@ -31,7 +31,7 @@ static LoginManager *loginManager = nil;
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSError *error = nil;
     id obj = [NSJSONSerialization JSONObjectWithData:data
-                                             options:NSJSONReadingMutableContainers
+                                             options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves
                                                error:&error];
     NSString *reAccessToken = [obj objectForKey:WX_ACCESS_TOKEN];
     if (![Common isEmptyString:reAccessToken]) {
@@ -53,6 +53,7 @@ static LoginManager *loginManager = nil;
     login.requestArgument = tempDic;
     [login startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSLog(@"LoginApi:%@", request.responseJSONObject);
             gSession = request.responseJSONObject[OBJ][TOKEN];
             TT_User *user = [TT_User sharedInstance];
             [user createUser:request.responseJSONObject[OBJ][DATA]];

@@ -31,7 +31,7 @@
 #import "MockDatas.h"
 #import "TTGroupSettingViewController.h"
 #import "UIImage+Extension.h"
-
+#import "NSString+Utils.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -46,6 +46,7 @@
 @property (strong, nonatomic) UILabel *textLB;
 @property (strong, nonatomic) UIButton *setBtn;//设置按钮
 @property (strong, nonatomic) UIButton *leftBtn;//左侧按钮
+
 @property (assign, nonatomic) BOOL showTableHeader;
 
 @property (strong, nonatomic) NSDictionary *tempDic;
@@ -63,12 +64,10 @@
         _sectionHeader = [UIView new];
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
-        
+
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
-        
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
-        imageView.image = [UIImage imageNamed:@"image_3.jpg"];
         [_sectionHeader addSubview:imageView];
         self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -106,7 +105,8 @@
         
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
         
-        [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:5];
+        
+        [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:0];
         [_sectionHeader layoutSubviews];
     }
     return _sectionHeader;
@@ -222,8 +222,6 @@
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
-    self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedSectionHeaderHeight = 250;
     [Common removeExtraCellLines:self.tableView];
     if (self.showTableHeader) {
         self.tableView.tableHeaderView = self.tableHeader;
@@ -259,10 +257,10 @@
                 }
             }
             //封面
-            if (![Common isEmptyArr:objDic[@"banner"]]) {
+            if (objDic[@"banner"]) {
                 self.textLB.hidden = YES;
-                NSDictionary *bannerDic = [objDic[@"banner"] firstObject];
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerDic[@"media"][@"url"]] placeholderImage:kImage(@"image_3.jpg")];
+                NSString *bannerURL = objDic[@"banner"][@"url"];
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:kImage(@"image_3.jpg")];
             } else {
                 self.textLB.hidden = NO;
             }
@@ -394,13 +392,13 @@
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             addDiscussVC.addDiscussBlock = ^() {
-                [self getAllMoments:nil];
+                [self getAllMoments:self.tempDic];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
             addVoteVC.addVoteBlock = ^() {
-                [self getAllMoments:nil];
+                [self getAllMoments:self.tempDic];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         }
@@ -438,14 +436,18 @@
                     [QiniuUpoadManager uploadImage:wself.imageView.image progress:^(NSString *key, float percent) {
                         
                     } success:^(NSString *url) {
-                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
-                                              @"url":url,
-                                              @"type":@0,
-                                              @"from":@3};//0-discuss  1-moments  2-vote  3-banner
-                        NSArray *arr = @[dic];
-                        NSData *data = [NSJSONSerialization dataWithJSONObject:arr options:NSJSONWritingPrettyPrinted error:nil];
-                        NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        [self bannerUpdate:@{@"medias":urlsStr}];
+                        NSDictionary *dic = @{@"type":@0,
+                                              @"from":@3,
+                                              @"url":url};
+                        NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+                        NSString *bannerStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self bannerUpdate:@{@"medias":bannerStr}];
+                        });
+//                        NSDictionary *dic = @{@"url":url,
+//                                              @"type":@0,
+//                                              @"from":@3};//0-discuss  1-moments  2-vote  3-banner
+//                        [self bannerUpdate:@{@"medias":dic}];
                     } failure:^(NSError *error) {
                         NSLog(@"%@", error);
                         [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
@@ -551,6 +553,10 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     return [self sectionHeader];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kScreenWidth * 767 / 1242;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

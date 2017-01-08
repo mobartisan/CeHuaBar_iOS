@@ -229,17 +229,10 @@
     NSArray *arr = @[@"A", @"B", @"C",@"D", @"E", @"F",@"G", @"H", @"J"];
     
     [_ticketArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSString *ticket = nil;
-        if (self.total_count == 0) {
-            ticket = [NSString stringWithFormat:@"%.f",0.0];
-        }else {
-            ticket = [NSString stringWithFormat:@"%.f",((VoteModel *)obj).count / self.total_count * 100.0];
-        }
-        
         ProgresssAndTicketView *customView  = [self.tempArr objectAtIndex:idx];
         customView.aLB.text = arr[idx];
-        customView.aTicket.text = [NSString stringWithFormat:@"%.f票(%@%%)", ((VoteModel *)obj).count, ticket];
-        customView.aProgressView.progress = ticket.floatValue / 100.0;
+        customView.aTicket.text = [NSString stringWithFormat:@"%.f票(%@)", ((VoteModel *)obj).count, ((VoteModel *)obj).rate];
+        customView.aProgressView.progress = ((VoteModel *)obj).count  * 100 / 100.0;
         customView.hidden = NO;
         customView.frame = CGRectMake(0, idx * (itemH + margin), itemW, itemH);
         

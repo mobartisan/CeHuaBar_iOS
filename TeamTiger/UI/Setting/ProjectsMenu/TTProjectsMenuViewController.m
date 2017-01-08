@@ -50,13 +50,13 @@
     [super viewDidLoad];
     [self getAllGroupsAndProjectsData];
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-    self.view.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+    self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
-    v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+    v.backgroundColor = [Common colorFromHexRGB:@"151b27"];
     self.menuTable.backgroundView = v;
-    self.menuTable.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+    self.menuTable.backgroundColor = [Common colorFromHexRGB:@"151b27"];
     
 }
 
@@ -246,7 +246,7 @@
             cell = [tableView dequeueReusableCellWithIdentifier:cellID];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-                cell.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+                cell.backgroundColor = [Common colorFromHexRGB:@"151b27"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [cell addSubview:self.infoView];
@@ -296,7 +296,7 @@
     if (section == 0) {
         return minLineWidth;
     }else if (section == 1) {
-        return 30;
+        return 40;
     }
     return 40;
 }
@@ -547,7 +547,7 @@
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
     NSLog(@"project.name:%@--%ld", project.name, tempIndexPath.row);
     static UIView *snapshot = nil;
-    static NSIndexPath  *sourceIndexPath = nil;
+    static NSIndexPath  *sourceIndexPath ;
     switch (state) {
             // 已经开始按下
         case UIGestureRecognizerStateBegan: {

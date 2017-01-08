@@ -38,19 +38,36 @@
     [leftBtn addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     //right
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    rightBtn.frame = CGRectMake(0, 0, 23, 23);
-    [rightBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
-    rightBtn.tintColor = [UIColor whiteColor];
-    [rightBtn addTarget:self action:@selector(addProject:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    rightBtn.frame = CGRectMake(0, 0, 23, 23);
+//    [rightBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
+//    rightBtn.tintColor = [UIColor whiteColor];
+//    [rightBtn addTarget:self action:@selector(addProject) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    
+    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
+        
+    }];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
     [self.view addGestureRecognizer:tap];
     [self getProjectsList];
+    self.table.rowHeight = CELLHEIGHT;
 }
+
+- (void)addProject {
+    // add project
+    TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+    TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
+    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+}
+
+- (void)popVC:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -84,6 +101,9 @@
                 TT_Project *tt_project = [[TT_Project alloc] init];
                 tt_project.name = projectDic[@"name"];
                 tt_project.project_id = projectDic[@"_id"];
+                tt_project.logoURL = projectDic[@"banner"][@"url"];
+#warning to do...member_type字段设置
+                tt_project.member_type = 1;
                 [self.projects addObject:tt_project];
             }
             [self.table reloadData];
@@ -302,17 +322,5 @@
     }
     return _table;
 }
-
-- (void)addProject:(id)sender {
-    // add project
-    TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-    TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
-}
-
-- (void)popVC:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 @end

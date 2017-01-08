@@ -178,10 +178,14 @@
 }
 
 - (void)voteClick:(VoteModel *)voteModel {
+    NSArray *voteModelArr = [NSArray arrayWithObjects:voteModel._id, nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:voteModelArr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *vidStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
     VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
     votecClickApi.requestArgument = @{@"pid":_homeModel.Id, //项目id
                                       @"mid":_homeModel.moment_id,//moment id
-                                      @"vid":voteModel._id, //投票id
+                                      @"vid":vidStr, //投票id
                                       @"isvote":@(voteModel.isvote)};
     [votecClickApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
@@ -190,13 +194,18 @@
             if ([self.delegate respondsToSelector:@selector(clickVoteSuccess:homeModel:)]) {
                 [self.delegate clickVoteSuccess:self.projectBtn.indexPath homeModel:homeModel];
             }
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            hud.label.text = request.responseJSONObject[MSG];
+            hud.mode = MBProgressHUDModeText;
+            [hud hideAnimated:YES afterDelay:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
         hud.label.text = @"您的网络好像有问题~";
         hud.mode = MBProgressHUDModeText;
-        [hud hideAnimated:YES afterDelay:1.5];
+        [hud hideAnimated:YES afterDelay:1.0];
     }];
 }
 
