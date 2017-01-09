@@ -65,7 +65,6 @@
             
             self.projectIcon = [[UIImageView alloc] init];
             self.projectIcon.image = kImage(@"img_logo");
-            self.projectIcon.contentMode = UIViewContentModeCenter;
             setViewCorner(self.projectIcon, 4.0);
             [self.contentView addSubview:self.projectIcon];
             [self.projectIcon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,6 +93,7 @@
             self.textField.tintColor = [UIColor whiteColor];
             [self.textField setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
             self.textField.font = [UIFont systemFontOfSize:17];
+            self.textField.textColor = kRGB(76, 93, 111);
             [self.textField addTarget:self action:@selector(textLengthChange:) forControlEvents:UIControlEventEditingChanged];
             break;
         }
@@ -192,25 +192,27 @@
     if ([Common isEmptyString:textField.text]) {
         if (textField == self.textField) {
             self.textField.textAlignment = NSTextAlignmentLeft;
-        } else {
-            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
-                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
-            }];
         }
+//        else {
+//            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+//                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+//                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+//                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+//            }];
+//        }
     } else {
         if (textField == self.textField) {
             self.textField.textAlignment = NSTextAlignmentLeft;
-        } else {
-            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
-                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
-            }];
         }
+//        else {
+//            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+//                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+//                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+//                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+//            }];
+//        }
     }
 }
 
@@ -218,25 +220,27 @@
     if ([Common isEmptyString:textField.text]) {
         if (textField == self.textField) {
             self.textField.textAlignment = NSTextAlignmentLeft;
-        } else {
-            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.contentView.mas_centerX).offset(-50);
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
-                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
-            }];
         }
+//        else {
+//            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.mas_equalTo(self.contentView.mas_centerX).offset(-50);
+//                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+//                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+//                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+//            }];
+//        }
     } else {
         if (textField == self.textField) {
             self.textField.textAlignment = NSTextAlignmentRight;
-        } else {
-            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
-                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
-                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
-                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
-            }];
         }
+//        else {
+//            [self.searchTF mas_remakeConstraints:^(MASConstraintMaker *make) {
+//                make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+//                make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
+//                make.top.mas_equalTo(self.contentView.mas_top).offset(22);
+//                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
+//            }];
+//        }
     }
 }
 

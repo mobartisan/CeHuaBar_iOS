@@ -12,11 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TTAddMemberCell" rowHeight="60" id="KGk-i7-Jjw" customClass="TTAddMemberCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="TTAddMemberCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0yX-xC-n32">
@@ -35,20 +35,45 @@
                         <color key="textColor" red="0.24313725490196078" green="0.37254901960784315" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" alpha="0.61799999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BgR-ub-3DU">
+                        <rect key="frame" x="15" y="42.5" width="305" height="1"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="jEt-lU-XyY"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_confirm" translatesAutoresizingMaskIntoConstraints="NO" id="ROh-lu-bEm">
+                        <rect key="frame" x="298" y="17.5" width="12" height="9"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="9" id="JNh-La-Ow3"/>
+                            <constraint firstAttribute="width" constant="12" id="jUm-8d-AM9"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
+                <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="leading" secondItem="0yX-xC-n32" secondAttribute="trailing" constant="8" id="4mA-GD-dcp"/>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FoY-KB-NPY"/>
+                    <constraint firstItem="BgR-ub-3DU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GHM-1h-7Gv"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Orj-cu-iCS"/>
                     <constraint firstAttribute="trailing" secondItem="VPz-84-IWR" secondAttribute="trailing" constant="100" id="Sxb-jc-90P"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="X4k-Gr-bPm"/>
+                    <constraint firstAttribute="trailing" secondItem="BgR-ub-3DU" secondAttribute="trailing" id="aNh-kw-dYX"/>
+                    <constraint firstAttribute="bottom" secondItem="BgR-ub-3DU" secondAttribute="bottom" id="fow-I7-MR6"/>
+                    <constraint firstAttribute="trailing" secondItem="ROh-lu-bEm" secondAttribute="trailing" constant="10" id="hvG-tb-IsR"/>
+                    <constraint firstItem="ROh-lu-bEm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mNP-O3-lp8"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="headIcon" destination="0yX-xC-n32" id="fPt-dp-tzE"/>
+                <outlet property="icon_confirm" destination="ROh-lu-bEm" id="RX7-iH-Sxq"/>
                 <outlet property="nameLB" destination="VPz-84-IWR" id="jQ7-nk-IXu"/>
             </connections>
-            <point key="canvasLocation" x="-109" y="-82"/>
+            <point key="canvasLocation" x="-400" y="-132"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_confirm" width="12" height="9"/>
+    </resources>
 </document>

@@ -178,14 +178,11 @@
 }
 
 - (void)voteClick:(VoteModel *)voteModel {
-    NSArray *voteModelArr = [NSArray arrayWithObjects:voteModel._id, nil];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:voteModelArr options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *vidStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
+    voteModel.isvote = !voteModel.isvote;
     VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
     votecClickApi.requestArgument = @{@"pid":_homeModel.Id, //项目id
                                       @"mid":_homeModel.moment_id,//moment id
-                                      @"vid":vidStr, //投票id
+                                      @"vid":voteModel._id, //投票id
                                       @"isvote":@(voteModel.isvote)};
     [votecClickApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);

@@ -64,7 +64,7 @@
         _sectionHeader = [UIView new];
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
-
+//        _sectionHeader.backgroundColor = [UIColor redColor];
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
@@ -104,8 +104,7 @@
         textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
         
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
-        
-        
+
         [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:0];
         [_sectionHeader layoutSubviews];
     }
@@ -287,7 +286,6 @@
 #pragma mark - 下拉刷新
 - (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        [self deleteAllData];
         [self getAllMoments:self.tempDic];
         [self.tableView.mj_header endRefreshing];
     }];
@@ -556,7 +554,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kScreenWidth * 767 / 1242;
+    return kScreenWidth * 767 / 1242 + 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -570,10 +568,12 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
-    [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+   
     NSDictionary *parameterDic = nil;
     if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
         self.setBtn.hidden = NO;
+        self.imageView.userInteractionEnabled = YES;
+         [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
         self.tempGroupId = notification.object;
         parameterDic = @{@"gid":notification.object};
         [self getAllMoments:parameterDic];//gid 分组id
@@ -582,13 +582,17 @@
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
         self.setBtn.hidden = NO;
+        self.imageView.userInteractionEnabled = NO;
+         [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
         self.tempProject = notification.object;
         parameterDic = @{@"pid":[notification.object project_id]};
         [self getAllMoments:parameterDic];//pid 项目id
         [self.titleView setImage:nil forState:UIControlStateNormal];
         [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     } else {
-        self.setBtn.hidden = YES;
+        self.setBtn.hidden = YES;//kImage(@"icon_sidebar")
+        self.imageView.userInteractionEnabled = YES;
+         [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
         [self getAllMoments:parameterDic];
     }
     self.tempDic = parameterDic;
@@ -606,6 +610,7 @@
 //点击项目名称
 - (void)clickProjectBtn:(TT_Project *)project {
     self.setBtn.hidden = NO;
+    self.imageView.userInteractionEnabled = NO;
     self.tempProject = project;
     [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     [self.titleView setImage:nil forState:UIControlStateNormal];
@@ -617,6 +622,7 @@
 //点击项目名称
 - (void)clickVoteProjectBtn:(TT_Project *)project {
     self.setBtn.hidden = NO;
+    self.imageView.userInteractionEnabled = NO;
     self.tempProject = project;
     [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     [self.titleView setImage:nil forState:UIControlStateNormal];

@@ -22,4 +22,8 @@
 -(UIImage *)imageWithImageSimple:(UIImage*)image scaledToSize:(CGSize) newSize;
 
 - (UIImage *)normalizedImage;
+
+- (UIImage*)originImage:(UIImage *)image scaleToSize:(CGSize)size;
+
+
 @end

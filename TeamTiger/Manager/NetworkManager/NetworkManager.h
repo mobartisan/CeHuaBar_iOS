@@ -159,6 +159,12 @@
 
 @end
 
+//邀请人员加入项目
+@interface ProjectMemberInviteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
 //项目人员列表
 @interface ProjectMemberListApi : LCBaseRequest<LCAPIRequest>
 

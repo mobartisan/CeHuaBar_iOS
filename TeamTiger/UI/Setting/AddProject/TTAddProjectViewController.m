@@ -30,6 +30,7 @@
 @property (strong, nonatomic) NSMutableArray *selectMembers;//选择成员数组
 @property (strong, nonatomic) UIImage *tempImage;//项目logo
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
+@property (strong, nonatomic) NSString *searchKey;
 
 @end
 
@@ -41,8 +42,8 @@
         _datas = [NSMutableArray arrayWithObjects:
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目图标",@"TYPE":@"0"},
                   @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"项目名称",@"TYPE":@"1"},
-//                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"",@"TYPE":@"2"},
-//                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"",@"TYPE":@"3"},
+                  //                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"",@"TYPE":@"2"},
+                  //                  @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"",@"TYPE":@"3"},
                   
                   //                  @{@"NAME":@"ffgfgfgfgfgfgfggf大大大大大大大大大大大大",@"TITLE":@"描述",@"TYPE":@"1"},
                   //                  @{@"NAME":@"飞凤飞飞如果认购人跟人沟通",@"TITLE":@"私有",@"TYPE":@"2"},
@@ -119,7 +120,7 @@
     if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
         cell.projectIcon.image = kImage(@"img_logo");
     } else {
-        cell.projectIcon.image = [self.tempImage imageWithImageSimple:self.tempImage scaledToSize:CGSizeMake(45, 45)];
+        cell.projectIcon.image = self.tempImage;
     }
     //创建按钮
     if ([Common isEmptyString:self.name]) {
@@ -131,6 +132,13 @@
         cell.textField.text = self.name;
         cell.textField.textAlignment = NSTextAlignmentRight;
     }
+    if ([Common isEmptyArr:self.selectMembers]) {
+        cell.searchTF.text = nil;
+    } else {
+        cell.searchTF.text = self.searchKey;
+    }
+    
+    __weak typeof(cell) weakCell = cell;
     cell.actionBlock = ^(SettingCell *settingCell, ECellType type, id obj){
         switch (type) {
             case ECellTypeProjectIcon:{
@@ -157,13 +165,14 @@
                 [self.datas removeObjectAtIndex:2];
                 [self.datas insertObject: @{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"",@"TYPE":@"2"} atIndex:2];
                 [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+                [weakCell.searchTF becomeFirstResponder];
                 break;
             }
             case ECellTypeBottom:{
                 if ([[settingCell.createBtn titleForState:UIControlStateNormal] isEqualToString:@"创建"]) {
                     [self createProjectWithProjectName:self.name];
                 } else {
-                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                    [self addMemberToProject];
                 }
                 break;
             }
@@ -175,15 +184,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.section == 3) {
-//        return 80;
-//    }
+    //    if (indexPath.section == 3) {
+    //        return 80;
+    //    }
     return 60;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 10;
+        return 0;
     }
     return 15;
 }
@@ -197,7 +206,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 2) {
         int memberCount = (int)self.membersArray.count;
-        return memberCount * kCellHeight;
+        return memberCount * kCellHeight + 1;
         
     }
     return 0.1;
@@ -213,6 +222,9 @@
                 [self.selectMembers addObjectsFromArray:members];
             }
         };
+        footerView.toWeChat = ^(){
+            [self handleAddMember];
+        };
         return footerView;
     }
     
@@ -226,6 +238,16 @@
     [self.view endEditing:YES];
 }
 
+- (UIImage *)getNewImage:(UIImage *)image {
+    CGFloat height = kScreenWidth * 767 / 1242;
+    UIImage *normalImage = [image normalizedImage];
+    // 获取当前使用的图片像素和点的比例
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 裁减图片
+    CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
+    return [UIImage imageWithCGImage:imgR];
+}
+
 #pragma mark - 创建项目
 - (void)createProjectWithProjectName:(NSString *)name {
     if ([Common isEmptyString:name]) {
@@ -237,8 +259,8 @@
         [self projectCreat:name tempDic:[NSDictionary dictionary]];
     } else {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        UIImage *image = [self.tempImage normalizedImage];
-        [QiniuUpoadManager uploadImage:self.tempImage progress:nil success:^(NSString *url) {
+        
+        [QiniuUpoadManager uploadImage:[self getNewImage:self.tempImage] progress:nil success:^(NSString *url) {
             NSDictionary *dic = @{@"type":@0,
                                   @"from":@1,
                                   @"url":url};
@@ -268,7 +290,7 @@
         [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             self.project_id = request.responseJSONObject[OBJ][@"pid"];
-          
+            
             [self.datas insertObject:@{@"NAME":@"fsfdfdfdfdfdfdfdfd",@"TITLE":@"添加成员",@"TYPE":@"3"} atIndex:2];
             [self.contentTable reloadData];
             
@@ -287,7 +309,9 @@
         [super showText:@"请输入搜索关键字" afterSeconds:1.0];
         return;
     }
+    self.searchKey = key;
     self.membersArray = [NSMutableArray array];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     UserSearchApi *api = [[UserSearchApi alloc] init];
     api.requestArgument = @{@"key":key};
@@ -301,13 +325,42 @@
             user.head_img_url = response[OBJ][@"head_img_url"];
             user.user_id = response[OBJ][@"uid"];
             [self.membersArray addObject:user];
+            
+            
+            TT_User *tempUser = [[TT_User alloc] init];
+            tempUser.nick_name = [NSString stringWithFormat:@"搜索更多相关“%@”的微信用户", key];
+            tempUser.city = @"搜索更多相关“";
+            tempUser.country = key;
+            [self.membersArray addObject:tempUser];
         } else {
-            [super showText:@"暂无该人员信息" afterSeconds:1.0];
+            TT_User *tempUser = [[TT_User alloc] init];
+            tempUser.nick_name = [NSString stringWithFormat:@"无该用户信息,搜索“%@”相关微信用户", key];
+            tempUser.city = @"无该用户信息,搜索“";
+            tempUser.country = key;
+            [self.membersArray addObject:tempUser];
         }
+        
         [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showText:@"您的网络有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark - 添加成员到项目
+- (void)addMemberToProject {
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.selectMembers options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *memberStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    ProjectMemberInviteApi *api = [[ProjectMemberInviteApi alloc] init];
+    api.requestArgument = @{@"pid":self.project_id,
+                            @"uids":memberStr};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
@@ -335,7 +388,7 @@
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        self.tempImage = [photos firstObject];
+        self.tempImage = [self getNewImage:[photos firstObject]];
         [self.contentTable reloadSection:0 withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
@@ -369,7 +422,7 @@
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     if ([type isEqualToString:@"public.image"]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-        self.tempImage = image;
+        self.tempImage = [self getNewImage:image];
         [self.contentTable reloadSection:0 withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -429,7 +482,7 @@
     //    返回应用时，收到消息回调
     NSLog(@"%@--%@", response.lang, response.country);
     [self.contentTable endEditing:YES];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    //    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {

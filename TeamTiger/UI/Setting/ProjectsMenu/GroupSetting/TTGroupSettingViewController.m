@@ -45,9 +45,9 @@
 //    [rightBtn addTarget:self action:@selector(addProject) forControlEvents:UIControlEventTouchUpInside];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
-    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
-        
-    }];
+//    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
+//        
+//    }];
     
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
@@ -102,8 +102,7 @@
                 tt_project.name = projectDic[@"name"];
                 tt_project.project_id = projectDic[@"_id"];
                 tt_project.logoURL = projectDic[@"banner"][@"url"];
-#warning to do...member_type字段设置
-                tt_project.member_type = 1;
+                tt_project.member_type = [projectDic[@"member_type"] intValue];
                 [self.projects addObject:tt_project];
             }
             [self.table reloadData];

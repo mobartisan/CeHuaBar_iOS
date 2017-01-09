@@ -35,7 +35,7 @@
                         </constraints>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.10588235294117647" green="0.16078431372549018" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="DbT-dM-55c" firstAttribute="leading" secondItem="eeT-DJ-V4Z" secondAttribute="leading" constant="16" id="JOb-vb-BGm"/>
                     <constraint firstItem="n7s-I0-Usg" firstAttribute="centerY" secondItem="eeT-DJ-V4Z" secondAttribute="centerY" id="QZJ-ms-iLo"/>
@@ -44,7 +44,10 @@
                     <constraint firstItem="DbT-dM-55c" firstAttribute="centerY" secondItem="eeT-DJ-V4Z" secondAttribute="centerY" id="yP1-GY-nfv"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="msgLB" destination="DbT-dM-55c" id="BzW-Ll-Xxo"/>
+            </connections>
             <point key="canvasLocation" x="-264" y="-79"/>
         </tableViewCell>
     </objects>

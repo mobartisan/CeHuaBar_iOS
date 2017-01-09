@@ -13,6 +13,7 @@
 @interface TTAddMemberCell : UITableViewCell
 
 @property (strong, nonatomic) TT_User *user;
-@property (weak, nonatomic) IBOutlet UILabel *msgLB;
+
+@property (weak, nonatomic) IBOutlet UIImageView *icon_confirm;
 
 @end
