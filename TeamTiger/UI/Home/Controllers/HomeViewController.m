@@ -255,14 +255,25 @@
                     }
                 }
             }
+            NSLog(@"self.tempDic:%@", self.tempDic);
             //封面
-            if (objDic[@"banner"]) {
+            if (kIsDictionary(objDic[@"banner"]) && [[objDic[@"banner"] allKeys] count] != 0) {
                 self.textLB.hidden = YES;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:kImage(@"image_3.jpg")];
+                UIImage *tempImage = kImage(@"image_1.jpg");
+                if ([[self.tempDic allKeys] count] != 0) {
+                    tempImage = kImage(@"img_cover");
+                    
+                }
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:tempImage];
             } else {
                 self.textLB.hidden = NO;
+                if ([[self.tempDic allKeys] count] != 0 && ![[self.tempDic allKeys] containsObject:@"gid"]) {
+                    self.textLB.hidden = YES;
+                    self.imageView.image = kImage(@"img_cover");
+                }
             }
+            
             
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {

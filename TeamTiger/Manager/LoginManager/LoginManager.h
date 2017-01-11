@@ -8,14 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum : NSUInteger {
-    ResponseStatusSuccess = 0,
-    ResponseStatusFailure,
-    ResponseStatusOffline,
-} EResponseType;
-
-typedef void(^ResponseBlock)(EResponseType resType, id response);
-
 @interface LoginManager : NSObject
 
 @property(assign, nonatomic) BOOL isLogin;//判断当前是否登录

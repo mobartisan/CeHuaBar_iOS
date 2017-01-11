@@ -15,6 +15,14 @@
 
 #define TEST 1
 
+typedef NS_ENUM(NSUInteger, EResponseType) {
+    ResponseStatusSuccess = 0,
+    ResponseStatusFailure,
+    ResponseStatusOffline,
+};
+
+typedef void(^ResponseBlock)(EResponseType resType, id response);
+
 static const double default_NavigationHeight = 64.0;
 static const double kDistanceToHSide = 16.0f;
 static const double kDistanceToVSide = 20.0f;
@@ -28,6 +36,6 @@ static const char* kColorAr[STR_COLOR_MAX] = {
 
 NSString *gSession;
 UIView *bView;
-//NSString *tempProject_id;不用全局变量
+
 
 #endif /* GlobalDefine_h */

@@ -22,6 +22,8 @@
 #import <Photos/Photos.h>
 #import "UIImage+Extension.h"
 
+
+
 @interface TTAddProjectViewController () <WXApiManagerDelegate, TZImagePickerControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (copy, nonatomic) NSString *name;//项目名称
@@ -48,6 +50,13 @@
                   @{@"NAME":@"",@"TITLE":@"",@"TYPE":@"3"},nil];
     }
     return _datas;
+}
+
+- (NSMutableArray *)membersArray {
+    if (_membersArray == nil) {
+        _membersArray = [NSMutableArray array];
+    }
+    return _membersArray;
 }
 
 - (UIImagePickerController *)imagePickerVc {
@@ -154,12 +163,12 @@
                 [self userRelation];
                 break;
             }
-            case ECellTypeBottom:{
+            case ECellTypeBottom:{//创建按钮
                 [self projectUpdate];
                 break;
             }
-            case ECellTypeProjectAdd:{
-                [self createProjectWithProjectName:self.name];
+            case ECellTypeProjectAdd:{//创建项目
+                [self createProjectWithProjectName:self.name ];
                 break;
             }
             default:
@@ -258,7 +267,7 @@
     
 }
 
-- (void)projectCreat:(NSString *)projectName tempDic:(NSDictionary *)dic{
+- (void)projectCreat:(NSString *)projectName tempDic:(NSDictionary *)dic {
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"logo":dic,
                                          @"name":projectName
@@ -284,7 +293,6 @@
         [super showText:@"请输入搜索关键字" afterSeconds:1.0];
         return;
     }
-    
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     UserSearchApi *api = [[UserSearchApi alloc] init];
@@ -323,12 +331,21 @@
 
 #pragma mark - 获取与当前用户存在项目关系的用户
 - (void)userRelation {
-    self.membersArray = [NSMutableArray array];
+    if ([Common isEmptyString:self.name]) {
+        return;
+    }
+    if (![Common isEmptyString:self.msgString]) {
+        return;
+    }
+    if (![Common isEmptyArr:self.membersArray]) {
+        return;
+    }
     UserRelationApi *api = [[UserRelationApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"UserRelationApi:%@", request.responseJSONObject);
         NSDictionary *response = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.membersArray removeAllObjects];
             if (![Common isEmptyArr:response[@"members"]]) {
                 for (NSDictionary *membersDic in response[@"members"]) {
                     TT_User *user = [[TT_User alloc] init];
@@ -339,12 +356,12 @@
                 }
             }
             TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = @"选择更多相关的微信用户";
+            tempUser.nick_name = @"添加更多相关的微信用户";
             [self.membersArray addObject:tempUser];
             
         } else {
             TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = @"选择更多相关的微信用户";
+            tempUser.nick_name = @"添加更多相关的微信用户";
             [self.membersArray addObject:tempUser];
         }
         [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -371,6 +388,7 @@
 
 #pragma mark - 修改项目信息
 - (void)projectUpdate {
+    [self.contentTable endEditing:YES];
     if ([Common isEmptyString:self.name]) {
         [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
@@ -379,10 +397,16 @@
         [super showText:self.msgString afterSeconds:1.0];
         return;
     }
+    if ([Common isEmptyString:self.project_id]) {
+        [super showText:@"请输入完项目名称" afterSeconds:1.0];
+        return;
+    }
+    [self tempProjectUpdate];
     
+}
+
+- (void)tempProjectUpdate {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
-    NSLog(@"self.project_id:%@", self.project_id);
     if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
         [self projectUpdate:@{@"pid":self.project_id,
                               @"name":self.name}];//无logo
@@ -413,6 +437,9 @@
         NSLog(@"ProjectUpdateApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            if (![Common isEmptyArr:self.selectMembers]) {
+                 [self addMemberToProject];
+            }
             [self dismissViewControllerAnimated:YES completion:nil];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -502,7 +529,7 @@
 
 #pragma mark - 跳转微信加成员
 - (void)handleAddMember {
-    [self.contentTable endEditing:YES];
+    [self.view endEditing:YES];
     if ([Common isEmptyString:self.project_id]) {
         [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;

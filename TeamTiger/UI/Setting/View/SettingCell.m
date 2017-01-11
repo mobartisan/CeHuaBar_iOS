@@ -253,9 +253,12 @@
     if (textField == self.textField) {
         if ([string isEqualToString:@"\n"]) {
             [textField resignFirstResponder];
-            if (self.actionBlock) {
-                self.actionBlock(self, ECellTypeProjectAdd, textField.text);
-            }
+//            if ([Common isEmptyString:textField.text]) {
+//                return NO;
+//            }
+//            if (self.actionBlock) {
+//                self.actionBlock(self, ECellTypeProjectAdd, textField.text);
+//            }
             return NO;
         }
     }
