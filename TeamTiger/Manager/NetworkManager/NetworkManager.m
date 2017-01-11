@@ -23,8 +23,39 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 注册
+@implementation RegisterApi
 
-//删除用户数据
+- (NSString *)apiMethodName {
+    return @"user/register.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+}
+
+@end
+
+#pragma mark - 用户
+//MARK: - 删除用户数据
 @implementation DeleteAllDataApi
 
 - (NSString *)apiMethodName {
@@ -51,7 +82,6 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-#pragma mark - 用户
 //MARK: - 登录
 @implementation LoginApi
 
@@ -170,42 +200,11 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-//MARK: - 注册
-@implementation RegisterApi
+//MARK: - 获取与当前用户存在项目关系的用户
+@implementation UserRelationApi
 
 - (NSString *)apiMethodName {
-    return @"user/register.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    //1.return NO; 不需要缓存
-    
-    //2.return such as 需要缓存并设定时长
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-@end
-
-//所有的Moments
-@implementation AllMomentsApi
-
-- (NSString *)apiMethodName {
-    return @"moment/list.app";
+    return @"user/relation.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -221,9 +220,6 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
     return NO;
 }
 
@@ -233,7 +229,8 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-//创建项目
+#pragma mark - ---------项目----------
+//MARK：- 创建项目
 @implementation ProjectCreateApi
 
 - (NSString *)apiMethodName {
@@ -266,6 +263,67 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 修改项目信息
+@implementation ProjectUpdateApi
+
+- (NSString *)apiMethodName {
+    return @"project/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+
+//所有的Moments
+@implementation AllMomentsApi
+
+- (NSString *)apiMethodName {
+    return @"moment/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
 
 @implementation ProjectExitApi
 

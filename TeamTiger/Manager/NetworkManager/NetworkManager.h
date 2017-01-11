@@ -17,7 +17,12 @@
 
 @end
 
-#pragma mark - 用户
+//MARK: - 注册
+@interface RegisterApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+#pragma mark - -----------用户-------------
 //MARK: - 删除用户数据
 @interface DeleteAllDataApi : LCBaseRequest<LCAPIRequest>
 
@@ -44,8 +49,8 @@
 
 @end
 
-//MARK: - 注册
-@interface RegisterApi : LCBaseRequest<LCAPIRequest>
+//MARK: - 获取与当前用户存在项目关系的用户
+@interface UserRelationApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
@@ -54,8 +59,14 @@
 
 @end
 
-//创建项目
+#pragma mark - -----------项目-------------
+//MARK: - 创建项目
 @interface ProjectCreateApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 修改项目信息
+@interface ProjectUpdateApi : LCBaseRequest<LCAPIRequest>
 
 @end
 

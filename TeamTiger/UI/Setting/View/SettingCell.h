@@ -10,10 +10,10 @@
 typedef NS_ENUM(NSUInteger, ECellType) {
     ECellTypeProjectIcon = 0,
     ECellTypeProjectName,
-    ECellTypeSearch,
     ECellTypeAddMember,
     ECellTypeBottom,
-    ECellTypeAccessory,
+    ECellTypeSearch,
+    ECellTypeProjectAdd,
 };
 
 @class ProjectNameTF, SettingCell, TTFadeSwitch;

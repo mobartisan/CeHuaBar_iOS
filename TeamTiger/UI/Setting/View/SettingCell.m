@@ -33,6 +33,7 @@
     [self.createBtn setTitleColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
     
     [self.createBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        self.textField.textAlignment = NSTextAlignmentRight;
         if (self.actionBlock) {
             self.actionBlock(self, ECellTypeBottom, nil);
         }
@@ -89,16 +90,16 @@
                 make.top.mas_equalTo(self.contentView.mas_top).offset(22);
                 make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
             }];
-            self.textField.textColor = [UIColor whiteColor];
             self.textField.tintColor = [UIColor whiteColor];
             [self.textField setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
             self.textField.font = [UIFont systemFontOfSize:17];
             self.textField.textColor = kRGB(76, 93, 111);
+            self.textField.returnKeyType = UIReturnKeyDone;
             [self.textField addTarget:self action:@selector(textLengthChange:) forControlEvents:UIControlEventEditingChanged];
             break;
         }
         case ECellTypeSearch:{
-            self.searchTF = [UITextField hyb_textFieldWithHolder:@"名字/微信号" text:nil delegate:self superView:self.contentView constraints:^(MASConstraintMaker *make) {
+            self.searchTF = [UITextField hyb_textFieldWithHolder:@"名字/微信号" text:nil delegate:nil superView:self.contentView constraints:^(MASConstraintMaker *make) {
 //                make.left.mas_equalTo(self.contentView.mas_centerX).offset(-50);
                 make.left.equalTo(self.contentView).offset(16);
                 make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
@@ -183,6 +184,7 @@
 
 
 - (void)handleAddMemberAction {
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     if (self.actionBlock) {
         self.actionBlock(self, ECellTypeAddMember, nil);
     }
@@ -241,15 +243,18 @@
 //                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
 //            }];
 //        }
+        if (self.actionBlock) {
+            self.actionBlock(self, ECellTypeProjectAdd, textField.text);
+        }
     }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == self.searchTF) {
+    if (textField == self.textField) {
         if ([string isEqualToString:@"\n"]) {
             [textField resignFirstResponder];
             if (self.actionBlock) {
-                self.actionBlock(self, ECellTypeSearch, textField.text);
+                self.actionBlock(self, ECellTypeProjectAdd, textField.text);
             }
             return NO;
         }
