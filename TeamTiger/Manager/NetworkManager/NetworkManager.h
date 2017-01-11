@@ -22,18 +22,18 @@
 
 @end
 
-#pragma mark - -----------用户-------------
 //MARK: - 删除用户数据
 @interface DeleteAllDataApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
-//MARK: - 登录
+#pragma mark - -----------用户-------------
+//MARK: - 用户登录
 @interface LoginApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
-//MARK: - 登出
+//MARK: - 退出登出
 @interface ExistAppApi : LCBaseRequest<LCAPIRequest>
 
 @end
@@ -54,11 +54,6 @@
 
 @end
 
-//所有的Moments
-@interface AllMomentsApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
 #pragma mark - -----------项目-------------
 //MARK: - 创建项目
 @interface ProjectCreateApi : LCBaseRequest<LCAPIRequest>
@@ -70,115 +65,128 @@
 
 @end
 
+//MARK: - 获取项目列表
+@interface AllProjectsApi : LCBaseRequest<LCAPIRequest>
 
-//创建Moment
+@end
+
+//MARK: - 获取项目人员
+@interface ProjectMemberListApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 获取指定分组下的项目
+@interface ProjectsApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 修改项目置顶状态
+@interface ProjectTopApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 修改项目免打扰状态
+@interface ProjectDisturbApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 邀请人员加入项目
+@interface ProjectMemberInviteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 移除项目人员
+@interface ProjectMemberDeleteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 项目人员加入项目
+@interface ProjectMemberJoinApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 退出项目
+@interface ProjectMemberQuitApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 解散项目
+@interface ProjectDeleteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+#pragma mark - -----------分组-------------
+//MARK: - 创建分组
+@interface GroupCreatApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 获取分组列表及项目列表（即首页）
+@interface AllGroupsApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 修改分组名称
+@interface GroupUpdateApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 删除分组
+@interface GroupDeleteApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: -  移除分组中的项目
+@interface DeleteProjectApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: -  修改分组下的项目
+@interface MoveProjectApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+#pragma mark - -----------moments-------------
+//MARK: - 添加Moments
 @interface MomentCreateApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
-//创建discuss
+//MARK: - 查找所有的Moments
+@interface AllMomentsApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 添加discuss
 @interface DiscussCreateApi : LCBaseRequest<LCAPIRequest>
 
 @end
 
+//MARK: - 创建投票
+@interface VoteCreateApi : LCBaseRequest<LCAPIRequest>
 
-//上传图片
+@end
+
+//MARK: - 参与投票
+@interface VoteClickApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 上传封面图片
+@interface UploadImageApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+#pragma mark - 未用接口
+//MARK: - 上传图片
 @interface ImageUploadApi : LCBaseRequest<LCAPIRequest>
 
 @property(nonatomic,strong)UploadModel *uploadModel;
 
 @end
 
-//所有项目名称
-@interface AllProjectsApi : LCBaseRequest<LCAPIRequest>
-
-@end
 
 
-//项目详情
-@interface ProjectDetailApi : LCBaseRequest<LCAPIRequest>
 
-@end
-
-//退出项目
-@interface ProjectExitApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//分组
-@interface AllGroupsApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//分组下的项目列表
-@interface ProjectsApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//删除分组下的项目
-@interface DeleteProjectApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//移动分组下的项目
-@interface MoveProjectApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//添加分组
-@interface GroupCreatApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//删除分组
-@interface GroupDeleteApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//创建投票Moment
-@interface VoteCreateApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//投票事件
-@interface VoteClickApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//上传图片
-@interface UploadImageApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//项目删除
-@interface ProjectDeleteApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//项目置顶
-@interface ProjectTopApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//项目免打扰
-@interface ProjectDisturbApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//项目人员加入项目
-@interface ProjectMemberJoinApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-//邀请人员加入项目
-@interface ProjectMemberInviteApi : LCBaseRequest<LCAPIRequest>
-
-@end
-
-
-//项目人员列表
-@interface ProjectMemberListApi : LCBaseRequest<LCAPIRequest>
-
-@end
 
 

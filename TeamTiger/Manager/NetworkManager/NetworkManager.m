@@ -54,7 +54,6 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-#pragma mark - 用户
 //MARK: - 删除用户数据
 @implementation DeleteAllDataApi
 
@@ -82,7 +81,8 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-//MARK: - 登录
+#pragma mark - -----------用户-------------
+//MARK: - 用户登录
 @implementation LoginApi
 
 - (NSString *)apiMethodName {
@@ -113,7 +113,7 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-//MARK: - 登出
+//MARK: - 退出登出
 @implementation ExistAppApi
 
 - (NSString *)apiMethodName {
@@ -229,7 +229,7 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-#pragma mark - ---------项目----------
+#pragma mark - -----------项目-------------
 //MARK：- 创建项目
 @implementation ProjectCreateApi
 
@@ -292,8 +292,504 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 获取项目列表
+@implementation AllProjectsApi
 
-//所有的Moments
+- (NSString *)apiMethodName {
+    return @"project/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+    
+}
+
+@end
+
+//MARK: - 获取项目人员
+@implementation ProjectMemberListApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 获取指定分组下的项目
+@implementation ProjectsApi
+
+- (NSString *)apiMethodName {
+    return @"group/project/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 修改项目置顶状态
+@implementation ProjectTopApi
+
+- (NSString *)apiMethodName {
+    return @"project/top.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 修改项目免打扰状态
+@implementation ProjectDisturbApi
+
+- (NSString *)apiMethodName {
+    return @"project/disturb.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 邀请人员加入项目
+@implementation ProjectMemberInviteApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/invite.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 移除项目人员
+@implementation ProjectMemberDeleteApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 项目人员加入项目
+@implementation ProjectMemberJoinApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/join.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 退出项目
+@implementation ProjectMemberQuitApi
+
+- (NSString *)apiMethodName {
+    return @"project/member/quit";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 解散项目
+@implementation ProjectDeleteApi
+
+- (NSString *)apiMethodName {
+    return @"project/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+#pragma mark - -----------分组-------------
+//MARK: - 创建分组
+@implementation GroupCreatApi
+
+- (NSString *)apiMethodName {
+    return @"group/add.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 获取分组列表及项目列表（即首页）
+@implementation AllGroupsApi
+
+- (NSString *)apiMethodName {
+    return @"group/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 修改分组名称
+@implementation GroupUpdateApi
+
+- (NSString *)apiMethodName {
+    return @"group/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 删除分组
+@implementation GroupDeleteApi
+
+- (NSString *)apiMethodName {
+    return @"group/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: -  移除分组中的项目
+@implementation DeleteProjectApi
+
+- (NSString *)apiMethodName {
+    return @"group/project/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: -  修改分组下的项目
+@implementation MoveProjectApi
+
+- (NSString *)apiMethodName {
+    return @"group/project/move.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+#pragma mark - -----------moments-------------
+//MARK: - 添加Moments
+@implementation MomentCreateApi
+
+- (NSString *)apiMethodName {
+    return @"moment/add.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 查找所有的Moments
 @implementation AllMomentsApi
 
 - (NSString *)apiMethodName {
@@ -325,66 +821,7 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-@implementation ProjectExitApi
-
-- (NSString *)apiMethodName {
-    return @"point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//创建Moment
-@implementation MomentCreateApi
-
-- (NSString *)apiMethodName {
-    return @"moment/add.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//创建discuss
+//MARK: - 添加discuss
 @implementation DiscussCreateApi
 
 - (NSString *)apiMethodName {
@@ -410,8 +847,95 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 创建投票
+@implementation VoteCreateApi
 
-//上传图片
+- (NSString *)apiMethodName {
+    return @"vote/add.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 参与投票
+@implementation VoteClickApi
+
+- (NSString *)apiMethodName {
+    return @"vote/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+//MARK: - 上传封面图片
+@implementation UploadImageApi
+
+- (NSString *)apiMethodName {
+    return @"banner/update.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+#pragma mark - 未用接口
+//MARK: - 上传图片
 @implementation ImageUploadApi
 
 - (NSString *)apiMethodName {
@@ -443,508 +967,6 @@ static double const timeOutInterval = 15.0;
 
 @end
 
-//所有项目名称
-@implementation AllProjectsApi
 
-- (NSString *)apiMethodName {
-    return @"project/list.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-    
-}
-
-@end
-
-//项目详情
-@implementation ProjectDetailApi
-
-- (NSString *)apiMethodName {
-    return @"point2.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//分组
-@implementation AllGroupsApi
-
-- (NSString *)apiMethodName {
-    return @"group/list.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//分组下的项目列表
-@implementation ProjectsApi
-
-- (NSString *)apiMethodName {
-    return @"group/project/list.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//删除分组下的项目
-@implementation DeleteProjectApi
-
-- (NSString *)apiMethodName {
-    return @"group/project/delete.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodDelete;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//移动分组下的项目
-@implementation MoveProjectApi
-
-- (NSString *)apiMethodName {
-    return @"group/project/move.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//添加分组
-@implementation GroupCreatApi
-
-- (NSString *)apiMethodName {
-    return @"group/add.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//删除分组
-@implementation GroupDeleteApi
-
-- (NSString *)apiMethodName {
-    return @"group/delete.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodDelete;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//创建投票Moment
-@implementation VoteCreateApi
-
-- (NSString *)apiMethodName {
-    return @"vote/add.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//投票事件
-@implementation VoteClickApi
-
-- (NSString *)apiMethodName {
-    return @"vote/update.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//上传图片
-@implementation UploadImageApi
-
-- (NSString *)apiMethodName {
-    return @"banner/update.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//项目置顶
-@implementation ProjectTopApi
-
-- (NSString *)apiMethodName {
-    return @"project/top.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//项目免打扰
-@implementation ProjectDisturbApi
-
-- (NSString *)apiMethodName {
-    return @"project/disturb.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPut;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//项目删除
-@implementation ProjectDeleteApi
-
-- (NSString *)apiMethodName {
-    return @"project/delete.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodDelete;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-//项目人员加入项目
-@implementation ProjectMemberJoinApi
-
-- (NSString *)apiMethodName {
-    return @"project/member/join.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//邀请人员加入项目
-@implementation ProjectMemberInviteApi
-
-- (NSString *)apiMethodName {
-    return @"project/member/invite.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodPost;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
-
-
-//项目人员列表
-@implementation ProjectMemberListApi
-
-
-- (NSString *)apiMethodName {
-    return @"project/member/list.app";
-}
-
-- (LCRequestMethod)requestMethod {
-    return LCRequestMethodGet;
-}
-
-- (NSTimeInterval)requestTimeoutInterval {
-    return timeOutInterval;
-}
-
-- (BOOL)ignoreUnifiedResponseProcess {
-    return YES;
-}
-
-- (BOOL)cacheResponse {
-    return NO;
-}
-
-- (NSDictionary *)requestHeaderValue {
-    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
-}
-
-@end
 
 
