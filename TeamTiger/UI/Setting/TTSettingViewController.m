@@ -16,6 +16,7 @@
 #import "WXApiManager.h"
 #import "WXApiRequestHandler.h"
 #import "Models.h"
+#import "TTSettingGroupViewController.h"
 
 @interface TTSettingViewController ()<WXApiManagerDelegate>
 
@@ -46,60 +47,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-}
-
-#pragma mark - 获取成员列表
-- (void)getProjectMemberList {
-    ProjectMemberListApi *listApi = [[ProjectMemberListApi alloc] init];
-    listApi.requestArgument = @{@"pid":self.project.project_id};
-    [listApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getProjectMemberList:%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            self.projectMembersArr = [NSMutableArray array];
-            for (NSDictionary *membersDic in request.responseJSONObject[OBJ][@"members"]) {
-                TT_Project_Members *projectMember = [[TT_Project_Members alloc] init];
-                [projectMember setValuesForKeysWithDictionary:membersDic];
-                [self.projectMembersArr addObject:projectMember];
-            }
-            NSLog(@"projectMembersArr:%lu", self.projectMembersArr.count);
-            self.dataSource = @[
-                                @{@"Type":@0,
-                                  @"Name":@"项目",
-                                  @"Description":self.project.name,
-                                  @"ShowAccessory":@1,
-                                  @"IsEdit":@0,
-                                  @"Color":kRGB(27.0, 41.0, 58.0)},
-//                                @{@"Type":@0,
-//                                  @"Name":@"组",
-//                                  @"Description":self.project.name,
-//                                  @"ShowAccessory":@1,
-//                                  @"IsEdit":@0,
-//                                  @"Color":kRGB(27.0, 41.0, 58.0)},
-                                @{@"Type":@1,
-                                  @"Name":@"项目成员",
-                                  @"Description":@"",
-                                  @"ShowAccessory":@0,
-                                  @"IsEdit":@0,
-                                  @"Color":kRGB(27.0, 41.0, 58.0),
-                                  @"Members":self.projectMembersArr},
-                                @{@"Type":@2,
-                                  @"Name":@"",
-                                  @"Description":@"",
-                                  @"ShowAccessory":@0,
-                                  @"IsEdit":@0,
-                                  @"Color":[UIColor clearColor]}].mutableCopy;
-            
-            [self.contentTable reloadData];
-        }else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-    }];
-    
-    
-    
 }
 
 #pragma mark - UITableViewDataSource && Delegate
@@ -133,8 +80,15 @@
                 [self getProjectMemberList];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
-        }
-        else if (type == EProjectAddMember){
+        } else if (type == EProjectGroup) {
+            TTSettingGroupViewController *settingGroupVC = [[TTSettingGroupViewController alloc] init];
+//            selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
+//                NSLog(@"%@", [selectObject name]);
+//                self.project = selectObject;
+//                [self getProjectMemberList];
+//            };
+            [self.navigationController pushViewController:settingGroupVC animated:YES];
+        } else if (type == EProjectAddMember){
             NSLog(@"跳转微信，增加人员");
             UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
             
@@ -159,13 +113,13 @@
                                   ThumbImage:thumbImage
                                      InScene:WXSceneSession];
         } else if (type == EProjectDleteProject){
-            NSLog(@"删除并退出");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-                    NSString *sql = [NSString stringWithFormat:@"update %@ set current_state = 1",TABLE_TT_Project];//设置为删除状态
-                    [SQLITEMANAGER executeSql:sql];
-#warning TO DO HERE 跳回主页面，并刷新
+                    if (self.project.member_type == 1) {//1代表管理员
+                        [self projectDeleteWithProject:self.project];
+                    } else {
+                        [self projectMemberQuit];
+                    }
                 }
             }];
         }
@@ -174,36 +128,117 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 1) {
         return 10;
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 1) {
         UIView *bgView = [[UIView alloc] init];
-        bgView.backgroundColor = kRGB(27, 36, 50);
+        bgView.backgroundColor = kRGB(21, 27, 38);
         return bgView;
     }
     return nil;
 }
 
-#pragma -mark Customer Methods
-- (void)loadProjectDataByInfo:(id)projectInfo {
-    NSMutableDictionary *projectDic = self.dataSource[0];
-    projectDic[@"Description"] = [projectInfo name];
-
-    NSMutableDictionary *membersDic = self.dataSource[1];
-    
-    [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
-    NSString *sql = [NSString stringWithFormat:@"select * from %@ where project_id = '%@'",TABLE_TT_Project_Members,[projectInfo project_id]];
-    NSArray *members = [SQLITEMANAGER selectDatasSql:sql Class:TABLE_TT_Project_Members];
-    membersDic[@"Members"] = members;
-    [self.contentTable reloadData];
+#pragma mark - 获取成员列表
+- (void)getProjectMemberList {
+    ProjectMemberListApi *listApi = [[ProjectMemberListApi alloc] init];
+    listApi.requestArgument = @{@"pid":self.project.project_id};
+    [listApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"getProjectMemberList:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            self.projectMembersArr = [NSMutableArray array];
+            for (NSDictionary *membersDic in request.responseJSONObject[OBJ][@"members"]) {
+                TT_Project_Members *projectMember = [[TT_Project_Members alloc] init];
+                [projectMember setValuesForKeysWithDictionary:membersDic];
+                [self.projectMembersArr addObject:projectMember];
+            }
+            NSLog(@"projectMembersArr:%lu", self.projectMembersArr.count);
+            self.dataSource = @[
+                                @{@"Type":@0,
+                                  @"Name":@"项目",
+                                  @"Description":self.project.name,
+                                  @"ShowAccessory":@1,
+                                  @"IsEdit":@0,
+                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+                                //                                @{@"Type":@1,
+                                //                                  @"Name":@"组",
+                                //                                  @"Description":self.project.name,
+                                //                                  @"ShowAccessory":@1,
+                                //                                  @"IsEdit":@0,
+                                //                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+                                @{@"Type":@2,
+                                  @"Name":@"项目成员",
+                                  @"Description":@"",
+                                  @"ShowAccessory":@0,
+                                  @"IsEdit":@0,
+                                  @"Color":kRGB(27.0, 41.0, 58.0),
+                                  @"Members":self.projectMembersArr},
+                                @{@"Type":@3,
+                                  @"Name":@"",
+                                  @"Description":@"",
+                                  @"ShowAccessory":@0,
+                                  @"IsEdit":@0,
+                                  @"Color":[UIColor clearColor]}].mutableCopy;
+            
+            [self.contentTable reloadData];
+        }else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
 }
 
+#pragma mark - 退出项目
+- (void)projectMemberQuit {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    ProjectMemberQuitApi *api = [[ProjectMemberQuitApi alloc] init];
+    api.requestArgument = @{@"pid":self.project.project_id};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectMemberQuitApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            if (self.requestData) {
+                self.requestData();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"ProjectMemberQuitApi:%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [super showText:NETWORKERROR afterSeconds:1.0];
+    }];
+}
 
+#pragma mark - 项目删除
+- (void)projectDeleteWithProject:(TT_Project *)project {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    ProjectDeleteApi *projectDeleteApi = [[ProjectDeleteApi alloc] init];
+    projectDeleteApi.requestArgument = @{@"pid":project.project_id};
+    [projectDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            if (self.requestData) {
+                self.requestData();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [super showText:NETWORKERROR afterSeconds:1.0];
+    }];
+}
 
 #pragma -mark WXApiManagerDelegate
 - (void)managerDidRecvGetMessageReq:(GetMessageFromWXReq *)request {

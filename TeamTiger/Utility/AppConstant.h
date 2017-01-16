@@ -56,6 +56,7 @@ static NSString *const OBJ = @"obj";
 static NSString *const TOKEN = @"token";
 static NSString *const DATA = @"data";
 
+static NSString *const NETWORKERROR = @"您的网络好像有问题~";
 
 //微信相关
 #define WXDoctor_App_ID @"wx6103c7337b6114c0"  // 注册微信时的AppID

@@ -33,7 +33,7 @@
 #import "UIImage+Extension.h"
 #import "NSString+Utils.h"
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,  HomeCellDelegate, HomeVoteCellDelegate>
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
@@ -50,8 +50,8 @@
 @property (assign, nonatomic) BOOL showTableHeader;
 
 @property (strong, nonatomic) NSDictionary *tempDic;
-@property (copy, nonatomic) NSString *tempGroupId;//分组ID
 @property (strong, nonatomic) TT_Project *tempProject;//项目
+@property (strong, nonatomic) TT_Group *tempGroup;//分组
 
 @end
 
@@ -185,13 +185,22 @@
     if ([[sender titleForState:UIControlStateNormal] isEqualToString:@"项目设置"]) {
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
         settingVC.project = self.tempProject;
+        settingVC.requestData = ^(){
+            self.setBtn.hidden = YES;
+            [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
+            self.tempDic = nil;
+            [self getAllMoments:self.tempDic];
+        };
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
-        settingVC.requestData = ^(NSString *groupId){
-            self.tempDic = @{@"gid":groupId};
+        settingVC.requestData = ^(){
+            self.setBtn.hidden = YES;
+            [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
+            self.tempDic = nil;
+            [self getAllMoments:self.tempDic];
         };
-        settingVC.groupId = self.tempGroupId;
+        settingVC.group = self.tempGroup;
         [self.navigationController pushViewController:settingVC animated:YES];
     }
 }
@@ -204,7 +213,6 @@
         NSLog(@"DeleteAllDataApi:%@", error);
     }];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -255,7 +263,6 @@
                     }
                 }
             }
-            NSLog(@"self.tempDic:%@", self.tempDic);
             //封面
             if (kIsDictionary(objDic[@"banner"]) && [[objDic[@"banner"] allKeys] count] != 0) {
                 self.textLB.hidden = YES;
@@ -579,33 +586,37 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
-   
     NSDictionary *parameterDic = nil;
     if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
+        parameterDic = @{@"gid":[notification.object group_id]};
+        
         self.setBtn.hidden = NO;
         self.imageView.userInteractionEnabled = YES;
-         [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-        self.tempGroupId = notification.object;
-        parameterDic = @{@"gid":notification.object};
-        [self getAllMoments:parameterDic];//gid 分组id
+        
         [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
-        [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+        [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
+        
+        self.tempGroup = notification.object;
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
+        parameterDic = @{@"pid":[notification.object project_id]};
         self.setBtn.hidden = NO;
         self.imageView.userInteractionEnabled = NO;
-         [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-        self.tempProject = notification.object;
-        parameterDic = @{@"pid":[notification.object project_id]};
-        [self getAllMoments:parameterDic];//pid 项目id
+        
         [self.titleView setImage:nil forState:UIControlStateNormal];
+        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
         [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
-    } else {
-        self.setBtn.hidden = YES;//kImage(@"icon_sidebar")
+        
+        self.tempProject = notification.object;
+    } else {//主页
+        self.setBtn.hidden = YES;
         self.imageView.userInteractionEnabled = YES;
-         [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
-        [self getAllMoments:parameterDic];
+        
+        [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
+        
     }
+    [self getAllMoments:parameterDic];
     self.tempDic = parameterDic;
     [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
 }

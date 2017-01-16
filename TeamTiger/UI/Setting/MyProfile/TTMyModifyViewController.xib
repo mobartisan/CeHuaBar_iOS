@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TTMyModifyViewController">
@@ -14,48 +18,58 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="47a-vn-ztP">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lqj-QR-pTa">
-                            <rect key="frame" x="15" y="25" width="42" height="26"/>
+                            <rect key="frame" x="15" y="28" width="42" height="20"/>
                             <constraints>
+                                <constraint firstAttribute="height" constant="20" id="Dv1-7L-05d"/>
                                 <constraint firstAttribute="width" constant="42" id="ctV-f3-SHH"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type something..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hjc-Fa-h6s">
-                            <rect key="frame" x="62" y="25" width="248" height="26"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <rect key="frame" x="62" y="28" width="303" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="qcx-sD-5N8"/>
+                            </constraints>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="hHd-yC-HKX"/>
+                            </connections>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.10588235294117647" green="0.16078431372549018" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.10588235294117647" green="0.16078431372549018" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="76" id="AhE-4b-YFM"/>
-                        <constraint firstItem="Hjc-Fa-h6s" firstAttribute="top" secondItem="47a-vn-ztP" secondAttribute="top" constant="25" id="Gng-7x-HnC"/>
-                        <constraint firstAttribute="bottom" secondItem="Hjc-Fa-h6s" secondAttribute="bottom" constant="25" id="J0D-Dc-Z9p"/>
+                        <constraint firstItem="Hjc-Fa-h6s" firstAttribute="centerY" secondItem="47a-vn-ztP" secondAttribute="centerY" id="BfJ-hu-TxU"/>
                         <constraint firstAttribute="trailing" secondItem="Hjc-Fa-h6s" secondAttribute="trailing" constant="10" id="UmI-Mp-pPf"/>
                         <constraint firstItem="Lqj-QR-pTa" firstAttribute="leading" secondItem="47a-vn-ztP" secondAttribute="leading" constant="15" id="cTI-cM-483"/>
-                        <constraint firstItem="Lqj-QR-pTa" firstAttribute="top" secondItem="47a-vn-ztP" secondAttribute="top" constant="25" id="cam-aD-C6a"/>
-                        <constraint firstAttribute="bottom" secondItem="Lqj-QR-pTa" secondAttribute="bottom" constant="25" id="ldP-Zl-UfQ"/>
+                        <constraint firstItem="Lqj-QR-pTa" firstAttribute="centerY" secondItem="47a-vn-ztP" secondAttribute="centerY" id="dym-Jw-GlN"/>
                         <constraint firstItem="Hjc-Fa-h6s" firstAttribute="leading" secondItem="Lqj-QR-pTa" secondAttribute="trailing" constant="5" id="ma7-CT-rCa"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="47a-vn-ztP" secondAttribute="trailing" id="5SN-qy-fyu"/>
                 <constraint firstItem="47a-vn-ztP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Ve-SS-xm1"/>
                 <constraint firstItem="47a-vn-ztP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Y5l-jj-AvW"/>
             </constraints>
-            <point key="canvasLocation" x="267" y="265"/>
+            <point key="canvasLocation" x="102" y="228"/>
         </view>
     </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>

@@ -19,6 +19,7 @@
 @property(nonatomic,strong)NSMutableArray *dataSource;
 @property (copy, nonatomic) NSString *nickName;
 @property (copy, nonatomic) NSString *remark;
+@property (strong, nonatomic) UIButton *rightBtn;
 
 @end
 
@@ -26,18 +27,64 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configureNavigationItem];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+}
+
+- (void)configureNavigationItem {
     self.title = @"个人设置";
     
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
     
-    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
-        [self userUpdate];
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setTitle:@"提交" forState:UIControlStateNormal];
+    rightBtn.frame = CGRectMake(0, 0, 40, 20);
+    [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.rightBtn = rightBtn;
+    self.rightBtn.enabled = NO;
+}
+
+#pragma mark - 修改用户信息
+- (void)handleRightBtnAction:(UIButton *)sender {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    TT_User *user = [TT_User sharedInstance];
+    
+    NSDictionary *tempDic = nil;
+    if ([Common isEmptyString:self.nickName]) {
+        tempDic = @{@"remark":self.remark};
+        user.remark = self.remark;
+    } else if ([Common isEmptyString:self.remark]) {
+        tempDic = @{@"nickname":self.nickName};
+        user.nickname = self.nickName;
+    } else {
+        tempDic = @{@"nickname":self.nickName,
+                    @"remark":self.remark};
+        user.remark = self.remark;
+        user.nickname = self.nickName;
+    }
+    UserUpdateApi *api = [[UserUpdateApi alloc] init];
+    api.requestArgument = tempDic;
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@",request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+                self.remark = nil;
+                self.nickName = nil;
+                [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+                self.rightBtn.enabled = NO;
+            });
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
-    
-    
-    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -46,6 +93,7 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.dataSource.count;
 }
@@ -88,12 +136,14 @@
         NSMutableDictionary *dic = self.dataSource[indexPath.section][indexPath.row];
         TTMyModifyViewController *myModifyVC = [[TTMyModifyViewController alloc] init];
         myModifyVC.name = dic[@"Name"];
+        myModifyVC.tempDic = dic;
         if (indexPath.row == 1 ) {
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
                     self.nickName = value;
                     dic[@"Description"] = value;
-                    
+                    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    self.rightBtn.enabled = YES;
                 }
             }];
         } else if (indexPath.row == 2) {
@@ -101,6 +151,8 @@
                 if (![Common isEmptyString:value]) {
                     self.remark = value;
                     dic[@"Description"] = value;
+                    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                    self.rightBtn.enabled = YES;
                 }
             }];
         }
@@ -146,46 +198,7 @@
     return  _dataSource;
 }
 
-#pragma mark - 修改用户信息
-- (void)userUpdate {
-    if ([Common isEmptyString:self.nickName] && [Common isEmptyString:self.remark]) {
-        [super showText:@"暂无更改信息" afterSeconds:1.0];
-        return;
-    }
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    TT_User *user = [TT_User sharedInstance];
-    
-    NSDictionary *tempDic = nil;
-    if ([Common isEmptyString:self.nickName]) {
-        tempDic = @{@"remark":self.remark};
-        user.remark = self.remark;
-    } else if ([Common isEmptyString:self.remark]) {
-        tempDic = @{@"nickname":self.nickName};
-        user.nickname = self.nickName;
-    } else {
-        tempDic = @{@"nickname":self.nickName,
-                    @"remark":self.remark};
-        user.remark = self.remark;
-        user.nickname = self.nickName;
-    }
-    UserUpdateApi *api = [[UserUpdateApi alloc] init];
-    api.requestArgument = tempDic;
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@",request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
-                self.remark = nil;
-                self.nickName = nil;
-            });
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-    }];
-}
+
 
 #pragma mark -  退出登录
 - (void)existApp {

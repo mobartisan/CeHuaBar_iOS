@@ -12,11 +12,8 @@
 @interface TTGroupSettingViewController : TTBaseViewController
 
 @property(nonatomic, strong) UITableView *table;
-
 @property(nonatomic, strong) NSMutableArray *projects;
-
-@property(nonatomic, copy) NSString *groupId;
-
-@property (copy, nonatomic) void(^requestData)(NSString *groupId);
+@property (strong, nonatomic) TT_Group *group;
+@property (copy, nonatomic) void(^requestData)();
 
 @end

@@ -13,6 +13,6 @@
 
 @property(nonatomic,weak)IBOutlet UITableView *contentTable;
 @property (strong, nonatomic) TT_Project *project;
-
+@property (copy, nonatomic) void(^requestData)();
 
 @end

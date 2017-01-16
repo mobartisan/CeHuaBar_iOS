@@ -32,6 +32,7 @@ typedef void(^NeedActionblock)(SettingCell *settingCell, ECellType type, id obj)
 @property (strong, nonatomic) UIImageView *accessoryImgV;
 @property (strong, nonatomic) UIImageView *projectIcon;
 @property (strong, nonatomic) UIButton *addMemberBtn;
+@property (strong, nonatomic) UILabel *selectMemberLabel;
 @property (strong, nonatomic) UIButton *addProjectIcon;
 @property (copy, nonatomic) NeedActionblock actionBlock;
 

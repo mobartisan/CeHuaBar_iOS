@@ -89,12 +89,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row != self.dataSource.count - 1) {
         TT_User *user = self.dataSource[indexPath.row];
         user.isSelect = !user.isSelect;
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
         if (user.isSelect) {
             [self.selectMembers addObject:user.user_id];
         } else {

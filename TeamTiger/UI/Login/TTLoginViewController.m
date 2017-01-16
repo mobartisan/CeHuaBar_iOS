@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     if (isIPhone4) {
         self.bottomHeight.constant = 40;
         self.loginBgImgV.image = [UIImage imageNamed:@"loginBG35"];

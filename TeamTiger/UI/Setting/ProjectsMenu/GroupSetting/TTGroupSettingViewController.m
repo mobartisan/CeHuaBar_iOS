@@ -21,34 +21,16 @@
 @interface TTGroupSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)TT_Group *groupInfo;
-
 @property(nonatomic,strong)DeleteFooterView *footView;
+@property (strong, nonatomic) UIButton *rightBtn;
+@property (strong, nonatomic) NSString *groupName;
 
 @end
 
 @implementation TTGroupSettingViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"分组设置";
-    //left
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(0, 0, 23, 23);
-    [leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-    leftBtn.tintColor = [UIColor whiteColor];
-    [leftBtn addTarget:self action:@selector(popVC:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-    //right
-//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    rightBtn.frame = CGRectMake(0, 0, 23, 23);
-//    [rightBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
-//    rightBtn.tintColor = [UIColor whiteColor];
-//    [rightBtn addTarget:self action:@selector(addProject) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    
-//    [self hyb_setNavTitle:nil rightTitle:@"提交" rightBlock:^(UIButton *sender) {
-//        
-//    }];
-    
+    [self configureNavigationItem];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
@@ -57,15 +39,48 @@
     self.table.rowHeight = CELLHEIGHT;
 }
 
-- (void)addProject {
-    // add project
-    TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-    TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-    [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+- (void)configureNavigationItem {
+     self.title = @"分组设置";
+    //左侧
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    leftBtn.frame = CGRectMake(0, 0, 23, 23);
+    [leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+    leftBtn.tintColor = [UIColor whiteColor];
+    [leftBtn addTarget:self action:@selector(handleReturnBackAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    //右侧
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setTitle:@"提交" forState:UIControlStateNormal];
+    rightBtn.frame = CGRectMake(0, 0, 40, 23);
+    [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    self.rightBtn = rightBtn;
+    self.rightBtn.enabled = NO;
 }
 
-- (void)popVC:(id)sender {
+- (void)handleReturnBackAction {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)handleRightBtnAction:(UIButton *)sender {
+    if ([self.groupName isEqualToString:self.group.group_name]) {
+        [sender setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+        sender.enabled = NO;
+    }
+    GroupUpdateApi *api = [[GroupUpdateApi alloc] init];
+    api.requestArgument = @{@"name":self.groupName,
+                            @"gid":self.group.group_id};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"GroupUpdateApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [sender setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+            sender.enabled = NO;
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"GroupUpdateApi:%@", error);
+        [super showText:NETWORKERROR afterSeconds:1.0];
+    }];
 }
 
 
@@ -77,15 +92,13 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.requestData) {
-        self.requestData(self.groupId);
-    }
+    
 }
 
-
+#pragma mark - 分组下项目列表
 - (void)getProjectsList {
     ProjectsApi *projectsApi = [[ProjectsApi alloc] init];
-    projectsApi.requestArgument = @{@"gid":self.groupId};
+    projectsApi.requestArgument = @{@"gid":self.group.group_id};
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getProjectsList:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
@@ -134,7 +147,11 @@
         }
         cell.nameTxtField.text = self.groupInfo.group_name;
         cell.endEditBlock = ^(GroupCell *cell, NSString *nameStr) {
-            
+            if (![Common isEmptyString:nameStr]) {
+                self.groupName = nameStr;
+                [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                self.rightBtn.enabled = YES;
+            }
         };
         return cell;
     } else {
@@ -154,7 +171,7 @@
         ((ProjectsCell *)cell).deleteMember = ^{
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
-                    [self deleteProjectGid:self.groupId pid:projectInfo];
+                    [self deleteProjectGid:self.group.group_id pid:projectInfo];
                 }
             }];
         };
@@ -268,6 +285,10 @@
             self.groupInfo = nil;
             [self.projects removeAllObjects];
             [self.table reloadData];
+            if (self.requestData) {
+                self.requestData();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }

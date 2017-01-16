@@ -8,7 +8,7 @@
 
 #import "TTBaseViewController.h"
 
-@interface TTMyProfileViewController : TTBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@interface TTMyProfileViewController : TTBaseViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property(weak,nonatomic)IBOutlet UITableView *tableView;
 

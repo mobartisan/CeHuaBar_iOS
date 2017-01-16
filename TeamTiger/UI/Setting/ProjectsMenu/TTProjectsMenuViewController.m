@@ -48,7 +48,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self getAllGroupsAndProjectsData];
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
     self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
@@ -72,6 +71,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
+#pragma mark - Getters
 - (NSMutableArray *)groups {
     if (!_groups) {
         _groups = [NSMutableArray array];
@@ -267,8 +267,7 @@
             ((DiVideGroupCell *)cell).clickGroupBlock = ^(TT_Group *tempGroup) {
                 [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                     if (finished) {
-                        NSString *Id = [tempGroup group_id];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[tempGroup group_name], @"IsGroup":@1}];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:tempGroup userInfo:@{@"Title":[tempGroup group_name], @"IsGroup":@1}];
                     }
                 }];
             };
@@ -316,9 +315,6 @@
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-        addProfileVC.requestData = ^() {
-            [self getAllGroupsAndProjectsData];
-        };
         TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
         [self.navigationController presentViewController:baseNav animated:YES completion:nil];
     };
@@ -406,7 +402,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"getAllGroups:%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
 

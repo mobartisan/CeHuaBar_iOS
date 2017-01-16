@@ -35,9 +35,9 @@
                         <color key="textColor" red="0.24313725490196078" green="0.37254901960784315" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" alpha="0.61799999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BgR-ub-3DU">
-                        <rect key="frame" x="15" y="42.5" width="305" height="1"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BgR-ub-3DU">
+                        <rect key="frame" x="55" y="42.5" width="265" height="1"/>
+                        <color key="backgroundColor" red="0.13333333333333333" green="0.18823529411764706" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="jEt-lU-XyY"/>
                         </constraints>
@@ -54,7 +54,7 @@
                 <constraints>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="leading" secondItem="0yX-xC-n32" secondAttribute="trailing" constant="8" id="4mA-GD-dcp"/>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FoY-KB-NPY"/>
-                    <constraint firstItem="BgR-ub-3DU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="GHM-1h-7Gv"/>
+                    <constraint firstItem="BgR-ub-3DU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="55" id="GHM-1h-7Gv"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Orj-cu-iCS"/>
                     <constraint firstAttribute="trailing" secondItem="VPz-84-IWR" secondAttribute="trailing" constant="100" id="Sxb-jc-90P"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="X4k-Gr-bPm"/>

@@ -201,6 +201,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 2) {
         int memberCount = (int)self.membersArray.count;
+        if (memberCount > 5) {
+            return 5 * kCellHeight + 1;
+        }
         return memberCount * kCellHeight + 1;
         
     }
@@ -208,11 +211,15 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    self.selectMembers = [NSMutableArray array];
     if (section == 2) {
+        self.selectMembers = [NSMutableArray array];
         TTAddProjectFooterView *footerView = [[TTAddProjectFooterView alloc] init];
         [footerView.dataSource addObjectsFromArray:self.membersArray];
         footerView.addMemberBlock = ^(NSMutableArray *members) {
+            [self.view endEditing:YES];
+            if (![Common isEmptyArr:self.selectMembers]) {
+                [self.selectMembers removeAllObjects];
+            }
             if (![Common isEmptyArr:members]) {
                 [self.selectMembers addObjectsFromArray:members];
             }
@@ -245,98 +252,33 @@
 
 #pragma mark - 创建项目
 - (void)createProjectWithProjectName:(NSString *)name {
-    if (![self.tempName isEqualToString:name] && ![Common isEmptyString:self.tempName]) {
+    if (![Common isEmptyString:self.project_id]) {
         return;
     }
-    
-    if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
-        [self projectCreat:name tempDic:[NSDictionary dictionary]];//无logo
-    } else {
-        [QiniuUpoadManager uploadImage:[self getNewImage:self.tempImage] progress:nil success:^(NSString *url) {
-            NSDictionary *dic = @{@"type":@0,
-                                  @"from":@1,
-                                  @"url":url};
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self projectCreat:name tempDic:dic];//有logo
-            });
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        }];
-    }
-    
-}
-
-- (void)projectCreat:(NSString *)projectName tempDic:(NSDictionary *)dic {
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
-    projectCreateApi.requestArgument = @{@"logo":dic,
-                                         @"name":projectName
+    projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
+                                         @"name":name
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             self.project_id = request.responseJSONObject[OBJ][@"pid"];
-            self.tempName = projectName;
-            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
         } else {
             self.msgString = request.responseJSONObject[MSG];
         }
+        self.tempName = name;
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectCreateApi:%@",error.description);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
-#pragma mark - 模糊搜索
-- (void)userSearch:(NSString *)key {
-    if ([Common isEmptyString:key]) {
-        [super showText:@"请输入搜索关键字" afterSeconds:1.0];
-        return;
-    }
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    UserSearchApi *api = [[UserSearchApi alloc] init];
-    api.requestArgument = @{@"key":key};
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        NSDictionary *response = request.responseJSONObject;
-        if (response[OBJ] != nil && ![response[OBJ] isEqual:[NSNull null]]) {
-            TT_User *user = [[TT_User alloc] init];
-            user.nick_name = response[OBJ][@"nick_name"];
-            user.head_img_url = response[OBJ][@"head_img_url"];
-            user.user_id = response[OBJ][@"uid"];
-            [self.membersArray addObject:user];
-            
-            
-            TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = [NSString stringWithFormat:@"搜索更多相关“%@”的微信用户", key];
-            tempUser.city = @"搜索更多相关“";
-            tempUser.country = key;
-            [self.membersArray addObject:tempUser];
-        } else {
-            TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = [NSString stringWithFormat:@"无该用户信息,搜索“%@”相关微信用户", key];
-            tempUser.city = @"无该用户信息,搜索“";
-            tempUser.country = key;
-            [self.membersArray addObject:tempUser];
-        }
-        
-        [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        [super showText:@"您的网络有问题~" afterSeconds:1.0];
-    }];
-}
-
 #pragma mark - 获取与当前用户存在项目关系的用户
 - (void)userRelation {
-    if ([Common isEmptyString:self.name]) {
-        return;
+    if ([Common isEmptyString:self.project_id]) {
+        [self createProjectWithProjectName:@""];
     }
-    if (![Common isEmptyString:self.msgString]) {
-        return;
-    }
+    
     if (![Common isEmptyArr:self.membersArray]) {
         return;
     }
@@ -393,6 +335,11 @@
         [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
     }
+    
+    if (![Common isEmptyString:self.project_id]) {
+        self.msgString = nil;
+    }
+    
     if (![Common isEmptyString:self.msgString]) {
         [super showText:self.msgString afterSeconds:1.0];
         return;
@@ -401,11 +348,7 @@
         [super showText:@"请输入完项目名称" afterSeconds:1.0];
         return;
     }
-    [self tempProjectUpdate];
     
-}
-
-- (void)tempProjectUpdate {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
         [self projectUpdate:@{@"pid":self.project_id,
@@ -428,6 +371,7 @@
             [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }];
     }
+    
 }
 
 - (void)projectUpdate:(NSDictionary *)dic {
@@ -437,6 +381,7 @@
         NSLog(@"ProjectUpdateApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             if (![Common isEmptyArr:self.selectMembers]) {
                  [self addMemberToProject];
             }
@@ -530,10 +475,7 @@
 #pragma mark - 跳转微信加成员
 - (void)handleAddMember {
     [self.view endEditing:YES];
-    if ([Common isEmptyString:self.project_id]) {
-        [super showText:@"请输入项目名称" afterSeconds:1.0];
-        return;
-    }
+    
     UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
     //              方式一:
     //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];

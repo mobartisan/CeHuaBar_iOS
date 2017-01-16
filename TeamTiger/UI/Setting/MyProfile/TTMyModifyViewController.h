@@ -12,6 +12,7 @@
 @interface TTMyModifyViewController : TTBaseViewController
 
 @property (copy, nonatomic) NSString *name;
+@property (strong, nonatomic) NSDictionary *tempDic;
 @property (copy, nonatomic) void(^PassValue)(NSString *value);
 
 @end

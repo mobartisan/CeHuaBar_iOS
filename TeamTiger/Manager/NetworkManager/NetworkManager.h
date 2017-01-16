@@ -146,6 +146,11 @@
 
 @end
 
+//MARK: - 获取所有分组列表AllGroupsListApi
+@interface AllGroupsListApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 #pragma mark - -----------moments-------------
 //MARK: - 添加Moments
 @interface MomentCreateApi : LCBaseRequest<LCAPIRequest>

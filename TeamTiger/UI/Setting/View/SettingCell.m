@@ -91,6 +91,7 @@
                 make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
             }];
             self.textField.tintColor = [UIColor whiteColor];
+            self.textField.enablesReturnKeyAutomatically = YES;
             [self.textField setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
             self.textField.font = [UIFont systemFontOfSize:17];
             self.textField.textColor = kRGB(76, 93, 111);

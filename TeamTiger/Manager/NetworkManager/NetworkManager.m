@@ -530,7 +530,7 @@ static double const timeOutInterval = 15.0;
 @implementation ProjectMemberQuitApi
 
 - (NSString *)apiMethodName {
-    return @"project/member/quit";
+    return @"project/member/quit.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -618,7 +618,7 @@ static double const timeOutInterval = 15.0;
 @implementation AllGroupsApi
 
 - (NSString *)apiMethodName {
-    return @"group/list.app";
+    return @"all/list.app";
 }
 
 - (LCRequestMethod)requestMethod {
@@ -759,6 +759,34 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 获取所有分组列表
+@implementation AllGroupsListApi
+
+- (NSString *)apiMethodName {
+    return @"group/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
 #pragma mark - -----------moments-------------
 //MARK: - 添加Moments
 @implementation MomentCreateApi

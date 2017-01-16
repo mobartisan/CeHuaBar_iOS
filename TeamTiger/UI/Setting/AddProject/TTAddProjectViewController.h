@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "TTBaseViewController.h"
 
-@class TTAddProjectViewController;
-
 @interface TTAddProjectViewController : TTBaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *contentTable;

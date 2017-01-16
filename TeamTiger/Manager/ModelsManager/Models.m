@@ -98,8 +98,10 @@
         self.user_name = value;
     } else if ([key isEqualToString:@"_id"]) {
         self.user_id = value;
-    } else if ([key isEqualToString:@"head_img_url"]) {
-        self.user_img_url = value;
+    } else if ([key isEqualToString:@"head_img_url"] ) {
+        if (![Common isEmptyString:value]) {
+            self.user_img_url = value;
+        }
     }
 }
 

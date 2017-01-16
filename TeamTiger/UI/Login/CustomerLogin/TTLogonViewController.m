@@ -24,6 +24,11 @@
 @implementation TTLogonViewController
 
 - (void)viewDidLoad {
+    
+    
+    
+    
+    
     [super viewDidLoad];
     WeakSelf;
     DJRegisterView *registerView = [[DJRegisterView alloc]

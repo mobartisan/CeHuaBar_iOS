@@ -58,6 +58,7 @@
             TT_Project *tt_Project = [[TT_Project alloc] init];
             tt_Project.project_id = objDic[@"_id"];
             tt_Project.name = objDic[@"name"];
+            tt_Project.member_type = [objDic[@"member_type"] intValue];
             [_data addObject:tt_Project];
         }
     }

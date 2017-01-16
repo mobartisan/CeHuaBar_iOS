@@ -431,6 +431,10 @@
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
 		2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */; };
+		2D44CDE81E271D5700098B37 /* TTSettingGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */; };
+		2D44CDEA1E271D6B00098B37 /* TTSettingGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */; };
+		2D44CDF41E272A3600098B37 /* CJGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D44CDF21E272A3600098B37 /* CJGroupCell.m */; };
+		2D44CDF51E272A3600098B37 /* CJGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D44CDF31E272A3600098B37 /* CJGroupCell.xib */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
 		2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D17701DED552200AFE3BD /* UIImage+Extension.m */; };
@@ -1285,6 +1289,12 @@
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
 		2D1DF87E1E023F8C00E8A4DA /* VoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteModel.h; sourceTree = "<group>"; };
 		2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteModel.m; sourceTree = "<group>"; };
+		2D44CDE61E271D5700098B37 /* TTSettingGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingGroupViewController.h; sourceTree = "<group>"; };
+		2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingGroupViewController.m; sourceTree = "<group>"; };
+		2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingGroupViewController.xib; sourceTree = "<group>"; };
+		2D44CDF11E272A3600098B37 /* CJGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJGroupCell.h; sourceTree = "<group>"; };
+		2D44CDF21E272A3600098B37 /* CJGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJGroupCell.m; sourceTree = "<group>"; };
+		2D44CDF31E272A3600098B37 /* CJGroupCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CJGroupCell.xib; sourceTree = "<group>"; };
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
@@ -2471,6 +2481,7 @@
 		1D55FD901D49AA8200094112 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2D44CDEB1E27241A00098B37 /* GroupCell */,
 				1DBFD6CD1D6435FA0039077D /* NotificationCell */,
 				1D6D02C81D58137500EE0C2E /* TTPickerView */,
 				1DA0E1A51D547778008CD6DF /* ItemView */,
@@ -3303,8 +3314,21 @@
 				1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */,
 				1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */,
 				1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */,
+				2D44CDE61E271D5700098B37 /* TTSettingGroupViewController.h */,
+				2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */,
+				2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		2D44CDEB1E27241A00098B37 /* GroupCell */ = {
+			isa = PBXGroup;
+			children = (
+				2D44CDF11E272A3600098B37 /* CJGroupCell.h */,
+				2D44CDF21E272A3600098B37 /* CJGroupCell.m */,
+				2D44CDF31E272A3600098B37 /* CJGroupCell.xib */,
+			);
+			path = GroupCell;
 			sourceTree = "<group>";
 		};
 		2D7279D01DDD811B00CBF0BA /* Models */ = {
@@ -3824,6 +3848,7 @@
 				1DF0A1BB1D4DB898002D91DB /* 7.png in Resources */,
 				1DF0A1B21D4DB898002D91DB /* 15.png in Resources */,
 				1DB5A58F1D4B3F36009E6170 /* round-switch-track-no-text@2x.png in Resources */,
+				2D44CDEA1E271D6B00098B37 /* TTSettingGroupViewController.xib in Resources */,
 				1DB5A5911D4B3F36009E6170 /* square-switch-mask@2x.png in Resources */,
 				2DFA80A51DD1BDF100160060 /* HomeViewController.xib in Resources */,
 				1DB5A5861D4B3F36009E6170 /* switchGreen@2x.png in Resources */,
@@ -3836,6 +3861,7 @@
 				0604B4761D4C5A9B00EF1703 /* image_3.jpg in Resources */,
 				1DBFD6EE1D6463650039077D /* label_phone.png in Resources */,
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
+				2D44CDF51E272A3600098B37 /* CJGroupCell.xib in Resources */,
 				1DF0A1B11D4DB898002D91DB /* 14.png in Resources */,
 				1D32AEF91DB0C451000DF537 /* GroupHeadView.xib in Resources */,
 				1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */,
@@ -3922,6 +3948,7 @@
 				1D9580A21D3E207200FD0053 /* MJRefreshAutoFooter.m in Sources */,
 				1D115F8E1D4BA043003DFBB1 /* IQTextView.m in Sources */,
 				1D09CC951D3F29C900F85E9A /* NSAttributedString+YYText.m in Sources */,
+				2D44CDE81E271D5700098B37 /* TTSettingGroupViewController.m in Sources */,
 				1D0169711DB31C3400F828E4 /* ProjectItemView.m in Sources */,
 				06893CFD1D59F0FE00921900 /* CirclesManager.m in Sources */,
 				1D09CC7F1D3F29C900F85E9A /* MKAnnotationView+YYWebImage.m in Sources */,
@@ -3942,6 +3969,7 @@
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
 				1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */,
 				2DD48D351E1127B9004BE66E /* YTAnimation.m in Sources */,
+				2D44CDF41E272A3600098B37 /* CJGroupCell.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,
 				1DD2E33B1D59B871005D45A9 /* WXApiResponseHandler.m in Sources */,
