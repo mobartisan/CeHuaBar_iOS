@@ -20,10 +20,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nQl-TQ-tL3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="51"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工作牛" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w36-UU-QsC">
-                                <rect key="frame" x="74" y="16" width="52" height="22"/>
+                                <rect key="frame" x="74" y="16" width="52" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_enter2" translatesAutoresizingMaskIntoConstraints="NO" id="dHC-CX-JRX">
-                                <rect key="frame" x="295" y="18" width="10" height="16"/>
+                                <rect key="frame" x="295" y="17" width="10" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="xgD-eV-rJC"/>
                                     <constraint firstAttribute="width" constant="10" id="zOu-A4-uN6"/>
@@ -70,7 +70,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_do_not_disturb" translatesAutoresizingMaskIntoConstraints="NO" id="Fe3-vw-mWU">
-                                <rect key="frame" x="131" y="17.5" width="15" height="15"/>
+                                <rect key="frame" x="131" y="18" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="CTB-j7-jdO"/>
                                     <constraint firstAttribute="height" constant="15" id="G2X-he-wE3"/>
@@ -99,31 +99,6 @@
                             <constraint firstItem="Uyb-jI-AhL" firstAttribute="leading" secondItem="nQl-TQ-tL3" secondAttribute="leading" constant="20" id="x7J-88-sFc"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DEu-kc-CLZ" userLabel="btn View">
-                        <rect key="frame" x="320" y="0.0" width="120" height="52"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbu-hY-v7X">
-                                <rect key="frame" x="84" y="0.0" width="36" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="icon_delete"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTz-2y-fVu">
-                                <rect key="frame" x="44" y="0.0" width="36" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="icon_top"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgA-g1-Qjs" userLabel="Not Disturb Btn">
-                                <rect key="frame" x="4" y="0.0" width="36" height="53"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="icon_do_not_disturb"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="0.15294117647058825" green="0.22745098039215686" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="nQl-TQ-tL3" secondAttribute="trailing" id="DFN-rA-B62"/>
@@ -133,26 +108,20 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="addBtn" destination="zTz-2y-fVu" id="gC9-St-TVw"/>
                 <outlet property="arrowImgV" destination="dHC-CX-JRX" id="cep-tf-pXb"/>
-                <outlet property="btnView" destination="DEu-kc-CLZ" id="aVk-QU-2Kz"/>
                 <outlet property="containerView" destination="nQl-TQ-tL3" id="GFW-hT-il4"/>
-                <outlet property="deleteBtn" destination="Jbu-hY-v7X" id="Oxc-Pn-Bkz"/>
                 <outlet property="msgNumBGImgV" destination="GI4-og-lQG" id="Cxy-S0-yiy"/>
                 <outlet property="msgNumLab" destination="6G5-2I-DZR" id="X1m-Fb-UTa"/>
-                <outlet property="noDisturbBtn" destination="RgA-g1-Qjs" id="J67-HJ-YRn"/>
                 <outlet property="notdisturbImgV" destination="Fe3-vw-mWU" id="cGb-hE-Kra"/>
                 <outlet property="pointImg" destination="UbC-rb-uHh" id="9ij-sV-xTd"/>
                 <outlet property="pointImgV" destination="Uyb-jI-AhL" id="wPl-Q1-PJ8"/>
                 <outlet property="projectNameLab" destination="w36-UU-QsC" id="beU-Sv-0rf"/>
             </connections>
-            <point key="canvasLocation" x="-119" y="-379"/>
+            <point key="canvasLocation" x="-523" y="-415"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icon_delete" width="36" height="36"/>
         <image name="icon_do_not_disturb" width="36" height="36"/>
         <image name="icon_enter2" width="10" height="16"/>
-        <image name="icon_top" width="36" height="36"/>
     </resources>
 </document>

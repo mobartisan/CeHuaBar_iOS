@@ -29,9 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
-    CJGroupCell *tableFooterView = [[[NSBundle mainBundle] loadNibNamed:@"CJGroupCell" owner:nil options:nil] lastObject];
-    tableFooterView.frame = CGRectMake(0, 0, kScreenWidth, 60);
-    self.tableView.tableFooterView = tableFooterView;
+    
+    
     [Common removeExtraCellLines:self.tableView];
     [self getGroupList];
 }
@@ -99,7 +98,6 @@
     }
     cell.group = self.dataSource[indexPath.row];
     cell.lastRow = ((self.dataSource.count - 1) == indexPath.row);
-  
     return cell;
 }
 
@@ -109,10 +107,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    TT_Group *group = self.dataSource[indexPath.row];
-    group.is_allow_delete = !group.is_allow_delete;
+    [self.dataSource enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        TT_Group *objGroup = (TT_Group *)obj;
+        if (idx == indexPath.row) {
+            objGroup.is_allow_delete = !objGroup.is_allow_delete;
+        } else {
+            objGroup.is_allow_delete = NO;
+        }
+    }];
     [tableView reloadSection:0 withRowAnimation:UITableViewRowAnimationNone];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 60;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    CJGroupCell *tableFooterView = [[[NSBundle mainBundle] loadNibNamed:@"CJGroupCell" owner:nil options:nil] lastObject];
+    tableFooterView.frame = CGRectMake(0, 0, kScreenWidth, 60);
+    return tableFooterView;
+}
+
 
 @end

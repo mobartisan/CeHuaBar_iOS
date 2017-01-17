@@ -93,30 +93,7 @@
     cell.tag = indexPath.section * 1000  + indexPath.row;
     id projectInfo = self.projects[indexPath.row];
     [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.projects.count - 1];
-    
-    __weak typeof(cell) tempCell = cell;
-    //设置删除cell回调block
-    ((ProjectsCell *)cell).deleteMember = ^{
-        [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-            if (buttonIndex == 1) {
-#warning to do....从分组中删除某个项目
-                [self deleteProjectGid:self.gid pid:projectInfo];
 
-            }
-        }];
-    };
-    //添加项目到某个分组
-    ((ProjectsCell *)cell).addMember = ^{
-        [self addProjectIntoGroupAction:projectInfo];
-    };
-    //设置当cell左滑时，关闭其他cell的左滑
-    ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
-        for (ProjectsCell *item in tableView.visibleCells) {
-            if ([item isKindOfClass:[ProjectsCell class]] && item != tempCell) {
-                [item closeLeftSwipe];
-            }
-        }
-    };
     return cell;
 }
 

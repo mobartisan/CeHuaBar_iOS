@@ -73,6 +73,7 @@
                             @"gid":self.group.group_id};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"GroupUpdateApi:%@", request.responseJSONObject);
+        [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [sender setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
             sender.enabled = NO;
@@ -147,10 +148,13 @@
         }
         cell.nameTxtField.text = self.groupInfo.group_name;
         cell.endEditBlock = ^(GroupCell *cell, NSString *nameStr) {
-            if (![Common isEmptyString:nameStr]) {
+            if (![Common isEmptyString:nameStr] && ![self.groupInfo.group_name isEqualToString:nameStr]) {
                 self.groupName = nameStr;
                 [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 self.rightBtn.enabled = YES;
+            } else {
+                [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+                self.rightBtn.enabled = NO;
             }
         };
         return cell;
@@ -166,31 +170,6 @@
         ((ProjectsCell *)cell).msgNumLab.hidden = YES;
         ((ProjectsCell *)cell).msgNumBGImgV.hidden = YES;
         ((ProjectsCell *)cell).arrowImgV.hidden = YES;
-        __weak typeof(cell) tempCell = cell;
-        //设置删除cell回调block
-        ((ProjectsCell *)cell).deleteMember = ^{
-            [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
-                if (buttonIndex == 1) {
-                    [self deleteProjectGid:self.group.group_id pid:projectInfo];
-                }
-            }];
-        };
-        //置顶cell回调block
-        ((ProjectsCell *)cell).addMember = ^{
-            [self projectTopWithProject:projectInfo];
-        };
-        ((ProjectsCell *)cell).noDisturbBlokc = ^{
-            [self projectDisturbWithProject:projectInfo];
-        };
-        
-        //设置当cell左滑时，关闭其他cell的左滑
-        ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
-            for (ProjectsCell *item in tableView.visibleCells) {
-                if ([item isKindOfClass:[ProjectsCell class]] && item != tempCell) {
-                    [item closeLeftSwipe];
-                }
-            }
-        };
         return cell;
     }
 }

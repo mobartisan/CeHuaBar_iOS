@@ -160,8 +160,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     
     
     TTCommonItem *startBtnItem = [TTCommonCustomViewItem itemWithCustomView:startView];
-    
-    
     TTCommonGroup *group = [[TTCommonGroup alloc] init];
     group.items = [NSMutableArray arrayWithObjects:startBtnItem,nil];
     [self.data addObject:group];

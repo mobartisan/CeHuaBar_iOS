@@ -75,35 +75,30 @@
         if (type == EProjectSelect) {
             SelectCircleViewControllerForSetting *selectCircleVC = [[SelectCircleViewControllerForSetting alloc] init];
             selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
-                NSLog(@"%@", [selectObject name]);
                 self.project = selectObject;
                 [self getProjectMemberList];
             };
             [self.navigationController pushViewController:selectCircleVC animated:YES];
         } else if (type == EProjectGroup) {
             TTSettingGroupViewController *settingGroupVC = [[TTSettingGroupViewController alloc] init];
-//            selectCircleVC.selectCircleVCBlock = ^(id selectObject, SelectCircleViewControllerForSetting *selectCircleVC){
-//                NSLog(@"%@", [selectObject name]);
-//                self.project = selectObject;
-//                [self getProjectMemberList];
-//            };
+
             [self.navigationController pushViewController:settingGroupVC animated:YES];
         } else if (type == EProjectAddMember){
             NSLog(@"跳转微信，增加人员");
             UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
             
-//          方式一:
-//                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
-//                [WXApiRequestHandler sendAppContentData:data
-//                                                ExtInfo:kAppContentExInfo //拼接参数
-//                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
-//                                                  Title:kAPPContentTitle
-//                                            Description:kAPPContentDescription
-//                                             MessageExt:kAppMessageExt
-//                                          MessageAction:kAppMessageAction
-//                                             ThumbImage:thumbImage
-//                                                InScene:WXSceneSession];
-//          方式二:
+            //          方式一:
+            //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
+            //                [WXApiRequestHandler sendAppContentData:data
+            //                                                ExtInfo:kAppContentExInfo //拼接参数
+            //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
+            //                                                  Title:kAPPContentTitle
+            //                                            Description:kAPPContentDescription
+            //                                             MessageExt:kAppMessageExt
+            //                                          MessageAction:kAppMessageAction
+            //                                             ThumbImage:thumbImage
+            //                                                InScene:WXSceneSession];
+            //          方式二:
             NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project.project_id}];
             NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
             [WXApiRequestHandler sendLinkURL:composeURL
@@ -156,7 +151,6 @@
                 [projectMember setValuesForKeysWithDictionary:membersDic];
                 [self.projectMembersArr addObject:projectMember];
             }
-            NSLog(@"projectMembersArr:%lu", self.projectMembersArr.count);
             self.dataSource = @[
                                 @{@"Type":@0,
                                   @"Name":@"项目",
@@ -164,12 +158,12 @@
                                   @"ShowAccessory":@1,
                                   @"IsEdit":@0,
                                   @"Color":kRGB(27.0, 41.0, 58.0)},
-                                //                                @{@"Type":@1,
-                                //                                  @"Name":@"组",
-                                //                                  @"Description":self.project.name,
-                                //                                  @"ShowAccessory":@1,
-                                //                                  @"IsEdit":@0,
-                                //                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+                                @{@"Type":@1,
+                                  @"Name":@"组",
+                                  @"Description":self.project.group_name,
+                                  @"ShowAccessory":@1,
+                                  @"IsEdit":@0,
+                                  @"Color":kRGB(27.0, 41.0, 58.0)},
                                 @{@"Type":@2,
                                   @"Name":@"项目成员",
                                   @"Description":@"",

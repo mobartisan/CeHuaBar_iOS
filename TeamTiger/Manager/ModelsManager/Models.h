@@ -28,13 +28,15 @@
 
 @interface TT_Project : NSObject
 
-@property(nonatomic, strong) NSString *project_id;  // project_id
-@property(nonatomic, strong) NSString *name;  // name
+@property(nonatomic, copy) NSString *project_id;  // project_id
+@property(nonatomic, copy) NSString *name;  // name
 @property (assign, nonatomic) BOOL isTop; //置顶状态:1-取消置顶，2-置顶
 @property (assign, nonatomic) BOOL isNoDisturb; //免打扰标识:0-接受项目消息,1-设置免打扰"
 @property (assign, nonatomic) int member_type;//1-代表我创建的项目  2-代表我加入的项目
-@property (strong, nonatomic) NSString *logoURL;
-@property (strong, nonatomic) NSString *newscount;
+@property (copy, nonatomic) NSString *logoURL;
+@property (copy, nonatomic) NSString *newscount;
+@property (nonatomic,copy) NSString *group_id;
+@property (nonatomic,copy) NSString *group_name;
 
 @end
 

@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 
 #define CELLHEIGHT  60.0
 
-@interface ProjectsCell : UITableViewCell
+@interface ProjectsCell : MGSwipeTableCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *pointImg;
 
 @property(nonatomic, weak) IBOutlet UIImageView *arrowImgV;
@@ -27,29 +29,10 @@
 
 @property (nonatomic, weak) IBOutlet UIView *containerView; //容器view
 
-@property (nonatomic, weak) IBOutlet UIButton *deleteBtn; //底层删除按钮
-
-@property (nonatomic, weak) IBOutlet UIButton *addBtn; //底层置顶按钮
-
-@property (weak, nonatomic) IBOutlet UIButton *noDisturbBtn;
-
-@property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动
-
-@property (nonatomic, strong) UISwipeGestureRecognizer *rightSwipe; //向右清扫手势
-
-@property (nonatomic, copy) void (^deleteMember)(); //删除会员block回调方法
-
-@property (nonatomic, copy) void (^addMember)(); //置顶block回调方法
-
-@property (copy, nonatomic) void (^noDisturbBlokc)();//免打扰
-
-@property (nonatomic, copy) void (^closeOtherCellSwipe)(); //关闭其他cell的左滑
-
-@property (weak, nonatomic) IBOutlet UIView *btnView;
 
 @property (strong, nonatomic) TT_Project *project;
 
-- (void)closeLeftSwipe; //关闭左滑
+
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast;
 

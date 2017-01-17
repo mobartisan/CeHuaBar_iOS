@@ -430,6 +430,8 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
+		2D14691F1E2DBB5D000300C4 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */; };
+		2D1469201E2DBB5D000300C4 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */; };
 		2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */; };
 		2D44CDE81E271D5700098B37 /* TTSettingGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */; };
 		2D44CDEA1E271D6B00098B37 /* TTSettingGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */; };
@@ -1287,6 +1289,10 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
+		2D14691A1E2DBB5D000300C4 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		2D14691C1E2DBB5D000300C4 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		2D1DF87E1E023F8C00E8A4DA /* VoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteModel.h; sourceTree = "<group>"; };
 		2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteModel.m; sourceTree = "<group>"; };
 		2D44CDE61E271D5700098B37 /* TTSettingGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingGroupViewController.h; sourceTree = "<group>"; };
@@ -2878,6 +2884,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				2D1469181E2DBB5D000300C4 /* MGSwipeTableCell */,
 				1D49D9F11E11FE8800433B2C /* AESCrypt */,
 				2D9674EE1DEBCDBF002DF6E0 /* TalkingData */,
 				2D727A0E1DDD844E00CBF0BA /* JJPhotoViewer */,
@@ -3319,6 +3326,17 @@
 				2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		2D1469181E2DBB5D000300C4 /* MGSwipeTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				2D14691A1E2DBB5D000300C4 /* MGSwipeButton.h */,
+				2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */,
+				2D14691C1E2DBB5D000300C4 /* MGSwipeTableCell.h */,
+				2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */,
+			);
+			path = MGSwipeTableCell;
 			sourceTree = "<group>";
 		};
 		2D44CDEB1E27241A00098B37 /* GroupCell */ = {
@@ -3961,6 +3979,7 @@
 				2DDD541D1DB0D4AF00C55633 /* QNDes.m in Sources */,
 				1DA71B621D3DB5A1007483D2 /* AppDelegate.m in Sources */,
 				1DBFD6D01D6436210039077D /* NotificationCell.m in Sources */,
+				2D14691F1E2DBB5D000300C4 /* MGSwipeButton.m in Sources */,
 				1D9580B31D3E207200FD0053 /* UIScrollView+MJExtension.m in Sources */,
 				063B088B1D6F144F008AB592 /* MMPopupView.m in Sources */,
 				2DFACA541D507B8B0099A2A3 /* DiscussViewController.m in Sources */,
@@ -4182,6 +4201,7 @@
 				1D09CC991D3F29C900F85E9A /* YYTextAttribute.m in Sources */,
 				2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */,
 				2D727A021DDD811B00CBF0BA /* VoteView.m in Sources */,
+				2D1469201E2DBB5D000300C4 /* MGSwipeTableCell.m in Sources */,
 				2DDD54281DB0D4AF00C55633 /* QNPHAssetFile.m in Sources */,
 				1DDE9E691D531B66005926FE /* TTLoginViewController.m in Sources */,
 				1D09CC9E1D3F29C900F85E9A /* YYLabel.m in Sources */,

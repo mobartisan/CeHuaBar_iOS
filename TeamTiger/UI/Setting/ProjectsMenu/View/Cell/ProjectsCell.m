@@ -8,27 +8,19 @@
 
 #import "ProjectsCell.h"
 
-#define kBtnW           50.0
-#define kSpace          5.0
-#define kMargin         15.0
-#define kEditViewWidth  (kBtnW * 3 + kSpace * 2 + kMargin)
-
-
 
 @implementation ProjectsCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self initSubControls];
+
     setViewCorner(self.pointImg, 3.0);
     setViewCorner(self.pointImgV, 4.0);
     setViewCorner(self.msgNumBGImgV, 10);
     
-    self.isOpenLeft = NO;
     self.backgroundColor = [UIColor clearColor];
     self.containerView.backgroundColor = [UIColor clearColor];
-    self.btnView.backgroundColor = [Common colorFromHexRGB:@"283a52"];
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -61,10 +53,9 @@
             }];
         }
         self.arrowImgV.hidden = NO;
-        self.isOpenLeft = NO;
-        
-        self.contentView.backgroundColor = self.isOpenLeft ? [UIColor lightGrayColor] : [Common colorFromHexRGB:@"151b27"];
-        
+    
+     
+
         
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
         self.msgNumLab.hidden = project.isNoDisturb;
@@ -73,120 +64,11 @@
 }
 
 
-//初始化子控件
-- (void)initSubControls{
-    //绑定删除会员事件
-    [self.deleteBtn addTarget:self action:@selector(deleteMember:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //绑定增加会员事件
-    [self.addBtn addTarget:self action:@selector(addMember:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //免打扰
-    [self.noDisturbBtn addTarget:self action:@selector(noDisturbBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //3、给容器containerView绑定左右滑动清扫手势
-    UISwipeGestureRecognizer *leftSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
-    leftSwipe.direction = UISwipeGestureRecognizerDirectionLeft; //设置向左清扫
-    [self.containerView addGestureRecognizer:leftSwipe];
-    
-    UISwipeGestureRecognizer *rightSwipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipe:)];
-    rightSwipe.direction = UISwipeGestureRecognizerDirectionRight;//设置向右清扫
-    [self.containerView addGestureRecognizer:rightSwipe];
-    self.rightSwipe = rightSwipe;
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone; //设置单元格选中样式
-}
-
 //子控件布局
 - (void)layoutSubviews{
     self.containerView.frame = self.contentView.bounds;
-    self.btnView.frame = CGRectMake(kScreenWidth, 0, kEditViewWidth, CELLHEIGHT);
-    self.noDisturbBtn.frame = CGRectMake(kMargin, 0, kBtnW, CELLHEIGHT);
-    self.addBtn.frame = CGRectMake(kBtnW + kSpace + kMargin, 0, kBtnW, CELLHEIGHT);
-    self.deleteBtn.frame = CGRectMake(kBtnW * 2 + kSpace * 2 + kMargin, 0, kBtnW, CELLHEIGHT);
 }
 
 
-//删除会员
-- (void)deleteMember:(UIButton *)sender{
-    //如果实现了删除block回调，则调用block
-    if (self.deleteMember)
-        self.deleteMember();
-}
-
-//增加会员
-- (void)addMember:(UIButton *)sender {
-    if (self.addMember)
-        self.addMember();
-}
-
-//消息免打扰
-- (void)noDisturbBtn:(UIButton *)sender {
-    if (self.noDisturbBlokc) {
-        self.noDisturbBlokc();
-    }
-}
-
-//左滑动和右滑动手势
-- (void)swipe: (UISwipeGestureRecognizer *)sender
-{
-    if (sender.direction == UISwipeGestureRecognizerDirectionLeft){
-        if (self.isOpenLeft) return; //已经打开左滑，不再执行
-        
-        //开始左滑： 先调用block关闭其他可能左滑的cell
-        if (self.closeOtherCellSwipe)
-            self.closeOtherCellSwipe();
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            self.msgNumLab.hidden = YES;
-            self.msgNumBGImgV.hidden = YES;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                
-                CGPoint btnViewCenter = self.btnView.center;
-                self.btnView.center = CGPointMake(btnViewCenter.x - kEditViewWidth, btnViewCenter.y);
-                
-                CGPoint center = self.containerView.center;
-                self.containerView.center = CGPointMake(center.x - kEditViewWidth, center.y);
-            }
-        }];
-        
-        self.isOpenLeft = YES;
-        self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.1];
-    }
-    else if (sender.direction == UISwipeGestureRecognizerDirectionRight){
-        [self closeLeftSwipe]; //关闭左滑
-    }
-}
-
-//关闭左滑，恢复原状
-- (void)closeLeftSwipe{
-    if (!self.isOpenLeft) return; //还未打开左滑，不需要执行右滑
-    
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        if (self.project.isNoDisturb) {
-            self.msgNumBGImgV.hidden = YES;
-            self.msgNumLab.hidden = YES;
-        } else {
-            self.msgNumBGImgV.hidden = NO;
-            self.msgNumLab.hidden = NO;
-        }
-    } completion:^(BOOL finished) {
-        if (finished) {
-            
-            CGPoint btnViewCenter = self.btnView.center;
-            self.btnView.center = CGPointMake(btnViewCenter.x + kEditViewWidth, btnViewCenter.y);
-            
-            CGPoint center = self.containerView.center;
-            self.containerView.center = CGPointMake(center.x + kEditViewWidth, center.y);
-        }
-    }];
-    
-    self.isOpenLeft = NO;
-    self.backgroundColor = [UIColor clearColor];
-    
-    
-}
 
 @end

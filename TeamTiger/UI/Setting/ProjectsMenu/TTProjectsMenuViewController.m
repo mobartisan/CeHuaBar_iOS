@@ -209,37 +209,29 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
         [(ProjectsCell *)cell addGestureRecognizer:longPress];
         
-        __weak typeof(cell) tempCell = cell;
-        //设置删除cell回调block
-        ((ProjectsCell *)cell).deleteMember = ^{
+        MGSwipeButton *deleteBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_delete") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            NSLog(@"deleteBtn");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目?" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     NSLog(@"删除项目");
                     [self projectDeleteWithProject:projectInfo];
                 }
             }];
-            
-        };
-        //置顶cell回调block
-        ((ProjectsCell *)cell).addMember = ^{
+            return YES;
+        }];
+        MGSwipeButton *topBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_top") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            NSLog(@"topBtn");
             projectInfo.isTop = !projectInfo.isTop;
             [self projectTopWithProject:projectInfo];
-            
-        };
-        //免打扰
-        ((ProjectsCell *)cell).noDisturbBlokc = ^{
+            return YES;
+        }];
+        MGSwipeButton *notDisturbBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_do_not_disturb") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            NSLog(@"notDisturbBtn");
             projectInfo.isNoDisturb = !projectInfo.isNoDisturb;
             [self projectDisturbWithProject:projectInfo];
-        };
-        
-        //设置当cell左滑时，关闭其他cell的左滑
-        ((ProjectsCell *)cell).closeOtherCellSwipe = ^{
-            for (ProjectsCell *item in tableView.visibleCells) {
-                if ([item isKindOfClass:[ProjectsCell class]] && item != tempCell) {
-                    [item closeLeftSwipe];
-                }
-            }
-        };
+            return YES;
+        }];
+        ((ProjectsCell *)cell).rightButtons = @[deleteBtn, topBtn, notDisturbBtn];
     }else {
         if (indexPath.section == 0) {
             static NSString *cellID = @"CellIdentify";

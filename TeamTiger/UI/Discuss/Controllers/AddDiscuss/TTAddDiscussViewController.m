@@ -168,6 +168,7 @@
         TTCommonArrowItem *arrowItem = (TTCommonArrowItem *)item;
         // 如果没有需要跳转的控制器
         if (arrowItem.destVcClass == nil) return;
+        NSLog(@"%@", NSStringFromClass(arrowItem.destVcClass));
         UIViewController *vc = [[arrowItem.destVcClass alloc] init];
         vc.title = arrowItem.title;
         [self.navigationController pushViewController:vc  animated:YES];
