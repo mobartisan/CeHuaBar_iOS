@@ -50,7 +50,8 @@
         UIView *bgView = [[UIView alloc] init];
         bgView.backgroundColor = kRGB(27, 41, 58);
         _tableView.backgroundView = bgView;
-        
+        _tableView.sectionIndexColor = [UIColor whiteColor];
+        _tableView.sectionIndexBackgroundColor = kRGB(27, 41, 58);
         _tableView.rowHeight = kCellHeight;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -112,5 +113,8 @@
     
 }
 
+//- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+//    return @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
+//}
 
 @end

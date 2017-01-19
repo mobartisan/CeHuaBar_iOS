@@ -79,6 +79,8 @@
                 [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
                 self.rightBtn.enabled = NO;
             });
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
@@ -133,6 +135,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        TT_User *user = [TT_User sharedInstance];
         NSMutableDictionary *dic = self.dataSource[indexPath.section][indexPath.row];
         TTMyModifyViewController *myModifyVC = [[TTMyModifyViewController alloc] init];
         myModifyVC.name = dic[@"Name"];
@@ -140,6 +143,9 @@
         if (indexPath.row == 1 ) {
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
+                    if ([user.nickname isEqualToString:value]) {
+                        return ;
+                    }
                     self.nickName = value;
                     dic[@"Description"] = value;
                     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -149,6 +155,9 @@
         } else if (indexPath.row == 2) {
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
+                    if ([user.remark isEqualToString:value]) {
+                        return ;
+                    }
                     self.remark = value;
                     dic[@"Description"] = value;
                     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

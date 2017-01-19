@@ -179,11 +179,10 @@
     [drawerController setShowsShadow:NO];
     [drawerController setRestorationIdentifier:@"MMDrawer"];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningCenterView | MMOpenDrawerGestureModeBezelPanningCenterView];
-    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeNone;
-//    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeBezelPanningCenterView];
+//    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeNone;
+    [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeBezelPanningCenterView];
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState slideVisualStateBlock]];
     //自定义手势
-    
     [drawerController setGestureShouldRecognizeTouchBlock:^BOOL(MMDrawerController *drawerController, UIGestureRecognizer *gesture, UITouch *touch) {
         BOOL shouldRecognizeTouch = NO;
         if(drawerController.openSide == MMDrawerSideNone &&

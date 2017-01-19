@@ -9,5 +9,7 @@
 #import "TTBaseViewController.h"
 
 @interface TTSettingGroupViewController : TTBaseViewController
+@property (nonatomic,copy) NSString *project_id;
+@property (nonatomic,copy) void(^selectGroup)(NSString *groupName);
 
 @end

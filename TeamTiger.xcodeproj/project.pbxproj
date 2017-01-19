@@ -433,6 +433,7 @@
 		2D14691F1E2DBB5D000300C4 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */; };
 		2D1469201E2DBB5D000300C4 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */; };
 		2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */; };
+		2D1FD1461E2F10E900D7AF4E /* CJGroupCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D1FD1451E2F10E900D7AF4E /* CJGroupCell1.xib */; };
 		2D44CDE81E271D5700098B37 /* TTSettingGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */; };
 		2D44CDEA1E271D6B00098B37 /* TTSettingGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */; };
 		2D44CDF41E272A3600098B37 /* CJGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D44CDF21E272A3600098B37 /* CJGroupCell.m */; };
@@ -1295,6 +1296,7 @@
 		2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
 		2D1DF87E1E023F8C00E8A4DA /* VoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteModel.h; sourceTree = "<group>"; };
 		2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteModel.m; sourceTree = "<group>"; };
+		2D1FD1451E2F10E900D7AF4E /* CJGroupCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CJGroupCell1.xib; sourceTree = "<group>"; };
 		2D44CDE61E271D5700098B37 /* TTSettingGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingGroupViewController.h; sourceTree = "<group>"; };
 		2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingGroupViewController.m; sourceTree = "<group>"; };
 		2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingGroupViewController.xib; sourceTree = "<group>"; };
@@ -3345,6 +3347,7 @@
 				2D44CDF11E272A3600098B37 /* CJGroupCell.h */,
 				2D44CDF21E272A3600098B37 /* CJGroupCell.m */,
 				2D44CDF31E272A3600098B37 /* CJGroupCell.xib */,
+				2D1FD1451E2F10E900D7AF4E /* CJGroupCell1.xib */,
 			);
 			path = GroupCell;
 			sourceTree = "<group>";
@@ -3905,6 +3908,7 @@
 				1DF0A1B41D4DB898002D91DB /* 17.png in Resources */,
 				1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */,
 				1DB5A58B1D4B3F36009E6170 /* round-switch-mask@2x.png in Resources */,
+				2D1FD1461E2F10E900D7AF4E /* CJGroupCell1.xib in Resources */,
 				1DF0A1BA1D4DB898002D91DB /* 6.png in Resources */,
 				1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */,
 				1DB5A5891D4B3F36009E6170 /* switchToggle@2x.png in Resources */,

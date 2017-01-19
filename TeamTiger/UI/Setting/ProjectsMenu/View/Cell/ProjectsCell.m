@@ -19,7 +19,7 @@
     setViewCorner(self.msgNumBGImgV, 10);
     
     self.backgroundColor = [UIColor clearColor];
-    self.containerView.backgroundColor = [UIColor clearColor];
+   
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -52,11 +52,7 @@
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
-        self.arrowImgV.hidden = NO;
     
-     
-
-        
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
         self.msgNumLab.hidden = project.isNoDisturb;
         self.msgNumBGImgV.hidden = project.isNoDisturb;
@@ -64,10 +60,7 @@
 }
 
 
-//子控件布局
-- (void)layoutSubviews{
-    self.containerView.frame = self.contentView.bounds;
-}
+
 
 
 

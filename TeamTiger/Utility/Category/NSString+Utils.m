@@ -17,7 +17,7 @@
     CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformMandarinLatin, NO);
     CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);
     
-    return [[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
+    return [[[str stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString] substringToIndex:1];
 }
 
 
@@ -88,23 +88,5 @@
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
 
-
-+(NSString*)NSDictionaryToJson:(NSDictionary *)dic {
-    NSMutableString *str = [[NSMutableString alloc] init];
-    [str appendString:@"{"];
-    if(dic.count > 0){
-        for(NSString *key in [dic allKeys]){
-            //            if ([key isEqualToString:@"age"]) {
-            //                [str appendFormat:@"\"%@\":%@,", key, [dic objectForKey:key]];
-            //            } else {
-            //            }
-            [str appendFormat:@"\"%@\":\"%@\",", key, [dic objectForKey:key]];
-        }
-        NSRange range = {str.length-1, 1};
-        [str deleteCharactersInRange:range];
-    }
-    [str appendString:@"}"];
-    return str;
-}
 
 @end

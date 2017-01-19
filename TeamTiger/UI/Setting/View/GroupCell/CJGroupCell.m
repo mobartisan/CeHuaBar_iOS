@@ -8,12 +8,12 @@
 
 #import "CJGroupCell.h"
 
-@interface CJGroupCell ()
+@interface CJGroupCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *lineView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *confirmImageView;
-@property (weak, nonatomic) IBOutlet UIButton *createBtn;
+@property (weak, nonatomic) IBOutlet UITextField *groupNameTF;
 
 @end
 
@@ -21,27 +21,41 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    setViewCorner(self.createBtn, 5);
-    self.createBtn.layer.borderWidth = 1.5;
-    self.createBtn.layer.borderColor = [UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1].CGColor;
-    
-    [self.createBtn setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:23.0 / 255.0 green:174.0 / 255.0 blue:175.0 / 255.0 alpha:1]] forState:UIControlStateHighlighted];
-    
-    [self.createBtn setTitleColor:[UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f] forState:UIControlStateHighlighted];
-    
-    [self.createBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        
-    }];
     
     self.lineView.backgroundColor = kRGB(33, 46, 63);
     self.lineView.hidden = self.isLastRow;
 
+    [self.groupNameTF setValue:kRGB(66, 74, 86) forKeyPath:@"_placeholderLabel.textColor"];
+    self.groupNameTF.textColor = kRGB(66, 74, 86);
+    self.groupNameTF.font = [UIFont systemFontOfSize:17];
+    [self.groupNameTF setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [self.groupNameTF addTarget:self action:@selector(textLengthChange:) forControlEvents:UIControlEventEditingChanged];
+    self.groupNameTF.enablesReturnKeyAutomatically = YES;
+    
+}
+- (void)textLengthChange:(UITextField *)textField {
+    if (self.actionBlcok) {
+        self.actionBlcok(CJGroupCellClickTypeText,textField.text);
+    }
 }
 
 - (void)setGroup:(TT_Group *)group {
     _group = group;
     self.confirmImageView.hidden = !group.is_allow_delete;
     self.titleLabel.text = group.group_name;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+        if ([string isEqualToString:@"\n"]) {
+            [textField resignFirstResponder];
+            return NO;
+        }
+    return YES;
+}
+- (IBAction)handleSelectBtn:(UIButton *)sender {
+    if (self.actionBlcok) {
+        self.actionBlcok(CJGroupCellClickTypeBtn,nil);
+    }
 }
 
 @end

@@ -33,7 +33,6 @@
 @property (strong, nonatomic) NSMutableArray *membersArray;//搜索结果成员数组
 @property (strong, nonatomic) NSMutableArray *selectMembers;//选择成员数组
 @property (strong, nonatomic) UIImage *tempImage;//项目logo
-
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
 
 @end
@@ -201,8 +200,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 2) {
         int memberCount = (int)self.membersArray.count;
-        if (memberCount > 5) {
-            return 5 * kCellHeight + 1;
+        if (memberCount > 8) {
+            return 8 * kCellHeight + 1;
         }
         return memberCount * kCellHeight + 1;
         
@@ -257,7 +256,7 @@
     }
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
-                                         @"name":name
+                                         @"name":@""
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
@@ -297,6 +296,13 @@
                     [self.membersArray addObject:user];
                 }
             }
+#warning to do......
+            [self.membersArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                TT_User *tempUser1 = (TT_User *)obj1;
+                TT_User *tempUser2 = (TT_User *)obj2;
+                return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
+            }];
+            
             TT_User *tempUser = [[TT_User alloc] init];
             tempUser.nick_name = @"添加更多相关的微信用户";
             [self.membersArray addObject:tempUser];
@@ -311,6 +317,9 @@
         NSLog(@"UserRelationApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
+}
+
+- (void)sortArray:(NSArray *)tempArr {
 }
 
 #pragma mark - 邀请成员到项目
@@ -332,7 +341,7 @@
 - (void)projectUpdate {
     [self.contentTable endEditing:YES];
     if ([Common isEmptyString:self.name]) {
-        [super showText:@"请输入项目名称" afterSeconds:1.0];
+         [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
     }
     
@@ -386,6 +395,8 @@
                  [self addMemberToProject];
             }
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+           [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectUpdateApi:%@", error);

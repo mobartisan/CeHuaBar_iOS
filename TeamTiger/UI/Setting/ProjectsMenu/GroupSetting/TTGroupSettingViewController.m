@@ -60,13 +60,18 @@
 }
 
 - (void)handleReturnBackAction {
+    if (self.requestData) {
+        self.requestData(self.groupName, ExitTypeModify);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)handleRightBtnAction:(UIButton *)sender {
+    [self.view endEditing:YES];
     if ([self.groupName isEqualToString:self.group.group_name]) {
         [sender setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
         sender.enabled = NO;
+        return;
     }
     GroupUpdateApi *api = [[GroupUpdateApi alloc] init];
     api.requestArgument = @{@"name":self.groupName,
@@ -265,7 +270,7 @@
             [self.projects removeAllObjects];
             [self.table reloadData];
             if (self.requestData) {
-                self.requestData();
+                self.requestData(self.groupName, ExitTypeDelete);
             }
             [self.navigationController popViewControllerAnimated:YES];
         } else {

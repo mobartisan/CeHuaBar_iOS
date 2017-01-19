@@ -27,12 +27,9 @@
 
 @property(nonatomic, weak) IBOutlet UIImageView *msgNumBGImgV;
 
-@property (nonatomic, weak) IBOutlet UIView *containerView; //容器view
 
 
 @property (strong, nonatomic) TT_Project *project;
-
-
 
 - (void)loadProjectsInfo:(id)object IsLast:(BOOL)isLast;
 

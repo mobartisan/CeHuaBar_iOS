@@ -20,6 +20,7 @@
 @property(nonatomic, strong) NSString *create_user_id;  // create_user_id
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
+@property (nonatomic,assign) NSInteger type;
 
 
 + (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic;
@@ -137,6 +138,8 @@
 + (instancetype)sharedInstance;
 
 - (BOOL)createUser:(NSDictionary *)userDic;
+
+- (NSComparisonResult)compareByName:(TT_User *)user;
 
 @end
 
