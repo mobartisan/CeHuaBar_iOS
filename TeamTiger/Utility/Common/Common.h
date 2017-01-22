@@ -52,7 +52,7 @@
                                 Selector:(void(^)())block;
 
 
-+ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic;
++ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys;
 
 + (NSDictionary *)unEncyptWithString:(NSString *)srcStr;
 

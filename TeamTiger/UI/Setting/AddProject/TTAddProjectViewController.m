@@ -500,9 +500,24 @@
     //                                             ThumbImage:thumbImage
     //                                                InScene:WXSceneSession];
     //              方式二:
-    
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project_id}];
+    TT_User *user = [TT_User sharedInstance];
+    NSString *nick_name = user.nickname;
+    NSString *current_time = [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
+#warning to do here
+    NSString *project_id = @"bsfbdfbdbfdbfdfdj";
+    if(![Common isEmptyString:self.project_id]) {
+        project_id = self.project_id;
+    }
+    NSString *project_name = @"待定项目";
+    if (![Common isEmptyString:self.name]) {
+        project_name = self.name;
+    }
+    NSString *subString = [Common encyptWithDictionary:@{@"project_id":project_id,
+                                                         @"project_name":project_name,
+                                                         @"nick_name":nick_name,
+                                                         @"current_time":current_time} UnencyptKeys:@[@"project_name",@"nick_name",@"current_time"]];
     NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
+    composeURL = [composeURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [WXApiRequestHandler sendLinkURL:composeURL
                              TagName:kLinkTagName
                                Title:kLinkTitle
