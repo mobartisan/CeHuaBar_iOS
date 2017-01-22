@@ -27,7 +27,6 @@
 @interface TTAddProjectViewController () <WXApiManagerDelegate, TZImagePickerControllerDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (copy, nonatomic) NSString *name;//项目名称
-@property (copy, nonatomic) NSString *tempName;
 @property (strong, nonatomic) NSString *project_id;
 @property (strong, nonatomic) NSString *msgString;
 @property (strong, nonatomic) NSMutableArray *membersArray;//搜索结果成员数组
@@ -265,7 +264,6 @@
         } else {
             self.msgString = request.responseJSONObject[MSG];
         }
-        self.tempName = name;
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectCreateApi:%@",error.description);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
@@ -303,6 +301,7 @@
                 return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
             }];
             
+            
             TT_User *tempUser = [[TT_User alloc] init];
             tempUser.nick_name = @"添加更多相关的微信用户";
             [self.membersArray addObject:tempUser];
@@ -339,7 +338,7 @@
 
 #pragma mark - 修改项目信息
 - (void)projectUpdate {
-    [self.contentTable endEditing:YES];
+    [self.view endEditing:YES];
     if ([Common isEmptyString:self.name]) {
          [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
@@ -486,7 +485,10 @@
 #pragma mark - 跳转微信加成员
 - (void)handleAddMember {
     [self.view endEditing:YES];
-    
+    if (![Common isEmptyString:self.msgString]) {
+        [super showText:self.msgString afterSeconds:1.0];
+        return;
+    }
     UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
     //              方式一:
     //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];

@@ -198,6 +198,7 @@
             if (type == ExitTypeDelete) {
                 self.setBtn.hidden = YES;
                 [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
+                [self.titleView setImage:nil forState:UIControlStateNormal];
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic];
             } else {
@@ -221,7 +222,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     bView = self.view;
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;

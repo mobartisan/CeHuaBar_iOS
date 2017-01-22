@@ -407,10 +407,12 @@
 
 #pragma mark - 项目删除
 - (void)projectDeleteWithProject:(TT_Project *)project {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     ProjectDeleteApi *projectDeleteApi = [[ProjectDeleteApi alloc] init];
     projectDeleteApi.requestArgument = @{@"pid":project.project_id};
     [projectDeleteApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [self.unGroupProjects removeObject:project];
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -419,6 +421,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }

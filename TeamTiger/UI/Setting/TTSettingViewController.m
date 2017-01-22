@@ -158,10 +158,12 @@
 
 #pragma mark - 获取成员列表
 - (void)getProjectMemberList {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     ProjectMemberListApi *listApi = [[ProjectMemberListApi alloc] init];
     listApi.requestArgument = @{@"pid":self.project.project_id};
     [listApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"getProjectMemberList:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             self.projectMembersArr = [NSMutableArray array];
             for (NSDictionary *membersDic in request.responseJSONObject[OBJ][@"members"]) {
@@ -208,6 +210,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
