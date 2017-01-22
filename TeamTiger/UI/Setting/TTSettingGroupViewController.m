@@ -191,8 +191,6 @@
                 [self moveProjectTo_group:group];
                 break;
             }
-            default:
-                break;
         }
     };
     return cell;
