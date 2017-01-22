@@ -22,7 +22,6 @@
 
 @property(nonatomic,strong)NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *projectMembersArr;
-@property(nonatomic,strong)NSMutableDictionary *currentGroupInfo;
 
 @end
 
@@ -81,7 +80,12 @@
             [self.navigationController pushViewController:selectCircleVC animated:YES];
         } else if (type == EProjectGroup) {
             TTSettingGroupViewController *settingGroupVC = [[TTSettingGroupViewController alloc] init];
-
+            settingGroupVC.selectGroup = ^(NSString *groupName){
+                NSMutableDictionary *dic = self.dataSource[1];
+                [dic setObject:groupName forKey:@"Description"];
+                [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            };
+            settingGroupVC.project_id = self.project.project_id;
             [self.navigationController pushViewController:settingGroupVC animated:YES];
         } else if (type == EProjectAddMember){
             NSLog(@"跳转微信，增加人员");
@@ -148,9 +152,15 @@
             self.projectMembersArr = [NSMutableArray array];
             for (NSDictionary *membersDic in request.responseJSONObject[OBJ][@"members"]) {
                 TT_Project_Members *projectMember = [[TT_Project_Members alloc] init];
-                [projectMember setValuesForKeysWithDictionary:membersDic];
+                projectMember.user_name = membersDic[@"nick_name"];//
+                projectMember.user_id = membersDic[@"_id"];
+                projectMember.user_img_url = membersDic[@"head_img_url"];
                 [self.projectMembersArr addObject:projectMember];
             }
+            if ([Common isEmptyString:self.project.group_name]) {
+                self.project.group_name = @"未分组";
+            }
+            
             self.dataSource = @[
                                 @{@"Type":@0,
                                   @"Name":@"项目",
@@ -163,7 +173,7 @@
                                   @"Description":self.project.group_name,
                                   @"ShowAccessory":@1,
                                   @"IsEdit":@0,
-                                  @"Color":kRGB(27.0, 41.0, 58.0)},
+                                  @"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
                                 @{@"Type":@2,
                                   @"Name":@"项目成员",
                                   @"Description":@"",
@@ -184,7 +194,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
 

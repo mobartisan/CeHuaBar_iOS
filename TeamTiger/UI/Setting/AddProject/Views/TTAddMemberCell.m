@@ -33,14 +33,6 @@
     
     [self.headIcon sd_setImageWithURL:[NSURL URLWithString:user.head_img_url] placeholderImage:kImage(@"common-headDefault")];
     self.nameLB.text = user.nick_name;
-    
-//    if (![Common isEmptyString:user.city] && ![Common isEmptyString:user.country]) {
-//        long len1 = [user.city length];
-//        long len2 = [user.country length];
-//        NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:user.nick_name];
-//        [str2 addAttribute:NSForegroundColorAttributeName value:kRGB(60, 183, 186) range:NSMakeRange(len1,len2)];
-//        
-//    }
     self.msgLB.text = user.nick_name;
 }
 

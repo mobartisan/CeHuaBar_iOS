@@ -41,6 +41,12 @@
                             <constraint firstAttribute="width" constant="12" id="Znm-oh-hGx"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4W-hz-dGB" userLabel="SelectBtn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <connections>
+                            <action selector="handleSelectBtn:" destination="vXs-5n-GMF" eventType="touchUpInside" id="ubs-3T-WQ2"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.1058823529" green="0.1647058824" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
@@ -49,49 +55,21 @@
                     <constraint firstItem="mbS-B1-vHf" firstAttribute="centerY" secondItem="wwg-Xu-gFP" secondAttribute="centerY" id="B1i-V5-Y03"/>
                     <constraint firstAttribute="bottom" secondItem="jRU-v9-zdu" secondAttribute="bottom" id="C1i-yA-bLW"/>
                     <constraint firstItem="Jgr-LG-nMr" firstAttribute="leading" secondItem="mbS-B1-vHf" secondAttribute="trailing" constant="10" id="PCo-ve-tzf"/>
+                    <constraint firstItem="d4W-hz-dGB" firstAttribute="top" secondItem="wwg-Xu-gFP" secondAttribute="top" id="PwY-3j-3UJ"/>
+                    <constraint firstItem="jRU-v9-zdu" firstAttribute="top" secondItem="d4W-hz-dGB" secondAttribute="bottom" id="Y5e-Na-xTB"/>
                     <constraint firstItem="Jgr-LG-nMr" firstAttribute="centerY" secondItem="wwg-Xu-gFP" secondAttribute="centerY" id="dyn-D3-sjP"/>
+                    <constraint firstAttribute="trailing" secondItem="d4W-hz-dGB" secondAttribute="trailing" id="hAA-bR-lbq"/>
+                    <constraint firstItem="d4W-hz-dGB" firstAttribute="leading" secondItem="wwg-Xu-gFP" secondAttribute="leading" id="oKj-N9-O05"/>
                     <constraint firstItem="jRU-v9-zdu" firstAttribute="leading" secondItem="wwg-Xu-gFP" secondAttribute="leading" id="ukg-BY-1hy"/>
                     <constraint firstAttribute="trailing" secondItem="Jgr-LG-nMr" secondAttribute="trailing" constant="10" id="y1U-b9-8De"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="confirmImageView" destination="Jgr-LG-nMr" id="9bx-SM-g6v"/>
-                <outlet property="createBtn" destination="flm-Io-ziq" id="UCl-Sm-j1k"/>
                 <outlet property="lineView" destination="jRU-v9-zdu" id="adk-r7-RVr"/>
                 <outlet property="titleLabel" destination="mbS-B1-vHf" id="Gtd-0K-iyI"/>
             </connections>
-            <point key="canvasLocation" x="-524" y="-134"/>
-        </tableViewCell>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Afo-c4-dpg" customClass="CJGroupCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Afo-c4-dpg" id="aM6-m2-Lkw">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="flm-Io-ziq">
-                        <rect key="frame" x="8" y="14" width="304" height="50"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="50" id="a2l-CF-tDJ"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="19"/>
-                        <state key="normal" title="创建新组">
-                            <color key="titleColor" red="0.090196078430000007" green="0.68235294120000001" blue="0.68627450980000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </state>
-                    </button>
-                </subviews>
-                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                <constraints>
-                    <constraint firstAttribute="trailing" secondItem="flm-Io-ziq" secondAttribute="trailing" constant="8" id="Y7H-5k-elQ"/>
-                    <constraint firstItem="flm-Io-ziq" firstAttribute="leading" secondItem="aM6-m2-Lkw" secondAttribute="leading" constant="8" id="yI2-o2-wZh"/>
-                </constraints>
-            </tableViewCellContentView>
-            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="flm-Io-ziq" firstAttribute="centerY" secondItem="Afo-c4-dpg" secondAttribute="centerY" id="iGw-Os-s4M"/>
-                <constraint firstItem="flm-Io-ziq" firstAttribute="centerX" secondItem="Afo-c4-dpg" secondAttribute="centerX" id="wOW-je-bHY"/>
-            </constraints>
-            <point key="canvasLocation" x="257" y="352"/>
+            <point key="canvasLocation" x="-626" y="-114"/>
         </tableViewCell>
     </objects>
     <resources>

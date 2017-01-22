@@ -41,35 +41,9 @@
 
 @property (strong, nonatomic) NSMutableArray *viewFrames;
 
-
 @end
 
 @implementation TTProjectsMenuViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-    self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
-    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    [Common removeExtraCellLines:self.menuTable];
-    UIView *v = [[UIView alloc] init];
-    v.backgroundColor = [Common colorFromHexRGB:@"151b27"];
-    self.menuTable.backgroundView = v;
-    self.menuTable.backgroundColor = [Common colorFromHexRGB:@"151b27"];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self getAllGroupsAndProjectsData];
-    
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-}
 
 #pragma mark - Getters
 - (NSMutableArray *)groups {
@@ -149,6 +123,41 @@
     return _sgView;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+    self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [Common removeExtraCellLines:self.menuTable];
+    UIView *v = [[UIView alloc] init];
+    v.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    self.menuTable.backgroundView = v;
+    self.menuTable.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreenEdgePan)];
+    edgePan.edges = UIRectEdgeRight;
+    [self.menuTable addGestureRecognizer:edgePan];
+}
+
+- (void)handleScreenEdgePan {
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            
+        }];
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self getAllGroupsAndProjectsData];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
 - (void)loadUserInfo {
     NSDictionary *dic = [MockDatas testerInfo];
     self.nameLab.text = dic[@"Name"];
@@ -209,8 +218,8 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
         [(ProjectsCell *)cell addGestureRecognizer:longPress];
         
+        
         MGSwipeButton *deleteBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_delete") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            NSLog(@"deleteBtn");
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目?" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     NSLog(@"删除项目");
@@ -220,18 +229,17 @@
             return YES;
         }];
         MGSwipeButton *topBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_top") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            NSLog(@"topBtn");
             projectInfo.isTop = !projectInfo.isTop;
             [self projectTopWithProject:projectInfo];
             return YES;
         }];
-        MGSwipeButton *notDisturbBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_do_not_disturb") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
-            NSLog(@"notDisturbBtn");
+        MGSwipeButton *notDisturbBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_do_not_disturb")  backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
             projectInfo.isNoDisturb = !projectInfo.isNoDisturb;
             [self projectDisturbWithProject:projectInfo];
             return YES;
         }];
         ((ProjectsCell *)cell).rightButtons = @[deleteBtn, topBtn, notDisturbBtn];
+        ((ProjectsCell *)cell).rightSwipeSettings.transition = MGSwipeTransitionStatic;
     }else {
         if (indexPath.section == 0) {
             static NSString *cellID = @"CellIdentify";
@@ -329,10 +337,9 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
             ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
-            ((ProjectsCell *)cell).containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
             [UIView animateWithDuration:0.3 animations:^{
                 ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
-                ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
+             
             }];
         }
         //主页moments
@@ -674,7 +681,5 @@
         [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
     }
 }
-
-
 
 @end

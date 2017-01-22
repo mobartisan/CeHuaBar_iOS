@@ -95,12 +95,12 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"nick_name"]) {
-        self.user_name = value;
+        self.user_name = value;//@"nick_name"
     } else if ([key isEqualToString:@"_id"]) {
-        self.user_id = value;
+        self.user_id = value;//@"_id"
     } else if ([key isEqualToString:@"head_img_url"] ) {
         if (![Common isEmptyString:value]) {
-            self.user_img_url = value;
+            self.user_img_url = value;//@"head_img_url"
         }
     }
 }
@@ -251,7 +251,7 @@
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
 
-    return [super description];
+    return [NSString stringWithFormat:@"{nick_name:%@, nick_name:%@, user_id:%@}", _nick_name, _head_img_url, _user_id];
 }
 
 static TT_User *singleton = nil;
@@ -284,6 +284,13 @@ static TT_User *singleton = nil;
         return YES;
     }
     return NO;
+}
+
+
+- (NSComparisonResult)compareByName:(TT_User *)user {
+    NSString *_tempNickName = [_nick_name pinyin];
+    NSString *tempNickName = [user.nick_name pinyin];
+    return [_tempNickName compare:tempNickName];
 }
 
 @end

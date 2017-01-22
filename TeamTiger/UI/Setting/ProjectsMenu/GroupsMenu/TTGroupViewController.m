@@ -122,10 +122,9 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (cell && [cell isKindOfClass:[ProjectsCell class]]) {
         ((ProjectsCell *)cell).backgroundColor = [Common colorFromHexRGB:@"1c293b"];
-        ((ProjectsCell *)cell).containerView.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
         [UIView animateWithDuration:0.3 animations:^{
             ((ProjectsCell *)cell).backgroundColor = [UIColor clearColor];
-            ((ProjectsCell *)cell).containerView.backgroundColor = [UIColor clearColor];
+          
         }];
     }
     //主页moments
