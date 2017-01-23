@@ -202,7 +202,11 @@
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic];
             } else {
-                [self.titleView setTitle:groupName forState:UIControlStateNormal];
+                if ([Common isEmptyString:groupName]) {
+                    [self.titleView setTitle:[self.tempGroup group_name] forState:UIControlStateNormal];
+                } else {
+                   [self.titleView setTitle:groupName forState:UIControlStateNormal];
+                }
             }
             
         };
@@ -470,9 +474,17 @@
                                           @"url":url};
                     NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
                     NSString *bannerStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    NSDictionary *bannerDic ;
+                    if (self.tempDic && [self.tempDic allKeys] != 0) {
+                        bannerDic = @{@"medias":bannerStr,
+                                      @"gid":self.tempDic[@"gid"]};
+                    } else {
+                        bannerDic = @{@"medias":bannerStr};
+                    }
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [hud hideAnimated:YES];
-                        [self bannerUpdate:@{@"medias":bannerStr} UploadImage:uploadImg];
+                        [self bannerUpdate:bannerDic UploadImage:uploadImg];
                     });
                 } failure:^(NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{

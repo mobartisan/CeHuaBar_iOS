@@ -94,7 +94,7 @@
             commentModelFrame.homeCommentModel = commentModel;
             if (i != 0)  {
                 HomeCommentModelFrame *preCommentModelFrame = arr[i - 1];
-                if (![[commentModelFrame.homeCommentModel.time substringToIndex:4] isEqualToString:[preCommentModelFrame.homeCommentModel.time substringToIndex:4]]) {
+                if (![[commentModelFrame.homeCommentModel.time substringToIndex:5] isEqualToString:[preCommentModelFrame.homeCommentModel.time substringToIndex:5]]) {
                     if (y < 1) {
                         preCommentModelFrame.homeCommentModel.show = YES;
                         if (indexArr.count == 1) {
@@ -120,7 +120,6 @@
             [arr addObject:commentModelFrame];
         }
         _comment = arr;
-        
         //插入时间节点model
         int indexCount = (int)indexArr.count;
         for (int i = 0; i < indexCount; i++) {
