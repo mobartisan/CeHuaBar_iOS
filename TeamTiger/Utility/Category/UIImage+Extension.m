@@ -53,7 +53,6 @@
     return scaledImage;   //返回的就是已经改变的图片
 }
 
-
 - (UIImage *)fixOrientation:(UIImage *)aImage {
     
     // No-op if the orientation is already correct
@@ -129,6 +128,66 @@
     CGContextRelease(ctx);
     CGImageRelease(cgimg);
     return img;
+}
+
+
+
+
+/**
+ 压图片质量
+ 
+ @param image image
+ @return Data
+ */
+- (NSData *)zipImageWithImage {
+    if (!self) {
+        return nil;
+    }
+    CGFloat maxFileSize = 800 * 1024; //不会超过800k
+    CGFloat compression = 0.9f;
+    NSData *compressedData = UIImageJPEGRepresentation(self, compression);
+    while ([compressedData length] > maxFileSize) {
+        compression *= 0.9;
+        compressedData = UIImageJPEGRepresentation([self compressImageWithNewWidth: self.size.width * compression], compression);
+    }
+    return compressedData;
+}
+
+/**
+ *  等比缩放本图片大小
+ *
+ *  @param newImageWidth 缩放后图片宽度，像素为单位
+ *
+ *  @return self-->(image)
+ */
+- (UIImage *)compressImageWithNewWidth:(CGFloat)newImageWidth
+{
+    if (!self) return nil;
+    float imageWidth = self.size.width;
+    float imageHeight = self.size.height;
+    float width = newImageWidth;
+    float height = self.size.height/(self.size.width/width);
+    
+    float widthScale = imageWidth /width;
+    float heightScale = imageHeight /height;
+    
+    // 创建一个bitmap的context
+    // 并把它设置成为当前正在使用的context
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    
+    if (widthScale > heightScale) {
+        [self drawInRect:CGRectMake(0, 0, imageWidth /heightScale , height)];
+    }
+    else {
+        [self drawInRect:CGRectMake(0, 0, width , imageHeight /widthScale)];
+    }
+    
+    // 从当前context中创建一个改变大小后的图片
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 @end

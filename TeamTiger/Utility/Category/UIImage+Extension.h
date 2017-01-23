@@ -27,4 +27,8 @@
 
 - (UIImage *)fixOrientation:(UIImage *)aImage;
 
+- (NSData *)zipImageWithImage;//压图片
+
+- (UIImage *)compressImageWithNewWidth:(CGFloat)newImageWidth;//缩图片
+
 @end
