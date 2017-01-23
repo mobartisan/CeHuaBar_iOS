@@ -455,30 +455,33 @@
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片
                 CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
-                wself.imageView.image = [UIImage imageWithCGImage:imgR];
+                UIImage *uploadImg = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [QiniuUpoadManager uploadImage:wself.imageView.image progress:^(NSString *key, float percent) {
-                        
-                    } success:^(NSString *url) {
-                        NSDictionary *dic = @{@"type":@0,
-                                              @"from":@3,
-                                              @"url":url};
-                        NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-                        NSString *bannerStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self bannerUpdate:@{@"medias":bannerStr}];
-                        });
-//                        NSDictionary *dic = @{@"url":url,
-//                                              @"type":@0,
-//                                              @"from":@3};//0-discuss  1-moments  2-vote  3-banner
-//                        [self bannerUpdate:@{@"medias":dic}];
-                    } failure:^(NSError *error) {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeAnnularDeterminate;
+                hud.label.text = @"正在上传...";
+                [QiniuUpoadManager uploadImage:uploadImg progress:^(NSString *key, float percent) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        NSLog(@"---->%lf",percent);
+                        hud.progress = percent;
+                    });
+                } success:^(NSString *url) {
+                    NSDictionary *dic = @{@"type":@0,
+                                          @"from":@3,
+                                          @"url":url};
+                    NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+                    NSString *bannerStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                        [self bannerUpdate:@{@"medias":bannerStr} UploadImage:uploadImg];
+                    });
+                } failure:^(NSError *error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
                         NSLog(@"%@", error);
+                        [hud hideAnimated:YES];
                         [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
-                    }];
-                });
-                
+                    });
+                }];
             };
             
             TTBaseNavigationController *selectNav = [[TTBaseNavigationController alloc] initWithRootViewController:selectBgImageVC];
@@ -497,22 +500,21 @@
 }
 
 #pragma mark - 更改封面
-- (void)bannerUpdate:(NSDictionary *)requestDic {
+- (void)bannerUpdate:(NSDictionary *)requestDic UploadImage:(UIImage *)uploadImg{
     UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
     uploadImageApi.requestArgument = requestDic;
     [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"UploadImageApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            
+            //修改图片
+            self.imageView.image = uploadImg;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"UploadImageApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        
     }];
-    
 }
 
 - (void)handleKeyBoard:(NSNotification *)notification {
