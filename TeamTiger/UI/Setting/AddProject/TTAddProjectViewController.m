@@ -253,7 +253,9 @@
     CGFloat scale = [UIScreen mainScreen].scale;
     // 裁减图片
     CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
-    return [UIImage imageWithCGImage:imgR];
+    UIImage *resImage = [UIImage imageWithCGImage:imgR];
+    CGImageRelease(imgR);
+    return resImage;
 }
 
 #pragma mark - 创建项目

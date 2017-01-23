@@ -546,7 +546,7 @@
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
     NSLog(@"project.name:%@--%ld", project.name, tempIndexPath.row);
     static UIView *snapshot = nil;
-    static NSIndexPath  *sourceIndexPath ;
+    static NSIndexPath  *sourceIndexPath = nil;
     switch (state) {
             // 已经开始按下
         case UIGestureRecognizerStateBegan: {
@@ -597,7 +597,7 @@
         case UIGestureRecognizerStateEnded: {
             // 清空数组，非常重要，不然会发生坐标突变！
             [self.touchPoints removeAllObjects];
-            UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:sourceIndexPath];
+            UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:(NSIndexPath  * _Nonnull)sourceIndexPath];
             for (NSValue *frameValue in self.viewFrames) {
                 BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
                 if (isContain) {
