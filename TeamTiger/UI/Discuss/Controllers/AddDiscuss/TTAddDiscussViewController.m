@@ -38,6 +38,7 @@
 
 @property (strong, nonatomic) TTCommonItem *tempDescribe;
 
+@property (strong, nonatomic) MBProgressHUD *myHud;
 @end
 
 @implementation TTAddDiscussViewController
@@ -214,7 +215,7 @@
     return _startMomentBtn;
 }
 
-#warning to do
+//MARK:- 发起moment
 - (void)actionStartMoment {
     if ([Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
         [super showText:@"请先创建项目" afterSeconds:1.5];
@@ -226,55 +227,51 @@
         [super showText:@"请输入描述或添加图片" afterSeconds:1.5];
         return;
     }
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSMutableArray *mediasArr = [NSMutableArray array];
     if ([Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//没有图片,有文字
+        self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.myHud.label.text = @"正在发布...";
         [self creatMomentAction:mediasArr text:_text];
     }
     else if (![Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {//有图片无文字
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
-                
-            } success:^(NSArray *urls) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    for (NSString *url in urls) {
-                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,//用户ID
-                                              @"type":@0,
-                                              @"from":@1,
-                                              @"url":url};
-                        [mediasArr addObject:dic];
-                    }
-                    [self creatMomentAction:mediasArr text:@""];
-                });
-            } failure:^(NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
-                });
-            }];
-        });
+        self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.myHud.mode = MBProgressHUDModeAnnularDeterminate;
+        self.myHud.label.text = @"正在上传图片并发布moment...";
+        [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+            self.myHud.progress = progress;
+        } success:^(NSArray *urls) {
+            for (NSString *url in urls) {
+                NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,//用户ID
+                                      @"type":@0,
+                                      @"from":@1,
+                                      @"url":url};
+                [mediasArr addObject:dic];
+            }
+            [self creatMomentAction:mediasArr text:@""];
+        } failure:^(NSError *error) {
+            [self.myHud hideAnimated:YES];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+        }];
     }else if (![Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//有图片有文字
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
-                
-            } success:^(NSArray *urls) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    for (NSString *url in urls) {
-                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
-                                              @"type":@0,
-                                              @"from":@1,
-                                              @"url":url};
-                        [mediasArr addObject:dic];
-                    }
-                    [self creatMomentAction:mediasArr text:_text];
-                });
-            } failure:^(NSError *error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
-                });
-            }];
-        });
+        self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.myHud.mode = MBProgressHUDModeAnnularDeterminate;
+        self.myHud.label.text = @"正在上传图片并发布moment...";
+        [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
+            self.myHud.progress = progress;
+        } success:^(NSArray *urls) {
+            for (NSString *url in urls) {
+                NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
+                                      @"type":@0,
+                                      @"from":@1,
+                                      @"url":url};
+                [mediasArr addObject:dic];
+            }
+            [self creatMomentAction:mediasArr text:_text];
+        } failure:^(NSError *error) {
+            [self.myHud hideAnimated:YES];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+        }];
     }
 }
 
@@ -288,7 +285,7 @@
                                        @"medias":urlsStr};
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"%@", request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.myHud hideAnimated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (self.addDiscussBlock) {
                 self.addDiscussBlock();
@@ -297,14 +294,15 @@
             [[SelectPhotosManger sharedInstance] cleanSelectAssets];
             [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
             [self.navigationController popViewControllerAnimated:YES];
-        } else {
+        }
+        else {
             //创建失败
             [super showHudWithText:request.responseJSONObject[MSG]];
             [super hideHudAfterSeconds:1.5];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.myHud hideAnimated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
     }];
 }
