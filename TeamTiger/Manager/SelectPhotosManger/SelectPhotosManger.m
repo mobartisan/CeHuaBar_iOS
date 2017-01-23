@@ -30,7 +30,8 @@ static SelectPhotosManger *singleton = nil;
 }
 
 - (void)cleanSelectPhotoes {
-    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectPhotoes_Cache_Key];
+//    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectPhotoes_Cache_Key];
+    [[[TMCache sharedCache] memoryCache] removeAllObjects];
 }
 
 - (void)addImage:(id)image {
@@ -59,7 +60,8 @@ static SelectPhotosManger *singleton = nil;
 }
 
 - (void)cleanSelectAssets {
-    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectAssets_Cache_Key];
+//    [[[TMCache sharedCache] memoryCache] removeObjectForKey:SelectAssets_Cache_Key];
+    [[[TMCache sharedCache] memoryCache] removeAllObjects];
 }
 
 - (void)addAsset:(id)asset{

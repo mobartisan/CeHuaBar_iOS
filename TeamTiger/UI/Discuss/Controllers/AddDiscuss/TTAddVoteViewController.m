@@ -251,8 +251,10 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     // 2.给cell传递模型数据
     TTCommonGroup *group = self.data[indexPath.section];
     cell.item = group.items[indexPath.row];
-    cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
-    
+    cell.lastRowInSection = (group.items.count - 1 == indexPath.row);
+    if (indexPath.section == 1) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     WeakSelf;
     cell.actionBlock = ^ (NSString *text) {
         wself.text = text;
@@ -341,7 +343,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         return;
     }
     
-    
     NSMutableArray *imageArr = [NSMutableArray array];
     for (NSInteger i = 0; i < 9 ; i++) {
         NSString *option = [NSString stringWithUTF8String:kOptionStr[i]];
@@ -353,55 +354,60 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [super showText:@"请选择图片" afterSeconds:1.0];
         return;
     }
-    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSMutableArray *mediasArr = [NSMutableArray array];
-    [QiniuUpoadManager uploadImages:imageArr progress:^(CGFloat progress) {
-        
-    } success:^(NSArray *urls) {
-        for (int i = 0; i < urls.count; i++) {
-            NSDictionary *dic = @{@"vote_name":[NSString stringWithUTF8String:kOptionStr[i]],
-                                  @"medias":@[@{@"type":@0,
-                                                @"from":@2,
-                                                @"url":urls[i]}]};
-            [mediasArr addObject:dic];
-        }
-        
-        
-        NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
-        NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
-        NSDictionary *dic = @{@"votes":votesStr,
-                              @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
-                              @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
-                              @"vote_title":_text,
-                              @"type":@2 //1为普通的moment  2为投票类型
-                              };
-        VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
-        voteCreatApi.requestArgument = dic;
-        [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
-            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                if (self.addVoteBlock) {
-                    self.addVoteBlock();
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *mediasArr = [NSMutableArray array];
+        [QiniuUpoadManager uploadImages:imageArr progress:^(CGFloat progress) {
+            
+        } success:^(NSArray *urls) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for (int i = 0; i < urls.count; i++) {
+                    NSDictionary *dic = @{@"vote_name":[NSString stringWithUTF8String:kOptionStr[i]],
+                                          @"medias":@[@{@"type":@0,
+                                                        @"from":@2,
+                                                        @"url":urls[i]}]};
+                    [mediasArr addObject:dic];
                 }
-                [self.navigationController popViewControllerAnimated:YES];
-                
-            }
-        } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-            NSLog(@"%@", error);
-            if (error) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-            }
+                NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
+                NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSDictionary *dic = @{@"votes":votesStr,
+                                      @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
+                                      @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
+                                      @"vote_title":_text,
+                                      @"type":@2 //1为普通的moment  2为投票类型
+                                      };
+                VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
+                voteCreatApi.requestArgument = dic;
+                [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+                    if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                        if (self.addVoteBlock) {
+                            self.addVoteBlock();
+                        }
+                        //删除图片缓存
+                        [[SelectPhotosManger sharedInstance] cleanSelectAssets];
+                        [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                    NSLog(@"%@", error);
+                    if (error) {
+                        [MBProgressHUD hideHUDForView:self.view animated:YES];
+                        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+                    }
+                }];
+            });
+            
+        } failure:^(NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error) {
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+                }
+            });
         }];
-    } failure:^(NSError *error) {
-        if (error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        }
-    }];
+    });
 }
 
 @end

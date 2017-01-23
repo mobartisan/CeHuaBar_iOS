@@ -231,22 +231,26 @@
     NSMutableArray *mediasArr = [NSMutableArray array];
     if ([Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//没有图片,有文字
         [self creatMomentAction:mediasArr text:_text];
-    }else if (![Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {//有图片无文字
+    }
+    else if (![Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {//有图片无文字
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
                 
             } success:^(NSArray *urls) {
-                for (NSString *url in urls) {
-                    NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,//用户ID
-                                          @"type":@0,
-                                          @"from":@1,
-                                          @"url":url};
-                    [mediasArr addObject:dic];
-                }
-                [self creatMomentAction:mediasArr text:@""];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for (NSString *url in urls) {
+                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,//用户ID
+                                              @"type":@0,
+                                              @"from":@1,
+                                              @"url":url};
+                        [mediasArr addObject:dic];
+                    }
+                    [self creatMomentAction:mediasArr text:@""];
+                });
             } failure:^(NSError *error) {
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                });
             }];
         });
     }else if (![Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//有图片有文字
@@ -254,18 +258,21 @@
             [QiniuUpoadManager uploadImages:picArr progress:^(CGFloat progress) {
                 
             } success:^(NSArray *urls) {
-                for (NSString *url in urls) {
-                    NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
-                                          @"type":@0,
-                                          @"from":@1,
-                                          @"url":url};
-                    [mediasArr addObject:dic];
-                }
-                [self creatMomentAction:mediasArr text:_text];
-                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    for (NSString *url in urls) {
+                        NSDictionary *dic = @{@"uid":[TT_User sharedInstance].user_id,
+                                              @"type":@0,
+                                              @"from":@1,
+                                              @"url":url};
+                        [mediasArr addObject:dic];
+                    }
+                    [self creatMomentAction:mediasArr text:_text];
+                });
             } failure:^(NSError *error) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
-                [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
+                });
             }];
         });
     }
@@ -286,6 +293,9 @@
             if (self.addDiscussBlock) {
                 self.addDiscussBlock();
             }
+            //删除图片缓存
+            [[SelectPhotosManger sharedInstance] cleanSelectAssets];
+            [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             //创建失败
