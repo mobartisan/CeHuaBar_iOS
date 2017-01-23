@@ -174,7 +174,7 @@
         NSLog(@"%@", NSStringFromClass(arrowItem.destVcClass));
         UIViewController *vc = [[arrowItem.destVcClass alloc] init];
         vc.title = arrowItem.title;
-        [self.navigationController pushViewController:vc  animated:YES];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

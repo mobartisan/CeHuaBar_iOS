@@ -12,6 +12,7 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "QN_GTM_Base64.h"
+#import "UIImage+Extension.h"
 
 @interface QiniuUpoadManager ()
 
@@ -117,18 +118,20 @@ static QiniuUpoadManager *manager = nil;
         [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
             NSError *tempError;
             NSData *data = nil;
-            if (UIImagePNGRepresentation(image) == nil) {
-                data = UIImageJPEGRepresentation(image, 0.7);
-            } else {
-                data = UIImagePNGRepresentation(image);
-            }
+            UIImage *normalImage = [image normalizedImage];
+//            if (UIImagePNGRepresentation(normalImage) == nil) {
+                data = UIImageJPEGRepresentation(normalImage, 0.7);
+//            }
+//            else {
+//                data = UIImagePNGRepresentation(normalImage);
+//            }
             if (!data) {
                 if (failure) {
                     failure(tempError);
                 }
                 return;
             }
-            NSString *fileName = [NSString stringWithFormat:@"%@_%@.png", [Common getCurrentSystemYearMonthDay], [NSString randomStringWithLength:8]];
+            NSString *fileName = [NSString stringWithFormat:@"%@_%@.jpg", [Common getCurrentSystemYearMonthDay], [NSString randomStringWithLength:8]];
             QNUploadOption *option = [[QNUploadOption alloc] initWithMime:nil progressHandler:progress params:nil checkCrc:YES cancellationSignal:nil];
             QNUploadManager *uploadManager = [QNUploadManager sharedInstanceWithConfiguration:nil];
             //如果key为nil,默认上传文件保存名称为hash名:resp[@"hash"]
