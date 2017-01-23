@@ -31,9 +31,10 @@ static const int STR_OPTION_MAX = 9;
 static const char* kOptionStr[STR_OPTION_MAX] = {
     "A", "B", "C", "D", "E","F", "G", "H", "I"};
 @interface TTAddVoteViewController ()<TZImagePickerControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
-{
-    NSString *_text;
-}
+//{
+//    NSString *_text;
+//}
+@property (nonatomic, strong) NSString *text;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *data;
 @property (nonatomic, strong) AddImageView *addImageView;
@@ -46,6 +47,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 @property (nonatomic, strong) TTCommonArrowItem *tagItem;
 @property (nonatomic, strong) TTCommonArrowItem *optionTypeItem;
+
+
 @end
 #pragma mark - View Controller LifeCyle
 @implementation TTAddVoteViewController
@@ -250,8 +253,12 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     cell.item = group.items[indexPath.row];
     cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
     
+    WeakSelf;
     cell.actionBlock = ^ (NSString *text) {
-        _text = text;
+        wself.text = text;
+        TTCommonGroup *group = self.data[0];
+        TTCommonItem *textItem = group.items[1];
+        [textItem setValue:text forKey:@"text"];
     };
     
     // 3.返回cell
