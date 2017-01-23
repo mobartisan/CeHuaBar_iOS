@@ -19,6 +19,7 @@
 #import "HomeCommentModelFrame.h"
 
 
+
 @interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextFieldDelegate>
 
 @property (strong, nonatomic) UIImageView *iconImV;
@@ -35,9 +36,13 @@
 @property (strong, nonatomic) UIImageView *headerImage;
 @property (assign, nonatomic) CGFloat headerViewH;
 
+
+
 @end
 
 @implementation HomeCell
+
+
 
 + (instancetype)cellWithTableView:(UITableView *)tableView {
     static NSString *identifier = @"HomeCell";
@@ -320,7 +325,10 @@
 
 - (void)handleTapInputImage:(UITapGestureRecognizer *)tap {
     NSLog(@"handleTapInputImage");
-    
+    if ([self.delegate respondsToSelector:@selector(clickImageBtn)]) {
+        NSArray *images = [self.delegate clickImageBtn];
+        NSLog(@"%@", images);
+    }
 }
 
 - (void)handleTapSendImage:(UITapGestureRecognizer *)tap {
@@ -424,5 +432,9 @@
     }
     
 }
+
+
+
+
 
 @end

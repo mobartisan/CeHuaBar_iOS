@@ -14,7 +14,7 @@
 
 - (void)clickCommentBtn:(NSIndexPath *)indexPath;
 - (void)clickProjectBtn:(TT_Project *)project;
-
+- (NSArray *)clickImageBtn;
 @end
 
 @interface HomeCell : UITableViewCell

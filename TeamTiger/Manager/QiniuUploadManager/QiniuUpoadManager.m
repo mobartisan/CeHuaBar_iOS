@@ -12,6 +12,7 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "QN_GTM_Base64.h"
+#import "UIImage+Extension.h"
 
 @interface QiniuUpoadManager ()
 
@@ -116,12 +117,12 @@ static QiniuUpoadManager *manager = nil;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
             NSError *tempError;
-            NSData *data = nil;
-            if (UIImagePNGRepresentation(image) == nil) {
-                data = UIImageJPEGRepresentation(image, 0.7);
-            } else {
-                data = UIImagePNGRepresentation(image);
-            }
+            NSData *data = [UIImage imageData:image];
+//            if (UIImagePNGRepresentation(image) == nil) {
+//                data = UIImageJPEGRepresentation(image, 0.7);
+//            } else {
+//                data = UIImagePNGRepresentation(image);
+//            }
             if (!data) {
                 if (failure) {
                     failure(tempError);

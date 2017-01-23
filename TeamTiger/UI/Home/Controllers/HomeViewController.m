@@ -32,8 +32,12 @@
 #import "TTGroupSettingViewController.h"
 #import "UIImage+Extension.h"
 #import "NSString+Utils.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "TZImagePickerController.h"
+#import <Photos/Photos.h>
 
-@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
+
+@interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, TZImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
@@ -52,10 +56,41 @@
 @property (strong, nonatomic) NSDictionary *tempDic;
 @property (strong, nonatomic) TT_Project *tempProject;//项目
 @property (strong, nonatomic) TT_Group *tempGroup;//分组
+@property (strong, nonatomic) UIImagePickerController *imagePickerVc;
+@property (nonatomic,strong) NSMutableArray *imagesArr;
 
 @end
 
 @implementation HomeViewController
+
+- (NSMutableArray *)imagesArr {
+    if (_imagesArr == nil) {
+        _imagesArr = [NSMutableArray array];
+    }
+    return _imagesArr;
+}
+
+
+- (UIImagePickerController *)imagePickerVc {
+    if (_imagePickerVc == nil) {
+        _imagePickerVc = [[UIImagePickerController alloc] init];
+        _imagePickerVc.delegate = self;
+        // set appearance / 改变相册选择页的导航栏外观
+        _imagePickerVc.navigationBar.barTintColor = self.navigationController.navigationBar.barTintColor;
+        _imagePickerVc.navigationBar.tintColor = self.navigationController.navigationBar.tintColor;
+        UIBarButtonItem *tzBarItem, *BarItem;
+        if (iOS9Later) {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[TZImagePickerController class]]];
+            BarItem = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UIImagePickerController class]]];
+        } else {
+            tzBarItem = [UIBarButtonItem appearanceWhenContainedIn:[TZImagePickerController class], nil];
+            BarItem = [UIBarButtonItem appearanceWhenContainedIn:[UIImagePickerController class], nil];
+        }
+        NSDictionary *titleTextAttributes = [tzBarItem titleTextAttributesForState:UIControlStateNormal];
+        [BarItem setTitleTextAttributes:titleTextAttributes forState:UIControlStateNormal];
+    }
+    return _imagePickerVc;
+}
 
 
 #pragma mark - 分区页眉
@@ -64,7 +99,7 @@
         _sectionHeader = [UIView new];
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
-//        _sectionHeader.backgroundColor = [UIColor redColor];
+        //        _sectionHeader.backgroundColor = [UIColor redColor];
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
@@ -104,7 +139,7 @@
         textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
         
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
-
+        
         [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:0];
         [_sectionHeader layoutSubviews];
     }
@@ -205,7 +240,7 @@
                 if ([Common isEmptyString:groupName]) {
                     [self.titleView setTitle:[self.tempGroup group_name] forState:UIControlStateNormal];
                 } else {
-                   [self.titleView setTitle:groupName forState:UIControlStateNormal];
+                    [self.titleView setTitle:groupName forState:UIControlStateNormal];
                 }
             }
             
@@ -253,7 +288,7 @@
     
     
     //测试
-//    [self deleteAllData];
+    //    [self deleteAllData];
 }
 
 #pragma mark 获取Moments
@@ -651,6 +686,21 @@
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 
+- (NSArray *)clickImageBtn {
+    [self.view endEditing:YES];
+    UIActionSheet *sheet = [UIActionSheet hyb_showInView:self.view title:nil cancelTitle:@"取消" destructiveTitle:nil otherTitles:@[@"去相册选择"] callback:^(UIActionSheet *actionSheet, NSUInteger buttonIndex) { //@"拍照"
+//        if (buttonIndex == 0) {
+//            [self takePhoto];
+//        } else if (buttonIndex == 0) {
+//            
+//        }
+        [self pushImagePickerController];
+    }];
+    sheet.actionSheetStyle = UIActionSheetStyleDefault;
+    
+    return self.imagesArr;
+}
+
 //点击项目名称
 - (void)clickProjectBtn:(TT_Project *)project {
     self.setBtn.hidden = NO;
@@ -685,8 +735,67 @@
     [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+
+
+#pragma mark - 发表discuss图片
+- (void)pushImagePickerController {
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:4 delegate:self isNormal:YES];
+    imagePickerVc.isSelectOriginalPhoto = NO;
+    
+    imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
+    
+    imagePickerVc.allowPickingVideo = NO;
+    imagePickerVc.allowPickingImage = YES;
+    imagePickerVc.allowPickingOriginalPhoto = YES;
+    
+    // You can get the photos by block, the same as by delegate.
+    // 你可以通过block或者代理，来得到用户选择的照片.
+        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
+#warning to do.....
+            [self.imagesArr addObject:photos];
+        }];
+    
+        [self presentViewController:imagePickerVc animated:YES completion:nil];
+}
+
+#pragma mark - UIImagePickerController
+- (void)takePhoto {
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if ((authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) && iOS8Later) {
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"无法使用相机" message:@"请在iPhone的""设置-隐私-相机""中允许访问相机" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+        [alert show];
+    } else { // 调用相机
+        UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
+        if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+            self.imagePickerVc.sourceType = sourceType;
+            self.imagePickerVc.allowsEditing = YES;
+            if(iOS8Later) {
+                _imagePickerVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+            }
+            [self presentViewController:_imagePickerVc animated:YES completion:nil];
+        } else {
+            NSLog(@"模拟器中无法打开照相机,请在真机中使用");
+        }
+    }
+}
+
+- (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([type isEqualToString:@"public.image"]) {
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+#warning to do.....
+    }
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
 
 @end

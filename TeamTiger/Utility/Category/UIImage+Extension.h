@@ -25,5 +25,6 @@
 
 - (UIImage*)originImage:(UIImage *)image scaleToSize:(CGSize)size;
 
++(NSData *)imageData:(UIImage *)myimage;
 
 @end
