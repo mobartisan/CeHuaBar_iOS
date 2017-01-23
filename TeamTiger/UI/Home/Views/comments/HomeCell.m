@@ -273,8 +273,9 @@
         UITextField *inputView= [[UITextField alloc] init];
         inputView.delegate = self;
         inputView.font = [UIFont systemFontOfSize:16];
-        inputView.placeholder = @" 讨论:";
+        inputView.placeholder = @"讨论：";
         [inputView setValue:[Common colorFromHexRGB:@"525c6b"] forKeyPath:@"_placeholderLabel.textColor"];
+        inputView.tintColor = [Common colorFromHexRGB:@"525c6b"];
         inputView.textColor = [UIColor whiteColor];
         inputView.returnKeyType = UIReturnKeyDone;
         inputView.layer.borderWidth = 1;
@@ -282,6 +283,9 @@
         inputView.layer.cornerRadius = 3;
         inputView.layer.masksToBounds = YES;
         inputView.backgroundColor = [Common colorFromHexRGB:@"303f53"];
+        UIView *view = [[UIView alloc] initWithFrame:Frame(0, 0, 5, 35)];
+        inputView.leftView = view;
+        inputView.leftViewMode = UITextFieldViewModeAlways;
         [_headerImage addSubview:inputView];
         
         

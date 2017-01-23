@@ -29,6 +29,9 @@ static LoginManager *loginManager = nil;
     NSString *urlString = [NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=%@&grant_type=refresh_token&refresh_token=%@",WXDoctor_App_ID,refreshToken];
     NSURL *url = [NSURL URLWithString:urlString];
     NSData *data = [NSData dataWithContentsOfURL:url];
+    if(!data) {
+        return NO;
+    }
     NSError *error = nil;
     id obj = [NSJSONSerialization JSONObjectWithData:data
                                              options:NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves

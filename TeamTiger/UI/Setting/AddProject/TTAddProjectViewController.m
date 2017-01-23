@@ -255,7 +255,7 @@
     }
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
-                                         @"name":@""
+                                         @"name":name
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
