@@ -146,11 +146,14 @@
     // 2.给cell传递模型数据
     TTCommonGroup *group = self.data[indexPath.section];
     cell.item = group.items[indexPath.row];
-    cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
+    cell.lastRowInSection = (group.items.count - 1 == indexPath.row);
     cell.actionBlock = ^ (NSString *text) {
         _text = text;
     };
     
+    if (group.items.count - 1 == indexPath.row){
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     // 3.返回cell
     return cell;
 }
