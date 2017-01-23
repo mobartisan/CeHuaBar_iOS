@@ -279,9 +279,8 @@
                 UIImage *tempImage = kImage(@"image_1.jpg");
                 if ([[self.tempDic allKeys] count] != 0) {
                     tempImage = kImage(@"img_cover");
-                    
                 }
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:tempImage];
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image];
             } else {
                 self.textLB.hidden = NO;
                 if ([[self.tempDic allKeys] count] != 0 && ![[self.tempDic allKeys] containsObject:@"gid"]) {
