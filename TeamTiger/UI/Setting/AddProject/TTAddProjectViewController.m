@@ -28,7 +28,6 @@
 
 @property (copy, nonatomic) NSString *name;//项目名称
 @property (strong, nonatomic) NSString *project_id;
-@property (strong, nonatomic) NSString *msgString;
 @property (strong, nonatomic) NSMutableArray *membersArray;//搜索结果成员数组
 @property (strong, nonatomic) NSMutableArray *selectMembers;//选择成员数组
 @property (strong, nonatomic) UIImage *tempImage;//项目logo
@@ -82,9 +81,6 @@
     [super viewDidLoad];
     self.title = @"添加项目";
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        if (![Common isEmptyString:self.project_id]) {
-            [self projectDelete];
-        }
         [self.view endEditing:YES];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -106,9 +102,6 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
-- (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
-    [self.view endEditing:YES];
-}
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -166,18 +159,11 @@
                 break;
             }
             case ECellTypeBottom:{//创建按钮
-                if (self.datas.count == 3) { //无相关联的人员
-                    [self createProjectWithProjectName:self.name];
-                } else {
-                    [self projectUpdate];
-                }
+                [self createProjectWithProjectName];
                 break;
             }
-            case ECellTypeProjectAdd:{//创建项目
-                if (self.datas.count == 3) { //无相关联的人员
-                    return ;
-                }
-                [self createProjectWithProjectName:self.name];
+            case ECellTypeProjectAdd:{
+                
                 break;
             }
             default:
@@ -239,46 +225,61 @@
     
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    [self.view endEditing:YES];
-}
-
-- (UIImage *)getNewImage:(UIImage *)image {
-    CGFloat height = kScreenWidth * 767 / 1242;
-    UIImage *normalImage = [image normalizedImage];
-    // 获取当前使用的图片像素和点的比例
-    CGFloat scale = [UIScreen mainScreen].scale;
-    // 裁减图片
-    CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
-    return [UIImage imageWithCGImage:imgR];
-}
-
 #pragma mark - 创建项目
-- (void)createProjectWithProjectName:(NSString *)name {
+- (void)createProjectWithProjectName {
     if ([Common isEmptyString:self.name]) {
         [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
     }
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.selectMembers options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *memberStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    
+    if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
+        [self projectCreate:@{@"name":self.name,
+                              @"uids":memberStr}];//无logo
+    } else {
+        [QiniuUpoadManager uploadImage:[self getNewImage:self.tempImage] progress:nil success:^(NSString *url) {
+            NSDictionary *dic = @{@"type":@0,
+                                  @"from":@1,
+                                  @"url":url};
+            NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self projectCreate:@{@"name":self.name,
+                                      @"logo":tempStr,
+                                      @"uids":memberStr}];//有logo
+            });
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        }];
+    }
+    
+}
+
+- (void)projectCreate:(NSDictionary *)dic {
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
-    projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
-                                         @"name":name
-                                         };
+    projectCreateApi.requestArgument = dic;
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            self.project_id = request.responseJSONObject[OBJ][@"pid"];
-            if (self.datas.count == 3) {
-                [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-                [self dismissViewControllerAnimated:YES completion:nil];
-            }
+            [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            self.msgString = request.responseJSONObject[MSG];
+             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectCreateApi:%@",error.description);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
+
 
 #pragma mark - 获取与当前用户存在项目关系的用户
 - (void)userRelation{
@@ -313,11 +314,11 @@
 
 
 #pragma mark - 邀请成员到项目
-- (void)addMemberToProject {
+- (void)addMemberToProject:(NSString *)project_id {
     NSData *data = [NSJSONSerialization dataWithJSONObject:self.selectMembers options:NSJSONWritingPrettyPrinted error:nil];
     NSString *memberStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     ProjectMemberInviteApi *api = [[ProjectMemberInviteApi alloc] init];
-    api.requestArgument = @{@"pid":self.project_id,
+    api.requestArgument = @{@"pid":project_id,
                             @"uids":memberStr};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectMemberInviteApi:%@", request.responseJSONObject);
@@ -327,60 +328,18 @@
     }];
 }
 
-#pragma mark - 修改项目信息
-- (void)projectUpdate {
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];
-    
-    if ([Common isEmptyString:self.name]) {
-        [super showText:@"请输入项目名称" afterSeconds:1.0];
-        return;
-    }
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    if (self.tempImage == nil || [self.tempImage isEqual:[NSNull null]]) {
-        [self projectUpdate:@{@"pid":self.project_id,
-                              @"name":self.name}];//无logo
-    } else {
-        [QiniuUpoadManager uploadImage:[self getNewImage:self.tempImage] progress:nil success:^(NSString *url) {
-            NSDictionary *dic = @{@"type":@0,
-                                  @"from":@1,
-                                  @"url":url};
-            NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
-            NSString *tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self projectUpdate:@{@"pid":self.project_id,
-                                      @"name":self.name,
-                                      @"logo":tempStr}];//有logo
-            });
-        } failure:^(NSError *error) {
-            NSLog(@"%@", error);
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-        }];
-    }
-    
 }
 
-- (void)projectUpdate:(NSDictionary *)dic {
-    ProjectUpdateApi *api = [[ProjectUpdateApi alloc] init];
-    api.requestArgument = dic;
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"ProjectUpdateApi:%@", request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-            if (![Common isEmptyArr:self.selectMembers]) {
-                [self addMemberToProject];
-            }
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"ProjectUpdateApi:%@", error);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-    }];
+- (UIImage *)getNewImage:(UIImage *)image {
+    CGFloat height = kScreenWidth * 767 / 1242;
+    UIImage *normalImage = [image normalizedImage];
+    // 获取当前使用的图片像素和点的比例
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 裁减图片
+    CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
+    return [UIImage imageWithCGImage:imgR];
 }
 
 #pragma mark - 项目删除
@@ -409,7 +368,7 @@
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         self.tempImage = [self getNewImage:[photos firstObject]];
-        [self.contentTable reloadSection:0 withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
     [self presentViewController:imagePickerVc animated:YES completion:nil];
@@ -441,7 +400,7 @@
     if ([type isEqualToString:@"public.image"]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
         self.tempImage = [self getNewImage:image];
-        [self.contentTable reloadSection:0 withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

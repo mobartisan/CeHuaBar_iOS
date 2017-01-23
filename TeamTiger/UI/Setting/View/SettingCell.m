@@ -243,9 +243,6 @@
 //                make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-20);
 //            }];
 //        }
-        if (self.actionBlock) {
-            self.actionBlock(self, ECellTypeProjectAdd, textField.text);
-        }
     }
 }
 
