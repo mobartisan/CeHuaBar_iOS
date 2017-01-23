@@ -31,7 +31,7 @@
     
     self.imageV = [UIImageView new];
     self.imageV.userInteractionEnabled = YES;
-    self.imageV.image = kImage(@"image_1");
+    self.imageV.image = kImage(@"defaultBG");
     [self addSubview:self.imageV];
     
     self.projectLB = [UILabel new];
