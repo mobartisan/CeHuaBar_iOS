@@ -21,6 +21,7 @@
 @property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
 @property (nonatomic,assign) NSInteger type;
+@property(nonatomic, assign) NSInteger newsCount;
 
 
 + (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic;

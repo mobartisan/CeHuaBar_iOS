@@ -33,7 +33,12 @@
         self.project = project;
         
         [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:project.logoURL] placeholderImage:kImage(@"img_logo")];
-        self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
+        if (self.project.newscount.integerValue == 0) {
+            self.msgNumLab.hidden = YES;
+        } else {
+            self.msgNumLab.hidden = NO;
+            self.msgNumLab.text = self.project.newscount;
+        }
         self.projectNameLab.text = project.name;
         NSLog(@"member_type:%zd", project.member_type);
         self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//1/绿色-我创建的  2/橙色-我加入的
