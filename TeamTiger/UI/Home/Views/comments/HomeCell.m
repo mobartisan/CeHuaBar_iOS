@@ -170,7 +170,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     
-    self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(1.5);
+    self.separLine.sd_layout.leftSpaceToView(self.contentView, 0).rightSpaceToView(self.contentView, 0).heightIs(minLineWidth);
 }
 
 - (void)handleClickProjectBtnAction:(ButtonIndexPath *)sender {
@@ -369,6 +369,7 @@
             _homeModel.count += 1;
             _homeModel.partHeight += commentModelF.cellHeight;
             _homeModel.totalHeight += commentModelF.cellHeight;
+            txtField.text = nil;//成功后清空text field
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
             hud.label.text = request.responseJSONObject[MSG];
