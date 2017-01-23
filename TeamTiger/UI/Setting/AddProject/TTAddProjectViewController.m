@@ -82,15 +82,16 @@
     [super viewDidLoad];
     self.title = @"添加项目";
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        if (![Common isEmptyString:self.project_id]) {
-            [self projectDelete];
-        }
+//        if (![Common isEmptyString:self.project_id]) {
+//            [self projectDelete];
+//        }
         [self.view endEditing:YES];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [Common removeExtraCellLines:self.contentTable];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [WXApiManager sharedManager].delegate = self;
+    [self userRelation];
     
 }
 
@@ -105,6 +106,9 @@
     [IQKeyboardManager sharedManager].enable = YES;
 }
 
+- (IBAction)handleTapGesture:(UITapGestureRecognizer *)sender {
+    [self.view endEditing:YES];
+}
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -253,9 +257,10 @@
     if (![Common isEmptyString:self.project_id]) {
         return;
     }
+    NSLog(@"%@", name);
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
-                                         @"name":@""
+                                         @"name":name
                                          };
     [projectCreateApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
@@ -271,7 +276,7 @@
 }
 
 #pragma mark - 获取与当前用户存在项目关系的用户
-- (void)userRelation {
+- (void)userRelation1 {
     if ([Common isEmptyString:self.project_id]) {
         [self createProjectWithProjectName:@""];
     }
@@ -279,12 +284,15 @@
     if (![Common isEmptyArr:self.membersArray]) {
         return;
     }
+    
+}
+
+- (void)userRelation {
     UserRelationApi *api = [[UserRelationApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"UserRelationApi:%@", request.responseJSONObject);
         NSDictionary *response = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [self.membersArray removeAllObjects];
             if (![Common isEmptyArr:response[@"members"]]) {
                 for (NSDictionary *membersDic in response[@"members"]) {
                     TT_User *user = [[TT_User alloc] init];
@@ -293,23 +301,17 @@
                     user.user_id = membersDic[@"uid"];
                     [self.membersArray addObject:user];
                 }
+                [self.membersArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    TT_User *tempUser1 = (TT_User *)obj1;
+                    TT_User *tempUser2 = (TT_User *)obj2;
+                    return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
+                }];
+            } else {
+                [self.datas removeObjectAtIndex:2];
+                [self.contentTable reloadData];
             }
-#warning to do......
-            [self.membersArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                TT_User *tempUser1 = (TT_User *)obj1;
-                TT_User *tempUser2 = (TT_User *)obj2;
-                return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
-            }];
-            
-            
-            TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = @"添加更多相关的微信用户";
-            [self.membersArray addObject:tempUser];
-            
         } else {
-            TT_User *tempUser = [[TT_User alloc] init];
-            tempUser.nick_name = @"添加更多相关的微信用户";
-            [self.membersArray addObject:tempUser];
+            [super showText:@"" afterSeconds:1.0];
         }
         [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
@@ -318,8 +320,6 @@
     }];
 }
 
-- (void)sortArray:(NSArray *)tempArr {
-}
 
 #pragma mark - 邀请成员到项目
 - (void)addMemberToProject {

@@ -31,14 +31,23 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="cdQ-it-mzM" secondAttribute="trailing" id="6YE-vm-wLy"/>
                 <constraint firstItem="cdQ-it-mzM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Jpv-ql-zB1"/>
                 <constraint firstItem="cdQ-it-mzM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VVj-zq-qgw"/>
                 <constraint firstAttribute="bottom" secondItem="cdQ-it-mzM" secondAttribute="bottom" id="aAy-Xk-ur4"/>
             </constraints>
-            <point key="canvasLocation" x="258" y="160"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="CbQ-kg-oc8" appends="YES" id="R9M-W7-m6e"/>
+            </connections>
+            <point key="canvasLocation" x="27" y="127"/>
         </view>
+        <tapGestureRecognizer id="CbQ-kg-oc8">
+            <connections>
+                <action selector="handleTapGesture:" destination="-1" id="3Sy-Bs-cqf"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
