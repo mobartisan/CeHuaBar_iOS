@@ -52,7 +52,7 @@
 //            make.height.mas_equalTo(8);
 //        }];
         
-        self.msgLabel.text = @(arc4random() % 10).stringValue;
+        self.msgLabel.text = @(group.project_nums).stringValue;
         self.projectNameLabel.text = group.group_name;
         self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
         if ([self.msgLabel.text intValue] == 0) {

@@ -20,8 +20,8 @@
 @synthesize create_user_id = _create_user_id;
 @synthesize last_edit_date = _last_edit_date;
 @synthesize last_edit_user_id = _last_edit_user_id;
-@synthesize newsCount = _newsCount;
 @synthesize type = _type;
+@synthesize project_nums = _project_nums;
 - (NSString *)description
 {
     NSLog(@"group_id:%@", _group_id);
@@ -35,8 +35,7 @@
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
     NSLog(@"type:%zd", _type);
-    NSLog(@"newsCount:%zd", _newsCount);
-
+    NSLog(@"project_nums:%zd", _project_nums);
     return [super description];
 }
 

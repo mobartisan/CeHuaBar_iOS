@@ -382,6 +382,7 @@
                 TT_Group *group = [[TT_Group alloc] init];
                 group.group_id = groupDic[@"_id"];
                 group.group_name = groupDic[@"group_name"];
+                group.project_nums = [groupDic[@"project_nums"] integerValue];
                 [self.groups addObject:group];
             }
             
