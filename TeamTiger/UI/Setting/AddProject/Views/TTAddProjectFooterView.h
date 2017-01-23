@@ -15,6 +15,5 @@
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *selectMembers;
 @property (copy, nonatomic) void (^addMemberBlock)(NSMutableArray *selectMembers);
-@property (copy, nonatomic) void (^toWeChat)();
 
 @end

@@ -82,9 +82,9 @@
     [super viewDidLoad];
     self.title = @"添加项目";
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-//        if (![Common isEmptyString:self.project_id]) {
-//            [self projectDelete];
-//        }
+        if (![Common isEmptyString:self.project_id]) {
+            [self projectDelete];
+        }
         [self.view endEditing:YES];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -148,7 +148,7 @@
             case ECellTypeProjectIcon:{
                 [self.view endEditing:YES];
                 UIActionSheet *sheet = [UIActionSheet hyb_showInView:self.view title:nil cancelTitle:@"取消" destructiveTitle:nil otherTitles:@[@"拍照",@"去相册选择"] callback:^(UIActionSheet *actionSheet, NSUInteger buttonIndex) {
-                    if (buttonIndex == 0) { // take photo / 去拍照
+                    if (buttonIndex == 0) {
                         [self takePhoto];
                     } else if (buttonIndex == 1) {
                         [self pushImagePickerController];
@@ -161,16 +161,23 @@
                 self.name = obj;
                 break;
             }
-            case ECellTypeAddMember:{
-                [self userRelation];
+            case ECellTypeAddMember:{//添加人员
+                [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
             }
             case ECellTypeBottom:{//创建按钮
-                [self projectUpdate];
+                if (self.datas.count == 3) { //无相关联的人员
+                    [self createProjectWithProjectName:self.name];
+                } else {
+                    [self projectUpdate];
+                }
                 break;
             }
             case ECellTypeProjectAdd:{//创建项目
-                [self createProjectWithProjectName:self.name ];
+                if (self.datas.count == 3) { //无相关联的人员
+                    return ;
+                }
+                [self createProjectWithProjectName:self.name];
                 break;
             }
             default:
@@ -226,9 +233,6 @@
                 [self.selectMembers addObjectsFromArray:members];
             }
         };
-        footerView.toWeChat = ^(){
-            [self handleAddMember];
-        };
         return footerView;
     }
     
@@ -254,10 +258,10 @@
 
 #pragma mark - 创建项目
 - (void)createProjectWithProjectName:(NSString *)name {
-    if (![Common isEmptyString:self.project_id]) {
+    if ([Common isEmptyString:self.name]) {
+        [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
     }
-    NSLog(@"%@", name);
     ProjectCreateApi *projectCreateApi = [[ProjectCreateApi alloc] init];
     projectCreateApi.requestArgument = @{@"logo":[NSDictionary dictionary],
                                          @"name":name
@@ -266,6 +270,10 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             self.project_id = request.responseJSONObject[OBJ][@"pid"];
+            if (self.datas.count == 3) {
+                [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
         } else {
             self.msgString = request.responseJSONObject[MSG];
         }
@@ -276,18 +284,7 @@
 }
 
 #pragma mark - 获取与当前用户存在项目关系的用户
-- (void)userRelation1 {
-    if ([Common isEmptyString:self.project_id]) {
-        [self createProjectWithProjectName:@""];
-    }
-    
-    if (![Common isEmptyArr:self.membersArray]) {
-        return;
-    }
-    
-}
-
-- (void)userRelation {
+- (void)userRelation{
     UserRelationApi *api = [[UserRelationApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"UserRelationApi:%@", request.responseJSONObject);
@@ -310,10 +307,7 @@
                 [self.datas removeObjectAtIndex:2];
                 [self.contentTable reloadData];
             }
-        } else {
-            [super showText:@"" afterSeconds:1.0];
         }
-        [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"UserRelationApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
@@ -339,21 +333,9 @@
 #pragma mark - 修改项目信息
 - (void)projectUpdate {
     [self.view endEditing:YES];
+    
     if ([Common isEmptyString:self.name]) {
-         [super showText:@"请输入项目名称" afterSeconds:1.0];
-        return;
-    }
-    
-    if (![Common isEmptyString:self.project_id]) {
-        self.msgString = nil;
-    }
-    
-    if (![Common isEmptyString:self.msgString]) {
-        [super showText:self.msgString afterSeconds:1.0];
-        return;
-    }
-    if ([Common isEmptyString:self.project_id]) {
-        [super showText:@"请输入完项目名称" afterSeconds:1.0];
+        [super showText:@"请输入项目名称" afterSeconds:1.0];
         return;
     }
     
@@ -391,11 +373,11 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             if (![Common isEmptyArr:self.selectMembers]) {
-                 [self addMemberToProject];
+                [self addMemberToProject];
             }
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-           [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectUpdateApi:%@", error);
@@ -420,18 +402,8 @@
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self isNormal:YES];
     imagePickerVc.isSelectOriginalPhoto = NO;
     
-    // 1.如果你需要将拍照按钮放在外面，不要传这个参数
-    //    imagePickerVc.selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr]; // optional, 可选的
     imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
     
-    // 2. Set the appearance
-    // 2. 在这里设置imagePickerVc的外观
-    // imagePickerVc.navigationBar.barTintColor = [UIColor greenColor];
-    // imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
-    // imagePickerVc.oKButtonTitleColorNormal = [UIColor greenColor];
-    
-    // 3. Set allow picking video & photo & originalPhoto or not
-    // 3. 设置是否可以选择视频/图片/原图
     imagePickerVc.allowPickingVideo = NO;
     imagePickerVc.allowPickingImage = YES;
     imagePickerVc.allowPickingOriginalPhoto = YES;
@@ -450,7 +422,6 @@
 - (void)takePhoto {
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if ((authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) && iOS8Later) {
-        // 无权限 做一个友好的提示
         UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"无法使用相机" message:@"请在iPhone的""设置-隐私-相机""中允许访问相机" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
         [alert show];
     } else { // 调用相机
@@ -485,10 +456,6 @@
 #pragma mark - 跳转微信加成员
 - (void)handleAddMember {
     [self.view endEditing:YES];
-    if (![Common isEmptyString:self.msgString]) {
-        [super showText:self.msgString afterSeconds:1.0];
-        return;
-    }
     UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
     //              方式一:
     //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];

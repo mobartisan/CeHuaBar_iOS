@@ -93,23 +93,18 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row != self.dataSource.count - 1) {
-        TT_User *user = self.dataSource[indexPath.row];
-        user.isSelect = !user.isSelect;
-        [self.tableView reloadData];
-        if (user.isSelect) {
-            [self.selectMembers addObject:user.user_id];
-        } else {
-            [self.selectMembers removeObject:user.user_id];
-        }
-        if (self.addMemberBlock) {
-            self.addMemberBlock(self.selectMembers);
-        }
+    TT_User *user = self.dataSource[indexPath.row];
+    user.isSelect = !user.isSelect;
+    [self.tableView reloadData];
+    if (user.isSelect) {
+        [self.selectMembers addObject:user.user_id];
     } else {
-        if (self.toWeChat) {
-            self.toWeChat();
-        }
+        [self.selectMembers removeObject:user.user_id];
     }
+    if (self.addMemberBlock) {
+        self.addMemberBlock(self.selectMembers);
+    }
+    
     
 }
 
