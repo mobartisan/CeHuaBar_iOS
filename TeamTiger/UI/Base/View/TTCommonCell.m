@@ -345,6 +345,9 @@ typedef enum : NSUInteger {
         self.cellType = TTCommonCellTextView;
         [self.contentView addSubview:self.textView];
         TTCommonTextViewItem *item = (TTCommonTextViewItem *)self.item;
+        if (item.text) {
+            self.textView.text = item.text;
+        }
         self.textView.placeholder = item.placeholder;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         

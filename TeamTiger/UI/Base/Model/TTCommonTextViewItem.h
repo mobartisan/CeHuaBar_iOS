@@ -10,5 +10,6 @@
 
 @interface TTCommonTextViewItem : TTCommonItem
 @property (nonatomic, copy) NSString *placeholder;
+@property (nonatomic, copy) NSString *text;
 + (instancetype)itemWithTitle:(NSString *)title textViewPlaceholder:(NSString *)placeholder;
 @end
