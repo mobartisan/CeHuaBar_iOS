@@ -12,7 +12,8 @@
 @implementation NSString (Utils)
 
 //汉字的拼音
-- (NSString *)pinyin{
+- (NSString *)pinyin {
+    
     NSMutableString *str = [self mutableCopy];
     CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformMandarinLatin, NO);
     CFStringTransform((CFMutableStringRef)str, NULL, kCFStringTransformStripDiacritics, NO);

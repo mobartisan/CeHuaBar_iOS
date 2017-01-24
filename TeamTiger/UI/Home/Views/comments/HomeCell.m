@@ -7,7 +7,6 @@
 //
 
 #import "HomeCell.h"
-#import "YZInputView.h"
 #import "UITextView+Placeholder.h"
 #import "UIView+SDAutoLayout.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
@@ -323,9 +322,7 @@
 
 - (void)handleTapInputImage:(UITapGestureRecognizer *)tap {
     NSLog(@"handleTapInputImage");
-//    if ([self.delegate respondsToSelector:@selector(clickImageBtn)]) {
-//        [self.delegate clickImageBtn];
-//    }
+
 }
 
 - (void)handleTapSendImage:(UITapGestureRecognizer *)tap {

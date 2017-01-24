@@ -26,7 +26,6 @@
 - (UIImage*)originImage:(UIImage *)image scaleToSize:(CGSize)size;
 
 
-+(NSData *)imageData:(UIImage *)myimage;
 - (UIImage *)fixOrientation:(UIImage *)aImage;
 
 - (NSData *)zipImageWithImage;//压图片
