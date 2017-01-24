@@ -25,14 +25,13 @@
 
 - (UIImage*)originImage:(UIImage *)image scaleToSize:(CGSize)size;
 
-<<<<<<< HEAD
+
 +(NSData *)imageData:(UIImage *)myimage;
-=======
 - (UIImage *)fixOrientation:(UIImage *)aImage;
 
 - (NSData *)zipImageWithImage;//压图片
 
 - (UIImage *)compressImageWithNewWidth:(CGFloat)newImageWidth;//缩图片
->>>>>>> origin/master
+
 
 @end

@@ -117,17 +117,15 @@ static QiniuUpoadManager *manager = nil;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [QiniuUpoadManager getQiniuUploadToken:^(NSString *token) {
             NSError *tempError;
-<<<<<<< HEAD
-            NSData *data = [UIImage imageData:image];
+
 //            if (UIImagePNGRepresentation(image) == nil) {
 //                data = UIImageJPEGRepresentation(image, 0.7);
 //            } else {
 //                data = UIImagePNGRepresentation(image);
 //            }
-=======
+
             UIImage *normalImage = [image normalizedImage];
             NSData *data = [normalImage zipImageWithImage];
->>>>>>> origin/master
             if (!data) {
                 if (failure) {
                     failure(tempError);
