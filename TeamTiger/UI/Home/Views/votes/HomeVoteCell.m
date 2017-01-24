@@ -178,6 +178,7 @@
 }
 
 - (void)voteClick:(VoteModel *)voteModel {
+    BOOL srcIsVote = voteModel.isvote;
     voteModel.isvote = !voteModel.isvote;
     VoteClickApi *votecClickApi = [[VoteClickApi alloc] init];
     votecClickApi.requestArgument = @{@"pid":_homeModel.Id, //项目id
@@ -192,6 +193,7 @@
                 [self.delegate clickVoteSuccess:self.projectBtn.indexPath homeModel:homeModel];
             }
         } else {
+            voteModel.isvote = srcIsVote;
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
             hud.label.text = request.responseJSONObject[MSG];
             hud.mode = MBProgressHUDModeText;
@@ -199,6 +201,7 @@
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        voteModel.isvote = srcIsVote;
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
         hud.label.text = @"您的网络好像有问题~";
         hud.mode = MBProgressHUDModeText;
