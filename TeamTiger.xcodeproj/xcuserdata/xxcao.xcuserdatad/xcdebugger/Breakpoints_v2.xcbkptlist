@@ -89,7 +89,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "184"
             endingLineNumber = "184"
-            landmarkName = "-handleCommentBtnAction:"
+            landmarkName = "-handleClickProjectBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -249,7 +249,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
             endingLineNumber = "268"
-            landmarkName = "-createProjectWithProjectName:"
+            landmarkName = "-createProjectWithProjectName"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -264,9 +264,7 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "523"
-            endingLineNumber = "523"
-            landmarkName = "-managerDidRecvAuthResponse:"
-            landmarkType = "7">
+            endingLineNumber = "523">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -281,7 +279,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
             endingLineNumber = "251"
-            landmarkName = "-viewDidLoad"
+            landmarkName = "-handleSetBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -297,7 +295,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "637"
             endingLineNumber = "637"
-            landmarkName = "-clickCommentBtn:"
+            landmarkName = "-tableView:heightForFooterInSection:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -345,7 +343,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "671"
             endingLineNumber = "671"
-            landmarkName = "-clickVoteSuccess:homeModel:"
+            landmarkName = "-handleConvertId:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
