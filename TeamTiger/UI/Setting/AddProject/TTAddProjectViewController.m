@@ -288,6 +288,7 @@
         NSLog(@"ProjectCreateApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
              [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
