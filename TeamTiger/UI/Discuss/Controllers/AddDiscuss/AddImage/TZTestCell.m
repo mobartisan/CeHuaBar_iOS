@@ -34,7 +34,7 @@
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_deleteBtn setImage:[UIImage imageNamed:@"photo_delete"] forState:UIControlStateNormal];
         _deleteBtn.frame = CGRectMake(self.tz_width - 36, 0, 36, 36);
-        _deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, -10);
+        _deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-14, 0, 0, -14);
         _deleteBtn.alpha = 0.6;
         [self addSubview:_deleteBtn];
     }
