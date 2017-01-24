@@ -178,6 +178,15 @@
 }
 
 - (void)textLengthChange:(UITextField *)textField {
+    
+    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]" options:0 error:nil];
+    
+    NSString *noEmojiStr = [regularExpression stringByReplacingMatchesInString:textField.text options:0 range:NSMakeRange(0, textField.text.length) withTemplate:@""];
+    
+    if (![noEmojiStr isEqualToString:textField.text]) {
+        textField.text = noEmojiStr;
+    }
+    
     if (self.actionBlock) {
         self.actionBlock(self, ECellTypeProjectName, textField.text);
     }

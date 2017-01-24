@@ -72,14 +72,16 @@ typedef enum : NSUInteger {
         _textView.showsHorizontalScrollIndicator = NO;
         _textView.scrollEnabled = NO;
         _textView.delegate = self;
+        _textView.enablesReturnKeyAutomatically = YES;
+        _textView.returnKeyType = UIReturnKeyDone;
         _textView.textColor = [UIColor whiteColor];
         _textView.font = [UIFont systemFontOfSize:15];
         _textView.backgroundColor = [UIColor clearColor];
         _textView.tintColor = [UIColor whiteColor];
-        _textView.maxLength = 200;//最大字数
+        _textView.maxLength = 120;//最大字数
     }
     return _textView;
-
+    
 }
 
 - (UISwitch *)switchView
@@ -97,7 +99,7 @@ typedef enum : NSUInteger {
         _labelView = [[UILabel alloc] init];
         _labelView.font = [UIFont systemFontOfSize:17];
         _labelView.textColor = [UIColor whiteColor];
-//        _labelView.backgroundColor = [UIColor redColor];
+        //        _labelView.backgroundColor = [UIColor redColor];
     }
     return _labelView;
 }
@@ -196,7 +198,7 @@ typedef enum : NSUInteger {
 {
     static NSString *ID = @"CommonCell";
     TTCommonCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    //    cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     if (cell == nil) {
         cell = [[TTCommonCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
@@ -214,7 +216,7 @@ typedef enum : NSUInteger {
 
 
 - (void)dealloc {
-//    self.textView.delegate = nil;
+    //    self.textView.delegate = nil;
 }
 /**
  *  拦截frame的设置
@@ -231,13 +233,13 @@ typedef enum : NSUInteger {
 
 - (void)customLayoutSubviews {
     if (self.cellType == TTCommonCellCustomView) {
-//        CGFloat customViewH = self.customView.hyb_height;
+        //        CGFloat customViewH = self.customView.hyb_height;
         [self.customView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
-//            make.left.equalTo(self.contentView);
-//            make.right.equalTo(self.contentView);
-//            make.top.equalTo(self.contentView);
-//            make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
+            //            make.left.equalTo(self.contentView);
+            //            make.right.equalTo(self.contentView);
+            //            make.top.equalTo(self.contentView);
+            //            make.bottom.equalTo(self.contentView).offset(-kDistanceToVSide);
         }];
         return;
     }
@@ -264,8 +266,8 @@ typedef enum : NSUInteger {
             make.centerY.equalTo(self.contentView);
             make.width.mas_equalTo(8);
             make.height.mas_equalTo(12);
-//            make.top.equalTo(self.contentView.mas_top).offset(33);
-//            make.bottom.equalTo(self.contentView.mas_bottom).offset(-33);
+            //            make.top.equalTo(self.contentView.mas_top).offset(33);
+            //            make.bottom.equalTo(self.contentView.mas_bottom).offset(-33);
             make.right.equalTo(self.contentView.mas_right).offset(-kDistanceToHSide);
         }];
     }
@@ -335,7 +337,7 @@ typedef enum : NSUInteger {
         self.cellType = TTCommonCellSwitch;
         [self.contentView addSubview:self.switchView];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-
+        
         // 设置开关的状态
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         self.switchView.on = [defaults boolForKey:self.item.title];
@@ -378,12 +380,22 @@ typedef enum : NSUInteger {
     if (self.item.icon) {
         self.imageView.image = [UIImage imageNamed:self.item.icon];
     }
-//    self.textLabel.text = self.item.title;
+    //    self.textLabel.text = self.item.title;
     self.labelView.text = self.item.title;
     if (self.item.subtitle) {
         self.subLabelView.text = self.item.subtitle;
         [self.contentView addSubview:self.subLabelView];
     }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    
+    
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
@@ -406,6 +418,15 @@ typedef enum : NSUInteger {
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
+    
+    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]" options:0 error:nil];
+    
+    NSString *noEmojiStr = [regularExpression stringByReplacingMatchesInString:textView.text options:0 range:NSMakeRange(0, textView.text.length) withTemplate:@""];
+    
+    if (![noEmojiStr isEqualToString:textView.text]) {
+        textView.text = noEmojiStr;
+    }
+    
     if (self.actionBlock) {
         self.actionBlock(textView.text);
     }
