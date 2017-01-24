@@ -29,7 +29,7 @@
         }];
         
         if (![Common isEmptyString:member.user_img_url]) {
-           [_headImgV sd_setImageWithURL:[NSURL URLWithString:member.user_img_url] placeholderImage:kImage(@"common-headDefault")];
+           [_headImgV sd_setImageWithURL:[NSURL URLWithString:member.user_img_url] placeholderImage:kImage(@"common-headDefault") options:SDWebImageRetryFailed | SDWebImageLowPriority];
         }
         
         _nameLab = [[UILabel alloc] init];

@@ -177,7 +177,9 @@
     self.currentImageIndex = index;
     if (imageView.hasLoadedImage) return;
     if ([self highQualityImageURLForIndex:index]) {
-        [imageView setImageWithURL:[self highQualityImageURLForIndex:index] placeholderImage:[self placeholderImageForIndex:index]];
+        [imageView sd_setImageWithURL:[self highQualityImageURLForIndex:index]
+                     placeholderImage:[self placeholderImageForIndex:index]
+                              options:SDWebImageRetryFailed | SDWebImageLowPriority];
     } else {
         imageView.image = [self placeholderImageForIndex:index];
     }

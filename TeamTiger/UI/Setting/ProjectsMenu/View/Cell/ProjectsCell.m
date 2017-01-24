@@ -32,7 +32,7 @@
         TT_Project *project = (TT_Project *)object;
         self.project = project;
         
-        [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:project.logoURL] placeholderImage:kImage(@"img_logo")];
+        [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:project.logoURL] placeholderImage:kImage(@"img_logo") options:SDWebImageRetryFailed | SDWebImageLowPriority];
         
         if (self.project.newscount.integerValue != 0 && !project.isNoDisturb) {
             //接受项目消息

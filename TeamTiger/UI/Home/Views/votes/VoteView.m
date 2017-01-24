@@ -103,7 +103,7 @@
         ImageAndBtnView *customView  = [_imageViewsArray objectAtIndex:idx];
         customView.projectLB.text = arr[idx];
         customView.hidden = NO;
-        [customView.imageV sd_setImageWithURL:[NSURL URLWithString:((VoteModel *)obj).url] placeholderImage:kImage(@"defaultBG")];
+        [customView.imageV sd_setImageWithURL:[NSURL URLWithString:((VoteModel *)obj).url] placeholderImage:kImage(@"defaultBG")options:SDWebImageRetryFailed | SDWebImageLowPriority];
         customView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
         [self.imageArr addObject:customView.imageV];
         if (((VoteModel *)obj).isvote) {

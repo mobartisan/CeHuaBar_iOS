@@ -153,7 +153,7 @@
     WeakSelf;
     _homeModel = homeModel;
     
-    [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"img_user")];
+    [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"img_user") options:SDWebImageRetryFailed | SDWebImageLowPriority];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
     self.contentLB.text = homeModel.content;

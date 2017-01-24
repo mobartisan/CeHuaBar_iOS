@@ -543,11 +543,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Views/comments/SDWeiXinPhotoContainerView.m"
-            timestampString = "506932437.344124"
+            timestampString = "506933255.446132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "-tapImageView:"
             landmarkType = "7">
          </BreakpointContent>
@@ -559,11 +559,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Views/comments/SDWeiXinPhotoContainerView.m"
-            timestampString = "506932437.344124"
+            timestampString = "506933255.446132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-photoBrowser:highQualityImageURLForIndex:"
             landmarkType = "7">
          </BreakpointContent>

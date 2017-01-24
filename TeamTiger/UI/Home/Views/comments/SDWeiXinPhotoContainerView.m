@@ -94,7 +94,9 @@
         UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
         imageView.hidden = NO;
         obj = [NSString stringWithFormat:@"%@%@",obj,kCompressKey];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(@"defaultBG")];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:obj]
+                     placeholderImage:kImage(@"defaultBG")
+                              options:SDWebImageRetryFailed | SDWebImageLowPriority];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
     

@@ -283,7 +283,7 @@
                 self.textLB.hidden = YES;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
 
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image];
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority];
             } else {
                 self.textLB.hidden = NO;
                 if ([[self.tempDic allKeys] count] != 0 && ![[self.tempDic allKeys] containsObject:@"gid"]) {
