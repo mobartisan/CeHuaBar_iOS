@@ -9,6 +9,7 @@
 #import "SDPhotoBrowser.h"
 #import "UIImageView+WebCache.h"
 #import "SDBrowserImageView.h"
+#import "InsetsLabel.h"
 
  
 //  ============在这里方便配置样式相关设置===========
@@ -29,7 +30,7 @@
     BOOL _hasShowedFistView;
     UILabel *_indexLabel;
 //    UIButton *_saveButton;
-    UILabel *_contentLB;
+    InsetsLabel *_contentLB;
     UIActivityIndicatorView *_indicatorView;
     BOOL _willDisappear;
 }
@@ -85,8 +86,8 @@
 //    [self addSubview:saveButton];
     
     //3.内容label
-    UILabel *contentLB = [UILabel new];
-    contentLB.lineBreakMode = NSLineBreakByCharWrapping;
+    InsetsLabel *contentLB = [InsetsLabel new];
+    contentLB.lineBreakMode = NSLineBreakByWordWrapping;
     contentLB.font = kFont;
     contentLB.textColor = [UIColor whiteColor];
     contentLB.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
@@ -274,6 +275,7 @@
     CGSize size = [NSString sizeWithText:self.content font:kFont maxSize:CGSizeMake(width, 200)];
 
     _contentLB.frame = CGRectMake(10, kScreenHeight - 150, kScreenWidth - 10 * 2, size.height + 25);
+    _contentLB.insets = UIEdgeInsetsMake(4, 4, 4, 0);
     _contentLB.text = self.content;
 }
 

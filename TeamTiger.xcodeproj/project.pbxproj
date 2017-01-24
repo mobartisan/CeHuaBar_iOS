@@ -267,6 +267,7 @@
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
 		1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5D5FF71D4EFADD007123EB /* AddressBook.framework */; };
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
+		1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */; };
 		1D6D02CB1D58139F00EE0C2E /* TTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */; };
 		1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8713061DE6B91800C17D01 /* SelectGroupView.xib */; };
 		1D87130A1DE6B91800C17D01 /* SelectGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8713071DE6B91800C17D01 /* SelectGroupView.m */; };
@@ -1027,6 +1028,8 @@
 		1D5D5FF21D4EE72E007123EB /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
 		1D5D5FF71D4EFADD007123EB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1D677F151D5C1D48001D099E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1D6A2F191E3741CD007BC76A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
+		1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
 		1D6D02C91D58139E00EE0C2E /* TTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPickerView.h; sourceTree = "<group>"; };
 		1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPickerView.m; sourceTree = "<group>"; };
 		1D8713061DE6B91800C17D01 /* SelectGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectGroupView.xib; sourceTree = "<group>"; };
@@ -2529,6 +2532,15 @@
 			path = CacheManager;
 			sourceTree = "<group>";
 		};
+		1D6A2F181E3741B5007BC76A /* InsetsLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1D6A2F191E3741CD007BC76A /* InsetsLabel.h */,
+				1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */,
+			);
+			path = InsetsLabel;
+			sourceTree = "<group>";
+		};
 		1D6D02C81D58137500EE0C2E /* TTPickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2881,6 +2893,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D6A2F181E3741B5007BC76A /* InsetsLabel */,
 				2D1469181E2DBB5D000300C4 /* MGSwipeTableCell */,
 				1D49D9F11E11FE8800433B2C /* AESCrypt */,
 				2D9674EE1DEBCDBF002DF6E0 /* TalkingData */,
@@ -4177,6 +4190,7 @@
 				06008F151D58162300A5B3DB /* TTCommonCell.m in Sources */,
 				2DDD542D1DB0D4AF00C55633 /* QNSessionManager.m in Sources */,
 				1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */,
+				1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */,
 				2D727A181DDD844E00CBF0BA /* JJMainScrollView.m in Sources */,
 				1D09CC8B1D3F29C900F85E9A /* YYClassInfo.m in Sources */,
 				2D727A011DDD811B00CBF0BA /* ImageAndBtnView.m in Sources */,
