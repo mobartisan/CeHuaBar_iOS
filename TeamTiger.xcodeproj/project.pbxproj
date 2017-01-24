@@ -427,6 +427,7 @@
 		1DF0A1BB1D4DB898002D91DB /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1A91D4DB898002D91DB /* 7.png */; };
 		1DF0A1BC1D4DB898002D91DB /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1AA1D4DB898002D91DB /* 8.png */; };
 		1DF0A1BD1D4DB898002D91DB /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DF0A1AB1D4DB898002D91DB /* 9.png */; };
+		1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EF2C1E37891100355562 /* UITextField+Extension.m */; };
 		1DF991CC1D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C51D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m */; };
 		1DF991CD1D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C71D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m */; };
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
@@ -1281,6 +1282,8 @@
 		1DF0A1A91D4DB898002D91DB /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		1DF0A1AA1D4DB898002D91DB /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		1DF0A1AB1D4DB898002D91DB /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
+		1DF4EF2B1E37891100355562 /* UITextField+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extension.h"; sourceTree = "<group>"; };
+		1DF4EF2C1E37891100355562 /* UITextField+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extension.m"; sourceTree = "<group>"; };
 		1DF991C31D488C0F00E7D1B8 /* TYLaunchAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLaunchAnimationProtocol.h; sourceTree = "<group>"; };
 		1DF991C41D488C0F00E7D1B8 /* TYLaunchBaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLaunchBaseAnimation.h; sourceTree = "<group>"; };
 		1DF991C51D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYLaunchBaseAnimation.m; sourceTree = "<group>"; };
@@ -2999,6 +3002,8 @@
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
 				2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */,
 				2D6D17701DED552200AFE3BD /* UIImage+Extension.m */,
+				1DF4EF2B1E37891100355562 /* UITextField+Extension.h */,
+				1DF4EF2C1E37891100355562 /* UITextField+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -4018,6 +4023,7 @@
 				1D09CD151D3F550300F85E9A /* NSMutableArray+HYBHelperKit.m in Sources */,
 				1D09CC6A1D3F29C900F85E9A /* YYCGUtilities.m in Sources */,
 				2DFACA581D507B8B0099A2A3 /* DiscussListCell1.m in Sources */,
+				1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */,
 				1D9580E91D3E23E100FD0053 /* SqliteManager.m in Sources */,
 				2DDD54261DB0D4AF00C55633 /* QNEtag.m in Sources */,
 				1D9580D71D3E225200FD0053 /* MASViewConstraint.m in Sources */,

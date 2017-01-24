@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="psT-sH-SQ9" id="j0H-Ud-1lE">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SLk-5r-lom">
@@ -35,8 +35,8 @@
                             <constraint firstAttribute="height" constant="40" id="m94-MT-eas"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="工作牛" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG4-U2-tTq">
-                        <rect key="frame" x="74" y="16" width="52" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京营配一体化组" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JG4-U2-tTq">
+                        <rect key="frame" x="74" y="16" width="139" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="iUY-Sl-2Ss"/>
                         </constraints>
@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_do_not_disturb" translatesAutoresizingMaskIntoConstraints="NO" id="s55-wH-cUP">
-                        <rect key="frame" x="131" y="19" width="15" height="15"/>
+                        <rect key="frame" x="218" y="19" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="c0X-a6-bEp"/>
                             <constraint firstAttribute="width" constant="15" id="szi-VR-9VH"/>
@@ -80,6 +80,7 @@
                 <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="JG4-U2-tTq" firstAttribute="centerY" secondItem="j0H-Ud-1lE" secondAttribute="centerY" id="3Z7-mH-xhk"/>
+                    <constraint firstItem="qBX-fy-bPl" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="s55-wH-cUP" secondAttribute="trailing" constant="2" id="3lx-lc-J7Y"/>
                     <constraint firstItem="JG4-U2-tTq" firstAttribute="leading" secondItem="5yN-VX-dWO" secondAttribute="trailing" constant="14" id="44x-j1-tPy"/>
                     <constraint firstItem="ebW-eD-0mT" firstAttribute="leading" secondItem="qBX-fy-bPl" secondAttribute="trailing" constant="7" id="84g-Sq-bjl"/>
                     <constraint firstAttribute="trailingMargin" secondItem="f0z-rd-HAJ" secondAttribute="trailing" constant="24" id="9sY-36-xCZ"/>

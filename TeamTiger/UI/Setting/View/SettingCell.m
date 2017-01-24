@@ -13,6 +13,7 @@
 #import "UITextView+PlaceHolder.h"
 #import "UIControl+YYAdd.h"
 #import "UIImage+YYAdd.h"
+#import "UITextField+Extension.h"
 
 #define  kMaxLength  40
 
@@ -191,44 +192,17 @@
         textField.text = noEmojiStr;
     }
     //2.限制长度
-    [self textFieldDidChange:textField];
-    //3.回调触发
-    if (self.actionBlock) {
-        self.actionBlock(self, ECellTypeProjectName, textField.text);
-    }
-}
-
-
-- (void)textFieldDidChange:(UITextField *)textField
-{
-    NSString *text = textField.text;
-    //    NSLog(@"text:%@",text);
-    
-    UITextRange *selectedRange = [textField markedTextRange];
-    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
-    
-    // 没有高亮选择的字，则对已输入的文字进行字数统计和限制,防止中文被截断
-    
-    if (!position){
-        //---字节处理
-        //Limit
-        NSUInteger textBytesLength = [textField.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-        if (textBytesLength > kMaxLength) {
+    [textField beyondMaxLength:kMaxLength BeyondBlock:^(BOOL isBeyond) {
+        if (isBeyond) {
             self.hud = [MBProgressHUD showHUDAddedTo:self.superview.superview animated:YES];
             self.hud.mode = MBProgressHUDModeText;
             self.hud.label.text = @"字数超出上限";
             [self.hud hideAnimated:YES afterDelay:1.5];
-            NSRange range;
-            NSUInteger byteLength = 0;
-            for(int i = 0; i < text.length && byteLength <= kMaxLength; i += range.length) {
-                range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
-                byteLength += strlen([[text substringWithRange:range] UTF8String]);
-                if (byteLength > kMaxLength) {
-                    NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
-                    textField.text = newText;
-                }
-            }
         }
+    }];
+    //3.回调触发
+    if (self.actionBlock) {
+        self.actionBlock(self, ECellTypeProjectName, textField.text);
     }
 }
 
