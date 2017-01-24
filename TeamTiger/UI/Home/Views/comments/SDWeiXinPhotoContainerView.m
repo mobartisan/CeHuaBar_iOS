@@ -93,6 +93,8 @@
         long rowIndex = idx / perRowItemCount;
         UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
         imageView.hidden = NO;
+        NSString *compressKey = @"?imageView2/2/w/120/h/120/q/100";
+        obj = [NSString stringWithFormat:@"%@%@",obj,compressKey];
         [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(@"defaultBG")];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
@@ -160,14 +162,13 @@
 - (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
 {
     NSString *imageName = self.picPathStringsArray[index];
-    NSURL *url = [[NSBundle mainBundle] URLForResource:imageName withExtension:nil];
+    NSURL *url = [NSURL URLWithString:imageName];
     return url;
 }
 
 - (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
 {
-    UIImageView *imageView = self.subviews[index];
-    return imageView.image;
+    return [UIImage imageNamed:@"defaultBG"];
 }
 
 @end
