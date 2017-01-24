@@ -315,8 +315,6 @@
         UITapGestureRecognizer *tapSendImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapSendImage:)];
         [sendImage addGestureRecognizer:tapSendImage];
         
-        
-        
         [_headerImage setupAutoHeightWithBottomView:lineView bottomMargin:0];
         [_headerImage layoutSubviews];
     }
@@ -325,10 +323,9 @@
 
 - (void)handleTapInputImage:(UITapGestureRecognizer *)tap {
     NSLog(@"handleTapInputImage");
-    if ([self.delegate respondsToSelector:@selector(clickImageBtn)]) {
-        NSArray *images = [self.delegate clickImageBtn];
-        NSLog(@"%@", images);
-    }
+//    if ([self.delegate respondsToSelector:@selector(clickImageBtn)]) {
+//        [self.delegate clickImageBtn];
+//    }
 }
 
 - (void)handleTapSendImage:(UITapGestureRecognizer *)tap {

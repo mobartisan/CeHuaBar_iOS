@@ -32,6 +32,8 @@
 @property (strong, nonatomic) NSMutableArray *selectMembers;//选择成员数组
 @property (strong, nonatomic) UIImage *tempImage;//项目logo
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
+@property (nonatomic,assign) NSInteger arrCount;
+
 
 @end
 
@@ -155,6 +157,7 @@
                 break;
             }
             case ECellTypeAddMember:{//添加人员
+                self.arrCount = self.membersArray.count;
                 [self.contentTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
             }
@@ -192,14 +195,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 2) {
-        int memberCount = (int)self.membersArray.count;
+        int memberCount = (int)self.arrCount;
         if (memberCount > 8) {
             return 8 * kCellHeight + 1;
         }
         return memberCount * kCellHeight + 1;
         
     }
-    return 0.1;
+    return [UIScreen mainScreen].scale;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -264,11 +267,11 @@
                                   @"url":url};
             NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
             NSString *tempStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            dispatch_async(dispatch_get_main_queue(), ^{
+       
                 [self projectCreate:@{@"name":self.name,
                                       @"logo":tempStr,
                                       @"uids":memberStr}];//有logo
-            });
+           
         } failure:^(NSError *error) {
             NSLog(@"%@", error);
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -370,7 +373,8 @@
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
         self.tempImage = [self getNewImage:[photos firstObject]];
-        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.contentTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
     [self presentViewController:imagePickerVc animated:YES completion:nil];
@@ -402,7 +406,7 @@
     if ([type isEqualToString:@"public.image"]) {
         UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
         self.tempImage = [self getNewImage:image];
-        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
