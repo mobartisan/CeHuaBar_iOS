@@ -118,7 +118,8 @@
             //如果没登录，保存数据
             [loginManager saveParametersBeforeLogin:project_id];
         }
-    } else {
+    }
+    else {
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
     return YES;

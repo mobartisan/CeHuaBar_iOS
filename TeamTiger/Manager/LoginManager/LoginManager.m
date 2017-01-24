@@ -109,6 +109,9 @@ static LoginManager *loginManager = nil;
 
 - (BOOL)saveParametersBeforeLogin:(id)para {
     NSMutableArray *mArray = UserDefaultsGet(@"USER_DEFAULT_KEY_JOIN");
+    if (!mArray) {
+        mArray = [NSMutableArray array];
+    }
     if (![mArray containsObject:para]) {
         [mArray addObject:para];
         UserDefaultsSave(mArray, @"USER_DEFAULT_KEY_JOIN");

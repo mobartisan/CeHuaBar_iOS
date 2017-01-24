@@ -255,7 +255,7 @@
     
     
     //测试
-    //    [self deleteAllData];
+//     [self deleteAllData];
 }
 
 #pragma mark 获取Moments
