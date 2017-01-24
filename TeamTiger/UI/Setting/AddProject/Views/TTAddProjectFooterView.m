@@ -86,30 +86,20 @@
     }
     cell.icon_confirm.hidden = !user.isSelect;
     cell.user = user;
+    [cell setSelectBtnBlock:^{
+        user.isSelect = !user.isSelect;
+        [self.tableView reloadData];
+        if (user.isSelect) {
+            [self.selectMembers addObject:user.user_id];
+        } else {
+            [self.selectMembers removeObject:user.user_id];
+        }
+        if (self.addMemberBlock) {
+            self.addMemberBlock(self.selectMembers);
+        }
+    }];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    TT_User *user = self.dataSource[indexPath.row];
-    user.isSelect = !user.isSelect;
-    [self.tableView reloadData];
-    if (user.isSelect) {
-        [self.selectMembers addObject:user.user_id];
-    } else {
-        [self.selectMembers removeObject:user.user_id];
-    }
-    if (self.addMemberBlock) {
-        self.addMemberBlock(self.selectMembers);
-    }
-    
-    
-}
-
-//- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-//    return @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
-//}
 
 @end

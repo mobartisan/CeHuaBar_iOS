@@ -261,6 +261,25 @@
     }];
 }
 
+#pragma mark - 移交项目
+- (void)projectHandover {
+    ProjectHandoverApi *projectHandoverApi = [[ProjectHandoverApi alloc] init];
+    projectHandoverApi.requestArgument = @{@"pid":@"",
+                                         @"uid":@""};
+    [projectHandoverApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:NETWORKERROR afterSeconds:1.0];
+    }];
+}
+
+
 #pragma -mark WXApiManagerDelegate
 - (void)managerDidRecvGetMessageReq:(GetMessageFromWXReq *)request {
     

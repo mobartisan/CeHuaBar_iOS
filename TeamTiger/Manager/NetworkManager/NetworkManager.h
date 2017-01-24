@@ -60,6 +60,11 @@
 
 @end
 
+//MARK: - 移交项目
+@interface ProjectHandoverApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 //MARK: - 修改项目信息
 @interface ProjectUpdateApi : LCBaseRequest<LCAPIRequest>
 

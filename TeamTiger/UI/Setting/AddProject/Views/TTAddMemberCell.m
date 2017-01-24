@@ -35,6 +35,11 @@
     self.nameLB.text = user.nick_name;
     self.msgLB.text = user.nick_name;
 }
+- (IBAction)handleSelectBtn {
+    if (self.selectBtnBlock) {
+        self.selectBtnBlock();
+    }
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

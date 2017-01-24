@@ -263,6 +263,36 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+
+//MARK: - 移交项目
+@implementation ProjectHandoverApi
+
+- (NSString *)apiMethodName {
+    return @"project/handover.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
 //MARK: - 修改项目信息
 @implementation ProjectUpdateApi
 

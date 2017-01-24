@@ -49,19 +49,29 @@
                             <constraint firstAttribute="width" constant="12" id="jUm-8d-AM9"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Kp-Ty-FIg" userLabel="SelBtn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
+                        <connections>
+                            <action selector="handleSelectBtn" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dAU-Gk-jRd"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="leading" secondItem="0yX-xC-n32" secondAttribute="trailing" constant="8" id="4mA-GD-dcp"/>
+                    <constraint firstItem="3Kp-Ty-FIg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Eu8-2W-yqN"/>
                     <constraint firstItem="VPz-84-IWR" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="FoY-KB-NPY"/>
+                    <constraint firstItem="BgR-ub-3DU" firstAttribute="top" secondItem="3Kp-Ty-FIg" secondAttribute="bottom" id="Fx5-d1-jZ9"/>
                     <constraint firstItem="BgR-ub-3DU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="55" id="GHM-1h-7Gv"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Orj-cu-iCS"/>
                     <constraint firstAttribute="trailing" secondItem="VPz-84-IWR" secondAttribute="trailing" constant="100" id="Sxb-jc-90P"/>
                     <constraint firstItem="0yX-xC-n32" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="X4k-Gr-bPm"/>
                     <constraint firstAttribute="trailing" secondItem="BgR-ub-3DU" secondAttribute="trailing" id="aNh-kw-dYX"/>
                     <constraint firstAttribute="bottom" secondItem="BgR-ub-3DU" secondAttribute="bottom" id="fow-I7-MR6"/>
+                    <constraint firstItem="3Kp-Ty-FIg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gxj-SR-KHX"/>
                     <constraint firstAttribute="trailing" secondItem="ROh-lu-bEm" secondAttribute="trailing" constant="10" id="hvG-tb-IsR"/>
                     <constraint firstItem="ROh-lu-bEm" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="mNP-O3-lp8"/>
+                    <constraint firstAttribute="trailing" secondItem="3Kp-Ty-FIg" secondAttribute="trailing" id="nXj-DC-M4N"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
@@ -70,7 +80,7 @@
                 <outlet property="icon_confirm" destination="ROh-lu-bEm" id="RX7-iH-Sxq"/>
                 <outlet property="nameLB" destination="VPz-84-IWR" id="jQ7-nk-IXu"/>
             </connections>
-            <point key="canvasLocation" x="-461" y="-134"/>
+            <point key="canvasLocation" x="-1026" y="-192"/>
         </tableViewCell>
     </objects>
     <resources>

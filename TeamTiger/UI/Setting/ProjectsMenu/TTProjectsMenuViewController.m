@@ -223,7 +223,12 @@
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要删除该项目?" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     NSLog(@"删除项目");
-                    [self projectDeleteWithProject:projectInfo];
+                    if (projectInfo.member_type == 1) {
+                        [self projectDeleteWithProject:projectInfo];
+                    } else {
+                        [self projectMemberQuitWithProject:projectInfo];
+                    }
+                    
                 }
             }];
             return YES;
@@ -415,6 +420,7 @@
         NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             [self.unGroupProjects removeObject:project];
             [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
         } else {
@@ -424,6 +430,28 @@
         NSLog(@"%@", error);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark - 退出项目
+- (void)projectMemberQuitWithProject:(TT_Project *)project {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    ProjectMemberQuitApi *api = [[ProjectMemberQuitApi alloc] init];
+    api.requestArgument = @{@"pid":project.project_id};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"ProjectMemberQuitApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+            [self.unGroupProjects removeObject:project];
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"ProjectMemberQuitApi:%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
 

@@ -15,5 +15,6 @@
 @property (strong, nonatomic) TT_User *user;
 
 @property (weak, nonatomic) IBOutlet UIImageView *icon_confirm;
+@property (nonatomic,copy) void (^selectBtnBlock)();
 
 @end
