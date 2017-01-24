@@ -224,6 +224,7 @@
         NSLog(@"ProjectMemberQuitApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             if (self.requestData) {
                 self.requestData();
             }
@@ -247,6 +248,7 @@
         NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
             if (self.requestData) {
                 self.requestData();
             }
