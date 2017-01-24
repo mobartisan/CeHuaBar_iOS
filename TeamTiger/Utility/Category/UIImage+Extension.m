@@ -144,7 +144,7 @@
     if (!self) {
         return nil;
     }
-    CGFloat maxFileSize = 600 * 1024; //不会超过600k
+    CGFloat maxFileSize = 500 * 1024; //不会超过500k
     CGFloat compression = 0.9f;
     NSData *compressedData = UIImageJPEGRepresentation(self, compression);
     while ([compressedData length] > maxFileSize) {
