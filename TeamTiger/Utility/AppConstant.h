@@ -74,4 +74,6 @@ static NSString *const QiNiuAccessKey = @"M82sZ5xflkxGQr1Kyi0VTG9UUid5PYBqYCzGgx
 static NSString *const QiNiuSecretKey = @"t9uR0JgBozDzQduR9h-HS0p-nye7Vm2cYIlGkkem";
 #define QiNiuBaseUrl @"http://ohcjw5fss.bkt.clouddn.com/"
 
+static NSString *const kCompressKey = @"?imageView2/2/w/120/h/120/q/100";
+
 #endif /* Constant_h */

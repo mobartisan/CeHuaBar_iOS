@@ -93,8 +93,7 @@
         long rowIndex = idx / perRowItemCount;
         UIImageView *imageView = [_imageViewsArray objectAtIndex:idx];
         imageView.hidden = NO;
-        NSString *compressKey = @"?imageView2/2/w/120/h/120/q/100";
-        obj = [NSString stringWithFormat:@"%@%@",obj,compressKey];
+        obj = [NSString stringWithFormat:@"%@%@",obj,kCompressKey];
         [imageView sd_setImageWithURL:[NSURL URLWithString:obj] placeholderImage:kImage(@"defaultBG")];
         imageView.frame = CGRectMake(columnIndex * (itemW + margin), rowIndex * (itemH + margin), itemW, itemH);
     }];
