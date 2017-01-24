@@ -33,7 +33,17 @@
         self.project = project;
         
         [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:project.logoURL] placeholderImage:kImage(@"img_logo")];
-        self.msgNumLab.text = @(arc4random()%99 + 1).stringValue;
+        
+        if (self.project.newscount.integerValue != 0 && !project.isNoDisturb) {
+            //接受项目消息
+            self.msgNumLab.hidden = NO;
+            self.msgNumBGImgV.hidden = NO;
+            self.msgNumLab.text = self.project.newscount;
+        } else {
+            self.msgNumLab.hidden = YES;
+            self.msgNumBGImgV.hidden = YES;
+        }
+        
         self.projectNameLab.text = project.name;
         self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//1/绿色-我创建的  2/橙色-我加入的
         UIView *v = [self viewWithTag:2016 + self.tag];
@@ -51,16 +61,9 @@
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
-    
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
-        self.msgNumLab.hidden = project.isNoDisturb;
-        self.msgNumBGImgV.hidden = project.isNoDisturb;
     }
 }
-
-
-
-
 
 
 @end

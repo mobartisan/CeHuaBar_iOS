@@ -20,7 +20,8 @@
 @synthesize create_user_id = _create_user_id;
 @synthesize last_edit_date = _last_edit_date;
 @synthesize last_edit_user_id = _last_edit_user_id;
-
+@synthesize type = _type;
+@synthesize project_nums = _project_nums;
 - (NSString *)description
 {
     NSLog(@"group_id:%@", _group_id);
@@ -33,7 +34,8 @@
     NSLog(@"create_user_id:%@", _create_user_id);
     NSLog(@"last_edit_date:%@", _last_edit_date);
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
-    
+    NSLog(@"type:%zd", _type);
+    NSLog(@"project_nums:%zd", _project_nums);
     return [super description];
 }
 
@@ -81,6 +83,13 @@
     }
 }
 
+- (void)setNewscount:(NSString *)newscount {
+    if ([newscount isKindOfClass:[NSNumber class]]) {
+        _newscount = ((NSNumber *)newscount).stringValue;
+    } else {
+        _newscount = newscount;
+    }
+}
 
 
 @end

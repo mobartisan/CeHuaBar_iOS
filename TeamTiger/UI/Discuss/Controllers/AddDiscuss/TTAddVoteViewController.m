@@ -251,8 +251,10 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     // 2.给cell传递模型数据
     TTCommonGroup *group = self.data[indexPath.section];
     cell.item = group.items[indexPath.row];
-    cell.lastRowInSection =  (group.items.count - 1 == indexPath.row);
-    
+    cell.lastRowInSection = (group.items.count - 1 == indexPath.row);
+    if (indexPath.section == 1) {
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     WeakSelf;
     cell.actionBlock = ^ (NSString *text) {
         wself.text = text;
@@ -329,7 +331,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     return _startMomentBtn;
 }
 
-#warning to do ....创建投票类型的Moment
+//MARK:- 创建投票类型的Moment
 - (void)actionStartMoment {
     if ([Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
         [super showText:@"请先创建项目" afterSeconds:1.0];
@@ -340,7 +342,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [super showText:@"请输入描述" afterSeconds:1.0];
         return;
     }
-    
     
     NSMutableArray *imageArr = [NSMutableArray array];
     for (NSInteger i = 0; i < 9 ; i++) {
@@ -353,11 +354,12 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [super showText:@"请选择图片" afterSeconds:1.0];
         return;
     }
-    
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeAnnularDeterminate;
+    hud.label.text = @"正在上传图片并发布投票...";
     NSMutableArray *mediasArr = [NSMutableArray array];
     [QiniuUpoadManager uploadImages:imageArr progress:^(CGFloat progress) {
-        
+        hud.progress = progress;
     } success:^(NSArray *urls) {
         for (int i = 0; i < urls.count; i++) {
             NSDictionary *dic = @{@"vote_name":[NSString stringWithUTF8String:kOptionStr[i]],
@@ -366,11 +368,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
                                                 @"url":urls[i]}]};
             [mediasArr addObject:dic];
         }
-        
-        
         NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
         NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
         NSDictionary *dic = @{@"votes":votesStr,
                               @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
                               @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),
@@ -380,25 +379,28 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         VoteCreateApi *voteCreatApi = [[VoteCreateApi alloc] init];
         voteCreatApi.requestArgument = dic;
         [voteCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [hud hideAnimated:YES];
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 if (self.addVoteBlock) {
                     self.addVoteBlock();
                 }
+                //删除图片缓存
+                [[SelectPhotosManger sharedInstance] cleanSelectAssets];
+                [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
                 [self.navigationController popViewControllerAnimated:YES];
-                
             }
         } failure:^(__kindof LCBaseRequest *request, NSError *error) {
             NSLog(@"%@", error);
             if (error) {
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [hud hideAnimated:YES];
                 [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
             }
         }];
+        
     } failure:^(NSError *error) {
         if (error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [hud hideAnimated:YES];
             [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
         }
     }];

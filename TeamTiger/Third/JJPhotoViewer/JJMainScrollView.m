@@ -103,7 +103,7 @@
     self.contentSize =  CGSizeMake(photoArr.count * self.frame.size.width, 0);
     
     //点击进来的ImageView是数组中的第几个?
-    NSInteger selcImageIndex;
+    NSInteger selcImageIndex = 0;
     for(int i = 0 ; i < photoArr.count ; i ++)
     {
         JJPhoto *photo = photoArr[i];

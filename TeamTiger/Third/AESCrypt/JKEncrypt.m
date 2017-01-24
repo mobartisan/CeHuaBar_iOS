@@ -176,6 +176,8 @@
     
     NSData *encryptData = [NSData dataWithBytes:buf length:len];
     
+    free(buf);
+    
     size_t plainTextBufferSize = [encryptData length];
     const void *vplainText = [encryptData bytes];
     

@@ -225,6 +225,25 @@
     
 }
 
+<<<<<<< HEAD
+=======
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+}
+
+- (UIImage *)getNewImage:(UIImage *)image {
+    CGFloat height = kScreenWidth * 767 / 1242;
+    UIImage *normalImage = [image normalizedImage];
+    // 获取当前使用的图片像素和点的比例
+    CGFloat scale = [UIScreen mainScreen].scale;
+    // 裁减图片
+    CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
+    UIImage *resImage = [UIImage imageWithCGImage:imgR];
+    CGImageRelease(imgR);
+    return resImage;
+}
+
+>>>>>>> origin/master
 #pragma mark - 创建项目
 - (void)createProjectWithProjectName {
     if ([Common isEmptyString:self.name]) {

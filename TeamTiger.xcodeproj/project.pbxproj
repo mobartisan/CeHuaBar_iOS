@@ -239,6 +239,7 @@
 		1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F811D4BA043003DFBB1 /* IQToolbar.m */; };
 		1D115F931D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */; };
 		1D115F941D4BA043003DFBB1 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */; };
+		1D12423C1E36304500A90DF6 /* defaultBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D12423B1E36304500A90DF6 /* defaultBG@2x.png */; };
 		1D29415D1D6E7F45003B9066 /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D29415C1D6E7F45003B9066 /* UploadManager.m */; };
 		1D32AEF01DB08546000DF537 /* TTProjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D32AEEE1DB08546000DF537 /* TTProjectsMenuViewController.m */; };
 		1D32AEF11DB08546000DF537 /* TTProjectsMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D32AEEF1DB08546000DF537 /* TTProjectsMenuViewController.xib */; };
@@ -983,6 +984,7 @@
 		1D115F821D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
 		1D115F831D4BA043003DFBB1 /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		1D12423B1E36304500A90DF6 /* defaultBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultBG@2x.png"; sourceTree = "<group>"; };
 		1D29415B1D6E7F45003B9066 /* UploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadManager.h; sourceTree = "<group>"; };
 		1D29415C1D6E7F45003B9066 /* UploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadManager.m; sourceTree = "<group>"; };
 		1D32AEED1DB08546000DF537 /* TTProjectsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProjectsMenuViewController.h; sourceTree = "<group>"; };
@@ -1622,6 +1624,7 @@
 		0604B4671D4C5A9B00EF1703 /* testImg */ = {
 			isa = PBXGroup;
 			children = (
+				1D12423B1E36304500A90DF6 /* defaultBG@2x.png */,
 				0604B4681D4C5A9B00EF1703 /* downshadow.png */,
 				0604B4691D4C5A9B00EF1703 /* image_1.jpg */,
 				0604B46A1D4C5A9B00EF1703 /* image_2.jpg */,
@@ -3879,6 +3882,7 @@
 				1DD2E3261D596EAA005D45A9 /* toggle_handle_on@3x.png in Resources */,
 				0604B4741D4C5A9B00EF1703 /* image_1.jpg in Resources */,
 				1DD2E3211D596EAA005D45A9 /* toggle_background_on@2x.png in Resources */,
+				1D12423C1E36304500A90DF6 /* defaultBG@2x.png in Resources */,
 				0604B4761D4C5A9B00EF1703 /* image_3.jpg in Resources */,
 				1DBFD6EE1D6463650039077D /* label_phone.png in Resources */,
 				1DF0A1B71D4DB898002D91DB /* 3.png in Resources */,
