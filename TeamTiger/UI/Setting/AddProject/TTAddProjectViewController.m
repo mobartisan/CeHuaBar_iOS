@@ -91,6 +91,9 @@
     [WXApiManager sharedManager].delegate = self;
     [self userRelation];
     
+    //点击背景收键盘
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBGViewAction:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -414,6 +417,10 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)tapBGViewAction:(id)sender {
+    [self.view endEditing:YES];
 }
 
 #pragma mark - 跳转微信加成员
