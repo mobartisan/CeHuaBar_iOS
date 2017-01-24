@@ -14,9 +14,13 @@
 #import "UIControl+YYAdd.h"
 #import "UIImage+YYAdd.h"
 
+#define  kMaxLength  40
+
 @interface SettingCell ()
 
 @property (strong, nonatomic) UIView *leftView;
+
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -178,6 +182,7 @@
 }
 
 - (void)textLengthChange:(UITextField *)textField {
+    //1.过滤表情
     NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]" options:0 error:nil];
     
     NSString *noEmojiStr = [regularExpression stringByReplacingMatchesInString:textField.text options:0 range:NSMakeRange(0, textField.text.length) withTemplate:@""];
@@ -185,12 +190,47 @@
     if (![noEmojiStr isEqualToString:textField.text]) {
         textField.text = noEmojiStr;
     }
-    
+    //2.限制长度
+    [self textFieldDidChange:textField];
+    //3.回调触发
     if (self.actionBlock) {
         self.actionBlock(self, ECellTypeProjectName, textField.text);
     }
 }
 
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    NSString *text = textField.text;
+    //    NSLog(@"text:%@",text);
+    
+    UITextRange *selectedRange = [textField markedTextRange];
+    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+    
+    // 没有高亮选择的字，则对已输入的文字进行字数统计和限制,防止中文被截断
+    
+    if (!position){
+        //---字节处理
+        //Limit
+        NSUInteger textBytesLength = [textField.text lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+        if (textBytesLength > kMaxLength) {
+            self.hud = [MBProgressHUD showHUDAddedTo:self.superview.superview animated:YES];
+            self.hud.mode = MBProgressHUDModeText;
+            self.hud.label.text = @"字数超出上限";
+            [self.hud hideAnimated:YES afterDelay:1.5];
+            NSRange range;
+            NSUInteger byteLength = 0;
+            for(int i = 0; i < text.length && byteLength <= kMaxLength; i += range.length) {
+                range = [textField.text rangeOfComposedCharacterSequenceAtIndex:i];
+                byteLength += strlen([[text substringWithRange:range] UTF8String]);
+                if (byteLength > kMaxLength) {
+                    NSString* newText = [text substringWithRange:NSMakeRange(0, range.location)];
+                    textField.text = newText;
+                }
+            }
+        }
+    }
+}
 
 - (void)handleAddMemberAction {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
