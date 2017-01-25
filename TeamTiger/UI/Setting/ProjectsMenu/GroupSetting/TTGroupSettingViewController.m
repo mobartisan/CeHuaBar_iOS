@@ -172,9 +172,8 @@
         cell.tag = indexPath.section * 1000  + indexPath.row;
         id projectInfo = self.projects[indexPath.row];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.projects.count - 1];
-        ((ProjectsCell *)cell).msgNumLab.hidden = YES;
-        ((ProjectsCell *)cell).msgNumBGImgV.hidden = YES;
         ((ProjectsCell *)cell).arrowImgV.hidden = YES;
+        ((ProjectsCell *)cell).trailingConstrait.constant = 0;
         return cell;
     }
 }

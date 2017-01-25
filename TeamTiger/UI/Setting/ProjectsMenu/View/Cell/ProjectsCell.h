@@ -27,7 +27,7 @@
 
 @property(nonatomic, weak) IBOutlet UIImageView *msgNumBGImgV;
 
-
+@property(nonatomic, weak) IBOutlet NSLayoutConstraint *trailingConstrait;
 
 @property (strong, nonatomic) TT_Project *project;
 
