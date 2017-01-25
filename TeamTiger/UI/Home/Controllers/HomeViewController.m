@@ -55,7 +55,6 @@
 @property (strong, nonatomic) TT_Group *tempGroup;//分组
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
 
-
 @end
 
 @implementation HomeViewController
@@ -66,7 +65,6 @@
         _sectionHeader = [UIView new];
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
-        //        _sectionHeader.backgroundColor = [UIColor redColor];
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
@@ -419,12 +417,14 @@
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             addDiscussVC.addDiscussBlock = ^() {
+                self.tempDic = nil;
                 [self getAllMoments:self.tempDic];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
             addVoteVC.addVoteBlock = ^() {
+                self.tempDic = nil;
                 [self getAllMoments:self.tempDic];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];

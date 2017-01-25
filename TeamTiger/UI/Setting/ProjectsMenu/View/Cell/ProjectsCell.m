@@ -31,7 +31,6 @@
     if (object && [object isKindOfClass:[TT_Project class]]) {
         TT_Project *project = (TT_Project *)object;
         self.project = project;
-        
         //显示缩略图
         NSString *logoURLStr = [NSString stringWithFormat:@"%@%@",project.logoURL,kCompressKey];
         [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:logoURLStr] placeholderImage:kImage(@"img_logo") options:SDWebImageRetryFailed | SDWebImageLowPriority];
@@ -48,6 +47,8 @@
         
         self.projectNameLab.text = project.name;
         self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//1/绿色-我创建的  2/橙色-我加入的
+        self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
+        NSLog(@"isNoDisturb:%zd", project.isNoDisturb);
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];
         if (!isLast) {
@@ -63,7 +64,6 @@
                 make.height.mas_equalTo(minLineWidth);
             }];
         }
-        self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
     }
 }
 

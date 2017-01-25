@@ -118,10 +118,7 @@
             NSArray *pidsArr = request.responseJSONObject[OBJ][@"pids"];
             for (NSDictionary *projectDic in pidsArr) {
                 TT_Project *tt_project = [[TT_Project alloc] init];
-                tt_project.name = projectDic[@"name"];
-                tt_project.project_id = projectDic[@"_id"];
-                tt_project.logoURL = projectDic[@"banner"][@"url"];
-                tt_project.member_type = [projectDic[@"member_type"] intValue];
+                [tt_project setValuesForKeysWithDictionary:projectDic];
                 [self.projects addObject:tt_project];
             }
             [self.table reloadData];
@@ -172,8 +169,8 @@
         cell.tag = indexPath.section * 1000  + indexPath.row;
         id projectInfo = self.projects[indexPath.row];
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.projects.count - 1];
-        ((ProjectsCell *)cell).msgNumLab.hidden = YES;
-        ((ProjectsCell *)cell).msgNumBGImgV.hidden = YES;
+//        ((ProjectsCell *)cell).msgNumLab.hidden = YES;
+//        ((ProjectsCell *)cell).msgNumBGImgV.hidden = YES;
         ((ProjectsCell *)cell).arrowImgV.hidden = YES;
         return cell;
     }
