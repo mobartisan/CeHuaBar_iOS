@@ -48,7 +48,6 @@
         self.projectNameLab.text = project.name;
         self.pointImg.backgroundColor = project.member_type == 1 ? kRGB(45, 202, 205) : kRGB(255, 128, 0);//1/绿色-我创建的  2/橙色-我加入的
         self.notdisturbImgV.hidden = project.isNoDisturb ? NO : YES;
-        NSLog(@"isNoDisturb:%zd", project.isNoDisturb);
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];
         if (!isLast) {
