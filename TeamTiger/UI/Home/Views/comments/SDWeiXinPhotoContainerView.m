@@ -160,16 +160,14 @@
 
 #pragma mark - SDPhotoBrowserDelegate
 
-- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index
-{
+- (NSURL *)photoBrowser:(SDPhotoBrowser *)browser highQualityImageURLForIndex:(NSInteger)index {
     NSString *imageName = self.picPathStringsArray[index];
-    NSURL *url = [NSURL URLWithString:imageName];
-    return url;
+    return [NSURL URLWithString:imageName];
 }
 
-- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index
-{
-    return [UIImage imageNamed:@"defaultBG"];
+- (UIImage *)photoBrowser:(SDPhotoBrowser *)browser placeholderImageForIndex:(NSInteger)index {
+    UIImageView *imageView = _imageViewsArray[index];
+    return imageView.image;
 }
 
 @end

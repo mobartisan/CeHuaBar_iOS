@@ -558,22 +558,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Home/Views/comments/SDWeiXinPhotoContainerView.m"
-            timestampString = "506933255.446132"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "-photoBrowser:highQualityImageURLForIndex:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TeamTiger/Manager/CirclesManager/CirclesManager.m"
             timestampString = "506935660.12238"
             startingColumnNumber = "9223372036854775807"
