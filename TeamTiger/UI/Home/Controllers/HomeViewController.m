@@ -603,7 +603,7 @@
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
+    [self.view endEditing:YES];
 }
 
 #pragma mark - 分组或者项目Moments
