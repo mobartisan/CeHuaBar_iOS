@@ -189,7 +189,7 @@
             self.setBtn.hidden = YES;
             [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
             self.tempDic = nil;
-            [self getAllMoments:self.tempDic];
+            [self getAllMoments:self.tempDic IsNeedRefresh:NO];
         };
         [self.navigationController pushViewController:settingVC animated:YES];
     }else {
@@ -200,7 +200,7 @@
                 [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
                 [self.titleView setImage:nil forState:UIControlStateNormal];
                 self.tempDic = nil;
-                [self getAllMoments:self.tempDic];
+                [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             } else {
                 if ([Common isEmptyString:groupName]) {
                     [self.titleView setTitle:[self.tempGroup group_name] forState:UIControlStateNormal];
@@ -231,7 +231,7 @@
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
     self.tempDic = nil;
-    [self getAllMoments:self.tempDic];
+    [self getAllMoments:self.tempDic IsNeedRefresh:YES];
     [self configureNavigationItem];
     //下拉刷新
     [self handleDownRefreshAction];
@@ -257,9 +257,10 @@
 }
 
 #pragma mark 获取Moments
-- (void)getAllMoments:(NSDictionary *)requestDic {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    
+- (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh{
+    if (isNeedRefresh) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -313,7 +314,7 @@
 #pragma mark - 下拉刷新
 - (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self getAllMoments:self.tempDic];
+        [self getAllMoments:self.tempDic IsNeedRefresh:NO];
         [self.tableView.mj_header endRefreshing];
     }];
 }
@@ -418,14 +419,14 @@
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             addDiscussVC.addDiscussBlock = ^() {
                 self.tempDic = nil;
-                [self getAllMoments:self.tempDic];
+                [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
             addVoteVC.addVoteBlock = ^() {
                 self.tempDic = nil;
-                [self getAllMoments:self.tempDic];
+                [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         }
@@ -637,7 +638,7 @@
         [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
         
     }
-    [self getAllMoments:parameterDic];
+    [self getAllMoments:parameterDic IsNeedRefresh:NO];
     self.tempDic = parameterDic;
     [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
 }
@@ -659,7 +660,7 @@
     [self.titleView setImage:nil forState:UIControlStateNormal];
     [self.titleView setTitle:project.name forState:UIControlStateNormal];
     self.tempDic = @{@"pid":project.project_id};
-    [self getAllMoments:@{@"pid":project.project_id}];//pid 项目id
+    [self getAllMoments:@{@"pid":project.project_id} IsNeedRefresh:NO];//pid 项目id
 }
 
 #pragma mark - HomeVoteCellDeleagte
@@ -672,7 +673,7 @@
     [self.titleView setImage:nil forState:UIControlStateNormal];
     [self.titleView setTitle:project.name forState:UIControlStateNormal];
     self.tempDic = @{@"pid":project.project_id};
-    [self getAllMoments:@{@"pid":project.project_id}];//pid 项目id
+    [self getAllMoments:@{@"pid":project.project_id} IsNeedRefresh:NO];//pid 项目id
 }
 
 

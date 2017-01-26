@@ -4341,7 +4341,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

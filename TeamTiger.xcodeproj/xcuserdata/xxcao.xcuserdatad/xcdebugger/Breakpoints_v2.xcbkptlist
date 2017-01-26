@@ -68,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Views/comments/HomeCell.m"
-            timestampString = "506833311.160243"
+            timestampString = "507009222.524758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "-headerImage"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +84,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Views/comments/HomeCell.m"
-            timestampString = "506833311.160243"
+            timestampString = "507009222.524758"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-handleClickProjectBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -290,11 +290,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "506836452.69939"
+            timestampString = "507087652.662536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "638"
+            endingLineNumber = "638"
             landmarkName = "-handleConvertId:"
             landmarkType = "7">
          </BreakpointContent>
@@ -338,11 +338,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "506915927.743399"
+            timestampString = "507087652.662536"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "671"
-            endingLineNumber = "671"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "-clickVoteProjectBtn:"
             landmarkType = "7">
          </BreakpointContent>
