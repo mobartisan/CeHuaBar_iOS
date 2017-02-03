@@ -10,6 +10,6 @@
 
 @interface TTAddVoteViewController : TTBaseViewController
 
-@property (copy, nonatomic) void(^addVoteBlock)();
+@property (copy, nonatomic) void(^addVoteBlock)(NSString *pid);
 
 @end

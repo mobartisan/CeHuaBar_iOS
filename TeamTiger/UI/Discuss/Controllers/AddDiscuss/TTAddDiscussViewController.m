@@ -279,8 +279,9 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
     NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
+    NSString *pid = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"]);
     momentCreatApi.requestArgument = @{@"text":text,
-                                       @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),//pid  项目id
+                                       @"pid":pid,//pid  项目id
                                        @"type":@1,
                                        @"medias":urlsStr};
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -288,7 +289,7 @@
         [self.myHud hideAnimated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (self.addDiscussBlock) {
-                self.addDiscussBlock();
+                self.addDiscussBlock(pid);
             }
             //删除图片缓存
             [[SelectPhotosManger sharedInstance] cleanSelectAssets];

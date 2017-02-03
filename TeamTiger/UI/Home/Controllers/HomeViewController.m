@@ -417,15 +417,15 @@
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
-            addDiscussVC.addDiscussBlock = ^() {
-                self.tempDic = nil;
+            addDiscussVC.addDiscussBlock = ^(NSString *pid) {
+                self.tempDic = @{@"pid":pid};
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
-            addVoteVC.addVoteBlock = ^() {
-                self.tempDic = nil;
+            addVoteVC.addVoteBlock = ^(NSString *pid) {
+                self.tempDic = @{@"pid":pid};
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
