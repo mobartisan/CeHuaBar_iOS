@@ -374,6 +374,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
         NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSString *pid = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"]);
+        NSString *name = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"]);
         NSDictionary *dic = @{@"votes":votesStr,
                               @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
                               @"pid":pid,
@@ -387,7 +388,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 if (self.addVoteBlock) {
-                    self.addVoteBlock(pid);
+                    self.addVoteBlock(pid, name);
                 }
                 //删除图片缓存
                 [[SelectPhotosManger sharedInstance] cleanSelectAssets];

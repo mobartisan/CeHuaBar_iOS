@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TTBaseViewController.h"
 
-@interface TTAddMemberViewController : UIViewController
+@interface TTAddMemberViewController : TTBaseViewController
+
+@property (nonatomic,strong) TT_Project *project;
 
 @end

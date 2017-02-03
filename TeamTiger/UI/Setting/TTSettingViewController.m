@@ -13,12 +13,11 @@
 #import "SelectCircleViewControllerForSetting.h"
 #import "TTSettingViewController.h"
 #import "UIAlertView+HYBHelperKit.h"
-#import "WXApiManager.h"
-#import "WXApiRequestHandler.h"
 #import "Models.h"
 #import "TTSettingGroupViewController.h"
+#import "TTAddMemberViewController.h"
 
-@interface TTSettingViewController ()<WXApiManagerDelegate>
+@interface TTSettingViewController ()
 
 @property(nonatomic,strong)NSMutableArray *dataSource;
 @property (strong, nonatomic) NSMutableArray *projectMembersArr;
@@ -30,18 +29,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目设置";
-    [self getProjectMemberList];
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
     }];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    [WXApiManager sharedManager].delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self getProjectMemberList];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -88,43 +86,9 @@
             settingGroupVC.project_id = self.project.project_id;
             [self.navigationController pushViewController:settingGroupVC animated:YES];
         } else if (type == EProjectAddMember){
-            NSLog(@"跳转微信，增加人员");
-            UIImage *thumbImage = [UIImage imageNamed:@"AppIcon"];
-            
-            //          方式一:
-            //                NSData *data = [@"cehuabar" dataUsingEncoding:NSUTF8StringEncoding];
-            //                [WXApiRequestHandler sendAppContentData:data
-            //                                                ExtInfo:kAppContentExInfo //拼接参数
-            //                                                 ExtURL:kAppContnetExURL //可以填app的下载地址
-            //                                                  Title:kAPPContentTitle
-            //                                            Description:kAPPContentDescription
-            //                                             MessageExt:kAppMessageExt
-            //                                          MessageAction:kAppMessageAction
-            //                                             ThumbImage:thumbImage
-            //                                                InScene:WXSceneSession];
-            //          方式二:
-            TT_User *user = [TT_User sharedInstance];
-            NSString *nick_name = user.nickname;
-            NSString *current_time = [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-#warning to do here
-            NSString *project_name = @"待定项目";
-            NSString *project_id = @"bsfbdfbdbfdbfdfdj";
-            if(![Common isEmptyString:self.project.project_id]) {
-                project_id = self.project.project_id;
-                project_name = self.project.name;
-            }
-            NSString *subString = [Common encyptWithDictionary:@{@"project_id":project_id,
-                                                                 @"project_name":project_name,
-                                                                 @"nick_name":nick_name,
-                                                                 @"current_time":current_time}UnencyptKeys:@[@"project_name",@"nick_name",@"current_time"]];
-            NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
-            composeURL = [composeURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            [WXApiRequestHandler sendLinkURL:composeURL
-                                     TagName:kLinkTagName
-                                       Title:kLinkTitle
-                                 Description:kLinkDescription
-                                  ThumbImage:thumbImage
-                                     InScene:WXSceneSession];
+            TTAddMemberViewController *addMemberVC = [[TTAddMemberViewController alloc] init];
+            addMemberVC.project = self.project;
+            [self.navigationController pushViewController:addMemberVC animated:YES];
         } else if (type == EProjectDleteProject){
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
                 if (buttonIndex == 1) {
@@ -282,27 +246,5 @@
 }
 
 
-#pragma -mark WXApiManagerDelegate
-- (void)managerDidRecvGetMessageReq:(GetMessageFromWXReq *)request {
-    
-}
-
-- (void)managerDidRecvShowMessageReq:(ShowMessageFromWXReq *)request {
-    //微信回传消息
-    [UIAlertView hyb_showWithTitle:@"提示" message:[request.message.mediaObject extInfo] buttonTitles:@[@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {}];
-}
-
-- (void)managerDidRecvLaunchFromWXReq:(LaunchFromWXReq *)request {
-    
-}
-
-- (void)managerDidRecvMessageResponse:(SendMessageToWXResp *)response {
-    //    返回应用时，收到消息回调
-    NSLog(@"ddddddd");
-}
-
-- (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    
-}
 
 @end

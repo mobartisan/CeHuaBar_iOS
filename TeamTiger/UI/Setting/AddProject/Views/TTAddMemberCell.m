@@ -37,7 +37,12 @@
 }
 - (IBAction)handleSelectBtn {
     if (self.selectBtnBlock) {
-        self.selectBtnBlock();
+        self.selectBtnBlock(TTAddMemberCellTypeSelectMember);
+    }
+}
+- (IBAction)handleToWeChat {
+    if (self.selectBtnBlock) {
+        self.selectBtnBlock(TTAddMemberCellTypeToWeChat);
     }
 }
 

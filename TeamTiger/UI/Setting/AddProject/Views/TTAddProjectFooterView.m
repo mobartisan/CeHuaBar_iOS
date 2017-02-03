@@ -86,7 +86,7 @@
     }
     cell.icon_confirm.hidden = !user.isSelect;
     cell.user = user;
-    [cell setSelectBtnBlock:^{
+    [cell setSelectBtnBlock:^(TTAddMemberCellType type) {
         user.isSelect = !user.isSelect;
         [self.tableView reloadData];
         if (user.isSelect) {

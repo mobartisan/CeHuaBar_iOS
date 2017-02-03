@@ -69,7 +69,7 @@
                 <outlet property="lineView" destination="jRU-v9-zdu" id="adk-r7-RVr"/>
                 <outlet property="titleLabel" destination="mbS-B1-vHf" id="Gtd-0K-iyI"/>
             </connections>
-            <point key="canvasLocation" x="-626" y="-114"/>
+            <point key="canvasLocation" x="-695" y="-151"/>
         </tableViewCell>
     </objects>
     <resources>

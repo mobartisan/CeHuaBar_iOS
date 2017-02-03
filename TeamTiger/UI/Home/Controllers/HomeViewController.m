@@ -416,17 +416,18 @@
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
-#warning to do ...
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
             addDiscussVC.addDiscussBlock = ^(NSString *pid, NSString *name) {
+                [self.titleView setTitle:name forState:UIControlStateNormal];
                 self.tempDic = @{@"pid":pid};
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
-            addVoteVC.addVoteBlock = ^(NSString *pid) {
-                self.tempDic = nil;
+            addVoteVC.addVoteBlock = ^(NSString *pid, NSString *name) {
+                [self.titleView setTitle:name forState:UIControlStateNormal];
+                self.tempDic = @{@"pid":pid};
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];

@@ -34,21 +34,31 @@
                             <constraint firstAttribute="width" constant="20" id="zwC-o5-gPW"/>
                         </constraints>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="muI-sD-EJL">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                        <connections>
+                            <action selector="handleToWeChat" destination="MOX-vC-XDE" eventType="touchUpInside" id="nnl-s4-K1w"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="muI-sD-EJL" secondAttribute="trailing" id="Ca6-Ai-kEs"/>
                     <constraint firstItem="DbT-dM-55c" firstAttribute="leading" secondItem="eeT-DJ-V4Z" secondAttribute="leading" constant="16" id="JOb-vb-BGm"/>
+                    <constraint firstAttribute="bottom" secondItem="muI-sD-EJL" secondAttribute="bottom" id="QPu-BW-O0Z"/>
                     <constraint firstItem="n7s-I0-Usg" firstAttribute="centerY" secondItem="eeT-DJ-V4Z" secondAttribute="centerY" id="QZJ-ms-iLo"/>
                     <constraint firstAttribute="trailing" secondItem="n7s-I0-Usg" secondAttribute="trailing" constant="10" id="fJF-IM-5k3"/>
+                    <constraint firstItem="muI-sD-EJL" firstAttribute="leading" secondItem="eeT-DJ-V4Z" secondAttribute="leading" id="iCS-6a-iig"/>
                     <constraint firstItem="n7s-I0-Usg" firstAttribute="leading" secondItem="DbT-dM-55c" secondAttribute="trailing" constant="10" id="lyk-gg-EnT"/>
                     <constraint firstItem="DbT-dM-55c" firstAttribute="centerY" secondItem="eeT-DJ-V4Z" secondAttribute="centerY" id="yP1-GY-nfv"/>
+                    <constraint firstItem="muI-sD-EJL" firstAttribute="top" secondItem="eeT-DJ-V4Z" secondAttribute="top" id="ztE-HZ-SFM"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.1058823529" green="0.16078431369999999" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="msgLB" destination="DbT-dM-55c" id="BzW-Ll-Xxo"/>
             </connections>
-            <point key="canvasLocation" x="-264" y="-79"/>
+            <point key="canvasLocation" x="-563" y="-123"/>
         </tableViewCell>
     </objects>
     <resources>
