@@ -10,6 +10,6 @@
 
 @interface TTAddDiscussViewController : TTBaseViewController
 
-@property (copy, nonatomic) void (^addDiscussBlock)(NSString *pid);
+@property (copy, nonatomic) void (^addDiscussBlock)(NSString *pid, NSString *name);
 
 @end

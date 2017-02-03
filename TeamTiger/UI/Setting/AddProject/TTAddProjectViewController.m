@@ -326,8 +326,9 @@
                 }];
             } else {
                 [self.datas removeObjectAtIndex:2];
-                [self.contentTable reloadData];
             }
+            self.arrCount = self.membersArray.count;
+            [self.contentTable reloadData];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"UserRelationApi:%@", error);

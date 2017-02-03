@@ -416,8 +416,9 @@
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
+#warning to do ...
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
-            addDiscussVC.addDiscussBlock = ^(NSString *pid) {
+            addDiscussVC.addDiscussBlock = ^(NSString *pid, NSString *name) {
                 self.tempDic = @{@"pid":pid};
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
@@ -425,7 +426,7 @@
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
             addVoteVC.addVoteBlock = ^(NSString *pid) {
-                self.tempDic = @{@"pid":pid};
+                self.tempDic = nil;
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addVoteVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
@@ -515,7 +516,6 @@
     UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
     uploadImageApi.requestArgument = requestDic;
     [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"UploadImageApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             //修改图片
             self.imageView.image = uploadImg;
@@ -523,7 +523,6 @@
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"UploadImageApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }

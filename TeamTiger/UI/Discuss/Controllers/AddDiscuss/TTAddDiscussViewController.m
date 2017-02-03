@@ -48,9 +48,6 @@
     self.title = @"发起讨论";
     [Common removeExtraCellLines:self.tableView];
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        //删除图片缓存
-        [[SelectPhotosManger sharedInstance] cleanSelectAssets];
-        [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
         [Common customPopAnimationFromNavigation:self.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
     }];
     
@@ -282,17 +279,15 @@
     NSData *data = [NSJSONSerialization dataWithJSONObject:mediasArr options:NSJSONWritingPrettyPrinted error:nil];
     NSString *urlsStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     MomentCreateApi *momentCreatApi = [[MomentCreateApi alloc] init];
-    NSString *pid = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"]);
     momentCreatApi.requestArgument = @{@"text":text,
-                                       @"pid":pid,//pid  项目id
+                                       @"pid":((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])),//pid  项目id
                                        @"type":@1,
                                        @"medias":urlsStr};
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
         [self.myHud hideAnimated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (self.addDiscussBlock) {
-                self.addDiscussBlock(pid);
+                self.addDiscussBlock(((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])), ((NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"])));
             }
             //删除图片缓存
             [[SelectPhotosManger sharedInstance] cleanSelectAssets];
