@@ -30,7 +30,6 @@
     AllProjectsApi *allProject = [[AllProjectsApi alloc] init];
     [allProject startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"AllProjectsApi:%@", request.responseJSONObject);
-        ;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (![Common isEmptyArr:request.responseJSONObject[OBJ]]) {
                 for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {

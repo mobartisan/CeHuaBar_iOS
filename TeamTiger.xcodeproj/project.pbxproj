@@ -442,6 +442,8 @@
 		2D9674F51DEBCE2A002DF6E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */; };
 		2D9674F91DEBD30F002DF6E0 /* Analyticsmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */; };
 		2D9674FC1DEBD434002DF6E0 /* ButtonIndexPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */; };
+		2DA02A201E442BC500F5FEC2 /* TTAddMemberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA02A1E1E442BC500F5FEC2 /* TTAddMemberViewController.m */; };
+		2DA02A211E442BC500F5FEC2 /* TTAddMemberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DA02A1F1E442BC500F5FEC2 /* TTAddMemberViewController.xib */; };
 		2DA5CA541E1F2B62000BFE93 /* TTAddMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */; };
 		2DA5CA551E1F2B62000BFE93 /* TTAddMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */; };
 		2DA5CA561E1F2B62000BFE93 /* TTAddProjectFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */; };
@@ -1307,6 +1309,9 @@
 		2D9674F81DEBD30F002DF6E0 /* Analyticsmanager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyticsmanager.m; sourceTree = "<group>"; };
 		2D9674FA1DEBD434002DF6E0 /* ButtonIndexPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonIndexPath.h; sourceTree = "<group>"; };
 		2D9674FB1DEBD434002DF6E0 /* ButtonIndexPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonIndexPath.m; sourceTree = "<group>"; };
+		2DA02A1D1E442BC500F5FEC2 /* TTAddMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddMemberViewController.h; sourceTree = "<group>"; };
+		2DA02A1E1E442BC500F5FEC2 /* TTAddMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddMemberViewController.m; sourceTree = "<group>"; };
+		2DA02A1F1E442BC500F5FEC2 /* TTAddMemberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberViewController.xib; sourceTree = "<group>"; };
 		2DA5CA4F1E1F2B62000BFE93 /* TTAddMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddMemberCell.h; sourceTree = "<group>"; };
 		2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddMemberCell.m; sourceTree = "<group>"; };
 		2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberCell.xib; sourceTree = "<group>"; };
@@ -3247,6 +3252,9 @@
 				1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */,
 				1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */,
 				1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */,
+				2DA02A1D1E442BC500F5FEC2 /* TTAddMemberViewController.h */,
+				2DA02A1E1E442BC500F5FEC2 /* TTAddMemberViewController.m */,
+				2DA02A1F1E442BC500F5FEC2 /* TTAddMemberViewController.xib */,
 				2D44CDE61E271D5700098B37 /* TTSettingGroupViewController.h */,
 				2D44CDE71E271D5700098B37 /* TTSettingGroupViewController.m */,
 				2D44CDE91E271D6B00098B37 /* TTSettingGroupViewController.xib */,
@@ -3732,6 +3740,7 @@
 				1DA0E1991D542FE4008CD6DF /* ProfileCell_Header.xib in Resources */,
 				0604B4731D4C5A9B00EF1703 /* downshadow.png in Resources */,
 				1DDE9E701D533106005926FE /* TTMyProfileViewController.xib in Resources */,
+				2DA02A211E442BC500F5FEC2 /* TTAddMemberViewController.xib in Resources */,
 				1DA0E1A01D543F7B008CD6DF /* ProjectCell2.xib in Resources */,
 				2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */,
 				1D8713131DE6DFB600C17D01 /* loginBG35@2x.png in Resources */,
@@ -3937,6 +3946,7 @@
 				1D55FD941D49AAA400094112 /* SettingCell.m in Sources */,
 				1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */,
 				1D09CD121D3F550300F85E9A /* NSDate+HYBHelperKit.m in Sources */,
+				2DA02A201E442BC500F5FEC2 /* TTAddMemberViewController.m in Sources */,
 				1D9580B21D3E207200FD0053 /* NSBundle+MJRefresh.m in Sources */,
 				1D9580DA1D3E225200FD0053 /* View+MASAdditions.m in Sources */,
 				1D09CC971D3F29C900F85E9A /* UIPasteboard+YYText.m in Sources */,

@@ -284,11 +284,10 @@
                                        @"type":@1,
                                        @"medias":urlsStr};
     [momentCreatApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
         [self.myHud hideAnimated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (self.addDiscussBlock) {
-                self.addDiscussBlock();
+                self.addDiscussBlock(((NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"])), ((NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"])));
             }
             //删除图片缓存
             [[SelectPhotosManger sharedInstance] cleanSelectAssets];

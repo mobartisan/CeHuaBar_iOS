@@ -125,16 +125,11 @@
         case ECellTypeAddMember:{
             self.addMemberBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             [self.addMemberBtn addTarget:self action:@selector(handleAddMemberAction) forControlEvents:UIControlEventTouchUpInside];
+            self.addMemberBtn.enabled = NO;
             [self.contentView addSubview:self.addMemberBtn];
             [self.addMemberBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);
             }];
-            //            [self.addMemberBtn setTitle:@"添加成员到项目" forState:UIControlStateNormal];
-            //            [self.addMemberBtn setImage:kImage(@"icon_add_members") forState:UIControlStateNormal];
-            //            self.addMemberBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-            //            [self.addMemberBtn setTitleEdgeInsets:UIEdgeInsetsMake(self.addMemberBtn.imageView.frame.size.height + 10, -self.addMemberBtn.imageView.frame.size.width, 0.0, 0.0)];
-            //            [self.addMemberBtn setImageEdgeInsets:UIEdgeInsetsMake(-20.0, 0.0,0.0, -self.addMemberBtn.titleLabel.bounds.size.width)];
-            //            self.backgroundColor = kRGB(28, 37, 51);
             break;
         }
         case ECellTypeBottom:{
