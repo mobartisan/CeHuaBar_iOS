@@ -76,7 +76,13 @@
                             @"uids":memberStr};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"ProjectMemberInviteApi:%@", request.responseJSONObject);
-        [self.navigationController popViewControllerAnimated:YES];
+        if ([request.responseJSONObject[SUCCESS] integerValue] == 1) {
+            if (self.addMemberBlock) {
+                self.addMemberBlock();
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"ProjectMemberInviteApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];

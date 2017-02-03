@@ -12,5 +12,7 @@
 @interface TTAddMemberViewController : TTBaseViewController
 
 @property (nonatomic,strong) TT_Project *project;
+@property (nonatomic,copy) void(^addMemberBlock)();
+
 
 @end

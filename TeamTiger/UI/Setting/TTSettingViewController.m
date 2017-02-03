@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目设置";
+    [self getProjectMemberList];
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
@@ -39,7 +40,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [self getProjectMemberList];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -88,6 +88,9 @@
         } else if (type == EProjectAddMember){
             TTAddMemberViewController *addMemberVC = [[TTAddMemberViewController alloc] init];
             addMemberVC.project = self.project;
+            [addMemberVC setAddMemberBlock:^{
+                [self getProjectMemberList];
+            }];
             [self.navigationController pushViewController:addMemberVC animated:YES];
         } else if (type == EProjectDleteProject){
             [UIAlertView hyb_showWithTitle:@"提醒" message:@"确定要删除并退出该项目？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
