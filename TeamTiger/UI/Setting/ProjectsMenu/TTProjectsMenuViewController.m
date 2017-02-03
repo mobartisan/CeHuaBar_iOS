@@ -150,7 +150,8 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroupsAndProjectsData];
-    
+    //fix a bug
+    self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
