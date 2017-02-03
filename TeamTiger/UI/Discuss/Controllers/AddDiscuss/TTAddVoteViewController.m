@@ -62,6 +62,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     [Common removeExtraCellLines:self.tableView];
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        //删除图片缓存
+        [[SelectPhotosManger sharedInstance] cleanSelectAssets];
+        [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
         [Common customPopAnimationFromNavigation:wself.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
     }];
     

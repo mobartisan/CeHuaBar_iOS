@@ -48,6 +48,9 @@
     self.title = @"发起讨论";
     [Common removeExtraCellLines:self.tableView];
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        //删除图片缓存
+        [[SelectPhotosManger sharedInstance] cleanSelectAssets];
+        [[SelectPhotosManger sharedInstance] cleanSelectPhotoes];
         [Common customPopAnimationFromNavigation:self.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
     }];
     
