@@ -150,7 +150,8 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self getAllGroupsAndProjectsData];
-    
+    //fix a bug
+    self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -234,8 +235,9 @@
             return YES;
         }];
         MGSwipeButton *topBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_top") backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
+            BOOL srcTop = projectInfo.isTop;
             projectInfo.isTop = !projectInfo.isTop;
-            [self projectTopWithProject:projectInfo];
+            [self projectTopWithProject:projectInfo SrcTop:srcTop];
             return YES;
         }];
         MGSwipeButton *notDisturbBtn = [MGSwipeButton buttonWithTitle:@"" icon:kImage(@"icon_do_not_disturb")  backgroundColor:kRGB(39, 58, 80) callback:^BOOL(MGSwipeTableCell * _Nonnull cell) {
@@ -456,7 +458,7 @@
 }
 
 #pragma mark - 项目置顶
-- (void)projectTopWithProject:(TT_Project *)project {
+- (void)projectTopWithProject:(TT_Project *)project SrcTop:(BOOL) srcTop{
     NSNumber *position = project.isTop ? @2 : @1;
     ProjectTopApi *projectTopApi = [[ProjectTopApi alloc] init];
     projectTopApi.requestArgument = @{@"pid":project.project_id,
@@ -467,10 +469,14 @@
             [self getAllGroupsAndProjectsData];
         }else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            project.isTop = srcTop;
+            [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+        project.isTop = srcTop;
+        [self.menuTable reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
     }];
 }
 
@@ -521,6 +527,7 @@
         WeakSelf;
         self.gView.clickBtnBlock = ^(GroupView *gView, BOOL isConfirm, id object){
             if (isConfirm) {
+                [super showHudWithText:@"正在创建..."];
                 NSArray *pids = [object[@"Pids"] componentsSeparatedByString:@","];
                 NSData *data = [NSJSONSerialization dataWithJSONObject:pids options:NSJSONWritingPrettyPrinted error:nil];
                 NSString *strPids = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
