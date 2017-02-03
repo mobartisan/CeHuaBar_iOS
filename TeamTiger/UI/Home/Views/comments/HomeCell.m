@@ -64,7 +64,8 @@
 - (void)setupCellContentView {
     //头像
     self.iconImV = [UIImageView new];
-    self.iconImV.backgroundColor = [UIColor yellowColor];
+    self.iconImV.backgroundColor = [UIColor clearColor];
+    self.iconImV.image = [UIImage imageNamed:@"common-headDefault"];
     [self.contentView addSubview:self.iconImV];
     
     //姓名

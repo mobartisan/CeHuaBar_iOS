@@ -425,7 +425,7 @@
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
-            addVoteVC.addVoteBlock = ^() {
+            addVoteVC.addVoteBlock = ^(NSString *pid) {
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             };
