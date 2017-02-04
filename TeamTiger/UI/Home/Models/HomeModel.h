@@ -26,6 +26,8 @@ typedef NS_ENUM(int, HomeModelCellType) {
 @property (copy, nonatomic) NSString *project;
 //内容
 @property (copy, nonatomic) NSString *content;
+//投票内容
+@property (copy, nonatomic) NSString *vote_title;
 //图片数组
 @property (strong, nonatomic) NSMutableArray *photeNameArry;
 //投票总数

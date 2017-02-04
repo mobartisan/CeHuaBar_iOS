@@ -156,7 +156,7 @@
     [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:kImage(@"img_user") options:SDWebImageRetryFailed | SDWebImageLowPriority];
     self.nameLB.text = homeModel.name;
     self.projectLB.text = homeModel.project;
-    self.contentLB.text = homeModel.content;
+    self.contentLB.text = homeModel.vote_title;
     self.photoContainerView.picPathStringsArray = homeModel.vote;
     self.photoContainerView.voteClickBlock = ^(VoteModel *voteModel){
         [wself voteClick:voteModel];
