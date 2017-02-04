@@ -65,9 +65,11 @@
         _sectionHeader = [UIView new];
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
+
         CGFloat imageViewH = kScreenWidth * 767 / 1242;
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
+        imageView.backgroundColor = [UIColor clearColor];
         [_sectionHeader addSubview:imageView];
         self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -79,12 +81,15 @@
         textLB.textAlignment = NSTextAlignmentCenter;
         textLB.text = @"轻触设置moment封面";
         textLB.textColor = [Common colorFromHexRGB:@"3f608b"];
-        textLB.backgroundColor = [Common colorFromHexRGB:@"212e41"];
+        textLB.backgroundColor = [UIColor clearColor];
         self.textLB = textLB;
         [_sectionHeader addSubview:textLB];
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
         [textLB addGestureRecognizer:tapLB];
         
+        UIImageView *line = [UIImageView new];
+        line.backgroundColor = [Common colorFromHexRGB:@"212e41"];
+        [_sectionHeader addSubview:line];
         
         UIButton *setBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         setBtn.hidden = YES;
@@ -99,14 +104,18 @@
         self.setBtn = setBtn;
         [_sectionHeader addSubview:setBtn];
         
+        
         imageView.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
-        
+
         textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
-        
+
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
+
+        line.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, imageViewH).rightSpaceToView(_sectionHeader, 0).heightIs(minLineWidth);
         
         [_sectionHeader setupAutoHeightWithBottomView:setBtn bottomMargin:0];
         [_sectionHeader layoutSubviews];
+        
     }
     return _sectionHeader;
 }
@@ -277,6 +286,7 @@
             //封面
             if (kIsDictionary(objDic[@"banner"]) && [[objDic[@"banner"] allKeys] count] != 0) {
                 self.textLB.hidden = YES;
+                self.imageView.hidden = NO;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
 
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority];
@@ -284,7 +294,12 @@
                 self.textLB.hidden = NO;
                 if ([[self.tempDic allKeys] count] != 0 && ![[self.tempDic allKeys] containsObject:@"gid"]) {
                     self.textLB.hidden = YES;
+                    self.imageView.hidden = NO;
                     self.imageView.image = kImage(@"img_cover");
+                }
+                if ([[self.tempDic allKeys] count] != 0 && [[self.tempDic allKeys] containsObject:@"gid"]) {
+                    self.textLB.hidden = NO;
+                    self.imageView.hidden = YES;
                 }
             }
             
@@ -293,16 +308,18 @@
             if (![Common isEmptyString:objDic[@"next"]]) {
                 [self handleUpRefreshAction:objDic[@"next"]];
             }
-        } else {
+        }
+        else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             self.setBtn.hidden = YES;
             [self.titleView setImage:nil forState:UIControlStateNormal];
             [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
         }
-        
         [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
+        [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
@@ -312,7 +329,6 @@
 - (void)handleDownRefreshAction {
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self getAllMoments:self.tempDic IsNeedRefresh:NO];
-        [self.tableView.mj_header endRefreshing];
     }];
 }
 
@@ -524,6 +540,8 @@
     [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             //修改图片
+            self.textLB.hidden = YES;
+            self.imageView.hidden = NO;
             self.imageView.image = uploadImg;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
