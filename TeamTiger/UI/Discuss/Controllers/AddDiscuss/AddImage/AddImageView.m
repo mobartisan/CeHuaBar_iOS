@@ -39,10 +39,6 @@ static const double kColumn = 4.0f;
 @property (nonatomic, strong) UIImagePickerController *imagePickerVc;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, assign) NSUInteger photoCount;
-/**
- *  textView
- */
-@property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, weak) UIViewController *viewController;
 @end
 

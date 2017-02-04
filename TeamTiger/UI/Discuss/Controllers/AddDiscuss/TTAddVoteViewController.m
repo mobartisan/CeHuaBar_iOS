@@ -137,8 +137,12 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     NSString *Option1 = [NSString stringWithUTF8String:kOptionStr[self.optionIndex++]];
     NSString *Option2 = [NSString stringWithUTF8String:kOptionStr[self.optionIndex++]];
     AddImageView *customView0 = [AddImageView addImageViewWithType:AddImageViewVoteWithTitle AndOption:Option0];
+    customView0.textView.userInteractionEnabled = NO;
     AddImageView *customView1 = [AddImageView addImageViewWithType:AddImageViewVote AndOption:Option1];
+    customView1.textView.userInteractionEnabled = NO;
     AddImageView *customView2 = [AddImageView addImageViewWithType:AddImageViewVote AndOption:Option2];
+    customView2.textView.userInteractionEnabled = NO;
+
     //    self.addImageView = customView;
     TTCommonItem *attachment0 = [TTCommonCustomViewItem itemWithCustomView:customView0];
     TTCommonItem *attachment1 = [TTCommonCustomViewItem itemWithCustomView:customView1];
@@ -214,6 +218,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     if (self.optionIndex < STR_OPTION_MAX) {
         NSString *option = [NSString stringWithUTF8String:kOptionStr[self.optionIndex++]];
         AddImageView *customView0 = [AddImageView addImageViewWithType:AddImageViewVote AndOption:option];
+        customView0.textView.userInteractionEnabled = NO;
+
         TTCommonItem *attachment0 = [TTCommonCustomViewItem itemWithCustomView:customView0];
         
         

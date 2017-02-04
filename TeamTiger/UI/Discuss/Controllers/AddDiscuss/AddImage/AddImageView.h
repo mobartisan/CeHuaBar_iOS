@@ -17,8 +17,10 @@ typedef enum : NSUInteger {
 @interface AddImageView : UIView
 
 @property(nonatomic, copy)NSString *optionStr;
+@property (nonatomic, strong) UITextView *textView;
 
 + (instancetype)addImageViewWithType:(AddImageViewType)type AndOption:(NSString *)option;
 
 + (instancetype)addImageView;
+
 @end
