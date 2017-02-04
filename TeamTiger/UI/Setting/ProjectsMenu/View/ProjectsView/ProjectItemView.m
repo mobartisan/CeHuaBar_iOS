@@ -72,7 +72,6 @@
     return self;
 }
 
-#warning to do 长按手势
 - (void)longPressItem:(UILongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         [UIView animateWithDuration:0.3 animations:^{

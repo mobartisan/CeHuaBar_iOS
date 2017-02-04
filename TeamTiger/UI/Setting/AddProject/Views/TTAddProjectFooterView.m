@@ -73,7 +73,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TT_User *user = self.dataSource[indexPath.row];
+    TT_Project_Members *user = self.dataSource[indexPath.row];
     
     static NSString *ID = @"TTAddMemberCell";
     TTAddMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];

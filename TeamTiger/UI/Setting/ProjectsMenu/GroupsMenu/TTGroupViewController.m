@@ -179,7 +179,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#warning to do  移动分组项目
 - (void)addProjectIntoGroupAction:(id)projectInfo {
     if (self.sgView.isShow) {
         [self.sgView hide];
