@@ -51,6 +51,8 @@
 @property(nonatomic, strong) NSString *user_id;  // user_id
 @property(nonatomic, strong) NSString *user_name;  // user_name
 @property(nonatomic, strong) NSString *user_img_url;  // user_img_url
+@property (nonatomic,assign) BOOL isSelect;
+
 
 @end
 

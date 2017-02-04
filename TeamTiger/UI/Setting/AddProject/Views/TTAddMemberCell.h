@@ -13,11 +13,11 @@ typedef NS_ENUM(NSInteger, TTAddMemberCellType) {
     TTAddMemberCellTypeToWeChat
 };
 
-@class TT_User;
+@class TT_Project_Members;
 
 @interface TTAddMemberCell : UITableViewCell
 
-@property (strong, nonatomic) TT_User *user;
+@property (strong, nonatomic) TT_Project_Members *user;
 
 @property (weak, nonatomic) IBOutlet UIImageView *icon_confirm;
 @property (nonatomic,copy) void (^selectBtnBlock)(TTAddMemberCellType type);

@@ -28,12 +28,12 @@
 }
 
 
-- (void)setUser:(TT_User *)user {
+- (void)setUser:(TT_Project_Members *)user {
     _user = user;
     
-    [self.headIcon sd_setImageWithURL:[NSURL URLWithString:user.head_img_url] placeholderImage:kImage(@"common-headDefault") options:SDWebImageRetryFailed | SDWebImageLowPriority];
-    self.nameLB.text = user.nick_name;
-    self.msgLB.text = user.nick_name;
+    [self.headIcon sd_setImageWithURL:[NSURL URLWithString:user.user_img_url] placeholderImage:kImage(@"common-headDefault") options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    self.nameLB.text = user.user_name;
+    self.msgLB.text = user.user_name;
 }
 - (IBAction)handleSelectBtn {
     if (self.selectBtnBlock) {

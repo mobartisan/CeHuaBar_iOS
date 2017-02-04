@@ -12,6 +12,7 @@
 @interface TTAddMemberViewController : TTBaseViewController
 
 @property (nonatomic,strong) TT_Project *project;
+@property (nonatomic,strong) NSMutableArray *members;//项目成员数组
 @property (nonatomic,copy) void(^addMemberBlock)();
 
 

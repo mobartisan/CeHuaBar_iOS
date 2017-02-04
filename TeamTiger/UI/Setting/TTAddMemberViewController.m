@@ -15,14 +15,15 @@
 @interface TTAddMemberViewController () <UITableViewDataSource, UITableViewDelegate, WXApiManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *membersArray;
+@property (strong, nonatomic) NSMutableArray *membersArray;//与我有关系的成员数组
 @property (strong, nonatomic) NSMutableArray *selectMembers;
+@property (nonatomic,strong) UIButton *rightBtn;
 
 @end
 
 @implementation TTAddMemberViewController
 
-#pragma mark - getter
+#pragma mark - getter 
 - (NSMutableArray *)membersArray {
     if (_membersArray == nil) {
         _membersArray = [NSMutableArray array];
@@ -35,6 +36,13 @@
         _selectMembers = [NSMutableArray array];
     }
     return _selectMembers;
+}
+
+- (NSMutableArray *)members {
+    if (_members == nil) {
+        _members = [NSMutableArray array];
+    }
+    return _members;
 }
 
 - (void)viewDidLoad {
@@ -56,19 +64,17 @@
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 40, 20);
+    rightBtn.hidden = YES;
     [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightBtn setTitle:@"确定" forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(handleRightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.rightBtn = rightBtn;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
     
 }
 
 - (void)handleRightBtnAction {
-    if ([Common isEmptyArr:self.selectMembers]) {
-        [self.navigationController popViewControllerAnimated:YES];
-        return;
-    }
     NSData *data = [NSJSONSerialization dataWithJSONObject:self.selectMembers options:NSJSONWritingPrettyPrinted error:nil];
     NSString *memberStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     ProjectMemberInviteApi *api = [[ProjectMemberInviteApi alloc] init];
@@ -96,28 +102,33 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TT_User *user = self.membersArray[indexPath.row];
+    TT_Project_Members *member = self.membersArray[indexPath.row];
     
     static NSString *ID = @"TTAddMemberCell";
     TTAddMemberCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
-        if ([Common isEmptyString:user.user_id]) {
+        if ([Common isEmptyString:member.user_id]) {
             cell = LoadFromNib(@"TTAddMemberCell2");
         } else {
             cell = LoadFromNib(@"TTAddMemberCell");
         }
         cell.contentView.backgroundColor = kRGB(27, 42, 58);
     }
-    cell.icon_confirm.hidden = !user.isSelect;
-    cell.user = user;
+    cell.icon_confirm.hidden = !member.isSelect;
+    cell.user = member;
     [cell setSelectBtnBlock:^(TTAddMemberCellType type){
         if (type == TTAddMemberCellTypeSelectMember) {
-            user.isSelect = !user.isSelect;
+            member.isSelect = !member.isSelect;
             [self.tableView reloadData];
-            if (user.isSelect) {
-                [self.selectMembers addObject:user.user_id];
+            if (member.isSelect) {
+                [self.selectMembers addObject:member.user_id];
             } else {
-                [self.selectMembers removeObject:user.user_id];
+                [self.selectMembers removeObject:member.user_id];
+            }
+            if ([Common isEmptyArr:self.selectMembers]) {
+                self.rightBtn.hidden = YES;
+            } else {
+                self.rightBtn.hidden = NO;
             }
         } else {
              [self toWeChatAddMember];
@@ -164,35 +175,49 @@
 
 #pragma mark - 获取与当前用户存在项目关系的用户
 - (void)userRelation{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     UserRelationApi *api = [[UserRelationApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"UserRelationApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSDictionary *response = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (![Common isEmptyArr:response[@"members"]]) {
                 for (NSDictionary *membersDic in response[@"members"]) {
-                    TT_User *user = [[TT_User alloc] init];
-                    user.nick_name = membersDic[@"nick_name"];
-                    user.head_img_url = membersDic[@"head_img_url"];
-                    user.user_id = membersDic[@"uid"];
-                    [self.membersArray addObject:user];
+                    TT_Project_Members *member = [[TT_Project_Members alloc] init];
+                    member.user_name = membersDic[@"nick_name"];
+                    member.user_img_url = membersDic[@"head_img_url"];
+                    member.user_id = membersDic[@"uid"];
+                    [self.membersArray addObject:member];
                 }
                 [self.membersArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                    TT_User *tempUser1 = (TT_User *)obj1;
-                    TT_User *tempUser2 = (TT_User *)obj2;
-                    return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
+                    TT_Project_Members *tempUser1 = (TT_Project_Members *)obj1;
+                    TT_Project_Members *tempUser2 = (TT_Project_Members *)obj2;
+                    return [[tempUser1.user_name pinyin] compare:[tempUser2.user_name pinyin]];
                 }];
-                TT_User *user = [[TT_User alloc] init];
-                user.nick_name = @"让微信朋友通过连接加入项目";
+                
+                NSMutableArray *tempArr = [self.membersArray mutableCopy];
+                for (TT_Project_Members *member in self.members) {
+                    for (TT_Project_Members *tempMembers in tempArr) {
+                        if ([member.user_name isEqualToString:tempMembers.user_name]) {
+                            [self.membersArray removeObject:tempMembers];
+                        }
+                    }
+                }
+                
+                TT_Project_Members *user = [[TT_Project_Members alloc] init];
+                user.user_name = @"让微信朋友通过连接加入项目";
                 [self.membersArray addObject:user];
             } else {
-                TT_User *user = [[TT_User alloc] init];
-                user.nick_name = @"让微信朋友通过连接加入项目";
+                TT_Project_Members *user = [[TT_Project_Members alloc] init];
+                user.user_name = @"让微信朋友通过连接加入项目";
                 [self.membersArray addObject:user];
             }
+            
             [self.tableView reloadData];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         NSLog(@"UserRelationApi:%@", error);
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];

@@ -87,6 +87,7 @@
             [self.navigationController pushViewController:settingGroupVC animated:YES];
         } else if (type == EProjectAddMember){
             TTAddMemberViewController *addMemberVC = [[TTAddMemberViewController alloc] init];
+            [addMemberVC.members addObjectsFromArray:self.projectMembersArr];
             addMemberVC.project = self.project;
             [addMemberVC setAddMemberBlock:^{
                 [self getProjectMemberList];
