@@ -11,5 +11,6 @@
 @interface TTAddVoteViewController : TTBaseViewController
 
 @property (copy, nonatomic) void(^addVoteBlock)(NSString *pid, NSString *name);
+@property (copy, nonatomic) NSString *pidOrGid;
 
 @end

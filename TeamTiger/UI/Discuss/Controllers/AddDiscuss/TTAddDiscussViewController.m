@@ -56,6 +56,18 @@
     self.tableView.estimatedRowHeight = 77;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    //定位当前是第几个项目
+    if (![Common isEmptyString:self.pidOrGid]) {
+        CirclesManager *circleManager = [CirclesManager sharedInstance];
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [evaluatedObject[@"_id"] isEqualToString:self.pidOrGid];
+        }];
+        NSArray *results = [circleManager.circles filteredArrayUsingPredicate:predicate];
+        if (results && results.firstObject) {
+            circleManager.selectIndex = [circleManager.circles indexOfObject:results.firstObject];
+        }
+    }
+    
     // 0.添加数据
     
     [self setupGroup0];
@@ -78,7 +90,7 @@
  */
 - (void)setupGroup0
 {
-    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"标签" subtitle:[[CirclesManager sharedInstance] selectCircle][@"name"] destVcClass:[SelectCircleViewController class]];
+    TTCommonItem *tag = [TTCommonArrowItem itemWithTitle:@"项目" subtitle:[[CirclesManager sharedInstance] selectCircle][@"name"] destVcClass:[SelectCircleViewController class]];
     self.tagItem = (TTCommonArrowItem *)tag;
     TTCommonItem *describe = [TTCommonTextViewItem itemWithTitle:@"描述" textViewPlaceholder:@"请输入描述"];
     self.tempDescribe = describe;
