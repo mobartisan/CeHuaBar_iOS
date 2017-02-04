@@ -256,7 +256,7 @@
         //图片
         UIImageView *inputImageV = [UIImageView new];
         inputImageV.userInteractionEnabled = YES;
-        inputImageV.image = kImage(@"icon_image");
+        inputImageV.image = kImage(@"icon_write");
         [_headerImage addSubview:inputImageV];
         UITapGestureRecognizer *tapInputImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapInputImage:)];
         [inputImageV addGestureRecognizer:tapInputImage];
