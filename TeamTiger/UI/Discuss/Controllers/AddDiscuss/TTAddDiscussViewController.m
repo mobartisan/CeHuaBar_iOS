@@ -116,7 +116,7 @@
 {
     
     UIView *startView = [[UIView alloc] init];
-    startView.backgroundColor = kColorForBackgroud;
+    startView.backgroundColor = [UIColor clearColor];
     
     [startView addSubview:self.startMomentBtn];
     [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -166,6 +166,9 @@
     
     if (group.items.count - 1 == indexPath.row){
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    if (indexPath.section == 2) {
+        cell.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
     }
     // 3.返回cell
     return cell;
@@ -222,7 +225,7 @@
         setViewCornerAndBorder(_startMomentBtn, 8);
         [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
-        _startMomentBtn.backgroundColor = [UIColor clearColor];
+        _startMomentBtn.backgroundColor = kColorForBackgroud;
     }
     return _startMomentBtn;
 }

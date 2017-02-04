@@ -55,7 +55,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [super viewDidLoad];
     self.title = @"发起投票";
     self.optionIndex = 0;
     self.isSelectOriginalPhoto = YES;
@@ -169,8 +168,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 {
     //    self.addImageView = customView;
     UIView *startView = [[UIView alloc] init];
-    startView.backgroundColor = kColorForBackgroud;
-    
+    startView.backgroundColor = [UIColor clearColor];
+
     [startView addSubview:self.startMomentBtn];
     [self.startMomentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(startView);
@@ -278,11 +277,14 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
     WeakSelf;
     cell.actionBlock = ^ (NSString *text) {
         wself.text = text;
-        TTCommonGroup *group = self.data[0];
+        TTCommonGroup *group = wself.data[0];
         TTCommonItem *textItem = group.items[1];
         [textItem setValue:text forKey:@"text"];
     };
     
+    if (indexPath.section == 3) {
+        cell.contentView.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:39.0/255.0f alpha:1.0f];
+    }
     // 3.返回cell
     return cell;
 }
@@ -346,7 +348,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         setViewCornerAndBorder(_startMomentBtn, 5);
         [_startMomentBtn setTitle:@"发布" forState:UIControlStateNormal];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
-        _startMomentBtn.backgroundColor = [UIColor clearColor];
+        _startMomentBtn.backgroundColor = kColorForBackgroud;
     }
     return _startMomentBtn;
 }
