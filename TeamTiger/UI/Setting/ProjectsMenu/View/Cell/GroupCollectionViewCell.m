@@ -129,7 +129,7 @@
         _msgLabel = [[UILabel alloc] init];
         [self.contentView addSubview:_msgLabel];
         [_msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.mas_equalTo(0).offset(3);
+            make.right.mas_equalTo(0).offset(2);
             make.bottom.mas_equalTo(0);
             make.width.equalTo(self.mas_width);
             make.height.equalTo(self.mas_height).offset(-20);
