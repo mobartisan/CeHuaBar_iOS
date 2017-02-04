@@ -939,54 +939,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "507865696.054622"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
-            landmarkName = "-handleRightBtnAction"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__42-[HomeViewController handleRightBtnAction]_block_invoke"
-                  moduleName = "TeamTiger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
-                  timestampString = "507865697.413534"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "434"
-                  endingLineNumber = "434"
-                  offsetFromSymbolStart = "1052">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__42-[HomeViewController handleRightBtnAction]_block_invoke.515"
-                  moduleName = "TeamTiger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
-                  timestampString = "507865697.41552"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "434"
-                  endingLineNumber = "434"
-                  offsetFromSymbolStart = "44">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"

@@ -1049,7 +1049,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 -(void) hideSwipeAnimated: (BOOL) animated completion:(void(^)(BOOL finished)) completion
 {
     MGSwipeAnimation * animation = animated ? (_swipeOffset > 0 ? _leftSwipeSettings.hideAnimation: _rightSwipeSettings.hideAnimation) : nil;
-    [self setSwipeOffset:0 animation:animation completion:completion];
+    [self setSwipeOffset:0 animation:(MGSwipeAnimation * _Nonnull)animation completion:completion];
 }
 
 -(void) hideSwipeAnimated: (BOOL) animated
@@ -1072,7 +1072,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
     if (buttonsView) {
         CGFloat s = direction == MGSwipeDirectionLeftToRight ? 1.0 : -1.0;
         MGSwipeAnimation * animation = animated ? (direction == MGSwipeDirectionLeftToRight ? _leftSwipeSettings.showAnimation : _rightSwipeSettings.showAnimation) : nil;
-        [self setSwipeOffset:buttonsView.bounds.size.width * s animation:animation completion:completion];
+        [self setSwipeOffset:buttonsView.bounds.size.width * s animation:(MGSwipeAnimation * _Nonnull)animation completion:completion];
     }
 }
 
@@ -1125,7 +1125,7 @@ static inline CGFloat mgEaseInOutBounce(CGFloat t, CGFloat b, CGFloat c) {
 -(void) setSwipeOffset:(CGFloat)offset animated: (BOOL) animated completion:(void(^)(BOOL finished)) completion
 {
     MGSwipeAnimation * animation = animated ? [[MGSwipeAnimation alloc] init] : nil;
-    [self setSwipeOffset:offset animation:animation completion:completion];
+    [self setSwipeOffset:offset animation:(MGSwipeAnimation * _Nonnull)animation completion:completion];
 }
 
 -(void) setSwipeOffset:(CGFloat)offset animation: (MGSwipeAnimation *) animation completion:(void(^)(BOOL finished)) completion

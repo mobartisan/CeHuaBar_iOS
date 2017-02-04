@@ -1056,8 +1056,8 @@ typedef NS_ENUM(NSUInteger, YYTextMoveDirection) {
             range = [self _correctedTextRange:range];
         }
     } else {
-        YYTextRange *extStart = [_innerLayout textRangeByExtendingPosition:range.start];
-        YYTextRange *extEnd = [_innerLayout textRangeByExtendingPosition:range.end];
+        YYTextRange *extStart = [_innerLayout textRangeByExtendingPosition:(YYTextPosition * _Nonnull)range.start];
+        YYTextRange *extEnd = [_innerLayout textRangeByExtendingPosition:(YYTextPosition * _Nonnull)range.end];
         if (extStart && extEnd) {
             NSArray *arr = [@[extStart.start, extStart.end, extEnd.start, extEnd.end] sortedArrayUsingSelector:@selector(compare:)];
             range = [YYTextRange rangeWithStart:arr.firstObject end:arr.lastObject];

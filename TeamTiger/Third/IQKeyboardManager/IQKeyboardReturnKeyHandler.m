@@ -64,7 +64,7 @@ NSString *const kIQTextFieldReturnKeyType   =   @"kIQTextFieldReturnKeyType";
     if (self)
     {
         textFieldInfoCache = [[NSMutableSet alloc] init];
-        [self addResponderFromView:controller.view];
+        [self addResponderFromView:(UIView * _Nonnull)controller.view];
     }
     
     return self;
