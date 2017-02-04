@@ -56,6 +56,18 @@
     self.tableView.estimatedRowHeight = 77;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    //定位当前是第几个项目
+    if (![Common isEmptyString:self.pidOrGid]) {
+        CirclesManager *circleManager = [CirclesManager sharedInstance];
+        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(id  _Nullable evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
+            return [evaluatedObject[@"_id"] isEqualToString:self.pidOrGid];
+        }];
+        NSArray *results = [circleManager.circles filteredArrayUsingPredicate:predicate];
+        if (results && results.firstObject) {
+            circleManager.selectIndex = [circleManager.circles indexOfObject:results.firstObject];
+        }
+    }
+    
     // 0.添加数据
     
     [self setupGroup0];

@@ -12,4 +12,6 @@
 
 @property (copy, nonatomic) void (^addDiscussBlock)(NSString *pid, NSString *name);
 
+@property (copy, nonatomic) NSString *pidOrGid;
+
 @end

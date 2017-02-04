@@ -35,7 +35,7 @@
                 for (NSDictionary *objDic in request.responseJSONObject[OBJ]) {
                     [self.circles addObject:objDic];
                 }
-                self.selectCircle = (self.circles)[self.selectIndex];
+                self.selectCircle = self.circles[self.selectIndex];
             }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -53,7 +53,7 @@
 }
 
 - (void)setSelectIndex:(NSInteger)selectIndex {
-    if (self.circles.count > selectIndex ) {
+    if (self.circles.count > selectIndex) {
         _selectIndex = selectIndex;
         self.selectCircle = self.circles[selectIndex];
     } else

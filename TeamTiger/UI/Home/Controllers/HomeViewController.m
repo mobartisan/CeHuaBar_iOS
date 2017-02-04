@@ -417,6 +417,9 @@
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
             TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
+            if ([self.tempDic.allKeys containsObject:@"pid"]) {
+                addDiscussVC.pidOrGid = self.tempDic[@"pid"];
+            }
             addDiscussVC.addDiscussBlock = ^(NSString *pid, NSString *name) {
                 [self.titleView setTitle:name forState:UIControlStateNormal];
                 self.tempDic = @{@"pid":pid};
@@ -425,6 +428,9 @@
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
             TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
+            if ([self.tempDic.allKeys containsObject:@"pid"]) {
+                addVoteVC.pidOrGid = self.tempDic[@"pid"];
+            }
             addVoteVC.addVoteBlock = ^(NSString *pid, NSString *name) {
                 [self.titleView setTitle:name forState:UIControlStateNormal];
                 self.tempDic = @{@"pid":pid};
@@ -621,6 +627,7 @@
         [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
         
         self.tempGroup = notification.object;
+        self.tempProject = nil;
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
         parameterDic = @{@"pid":[notification.object project_id]};
         self.setBtn.hidden = NO;
@@ -631,12 +638,14 @@
         [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
         
         self.tempProject = notification.object;
+        self.tempGroup = nil;
     } else {//主页
         self.setBtn.hidden = YES;
         self.imageView.userInteractionEnabled = YES;
         
         [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
-        
+        self.tempProject = nil;
+        self.tempGroup = nil;
     }
     [self getAllMoments:parameterDic IsNeedRefresh:NO];
     self.tempDic = parameterDic;
