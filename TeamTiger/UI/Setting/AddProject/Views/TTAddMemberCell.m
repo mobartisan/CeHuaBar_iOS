@@ -35,6 +35,7 @@
     self.nameLB.text = user.user_name;
     self.msgLB.text = user.user_name;
 }
+
 - (IBAction)handleSelectBtn {
     if (self.selectBtnBlock) {
         self.selectBtnBlock(TTAddMemberCellTypeSelectMember);

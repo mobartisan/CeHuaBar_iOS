@@ -313,16 +313,16 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             if (![Common isEmptyArr:response[@"members"]]) {
                 for (NSDictionary *membersDic in response[@"members"]) {
-                    TT_User *user = [[TT_User alloc] init];
-                    user.nick_name = membersDic[@"nick_name"];
-                    user.head_img_url = membersDic[@"head_img_url"];
+                    TT_Project_Members *user = [[TT_Project_Members alloc] init];
+                    user.user_name = membersDic[@"nick_name"];
+                    user.user_img_url = membersDic[@"head_img_url"];
                     user.user_id = membersDic[@"uid"];
                     [self.membersArray addObject:user];
                 }
                 [self.membersArray sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                    TT_User *tempUser1 = (TT_User *)obj1;
-                    TT_User *tempUser2 = (TT_User *)obj2;
-                    return [[tempUser1.nick_name pinyin] compare:[tempUser2.nick_name pinyin]];
+                    TT_Project_Members *tempUser1 = (TT_Project_Members *)obj1;
+                    TT_Project_Members *tempUser2 = (TT_Project_Members *)obj2;
+                    return [[tempUser1.user_name pinyin] compare:[tempUser2.user_name pinyin]];
                 }];
             } else {
                 [self.datas removeObjectAtIndex:2];
