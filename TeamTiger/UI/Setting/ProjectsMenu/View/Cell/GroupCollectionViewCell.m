@@ -54,14 +54,19 @@
         
         self.msgLabel.text = @(group.project_nums).stringValue;
         self.projectNameLabel.text = group.group_name;
-//        self.unreadMsgImgV.backgroundColor = ColorRGB(arc4random() % 256, arc4random() % 256, arc4random() % 256);
-        self.unreadMsgImgV.backgroundColor = [UIColor clearColor];
         if ([self.msgLabel.text intValue] == 0) {
             self.unreadMsgImgV.hidden = YES;
             self.msgLabel.hidden = YES;
         } else {
             self.unreadMsgImgV.hidden = NO;
             self.msgLabel.hidden = NO;
+        }
+        //未读消息个数
+        if (group.newscount > 0) {
+            self.unreadMsgImgV.hidden = NO;
+            self.unreadMsgImgV.backgroundColor = [UIColor redColor];
+        } else {
+            self.unreadMsgImgV.hidden = YES;
         }
         
         [self.addBtn setImage:nil forState:UIControlStateNormal];

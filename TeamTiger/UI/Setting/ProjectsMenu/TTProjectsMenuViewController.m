@@ -390,6 +390,7 @@
                 group.group_id = groupDic[@"_id"];
                 group.group_name = groupDic[@"group_name"];
                 group.project_nums = [groupDic[@"project_nums"] integerValue];
+                group.newscount = [groupDic[@"newscount"] integerValue];
                 [self.groups addObject:group];
             }
             

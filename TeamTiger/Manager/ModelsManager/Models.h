@@ -22,7 +22,7 @@
 @property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
 @property(nonatomic, assign) NSInteger type;
 @property(nonatomic, assign) NSInteger project_nums;
-
+@property(nonatomic, assign) NSInteger newscount;
 
 + (TT_Group *)creatGroupWithDictionary:(NSDictionary *)dic;
 

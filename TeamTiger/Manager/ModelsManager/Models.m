@@ -22,6 +22,8 @@
 @synthesize last_edit_user_id = _last_edit_user_id;
 @synthesize type = _type;
 @synthesize project_nums = _project_nums;
+@synthesize newscount = _newscount;
+
 - (NSString *)description
 {
     NSLog(@"group_id:%@", _group_id);
@@ -36,6 +38,7 @@
     NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
     NSLog(@"type:%zd", _type);
     NSLog(@"project_nums:%zd", _project_nums);
+    NSLog(@"newscount:%zd", _newscount);
     return [super description];
 }
 
