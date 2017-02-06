@@ -555,6 +555,9 @@
     if (!self.currentIndexPath) {
         return;
     }
+    if (self.currentIndexPath.row >= self.dataSource.count) {
+        return;
+    }
     HomeModel *homdModel = self.dataSource[self.currentIndexPath.row];
     CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
     CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
