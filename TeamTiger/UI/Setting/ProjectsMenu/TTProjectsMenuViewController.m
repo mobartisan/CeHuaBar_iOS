@@ -561,7 +561,7 @@
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
             [self.menuTable reloadData];
         }else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+            [super showText:@"项目已存在该分组下" afterSeconds:1.0];
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"moveProject:%@", error);
@@ -649,7 +649,6 @@
                         [snapshot removeFromSuperview];
                         snapshot = nil;
                     }];
-                    
                     //2.取出对应的模型
                     TT_Group *group = self.groups[index];
                     //3.移动分组
