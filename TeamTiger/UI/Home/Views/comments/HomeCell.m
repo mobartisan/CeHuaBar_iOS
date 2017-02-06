@@ -16,8 +16,7 @@
 #import "ButtonIndexPath.h"
 #import "HomeCommentModel.h"
 #import "HomeCommentModelFrame.h"
-
-
+#import "CustomTextField.h"
 
 @interface HomeCell ()<UITableViewDataSource, UITableViewDelegate, HomeCommentCellDelegate, UITextFieldDelegate>
 
@@ -273,7 +272,7 @@
         [_headerImage addSubview:imageV];
         
         //输入框
-        UITextField *inputView= [[UITextField alloc] init];
+        CustomTextField *inputView= [[CustomTextField alloc] init];
         inputView.delegate = self;
         inputView.font = [UIFont systemFontOfSize:16];
         inputView.placeholder = @"讨论：";
@@ -289,11 +288,6 @@
         UIView *view = [[UIView alloc] initWithFrame:Frame(0, 0, 5, 35)];
         inputView.leftView = view;
         inputView.leftViewMode = UITextFieldViewModeAlways;
-        // 自适应宽度（可以把字体放小，但是不可以把字体变大）
-        inputView.adjustsFontSizeToFitWidth = YES;
-        // 自适应的最小字体
-        inputView.minimumFontSize = 16;
-//        [inputView addTarget:self action:@selector(textFieldValueChanged:) forControlEvents:UIControlEventEditingChanged];
         [_headerImage addSubview:inputView];
         
         
@@ -337,26 +331,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self sendAMessageWithTextField:textField];
     return YES;
-}
-
-- (void)textFieldValueChanged:(UITextField *) sender {
-    BOOL isContainCh = NO;
-    for (int i = 0; i < sender.text.length; i++) {
-        unichar ch = [sender.text characterAtIndex:i];
-        if (IS_CH_SYMBOL(ch)) {
-            isContainCh = YES;
-            break;
-        }
-    }
-    if (isContainCh) {
-        CGSize size = [sender.text boundingRectWithSize:Size(MAXFLOAT, sender.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:sender.font} context:nil].size;
-        if (size.width > sender.frame.size.width) {
-            sender.contentVerticalAlignment = UIControlContentVerticalAlignmentTop;
-        }
-        else {
-            sender.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-        }
-    }
 }
 
 //MARK:- 发送讨论

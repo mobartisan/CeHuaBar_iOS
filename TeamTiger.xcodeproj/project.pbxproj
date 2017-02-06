@@ -260,6 +260,7 @@
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
 		1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */; };
 		1D6D02CB1D58139F00EE0C2E /* TTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */; };
+		1D84527B1E4857D400AF0A75 /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D84527A1E4857D400AF0A75 /* CustomTextField.m */; };
 		1D8713091DE6B91800C17D01 /* SelectGroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D8713061DE6B91800C17D01 /* SelectGroupView.xib */; };
 		1D87130A1DE6B91800C17D01 /* SelectGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8713071DE6B91800C17D01 /* SelectGroupView.m */; };
 		1D87130F1DE6DC0900C17D01 /* loginBG40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D87130C1DE6DC0900C17D01 /* loginBG40@2x.png */; };
@@ -999,6 +1000,8 @@
 		1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
 		1D6D02C91D58139E00EE0C2E /* TTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPickerView.h; sourceTree = "<group>"; };
 		1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTPickerView.m; sourceTree = "<group>"; };
+		1D8452791E4857D400AF0A75 /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		1D84527A1E4857D400AF0A75 /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
 		1D8713061DE6B91800C17D01 /* SelectGroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectGroupView.xib; sourceTree = "<group>"; };
 		1D8713071DE6B91800C17D01 /* SelectGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectGroupView.m; sourceTree = "<group>"; };
 		1D8713081DE6B91800C17D01 /* SelectGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectGroupView.h; sourceTree = "<group>"; };
@@ -2495,6 +2498,15 @@
 			path = TTPickerView;
 			sourceTree = "<group>";
 		};
+		1D8452781E4857BD00AF0A75 /* CustomTextField */ = {
+			isa = PBXGroup;
+			children = (
+				1D8452791E4857D400AF0A75 /* CustomTextField.h */,
+				1D84527A1E4857D400AF0A75 /* CustomTextField.m */,
+			);
+			path = CustomTextField;
+			sourceTree = "<group>";
+		};
 		1D87130B1DE6DC0900C17D01 /* loginBG */ = {
 			isa = PBXGroup;
 			children = (
@@ -2838,6 +2850,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D8452781E4857BD00AF0A75 /* CustomTextField */,
 				1D6A2F181E3741B5007BC76A /* InsetsLabel */,
 				2D1469181E2DBB5D000300C4 /* MGSwipeTableCell */,
 				1D49D9F11E11FE8800433B2C /* AESCrypt */,
@@ -3973,6 +3986,7 @@
 				1D09CC9A1D3F29C900F85E9A /* YYTextParser.m in Sources */,
 				0604B4641D4C5A5B00EF1703 /* AKPickerView.m in Sources */,
 				2D727A0D1DDD842300CBF0BA /* SDWaitingView.m in Sources */,
+				1D84527B1E4857D400AF0A75 /* CustomTextField.m in Sources */,
 				1D95803A1D3E123800FD0053 /* AFURLResponseSerialization.m in Sources */,
 				1D9580D61D3E225200FD0053 /* MASViewAttribute.m in Sources */,
 				1D09CD5E1D3F59D500F85E9A /* SDWebImageDownloader.m in Sources */,
