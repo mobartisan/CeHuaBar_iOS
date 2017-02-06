@@ -110,6 +110,8 @@
 //空字符串
 #define NullString            @""
 
+//判断是否为中文
+#define IS_CH_SYMBOL(chr)     ((int)(chr)>127)
 
 //Debug
 #ifdef DEBUG
