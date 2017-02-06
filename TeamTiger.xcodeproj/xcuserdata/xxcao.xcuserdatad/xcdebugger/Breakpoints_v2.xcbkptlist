@@ -311,7 +311,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "698"
             endingLineNumber = "698"
-            landmarkName = "-clickVoteProjectBtn:"
+            landmarkName = "-clickProjectBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

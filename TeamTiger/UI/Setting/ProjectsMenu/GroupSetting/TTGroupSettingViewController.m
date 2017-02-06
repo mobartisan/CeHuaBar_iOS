@@ -205,7 +205,7 @@
     projectTopApi.requestArgument = @{@"pid":project.project_id,
                                       @"position":position};
     [projectTopApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"ProjectDeleteApi:%@", request.responseJSONObject);
+        NSLog(@"ProjectTopApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
         }else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
