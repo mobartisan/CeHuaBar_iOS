@@ -676,6 +676,11 @@
 #pragma mark - HomeCellDelegate
 - (void)clickCommentBtn:(NSIndexPath *)indexPath {
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
+    
+}
+
+- (void)currentIndexPath:(NSIndexPath *)indexPath {
     self.currentIndexPath = indexPath;
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }

@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.descTF becomeFirstResponder];
     // Do any additional setup after loading the view from its nib.
     self.nameLB.text = [NSString stringWithFormat:@"%@:", self.tempDic[@"Name"]];
     [self.descTF setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];

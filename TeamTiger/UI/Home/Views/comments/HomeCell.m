@@ -328,6 +328,13 @@
     [self sendAMessageWithTextField:textF];
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if ([self.delegate respondsToSelector:@selector(currentIndexPath:)]) {
+        [self.delegate currentIndexPath:self.commentBtn.indexPath];
+    }
+
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self sendAMessageWithTextField:textField];
     return YES;
