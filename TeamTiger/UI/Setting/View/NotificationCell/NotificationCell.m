@@ -87,12 +87,17 @@
             if ((self.tag - 2016) / 1000 == 2 &&
                 (self.tag - 2016) % 1000 == 0) {
                 NSNumber *switchValue = on ? @1 : @0;
-                UserDefaultsSave(switchValue, @"USER_KEY_PLAY_AUDIO");
+                UserDefaultsSave(switchValue, ALLOW_USER_KEY_PLAY_AUDIO);
             }
             if ((self.tag - 2016) / 1000 == 2 &&
                 (self.tag - 2016) % 1000 == 1) {
                 NSNumber *switchValue = on ? @1 : @0;
-                UserDefaultsSave(switchValue, @"USER_KEY_PLAY_SHAKE");
+                UserDefaultsSave(switchValue, ALLOW_USER_KEY_PLAY_SHAKE);
+            }
+            if ((self.tag - 2016) / 1000 == 1 &&
+                (self.tag - 2016) % 1000 == 0) {
+                NSNumber *switchValue = on ? @1 : @0;
+                UserDefaultsSave(switchValue, ALLOW_USER_KEY_SHOW_MESSAGE);
             }
             NSLog(@"%d",on);
         };

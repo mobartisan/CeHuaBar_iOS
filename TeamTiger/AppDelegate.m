@@ -41,7 +41,6 @@
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
@@ -62,6 +61,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     //个推SDK重新上线
     [[MessageManager sharedInstance] startGeTui];
+    [MessageManager checkAPNs];
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"APNS_Notification_Key" object:nil];
 }
 
 

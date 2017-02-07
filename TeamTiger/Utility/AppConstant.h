@@ -76,4 +76,11 @@ static NSString *const QiNiuSecretKey = @"t9uR0JgBozDzQduR9h-HS0p-nye7Vm2cYIlGkk
 
 static NSString *const kCompressKey = @"?imageView2/2/w/120/h/120/q/100";
 
+//new message notification
+static NSString *const ALLOW_USER_KEY_PLAY_SHAKE = @"USER_KEY_PLAY_SHAKE";
+
+static NSString *const ALLOW_USER_KEY_PLAY_AUDIO = @"USER_KEY_PLAY_AUDIO";
+
+static NSString *const ALLOW_USER_KEY_SHOW_MESSAGE = @"USER_KEY_SHOW_MESSAGE";
+
 #endif /* Constant_h */

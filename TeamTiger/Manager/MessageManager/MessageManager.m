@@ -49,10 +49,19 @@ static MessageManager *singleton = nil;
          UNAuthorizationOptionAlert|
          UNAuthorizationOptionCarPlay
                                                                             completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                                                                if (granted) {
-                                                                                    
-                                                                                    [[UIApplication sharedApplication] registerForRemoteNotifications];
-                                                                                }
+        if (granted) {
+          [[UIApplication sharedApplication] registerForRemoteNotifications];
+          //默认程序内允许声音和震动
+            if (UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) == nil) {
+                UserDefaultsSave(@1, ALLOW_USER_KEY_PLAY_AUDIO);
+            }
+            if (UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) == nil) {
+                UserDefaultsSave(@1, ALLOW_USER_KEY_PLAY_SHAKE);
+            }
+            if (UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) == nil) {
+                UserDefaultsSave(@1, ALLOW_USER_KEY_SHOW_MESSAGE);
+            }
+        }
                                                                             }];
     }
     else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
@@ -97,9 +106,39 @@ static MessageManager *singleton = nil;
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:apn_type];
     }
     
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(45 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MessageManager checkAPNs];
+    });
 }
 
++ (BOOL)isMessageNotificationServiceOpen {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        return UIRemoteNotificationTypeNone != [[UIApplication sharedApplication] currentUserNotificationSettings].types;
+    } else {
+        return UIRemoteNotificationTypeNone != [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+    }
+}
 
++ (void)checkAPNs {
+    if([MessageManager isMessageNotificationServiceOpen]){
+        //允许声音和震动
+        if (UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) == nil) {
+            UserDefaultsSave(@1, ALLOW_USER_KEY_PLAY_AUDIO);
+        }
+        if (UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) == nil) {
+            UserDefaultsSave(@1, ALLOW_USER_KEY_PLAY_SHAKE);
+        }
+        if (UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) == nil) {
+            UserDefaultsSave(@1, ALLOW_USER_KEY_SHOW_MESSAGE);
+        }
+    }
+    else {
+        //不允许声音和震动
+        UserDefaultsRemove(ALLOW_USER_KEY_PLAY_AUDIO);
+        UserDefaultsRemove(ALLOW_USER_KEY_PLAY_SHAKE);
+        UserDefaultsRemove(ALLOW_USER_KEY_SHOW_MESSAGE);
+    }
+}
 
 #pragma mark - GeTuiSdkDelegate
 /** SDK启动成功返回cid */
@@ -123,8 +162,7 @@ static MessageManager *singleton = nil;
     }
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@", taskId, msgId, payloadMsg, offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
-#warning TO DO here
-    [self handleOneMessage:payloadMsg];
+    [self handleOneMessage:payloadData];
 }
 
 /** SDK收到sendMessage消息回调 */
@@ -155,20 +193,37 @@ static MessageManager *singleton = nil;
 #pragma -mark Handle Message
 - (void)handleOneMessage:(id)msgObj {
     //do a message
+//    jsonstring 转 object   {"age":"18","name":"xxcao","gender":"male"}
+    if (msgObj == nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您收到一条空消息" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     
-    //play shake
-    if ([UserDefaultsGet(@"USER_KEY_PLAY_SHAKE") integerValue] == 1) {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    }
-    //play audio
-    if ([UserDefaultsGet(@"USER_KEY_PLAY_AUDIO") integerValue] == 1) {
-        static SystemSoundID soundIDTest = 0;
-        NSString * path = [[NSBundle mainBundle] pathForResource:@"cat" ofType:@"caf"];
-        if (path) {
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
+    NSLog(@"%@",dict);
+    
+#warning  to do handle messages and optimize code
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //play shake
+        if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         }
-        AudioServicesPlaySystemSound(soundIDTest);
-    }
+        //play audio
+        if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
+            static SystemSoundID soundIDTest = 0;
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"cat" ofType:@"caf"];
+            if (path) {
+                AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+            }
+            AudioServicesPlaySystemSound(soundIDTest);
+        }
+        //show message
+        if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
+//            to do
+        }
+    });
 }
 
 @end

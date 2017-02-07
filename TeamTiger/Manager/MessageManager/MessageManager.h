@@ -16,6 +16,10 @@
 
 + (void)registerUserNotification;
 
++ (BOOL)isMessageNotificationServiceOpen;//判断是否开启推送
+
++ (void)checkAPNs;
+
 - (void)startGeTui;
 
 - (void)registerDeviceToken:(NSString *)deviceToken;

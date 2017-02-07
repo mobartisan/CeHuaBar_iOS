@@ -8,9 +8,20 @@
 
 #import "TTNotificationSetting.h"
 #import "NotificationCell.h"
+#import "MessageManager.h"
+
+
 @interface TTNotificationSetting ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) NSMutableArray *datas;
+
+@property(nonatomic, copy) NSString *isShake;
+
+@property(nonatomic, copy) NSString *isAudio;
+
+@property(nonatomic, copy) NSString *isShowMessage;
+
+@property(nonatomic, copy) NSString *allowNotification;
 
 @end
 
@@ -24,8 +35,10 @@
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
     }];
-    //
-    [self table];
+
+    [self reloadAPNsData:nil];
+    //通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadAPNsData:) name:@"APNS_Notification_Key" object:nil];
 }
 
 - (UITableView *)table {
@@ -47,26 +60,19 @@
 
 - (NSMutableArray *)datas {
     if (!_datas) {
-
-        //play shake
-        NSString *isShake = @"0";
-        if ([UserDefaultsGet(@"USER_KEY_PLAY_SHAKE") integerValue] == 1) {
-            isShake = @"1";
-        }
-        //play audio
-        NSString *isAudio = @"0";
-        if ([UserDefaultsGet(@"USER_KEY_PLAY_AUDIO") integerValue] == 1) {
-            isAudio = @"1";
-        }
-
-        _datas = @[
-  @{@"Name":@"接收信息消息通知",@"Type":@"0",@"Content":@"已开启",@"Description":@"如果你要关闭或开启策话吧的新消息通知，请在“设置” - “通知”功能中，找到应用程序“策话吧”更改。"},
-    @{@"Name":@"通知显示消息详情",@"Type":@"1",@"Content":@"0",@"Description":@"关闭后，当收到策话吧信息时，通知提示将不显示发表人和内容摘要。"},
-    @{@"Name":@"声音",@"Type":@"1",@"Content":isAudio,@"Description":@""},
-    @{@"Name":@"振动",@"Type":@"1",@"Content":isShake,@"Description":@"当策话吧在运行时，你可以设置是否需要声音或振动。"},
-  ].mutableCopy;
+        _datas = [NSMutableArray array];
     }
     return _datas;
+}
+
+- (void)loadDatas {
+    [self.datas removeAllObjects];
+    [self.datas addObjectsFromArray:@[
+                                      @{@"Name":@"接收信息消息通知",@"Type":@"0",@"Content":self.allowNotification,@"Description":@"如果你要关闭或开启策话吧的新消息通知，请在“设置” - “通知”功能中，找到应用程序“策话吧”更改。"},
+                                      @{@"Name":@"通知显示消息详情",@"Type":@"1",@"Content":self.isShowMessage,@"Description":@"关闭后，当收到策话吧信息时，通知提示将不显示发表人和内容摘要。"},
+                                      @{@"Name":@"声音",@"Type":@"1",@"Content":self.isAudio,@"Description":@""},
+                                      @{@"Name":@"振动",@"Type":@"1",@"Content":self.isShake,@"Description":@"当策话吧在运行时，你可以设置是否需要声音或振动。"},
+                                      ]];
 }
 
 #pragma UITableView Delegate and DataSource
@@ -136,6 +142,36 @@
         make.right.mas_equalTo(-20);
     }];
     return view;
+}
+
+- (void)reloadAPNsData:(id)sender {
+    //
+    //play shake
+    self.isShake = @"0";
+    if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
+        self.isShake = @"1";
+    }
+    //play audio
+    self.isAudio = @"0";
+    if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
+        self.isAudio = @"1";
+    }
+    
+    //show message
+    self.isShowMessage = @"0";
+    if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
+        self.isShowMessage = @"1";
+    }
+    
+    //允许和禁止推送
+    self.allowNotification = @"已开启";
+    if([MessageManager isMessageNotificationServiceOpen]){
+        self.allowNotification = @"已开启";
+    } else {
+        self.allowNotification = @"已关闭";
+    }
+    [self loadDatas];
+    [self.table reloadData];
 }
 
 @end
