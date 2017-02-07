@@ -255,6 +255,7 @@
 		1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */; };
 		1D5AD3631E4963780010E947 /* libGeTuiSdk-1.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5AD3611E4963780010E947 /* libGeTuiSdk-1.5.3.a */; };
 		1D5AD3641E4963780010E947 /* libGtExtensionSdk-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5AD3621E4963780010E947 /* libGtExtensionSdk-1.0.0.a */; };
+		1D5AD3661E49C70F0010E947 /* bbs.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1D5AD3651E49C70F0010E947 /* bbs.caf */; };
 		1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */; };
 		1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5CCA201DB5AF8D00542DCD /* GroupView.xib */; };
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
@@ -399,7 +400,6 @@
 		1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */; };
 		1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */; };
 		1DDF39F31DEEABB10059207B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDF39F21DEEABB10059207B /* AudioToolbox.framework */; };
-		1DDF39F51DEEAC7B0059207B /* cat.caf in Resources */ = {isa = PBXBuildFile; fileRef = 1DDF39F41DEEAC7B0059207B /* cat.caf */; };
 		1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */; };
 		1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */; };
 		1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EF2C1E37891100355562 /* UITextField+Extension.m */; };
@@ -993,6 +993,7 @@
 		1D5AD3601E4963780010E947 /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
 		1D5AD3611E4963780010E947 /* libGeTuiSdk-1.5.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.5.3.a"; sourceTree = "<group>"; };
 		1D5AD3621E4963780010E947 /* libGtExtensionSdk-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGtExtensionSdk-1.0.0.a"; sourceTree = "<group>"; };
+		1D5AD3651E49C70F0010E947 /* bbs.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bbs.caf; sourceTree = "<group>"; };
 		1D5CCA1D1DB5AF5C00542DCD /* GroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupView.h; sourceTree = "<group>"; };
 		1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupView.m; sourceTree = "<group>"; };
 		1D5CCA201DB5AF8D00542DCD /* GroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupView.xib; sourceTree = "<group>"; };
@@ -1231,7 +1232,6 @@
 		1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddDiscussViewController.m; sourceTree = "<group>"; };
 		1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddDiscussViewController.xib; sourceTree = "<group>"; };
 		1DDF39F21DEEABB10059207B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		1DDF39F41DEEAC7B0059207B /* cat.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = cat.caf; sourceTree = "<group>"; };
 		1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCircleViewControllerForSetting.m; sourceTree = "<group>"; };
 		1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCircleViewControllerForSetting.h; sourceTree = "<group>"; };
 		1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
@@ -2929,7 +2929,7 @@
 		1DA71B7B1D3DB982007483D2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				1DDF39F41DEEAC7B0059207B /* cat.caf */,
+				1D5AD3651E49C70F0010E947 /* bbs.caf */,
 				1DA71B811D3DBA67007483D2 /* main.m */,
 				1DA71B861D3DBDDB007483D2 /* TeamTiger-Prefix.pch */,
 				1DA71B7F1D3DBA67007483D2 /* Info.plist */,
@@ -3787,6 +3787,7 @@
 				1DD2E3201D596EAA005D45A9 /* toggle_background_off@3x.png in Resources */,
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
+				1D5AD3661E49C70F0010E947 /* bbs.caf in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
 				1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */,
@@ -3817,7 +3818,6 @@
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,
 				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
-				1DDF39F51DEEAC7B0059207B /* cat.caf in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
 				06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */,

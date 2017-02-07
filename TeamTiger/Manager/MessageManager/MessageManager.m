@@ -213,7 +213,7 @@ static MessageManager *singleton = nil;
         //play audio
         if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
             static SystemSoundID soundIDTest = 0;
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"cat" ofType:@"caf"];
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"bbs" ofType:@"caf"];
             if (path) {
                 AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
             }

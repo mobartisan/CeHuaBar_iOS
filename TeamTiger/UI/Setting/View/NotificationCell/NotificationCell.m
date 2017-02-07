@@ -7,6 +7,7 @@
 //
 
 #import "NotificationCell.h"
+#import "MessageManager.h"
 
 @implementation NotificationCell
 
@@ -76,6 +77,7 @@
         _tSwitch.trackImageOff = [UIImage imageNamed:@"toggle_background_off"];
         _tSwitch.thumbInsetX = -3.0;
         _tSwitch.thumbOffsetY = 0.0;
+        
         [self.contentView addSubview:_tSwitch];
         [_tSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(self.contentView.mas_right).offset(-20);
@@ -83,7 +85,16 @@
             make.height.equalTo(@31);
             make.centerY.equalTo(self.contentView.mas_centerY);
         }];
+        __weak typeof(_tSwitch) weakSwitch = _tSwitch;
         _tSwitch.changeHandler = ^(BOOL on){
+            //允许和禁止推送
+            if(![MessageManager isMessageNotificationServiceOpen]){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请先到设置里打开允许推送通知" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+                weakSwitch.on = NO;
+                return;
+            }
+
             if ((self.tag - 2016) / 1000 == 2 &&
                 (self.tag - 2016) % 1000 == 0) {
                 NSNumber *switchValue = on ? @1 : @0;
