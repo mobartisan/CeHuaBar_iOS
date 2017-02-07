@@ -253,6 +253,8 @@
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
 		1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD931D49AAA400094112 /* SettingCell.xib */; };
 		1D59130D1D4DDE9E00A188A0 /* GDIIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */; };
+		1D5AD3631E4963780010E947 /* libGeTuiSdk-1.5.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5AD3611E4963780010E947 /* libGeTuiSdk-1.5.3.a */; };
+		1D5AD3641E4963780010E947 /* libGtExtensionSdk-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5AD3621E4963780010E947 /* libGtExtensionSdk-1.0.0.a */; };
 		1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */; };
 		1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5CCA201DB5AF8D00542DCD /* GroupView.xib */; };
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
@@ -348,7 +350,6 @@
 		1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB5A5851D4B3F36009E6170 /* square-switch-track@2x.png */; };
 		1DB926171D46F4F4003676AC /* LCProcessFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926141D46F4F4003676AC /* LCProcessFilter.m */; };
 		1DB926181D46F4F4003676AC /* LCRequestAccessory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB926161D46F4F4003676AC /* LCRequestAccessory.m */; };
-		1DBC49B71D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */; };
 		1DBC49B91D6554AF00DB0CD2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49B81D6554AF00DB0CD2 /* Security.framework */; };
 		1DBC49BB1D6554D100DB0CD2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */; };
 		1DBC49BD1D6554E100DB0CD2 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */; };
@@ -988,6 +989,10 @@
 		1D55FD931D49AAA400094112 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		1D59130B1D4DDE9E00A188A0 /* GDIIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDIIndexBar.h; sourceTree = "<group>"; };
 		1D59130C1D4DDE9E00A188A0 /* GDIIndexBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDIIndexBar.m; sourceTree = "<group>"; };
+		1D5AD35F1E4963780010E947 /* GeTuiExtSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiExtSdk.h; sourceTree = "<group>"; };
+		1D5AD3601E4963780010E947 /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
+		1D5AD3611E4963780010E947 /* libGeTuiSdk-1.5.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.5.3.a"; sourceTree = "<group>"; };
+		1D5AD3621E4963780010E947 /* libGtExtensionSdk-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGtExtensionSdk-1.0.0.a"; sourceTree = "<group>"; };
 		1D5CCA1D1DB5AF5C00542DCD /* GroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupView.h; sourceTree = "<group>"; };
 		1D5CCA1E1DB5AF5C00542DCD /* GroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupView.m; sourceTree = "<group>"; };
 		1D5CCA201DB5AF8D00542DCD /* GroupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupView.xib; sourceTree = "<group>"; };
@@ -1156,8 +1161,6 @@
 		1DB926141D46F4F4003676AC /* LCProcessFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCProcessFilter.m; sourceTree = "<group>"; };
 		1DB926151D46F4F4003676AC /* LCRequestAccessory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCRequestAccessory.h; sourceTree = "<group>"; };
 		1DB926161D46F4F4003676AC /* LCRequestAccessory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCRequestAccessory.m; sourceTree = "<group>"; };
-		1DBC49B51D65542E00DB0CD2 /* GeTuiSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeTuiSdk.h; sourceTree = "<group>"; };
-		1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libGeTuiSdk-1.4.3.a"; sourceTree = "<group>"; };
 		1DBC49B81D6554AF00DB0CD2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1DBC49BA1D6554D100DB0CD2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1DBC49BC1D6554E100DB0CD2 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -1452,12 +1455,13 @@
 				1DBC49BB1D6554D100DB0CD2 /* AVFoundation.framework in Frameworks */,
 				1DD2E3301D59B3DB005D45A9 /* libc++.tbd in Frameworks */,
 				1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */,
-				1DBC49B71D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a in Frameworks */,
 				1D09CCBD1D3F2AFC00F85E9A /* MobileCoreServices.framework in Frameworks */,
+				1D5AD3641E4963780010E947 /* libGtExtensionSdk-1.0.0.a in Frameworks */,
 				1D09CCBB1D3F2AF300F85E9A /* Accelerate.framework in Frameworks */,
 				1D09CCB91D3F2AE800F85E9A /* AssetsLibrary.framework in Frameworks */,
 				1D09CCB71D3F2ADF00F85E9A /* ImageIO.framework in Frameworks */,
 				1D09CCB51D3F2AD500F85E9A /* QuartzCore.framework in Frameworks */,
+				1D5AD3631E4963780010E947 /* libGeTuiSdk-1.5.3.a in Frameworks */,
 				1D09CCB31D3F2ACB00F85E9A /* CoreImage.framework in Frameworks */,
 				1D09CCB11D3F2AC200F85E9A /* CoreGraphics.framework in Frameworks */,
 				1D09CCAF1D3F2AB900F85E9A /* CoreText.framework in Frameworks */,
@@ -2458,6 +2462,17 @@
 			path = GDIIndexBar;
 			sourceTree = "<group>";
 		};
+		1D5AD35E1E4963780010E947 /* GtSdkLib */ = {
+			isa = PBXGroup;
+			children = (
+				1D5AD35F1E4963780010E947 /* GeTuiExtSdk.h */,
+				1D5AD3601E4963780010E947 /* GeTuiSdk.h */,
+				1D5AD3611E4963780010E947 /* libGeTuiSdk-1.5.3.a */,
+				1D5AD3621E4963780010E947 /* libGtExtensionSdk-1.0.0.a */,
+			);
+			path = GtSdkLib;
+			sourceTree = "<group>";
+		};
 		1D5CCA1C1DB5AF3900542DCD /* GroupView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2850,6 +2865,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D5AD35E1E4963780010E947 /* GtSdkLib */,
 				1D8452781E4857BD00AF0A75 /* CustomTextField */,
 				1D6A2F181E3741B5007BC76A /* InsetsLabel */,
 				2D1469181E2DBB5D000300C4 /* MGSwipeTableCell */,
@@ -2863,7 +2879,6 @@
 				0604B45E1D4C5A5B00EF1703 /* CCDraggableCard */,
 				1DBFD6DE1D6463650039077D /* DJRegisterView */,
 				1D59130A1D4DDE9E00A188A0 /* GDIIndexBar */,
-				1DBC49B41D65542E00DB0CD2 /* GtSdkLib */,
 				1D09CCC21D3F550300F85E9A /* HYBHelperKitSources */,
 				1D115F611D4BA042003DFBB1 /* IQKeyboardManager */,
 				06B4648E1D62A48B00DBC806 /* JZNavigationExtension */,
@@ -3054,15 +3069,6 @@
 				1DB926161D46F4F4003676AC /* LCRequestAccessory.m */,
 			);
 			path = NetworkHelper;
-			sourceTree = "<group>";
-		};
-		1DBC49B41D65542E00DB0CD2 /* GtSdkLib */ = {
-			isa = PBXGroup;
-			children = (
-				1DBC49B51D65542E00DB0CD2 /* GeTuiSdk.h */,
-				1DBC49B61D65542E00DB0CD2 /* libGeTuiSdk-1.4.3.a */,
-			);
-			path = GtSdkLib;
 			sourceTree = "<group>";
 		};
 		1DBFD6C91D640C620039077D /* NotificationSetting */ = {
