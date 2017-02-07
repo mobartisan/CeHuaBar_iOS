@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "WXApi.h"
+#import "STPushView.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WXApiDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) STPushView *topView;
+
 - (UIViewController *)creatHomeVC;
+
 @end
 

@@ -9,6 +9,7 @@
 #import "MessageManager.h"
 #import <UserNotifications/UserNotifications.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "AppDelegate+PushView.h"
 
 NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"ACTION_ONE";
@@ -206,6 +207,14 @@ static MessageManager *singleton = nil;
 #warning  to do handle messages and optimize code
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //show message
+        if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            STPushModel *model = [[STPushModel alloc] init];
+            model.content = @"您有一条新消息！";
+            appDelegate.topView.model = model;
+            [appDelegate displayPushView];
+        }
         //play shake
         if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
@@ -218,10 +227,6 @@ static MessageManager *singleton = nil;
                 AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
             }
             AudioServicesPlaySystemSound(soundIDTest);
-        }
-        //show message
-        if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
-//            to do
         }
     });
 }

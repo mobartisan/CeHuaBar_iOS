@@ -21,6 +21,7 @@
 #import "TTProjectsMenuViewController.h"
 #import "JKEncrypt.h"
 #import "LoginManager.h"
+#import "AppDelegate+PushView.h"
 
 @interface AppDelegate ()
 
@@ -31,7 +32,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-
     if(!self.window){
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     }
@@ -41,6 +41,9 @@
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
     [self.window makeKeyAndVisible];
+    
+    //添加未读消息
+    [self addPushView];
     return YES;
 }
 
