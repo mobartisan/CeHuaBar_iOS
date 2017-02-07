@@ -3720,7 +3720,7 @@
 					1DA71B591D3DB5A1007483D2 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = QRKXLCEHPN;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4339,8 +4339,8 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ling wei (JQX8M2KD8U)";
+				DEVELOPMENT_TEAM = QRKXLCEHPN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4358,8 +4358,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "d4ef6241-eb7c-4908-bc35-ab536cdfb56e";
+				PROVISIONING_PROFILE_SPECIFIER = cehuabar_dev;
 			};
 			name = Debug;
 		};
@@ -4371,8 +4371,8 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
+				DEVELOPMENT_TEAM = QRKXLCEHPN;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4390,8 +4390,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
+				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
 			};
 			name = Release;
 		};
