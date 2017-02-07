@@ -9,9 +9,9 @@
 #import "Analyticsmanager.h"
 #import "TalkingData.h"
 
-#define kTalkingDtaAppKey  @"E3FC4C86AED54016A223A2D722D1D8FC"
-
-
+#define kTalkingDataAppID  @"974AE9A3D8404A4A93028F93942C8F6A" 
+//974AE9A3D8404A4A93028F93942C8F6A  BBS
+//E3FC4C86AED54016A223A2D722D1D8FC  个人测试
 @implementation Analyticsmanager
 
 + (instancetype)mainAnalyticsmanager {
@@ -36,7 +36,7 @@
     [TalkingData setLogEnabled:NO];
 #endif
     //初始化统计实例
-     [TalkingData sessionStarted:kTalkingDtaAppKey withChannelId:@"AppStore"];
+     [TalkingData sessionStarted:kTalkingDataAppID withChannelId:@"AppStore"];
 }
 
 + (void)beginAnalyticsWithViewControllerId:(NSString *)vcId {
@@ -49,14 +49,15 @@
     
 }
 
-+ (void)eventWithEventId:(NSString *)eventId Label:(NSString *)label Attributes:(NSDictionary *)attributs {
-    if (label && !attributs) {
++ (void)eventWithEventId:(NSString *)eventId withLabel:(NSString *)label withParameters:(NSDictionary *)parameters {
+    if (label && !parameters) {
         [TalkingData trackEvent:eventId label:label];
-    } else if (label && attributs) {
-        [TalkingData trackEvent:eventId label:label parameters:attributs];
+    } else if (label && parameters) {
+        [TalkingData trackEvent:eventId label:label parameters:parameters];
     } else {
         [TalkingData trackEvent:eventId];
     }
 }
+
 
 @end

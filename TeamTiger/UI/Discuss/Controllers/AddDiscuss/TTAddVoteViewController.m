@@ -394,8 +394,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSString *votesStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSString *pid = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"_id"]);
         NSString *name = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"]);
+        OptionType optionType = [CirclesManager sharedInstance].optionType;
         NSDictionary *dic = @{@"votes":votesStr,
-                              @"vote_type":[NSString stringWithFormat:@"%ld", ([CirclesManager sharedInstance].optionType)],//0--单选  1--多选
+                              @"vote_type":[NSString stringWithFormat:@"%ld", optionType],//0--单选  1--多选
                               @"pid":pid,
                               @"vote_title":_text,
                               @"type":@2 //1为普通的moment  2为投票类型
@@ -406,6 +407,9 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
             [hud hideAnimated:YES];
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                //添加统计事件
+                NSString *label = optionType == OptionSingle ? @"单选" : @"多选";
+                [Analyticsmanager eventWithEventId:event_id_voteOptionType withLabel:label withParameters:nil];
                 if (self.addVoteBlock) {
                     self.addVoteBlock(pid, name);
                 }
