@@ -29,12 +29,18 @@
 @property (copy,nonatomic) NSString *recordId;
 /***标题**/
 @property (copy, nonatomic) NSString *title;
+/***副标题**/
+@property (copy, nonatomic) NSString *subTitle;
 /***url**/
 @property (copy, nonatomic) NSString *url;
 /***url 类型**/
 @property (copy, nonatomic) NSString *urlType;
 /***图标的高度**/
-@property (assign,nonatomic) NSString *mid;
+@property (copy, nonatomic) NSString *mid;
+/***右上角数字**/
+@property (copy, nonatomic) NSString *badge;
+/***声音**/
+@property (copy, nonatomic) NSString *sound;
 /***推送内容**/
 @property (copy, nonatomic) NSString *content;
 

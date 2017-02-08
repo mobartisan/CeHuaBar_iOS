@@ -25,6 +25,9 @@
     [aCoder encodeObject:self.urlType forKey:@"urlType"];
     [aCoder encodeObject:self.mid forKey:@"mid"];
     [aCoder encodeObject:self.content forKey:@"content"];
+    [aCoder encodeObject:self.subTitle forKey:@"subTitle"];
+    [aCoder encodeObject:self.badge forKey:@"badge"];
+    [aCoder encodeObject:self.sound forKey:@"sound"];
 }
 
 
@@ -45,6 +48,9 @@
         self.urlType=[aDecoder decodeObjectForKey:@"urlType"];
         self.mid=[aDecoder decodeObjectForKey:@"mid"];
         self.content= [aDecoder decodeObjectForKey:@"content"];
+        self.subTitle= [aDecoder decodeObjectForKey:@"subTitle"];
+        self.badge= [aDecoder decodeObjectForKey:@"badge"];
+        self.sound= [aDecoder decodeObjectForKey:@"sound"];
     }
     return self;
 }
@@ -59,6 +65,9 @@
     self.urlType = dict[@"urlType"];
     self.mid = dict[@"mid"];
     self.content = dict[@"content"];
+    self.subTitle = dict[@"subTitle"];
+    self.badge = dict[@"badge"];
+    self.sound = dict[@"sound"];
 }
 
 @end
