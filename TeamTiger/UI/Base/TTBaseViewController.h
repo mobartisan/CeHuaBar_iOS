@@ -10,6 +10,7 @@
 #import "HYBHelperKitBaseController.h"
 #import "MBProgressHUD.h"
 
+
 @interface TTBaseViewController : HYBHelperKitBaseController
 
 @property (nonatomic, strong) MBProgressHUD *hud;
