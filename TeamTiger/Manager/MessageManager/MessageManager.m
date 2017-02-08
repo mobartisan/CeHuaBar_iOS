@@ -10,6 +10,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "AppDelegate+PushView.h"
+#import "LoginManager.h"
 
 NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"ACTION_ONE";
@@ -153,6 +154,17 @@ static MessageManager *singleton = nil;
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
     // [4-EXT-1]: 个推SDK已注册，返回clientId
     NSLog(@"\n>>>[GeTuiSdk RegisterClient]:%@\n\n", clientId);
+    if (![Common isEmptyString:gSession]) {
+        LoginManager *loginManager = [LoginManager sharedInstace];
+        if (loginManager.isLogin) {
+            //已登录，直接上传client id
+            [loginManager uploadClientID:clientId];
+        } else {
+            gClientID = clientId;
+        }
+    } else {
+        gClientID = clientId;
+    }
 }
 
 /** SDK遇到错误回调 */
@@ -214,8 +226,7 @@ static MessageManager *singleton = nil;
 #warning  to do handle messages and optimize code
     
     NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
-    if (nowTimeInterval - self.lastTimeInterval > 0.5) {
-        //to do
+    if (nowTimeInterval - self.lastTimeInterval > 0.5) {//时间窗
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             //show message
             if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {

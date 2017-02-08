@@ -171,6 +171,35 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 上传client id
+@implementation UploadClientIdApi
+
+- (NSString *)apiMethodName {
+    return @"user/clientid.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPut;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
 //MARK: - 根据昵称查询用户
 @implementation UserSearchApi
 

@@ -37,6 +37,9 @@ static const char* kColorAr[STR_COLOR_MAX] = {
 static const double pushViewHeight = 64.0;
 
 NSString *gSession;
+
+NSString *gClientID;//client id
+
 UIView *bView;
 
 
