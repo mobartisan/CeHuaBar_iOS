@@ -718,7 +718,7 @@
 - (void)clickVoteSuccess:(NSIndexPath *)indexPath homeModel:(HomeModel *)model {
     [self.dataSource removeObjectAtIndex:indexPath.row];
     [self.dataSource insertObject:model atIndex:indexPath.row];
-    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
