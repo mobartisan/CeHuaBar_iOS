@@ -10,6 +10,8 @@
 #import "Analyticsmanager.h"
 #import "SelectOptionTypeVC.h"
 #import "SelectCircleViewController.h"
+#import "SelectBgImageVC.h"
+#import "TTSettingViewController.h"
 
 @interface TTBaseViewController ()
 
@@ -27,7 +29,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (![self isKindOfClass:[SelectOptionTypeVC class]] || ![self isKindOfClass:[SelectCircleViewController class]]) {
+    if ([self filterVC]) {
         [Analyticsmanager beginAnalyticsWithViewControllerId:NSStringFromClass([self class])];
     }
     
@@ -35,9 +37,17 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (![self isKindOfClass:[SelectOptionTypeVC class]] || ![self isKindOfClass:[SelectCircleViewController class]]) {
+    if ([self filterVC]) {
         [Analyticsmanager endAnalyticsWithViewControllerId:NSStringFromClass([self class])];
     }
+}
+
+
+- (BOOL)filterVC {
+    if ([self isKindOfClass:[SelectOptionTypeVC class]] || [self isKindOfClass:[SelectCircleViewController class]] || [self isKindOfClass:[SelectBgImageVC class]] || [self isKindOfClass:[TTSettingViewController class]]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

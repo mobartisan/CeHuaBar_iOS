@@ -204,8 +204,7 @@ static MessageManager *singleton = nil;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
     NSLog(@"%@",dict);
     
-#warning  to do handle messages and optimize code
-    
+#warning  to do handle messages and optimize cod
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //show message
         if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {

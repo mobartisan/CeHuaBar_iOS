@@ -451,6 +451,7 @@
 		2DA5CA541E1F2B62000BFE93 /* TTAddMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */; };
 		2DA5CA551E1F2B62000BFE93 /* TTAddMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */; };
 		2DA5CA561E1F2B62000BFE93 /* TTAddProjectFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */; };
+		2DB0F4621E4AD19300704A21 /* Class.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DB0F4611E4AD19300704A21 /* Class.plist */; };
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
@@ -1329,6 +1330,7 @@
 		2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberCell.xib; sourceTree = "<group>"; };
 		2DA5CA521E1F2B62000BFE93 /* TTAddProjectFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddProjectFooterView.h; sourceTree = "<group>"; };
 		2DA5CA531E1F2B62000BFE93 /* TTAddProjectFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddProjectFooterView.m; sourceTree = "<group>"; };
+		2DB0F4611E4AD19300704A21 /* Class.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Class.plist; sourceTree = "<group>"; };
 		2DB351331DE53D84000521A3 /* HomeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCell.h; sourceTree = "<group>"; };
 		2DB351341DE53D84000521A3 /* HomeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCell.m; sourceTree = "<group>"; };
 		2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+BorderColor.h"; sourceTree = "<group>"; };
@@ -2947,6 +2949,7 @@
 		1DA71B7B1D3DB982007483D2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				2DB0F4611E4AD19300704A21 /* Class.plist */,
 				1D5AD3651E49C70F0010E947 /* bbs.caf */,
 				1DA71B811D3DBA67007483D2 /* main.m */,
 				1DA71B861D3DBDDB007483D2 /* TeamTiger-Prefix.pch */,
@@ -3836,6 +3839,7 @@
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,
 				1DBFD6EF1D6463650039077D /* textfield_activated_holo_light@2x.png in Resources */,
+				2DB0F4621E4AD19300704A21 /* Class.plist in Resources */,
 				1DB5A5931D4B3F36009E6170 /* square-switch-thumb-highlight@2x.png in Resources */,
 				1DD2E3221D596EAA005D45A9 /* toggle_background_on@3x.png in Resources */,
 				06DFEBAF1D65D8F200DB49E1 /* TTAddVoteViewController.xib in Resources */,

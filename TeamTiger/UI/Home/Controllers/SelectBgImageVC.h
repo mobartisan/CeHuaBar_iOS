@@ -12,6 +12,6 @@ typedef void(^SelectBgImageVCBlock)(UIImage *selectImage, SelectBgImageVC *selec
 
 @interface SelectBgImageVC : TTBaseViewController
 
-@property (nonatomic, copy)SelectBgImageVCBlock selectCircleVCBlock;
+@property (nonatomic, copy) SelectBgImageVCBlock selectCircleVCBlock;
 
 @end
