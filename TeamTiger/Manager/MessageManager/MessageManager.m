@@ -103,8 +103,7 @@ static MessageManager *singleton = nil;
                                         UIUserNotificationTypeSound|
                                         UIUserNotificationTypeBadge);
         
-        UIUserNotificationSettings *settings;
-        settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
