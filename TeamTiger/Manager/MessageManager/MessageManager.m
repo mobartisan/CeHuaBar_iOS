@@ -213,27 +213,30 @@ static MessageManager *singleton = nil;
 #pragma -mark Handle Message
 - (void)handleOneMessage:(id)msgObj {
     //do a message
-//    jsonstring 转 object   {"age":"18","name":"xxcao","gender":"male"}
-    if (msgObj == nil) {
+    //    jsonstring 转 object   {"age":"18","name":"xxcao","gender":"male"}
+    if (!msgObj) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您收到一条空消息" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alert show];
         return;
     }
-    
+    //
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
     NSLog(@"%@",dict);
     
+    //1.转成message model
+    STPushModel *msgModel = [[STPushModel alloc] init];
+    [msgModel getModelFromDict:dict];
+    //2.storage sqlite
 #warning  to do handle messages and optimize code
-    
+    //3.UI changed
     NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
     if (nowTimeInterval - self.lastTimeInterval > 0.5) {//时间窗
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             //show message
             if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                STPushModel *model = [[STPushModel alloc] init];
-                model.content = @"您有一条新消息！";
-                appDelegate.topView.model = model;
+                msgModel.content = @"您有一条新消息！";
+                appDelegate.topView.model = msgModel;
                 [appDelegate displayPushView];
             }
             //play shake

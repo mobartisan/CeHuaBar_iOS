@@ -26,17 +26,19 @@
 @interface STPushModel : NSObject <NSCoding> //STBaseModel 是一个继承自NSObject的类 我主要是在这个类中实现了字典转模型的功能 你可以直接修改为NSObject
 
 /***id**/
-@property (copy,nonatomic) NSString* recordId;
+@property (copy,nonatomic) NSString *recordId;
 /***标题**/
 @property (copy, nonatomic) NSString *title;
 /***url**/
 @property (copy, nonatomic) NSString *url;
 /***url 类型**/
-@property (copy, nonatomic) NSString* urlType;
+@property (copy, nonatomic) NSString *urlType;
 /***图标的高度**/
-@property (assign,nonatomic) NSString * mid;
+@property (assign,nonatomic) NSString *mid;
 /***推送内容**/
-@property (copy, nonatomic) NSString* content;
+@property (copy, nonatomic) NSString *content;
+
+- (void)getModelFromDict:(NSDictionary *)dict;
 
 @end
 

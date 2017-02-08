@@ -48,6 +48,19 @@
     }
     return self;
 }
+
+- (void)getModelFromDict:(NSDictionary *)dict {
+    if (!dict) {
+        return;
+    }
+    self.recordId = dict[@"recordId"];
+    self.title = dict[@"title"];
+    self.url = dict[@"url"];
+    self.urlType = dict[@"urlType"];
+    self.mid = dict[@"mid"];
+    self.content = dict[@"content"];
+}
+
 @end
 
 @interface STPushView()
