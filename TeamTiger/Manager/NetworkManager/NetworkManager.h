@@ -49,6 +49,12 @@
 
 @end
 
+//MARK: - 上传用户client id
+@interface UploadClientIdApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
 //MARK: - 获取与当前用户存在项目关系的用户
 @interface UserRelationApi : LCBaseRequest<LCAPIRequest>
 

@@ -73,6 +73,10 @@ static LoginManager *loginManager = nil;
                 [self doSomethingAfterLoginSucceed:tmpArray];
             }
             self.isLogin = YES;//表明当前已登录
+            if (![Common isEmptyString:gClientID]) {
+                //上传client id
+                [self uploadClientID:gClientID];
+            }
             resBlock(ResponseStatusSuccess, request.responseJSONObject);
         } else {
             resBlock(ResponseStatusFailure, request.responseJSONObject[MSG]);
@@ -159,6 +163,19 @@ static LoginManager *loginManager = nil;
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         resBlock(ResponseStatusOffline,error);
+    }];
+}
+
+// MARK: - 上传client id
+- (void)uploadClientID:(NSString *)clientID {
+    NSAssert(clientID != nil, @"client不能为空！");
+    
+    UploadClientIdApi *uploadClientIdApi = [[UploadClientIdApi alloc] init];
+    uploadClientIdApi.requestArgument = @{@"clientId":clientID};
+    [uploadClientIdApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"Api:%@ Response:%@",@"UploadClientIdApi",request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
     }];
 }
 

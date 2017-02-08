@@ -22,6 +22,8 @@
 
 - (void)projectMemberJoin:(NSString *)project_id Response:(ResponseBlock) resBlock;
 
+- (void)uploadClientID:(NSString *)clientID;//上传个推 id
+
 //存队列
 - (BOOL)saveParametersBeforeLogin:(id)para;
 

@@ -4379,7 +4379,10 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 					"$(PROJECT_DIR)/TeamTiger/Third/TalkingData",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-w",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d4ef6241-eb7c-4908-bc35-ab536cdfb56e";
@@ -4411,7 +4414,10 @@
 					"$(PROJECT_DIR)/TeamTiger/Third/GtSdkLib",
 					"$(PROJECT_DIR)/TeamTiger/Third/TalkingData",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-w",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
