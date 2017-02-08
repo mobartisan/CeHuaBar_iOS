@@ -108,8 +108,11 @@
         [self.imageArr addObject:customView.imageV];
         if (((VoteModel *)obj).isvote) {
             [customView.voteBtn setImage:kImage(@"icon_like") forState:UIControlStateNormal];
+            [customView.voteBtn setTitle:@"已投" forState:UIControlStateNormal];
+
         }else {
             [customView.voteBtn setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
+            [customView.voteBtn setTitle:@"投票" forState:UIControlStateNormal];
         }
     }];
     
