@@ -991,11 +991,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/Manager/MessageManager/MessageManager.m"
-            timestampString = "508163640.987068"
+            timestampString = "508214191.969173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "-GeTuiSdkDidRegisterClient:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1007,11 +1007,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/Manager/MessageManager/MessageManager.m"
-            timestampString = "508163640.987068"
+            timestampString = "508214191.969173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-GeTuiSdkDidOccurError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1023,11 +1023,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/Manager/MessageManager/MessageManager.m"
-            timestampString = "508163640.987068"
+            timestampString = "508214191.969173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
             landmarkName = "-GeTuiSdkDidReceivePayloadData:andTaskId:andMsgId:andOffLine:fromGtAppId:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1039,11 +1039,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/Manager/MessageManager/MessageManager.m"
-            timestampString = "508163640.987068"
+            timestampString = "508214191.969173"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "+checkAPNs"
             landmarkType = "7">
          </BreakpointContent>

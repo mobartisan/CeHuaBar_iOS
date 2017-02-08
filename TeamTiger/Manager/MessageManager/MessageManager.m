@@ -15,6 +15,12 @@ NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"ACTION_ONE";
 NSString *const NotificationActionTwoIdent = @"ACTION_TWO";
 
+@interface MessageManager ()
+
+@property(nonatomic, assign) NSTimeInterval lastTimeInterval;
+
+@end
+
 @implementation MessageManager
 
 static MessageManager *singleton = nil;
@@ -23,6 +29,7 @@ static MessageManager *singleton = nil;
     dispatch_once(&onceToken, ^{
         if (!singleton) {
             singleton = [[[self class] alloc] init];
+            singleton.lastTimeInterval = 0.0;
         }
     });
     return singleton;
@@ -206,29 +213,34 @@ static MessageManager *singleton = nil;
     
 #warning  to do handle messages and optimize code
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //show message
-        if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
-            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-            STPushModel *model = [[STPushModel alloc] init];
-            model.content = @"您有一条新消息！";
-            appDelegate.topView.model = model;
-            [appDelegate displayPushView];
-        }
-        //play shake
-        if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        }
-        //play audio
-        if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
-            static SystemSoundID soundIDTest = 0;
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"bbs" ofType:@"caf"];
-            if (path) {
-                AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+    NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
+    if (nowTimeInterval - self.lastTimeInterval > 0.5) {
+        //to do
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //show message
+            if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
+                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                STPushModel *model = [[STPushModel alloc] init];
+                model.content = @"您有一条新消息！";
+                appDelegate.topView.model = model;
+                [appDelegate displayPushView];
             }
-            AudioServicesPlaySystemSound(soundIDTest);
-        }
-    });
+            //play shake
+            if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
+                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            }
+            //play audio
+            if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
+                static SystemSoundID soundIDTest = 0;
+                NSString *path = [[NSBundle mainBundle] pathForResource:@"bbs" ofType:@"caf"];
+                if (path) {
+                    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+                }
+                AudioServicesPlaySystemSound(soundIDTest);
+            }
+        });
+    }
+    self.lastTimeInterval = nowTimeInterval;
 }
 
 @end
