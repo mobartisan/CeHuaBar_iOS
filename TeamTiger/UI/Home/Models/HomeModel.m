@@ -31,25 +31,7 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     if ([key isEqualToString:@"prid"]) {
-        self.iconImV = value[@"head_img_url"];
-        if (![Common isEmptyString:value[@"head_img_url"]]) {
-            NSString *urlString = value[@"head_img_url"];
-            NSMutableString *mString = [NSMutableString string];
-            if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
-                mString = urlString.mutableCopy;
-            } else {
-                NSArray *components = [urlString componentsSeparatedByString:@"/"];
-                NSInteger count = components.count;
-                [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (idx != count - 1) {
-                        [mString appendFormat:@"%@/",obj];
-                    } else {
-                        [mString appendString:@"96"];//头像大小 46 64 96 132
-                    }
-                }];
-            }
-            self.iconImV = mString;
-        }
+        self.iconImV = [Common handleWeChatHeadImageUrl:value[@"head_img_url"] Size:96];
     }
     if ([key isEqualToString:@"prid"]) {
         self.name = value[@"nick_name"];

@@ -138,7 +138,7 @@
                 TT_Project_Members *projectMember = [[TT_Project_Members alloc] init];
                 projectMember.user_name = membersDic[@"nick_name"];//
                 projectMember.user_id = membersDic[@"_id"];
-                projectMember.user_img_url = membersDic[@"head_img_url"];
+                projectMember.user_img_url = [Common handleWeChatHeadImageUrl:membersDic[@"head_img_url"] Size:132];
                 [self.projectMembersArr addObject:projectMember];
             }
             if ([Common isEmptyString:self.project.group_name]) {

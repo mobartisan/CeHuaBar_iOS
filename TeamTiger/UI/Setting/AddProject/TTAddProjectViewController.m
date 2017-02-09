@@ -315,7 +315,7 @@
                 for (NSDictionary *membersDic in response[@"members"]) {
                     TT_Project_Members *user = [[TT_Project_Members alloc] init];
                     user.user_name = membersDic[@"nick_name"];
-                    user.user_img_url = membersDic[@"head_img_url"];
+                    user.user_img_url = [Common handleWeChatHeadImageUrl:membersDic[@"head_img_url"] Size:132];
                     user.user_id = membersDic[@"uid"];
                     [self.membersArray addObject:user];
                 }

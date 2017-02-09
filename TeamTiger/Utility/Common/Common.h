@@ -17,7 +17,8 @@
 + (BOOL)isEmptyString:(NSString *)sourceStr;
 //数组是否为空
 + (BOOL)isEmptyArr:(NSArray *)arr;
-
+//处理微信头像
++ (NSString *)handleWeChatHeadImageUrl:(NSString *)headImgUrl Size:(double)size;
 //自定义push动画
 + (void)customPushAnimationFromNavigation:(UINavigationController *)nav ToViewController:(UIViewController *)vc Type:(NSString *)animationType SubType:(NSString *)subType;
 //自定义pop动画

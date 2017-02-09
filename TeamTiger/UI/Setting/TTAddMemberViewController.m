@@ -186,7 +186,7 @@
                 for (NSDictionary *membersDic in response[@"members"]) {
                     TT_Project_Members *member = [[TT_Project_Members alloc] init];
                     member.user_name = membersDic[@"nick_name"];
-                    member.user_img_url = membersDic[@"head_img_url"];
+                    member.user_img_url = [Common handleWeChatHeadImageUrl:membersDic[@"head_img_url"] Size:132];
                     member.user_id = membersDic[@"uid"];
                     [self.membersArray addObject:member];
                 }

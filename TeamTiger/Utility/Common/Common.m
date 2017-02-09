@@ -74,6 +74,29 @@
     return YES;
 }
 
+//处理微信头像 头像大小 46 64 96 132
++ (NSString *)handleWeChatHeadImageUrl:(NSString *)headImgUrl Size:(double)size {
+    if (![Common isEmptyString:headImgUrl]) {
+        NSString *urlString = headImgUrl;
+        NSMutableString *mString = [NSMutableString string];
+        if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
+            mString = urlString.mutableCopy;
+        } else {
+            NSArray *components = [urlString componentsSeparatedByString:@"/"];
+            NSInteger count = components.count;
+            [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx != count - 1) {
+                    [mString appendFormat:@"%@/",obj];
+                } else {
+                    [mString appendFormat:@"%d",(int)size];//头像大小 46 64 96 132
+                }
+            }];
+        }
+        return mString;
+    }
+    return nil;
+}
+
 
 //自定义push动画
 + (void)customPushAnimationFromNavigation:(UINavigationController *)nav ToViewController:(UIViewController *)vc Type:(NSString *)animationType SubType:(NSString *)subType{

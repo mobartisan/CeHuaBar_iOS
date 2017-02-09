@@ -68,22 +68,8 @@
     }
     
     if (![Common isEmptyString:dic[@"HeadImage"]]) {
-        NSString *urlString = dic[@"HeadImage"];
-        NSMutableString *mString = [NSMutableString string];
-        if ([urlString containsString:@".jpg"] || [urlString containsString:@".png"]) {
-            mString = urlString.mutableCopy;
-        } else {
-            NSArray *components = [urlString componentsSeparatedByString:@"/"];
-            NSInteger count = components.count;
-            [components enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx != count - 1) {
-                    [mString appendFormat:@"%@/",obj];
-                } else {
-                    [mString appendString:@"132"];//头像大小 46 64 96 132
-                }
-            }];
-        }
-        NSURL *url = [NSURL URLWithString:mString];
+        NSString *urlString = [Common handleWeChatHeadImageUrl:dic[@"HeadImage"] Size:132];
+        NSURL *url = [NSURL URLWithString:urlString];
         [self.headImgV sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"common-headDefault"] options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             image = [image imageByRoundCornerRadius:66];
             self.headImgV.image = image;
