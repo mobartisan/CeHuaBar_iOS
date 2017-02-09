@@ -23,6 +23,7 @@
 #import "Common.h"
 #import "HYBHelperKit.h"
 #import "TTBaseNavigationController.h"
+#import "TTBaseViewController.h"
 #import "TMCache.h"
 #import "CirclesManager.h"
 #import "MJRefresh.h"

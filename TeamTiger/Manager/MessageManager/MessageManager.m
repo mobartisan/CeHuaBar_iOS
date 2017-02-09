@@ -227,7 +227,9 @@ static MessageManager *singleton = nil;
     [msgModel getModelFromDict:dict];
     //2.storage sqlite
 #warning  to do handle messages and optimize code
-    //3.UI changed
+    //3.通知相关UIViewController
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_MESSAGE_COMING object:msgModel];
+    //4.UI changed
     NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
     if (nowTimeInterval - self.lastTimeInterval > 0.5) {//时间窗
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -243,6 +243,7 @@
 		1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D5131DEFC370002CBFF8 /* GroupCell.xib */; };
 		1D34D5191DEFCFED002CBFF8 /* DeleteFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */; };
 		1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */; };
+		1D373AA51E4C03B800630EDE /* NSNotificationCenter+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D373AA41E4C03B800630EDE /* NSNotificationCenter+Block.m */; };
 		1D3E209C1D6D9ECF00689A25 /* SettingCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */; };
 		1D3E23671D61635C0024A5CA /* NSString+Encode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23611D61635C0024A5CA /* NSString+Encode.m */; };
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
@@ -974,6 +975,8 @@
 		1D34D5171DEFCFED002CBFF8 /* DeleteFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteFooterView.h; sourceTree = "<group>"; };
 		1D34D5181DEFCFED002CBFF8 /* DeleteFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteFooterView.m; sourceTree = "<group>"; };
 		1D34D51A1DEFD005002CBFF8 /* DeleteFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeleteFooterView.xib; sourceTree = "<group>"; };
+		1D373AA31E4C03B800630EDE /* NSNotificationCenter+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+Block.h"; sourceTree = "<group>"; };
+		1D373AA41E4C03B800630EDE /* NSNotificationCenter+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNotificationCenter+Block.m"; sourceTree = "<group>"; };
 		1D3E209B1D6D9ECF00689A25 /* SettingCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell2.xib; sourceTree = "<group>"; };
 		1D3E23601D61635C0024A5CA /* NSString+Encode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Encode.h"; sourceTree = "<group>"; };
 		1D3E23611D61635C0024A5CA /* NSString+Encode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Encode.m"; sourceTree = "<group>"; };
@@ -2404,6 +2407,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		1D373AA21E4C03B800630EDE /* NSNotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				1D373AA31E4C03B800630EDE /* NSNotificationCenter+Block.h */,
+				1D373AA41E4C03B800630EDE /* NSNotificationCenter+Block.m */,
+			);
+			path = NSNotificationCenter;
+			sourceTree = "<group>";
+		};
 		1D3E235B1D61635C0024A5CA /* ModelsManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2984,6 +2996,7 @@
 		1DA71B8B1D3DCB3A007483D2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1D373AA21E4C03B800630EDE /* NSNotificationCenter */,
 				2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */,
 				2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */,
 				1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */,
@@ -4179,6 +4192,7 @@
 				06B464A41D62A48B00DBC806 /* UIToolbar+JZExtension.m in Sources */,
 				1D09CC6E1D3F29C900F85E9A /* UIColor+YYAdd.m in Sources */,
 				06B464A11D62A48B00DBC806 /* _JZValue.m in Sources */,
+				1D373AA51E4C03B800630EDE /* NSNotificationCenter+Block.m in Sources */,
 				1D09CC681D3F29C900F85E9A /* NSTimer+YYAdd.m in Sources */,
 				1DD2E3451D59B8E0005D45A9 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				1D09CD571D3F59D500F85E9A /* UIButton+WebCache.m in Sources */,

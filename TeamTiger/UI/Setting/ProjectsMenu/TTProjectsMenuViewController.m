@@ -136,6 +136,22 @@
     UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreenEdgePan)];
     edgePan.edges = UIRectEdgeRight;
     [self.menuTable addGestureRecognizer:edgePan];
+    
+    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
+        NSNotification *notification = (NSNotification *)sender;
+        NSLog(@"%@", notification.object);
+#warning to do 处理消息来的情况2
+        if (notification.object) {
+            //如果有消息，且消息类型符合页面展示条件，则显示消息UI
+            //1.发请求
+            //2.刷新UI
+        }
+    }];
+}
+
+- (void)dealloc {
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil];
 }
 
 - (void)handleScreenEdgePan {

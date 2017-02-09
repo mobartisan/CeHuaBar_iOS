@@ -83,4 +83,6 @@ static NSString *const ALLOW_USER_KEY_PLAY_AUDIO = @"USER_KEY_PLAY_AUDIO";
 
 static NSString *const ALLOW_USER_KEY_SHOW_MESSAGE = @"USER_KEY_SHOW_MESSAGE";
 
+//Notification Key
+static NSString *const NOTICE_KEY_MESSAGE_COMING = @"NOTICE_KEY_MESSAGE_COMING";
 #endif /* Constant_h */

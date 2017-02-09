@@ -32,6 +32,7 @@
 #import "TTGroupSettingViewController.h"
 #import "UIImage+Extension.h"
 #import "NSString+Utils.h"
+#import "NSNotificationCenter+Block.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
@@ -251,13 +252,21 @@
     [Common removeExtraCellLines:self.tableView];
     if (self.showTableHeader) {
         self.tableView.tableHeaderView = self.tableHeader;
-        
     }
     self.setBtn.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
+    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
+        NSNotification *notification = (NSNotification *)sender;
+        NSLog(@"%@", notification.object);
+#warning to do 处理消息来的情况1
+        if (notification.object) {
+            //如果有消息，且消息类型符合首页展示条件，则显示消息UI
+            self.tableView.tableHeaderView = self.tableHeader;
+        }
+    }];
     //测试
 //     [self deleteAllData];
 }
@@ -724,6 +733,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil];
 }
 
 

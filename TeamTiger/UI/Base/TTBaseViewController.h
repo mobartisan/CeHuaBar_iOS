@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "HYBHelperKitBaseController.h"
 #import "MBProgressHUD.h"
+#import "NSNotificationCenter+Block.h"
 
+void doNotificaiotn(id self, SEL _cmd, id sender);
 
 @interface TTBaseViewController : HYBHelperKitBaseController
 

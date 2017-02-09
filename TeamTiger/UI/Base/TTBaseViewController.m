@@ -88,4 +88,8 @@
     return _hud;
 }
 
+void doNotificaiotn(id self, SEL _cmd, id sender){
+    [[NSNotificationCenter defaultCenter] doNotificationAction:sender Key:NSStringFromSelector(_cmd)];
+}
+
 @end
