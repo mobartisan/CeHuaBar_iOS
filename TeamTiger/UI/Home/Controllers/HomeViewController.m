@@ -257,7 +257,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:@"ConvertId" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
         NSNotification *notification = (NSNotification *)sender;
         NSLog(@"%@", notification.object);

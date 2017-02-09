@@ -38,7 +38,7 @@
 
     [self reloadAPNsData:nil];
     //通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadAPNsData:) name:@"APNS_Notification_Key" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadAPNsData:) name:NOTICE_KEY_RELATED_APNS object:nil];
 }
 
 - (UITableView *)table {

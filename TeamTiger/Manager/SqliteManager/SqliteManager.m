@@ -34,8 +34,8 @@ static SqliteManager *singleton = nil;
         NSAssert(!dbName, @"please must fill db name");
         return;
     }
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *dbDir = [paths[0] stringByAppendingFormat:@"/database"];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *dbDir = [paths[0] stringByAppendingPathComponent:@"Caches/database"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dbDir]) {
         [[NSFileManager defaultManager] createDirectoryAtPath:dbDir
                                   withIntermediateDirectories:YES

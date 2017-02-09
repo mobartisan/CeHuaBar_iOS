@@ -85,4 +85,6 @@ static NSString *const ALLOW_USER_KEY_SHOW_MESSAGE = @"USER_KEY_SHOW_MESSAGE";
 
 //Notification Key
 static NSString *const NOTICE_KEY_MESSAGE_COMING = @"NOTICE_KEY_MESSAGE_COMING";
+static NSString *const NOTICE_KEY_RELATED_APNS = @"APNS_Notification_Key";
+static NSString *const NOTICE_KEY_NEED_REFRESH_MOMENTS = @"Need_Refresh_Moments";
 #endif /* Constant_h */

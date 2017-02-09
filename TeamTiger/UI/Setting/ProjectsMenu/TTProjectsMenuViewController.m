@@ -75,7 +75,7 @@
         _pView.projectBlock = ^(ProjectsView *tmpView, id object){
             [wself.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                 if (finished) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:[object group_id] userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:[object group_id] userInfo:@{@"Title":[object group_name], @"IsGroup":@1}];
                 }
             }];
         };
@@ -290,7 +290,7 @@
             ((DiVideGroupCell *)cell).clickGroupBlock = ^(TT_Group *tempGroup) {
                 [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
                     if (finished) {
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:tempGroup userInfo:@{@"Title":[tempGroup group_name], @"IsGroup":@1}];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:tempGroup userInfo:@{@"Title":[tempGroup group_name], @"IsGroup":@1}];
                     }
                 }];
             };
@@ -369,7 +369,7 @@
         [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
             if (finished) {
                 NSString *Id = self.unGroupProjects[indexPath.row];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
             }
         }];
     }
@@ -384,7 +384,7 @@
 #pragma mark - 首页
 - (IBAction)clickHomeAction:(id)sender {
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:nil userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil userInfo:@{@"Title":@"Moments", @"ISGROUP":@0}];
     }];
 }
 

@@ -129,7 +129,7 @@
     }
     //主页moments
     [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ConvertId" object:self.projects[indexPath.row] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:self.projects[indexPath.row] userInfo:@{@"Title":[self.projects[indexPath.row] name], @"IsGroup":@0}];
         [self.navigationController popToRootViewControllerAnimated:NO];
     }];
 }
