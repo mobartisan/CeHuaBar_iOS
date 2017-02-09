@@ -48,6 +48,8 @@ static NSString *const TABLE_TT_Attachment = @"TT_Attachment";
 
 static NSString *const TABLE_TT_At_Members = @"TT_At_Members";
 
+static NSString *const TABLE_TT_Message = @"TT_Message";
+
 //网络返回Key
 static NSString *const CODE = @"code";
 static NSString *const MSG = @"msg";
