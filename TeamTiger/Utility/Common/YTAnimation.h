@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@interface YTAnimation : NSObject
+@interface YTAnimation : NSObject<CAAnimationDelegate>
 /**
  *  Make the cell vibrate
  *

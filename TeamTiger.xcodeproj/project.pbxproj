@@ -457,7 +457,6 @@
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
 		2DD029F71DD00EB400CD881F /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */; };
-		2DD48D351E1127B9004BE66E /* YTAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD48D341E1127B9004BE66E /* YTAnimation.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
 		2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BC1DB0D4AF00C55633 /* QNDomain.m */; };
 		2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BE1DB0D4AF00C55633 /* QNLruCache.m */; };
@@ -1343,8 +1342,6 @@
 		2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
 		2DD029F41DD00EB400CD881F /* UIView+SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDAutoLayout.h"; sourceTree = "<group>"; };
 		2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDAutoLayout.m"; sourceTree = "<group>"; };
-		2DD48D331E1127B9004BE66E /* YTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTAnimation.h; sourceTree = "<group>"; };
-		2DD48D341E1127B9004BE66E /* YTAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTAnimation.m; sourceTree = "<group>"; };
 		2DDD53B91DB0D4AF00C55633 /* QNDnsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDnsManager.h; sourceTree = "<group>"; };
 		2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNDnsManager.m; sourceTree = "<group>"; };
 		2DDD53BB1DB0D4AF00C55633 /* QNDomain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNDomain.h; sourceTree = "<group>"; };
@@ -2985,8 +2982,6 @@
 		1DA71B8A1D3DCAB0007483D2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				2DD48D331E1127B9004BE66E /* YTAnimation.h */,
-				2DD48D341E1127B9004BE66E /* YTAnimation.m */,
 				2D8F25B31D701E5700B28A8C /* Common.h */,
 				2D8F25B41D701E5700B28A8C /* Common.m */,
 			);
@@ -3939,7 +3934,6 @@
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
 				1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */,
-				2DD48D351E1127B9004BE66E /* YTAnimation.m in Sources */,
 				2D44CDF41E272A3600098B37 /* CJGroupCell.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
 				1D09CCA81D3F29C900F85E9A /* YYThreadSafeDictionary.m in Sources */,

@@ -8,7 +8,6 @@
 
 #import "ProjectsView.h"
 #import "ProjectItemView.h"
-#import "YTAnimation.h"
 
 #define  kSizeWidth   ((Screen_Width - 50) / 3.0)
 #define  kSizeHeight   75.0
