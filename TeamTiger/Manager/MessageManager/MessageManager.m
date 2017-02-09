@@ -40,6 +40,10 @@ static MessageManager *singleton = nil;
 - (void)startGeTui {
     // 通过 appId、 appKey 、appSecret 启动SDK，注：该方法需要在主线程中调用
     [GeTuiSdk startSdkWithAppId:gtAppId appKey:gtAppKey appSecret:gtAppSecret delegate:self];
+    //[1-2]:设置是否后台运行开关
+    [GeTuiSdk runBackgroundEnable:NO];
+    //[1-3]:设置电子围栏功能，开启LBS定位服务 和 是否允许SDK 弹出用户定位请求
+    [GeTuiSdk lbsLocationEnable:YES andUserVerify:YES];
 }
 
 - (void)registerDeviceToken:(NSString *)deviceToken {

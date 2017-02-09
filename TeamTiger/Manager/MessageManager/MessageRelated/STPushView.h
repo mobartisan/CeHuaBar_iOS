@@ -31,6 +31,7 @@
 5.当给项目删除人员时，给出一条删除人员的ApnS通知；
 6.当组员（管理员）发布一条moment时，该项目的其他成员将收到一条发布moment的ApnsS通知；
 7.当组员（管理员）发布一条投票时，该项目的其他成员将收到一条投票的ApnS通知；
+8.当组员（管理员）评论一条moment时，该项目的其他成员将收到一条moment更新的ApnS通知；
 */
 
 @interface TT_Message: NSObject <NSCoding>
