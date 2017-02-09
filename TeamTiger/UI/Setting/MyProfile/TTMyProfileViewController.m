@@ -135,12 +135,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        if(indexPath.row == 0) return;
         TT_User *user = [TT_User sharedInstance];
         NSMutableDictionary *dic = self.dataSource[indexPath.section][indexPath.row];
         TTMyModifyViewController *myModifyVC = [[TTMyModifyViewController alloc] init];
         myModifyVC.name = dic[@"Name"];
         myModifyVC.tempDic = dic;
-        if (indexPath.row == 1 ) {
+        if (indexPath.row == 1) {
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
                     if ([user.nickname isEqualToString:value]) {

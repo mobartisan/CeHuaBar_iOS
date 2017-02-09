@@ -25,6 +25,7 @@
     [self.descTF setValue:kRGB(42, 56, 72) forKeyPath:@"_placeholderLabel.textColor"];
     self.descTF.enablesReturnKeyAutomatically = YES;
     self.descTF.placeholder = self.tempDic[@"Description"];
+    self.descTF.tintColor = [UIColor whiteColor];
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.navigationController popViewControllerAnimated:YES];
     }];
