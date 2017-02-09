@@ -227,6 +227,10 @@ static MessageManager *singleton = nil;
     [msgModel getModelFromDict:dict];
     //2.storage sqlite
 #warning  to do handle messages and optimize code
+    SqliteManager *sqliteManager = SQLITEMANAGER;
+    [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
+    NSString *sql = [NSString stringWithFormat:@"insert into %@ (record_id,title,sub_title,url,url_type,badge,sound,content,create_date,last_edit_date,is_read,media_type,message_type) values('%@','%@','%@','%@','%zd','%zd','%@','%@','%@','%@','%d','%zd','%zd')",TABLE_TT_Message,msgModel.record_id,msgModel.title,msgModel.sub_title,msgModel.url,msgModel.url_type,msgModel.badge,msgModel.sound,msgModel.content,msgModel.create_date,msgModel.last_edit_date,msgModel.is_read,msgModel.media_type,msgModel.message_type];
+    [sqliteManager executeSql:sql];
     //3.通知相关UIViewController
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_MESSAGE_COMING object:msgModel];
     //4.UI changed
