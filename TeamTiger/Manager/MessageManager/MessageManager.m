@@ -223,7 +223,7 @@ static MessageManager *singleton = nil;
     NSLog(@"%@",dict);
     
     //1.转成message model
-    STPushModel *msgModel = [[STPushModel alloc] init];
+    TT_Message *msgModel = [[TT_Message alloc] init];
     [msgModel getModelFromDict:dict];
     //2.storage sqlite
 #warning  to do handle messages and optimize code
@@ -237,7 +237,7 @@ static MessageManager *singleton = nil;
             if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                 msgModel.content = @"您有一条新消息！";
-                appDelegate.topView.model = msgModel;
+                appDelegate.topView.msgModel = msgModel;
                 [appDelegate displayPushView];
             }
             //play shake

@@ -261,7 +261,7 @@
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
         NSNotification *notification = (NSNotification *)sender;
         NSLog(@"%@", notification.object);
-#warning to do 处理消息来的情况1
+#warning to do handle new a message 1
         if (notification.object) {
             //如果有消息，且消息类型符合首页展示条件，则显示消息UI
             self.tableView.tableHeaderView = self.tableHeader;

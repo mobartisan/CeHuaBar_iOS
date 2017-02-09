@@ -10,7 +10,7 @@
 #import "STPushView.h"
 #import "AppDelegate.h"
 
-@implementation STPushModel
+@implementation TT_Message
 
 /**
  * 保存对象到文件中
@@ -19,15 +19,20 @@
  */
 -(void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:self.recordId forKey:@"recordId"];
+    [aCoder encodeObject:self.record_id forKey:@"record_id"];
     [aCoder encodeObject:self.title forKey:@"title"];
     [aCoder encodeObject:self.url forKey:@"url"];
-    [aCoder encodeObject:self.urlType forKey:@"urlType"];
-    [aCoder encodeObject:self.mid forKey:@"mid"];
+    [aCoder encodeObject:@(self.url_type) forKey:@"url_type"];
     [aCoder encodeObject:self.content forKey:@"content"];
-    [aCoder encodeObject:self.subTitle forKey:@"subTitle"];
-    [aCoder encodeObject:self.badge forKey:@"badge"];
+    [aCoder encodeObject:self.sub_title forKey:@"sub_title"];
+    [aCoder encodeObject:@(self.badge) forKey:@"badge"];
     [aCoder encodeObject:self.sound forKey:@"sound"];
+    [aCoder encodeObject:self.create_date forKey:@"create_date"];
+    [aCoder encodeObject:self.last_edit_date forKey:@"last_edit_date"];
+    [aCoder encodeObject:@(self.is_read) forKey:@"is_read"];
+    [aCoder encodeObject:@(self.media_type) forKey:@"media_type"];
+    [aCoder encodeObject:@(self.message_type) forKey:@"message_type"];
+    
 }
 
 
@@ -41,16 +46,20 @@
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     //注意：在构造方法中需要先初始化父类的方法
-    if (self=[super init]) {
-        self.recordId=[aDecoder decodeObjectForKey:@"recordId"];
-        self.title=[aDecoder decodeObjectForKey:@"title"];
-        self.url=[aDecoder decodeObjectForKey:@"url"];
-        self.urlType=[aDecoder decodeObjectForKey:@"urlType"];
-        self.mid=[aDecoder decodeObjectForKey:@"mid"];
-        self.content= [aDecoder decodeObjectForKey:@"content"];
-        self.subTitle= [aDecoder decodeObjectForKey:@"subTitle"];
-        self.badge= [aDecoder decodeObjectForKey:@"badge"];
-        self.sound= [aDecoder decodeObjectForKey:@"sound"];
+    if (self = [super init]) {
+        self.record_id = [aDecoder decodeObjectForKey:@"record_id"];
+        self.title = [aDecoder decodeObjectForKey:@"title"];
+        self.url = [aDecoder decodeObjectForKey:@"url"];
+        self.url_type = [[aDecoder decodeObjectForKey:@"url_type"] integerValue];
+        self.content = [aDecoder decodeObjectForKey:@"content"];
+        self.sub_title= [aDecoder decodeObjectForKey:@"sub_title"];
+        self.badge = [[aDecoder decodeObjectForKey:@"badge"] integerValue];
+        self.sound = [aDecoder decodeObjectForKey:@"sound"];
+        self.create_date = [aDecoder decodeObjectForKey:@"create_date"];
+        self.last_edit_date = [aDecoder decodeObjectForKey:@"last_edit_date"];
+        self.is_read = [aDecoder decodeObjectForKey:@"is_read"];
+        self.media_type = [[aDecoder decodeObjectForKey:@"media_type"] integerValue];
+        self.message_type = [[aDecoder decodeObjectForKey:@"message_type"] integerValue];
     }
     return self;
 }
@@ -59,15 +68,19 @@
     if (!dict) {
         return;
     }
-    self.recordId = dict[@"recordId"];
+    self.record_id = dict[@"recordId"];
     self.title = dict[@"title"];
     self.url = dict[@"url"];
-    self.urlType = dict[@"urlType"];
-    self.mid = dict[@"mid"];
+    self.url_type = [dict[@"urlType"] integerValue];
     self.content = dict[@"content"];
-    self.subTitle = dict[@"subTitle"];
-    self.badge = dict[@"badge"];
+    self.sub_title = dict[@"subTitle"];
+    self.badge = [dict[@"badge"] integerValue];
     self.sound = dict[@"sound"];
+    self.create_date = dict[@"create_date"];
+    self.last_edit_date = dict[@"last_edit_date"];
+    self.is_read = dict[@"is_read"];
+    self.media_type = [dict[@"media_type"] integerValue];
+    self.message_type = [dict[@"message_type"] integerValue];
 }
 
 @end
@@ -180,11 +193,11 @@ static STPushView *_instance = nil;
     return self;
 }
 
-- (void)setModel:(STPushModel *)model
+- (void)setMsgModel:(TT_Message *)msgModel
 {
-    _model = model;
+    _msgModel = msgModel;
     self.timLabel.text = @"刚刚";
-    self.content.text = model.content;
+    self.content.text = msgModel.content;
 }
 
 + (void)show

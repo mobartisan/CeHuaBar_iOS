@@ -140,7 +140,7 @@
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
         NSNotification *notification = (NSNotification *)sender;
         NSLog(@"%@", notification.object);
-#warning to do 处理消息来的情况2
+#warning to do handle new a message 2
         if (notification.object) {
             //如果有消息，且消息类型符合页面展示条件，则显示消息UI
             //1.发请求
