@@ -218,6 +218,10 @@ static MessageManager *singleton = nil;
         [alert show];
         return;
     }
+    if (![LoginManager sharedInstace].isLogin || [Common isEmptyString:gSession]){
+        //当前处于未登录状态，不接收和处理消息
+        return;
+    }
     //
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
     NSLog(@"%@",dict);
