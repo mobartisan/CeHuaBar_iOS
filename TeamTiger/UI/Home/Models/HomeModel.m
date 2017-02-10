@@ -111,8 +111,7 @@
             }else {
                 NSString *firDate = [[commentModelFrame.homeCommentModel.time componentsSeparatedByString:@" "] firstObject];
                 NSString *currentDate = [Common getCurrentSystemDate];
-                Common *common = [[Common alloc] init];
-                if ([common differencewithDate:firDate withDate:currentDate].day > 0) {
+                if ([Common differencewithDate:firDate withDate:currentDate].day > 0) {
                     [indexArr addObject:@(i)];
                     [modelFrameArr addObject:commentModelFrame];
                 }

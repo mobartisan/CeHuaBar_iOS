@@ -10,11 +10,13 @@
 
 @interface DiscussListModel : NSObject
 
+@property (nonatomic,copy) NSString *_id;
 @property (copy, nonatomic) NSString *iconName;
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *des;
 @property (copy, nonatomic) NSString *time;
 @property (copy, nonatomic) NSString *imageName;
 @property (copy, nonatomic) NSString *des2;
+
 
 @end

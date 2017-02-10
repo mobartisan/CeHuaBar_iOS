@@ -181,21 +181,38 @@
     return [NSString stringWithFormat:@"%02tu月%02tu日", [[NSDate date] hyb_month], [[NSDate date] hyb_day]];
 }
 
+//返回系统月日 时分秒
++ (NSString *)getCurrentSystemMonthDayHourMinuteSecond {
+    NSDate *date = [NSDate date];
+    return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu:%02tu", [date hyb_month], [date hyb_day],[date hyb_hour],[date hyb_minute],[date hyb_second]];
+}
+
 //处理时间
 + (NSString *)handleDate:(NSString *)dateStr {
     NSDate *date = [NSDate hyb_dateWithString:dateStr format:@"yyyy-MM-dd HH:mm:ss"];
     return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu", [date hyb_month], [date hyb_day],[date hyb_hour],[date hyb_minute]];
 }
 
++ (NSString *)handleDateMonthDayHourMinuteSecond:(NSString *)dateStr {
+    NSDate *date = [NSDate hyb_dateWithString:dateStr format:@"yyyy-MM-dd HH:mm:ss"];
+    return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu:%02tu", [date hyb_month], [date hyb_day],[date hyb_hour],[date hyb_minute],[date hyb_second]];
+}
+
++ (NSString *)handleDateMonthDayHourMinute:(NSString *)dateStr {
+    NSDate *date = [NSDate hyb_dateWithString:dateStr format:@"MM月dd日 HH:mm:ss"];
+    return [NSString stringWithFormat:@"%02tu月%02tu日 %02tu:%02tu", [date hyb_month], [date hyb_day],[date hyb_hour],[date hyb_minute]];
+}
+
 //比较时间大小
-- (NSDateComponents *)differencewithDate:(NSString *)dateString withDate:(NSString *)anotherdateString {
-    NSDate *createDate = [self.dateFormatter dateFromString:dateString];
-    NSDate *now = [self.dateFormatter dateFromString:anotherdateString];
++ (NSDateComponents *)differencewithDate:(NSString *)dateString withDate:(NSString *)anotherdateString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日"];
+    NSDate *createDate = [dateFormatter dateFromString:dateString];
+    NSDate *now = [dateFormatter dateFromString:anotherdateString];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSCalendarUnit unit =NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitDay |NSCalendarUnitHour |NSCalendarUnitMinute |NSCalendarUnitSecond;
     // 计算两个日期之间的差值
     NSDateComponents *cmps = [calendar components:unit fromDate:createDate toDate:now options:0];
-//    NSLog(@"%@ %@ %@", createDate, now, cmps);
     
     return cmps;
 }
