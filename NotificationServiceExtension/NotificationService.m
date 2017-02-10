@@ -20,6 +20,8 @@
 - (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
     self.contentHandler = contentHandler;
     self.bestAttemptContent = [request.content mutableCopy];
+    
+    self.bestAttemptContent.categoryIdentifier = @"category1";
     // 附件
     NSDictionary *dict =  self.bestAttemptContent.userInfo;
     NSString *imgUrl = [NSString stringWithFormat:@"%@",dict[@"aps"][@"alert"][@"url"]];

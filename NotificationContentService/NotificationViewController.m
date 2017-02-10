@@ -27,9 +27,9 @@
 }
 
 - (void)didReceiveNotification:(UNNotification *)notification {
-    self.titleLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.title];
-    self.subtitleLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.subtitle];
-    self.bodyLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.body];
+//    self.titleLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.title];
+//    self.subtitleLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.subtitle];
+//    self.bodyLabel.text = [NSString stringWithFormat:@"%@", notification.request.content.body];
 
     UNNotificationAttachment *attachment = notification.request.content.attachments.firstObject;
     if (attachment) {
