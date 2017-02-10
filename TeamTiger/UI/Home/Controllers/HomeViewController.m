@@ -267,7 +267,6 @@
             self.tableView.tableHeaderView = self.tableHeader;
         }
     }];
-    self.tableView.tableHeaderView = self.tableHeader;
     //测试
 //     [self deleteAllData];
 }
