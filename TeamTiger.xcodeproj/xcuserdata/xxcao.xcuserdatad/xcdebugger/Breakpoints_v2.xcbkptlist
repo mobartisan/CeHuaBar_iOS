@@ -1227,7 +1227,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NotificationServiceExtension/NotificationService.m"
@@ -1237,22 +1237,6 @@
             startingLineNumber = "21"
             endingLineNumber = "21"
             landmarkName = "-didReceiveNotificationRequest:withContentHandler:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NotificationServiceExtension/NotificationService.m"
-            timestampString = "508404959.537812"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-loadAttachmentForUrlString:withType:completionHandle:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -405,6 +405,11 @@
 		1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */; };
 		1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */; };
 		1DDF39F31DEEABB10059207B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDF39F21DEEABB10059207B /* AudioToolbox.framework */; };
+		1DE01A0B1E4DAEDB00ED9AB7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0A1E4DAEDA00ED9AB7 /* UserNotifications.framework */; };
+		1DE01A0D1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0C1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework */; };
+		1DE01A111E4DAEDB00ED9AB7 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE01A101E4DAEDB00ED9AB7 /* NotificationViewController.m */; };
+		1DE01A141E4DAEDB00ED9AB7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */; };
+		1DE01A181E4DAEDB00ED9AB7 /* NotificationContentService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */; };
 		1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */; };
 		1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EF2C1E37891100355562 /* UITextField+Extension.m */; };
@@ -518,6 +523,13 @@
 			remoteGlobalIDString = 1D943C9A1E4D6F260059003E;
 			remoteInfo = NotificationServiceExtension;
 		};
+		1DE01A161E4DAEDB00ED9AB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1DA71B521D3DB5A1007483D2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1DE01A081E4DAEDA00ED9AB7;
+			remoteInfo = NotificationContentService;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -527,6 +539,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				1DE01A181E4DAEDB00ED9AB7 /* NotificationContentService.appex in Embed App Extensions */,
 				1D943CA31E4D6F260059003E /* NotificationServiceName.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -1272,6 +1285,13 @@
 		1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddDiscussViewController.m; sourceTree = "<group>"; };
 		1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddDiscussViewController.xib; sourceTree = "<group>"; };
 		1DDF39F21DEEABB10059207B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContentService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DE01A0A1E4DAEDA00ED9AB7 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		1DE01A0C1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		1DE01A0F1E4DAEDB00ED9AB7 /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		1DE01A101E4DAEDB00ED9AB7 /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		1DE01A131E4DAEDB00ED9AB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1DE01A151E4DAEDB00ED9AB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCircleViewControllerForSetting.m; sourceTree = "<group>"; };
 		1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCircleViewControllerForSetting.h; sourceTree = "<group>"; };
 		1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
@@ -1516,6 +1536,15 @@
 				1D9580ED1D3E26F800FD0053 /* libsqlite3.0.tbd in Frameworks */,
 				1D9580EB1D3E26CE00FD0053 /* libsqlite3.tbd in Frameworks */,
 				1DD2E32D1D59B30F005D45A9 /* libWeChatSDK.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DE01A061E4DAEDA00ED9AB7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DE01A0D1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework in Frameworks */,
+				1DE01A0B1E4DAEDB00ED9AB7 /* UserNotifications.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2882,6 +2911,7 @@
 			isa = PBXGroup;
 			children = (
 				1D943C9C1E4D6F260059003E /* NotificationServiceExtension */,
+				1DE01A0E1E4DAEDB00ED9AB7 /* NotificationContentService */,
 				1DA71B5B1D3DB5A1007483D2 /* Products */,
 				1DA71B5C1D3DB5A1007483D2 /* TeamTiger */,
 				2DDD543D1DB0D52C00C55633 /* Frameworks */,
@@ -2893,6 +2923,7 @@
 			children = (
 				1DA71B5A1D3DB5A1007483D2 /* TeamTiger.app */,
 				1D943C9B1E4D6F260059003E /* NotificationServiceName.appex */,
+				1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3324,6 +3355,17 @@
 			path = Controllers/AddDiscuss;
 			sourceTree = "<group>";
 		};
+		1DE01A0E1E4DAEDB00ED9AB7 /* NotificationContentService */ = {
+			isa = PBXGroup;
+			children = (
+				1DE01A0F1E4DAEDB00ED9AB7 /* NotificationViewController.h */,
+				1DE01A101E4DAEDB00ED9AB7 /* NotificationViewController.m */,
+				1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */,
+				1DE01A151E4DAEDB00ED9AB7 /* Info.plist */,
+			);
+			path = NotificationContentService;
+			sourceTree = "<group>";
+		};
 		1DF991C21D488C0F00E7D1B8 /* TYLaunchAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -3709,6 +3751,8 @@
 				2D9674F41DEBCE2A002DF6E0 /* CoreMotion.framework */,
 				2D9674F21DEBCDE6002DF6E0 /* AdSupport.framework */,
 				2DDD543E1DB0D52C00C55633 /* libresolv.tbd */,
+				1DE01A0A1E4DAEDA00ED9AB7 /* UserNotifications.framework */,
+				1DE01A0C1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3802,11 +3846,29 @@
 			);
 			dependencies = (
 				1D943CA21E4D6F260059003E /* PBXTargetDependency */,
+				1DE01A171E4DAEDB00ED9AB7 /* PBXTargetDependency */,
 			);
 			name = TeamTiger;
 			productName = TeamTiger;
 			productReference = 1DA71B5A1D3DB5A1007483D2 /* TeamTiger.app */;
 			productType = "com.apple.product-type.application";
+		};
+		1DE01A081E4DAEDA00ED9AB7 /* NotificationContentService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DE01A191E4DAEDB00ED9AB7 /* Build configuration list for PBXNativeTarget "NotificationContentService" */;
+			buildPhases = (
+				1DE01A051E4DAEDA00ED9AB7 /* Sources */,
+				1DE01A061E4DAEDA00ED9AB7 /* Frameworks */,
+				1DE01A071E4DAEDA00ED9AB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationContentService;
+			productName = NotificationContentService;
+			productReference = 1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -3835,6 +3897,11 @@
 							};
 						};
 					};
+					1DE01A081E4DAEDA00ED9AB7 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = QRKXLCEHPN;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 1DA71B551D3DB5A1007483D2 /* Build configuration list for PBXProject "TeamTiger" */;
@@ -3852,6 +3919,7 @@
 			targets = (
 				1DA71B591D3DB5A1007483D2 /* TeamTiger */,
 				1D943C9A1E4D6F260059003E /* NotificationServiceName */,
+				1DE01A081E4DAEDA00ED9AB7 /* NotificationContentService */,
 			);
 		};
 /* End PBXProject section */
@@ -3952,6 +4020,14 @@
 				1DBFD6F21D6463650039077D /* textfield_default_holo_light@3x.png in Resources */,
 				0604B47D1D4C5A9B00EF1703 /* upshadow.png in Resources */,
 				1D32AEFE1DB0CB61000DF537 /* ProjectsCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1DE01A071E4DAEDA00ED9AB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DE01A141E4DAEDB00ED9AB7 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4356,6 +4432,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1DE01A051E4DAEDA00ED9AB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1DE01A111E4DAEDB00ED9AB7 /* NotificationViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4363,6 +4447,11 @@
 			isa = PBXTargetDependency;
 			target = 1D943C9A1E4D6F260059003E /* NotificationServiceName */;
 			targetProxy = 1D943CA11E4D6F260059003E /* PBXContainerItemProxy */;
+		};
+		1DE01A171E4DAEDB00ED9AB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1DE01A081E4DAEDA00ED9AB7 /* NotificationContentService */;
+			targetProxy = 1DE01A161E4DAEDB00ED9AB7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -4373,6 +4462,14 @@
 				1DA71B7E1D3DBA67007483D2 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DE01A131E4DAEDB00ED9AB7 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -4570,6 +4667,38 @@
 			};
 			name = Release;
 		};
+		1DE01A1A1E4DAEDB00ED9AB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				INFOPLIST_FILE = NotificationContentService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1DE01A1B1E4DAEDB00ED9AB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				INFOPLIST_FILE = NotificationContentService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4599,6 +4728,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		1DE01A191E4DAEDB00ED9AB7 /* Build configuration list for PBXNativeTarget "NotificationContentService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DE01A1A1E4DAEDB00ED9AB7 /* Debug */,
+				1DE01A1B1E4DAEDB00ED9AB7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
