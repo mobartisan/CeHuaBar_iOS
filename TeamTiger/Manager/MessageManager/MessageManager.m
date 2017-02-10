@@ -16,7 +16,7 @@ NSString *const NotificationCategoryIdent  = @"ACTIONABLE";
 NSString *const NotificationActionOneIdent = @"ACTION_ONE";
 NSString *const NotificationActionTwoIdent = @"ACTION_TWO";
 
-@interface MessageManager ()
+@interface MessageManager ()<UNUserNotificationCenterDelegate>
 
 @property(nonatomic, assign) NSTimeInterval lastTimeInterval;
 
@@ -76,6 +76,7 @@ static MessageManager *singleton = nil;
             }
         }
                                                                             }];
+        [UNUserNotificationCenter currentNotificationCenter].delegate = [MessageManager sharedInstance];
     }
     else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0 &&
              [[[UIDevice currentDevice] systemVersion] floatValue] < 10.0) {
@@ -152,6 +153,18 @@ static MessageManager *singleton = nil;
     }
 }
 
+//MARK:- iOS Notification Delegate ()
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+//    UNNotificationRequest *request = notification.request; // 原始请求
+    //该回调函数是在通知条即将显示之前调用的
+    completionHandler(UNNotificationPresentationOptionBadge);
+}
+
+//
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
+//    UNNotificationRequest *request = response.notification.request; // 原始请求
+    //在此，可判断response的种类和request的触发器是什么，可根据远程通知和本地通知分别处理，再根据action进行后续回调
+}
 #pragma mark - GeTuiSdkDelegate
 /** SDK启动成功返回cid */
 - (void)GeTuiSdkDidRegisterClient:(NSString *)clientId {
