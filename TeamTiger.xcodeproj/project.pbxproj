@@ -423,6 +423,9 @@
 		2D44CDF51E272A3600098B37 /* CJGroupCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D44CDF31E272A3600098B37 /* CJGroupCell.xib */; };
 		2D5C85CD1D8113D7004699F4 /* TTMyModifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */; };
 		2D5C85CE1D8113D7004699F4 /* TTMyModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */; };
+		2D62FA371E4C4B06007531ED /* DiscussListCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D62FA361E4C4B06007531ED /* DiscussListCell1.xib */; };
+		2D62FA3B1E4C5E5A007531ED /* DiscussListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D62FA391E4C5E5A007531ED /* DiscussListDetailViewController.m */; };
+		2D62FA3C1E4C5E5A007531ED /* DiscussListDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D62FA3A1E4C5E5A007531ED /* DiscussListDetailViewController.xib */; };
 		2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6D17701DED552200AFE3BD /* UIImage+Extension.m */; };
 		2D7279F71DDD811B00CBF0BA /* HomeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279D91DDD811B00CBF0BA /* HomeCommentModel.m */; };
 		2D7279F81DDD811B00CBF0BA /* HomeCommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7279DB1DDD811B00CBF0BA /* HomeCommentModelFrame.m */; };
@@ -504,8 +507,6 @@
 		2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */; };
 		2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */; };
 		2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA501D507B8B0099A2A3 /* DiscussListCell.xib */; };
-		2DFACA581D507B8B0099A2A3 /* DiscussListCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA521D507B8B0099A2A3 /* DiscussListCell1.m */; };
-		2DFACA591D507B8B0099A2A3 /* DiscussListCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DFACA531D507B8B0099A2A3 /* DiscussListCell1.xib */; };
 		2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFACA811D50808D0099A2A3 /* DiscussListModel.m */; };
 /* End PBXBuildFile section */
 
@@ -1304,6 +1305,10 @@
 		2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTMyModifyViewController.h; sourceTree = "<group>"; };
 		2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTMyModifyViewController.m; sourceTree = "<group>"; };
 		2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTMyModifyViewController.xib; sourceTree = "<group>"; };
+		2D62FA361E4C4B06007531ED /* DiscussListCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell1.xib; sourceTree = "<group>"; };
+		2D62FA381E4C5E5A007531ED /* DiscussListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListDetailViewController.h; sourceTree = "<group>"; };
+		2D62FA391E4C5E5A007531ED /* DiscussListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListDetailViewController.m; sourceTree = "<group>"; };
+		2D62FA3A1E4C5E5A007531ED /* DiscussListDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListDetailViewController.xib; sourceTree = "<group>"; };
 		2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		2D6D17701DED552200AFE3BD /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
 		2D7279D81DDD811B00CBF0BA /* HomeCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCommentModel.h; sourceTree = "<group>"; };
@@ -1463,9 +1468,6 @@
 		2DFACA4E1D507B8B0099A2A3 /* DiscussListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListCell.h; sourceTree = "<group>"; };
 		2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListCell.m; sourceTree = "<group>"; };
 		2DFACA501D507B8B0099A2A3 /* DiscussListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell.xib; sourceTree = "<group>"; };
-		2DFACA511D507B8B0099A2A3 /* DiscussListCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListCell1.h; sourceTree = "<group>"; };
-		2DFACA521D507B8B0099A2A3 /* DiscussListCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListCell1.m; sourceTree = "<group>"; };
-		2DFACA531D507B8B0099A2A3 /* DiscussListCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussListCell1.xib; sourceTree = "<group>"; };
 		2DFACA801D50808D0099A2A3 /* DiscussListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussListModel.h; sourceTree = "<group>"; };
 		2DFACA811D50808D0099A2A3 /* DiscussListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussListModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3740,6 +3742,9 @@
 				2DFACA491D507B8B0099A2A3 /* DiscussViewController.h */,
 				2DFACA4A1D507B8B0099A2A3 /* DiscussViewController.m */,
 				2DFACA4B1D507B8B0099A2A3 /* DiscussViewController.xib */,
+				2D62FA381E4C5E5A007531ED /* DiscussListDetailViewController.h */,
+				2D62FA391E4C5E5A007531ED /* DiscussListDetailViewController.m */,
+				2D62FA3A1E4C5E5A007531ED /* DiscussListDetailViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3759,9 +3764,7 @@
 				2DFACA4E1D507B8B0099A2A3 /* DiscussListCell.h */,
 				2DFACA4F1D507B8B0099A2A3 /* DiscussListCell.m */,
 				2DFACA501D507B8B0099A2A3 /* DiscussListCell.xib */,
-				2DFACA511D507B8B0099A2A3 /* DiscussListCell1.h */,
-				2DFACA521D507B8B0099A2A3 /* DiscussListCell1.m */,
-				2DFACA531D507B8B0099A2A3 /* DiscussListCell1.xib */,
+				2D62FA361E4C4B06007531ED /* DiscussListCell1.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3880,6 +3883,7 @@
 				1DB5A5901D4B3F36009E6170 /* round-switch-track@2x.png in Resources */,
 				1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */,
 				1D9580D11D3E225200FD0053 /* Info.plist in Resources */,
+				2D62FA371E4C4B06007531ED /* DiscussListCell1.xib in Resources */,
 				06008F161D58162300A5B3DB /* TTCommonCell.xib in Resources */,
 				1DA0E1A31D546CC7008CD6DF /* ProjectCell_Member.xib in Resources */,
 				1D8713111DE6DC0900C17D01 /* loginBG55@3x.png in Resources */,
@@ -3924,6 +3928,7 @@
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
 				2DA5CA551E1F2B62000BFE93 /* TTAddMemberCell.xib in Resources */,
 				1D87130F1DE6DC0900C17D01 /* loginBG40@2x.png in Resources */,
+				2D62FA3C1E4C5E5A007531ED /* DiscussListDetailViewController.xib in Resources */,
 				1DB5A5951D4B3F36009E6170 /* square-switch-track@2x.png in Resources */,
 				1DB5A58E1D4B3F36009E6170 /* round-switch-thumb@2x.png in Resources */,
 				06008F411D58249300A5B3DB /* TZImagePickerController.bundle in Resources */,
@@ -3942,7 +3947,6 @@
 				1D32AEF11DB08546000DF537 /* TTProjectsMenuViewController.xib in Resources */,
 				1DD2E3241D596EAA005D45A9 /* toggle_handle_off@3x.png in Resources */,
 				1DA0E1A11D543F7B008CD6DF /* ProjectCell1.xib in Resources */,
-				2DFACA591D507B8B0099A2A3 /* DiscussListCell1.xib in Resources */,
 				2DDD54201DB0D4AF00C55633 /* LICENSE in Resources */,
 				1D9580B01D3E207200FD0053 /* MJRefresh.bundle in Resources */,
 				1DBFD6F21D6463650039077D /* textfield_default_holo_light@3x.png in Resources */,
@@ -4053,7 +4057,7 @@
 				2DDD54171DB0D4AF00C55633 /* QNDnspodFree.m in Sources */,
 				1D09CD151D3F550300F85E9A /* NSMutableArray+HYBHelperKit.m in Sources */,
 				1D09CC6A1D3F29C900F85E9A /* YYCGUtilities.m in Sources */,
-				2DFACA581D507B8B0099A2A3 /* DiscussListCell1.m in Sources */,
+				2D62FA3B1E4C5E5A007531ED /* DiscussListDetailViewController.m in Sources */,
 				1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */,
 				1D9580E91D3E23E100FD0053 /* SqliteManager.m in Sources */,
 				2DDD54261DB0D4AF00C55633 /* QNEtag.m in Sources */,
@@ -4505,7 +4509,11 @@
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
+=======
+				DEVELOPMENT_TEAM = "";
+>>>>>>> origin/master
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4540,7 +4548,11 @@
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = QRKXLCEHPN;
+=======
+				DEVELOPMENT_TEAM = "";
+>>>>>>> origin/master
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;

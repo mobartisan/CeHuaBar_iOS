@@ -9,12 +9,13 @@
 #import "DiscussViewController.h"
 #import "DiscussListModel.h"
 #import "DiscussListCell.h"
-#import "DiscussListCell1.h"
+#import "DiscussListDetailViewController.h"
 
 @interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
+@property (nonatomic,strong) UIButton *rightBtn;
 
 @end
 
@@ -23,44 +24,58 @@
 - (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
-        NSDictionary *dic1 = @{@"iconName":@"common-headDefault", @"name":@"俞弦", @"des":@"Type Something...", @"time":@"1分钟之前", @"imageName":@"1", @"des2":@""};
-        DiscussListModel *model1 = [[DiscussListModel alloc] init];
-        [model1 setValuesForKeysWithDictionary:dic1];
-        [_dataSource addObject:model1];
         
-        NSDictionary *dic2 = @{@"iconName":@"common-headDefault", @"name":@"焦兰兰", @"des":@"Type Something...", @"time":@"3分钟之前", @"imageName":@"2", @"des2":@""};
-        DiscussListModel *model2 = [[DiscussListModel alloc] init];
-        [model2 setValuesForKeysWithDictionary:dic2];
-        [_dataSource addObject:model2];
-        
-        NSDictionary *dic3 = @{@"iconName":@"common-headDefault", @"name":@"齐云猛", @"des":@"Type Something...", @"time":@"7月18日 15:11", @"imageName":@"3", @"des2":@"事件2Type Something..."};
-        DiscussListModel *model3 = [[DiscussListModel alloc] init];
-        [model3 setValuesForKeysWithDictionary:dic3];
-        [_dataSource addObject:model3];
-        
-        NSDictionary *dic4 = @{@"iconName":@"common-headDefault", @"name":@"卞克", @"des":@"Type Something...", @"time":@"7月18日 15:10", @"imageName":@"4", @"des2":@"事件2Type Something..."};
-        DiscussListModel *model4 = [[DiscussListModel alloc] init];
-        [model4 setValuesForKeysWithDictionary:dic4];
-        [_dataSource addObject:model4];
-        
+        NSArray *tempArr = @[
+                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"俞弦", @"des":@"Type Something...", @"time":@"2017-02-10 10:29:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
+                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"焦兰兰", @"des":@"Type Something...", @"time":@"2017-02-10 10:10:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
+                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"焦兰兰", @"des":@"Type Something...", @"time":@"2017-02-10 10:20:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
+                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"卞克", @"des":@"Type Something...", @"time":@"2017-02-10 10:30:00", @"imageName":@"", @"des2":@"事件2Type Something..."}
+                             ];
+        for (NSDictionary *dic in tempArr) {
+            DiscussListModel *model = [[DiscussListModel alloc] init];
+            [model setValuesForKeysWithDictionary:dic];
+            [_dataSource addObject:model];
+        }
     }
     return _dataSource;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configureNavigationItem];
+    self.tableView.rowHeight = 80.0;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [Common removeExtraCellLines:self.tableView];
+}
+
+- (void)configureNavigationItem {
+    self.navigationItem.title = @"讨论";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
     }];
-    [self hyb_setNavTitle:@"讨论" rightTitle:@"清空" rightBlock:^(UIButton *sender) {
-        
-    }];
-    self.tableView.rowHeight = 80.0;
-    self.tableView.allowsSelection = NO;
-    [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell" bundle:nil] forCellReuseIdentifier:@"discussListCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"DiscussListCell1" bundle:nil] forCellReuseIdentifier:@"discussListCell1"];
-    [Common removeExtraCellLines:self.tableView];
+    //右侧
+    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(0, 0, 40, 20);
+    [rightBtn setTitle:@"清空" forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    if ([Common isEmptyArr:self.dataSource]) {
+        rightBtn.userInteractionEnabled = NO;
+        [rightBtn setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
+    } else {
+        rightBtn.userInteractionEnabled = YES;
+        [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+}
+
+- (void)handleRightBtnAction:(UIButton *)sender {
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    sender.userInteractionEnabled = NO;
+    [sender setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
+#warning to do...
+    
 }
 
 #pragma mark UITableViewDataSource
@@ -70,16 +85,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DiscussListModel *model = self.dataSource[indexPath.row];
-    if (indexPath.row == 0 || indexPath.row == 1) {
-        DiscussListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"discussListCell" forIndexPath:indexPath];
-        [cell configureCellWithModel:model];
-        return cell;
-    }else {
-        DiscussListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"discussListCell1" forIndexPath:indexPath];
-        [cell configureCellWithModel:model];
-        return cell;
-    }
-    
+    DiscussListCell *cell = [DiscussListCell cellWithTableView:tableView withModel:model];
+    [cell configureCellWithModel:model withHideLineView:(indexPath.row == self.dataSource.count - 1)];
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DiscussListModel *model = self.dataSource[indexPath.row];
+    DiscussListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.backgroundColor = [Common colorFromHexRGB:@"1c293b"];
+    [UIView animateWithDuration:0.3 animations:^{
+        cell.backgroundColor = kRGB(28, 37, 51);
+    }];
+    DiscussListDetailViewController *discussListDetailVC = [[DiscussListDetailViewController alloc] init];
+    discussListDetailVC._id = model._id;
+    [self.navigationController pushViewController:discussListDetailVC animated:YES];
 }
 
 @end

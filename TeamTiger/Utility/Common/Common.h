@@ -34,12 +34,15 @@
 + (NSString *)getCurrentSystemTime;
 //系统日期
 + (NSString *)getCurrentSystemDate;
+//返回系统月日 时分秒
++ (NSString *)getCurrentSystemMonthDayHourMinuteSecond;
 
 //处理时间
 + (NSString *)handleDate:(NSString *)dateStr;
-
++ (NSString *)handleDateMonthDayHourMinuteSecond:(NSString *)dateStr;
++ (NSString *)handleDateMonthDayHourMinute:(NSString *)dateStr;
 //比较时间大小
-- (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
++ (NSDateComponents *)differencewithDate:(NSString*)dateString withDate:(NSString*)anotherdateString;
 
 //生成BarItem
 + (UIBarButtonItem *)createBarItemWithTitle:(NSString *)name
