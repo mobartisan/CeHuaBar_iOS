@@ -35,7 +35,7 @@
     if (attachment) {
         if ([attachment.URL startAccessingSecurityScopedResource]) {
             self.bgImgV.image = [UIImage imageWithContentsOfFile:attachment.URL.path];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [attachment.URL stopAccessingSecurityScopedResource];
             });
         }
