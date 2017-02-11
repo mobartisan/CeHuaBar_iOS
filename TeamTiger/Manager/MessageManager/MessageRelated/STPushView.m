@@ -57,7 +57,7 @@
         self.sound = [aDecoder decodeObjectForKey:@"sound"];
         self.create_date = [aDecoder decodeObjectForKey:@"create_date"];
         self.last_edit_date = [aDecoder decodeObjectForKey:@"last_edit_date"];
-        self.is_read = [aDecoder decodeObjectForKey:@"is_read"];
+        self.is_read = [[aDecoder decodeObjectForKey:@"is_read"] boolValue];
         self.media_type = [[aDecoder decodeObjectForKey:@"media_type"] integerValue];
         self.message_type = [[aDecoder decodeObjectForKey:@"message_type"] integerValue];
     }
@@ -78,7 +78,7 @@
     self.sound = dict[@"sound"];
     self.create_date = dict[@"create_date"];
     self.last_edit_date = dict[@"last_edit_date"];
-    self.is_read = dict[@"is_read"];
+    self.is_read = [dict[@"is_read"] boolValue];
     self.media_type = [dict[@"media_type"] integerValue];
     self.message_type = [dict[@"message_type"] integerValue];
 }
