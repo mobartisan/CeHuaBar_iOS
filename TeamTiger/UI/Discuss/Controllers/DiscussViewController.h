@@ -7,7 +7,10 @@
 //
 
 #import "TTBaseViewController.h"
+#import "STPushView.h"
 
 @interface DiscussViewController : TTBaseViewController
+
+@property(nonatomic,strong) TT_Message *messageModel;
 
 @end

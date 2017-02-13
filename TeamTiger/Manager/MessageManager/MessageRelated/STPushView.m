@@ -9,7 +9,7 @@
 
 #import "STPushView.h"
 #import "AppDelegate.h"
-
+#import "NSDate+HYBHelperKit.h"
 @implementation TT_Message
 
 /**
@@ -88,8 +88,9 @@
 @interface STPushView()
 
 @property (nonatomic, weak) UIImageView *imageV;
-@property (nonatomic,weak ) UILabel *timLabel;
-@property (nonatomic,weak ) UILabel *content;
+@property (nonatomic,weak ) UILabel *timeLabel;
+@property (nonatomic,weak ) UILabel *contentLabel;
+@property (nonatomic,weak ) UILabel *titleLabel;
 
 @end
 
@@ -134,11 +135,11 @@ static STPushView *_instance = nil;
             make.height.mas_equalTo(30);
         }];
         
-        
+        //title
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.font = [UIFont boldSystemFontOfSize:12];
-        titleLabel.text = @"客户，您好！";
+//        titleLabel.text = @"客户，您好！";
         [self addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imageV.mas_right).offset(margin);
@@ -146,15 +147,17 @@ static STPushView *_instance = nil;
             make.height.mas_equalTo(16);
         }];
         [titleLabel sizeToFit];
+        self.titleLabel = titleLabel;
         
+        //time
         UILabel *timLabel = [[UILabel alloc] init];
         timLabel.font = [UIFont systemFontOfSize:12];
         timLabel.userInteractionEnabled = NO;
         timLabel.textColor = [UIColor whiteColor];
-        timLabel.text = @"刚刚";
+//        timLabel.text = @"刚刚";
         timLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:timLabel];
-        self.timLabel = timLabel;
+        self.timeLabel = timLabel;
         [timLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(titleLabel.mas_right).offset(margin);
             make.top.equalTo(self.mas_top).offset(margin);
@@ -162,21 +165,20 @@ static STPushView *_instance = nil;
             make.height.mas_equalTo(16);
         }];
         
-        
+        //content
         UILabel *content = [[UILabel alloc] init];
         content.numberOfLines = 2;
         content.font = [UIFont systemFontOfSize:13];
         content.textColor = [UIColor whiteColor];
         content.userInteractionEnabled = NO;
         [self addSubview:content];
-        self.content = content;
+        self.contentLabel = content;
         [content mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imageV.mas_right).offset(margin);
             make.top.equalTo(titleLabel.mas_bottom).offset(-3);
             make.right.equalTo(self.mas_right).offset(-margin);
             make.height.mas_equalTo(35);
         }];
-        
         
         UIView *toolbar = [[UIView alloc] init];
         toolbar.backgroundColor = ColorRGB(121, 101, 81);
@@ -196,8 +198,9 @@ static STPushView *_instance = nil;
 - (void)setMsgModel:(TT_Message *)msgModel
 {
     _msgModel = msgModel;
-    self.timLabel.text = @"刚刚";
-    self.content.text = msgModel.content;
+    self.timeLabel.text = [NSDate hyb_timeInfoWithDate:msgModel.create_date];
+    self.contentLabel.text = msgModel.content;
+    self.titleLabel.text = msgModel.title;
 }
 
 + (void)show
@@ -236,13 +239,9 @@ static STPushView *_instance = nil;
 + (void)hide
 {
     STPushView *pushView = [STPushView shareInstance];
-    
     [UIView animateWithDuration:0.25 animations:^{
-        
         pushView.frame = CGRectMake(0, -pushViewHeight, Screen_Width, pushViewHeight);
-        
     } completion:^(BOOL finished) {
-        
         [UIApplication sharedApplication].statusBarHidden = NO;
         pushView.hidden = YES;
     }];
