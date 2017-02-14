@@ -376,9 +376,17 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     //
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackgroundViewAction:)];
     [self.backgroundView addGestureRecognizer:tapGR];
+    
+    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panBackgroundViewAction:)];
+    [self.backgroundView addGestureRecognizer:panGR];
+
 }
 
 - (void)tapBackgroundViewAction:(id)sender {
+    [self hideAnimated:YES afterDelay:0.3];
+}
+
+- (void)panBackgroundViewAction:(id)sender {
     [self hideAnimated:YES afterDelay:0.3];
 }
 
