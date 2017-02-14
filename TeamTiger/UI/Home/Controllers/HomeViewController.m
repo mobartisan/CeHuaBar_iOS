@@ -355,8 +355,7 @@
 
 #pragma mark - 加载更多数据
 - (void)getMoreDataWithUrl:(NSString *)urlString {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
+    HTTPManager *manager = [HTTPManager manager];
     AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
     NSDictionary *headerFieldValueDictionary = @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
     if (headerFieldValueDictionary != nil) {

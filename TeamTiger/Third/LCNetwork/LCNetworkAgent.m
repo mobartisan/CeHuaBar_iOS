@@ -47,7 +47,7 @@
         _config = [LCNetworkConfig sharedInstance];
         _requestsRecord = [NSMutableDictionary dictionary];
         _manager.securityPolicy = _config.securityPolicy;
-        _manager = [AFHTTPSessionManager manager];
+        _manager = [HTTPManager manager];
         _manager.operationQueue.maxConcurrentOperationCount = 4;
     }
     return self;

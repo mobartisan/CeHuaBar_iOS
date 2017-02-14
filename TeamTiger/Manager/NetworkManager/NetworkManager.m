@@ -10,6 +10,20 @@
 #import "LCNetworkConfig.h"
 #import "LCProcessFilter.h"
 
+@implementation HTTPManager
+
+static HTTPManager *networkManager = nil;
+
++ (instancetype)manager {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        networkManager = (HTTPManager *)[AFHTTPSessionManager manager];
+    });
+    return networkManager;
+}
+
+@end
+
 static double const timeOutInterval = 15.0;
 
 @implementation NetworkManager : NSObject

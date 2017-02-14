@@ -81,7 +81,7 @@
 
 #pragma -mark 跳转微信回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    HTTPManager *manager = [HTTPManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", @"text/plain", nil];
     NSString *accessUrlStr = [NSString stringWithFormat:@"%@/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code", WX_BASE_URL, WXDoctor_App_ID, WXDoctor_App_Secret, response.code];
     [manager GET:accessUrlStr parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

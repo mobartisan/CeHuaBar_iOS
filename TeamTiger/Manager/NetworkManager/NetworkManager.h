@@ -11,6 +11,13 @@
 #import "LCRequestAccessory.h"
 #import "UploadManager.h"
 
+
+@interface HTTPManager : AFHTTPSessionManager
+
++ (instancetype)manager;
+
+@end
+
 @interface NetworkManager : NSObject
 
 + (void)configerNetworking;
