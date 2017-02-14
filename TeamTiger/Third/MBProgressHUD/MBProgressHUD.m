@@ -372,6 +372,14 @@ static const CGFloat MBDefaultDetailsLabelFontSize = 12.f;
     bottomSpacer.hidden = YES;
     [bezelView addSubview:bottomSpacer];
     _bottomSpacer = bottomSpacer;
+    
+    //
+    UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBackgroundViewAction:)];
+    [self.backgroundView addGestureRecognizer:tapGR];
+}
+
+- (void)tapBackgroundViewAction:(id)sender {
+    [self hideAnimated:YES afterDelay:0.3];
 }
 
 - (void)updateIndicators {

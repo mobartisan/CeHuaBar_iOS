@@ -78,6 +78,7 @@
     }
 }
 
+
 #pragma -mark 跳转微信回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -179,6 +180,5 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
 }
-
 
 @end
