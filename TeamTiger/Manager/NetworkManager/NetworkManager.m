@@ -43,12 +43,6 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
-    //1.return NO; 不需要缓存
-    
-    //2.return such as 需要缓存并设定时长
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
     return NO;
 }
 
@@ -71,6 +65,10 @@ static double const timeOutInterval = 15.0;
 
 - (BOOL)ignoreUnifiedResponseProcess {
     return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
 }
 
 
@@ -102,12 +100,6 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
-    //1.return NO; 不需要缓存
-    
-    //2.return such as 需要缓存并设定时长
-    if (self.cacheInvalidTime > 0)  {
-        return YES;
-    }
     return NO;
 }
 
@@ -220,6 +212,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -249,6 +247,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -371,6 +375,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -402,6 +412,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -431,6 +447,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -693,6 +715,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -838,6 +866,12 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
     return NO;
 }
 
@@ -896,10 +930,14 @@ static double const timeOutInterval = 15.0;
 }
 
 - (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
     if (self.cacheInvalidTime > 0)  {
         return YES;
     }
     return NO;
+
 }
 
 - (NSDictionary *)requestHeaderValue {
