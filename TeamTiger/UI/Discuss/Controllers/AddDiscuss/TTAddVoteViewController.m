@@ -396,7 +396,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSString *name = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"]);
         OptionType optionType = [CirclesManager sharedInstance].optionType;
         NSDictionary *dic = @{@"votes":votesStr,
-                              @"vote_type":[NSString stringWithFormat:@"%ld", optionType],//0--单选  1--多选
+                              @"vote_type":[NSString stringWithFormat:@"%tu", optionType],//0--单选  1--多选
                               @"pid":pid,
                               @"vote_title":_text,
                               @"type":@2 //1为普通的moment  2为投票类型
