@@ -14,7 +14,6 @@
 @interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *dataSource;
 @property (nonatomic,strong) UIButton *rightBtn;
 
 @end
@@ -24,17 +23,6 @@
 - (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
-//        NSArray *tempArr = @[
-//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"俞弦", @"content":@"Type Something...", @"update_date":@"2017-02-15 11:29:27", @"img_url":@"img_cover"},
-//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"焦兰兰", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:10:27", @"img_url":@"img_cover"},
-//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"焦兰兰", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:20:27", @"img_url":@"img_cover"},
-//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"卞克", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:30:00", @"img_url":@""}
-//                             ];
-//        for (NSDictionary *dic in tempArr) {
-//            DiscussListModel *model = [[DiscussListModel alloc] init];
-//            [model setValuesForKeysWithDictionary:dic];
-//            [_dataSource addObject:model];
-//        }
     }
     return _dataSource;
 }
@@ -42,7 +30,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
-    [self getMessageList];
+    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
+        NSNotification *notification = (NSNotification *)sender;
+#warning to do handle new a message 1
+        if (notification.object) {
+            [self getMessageList];
+        }
+    }];
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
@@ -83,6 +77,7 @@
     MessageListApi *api = [[MessageListApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MessageListApi:%@", request.responseJSONObject);
+        [self.dataSource removeAllObjects];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                 DiscussListModel *model = [[DiscussListModel alloc] init];
@@ -92,6 +87,7 @@
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
+        [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         [super showText:NETWORKERROR afterSeconds:1.0];
         NSLog(@"MessageListApi:%@", error);

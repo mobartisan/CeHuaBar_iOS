@@ -55,10 +55,15 @@ typedef NS_ENUM(int, HomeModelCellType) {
 //cell类型
 @property (assign, nonatomic) HomeModelCellType cellType;
 
+
+
+
 //总高度
 @property (nonatomic, assign) CGFloat totalHeight;
 //部分高度
 @property (nonatomic, assign) CGFloat partHeight;
+
+
 
 + (instancetype)modelWithDic:(NSDictionary *)dic;
 

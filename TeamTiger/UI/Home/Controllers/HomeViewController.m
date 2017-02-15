@@ -34,15 +34,17 @@
 #import "NSString+Utils.h"
 #import "NSNotificationCenter+Block.h"
 #import "STPushView.h"
+#import "DiscussListModel.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
+@property (nonatomic,strong) NSMutableArray *unReadMessageArr;//未读消息
 @property (strong, nonatomic) UIView *sectionHeader;//分区页眉
 @property (strong, nonatomic) UIView *tableHeader;//tableView 页眉
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时对应cell的indexPath
-
+@property (nonatomic,strong) UILabel *countLB;//未读消息个数label
 @property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *textLB;
@@ -59,6 +61,13 @@
 @end
 
 @implementation HomeViewController
+
+- (NSMutableArray *)unReadMessageArr {
+    if (_unReadMessageArr == nil) {
+        _unReadMessageArr = [NSMutableArray array];
+    }
+    return _unReadMessageArr;
+}
 
 #pragma mark - 分区页眉
 - (UIView *)sectionHeader {
@@ -140,6 +149,7 @@
         countLB.layer.cornerRadius = 10;
         countLB.layer.masksToBounds = YES;
         [_tableHeader addSubview:countLB];
+        self.countLB = countLB;
         
         
         UIButton *bellBtn = [UIButton new];
@@ -178,6 +188,7 @@
 
 - (void)handleBellBtnAction {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
+    [discussVC.dataSource setArray:self.unReadMessageArr];
     [self.navigationController pushViewController:discussVC animated:YES];
 }
 
@@ -267,6 +278,7 @@
                 if (message.message_type == 3) {
                     //如果有消息，且消息类型符合首页展示条件，则显示消息UI
                     self.tableView.tableHeaderView = self.tableHeader;
+                    [self getMessageList];
                 }
             }
         }
@@ -287,6 +299,13 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataSource = [NSMutableArray array];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            
+            //未读消息个数
+            if ([request.responseJSONObject[@"newscount"] intValue] > 0) {
+                self.tableView.tableHeaderView = self.tableHeader;
+                self.countLB.text = request.responseJSONObject[@"newscount"];
+            }
+            
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 if (![Common isEmptyArr:objDic[@"list"]]) {
@@ -335,6 +354,26 @@
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+    }];
+}
+
+#pragma mark 未读消息个数
+- (void)getMessageList {
+    MessageListApi *api = [[MessageListApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"MessageListApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
+                DiscussListModel *model = [[DiscussListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.unReadMessageArr addObject:model];
+            }
+            //未读消息个数
+            self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
+            
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"MessageListApi:%@", error);
     }];
 }
 

@@ -10,22 +10,28 @@
 
 @implementation DiscussListModel
 
-- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    if ([key isEqualToString:@"medias"]) {
-        if (![Common isEmptyArr:value]) {
-            self.img_url = [value firstObject][@"url"];
-        }
-    }
-}
 
-
-- (void)setUpdate_date:(NSString *)update_date {
-    NSString *update_dateStr = [Common handleDateMonthDayHourMinuteSecond:update_date];
+- (void)setUpdate_at:(NSString *)update_at {
+    NSString *update_dateStr = [Common handleDateMonthDayHourMinuteSecond:[self timeWithTimeIntervalString:update_at]];
     NSString *currentStr = [Common getCurrentSystemMonthDayHourMinuteSecond];
     NSLog(@"%@--%@", update_dateStr, currentStr);
-    _update_date = [self compareStartTime:update_dateStr endTime:currentStr];
+    _update_at = [self compareStartTime:update_dateStr endTime:currentStr];
 }
 
+
+- (NSString *)timeWithTimeIntervalString:(NSString *)timeString{
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    // 毫秒值转化为秒
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+    NSString* dateString = [formatter stringFromDate:date];
+    return dateString;
+}
 
 - (NSString *)compareStartTime:(NSString *)startTime endTime:(NSString *)endTime {
     NSDateFormatter *dateFomatter = [[NSDateFormatter alloc] init];

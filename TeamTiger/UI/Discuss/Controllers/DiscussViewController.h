@@ -12,5 +12,7 @@
 @interface DiscussViewController : TTBaseViewController
 
 @property(nonatomic,strong) TT_Message *messageModel;
+@property (strong, nonatomic) NSMutableArray *dataSource;
+
 
 @end

@@ -39,6 +39,7 @@
     [super awakeFromNib];
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    setViewCorner(self.iconImage, 25);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -48,11 +49,13 @@
 }
 
 - (void)configureCellWithModel:(DiscussListModel *)model withHideLineView:(BOOL)hiden {
-    self.iconImage.image = kImage(model.head_img_url);
+    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.head_img_url] placeholderImage:kImage(@"img_user")];
     self.nameLB.text = model.name;
     self.desLB.text = model.content;
-    self.timeLB.text = model.update_date;
-    self.image.image = kImage(model.img_url);
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.update_at.longLongValue];
+    self.timeLB.text = [NSDate hyb_timeInfoWithDate:date];
+    NSLog(@"%@---%@", model.update_at, [NSDate hyb_timeInfoWithDate:date]);
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.media] placeholderImage:kImage(@"img_corver")];
     self.lineView.hidden = hiden;
 }
 

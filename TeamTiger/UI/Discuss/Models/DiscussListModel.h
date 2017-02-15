@@ -17,10 +17,13 @@
 //姓名
 @property (copy, nonatomic) NSString *name;
 //moment创建时间
-@property (copy, nonatomic) NSString *update_date;
+@property (copy, nonatomic) NSString *update_at;
 //图片url
-@property (copy, nonatomic) NSString *img_url;
+@property (copy, nonatomic) NSString *media;
 //moment内容
 @property (copy, nonatomic) NSString *content;
+//未读消息个数
+@property (nonatomic,copy) NSString *newscount;
+
 
 @end

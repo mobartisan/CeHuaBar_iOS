@@ -33,7 +33,6 @@
     [super viewDidLoad];
     [self configureNavigationItem];
     [self getMomentDetail];
-    self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
 }
@@ -46,7 +45,7 @@
         NSLog(@"MomentDetailApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic = request.responseJSONObject[OBJ];
-            if (!kIsDictionary(objDic)) {
+            if (kIsDictionary(objDic)) {
                 HomeModel *homeModel = [HomeModel modelWithDic:objDic];
                 [self.dataSource addObject:homeModel];
             }
@@ -74,11 +73,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = self.dataSource[indexPath.row];
+    model.open = YES;
     // 定义唯一标识
     UITableViewCell *cell = nil;
     if (model.cellType == 1) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
-        ((HomeCell *)cell).commentBtn.indexPath = indexPath;
+        ((HomeCell *)cell).commentBtn.userInteractionEnabled = NO;
         ((HomeCell *)cell).homeModel = model;
     } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
