@@ -23,7 +23,7 @@
     
     self.bestAttemptContent.categoryIdentifier = @"category1";
     // 附件
-    NSDictionary *dict =  self.bestAttemptContent.userInfo;
+    NSDictionary *dict = self.bestAttemptContent.userInfo;
     NSString *imgUrl = [NSString stringWithFormat:@"%@",dict[@"aps"][@"alert"][@"url"]];
     if (imgUrl == nil) {
         self.contentHandler(self.bestAttemptContent);
