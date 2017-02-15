@@ -272,6 +272,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
     //处理通知
+    
     [self handleNotificationWithBlock:^(id notification) {
         if (notification) {
             if ([notification isKindOfClass:[TT_Message class]]) {

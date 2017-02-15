@@ -31,13 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
-    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
-        NSNotification *notification = (NSNotification *)sender;
-#warning to do handle new a message 1
-        if (notification.object) {
-            [self getMessageList];
-        }
-    }];
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
@@ -50,8 +43,8 @@
                 if (message.message_type == 3) {
                     //项目变更
                     //如果有消息，且消息类型符合页面展示条件，则显示消息UI
-                    //1.发请求
-                    //2.刷新UI
+                    [self getMessageList];
+                    
                 }
             }
         }
