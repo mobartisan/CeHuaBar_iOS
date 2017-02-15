@@ -471,7 +471,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
          ];
         
         //TABLE_TT_Message
-        [self checkTable:database tableName:TABLE_TT_Message allFields:@[@"record_id", @"title", @"sub_title", @"url", @"url_type", @"badge", @"sound", @"content", @"create_date", @"last_edit_date", @"is_read", @"media_type", @"message_type"].mutableCopy allFieldTypes:@[@"varchar", @"varchar", @"varchar", @"varchar", @"integer", @"integer", @"varchar", @"varchar", @"timestamp", @"timestamp", @"boolean", @"integer", @"integer"].mutableCopy primaryKeys:nil isFieldTypeChanged:NO];
+        [self checkTable:database tableName:TABLE_TT_Message allFields:@[@"record_id", @"title", @"sub_title", @"url", @"url_type", @"badge", @"sound", @"content", @"create_date", @"last_edit_date", @"is_read", @"media_type", @"message_type"].mutableCopy allFieldTypes:@[@"varchar", @"varchar", @"varchar", @"varchar", @"integer", @"integer", @"varchar", @"varchar", @"varchar", @"varchar", @"boolean", @"integer", @"integer"].mutableCopy primaryKeys:nil isFieldTypeChanged:NO];
         
         //add preparePredefineDatas
         [self preparePredefineDatas:database

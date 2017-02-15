@@ -58,9 +58,9 @@
 /***推送内容**/
 @property (copy, nonatomic) NSString *content;
 /***创建日期**/
-@property (strong, nonatomic) NSDate *create_date;
+@property (copy, nonatomic) NSString *create_date;
 /***最后一次修改日期**/
-@property (strong, nonatomic) NSDate *last_edit_date;
+@property (copy, nonatomic) NSString *last_edit_date;
 /***是否已读**/
 @property (assign, nonatomic) BOOL is_read;
 /***媒体类型**/
