@@ -274,6 +274,7 @@
 		1D8713111DE6DC0900C17D01 /* loginBG55@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D87130E1DE6DC0900C17D01 /* loginBG55@3x.png */; };
 		1D8713131DE6DFB600C17D01 /* loginBG35@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D8713121DE6DFB600C17D01 /* loginBG35@2x.png */; };
 		1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8C334D1D5AC37B00AA4E1A /* MockDatas.m */; };
+		1D9022471E54540100CEFC3C /* TTBaseViewController+NotificationHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9022461E54540100CEFC3C /* TTBaseViewController+NotificationHandle.m */; };
 		1D9408651D41BA47009E2E11 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9408641D41BA47009E2E11 /* NetworkManager.m */; };
 		1D9408691D41BE2D009E2E11 /* MessageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D9408681D41BE2D009E2E11 /* MessageManager.m */; };
 		1D943C9F1E4D6F260059003E /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D943C9E1E4D6F260059003E /* NotificationService.m */; };
@@ -1062,6 +1063,8 @@
 		1D8713121DE6DFB600C17D01 /* loginBG35@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginBG35@2x.png"; sourceTree = "<group>"; };
 		1D8C334C1D5AC37B00AA4E1A /* MockDatas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDatas.h; sourceTree = "<group>"; };
 		1D8C334D1D5AC37B00AA4E1A /* MockDatas.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDatas.m; sourceTree = "<group>"; };
+		1D9022451E54540100CEFC3C /* TTBaseViewController+NotificationHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TTBaseViewController+NotificationHandle.h"; sourceTree = "<group>"; };
+		1D9022461E54540100CEFC3C /* TTBaseViewController+NotificationHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TTBaseViewController+NotificationHandle.m"; sourceTree = "<group>"; };
 		1D9408631D41BA47009E2E11 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		1D9408641D41BA47009E2E11 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		1D9408671D41BE2D009E2E11 /* MessageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageManager.h; sourceTree = "<group>"; };
@@ -2593,6 +2596,8 @@
 				1D6EC6B71E49ECF9007A70DF /* STPushView.m */,
 				1D6EC6B91E49EFE5007A70DF /* AppDelegate+PushView.h */,
 				1D6EC6BA1E49EFE5007A70DF /* AppDelegate+PushView.m */,
+				1D9022451E54540100CEFC3C /* TTBaseViewController+NotificationHandle.h */,
+				1D9022461E54540100CEFC3C /* TTBaseViewController+NotificationHandle.m */,
 			);
 			path = MessageRelated;
 			sourceTree = "<group>";
@@ -4017,6 +4022,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D9022471E54540100CEFC3C /* TTBaseViewController+NotificationHandle.m in Sources */,
 				1D115F8C1D4BA043003DFBB1 /* IQKeyboardManager.m in Sources */,
 				1D09CC641D3F29C900F85E9A /* NSObject+YYAddForARC.m in Sources */,
 				1D09CC6D1D3F29C900F85E9A /* UIBezierPath+YYAdd.m in Sources */,

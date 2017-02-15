@@ -10,6 +10,7 @@
 #import "DiscussListModel.h"
 #import "DiscussListCell.h"
 #import "DiscussListDetailViewController.h"
+#import "TTBaseViewController+NotificationHandle.h"
 
 @interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -46,6 +47,26 @@
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
+    
+    //处理通知
+    [self handleNotificationWithBlock:^(id notification) {
+        if (notification) {
+            if ([notification isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification;
+                if (message.message_type == 3) {
+                    //项目变更
+                    //如果有消息，且消息类型符合页面展示条件，则显示消息UI
+                    //1.发请求
+                    //2.刷新UI
+                }
+            }
+        }
+    }];
+}
+
+- (void)dealloc {
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil];
 }
 
 - (void)configureNavigationItem {
