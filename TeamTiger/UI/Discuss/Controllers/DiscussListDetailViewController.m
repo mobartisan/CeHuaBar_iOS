@@ -44,13 +44,23 @@
     api.requestArgument = @{@"mid":self.mid};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MomentDetailApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSDictionary *objDic = request.responseJSONObject[OBJ];
+            if (!kIsDictionary(objDic)) {
+                HomeModel *homeModel = [HomeModel modelWithDic:objDic];
+                [self.dataSource addObject:homeModel];
+            }
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+        [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"MomentDetailApi:%@", error);
+        [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
 
 - (void)configureNavigationItem {
-    self.navigationItem.title = @"项目标题";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [wself.navigationController popViewControllerAnimated:YES];
