@@ -27,7 +27,6 @@
     [topView addGestureRecognizer:tap];
     [tap requireGestureRecognizerToFail:pan];
     topView.gestureRecognizers = @[tap,pan];
-    
 }
 
 #pragma mark addPushView相关事件
@@ -40,7 +39,6 @@
     }completion:^(BOOL finished) {
         [UIApplication sharedApplication].statusBarHidden = NO;
         [self hudClickOperation];
-        
     }];
 }
 
@@ -73,17 +71,29 @@
 
 //MARK:- 跳转消息页面
 - (void)push:(NSDictionary *)params{
-    MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
-    if (drawContoller.openSide != MMDrawerSideNone) {
-        [drawContoller closeDrawerAnimated:NO completion:nil];
+    if(self.topView.msgModel.message_type == 3) {
+        //moment变更
+        MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
+        if (drawContoller.openSide != MMDrawerSideNone) {
+            [drawContoller closeDrawerAnimated:NO completion:nil];
+        }
+        TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawContoller.centerViewController;
+        [mainNav popToRootViewControllerAnimated:NO];
+        DiscussViewController *discussVC = [[DiscussViewController alloc] init];
+        if (self.topView.msgModel) {
+            discussVC.messageModel = self.topView.msgModel;
+        }
+        [mainNav pushViewController:discussVC animated:YES];
+    } else if (self.topView.msgModel.message_type == 1) {
+        //项目变更
+        MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
+        if (drawContoller.openSide == MMDrawerSideLeft) {
+            TTBaseNavigationController *leftNav = (TTBaseNavigationController *)drawContoller.leftDrawerViewController;
+            [leftNav popToRootViewControllerAnimated:YES];
+        } else if (drawContoller.openSide == MMDrawerSideNone) {
+            [drawContoller openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+        }
     }
-    TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawContoller.centerViewController;
-    [mainNav popToRootViewControllerAnimated:NO];
-    DiscussViewController *discussVC = [[DiscussViewController alloc] init];
-    if (self.topView.msgModel) {
-        discussVC.messageModel = self.topView.msgModel;
-    }
-    [mainNav pushViewController:discussVC animated:YES];
 }
 
 @end

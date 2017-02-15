@@ -139,7 +139,6 @@ static STPushView *_instance = nil;
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.font = [UIFont boldSystemFontOfSize:12];
-//        titleLabel.text = @"客户，您好！";
         [self addSubview:titleLabel];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(imageV.mas_right).offset(margin);
@@ -154,14 +153,13 @@ static STPushView *_instance = nil;
         timLabel.font = [UIFont systemFontOfSize:12];
         timLabel.userInteractionEnabled = NO;
         timLabel.textColor = [UIColor whiteColor];
-//        timLabel.text = @"刚刚";
         timLabel.textColor = [UIColor lightGrayColor];
         [self addSubview:timLabel];
         self.timeLabel = timLabel;
         [timLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(titleLabel.mas_right).offset(margin);
             make.top.equalTo(self.mas_top).offset(margin);
-            make.width.mas_lessThanOrEqualTo(40);
+            make.width.mas_lessThanOrEqualTo(60);
             make.height.mas_equalTo(16);
         }];
         

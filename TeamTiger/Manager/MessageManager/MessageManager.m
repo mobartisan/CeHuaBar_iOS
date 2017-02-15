@@ -261,7 +261,7 @@ static MessageManager *singleton = nil;
             //show message
             if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                msgModel.content = @"您有一条新消息！";
+                msgModel.content = msgModel.content;
                 appDelegate.topView.msgModel = msgModel;
                 [appDelegate displayPushView];
             }
