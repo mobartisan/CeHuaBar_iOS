@@ -11,16 +11,20 @@
 @implementation DiscussListModel
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-    
+    if ([key isEqualToString:@"medias"]) {
+        if (![Common isEmptyArr:value]) {
+            self.img_url = [value firstObject][@"url"];
+        }
+    }
 }
 
-- (void)setTime:(NSString *)time {
-    NSString *valueStr = [Common handleDateMonthDayHourMinuteSecond:time];
+
+- (void)setUpdate_date:(NSString *)update_date {
+    NSString *update_dateStr = [Common handleDateMonthDayHourMinuteSecond:update_date];
     NSString *currentStr = [Common getCurrentSystemMonthDayHourMinuteSecond];
-    NSLog(@"%@--%@", valueStr, currentStr);
-    _time = [self compareStartTime:valueStr endTime:currentStr];
+    NSLog(@"%@--%@", update_dateStr, currentStr);
+    _update_date = [self compareStartTime:update_dateStr endTime:currentStr];
 }
-
 
 
 - (NSString *)compareStartTime:(NSString *)startTime endTime:(NSString *)endTime {

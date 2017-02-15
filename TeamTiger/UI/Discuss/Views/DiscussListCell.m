@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLB;
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UIView *lineView;
-@property (weak, nonatomic) IBOutlet UILabel *des2LB;
 
 @end
 
@@ -27,7 +26,7 @@
     static NSString *cellID = @"DiscussListCell";
     DiscussListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
-        if (![Common isEmptyString:model.imageName]) {
+        if (![Common isEmptyString:model.head_img_url]) {
             cell = LoadFromNib(@"DiscussListCell");
         } else {
             cell = LoadFromNib(@"DiscussListCell1");
@@ -49,12 +48,11 @@
 }
 
 - (void)configureCellWithModel:(DiscussListModel *)model withHideLineView:(BOOL)hiden {
-    self.iconImage.image = kImage(model.iconName);
+    self.iconImage.image = kImage(model.head_img_url);
     self.nameLB.text = model.name;
-    self.desLB.text = model.des;
-    self.timeLB.text = model.time;
-    self.des2LB.text = model.des2;
-    self.image.image = kImage(model.imageName);
+    self.desLB.text = model.content;
+    self.timeLB.text = model.update_date;
+    self.image.image = kImage(model.img_url);
     self.lineView.hidden = hiden;
 }
 

@@ -10,6 +10,6 @@
 
 @interface DiscussListDetailViewController : TTBaseViewController
 
-@property (nonatomic,copy) NSString *_id;
+@property (nonatomic,copy) NSString *mid;
 
 @end

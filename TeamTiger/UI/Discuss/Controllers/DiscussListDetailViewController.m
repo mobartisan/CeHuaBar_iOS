@@ -32,15 +32,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
+    [self getMomentDetail];
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
-    [self getMomentDetail];
 }
 
-//FIXME: - 根据vid得到具体的moment
+//FIXME: - 根据mid得到具体的moment
 - (void)getMomentDetail {
-    
+    MomentDetailApi *api = [[MomentDetailApi alloc] init];
+    api.requestArgument = @{@"mid":self.mid};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"MomentDetailApi:%@", request.responseJSONObject);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"MomentDetailApi:%@", error);
+    }];
 }
 
 - (void)configureNavigationItem {

@@ -10,13 +10,17 @@
 
 @interface DiscussListModel : NSObject
 
-@property (nonatomic,copy) NSString *_id;
-@property (copy, nonatomic) NSString *iconName;
+//moment id
+@property (nonatomic,copy) NSString *mid;
+//头像url
+@property (copy, nonatomic) NSString *head_img_url;
+//姓名
 @property (copy, nonatomic) NSString *name;
-@property (copy, nonatomic) NSString *des;
-@property (copy, nonatomic) NSString *time;
-@property (copy, nonatomic) NSString *imageName;
-@property (copy, nonatomic) NSString *des2;
-
+//moment创建时间
+@property (copy, nonatomic) NSString *update_date;
+//图片url
+@property (copy, nonatomic) NSString *img_url;
+//moment内容
+@property (copy, nonatomic) NSString *content;
 
 @end

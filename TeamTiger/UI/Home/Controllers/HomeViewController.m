@@ -639,6 +639,7 @@
     return [UIScreen mainScreen].scale;
 }
 
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     [self.view endEditing:YES];

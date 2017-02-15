@@ -208,7 +208,6 @@
 - (void)setHomeModel:(HomeModel *)homeModel {
     
     _homeModel = homeModel;
-    
     [self.tableView reloadData];
     
     [self.iconImV sd_setImageWithURL:[NSURL URLWithString:homeModel.iconImV] placeholderImage:[UIImage imageNamed:@"common-headDefault"] options:SDWebImageRetryFailed | SDWebImageLowPriority];

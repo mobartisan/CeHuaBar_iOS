@@ -36,7 +36,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="俞弦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etO-6l-uKI">
-                        <rect key="frame" x="73" y="8" width="162" height="20"/>
+                        <rect key="frame" x="73" y="8" width="138.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="OjF-OU-Hk8"/>
                         </constraints>
@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一分钟之前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNq-7i-a6p">
-                        <rect key="frame" x="73" y="52" width="162" height="20"/>
+                        <rect key="frame" x="73" y="52" width="138.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="n0X-X1-U5l"/>
                         </constraints>
@@ -61,22 +61,12 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type Something..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygc-3Q-dvu">
-                        <rect key="frame" x="73" y="30" width="162" height="20"/>
+                        <rect key="frame" x="73" y="30" width="138.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="E5O-Jq-2Ni"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUv-yc-L3v">
-                        <rect key="frame" x="245" y="8" width="65" height="65"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="65" id="F5d-RL-dAA"/>
-                            <constraint firstAttribute="width" constant="65" id="t0W-Qh-jtJ"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -88,20 +78,16 @@
                     <constraint firstAttribute="bottom" secondItem="T5m-8v-01h" secondAttribute="bottom" constant="1" id="Ea3-bo-Yyc"/>
                     <constraint firstItem="CNq-7i-a6p" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="FC8-d3-OKq"/>
                     <constraint firstItem="pFy-1k-sy2" firstAttribute="leading" secondItem="b0r-n9-vN4" secondAttribute="leading" constant="15" id="NkC-pm-Oag"/>
-                    <constraint firstAttribute="trailing" secondItem="bUv-yc-L3v" secondAttribute="trailing" constant="10" id="VB5-QA-k06"/>
-                    <constraint firstItem="bUv-yc-L3v" firstAttribute="centerY" secondItem="b0r-n9-vN4" secondAttribute="centerY" id="VyY-us-MJD"/>
                     <constraint firstItem="etO-6l-uKI" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="WbT-7w-4KK"/>
                     <constraint firstItem="ygc-3Q-dvu" firstAttribute="trailing" secondItem="etO-6l-uKI" secondAttribute="trailing" id="YVO-bP-Vaq"/>
                     <constraint firstItem="ygc-3Q-dvu" firstAttribute="top" secondItem="etO-6l-uKI" secondAttribute="bottom" constant="2" id="bkP-Fg-DfX"/>
                     <constraint firstItem="pFy-1k-sy2" firstAttribute="centerY" secondItem="b0r-n9-vN4" secondAttribute="centerY" id="m3o-X2-83z"/>
                     <constraint firstItem="T5m-8v-01h" firstAttribute="leading" secondItem="b0r-n9-vN4" secondAttribute="leading" id="oOW-Kj-A5C"/>
                     <constraint firstItem="ygc-3Q-dvu" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="wRz-cU-2sU"/>
-                    <constraint firstItem="bUv-yc-L3v" firstAttribute="leading" secondItem="etO-6l-uKI" secondAttribute="trailing" constant="10" id="z03-35-XqS"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.10980392160000001" green="0.1450980392" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
-                <outlet property="des2LB" destination="bUv-yc-L3v" id="MZT-6r-eVx"/>
                 <outlet property="desLB" destination="ygc-3Q-dvu" id="MtR-5s-HdD"/>
                 <outlet property="iconImage" destination="pFy-1k-sy2" id="19l-BN-jQb"/>
                 <outlet property="lineView" destination="T5m-8v-01h" id="Wbf-yy-5g7"/>

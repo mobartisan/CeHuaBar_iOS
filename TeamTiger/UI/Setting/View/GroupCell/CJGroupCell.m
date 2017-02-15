@@ -33,6 +33,9 @@
     self.groupNameTF.enablesReturnKeyAutomatically = YES;
     
 }
+
+
+
 - (void)textLengthChange:(UITextField *)textField {
     if (self.actionBlcok) {
         self.actionBlcok(CJGroupCellClickTypeText,textField.text);

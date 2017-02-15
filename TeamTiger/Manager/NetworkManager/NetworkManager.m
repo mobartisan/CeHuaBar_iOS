@@ -960,6 +960,77 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 获取Moment详情
+@implementation MomentDetailApi
+
+- (NSString *)apiMethodName {
+    return @"moment/detail.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+    
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+//MARK: - 获取未读消息列表
+@implementation MessageListApi
+
+- (NSString *)apiMethodName {
+    return @"moment/message/list.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    //1.return NO; 不需要缓存
+    
+    //2.return such as 需要缓存并设定时长
+    if (self.cacheInvalidTime > 0)  {
+        return YES;
+    }
+    return NO;
+    
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
 //MARK: - 添加discuss
 @implementation DiscussCreateApi
 

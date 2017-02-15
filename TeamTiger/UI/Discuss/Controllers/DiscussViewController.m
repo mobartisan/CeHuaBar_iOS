@@ -24,18 +24,17 @@
 - (NSMutableArray *)dataSource {
     if (_dataSource == nil) {
         _dataSource = [NSMutableArray array];
-        
-        NSArray *tempArr = @[
-                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"俞弦", @"des":@"Type Something...", @"time":@"2017-02-10 10:29:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
-                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"焦兰兰", @"des":@"Type Something...", @"time":@"2017-02-10 10:10:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
-                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"焦兰兰", @"des":@"Type Something...", @"time":@"2017-02-10 10:20:27", @"imageName":@"img_cover", @"des2":@"Type Something..."},
-                             @{@"_id":@"5887667996ebce26481ad762",@"iconName":@"img_user", @"name":@"卞克", @"des":@"Type Something...", @"time":@"2017-02-10 10:30:00", @"imageName":@"", @"des2":@"事件2Type Something..."}
-                             ];
-        for (NSDictionary *dic in tempArr) {
-            DiscussListModel *model = [[DiscussListModel alloc] init];
-            [model setValuesForKeysWithDictionary:dic];
-            [_dataSource addObject:model];
-        }
+//        NSArray *tempArr = @[
+//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"俞弦", @"content":@"Type Something...", @"update_date":@"2017-02-15 11:29:27", @"img_url":@"img_cover"},
+//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"焦兰兰", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:10:27", @"img_url":@"img_cover"},
+//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"焦兰兰", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:20:27", @"img_url":@"img_cover"},
+//                             @{@"mid":@"5887667996ebce26481ad762",@"head_img_url":@"img_user", @"name":@"卞克", @"content":@"Type Something...", @"update_date":@"2017-02-15 10:30:00", @"img_url":@""}
+//                             ];
+//        for (NSDictionary *dic in tempArr) {
+//            DiscussListModel *model = [[DiscussListModel alloc] init];
+//            [model setValuesForKeysWithDictionary:dic];
+//            [_dataSource addObject:model];
+//        }
     }
     return _dataSource;
 }
@@ -43,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
+    [self getMessageList];
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
@@ -78,6 +78,26 @@
     
 }
 
+//FIXME: - 未完
+- (void)getMessageList {
+    MessageListApi *api = [[MessageListApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"MessageListApi:%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
+                DiscussListModel *model = [[DiscussListModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.dataSource addObject:model];
+            }
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [super showText:NETWORKERROR afterSeconds:1.0];
+        NSLog(@"MessageListApi:%@", error);
+    }];
+}
+
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;
@@ -99,7 +119,7 @@
         cell.backgroundColor = kRGB(28, 37, 51);
     }];
     DiscussListDetailViewController *discussListDetailVC = [[DiscussListDetailViewController alloc] init];
-    discussListDetailVC._id = model._id;
+    discussListDetailVC.mid = model.mid;
     [self.navigationController pushViewController:discussListDetailVC animated:YES];
 }
 

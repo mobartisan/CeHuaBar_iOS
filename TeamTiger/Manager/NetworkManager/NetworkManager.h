@@ -180,6 +180,16 @@
 
 @end
 
+//MARK: - 获取moment详情
+@interface MomentDetailApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 获取未读消息列表
+@interface MessageListApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 //MARK: - 添加discuss
 @interface DiscussCreateApi : LCBaseRequest<LCAPIRequest>
 
