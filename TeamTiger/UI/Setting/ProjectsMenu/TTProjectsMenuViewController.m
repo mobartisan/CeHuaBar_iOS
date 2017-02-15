@@ -25,6 +25,7 @@
 #import "NSString+YYAdd.h"
 #import "ProjectItemView.h"
 #import "STPushView.h"
+#import "TTBaseViewController+NotificationHandle.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -138,17 +139,15 @@
     edgePan.edges = UIRectEdgeRight;
     [self.menuTable addGestureRecognizer:edgePan];
     
-    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
-        NSNotification *notification = (NSNotification *)sender;
-#warning to do handle new a message 2
-        if (notification.object) {
-            if ([notification.object isKindOfClass:[TT_Message class]]) {
-                TT_Message *message = (TT_Message *)notification.object;
+    //处理通知
+    [self handleNotificationWithBlock:^(id notification) {
+        if (notification) {
+            if ([notification isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 1) {
-                    //项目变更
-                    //如果有消息，且消息类型符合页面展示条件，则显示消息UI
                     //1.发请求
                     //2.刷新UI
+                    [self getAllGroupsAndProjectsData];
                 }
             }
         }

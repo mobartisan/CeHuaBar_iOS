@@ -241,7 +241,7 @@ static MessageManager *singleton = nil;
     }
     //
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
-    NSLog(@"%@",dict);
+    NSLog(@"Message Transformat Dict: %@",dict);
     
     //1.转成message model
     TT_Message *msgModel = [[TT_Message alloc] init];

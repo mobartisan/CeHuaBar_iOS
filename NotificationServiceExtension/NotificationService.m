@@ -23,9 +23,9 @@
     
     self.bestAttemptContent.categoryIdentifier = @"category1";
     // 附件
-    NSDictionary *dict =  self.bestAttemptContent.userInfo;
-    NSString *imgUrl = [NSString stringWithFormat:@"%@",dict[@"aps"][@"alert"][@"url"]];
-    if (imgUrl == nil) {
+    NSDictionary *dict = self.bestAttemptContent.userInfo;
+    NSString *imgUrl = [NSString stringWithFormat:@"%@",dict[@"payload"]];
+    if (imgUrl == nil || imgUrl.length == 0 || [imgUrl isEqualToString:@""]) {
         self.contentHandler(self.bestAttemptContent);
     }
     [self loadAttachmentForUrlString:imgUrl withType:@"image" completionHandle:^(UNNotificationAttachment *attach) {

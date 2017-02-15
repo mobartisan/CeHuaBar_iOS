@@ -35,6 +35,8 @@
 #import "NSNotificationCenter+Block.h"
 #import "STPushView.h"
 #import "DiscussListModel.h"
+#import "TTBaseViewController+NotificationHandle.h"
+
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -269,12 +271,11 @@
     [self.tableView addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
-    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
-        NSNotification *notification = (NSNotification *)sender;
-#warning to do handle new a message 1
-        if (notification.object) {
-            if ([notification.object isKindOfClass:[TT_Message class]]) {
-                TT_Message *message = (TT_Message *)notification.object;
+    //处理通知
+    [self handleNotificationWithBlock:^(id notification) {
+        if (notification) {
+            if ([notification isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 3) {
                     //如果有消息，且消息类型符合首页展示条件，则显示消息UI
                     self.tableView.tableHeaderView = self.tableHeader;

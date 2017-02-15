@@ -16,6 +16,8 @@
 #import "Models.h"
 #import "TTSettingGroupViewController.h"
 #import "TTAddMemberViewController.h"
+#import "TTBaseViewController+NotificationHandle.h"
+#import "STPushView.h"
 
 @interface TTSettingViewController ()
 
@@ -35,6 +37,24 @@
         [wself.navigationController popViewControllerAnimated:YES];
     }];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    //处理通知
+    [self handleNotificationWithBlock:^(id notification) {
+        if (notification) {
+            if ([notification isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification;
+                if (message.message_type == 1) {
+                    //1.发请求
+                    //2.刷新UI
+                    [self getProjectMemberList];
+                }
+            }
+        }
+    }];
+}
+
+- (void)dealloc {
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
