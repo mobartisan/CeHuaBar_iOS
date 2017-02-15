@@ -33,7 +33,7 @@
 #import "UIImage+Extension.h"
 #import "NSString+Utils.h"
 #import "NSNotificationCenter+Block.h"
-
+#import "STPushView.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -260,11 +260,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
         NSNotification *notification = (NSNotification *)sender;
-        NSLog(@"%@", notification.object);
 #warning to do handle new a message 1
         if (notification.object) {
-            //如果有消息，且消息类型符合首页展示条件，则显示消息UI
-            self.tableView.tableHeaderView = self.tableHeader;
+            if ([notification.object isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification.object;
+                if (message.message_type == 3) {
+                    //如果有消息，且消息类型符合首页展示条件，则显示消息UI
+                    self.tableView.tableHeaderView = self.tableHeader;
+                }
+            }
         }
     }];
     //测试

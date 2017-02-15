@@ -247,7 +247,6 @@ static MessageManager *singleton = nil;
     TT_Message *msgModel = [[TT_Message alloc] init];
     [msgModel getModelFromDict:dict];
     //2.storage sqlite
-#warning  to do handle messages and optimize code
     SqliteManager *sqliteManager = SQLITEMANAGER;
     [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
     NSString *sql = [NSString stringWithFormat:@"insert into %@ (record_id,title,sub_title,url,url_type,badge,sound,content,create_date,last_edit_date,is_read,media_type,message_type) values('%@','%@','%@','%@','%zd','%zd','%@','%@','%@','%@','%d','%zd','%zd')",TABLE_TT_Message,msgModel.record_id,msgModel.title,msgModel.sub_title,msgModel.url,msgModel.url_type,msgModel.badge,msgModel.sound,msgModel.content,msgModel.create_date,msgModel.last_edit_date,msgModel.is_read,msgModel.media_type,msgModel.message_type];

@@ -24,6 +24,7 @@
 #import "TTGroupViewController.h"
 #import "NSString+YYAdd.h"
 #import "ProjectItemView.h"
+#import "STPushView.h"
 
 @interface TTProjectsMenuViewController ()
 
@@ -139,12 +140,17 @@
     
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil Block:^(id  _Nullable sender) {
         NSNotification *notification = (NSNotification *)sender;
-        NSLog(@"%@", notification.object);
 #warning to do handle new a message 2
         if (notification.object) {
-            //如果有消息，且消息类型符合页面展示条件，则显示消息UI
-            //1.发请求
-            //2.刷新UI
+            if ([notification.object isKindOfClass:[TT_Message class]]) {
+                TT_Message *message = (TT_Message *)notification.object;
+                if (message.message_type == 1) {
+                    //项目变更
+                    //如果有消息，且消息类型符合页面展示条件，则显示消息UI
+                    //1.发请求
+                    //2.刷新UI
+                }
+            }
         }
     }];
 }
