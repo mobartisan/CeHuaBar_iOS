@@ -43,10 +43,9 @@
             if ([notification isKindOfClass:[TT_Message class]]) {
                 TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 1) {
-                    //项目变更
-                    //如果有消息，且消息类型符合页面展示条件，则显示消息UI
                     //1.发请求
                     //2.刷新UI
+                    [self getProjectMemberList];
                 }
             }
         }
