@@ -241,7 +241,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
 
 - (NSString *)machineModelName {
     static dispatch_once_t one;
-    static NSString *name;
+    static NSString *name = nil;
     dispatch_once(&one, ^{
         NSString *model = [self machineModel];
         if (!model) return;

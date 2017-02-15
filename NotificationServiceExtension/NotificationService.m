@@ -47,7 +47,7 @@
                           withType:(NSString *)type
                   completionHandle:(void(^)(UNNotificationAttachment *attach))completionHandler{
     __block UNNotificationAttachment *attachment = nil;
-    NSURL *attachmentURL = [NSURL URLWithString:urlStr];
+    NSURL *attachmentURL = [NSURL URLWithString:(NSString * _Nonnull)urlStr];
     NSString *fileExt = [self fileExtensionForMediaType:type];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
