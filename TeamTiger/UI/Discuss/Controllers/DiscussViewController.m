@@ -11,6 +11,7 @@
 #import "DiscussListCell.h"
 #import "DiscussListDetailViewController.h"
 #import "TTBaseViewController+NotificationHandle.h"
+#import "UIAlertView+HYBHelperKit.h"
 
 @interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -89,13 +90,16 @@
 }
 
 - (void)handleRightBtnActiqon:(UIButton *)sender {
-    [self.dataSource removeAllObjects];
-    [self.tableView reloadData];
-    sender.userInteractionEnabled = NO;
-    [sender setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
-    self.isNeedRefresh = YES;
+    [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要清空所有未读消息吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
+            sender.userInteractionEnabled = NO;
+            [sender setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
+            self.isNeedRefresh = YES;
 #warning 清空未读消息
-    
+        }
+    }];
 }
 
 //FIXME: - 未完

@@ -81,6 +81,7 @@
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MomentDetailApi:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [self.dataSource removeAllObjects];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             if (kIsDictionary(objDic)) {
@@ -88,7 +89,7 @@
                 homeModel.open = YES;
                 [self.dataSource addObject:homeModel];
             }
-            self.title = ((HomeModel *)[self.dataSource firstObject]).name;
+            self.title = ((HomeModel *)[self.dataSource firstObject]).project;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
