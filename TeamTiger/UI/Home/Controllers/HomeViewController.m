@@ -140,6 +140,7 @@
         countLB.textAlignment = NSTextAlignmentCenter;
         countLB.layer.cornerRadius = 10;
         countLB.layer.masksToBounds = YES;
+        countLB.adjustsFontSizeToFitWidth = YES;
         [_tableHeader addSubview:countLB];
         _countLB = countLB;
         
@@ -291,11 +292,15 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             
             //未读消息个数
-            if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
+            NSInteger newsCount = [request.responseJSONObject[@"obj"][@"newscount"] integerValue];
+            if (newsCount > 0) {
                 self.tableView.tableHeaderView = self.tableHeader;
                 self.tableView.contentInset = UIEdgeInsetsZero;
                 [self.tableView setContentOffset:CGPointZero animated:YES];
-                self.countLB.text = [NSString stringWithFormat:@"%@",request.responseJSONObject[@"obj"][@"newscount"]];
+                self.countLB.text = @(newsCount).stringValue;
+                if (newsCount > 99) {
+                    self.countLB.text = @"99+";
+                }
                 self.countLB.hidden = NO;
             } else {
                 self.tableView.tableHeaderView = nil;
