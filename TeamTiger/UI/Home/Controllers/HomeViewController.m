@@ -274,6 +274,11 @@
             }
         }
     }];
+    
+    //子页面有已读 需要更新
+    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 Object:nil Block:^(id  _Nullable sender) {
+        [self getAllMoments:self.tempDic IsNeedRefresh:NO];
+    }];
     //测试
 //     [self deleteAllData];
 }
@@ -757,6 +762,7 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] removeCustomObserver:self Name:NOTICE_KEY_MESSAGE_COMING Object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
 }
 
 

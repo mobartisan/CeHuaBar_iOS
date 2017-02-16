@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong) UIButton *rightBtn;
+@property (nonatomic, assign) BOOL isNeedRefresh;
 
 @end
 
@@ -71,6 +72,10 @@
     self.navigationItem.title = @"讨论";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        if (self.isNeedRefresh) {
+            self.isNeedRefresh = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
+        }
         [wself.navigationController popViewControllerAnimated:YES];
     }];
     //右侧
@@ -144,6 +149,7 @@
     }];
     DiscussListDetailViewController *discussListDetailVC = [[DiscussListDetailViewController alloc] init];
     discussListDetailVC.mid = model.mid;
+    self.isNeedRefresh = YES;
     [self.navigationController pushViewController:discussListDetailVC animated:YES];
 }
 
