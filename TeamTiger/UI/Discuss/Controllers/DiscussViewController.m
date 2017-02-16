@@ -99,8 +99,10 @@
 
 //FIXME: - 未完
 - (void)getMessageListWithParameter:(id)parameter {
-#warning  to do here
     MessageListApi *api = [[MessageListApi alloc] init];
+    if (parameter) {
+        api.requestArgument = parameter;
+    }
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MessageListApi:%@", request.responseJSONObject);
         [self.dataSource removeAllObjects];
