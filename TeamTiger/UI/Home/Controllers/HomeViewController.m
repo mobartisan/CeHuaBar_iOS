@@ -349,10 +349,9 @@
             [self.titleView setImage:nil forState:UIControlStateNormal];
             [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
         }
-        [self.tableView reloadData];
-        [self.tableView.mj_header endRefreshing];
         if (!isShowRing) {
-            self.tableHeader = nil;
+            UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, CGFLOAT_MIN)];
+            self.tableView.tableHeaderView = tableViewHeaderView;
         } else {
             self.tableView.tableHeaderView = self.tableHeader;
             self.countLB.text = @(newsCount).stringValue;
@@ -360,10 +359,14 @@
                 self.countLB.text = @"99+";
             }
         }
+        [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [self.tableView.mj_header endRefreshing];
-        self.tableHeader = nil;
+        [self.tableView reloadData];
+        UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, CGFLOAT_MIN)];
+        self.tableView.tableHeaderView = tableViewHeaderView;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
