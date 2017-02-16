@@ -305,9 +305,7 @@
             
             //未读消息个数
             if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
-                if (!self.tableView.tableHeaderView) {
-                    self.tableView.tableHeaderView = self.tableHeader;
-                }
+                self.tableView.tableHeaderView = self.tableHeader;
                 self.countLB.text = [NSString stringWithFormat:@"%@",request.responseJSONObject[@"obj"][@"newscount"]];
                 self.countLB.hidden = NO;
             } else {
@@ -387,9 +385,7 @@
                 self.tableView.tableHeaderView = nil;
             } else {
                 self.countLB.hidden = NO;
-                if (!self.tableView.tableHeaderView) {
-                    self.tableView.tableHeaderView = self.tableHeader;
-                }
+                self.tableView.tableHeaderView = self.tableHeader;
                 self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
             }
         }
