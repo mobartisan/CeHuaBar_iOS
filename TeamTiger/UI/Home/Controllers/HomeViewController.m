@@ -352,7 +352,7 @@
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
         if (!isShowRing) {
-            self.tableView.tableHeaderView = nil;
+            self.tableHeader = nil;
         } else {
             self.tableView.tableHeaderView = self.tableHeader;
             self.countLB.text = @(newsCount).stringValue;
@@ -363,7 +363,7 @@
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [self.tableView.mj_header endRefreshing];
-        self.tableView.tableHeaderView = nil;
+        self.tableHeader = nil;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
