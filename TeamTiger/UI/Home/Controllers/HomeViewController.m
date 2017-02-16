@@ -300,16 +300,13 @@
             NSInteger newsCount = [request.responseJSONObject[@"obj"][@"newscount"] integerValue];
             if (newsCount > 0) {
                 self.tableView.tableHeaderView = self.tableHeader;
-                self.tableView.contentInset = UIEdgeInsetsZero;
-                [self.tableView setContentOffset:CGPointZero animated:YES];
                 self.countLB.text = @(newsCount).stringValue;
                 if (newsCount > 99) {
                     self.countLB.text = @"99+";
                 }
                 self.countLB.hidden = NO;
             } else {
-                self.tableView.tableHeaderView = nil;
-                self.tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0);
+                self.tableHeader = nil;
                 self.countLB.hidden = YES;
             }
             
