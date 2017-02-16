@@ -37,6 +37,7 @@
 6.当组员（管理员）发布一条moment时，该项目的其他成员将收到一条发布moment的ApnS通知；
 7.当组员（管理员）发布一条投票时，该项目的其他成员将收到一条投票的ApnS通知；
 8.当组员（管理员）评论一条moment时，该项目的其他成员将收到一条moment更新的ApnS通知；
+9.当组员（管理员）投票时，该项目的其他成员将收到一条投票更新的ApnS通知；
 */
 
 @interface TT_Message: NSObject <NSCoding>
