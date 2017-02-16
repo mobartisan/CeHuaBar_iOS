@@ -53,8 +53,6 @@
 @property (strong, nonatomic) UIButton *setBtn;//设置按钮
 @property (strong, nonatomic) UIButton *leftBtn;//左侧按钮
 
-@property (assign, nonatomic) BOOL showTableHeader;
-
 @property (strong, nonatomic) NSDictionary *tempDic;
 @property (strong, nonatomic) TT_Project *tempProject;//项目
 @property (strong, nonatomic) TT_Group *tempGroup;//分组
@@ -266,9 +264,7 @@
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
     [Common removeExtraCellLines:self.tableView];
-    if (self.showTableHeader) {
-        self.tableView.tableHeaderView = self.tableHeader;
-    }
+    
     self.setBtn.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];

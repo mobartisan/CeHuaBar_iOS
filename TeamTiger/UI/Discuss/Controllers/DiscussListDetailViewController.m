@@ -73,12 +73,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = self.dataSource[indexPath.row];
-    model.open = YES;
+//    model.open = YES;
     // 定义唯一标识
     UITableViewCell *cell = nil;
     if (model.cellType == 1) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
-        ((HomeCell *)cell).commentBtn.userInteractionEnabled = NO;
+//        ((HomeCell *)cell).commentBtn.userInteractionEnabled = NO;
         ((HomeCell *)cell).homeModel = model;
     } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
