@@ -42,7 +42,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;//数据源
-@property (nonatomic,strong) NSMutableArray *unReadMessageArr;//未读消息
 @property (strong, nonatomic) UIView *sectionHeader;//分区页眉
 @property (strong, nonatomic) UIView *tableHeader;//tableView 页眉
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时对应cell的indexPath
@@ -61,13 +60,6 @@
 @end
 
 @implementation HomeViewController
-
-- (NSMutableArray *)unReadMessageArr {
-    if (_unReadMessageArr == nil) {
-        _unReadMessageArr = [NSMutableArray array];
-    }
-    return _unReadMessageArr;
-}
 
 #pragma mark - 分区页眉
 - (UIView *)sectionHeader {
@@ -188,7 +180,7 @@
 
 - (void)handleBellBtnAction {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
-    [discussVC.dataSource setArray:self.unReadMessageArr];
+    discussVC.idDictionary = self.tempDic;
     [self.navigationController pushViewController:discussVC animated:YES];
 }
 
@@ -254,8 +246,6 @@
     self.tempDic = nil;
     //获取moments
     [self getAllMoments:self.tempDic IsNeedRefresh:YES];
-    //获取未读消息个数
-    [self getMessageList];
     [self configureNavigationItem];
     //下拉刷新
     [self handleDownRefreshAction];
@@ -277,8 +267,6 @@
                 TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 3) {
                     //如果有消息，且消息类型符合首页展示条件，则显示消息UI
-                    //获取最新未读消息
-                    [self getMessageList];
                     //拉取最新moment数据
                     [self getAllMoments:self.tempDic IsNeedRefresh:NO];
                 }
@@ -362,38 +350,6 @@
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
-    }];
-}
-
-#pragma mark 未读消息个数
-- (void)getMessageList {
-    MessageListApi *api = [[MessageListApi alloc] init];
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"MessageListApi:%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            [self.unReadMessageArr removeAllObjects];
-            NSArray *array = request.responseJSONObject[OBJ][@"list"];
-            if(array && array.count != 0) {
-                for (NSDictionary *dic in array) {
-                    DiscussListModel *model = [[DiscussListModel alloc] init];
-                    [model setValuesForKeysWithDictionary:dic];
-                    [self.unReadMessageArr addObject:model];
-                }
-            }
-            //未读消息个数
-            if (self.unReadMessageArr.count == 0) {
-                self.countLB.hidden = YES;
-                self.tableView.tableHeaderView = nil;
-                self.tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0);
-            } else {
-                self.countLB.hidden = NO;
-                self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
-                self.tableView.tableHeaderView = self.tableHeader;
-                self.tableView.contentInset = UIEdgeInsetsZero;
-            }
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"MessageListApi:%@", error);
     }];
 }
 

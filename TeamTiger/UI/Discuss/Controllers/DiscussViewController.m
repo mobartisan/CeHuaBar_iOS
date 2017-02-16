@@ -28,6 +28,13 @@
     return _dataSource;
 }
 
+- (NSDictionary *)idDictionary {
+    if (!_idDictionary) {
+        _idDictionary = [NSDictionary dictionary];
+    }
+    return _idDictionary;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
@@ -43,12 +50,16 @@
                 if (message.message_type == 3) {
                     //项目变更
                     //如果有消息，且消息类型符合页面展示条件，则显示消息UI
-                    [self getMessageList];
-                    
+                    [self getMessageListWithParameter:self.idDictionary];
                 }
             }
         }
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self getMessageListWithParameter:self.idDictionary];
 }
 
 - (void)dealloc {
@@ -87,7 +98,8 @@
 }
 
 //FIXME: - 未完
-- (void)getMessageList {
+- (void)getMessageListWithParameter:(id)parameter {
+#warning  to do here
     MessageListApi *api = [[MessageListApi alloc] init];
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MessageListApi:%@", request.responseJSONObject);
