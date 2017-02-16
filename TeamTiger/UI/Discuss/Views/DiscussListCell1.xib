@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z9x-2K-cXU" id="b0r-n9-vN4">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_user" translatesAutoresizingMaskIntoConstraints="NO" id="pFy-1k-sy2">
@@ -91,10 +91,10 @@
                 <outlet property="desLB" destination="ygc-3Q-dvu" id="MtR-5s-HdD"/>
                 <outlet property="iconImage" destination="pFy-1k-sy2" id="19l-BN-jQb"/>
                 <outlet property="lineView" destination="T5m-8v-01h" id="Wbf-yy-5g7"/>
-                <outlet property="nameLB" destination="ygc-3Q-dvu" id="rJa-ZP-PX7"/>
+                <outlet property="nameLB" destination="etO-6l-uKI" id="YkH-8H-ifT"/>
                 <outlet property="timeLB" destination="CNq-7i-a6p" id="srv-ju-eka"/>
             </connections>
-            <point key="canvasLocation" x="101" y="-323"/>
+            <point key="canvasLocation" x="309" y="-317"/>
         </tableViewCell>
     </objects>
     <resources>

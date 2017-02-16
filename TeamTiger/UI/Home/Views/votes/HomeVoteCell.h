@@ -13,8 +13,9 @@
 @protocol HomeVoteCellDelegate <NSObject>
 
 - (void)clickVoteBtn:(NSIndexPath *)indexPath;
-- (void)clickVoteProjectBtn:(TT_Project *)project;
 - (void)clickVoteSuccess:(NSIndexPath *)indexPath homeModel:(HomeModel *)model;
+@optional
+- (void)clickVoteProjectBtn:(TT_Project *)project;
 
 
 @end

@@ -13,8 +13,10 @@
 @protocol HomeCellDelegate <NSObject>
 
 - (void)clickCommentBtn:(NSIndexPath *)indexPath;
-- (void)clickProjectBtn:(TT_Project *)project;
 - (void)currentIndexPath:(NSIndexPath *)indexPath;
+@optional
+- (void)clickProjectBtn:(TT_Project *)project;
+
 
 @end
 

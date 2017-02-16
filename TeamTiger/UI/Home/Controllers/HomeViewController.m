@@ -600,10 +600,10 @@
         offset.y = 0;
     }
     [UIView animateWithDuration:0.3 animations:^{
+
         [self.tableView setContentOffset:offset animated:YES];
     }];
 }
-
 #pragma mark UITableViewDataSource && Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataSource.count;

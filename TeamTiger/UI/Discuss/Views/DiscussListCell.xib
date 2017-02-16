@@ -102,10 +102,10 @@
                 <outlet property="iconImage" destination="qyO-iJ-vie" id="tzV-VI-BSE"/>
                 <outlet property="image" destination="44C-W7-b0B" id="KHE-YQ-tbW"/>
                 <outlet property="lineView" destination="9K8-n4-CKQ" id="0hc-N5-qcZ"/>
-                <outlet property="nameLB" destination="cbs-VC-pja" id="WBo-sr-Pcu"/>
+                <outlet property="nameLB" destination="YRm-WK-yBj" id="0Nw-8I-HJD"/>
                 <outlet property="timeLB" destination="JjZ-8Z-d9L" id="UDl-yV-rcP"/>
             </connections>
-            <point key="canvasLocation" x="-797" y="-390"/>
+            <point key="canvasLocation" x="-966" y="-391"/>
         </tableViewCell>
     </objects>
     <resources>

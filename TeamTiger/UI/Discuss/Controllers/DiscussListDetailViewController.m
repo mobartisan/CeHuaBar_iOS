@@ -10,10 +10,13 @@
 #import "HomeCell.h"
 #import "HomeVoteCell.h"
 #import "HomeModel.h"
+#import "HomeCommentModel.h"
+#import "HomeCommentModelFrame.h"
 #import "UITableView+SDAutoTableViewCellHeight.h"
 #import "UIView+SDAutoLayout.h"
+#import "IQKeyboardManager.h"
 
-@interface DiscussListDetailViewController ()
+@interface DiscussListDetailViewController () <HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
@@ -34,7 +37,40 @@
     [self configureNavigationItem];
     [self getMomentDetail];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.allowsSelection = NO;
     [Common removeExtraCellLines:self.tableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [IQKeyboardManager sharedManager].enable = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyBoard:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [IQKeyboardManager sharedManager].enable = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)handleKeyBoard:(NSNotification *)notification {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    HomeModel *homdModel = self.dataSource[indexPath.row];
+    CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
+    CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+    CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
+    CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
+    
+    CGPoint offset = self.tableView.contentOffset;
+    offset.y += delt;
+    if (offset.y < 0) {
+        offset.y = 0;
+    }
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.tableView setContentOffset:offset animated:YES];
+    }];
 }
 
 //FIXME: - 根据mid得到具体的moment
@@ -47,6 +83,7 @@
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             if (kIsDictionary(objDic)) {
                 HomeModel *homeModel = [HomeModel modelWithDic:objDic];
+                homeModel.open = YES;
                 [self.dataSource addObject:homeModel];
             }
         } else {
@@ -73,13 +110,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HomeModel *model = self.dataSource[indexPath.row];
-//    model.open = YES;
     // 定义唯一标识
     UITableViewCell *cell = nil;
     if (model.cellType == 1) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
-//        ((HomeCell *)cell).commentBtn.userInteractionEnabled = NO;
         ((HomeCell *)cell).homeModel = model;
+        ((HomeCell *)cell).delegate = self;
     } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
@@ -98,6 +134,34 @@
         currentClass = [HomeVoteCell class];
     }
     return [tableView cellHeightForIndexPath:indexPath model:model keyPath:@"homeModel" cellClass:currentClass contentViewWidth:kScreenWidth];
+}
+
+
+#pragma mark - HomeCellDelegate
+- (void)clickCommentBtn:(NSIndexPath *)indexPath {
+    NSIndexPath *tempIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[tempIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)currentIndexPath:(NSIndexPath *)indexPath {
+//    self.currentIndexPath = indexPath;
+    NSIndexPath *tempIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+}
+
+#pragma mark - HomeVoteCellDeleagte
+- (void)clickVoteBtn:(NSIndexPath *)indexPath {
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)clickVoteSuccess:(NSIndexPath *)indexPath homeModel:(HomeModel *)model {
+    [self.dataSource removeObjectAtIndex:indexPath.row];
+    [self.dataSource insertObject:model atIndex:indexPath.row];
+    [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
 }
 
 @end

@@ -38,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
+    [self handleDownRefreshAction];
     self.tableView.rowHeight = 80.0;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [Common removeExtraCellLines:self.tableView];
@@ -106,12 +107,21 @@
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MessageListApi:%@", request.responseJSONObject);
         [self.dataSource removeAllObjects];
+        NSDictionary *objDic = request.responseJSONObject[OBJ];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
                 DiscussListModel *model = [[DiscussListModel alloc] init];
                 [model setValuesForKeysWithDictionary:dic];
                 [self.dataSource addObject:model];
             }
+            
+            //更多数据
+            if (![Common isEmptyString:objDic[@"next"]]) {
+                [self handleUpRefreshAction:objDic[@"next"]];
+            }
+            
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
@@ -119,6 +129,68 @@
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         [super showText:NETWORKERROR afterSeconds:1.0];
         NSLog(@"MessageListApi:%@", error);
+    }];
+}
+
+#pragma mark - 下拉刷新
+- (void)handleDownRefreshAction {
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getMessageListWithParameter:self.idDictionary];
+    }];
+}
+
+#pragma mark - 上拉刷新
+- (void)handleUpRefreshAction:(NSString *)tempURL {
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        if (![Common isEmptyString:tempURL] && !(self.dataSource.count % 5)) {
+            [self getMoreDataWithUrl:tempURL];
+        } else {
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+    }];
+    self.tableView.mj_footer = footer;
+}
+
+
+#pragma mark - 加载更多数据
+- (void)getMoreDataWithUrl:(NSString *)urlString {
+    HTTPManager *manager = [HTTPManager manager];
+    AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
+    NSDictionary *headerFieldValueDictionary = @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+    if (headerFieldValueDictionary != nil) {
+        for (NSString *httpHeaderField in headerFieldValueDictionary.allKeys) {
+            NSString *value = headerFieldValueDictionary[httpHeaderField];
+            [requestSerializer setValue:value forHTTPHeaderField:httpHeaderField];
+        }
+    }
+    manager.requestSerializer = requestSerializer;
+    
+    [manager GET:urlString parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *objDic = responseObject[OBJ];
+        if ([responseObject[SUCCESS] intValue] == 1) {
+            if (![Common isEmptyArr:objDic[@"list"]]) {
+                for (NSDictionary *dic in objDic[@"list"]) {
+                    DiscussListModel *model = [[DiscussListModel alloc] init];
+                    [model setValuesForKeysWithDictionary:dic];
+                    [self.dataSource addObject:model];
+                }
+            }
+            
+            //更多数据
+            if (![Common isEmptyString:objDic[@"next"]]) {
+                [self handleUpRefreshAction:objDic[@"next"]];
+            } else {
+                [self.tableView.mj_footer endRefreshingWithNoMoreData];
+            }
+            
+            [self.tableView reloadData];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@":%@", error);
+        [self.tableView.mj_footer endRefreshing];
+        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }
 
