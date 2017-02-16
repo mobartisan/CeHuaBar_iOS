@@ -16,7 +16,7 @@
 #import "UIView+SDAutoLayout.h"
 #import "IQKeyboardManager.h"
 
-@interface DiscussListDetailViewController () <HomeCellDelegate, HomeVoteCellDelegate>
+@interface DiscussListDetailViewController () <UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
