@@ -327,13 +327,19 @@
 
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority];
             } else {
-                self.textLB.hidden = NO;
-                if ([[self.tempDic allKeys] count] != 0 && ![[self.tempDic allKeys] containsObject:@"gid"]) {
+                if (self.tempDic.allKeys.count != 0 && ![self.tempDic.allKeys containsObject:@"gid"]) {
+                    //只展示project
                     self.textLB.hidden = YES;
                     self.imageView.hidden = NO;
                     self.imageView.image = kImage(@"img_cover");
                 }
-                if ([[self.tempDic allKeys] count] != 0 && [[self.tempDic allKeys] containsObject:@"gid"]) {
+                if (self.tempDic.allKeys.count != 0 && [self.tempDic.allKeys containsObject:@"gid"]) {
+                    //只展示分组的
+                    self.textLB.hidden = NO;
+                    self.imageView.hidden = YES;
+                }
+                if (!self.tempDic || self.tempDic.allKeys.count == 0) {
+                    //所有moment
                     self.textLB.hidden = NO;
                     self.imageView.hidden = YES;
                 }
