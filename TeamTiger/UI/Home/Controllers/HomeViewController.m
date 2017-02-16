@@ -677,6 +677,7 @@
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
     NSDictionary *parameterDic = nil;
+    BOOL isLoading = NO;
     if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
         parameterDic = @{@"gid":[notification.object group_id]};
         
@@ -690,6 +691,7 @@
         
         self.tempGroup = notification.object;
         self.tempProject = nil;
+        isLoading = YES;
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
         parameterDic = @{@"pid":[notification.object project_id]};
         self.setBtn.hidden = NO;
@@ -701,6 +703,7 @@
         
         self.tempProject = notification.object;
         self.tempGroup = nil;
+        isLoading = YES;
     } else {//主页
         self.setBtn.hidden = YES;
         self.imageView.userInteractionEnabled = YES;
@@ -710,7 +713,7 @@
         self.tempGroup = nil;
     }
     self.tempDic = parameterDic;
-    [self getAllMoments:parameterDic IsNeedRefresh:NO];
+    [self getAllMoments:parameterDic IsNeedRefresh:isLoading];
     [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
 }
 
