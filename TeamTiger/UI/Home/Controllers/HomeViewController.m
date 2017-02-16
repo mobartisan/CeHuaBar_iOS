@@ -294,22 +294,14 @@
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataSource = [NSMutableArray array];
+        BOOL isShowRing = NO;
+        NSInteger newsCount = 0;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            
             //未读消息个数
-            NSInteger newsCount = [request.responseJSONObject[@"obj"][@"newscount"] integerValue];
+            newsCount = [request.responseJSONObject[@"obj"][@"newscount"] integerValue];
             if (newsCount > 0) {
-                self.tableView.tableHeaderView = self.tableHeader;
-                self.countLB.text = @(newsCount).stringValue;
-                if (newsCount > 99) {
-                    self.countLB.text = @"99+";
-                }
-                self.countLB.hidden = NO;
-            } else {
-                self.tableHeader = nil;
-                self.countLB.hidden = YES;
+                isShowRing = YES;
             }
-            
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
                 if (![Common isEmptyArr:objDic[@"list"]]) {
@@ -359,9 +351,19 @@
         }
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
+        if (!isShowRing) {
+            self.tableView.tableHeaderView = nil;
+        } else {
+            self.tableView.tableHeaderView = self.tableHeader;
+            self.countLB.text = @(newsCount).stringValue;
+            if (newsCount > 99) {
+                self.countLB.text = @"99+";
+            }
+        }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"%@", error);
         [self.tableView.mj_header endRefreshing];
+        self.tableView.tableHeaderView = nil;
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
