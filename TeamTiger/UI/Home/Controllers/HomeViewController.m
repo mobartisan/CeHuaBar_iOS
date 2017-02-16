@@ -277,7 +277,6 @@
                 TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 3) {
                     //如果有消息，且消息类型符合首页展示条件，则显示消息UI
-                    self.tableView.tableHeaderView = self.tableHeader;
                     //获取最新未读消息
                     [self getMessageList];
                     //拉取最新moment数据
@@ -306,10 +305,12 @@
             //未读消息个数
             if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
                 self.tableView.tableHeaderView = self.tableHeader;
+                self.tableView.contentInset = UIEdgeInsetsZero;
                 self.countLB.text = [NSString stringWithFormat:@"%@",request.responseJSONObject[@"obj"][@"newscount"]];
                 self.countLB.hidden = NO;
             } else {
                 self.tableView.tableHeaderView = nil;
+                self.tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0);
                 self.countLB.hidden = YES;
             }
             
@@ -383,10 +384,12 @@
             if (self.unReadMessageArr.count == 0) {
                 self.countLB.hidden = YES;
                 self.tableView.tableHeaderView = nil;
+                self.tableView.contentInset = UIEdgeInsetsMake(-34, 0, 0, 0);
             } else {
                 self.countLB.hidden = NO;
-                self.tableView.tableHeaderView = self.tableHeader;
                 self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
+                self.tableView.tableHeaderView = self.tableHeader;
+                self.tableView.contentInset = UIEdgeInsetsZero;
             }
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
