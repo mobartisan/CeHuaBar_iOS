@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z9x-2K-cXU" id="b0r-n9-vN4">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_user" translatesAutoresizingMaskIntoConstraints="NO" id="pFy-1k-sy2">
@@ -36,7 +36,7 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="俞弦" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etO-6l-uKI">
-                        <rect key="frame" x="73" y="8" width="138.5" height="20"/>
+                        <rect key="frame" x="73" y="8" width="66.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="OjF-OU-Hk8"/>
                         </constraints>
@@ -45,7 +45,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="一分钟之前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CNq-7i-a6p">
-                        <rect key="frame" x="73" y="52" width="138.5" height="20"/>
+                        <rect key="frame" x="73" y="52" width="66.5" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="n0X-X1-U5l"/>
                         </constraints>
@@ -60,8 +60,8 @@
                             <constraint firstAttribute="height" constant="0.5" id="vcL-D3-vfN"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type Something..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygc-3Q-dvu">
-                        <rect key="frame" x="73" y="30" width="138.5" height="20"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type Somethingcccccc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygc-3Q-dvu">
+                        <rect key="frame" x="73" y="30" width="237" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="E5O-Jq-2Ni"/>
                         </constraints>
@@ -79,9 +79,9 @@
                     <constraint firstItem="CNq-7i-a6p" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="FC8-d3-OKq"/>
                     <constraint firstItem="pFy-1k-sy2" firstAttribute="leading" secondItem="b0r-n9-vN4" secondAttribute="leading" constant="15" id="NkC-pm-Oag"/>
                     <constraint firstItem="etO-6l-uKI" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="WbT-7w-4KK"/>
-                    <constraint firstItem="ygc-3Q-dvu" firstAttribute="trailing" secondItem="etO-6l-uKI" secondAttribute="trailing" id="YVO-bP-Vaq"/>
                     <constraint firstItem="ygc-3Q-dvu" firstAttribute="top" secondItem="etO-6l-uKI" secondAttribute="bottom" constant="2" id="bkP-Fg-DfX"/>
                     <constraint firstItem="pFy-1k-sy2" firstAttribute="centerY" secondItem="b0r-n9-vN4" secondAttribute="centerY" id="m3o-X2-83z"/>
+                    <constraint firstAttribute="trailing" secondItem="ygc-3Q-dvu" secondAttribute="trailing" constant="10" id="nbv-LB-Rot"/>
                     <constraint firstItem="T5m-8v-01h" firstAttribute="leading" secondItem="b0r-n9-vN4" secondAttribute="leading" id="oOW-Kj-A5C"/>
                     <constraint firstItem="ygc-3Q-dvu" firstAttribute="leading" secondItem="pFy-1k-sy2" secondAttribute="trailing" constant="8" id="wRz-cU-2sU"/>
                 </constraints>
@@ -94,7 +94,7 @@
                 <outlet property="nameLB" destination="etO-6l-uKI" id="YkH-8H-ifT"/>
                 <outlet property="timeLB" destination="CNq-7i-a6p" id="srv-ju-eka"/>
             </connections>
-            <point key="canvasLocation" x="309" y="-317"/>
+            <point key="canvasLocation" x="160" y="-349"/>
         </tableViewCell>
     </objects>
     <resources>

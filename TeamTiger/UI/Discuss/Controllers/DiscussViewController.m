@@ -83,17 +83,18 @@
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 40, 20);
     [rightBtn setTitle:@"清空" forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn addTarget:self action:@selector(handleRightBtnActiqon:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     _rightBtn = rightBtn;
 }
 
-- (void)handleRightBtnAction:(UIButton *)sender {
+- (void)handleRightBtnActiqon:(UIButton *)sender {
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     sender.userInteractionEnabled = NO;
     [sender setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
-#warning to do...
+    self.isNeedRefresh = YES;
+#warning 清空未读消息
     
 }
 

@@ -120,6 +120,7 @@
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;
         ((HomeVoteCell *)cell).projectBtn.indexPath = indexPath;
+        ((HomeVoteCell *)cell).delegate = self;
     }
     return cell;
 }
