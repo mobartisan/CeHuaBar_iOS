@@ -149,7 +149,7 @@
         countLB.layer.cornerRadius = 10;
         countLB.layer.masksToBounds = YES;
         [_tableHeader addSubview:countLB];
-        self.countLB = countLB;
+        _countLB = countLB;
         
         
         UIButton *bellBtn = [UIButton new];
@@ -305,8 +305,10 @@
             
             //未读消息个数
             if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
-                self.tableView.tableHeaderView = self.tableHeader;
-                self.countLB.text = request.responseJSONObject[@"obj"][@"newscount"];
+                if (!self.tableView.tableHeaderView) {
+                    self.tableView.tableHeaderView = self.tableHeader;
+                }
+                self.countLB.text = [NSString stringWithFormat:@"%@",request.responseJSONObject[@"obj"][@"newscount"]];
                 self.countLB.hidden = NO;
             } else {
                 self.tableView.tableHeaderView = nil;
@@ -385,7 +387,9 @@
                 self.tableView.tableHeaderView = nil;
             } else {
                 self.countLB.hidden = NO;
-                self.tableView.tableHeaderView = self.tableHeader;
+                if (!self.tableView.tableHeaderView) {
+                    self.tableView.tableHeaderView = self.tableHeader;
+                }
                 self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
             }
         }
