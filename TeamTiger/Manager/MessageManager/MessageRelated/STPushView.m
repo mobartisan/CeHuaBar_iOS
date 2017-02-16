@@ -196,7 +196,7 @@ static STPushView *_instance = nil;
 - (void)setMsgModel:(TT_Message *)msgModel
 {
     _msgModel = msgModel;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:msgModel.create_date.longLongValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(msgModel.create_date.longLongValue / 1000.0)];
     self.timeLabel.text = [NSDate hyb_timeInfoWithDate:date];
     self.contentLabel.text = msgModel.content;
     self.titleLabel.text = msgModel.title;

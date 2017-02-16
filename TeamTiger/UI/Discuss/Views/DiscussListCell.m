@@ -52,9 +52,8 @@
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.head_img_url] placeholderImage:kImage(@"img_user")];
     self.nameLB.text = model.name;
     self.desLB.text = model.content;
-    NSDate *date = [NSDate dateWithTimeIntervalSince1970:model.update_at.longLongValue];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(model.update_at.longLongValue / 1000.0)];
     self.timeLB.text = [NSDate hyb_timeInfoWithDate:date];
-    NSLog(@"%@---%@", model.update_at, [NSDate hyb_timeInfoWithDate:date]);
     [self.image sd_setImageWithURL:[NSURL URLWithString:model.media] placeholderImage:kImage(@"img_corver")];
     self.lineView.hidden = hiden;
 }
