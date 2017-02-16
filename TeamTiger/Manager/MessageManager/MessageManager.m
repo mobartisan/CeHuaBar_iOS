@@ -198,7 +198,7 @@ static MessageManager *singleton = nil;
     }
     NSString *msg = [NSString stringWithFormat:@"taskId=%@,messageId:%@,payloadMsg:%@%@", taskId, msgId, payloadMsg, offLine ? @"<离线消息>" : @""];
     NSLog(@"\n>>>[GexinSdk ReceivePayload]:%@\n\n", msg);
-    [self handleOneMessage:payloadData];
+    [self handleOneMessage:payloadData IsOffLine:offLine];
 }
 
 /** SDK收到sendMessage消息回调 */
@@ -227,7 +227,7 @@ static MessageManager *singleton = nil;
 
 #pragma -mark
 #pragma -mark Handle Message
-- (void)handleOneMessage:(id)msgObj {
+- (void)handleOneMessage:(id)msgObj IsOffLine:(BOOL)isOffLine {
     //do a message
     //    jsonstring 转 object   {"age":"18","name":"xxcao","gender":"male"}
     if (!msgObj) {
@@ -254,32 +254,34 @@ static MessageManager *singleton = nil;
     //3.通知相关UIViewController
     [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_MESSAGE_COMING object:msgModel];
     //4.UI changed
-    NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
-    if (nowTimeInterval - self.lastTimeInterval > 0.5) {//时间窗
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //show message
-            if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
-                AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-                msgModel.content = msgModel.content;
-                appDelegate.topView.msgModel = msgModel;
-                [appDelegate displayPushView];
-            }
-            //play shake
-            if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            }
-            //play audio
-            if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
-                static SystemSoundID soundIDTest = 0;
-                NSString *path = [[NSBundle mainBundle] pathForResource:@"bbs" ofType:@"caf"];
-                if (path) {
-                    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+    if (!isOffLine) {
+        NSTimeInterval nowTimeInterval = [NSDate date].timeIntervalSince1970;
+        if (nowTimeInterval - self.lastTimeInterval > 0.5) {//时间窗
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //show message
+                if ([UserDefaultsGet(ALLOW_USER_KEY_SHOW_MESSAGE) integerValue] == 1) {
+                    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                    msgModel.content = msgModel.content;
+                    appDelegate.topView.msgModel = msgModel;
+                    [appDelegate displayPushView];
                 }
-                AudioServicesPlaySystemSound(soundIDTest);
-            }
-        });
+                //play shake
+                if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_SHAKE) integerValue] == 1) {
+                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                }
+                //play audio
+                if ([UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) integerValue] == 1) {
+                    static SystemSoundID soundIDTest = 0;
+                    NSString *path = [[NSBundle mainBundle] pathForResource:@"bbs" ofType:@"caf"];
+                    if (path) {
+                        AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundIDTest);
+                    }
+                    AudioServicesPlaySystemSound(soundIDTest);
+                }
+            });
+        }
+        self.lastTimeInterval = nowTimeInterval;
     }
-    self.lastTimeInterval = nowTimeInterval;
 }
 
 @end

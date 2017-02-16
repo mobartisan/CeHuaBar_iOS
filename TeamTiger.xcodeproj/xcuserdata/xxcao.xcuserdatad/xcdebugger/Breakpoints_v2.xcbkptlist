@@ -1028,7 +1028,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
             endingLineNumber = "238"
-            landmarkName = "-handleOneMessage:"
+            landmarkName = "-handleOneMessage:IsOffLine:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1155,6 +1155,22 @@
             startingLineNumber = "272"
             endingLineNumber = "272"
             landmarkName = "-viewDidLoad"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/Manager/MessageManager/MessageManager.m"
+            timestampString = "508940536.202736"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "-GeTuiSdkDidReceivePayloadData:andTaskId:andMsgId:andOffLine:fromGtAppId:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -24,7 +24,7 @@
 
 - (void)registerDeviceToken:(NSString *)deviceToken;
 
-- (void)handleOneMessage:(id)msgObj;
+- (void)handleOneMessage:(id)msgObj IsOffLine:(BOOL)isOffLine;
 
 @end
 
