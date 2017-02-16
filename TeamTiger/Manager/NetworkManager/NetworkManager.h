@@ -190,6 +190,12 @@
 
 @end
 
+//MARK: - 获取未读消息个数
+@interface MessageCountApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+
 //MARK: - 添加discuss
 @interface DiscussCreateApi : LCBaseRequest<LCAPIRequest>
 
