@@ -144,7 +144,7 @@
         [_tableHeader addSubview:bellImage];
         
         UILabel *countLB = [UILabel new];
-        countLB.text = @"4";
+        countLB.text = @"new";
         countLB.textColor = [UIColor whiteColor];
         countLB.backgroundColor = kRGB(45, 201, 202);
         countLB.textAlignment = NSTextAlignmentCenter;
@@ -254,7 +254,10 @@
     [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
     self.navigationItem.titleView = self.titleView;
     self.tempDic = nil;
+    //获取moments
     [self getAllMoments:self.tempDic IsNeedRefresh:YES];
+    //获取未读消息个数
+    [self getMessageList];
     [self configureNavigationItem];
     //下拉刷新
     [self handleDownRefreshAction];
@@ -272,7 +275,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
     //处理通知
-    
     [self handleNotificationWithBlock:^(id notification) {
         if (notification) {
             if ([notification isKindOfClass:[TT_Message class]]) {
@@ -280,7 +282,10 @@
                 if (message.message_type == 3) {
                     //如果有消息，且消息类型符合首页展示条件，则显示消息UI
                     self.tableView.tableHeaderView = self.tableHeader;
+                    //获取最新未读消息
                     [self getMessageList];
+                    //拉取最新moment数据
+                    [self getAllMoments:self.tempDic IsNeedRefresh:NO];
                 }
             }
         }
@@ -303,9 +308,13 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             
             //未读消息个数
-            if ([request.responseJSONObject[@"newscount"] intValue] > 0) {
+            if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
                 self.tableView.tableHeaderView = self.tableHeader;
-                self.countLB.text = request.responseJSONObject[@"newscount"];
+                self.countLB.text = request.responseJSONObject[@"obj"][@"newscount"];
+                self.countLB.hidden = NO;
+            } else {
+                self.tableView.tableHeaderView = nil;
+                self.countLB.hidden = YES;
             }
             
             NSDictionary *objDic = request.responseJSONObject[OBJ];
@@ -365,14 +374,24 @@
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MessageListApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            for (NSDictionary *dic in request.responseJSONObject[OBJ][@"list"]) {
-                DiscussListModel *model = [[DiscussListModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [self.unReadMessageArr addObject:model];
+            [self.unReadMessageArr removeAllObjects];
+            NSArray *array = request.responseJSONObject[OBJ][@"list"];
+            if(array && array.count != 0) {
+                for (NSDictionary *dic in array) {
+                    DiscussListModel *model = [[DiscussListModel alloc] init];
+                    [model setValuesForKeysWithDictionary:dic];
+                    [self.unReadMessageArr addObject:model];
+                }
             }
             //未读消息个数
-            self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
-            
+            if (self.unReadMessageArr.count == 0) {
+                self.countLB.hidden = YES;
+                self.tableView.tableHeaderView = nil;
+            } else {
+                self.countLB.hidden = NO;
+                self.tableView.tableHeaderView = self.tableHeader;
+                self.countLB.text = [NSString stringWithFormat:@"%ld", self.unReadMessageArr.count];
+            }
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"MessageListApi:%@", error);
@@ -721,8 +740,8 @@
         self.tempProject = nil;
         self.tempGroup = nil;
     }
-    [self getAllMoments:parameterDic IsNeedRefresh:NO];
     self.tempDic = parameterDic;
+    [self getAllMoments:parameterDic IsNeedRefresh:NO];
     [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
 }
 
