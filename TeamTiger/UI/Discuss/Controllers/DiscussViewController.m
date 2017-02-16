@@ -70,7 +70,7 @@
 }
 
 - (void)configureNavigationItem {
-    self.navigationItem.title = @"讨论";
+    self.navigationItem.title = @"我的未读消息";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         if (self.isNeedRefresh) {
