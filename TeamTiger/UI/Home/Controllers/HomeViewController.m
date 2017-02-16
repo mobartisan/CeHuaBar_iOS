@@ -294,6 +294,7 @@
             if ([request.responseJSONObject[@"obj"][@"newscount"] intValue] > 0) {
                 self.tableView.tableHeaderView = self.tableHeader;
                 self.tableView.contentInset = UIEdgeInsetsZero;
+                [self.tableView setContentOffset:CGPointZero animated:YES];
                 self.countLB.text = [NSString stringWithFormat:@"%@",request.responseJSONObject[@"obj"][@"newscount"]];
                 self.countLB.hidden = NO;
             } else {
