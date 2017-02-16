@@ -75,10 +75,12 @@
 
 //FIXME: - 根据mid得到具体的moment
 - (void)getMomentDetail {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     MomentDetailApi *api = [[MomentDetailApi alloc] init];
     api.requestArgument = @{@"mid":self.mid};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"MomentDetailApi:%@", request.responseJSONObject);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             if (kIsDictionary(objDic)) {
@@ -86,12 +88,14 @@
                 homeModel.open = YES;
                 [self.dataSource addObject:homeModel];
             }
+            self.title = ((HomeModel *)[self.dataSource firstObject]).name;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"MomentDetailApi:%@", error);
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:NETWORKERROR afterSeconds:1.0];
     }];
 }
@@ -145,7 +149,6 @@
 }
 
 - (void)currentIndexPath:(NSIndexPath *)indexPath {
-//    self.currentIndexPath = indexPath;
     NSIndexPath *tempIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView scrollToRowAtIndexPath:tempIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
