@@ -85,13 +85,7 @@
     [rightBtn setTitle:@"清空" forState:UIControlStateNormal];
     [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-    if ([Common isEmptyArr:self.dataSource]) {
-        rightBtn.userInteractionEnabled = NO;
-        [rightBtn setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
-    } else {
-        rightBtn.userInteractionEnabled = YES;
-        [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }
+    _rightBtn = rightBtn;
 }
 
 - (void)handleRightBtnAction:(UIButton *)sender {
@@ -123,6 +117,14 @@
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {
                 [self handleUpRefreshAction:objDic[@"next"]];
+            }
+            
+            if ([Common isEmptyArr:self.dataSource]) {
+                _rightBtn.userInteractionEnabled = NO;
+                [_rightBtn setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
+            } else {
+                _rightBtn.userInteractionEnabled = YES;
+                [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             }
             
             [self.tableView reloadData];
