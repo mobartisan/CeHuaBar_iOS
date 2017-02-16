@@ -49,12 +49,23 @@
 }
 
 - (void)configureCellWithModel:(DiscussListModel *)model withHideLineView:(BOOL)hiden {
-    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.head_img_url] placeholderImage:kImage(@"img_user")];
+    //handle image
+    NSString *headUrl = [Common handleWeChatHeadImageUrl:model.head_img_url Size:96];
+    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:headUrl] placeholderImage:kImage(@"img_user")];
     self.nameLB.text = model.name;
     self.desLB.text = model.content;
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:(model.update_at.longLongValue / 1000.0)];
     self.timeLB.text = [NSDate hyb_timeInfoWithDate:date];
-    [self.image sd_setImageWithURL:[NSURL URLWithString:model.media] placeholderImage:kImage(@"img_corver")];
+    //handle image
+    if (![Common isEmptyString:model.media]) {
+        self.image.hidden = NO;
+        NSString *imgUrl = [NSString stringWithFormat:@"%@%@",model.media,kCompressKey];
+        [self.image sd_setImageWithURL:[NSURL URLWithString:imgUrl]
+                      placeholderImage:kImage(@"defaultBG")
+                               options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    } else {
+        self.image.hidden = YES;
+    }
     self.lineView.hidden = hiden;
 }
 
