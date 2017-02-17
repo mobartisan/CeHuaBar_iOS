@@ -135,11 +135,12 @@
         UILabel *countLB = [UILabel new];
         countLB.text = @"new";
         countLB.textColor = [UIColor whiteColor];
-        countLB.backgroundColor = kRGB(45, 201, 202);
+        countLB.backgroundColor = kRGB(238, 28, 37);
         countLB.textAlignment = NSTextAlignmentCenter;
         countLB.layer.cornerRadius = 10;
         countLB.layer.masksToBounds = YES;
         countLB.adjustsFontSizeToFitWidth = YES;
+        countLB.font = [UIFont boldSystemFontOfSize:15];
         [_tableHeader addSubview:countLB];
         _countLB = countLB;
         
