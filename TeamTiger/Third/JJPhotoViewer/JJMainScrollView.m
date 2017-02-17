@@ -153,7 +153,7 @@
         //添加到单个滚动创集合
         [self.oneScrolArr addObject:oneScroll];
     }
-    _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", selcImageIndex + 1, self.oneScrolArr.count];
+    _indexLabel.text = [NSString stringWithFormat:@"%zd/%tu", selcImageIndex + 1, self.oneScrolArr.count];
     
 }
 
@@ -172,7 +172,7 @@
     if(fabs(gapHead * 1.0) <= 20.0 ||fabs(gapEnd * 1.0) <= 20.0) {
         //当前观看的这个是第几个oneSc
         NSInteger  nowLookIndex =( scrollView.contentOffset.x + (scrollView.bounds.size.width/2)) /scrollView.bounds.size.width  ;
-        _indexLabel.text = [NSString stringWithFormat:@"%ld/%ld", nowLookIndex + 1, self.oneScrolArr.count];
+        _indexLabel.text = [NSString stringWithFormat:@"%zd/%tu", nowLookIndex + 1, self.oneScrolArr.count];
         for(int i = 0;i < self.oneScrolArr.count ; i++  )
         {
             if (i != nowLookIndex) {//除了当前看的 其他都给我重置位置
