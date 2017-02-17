@@ -315,7 +315,7 @@ typedef enum{
         //            [(ProjectsCell *)cell addGestureRecognizer:longPress];
         //        }
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-        longPress.minimumPressDuration = 0.3;
+        longPress.minimumPressDuration = 0.6;
         [(ProjectsCell *)cell addGestureRecognizer:longPress];
         
         
