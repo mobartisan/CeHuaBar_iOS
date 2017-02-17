@@ -56,7 +56,7 @@
 - (void)handleKeyBoard:(NSNotification *)notification {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     HomeModel *homdModel = self.dataSource[indexPath.row];
-    CGFloat height = homdModel.indexModel.homeCommentModel.open ? homdModel.totalHeight : homdModel.partHeight;
+    CGFloat height = homdModel.totalHeight;
     CGRect keyBoradFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:indexPath];
