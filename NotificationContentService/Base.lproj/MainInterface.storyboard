@@ -23,6 +23,9 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RIo-O6-akl">
                                 <rect key="frame" x="20" y="20" width="335" height="260"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="260" id="8GP-6E-XLR"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
