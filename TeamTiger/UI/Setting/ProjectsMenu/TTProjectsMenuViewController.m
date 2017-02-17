@@ -566,6 +566,7 @@
     [moveProjectApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"moveProject:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [[CirclesManager sharedInstance].views removeAllObjects];
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
             [self.menuTable reloadData];
         }else {
@@ -645,8 +646,6 @@
             for (NSValue *frameValue in self.viewFrames) {
                 BOOL isContain =  CGRectContainsPoint([frameValue CGRectValue], location);
                 if (isContain) {
-                    [[CirclesManager sharedInstance].views removeAllObjects];
-                    
                     //1.取出下标
                     NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
                     // 将快照放到分组里面
@@ -675,7 +674,6 @@
                     }];
                 }
             }
-            
             if ([Common isEmptyArr:[CirclesManager sharedInstance].views]) {
                 [self.menuTable reloadData];
                 cell.hidden = NO;
