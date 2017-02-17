@@ -56,9 +56,9 @@
      */
     UIFont *font = nil;
     if ([homeCommentModel.sName isEqualToString:@"时间节点"]) {
-        font = KTimeFont;
+        font = kTimeFont;
     }else {
-        font = KNameFont;
+        font = kNameFont;
     }
     CGFloat nameX = 78;
     CGFloat nameY = timeY;
@@ -71,7 +71,7 @@
      */
     CGFloat name1X = CGRectGetMaxX(_nameF) + 2;
     CGFloat name1Y = nameY;
-    CGFloat name1W = [self sizeWithText:homeCommentModel.sName font:KNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
+    CGFloat name1W = [self sizeWithText:homeCommentModel.sName font:kNameFont maxSize:CGSizeMake(MAXFLOAT, MAXFLOAT)].width;
     CGFloat name1H = 20;
     _name1F = CGRectMake(name1X, name1Y, name1W, name1H);
     
@@ -81,7 +81,7 @@
     CGFloat contentX = nameX;
     CGFloat contentY = CGRectGetMaxY(_timeF);
     CGFloat maxW = kScreenWidth - 14 * 2 - contentX - 35;
-    CGSize maxSize = [self sizeWithText:homeCommentModel.content font:KTextFont maxSize:CGSizeMake(maxW, MAXFLOAT)];
+    CGSize maxSize = [self sizeWithText:homeCommentModel.content font:kTextFont maxSize:CGSizeMake(maxW, MAXFLOAT)];
     _contentF = CGRectMake(contentX, contentY, maxSize.width, maxSize.height);
     
     

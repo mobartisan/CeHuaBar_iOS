@@ -51,7 +51,6 @@
 }
 
 - (void)setupCellContentView {
-    
     //时间线
     self.lineView = [UIView new];
     self.lineView.backgroundColor = [Common colorFromHexRGB:@"1b283a"];
@@ -79,14 +78,14 @@
     
     self.name1LB = [UILabel new];
     self.name1LB.textColor = [Common colorFromHexRGB:@"5093ef"];
-    self.name1LB.font = KNameFont;
+    self.name1LB.font = kNameFont;
     [self.contentView addSubview:self.name1LB];
     
     //内容
     self.desLB = [UILabel new];
     self.desLB.numberOfLines = 0;
     self.desLB.textColor = [Common colorFromHexRGB:@"a8aaad"];
-    self.desLB.font = KTextFont;
+    self.desLB.font = kTextFont;
     [self.contentView addSubview:self.desLB];
     
     //图片
@@ -128,13 +127,13 @@
         self.nameLB.textColor = [Common colorFromHexRGB:@"69737f"];
         self.nameLB.layer.cornerRadius = 3;
         self.nameLB.layer.masksToBounds = YES;
-        self.nameLB.font = KTimeFont;
+        self.nameLB.font = kTimeFont;
         self.name1LB.hidden = YES;
         self.timeLB.hidden = YES;
     }else {
         self.nameLB.backgroundColor = kRGBColor(32, 46, 63);
         self.nameLB.textColor = [Common colorFromHexRGB:@"ffffff"];
-        self.nameLB.font = KNameFont;
+        self.nameLB.font = kNameFont;
         self.name1LB.hidden = NO;
         self.timeLB.hidden = NO;
     }

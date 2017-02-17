@@ -10,11 +10,11 @@
 
 @class HomeCommentModel;
 // 姓名的字体
-#define KNameFont [UIFont systemFontOfSize:16]
+#define kNameFont [UIFont systemFontOfSize:16]
 //时间的字体
-#define KTimeFont [UIFont systemFontOfSize:12]
+#define kTimeFont [UIFont systemFontOfSize:12]
 // 正文的字体
-#define KTextFont [UIFont systemFontOfSize:16]
+#define kTextFont [UIFont systemFontOfSize:16]
 
 @interface HomeCommentModelFrame : NSObject
 
