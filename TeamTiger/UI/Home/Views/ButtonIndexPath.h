@@ -10,6 +10,7 @@
 
 @interface ButtonIndexPath : UIButton
 
+@property (nonatomic,assign) BOOL isShow;
 @property (strong, nonatomic) NSIndexPath *indexPath;
 
 @end

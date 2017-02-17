@@ -89,7 +89,10 @@
                 homeModel.open = YES;
                 [self.dataSource addObject:homeModel];
             }
-            self.title = ((HomeModel *)[self.dataSource firstObject]).project;
+            HomeModel *tempHomeModel = [self.dataSource firstObject];
+            tempHomeModel.indexModel.homeCommentModel.open = YES;
+            tempHomeModel.indexModel.homeCommentModel.show = NO;
+            self.title = tempHomeModel.project;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
@@ -121,6 +124,7 @@
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).homeModel = model;
         ((HomeCell *)cell).delegate = self;
+        ((HomeCell *)cell).commentBtn.isShow = NO;
     } else {
         cell = (HomeVoteCell *)[HomeVoteCell cellWithTableView:tableView];
         ((HomeVoteCell *)cell).homeModel = model;

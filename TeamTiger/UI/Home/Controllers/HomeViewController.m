@@ -633,6 +633,7 @@
     if (model.cellType == 1) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
+        ((HomeCell *)cell).commentBtn.isShow = YES;
         ((HomeCell *)cell).delegate = self;
         ((HomeCell *)cell).homeModel = model;
         ((HomeCell *)cell).clickMoreBtnBlock = ^(NSIndexPath *tmpIndexPath) {
@@ -723,7 +724,7 @@
 
 
 #pragma mark - HomeCellDelegate
-- (void)clickCommentBtn:(NSIndexPath *)indexPath {
+- (void)clickCommentBtn:(NSIndexPath *)indexPath isShow:(BOOL)isShow{
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 

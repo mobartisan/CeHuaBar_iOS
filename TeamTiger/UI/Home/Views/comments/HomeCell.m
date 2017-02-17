@@ -128,7 +128,7 @@
     [Common removeExtraCellLines:self.tableView];
     [self.contentView addSubview:self.tableView];
     self.tableView.tableHeaderView = [self headerImage];
-
+    
     
     //分割线
     self.separLine = [UIView new];
@@ -186,11 +186,13 @@
 
 - (void)handleCommentBtnAction:(ButtonIndexPath *)sender {
     _homeModel.open = !_homeModel.open;
-    if (_homeModel.open) {
-        _homeModel.indexModel.homeCommentModel.show = YES;
-    } else {
-        for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
-            commentModelF.homeCommentModel.open = NO;
+    if (sender.isShow) {
+        if (_homeModel.open) {
+            _homeModel.indexModel.homeCommentModel.show = YES;
+        } else {
+            for (HomeCommentModelFrame *commentModelF in _homeModel.comment) {
+                commentModelF.homeCommentModel.open = NO;
+            }
         }
     }
     if ([self.delegate respondsToSelector:@selector(clickCommentBtn:)]) {
@@ -320,7 +322,7 @@
 
 - (void)handleTapInputImage:(UITapGestureRecognizer *)tap {
     NSLog(@"handleTapInputImage");
-
+    
 }
 
 - (void)handleTapSendImage:(UITapGestureRecognizer *)tap {
@@ -332,7 +334,6 @@
     if ([self.delegate respondsToSelector:@selector(currentIndexPath:)]) {
         [self.delegate currentIndexPath:self.commentBtn.indexPath];
     }
-
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
