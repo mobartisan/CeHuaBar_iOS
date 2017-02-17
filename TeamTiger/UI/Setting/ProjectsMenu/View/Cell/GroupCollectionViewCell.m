@@ -42,7 +42,9 @@
         [self.addBtn addTarget:self action:@selector(handleAddGroupAction) forControlEvents:UIControlEventTouchUpInside];
     }else {
         [self isHidden:NO];
-        [[CirclesManager sharedInstance].views addObject:self];
+        if (self.count != [CirclesManager sharedInstance].views.count) {
+            [[CirclesManager sharedInstance].views addObject:self];
+        }
         
         self.msgLabel.text = @(group.project_nums).stringValue;
         self.projectNameLabel.text = group.group_name;

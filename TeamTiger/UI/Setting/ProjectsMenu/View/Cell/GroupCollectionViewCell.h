@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) NSIndexPath *indexPath;
 @property (strong, nonatomic) TT_Group *group;
+@property (nonatomic,assign) NSUInteger count;
 
 @property (copy, nonatomic) void(^clickAddGroupBlock)();//添加分组
 @property (copy, nonatomic) void(^clickGroupBlock)(TT_Group *group);//点击进入moments

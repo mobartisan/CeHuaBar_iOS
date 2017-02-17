@@ -79,8 +79,8 @@
     if (indexPath.row != self.dataSource.count) {
         group = self.dataSource[indexPath.row];
     }
+    cell.count = self.dataSource.count;
     cell.group = group;
-    
     cell.clickGroupBlock = ^(TT_Group *tmpGroup) {
         if (self.clickGroupBlock) {
             self.clickGroupBlock(tmpGroup);

@@ -27,6 +27,11 @@
 #import "STPushView.h"
 #import "TTBaseViewController+NotificationHandle.h"
 
+typedef enum{
+    RTSnapshotMeetsEdgeTop,
+    RTSnapshotMeetsEdgeBottom,
+}RTSnapshotMeetsEdge;
+
 @interface TTProjectsMenuViewController ()
 
 @property(nonatomic,strong)ProjectsView *pView;
@@ -43,6 +48,13 @@
 
 @property (strong, nonatomic) NSMutableArray *viewFrames;
 
+/**cell被拖动到边缘后开启，tableview自动向上或向下滚动*/
+@property (nonatomic, strong) CADisplayLink *autoScrollTimer;
+/**自动滚动的方向*/
+@property (nonatomic, assign) RTSnapshotMeetsEdge autoScrollDirection;
+/**对被选中的cell的截图*/
+@property (nonatomic, weak) UIView *snapshot;
+
 @end
 
 @implementation TTProjectsMenuViewController
@@ -53,6 +65,13 @@
         _groups = [NSMutableArray array];
     }
     return _groups;
+}
+
+- (NSMutableArray *)viewFrames {
+    if (!_viewFrames) {
+        _viewFrames = [NSMutableArray array];
+    }
+    return _viewFrames;
 }
 
 - (NSMutableArray *)touchPoints {
@@ -123,6 +142,70 @@
         }];
     }
     return _sgView;
+}
+
+
+/**
+ *  创建定时器并运行
+ */
+- (void)startAutoScrollTimer{
+    if (!_autoScrollTimer) {
+        _autoScrollTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(startAutoScroll)];
+        [_autoScrollTimer addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+}
+/**
+ *  停止定时器并销毁
+ */
+- (void)stopAutoScrollTimer{
+    if (_autoScrollTimer) {
+        [_autoScrollTimer invalidate];
+        _autoScrollTimer = nil;
+    }
+}
+
+/**
+ *  检查截图是否到达边缘，并作出响应
+ */
+- (BOOL)checkIfSnapshotMeetsEdge{
+    CGFloat minY = CGRectGetMinY(_snapshot.frame);
+    CGFloat maxY = CGRectGetMaxY(_snapshot.frame);
+    if (minY < self.menuTable.contentOffset.y) {
+        _autoScrollDirection = RTSnapshotMeetsEdgeTop;
+        return YES;
+    }
+    if (maxY > self.menuTable.bounds.size.height + self.menuTable.contentOffset.y) {
+        _autoScrollDirection = RTSnapshotMeetsEdgeBottom;
+        return YES;
+    }
+    return NO;
+}
+
+
+/**
+ *  开始自动滚动
+ */
+- (void)startAutoScroll{
+    CGFloat pixelSpeed = 4;
+    CGFloat y =  self.menuTable.contentOffset.y;
+    if (_autoScrollDirection == RTSnapshotMeetsEdgeTop) {//向下滚动
+        if (y > 0) {//向下滚动最大范围限制
+            [self.menuTable setContentOffset:CGPointMake(0, y - pixelSpeed)];
+            _snapshot.center = CGPointMake(_snapshot.center.x, _snapshot.center.y - pixelSpeed);
+        }
+    }else{                                               //向上滚动
+        if (y + self.menuTable.bounds.size.height < self.menuTable.contentSize.height) {//向下滚动最大范围限制
+            [self.menuTable setContentOffset:CGPointMake(0, y + pixelSpeed)];
+            _snapshot.center = CGPointMake(_snapshot.center.x, _snapshot.center.y + pixelSpeed);
+        }
+    }
+    
+    /*  当把截图拖动到边缘，开始自动滚动，如果这时手指完全不动，则不会触发‘UIGestureRecognizerStateChanged’，对应的代码就不会执行，导致虽然截图在tableView中的位置变了，但并没有移动那个隐藏的cell，用下面代码可解决此问题，cell会随着截图的移动而移动
+     */
+//    _relocatedIndexPath = [self indexPathForRowAtPoint:_snapshot.center];
+//    if (_relocatedIndexPath && ![_relocatedIndexPath isEqual:_originalIndexPath]) {
+//        [self cellRelocatedToNewIndexPath:_relocatedIndexPath];
+//    }
 }
 
 - (void)viewDidLoad {
@@ -225,6 +308,7 @@
         //            [(ProjectsCell *)cell addGestureRecognizer:longPress];
         //        }
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+        longPress.minimumPressDuration = 0.3;
         [(ProjectsCell *)cell addGestureRecognizer:longPress];
         
         
@@ -585,28 +669,27 @@
     [self getViewFrames];
     UIGestureRecognizerState state = longPress.state;
     CGPoint location = [longPress locationInView:self.menuTable];
-    NSIndexPath *tempIndexPath = [self.menuTable indexPathForCell:(ProjectsCell *)longPress.view];
-    TT_Project *project = [self.unGroupProjects objectAtIndex:tempIndexPath.row];
-    
     NSIndexPath *indexPath = [self.menuTable indexPathForRowAtPoint:location];
-    NSLog(@"project.name:%@--%ld", project.name, tempIndexPath.row);
+    TT_Project *project = [self.unGroupProjects objectAtIndex:indexPath.row];
+    
     static UIView *snapshot = nil;
     static NSIndexPath  *sourceIndexPath = nil;
     switch (state) {
-            // 已经开始按下
+            // 开始按下
         case UIGestureRecognizerStateBegan: {
             // 判断是不是按在了cell上面
             if (indexPath) {
                 sourceIndexPath = indexPath;
+                //1.创建cell快照
                 UITableViewCell *cell = [self.menuTable cellForRowAtIndexPath:indexPath];
-                // 为拖动的cell添加一个快照
                 snapshot = [self customSnapshoFromView:cell];
-                // 添加快照至tableView中
+                _snapshot = snapshot;
+                //2.添加快照至tableView中
                 __block CGPoint center = cell.center;
                 snapshot.center = center;
                 snapshot.alpha = 0.0;
                 [self.menuTable addSubview:snapshot];
-                // 按下的瞬间执行动画
+                //3.让快照跟着手指移动
                 [UIView animateWithDuration:0.25 animations:^{
                     center.y = location.y;
                     snapshot.center = center;
@@ -616,7 +699,6 @@
                     cell.alpha = 0.0;
                 } completion:^(BOOL finished) {
                     cell.hidden = YES;
-                    
                 }];
             }
             break;
@@ -637,6 +719,11 @@
             CGFloat moveX = Npoint.x - Ppoint.x;
             center.x += moveX;
             snapshot.center = center;
+            if ([self checkIfSnapshotMeetsEdge]) {
+                [self startAutoScrollTimer];
+            }else{
+                [self stopAutoScrollTimer];
+            }
             break;
         }
         case UIGestureRecognizerStateEnded: {
@@ -648,6 +735,7 @@
                 if (isContain) {
                     //1.取出下标
                     NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
+                    NSLog(@"index:%lu---%ld", index, self.viewFrames.count);
                     // 将快照放到分组里面
                     [UIView animateWithDuration:0.5 animations:^{
                         snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);
@@ -670,10 +758,10 @@
                     } completion:^(BOOL finished) {
                         [snapshot removeFromSuperview];
                         snapshot = nil;
-                        
                     }];
                 }
             }
+            /*
             if ([Common isEmptyArr:[CirclesManager sharedInstance].views]) {
                 [self.menuTable reloadData];
                 cell.hidden = NO;
@@ -689,6 +777,7 @@
                     
                 }];
             }
+             */
             break;
         }
         default: {
@@ -716,14 +805,14 @@
 }
 
 - (void)getViewFrames {
-    self.viewFrames = [NSMutableArray array];
+    [self.viewFrames removeAllObjects];
     int count = (int)[CirclesManager sharedInstance].views.count;
-    NSLog(@"CirclesManager:%d", count);
     for (int i = 0; i < count; i++) {
         UIView *tmpView = [CirclesManager sharedInstance].views[i];
         CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];
         [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
     }
+    NSLog(@"view:%d---viewFrames:%ld", count, self.viewFrames.count);
 }
 
 @end
