@@ -564,7 +564,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "483"
             endingLineNumber = "483"
-            landmarkName = "-projectTopWithProject:SrcTop:"
+            landmarkName = "-getAllGroupsAndProjectsData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -580,7 +580,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
             endingLineNumber = "259"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -724,7 +724,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "238"
             endingLineNumber = "238"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1012,7 +1012,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "200"
             endingLineNumber = "200"
-            landmarkName = "-loadUserInfo"
+            landmarkName = "-startAutoScroll"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1078,20 +1078,6 @@
             endingLineNumber = "117"
             landmarkName = "-managerDidRecvAuthResponse:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-            timestampString = "509012375.484543"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "743"
-            endingLineNumber = "743">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1202,7 +1188,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "338"
             endingLineNumber = "338"
-            landmarkName = "-tableView:viewForHeaderInSection:"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
