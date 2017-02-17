@@ -75,15 +75,19 @@
         //moment变更
         MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
         if (drawContoller.openSide != MMDrawerSideNone) {
+            TTBaseNavigationController *leftNav = (TTBaseNavigationController *)drawContoller.leftDrawerViewController;
+            [leftNav popToRootViewControllerAnimated:NO];
             [drawContoller closeDrawerAnimated:NO completion:nil];
         }
         TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawContoller.centerViewController;
-        [mainNav popToRootViewControllerAnimated:NO];
-        DiscussViewController *discussVC = [[DiscussViewController alloc] init];
-        if (self.topView.msgModel) {
-            discussVC.messageModel = self.topView.msgModel;
+        if (![mainNav.topViewController isKindOfClass:[DiscussViewController class]]) {
+            [mainNav popToRootViewControllerAnimated:NO];
+            DiscussViewController *discussVC = [[DiscussViewController alloc] init];
+            if (self.topView.msgModel) {
+                discussVC.messageModel = self.topView.msgModel;
+            }
+            [mainNav pushViewController:discussVC animated:YES];
         }
-        [mainNav pushViewController:discussVC animated:YES];
     } else if (self.topView.msgModel.message_type == 1) {
         //项目变更
         MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
@@ -91,6 +95,8 @@
             TTBaseNavigationController *leftNav = (TTBaseNavigationController *)drawContoller.leftDrawerViewController;
             [leftNav popToRootViewControllerAnimated:YES];
         } else if (drawContoller.openSide == MMDrawerSideNone) {
+            TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawContoller.centerViewController;
+            [mainNav popViewControllerAnimated:NO];
             [drawContoller openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
         }
     }
