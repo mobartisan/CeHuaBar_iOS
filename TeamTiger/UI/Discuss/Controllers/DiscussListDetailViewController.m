@@ -90,7 +90,6 @@
                 [self.dataSource addObject:homeModel];
             }
             HomeModel *tempHomeModel = [self.dataSource firstObject];
-            tempHomeModel.indexModel.homeCommentModel.open = YES;
             tempHomeModel.indexModel.homeCommentModel.show = NO;
             self.title = tempHomeModel.project;
         } else {

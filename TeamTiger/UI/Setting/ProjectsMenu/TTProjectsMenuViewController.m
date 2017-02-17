@@ -652,7 +652,6 @@
                     // 将快照放到分组里面
                     [UIView animateWithDuration:0.5 animations:^{
                         snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);
-                        //                        snapshot.alpha = 0.0;
                     } completion:^(BOOL finished) {
                         [snapshot removeFromSuperview];
                         snapshot = nil;

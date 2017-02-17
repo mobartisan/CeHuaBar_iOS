@@ -44,14 +44,6 @@
         [self isHidden:NO];
         [[CirclesManager sharedInstance].views addObject:self];
         
-//        CGSize size = [self sizeWithText:group.group_name font:kFontWithSize(16.0) maxSize:CGSizeMake(kSizeWidth, 20)];
-//        [self.unreadMsgImgV mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(size.width + 4);
-//            make.top.equalTo(self.projectNameLabel).offset(-1);
-//            make.width.mas_equalTo(8);
-//            make.height.mas_equalTo(8);
-//        }];
-        
         self.msgLabel.text = @(group.project_nums).stringValue;
         self.projectNameLabel.text = group.group_name;
         if ([self.msgLabel.text intValue] == 0) {
