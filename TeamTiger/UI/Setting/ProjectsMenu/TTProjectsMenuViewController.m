@@ -43,6 +43,8 @@
 
 @property (strong, nonatomic) NSMutableArray *viewFrames;
 
+@property (assign, nonatomic) BOOL isIntoUserInfo;
+
 @end
 
 @implementation TTProjectsMenuViewController
@@ -171,7 +173,11 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self getAllGroupsAndProjectsData];
+    if (!self.isIntoUserInfo) {
+        [self getAllGroupsAndProjectsData];
+    } else {
+        self.isIntoUserInfo = NO;
+    }
     //fix a bug
     self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
 }
@@ -370,6 +376,7 @@
 #pragma mark - 个人设置
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
+    self.isIntoUserInfo = YES;
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 
