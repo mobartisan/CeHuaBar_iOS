@@ -21,7 +21,6 @@
 #import "SelectGroupView.h"
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
-#import "TTGroupViewController.h"
 #import "NSString+YYAdd.h"
 #import "ProjectItemView.h"
 #import "STPushView.h"
@@ -336,8 +335,7 @@
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-        TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-        [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+        [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addProfileVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
     };
     return headView;
 }

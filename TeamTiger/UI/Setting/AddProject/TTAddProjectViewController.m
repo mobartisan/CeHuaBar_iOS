@@ -84,7 +84,7 @@
     self.title = @"添加项目";
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
         [self.view endEditing:YES];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [Common customPopAnimationFromNavigation:self.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
     }];
     [Common removeExtraCellLines:self.contentTable];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
