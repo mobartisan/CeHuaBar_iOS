@@ -153,7 +153,7 @@
 
 #pragma mark - 上拉刷新
 - (void)handleUpRefreshAction:(NSString *)tempURL {
-    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         if (![Common isEmptyString:tempURL] && !(self.dataSource.count % 5)) {
             [self getMoreDataWithUrl:tempURL];
         } else {

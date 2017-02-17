@@ -37,7 +37,6 @@
 #import "DiscussListModel.h"
 #import "TTBaseViewController+NotificationHandle.h"
 
-
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -381,7 +380,7 @@
 
 #pragma mark - 上拉刷新
 - (void)handleUpRefreshAction:(NSString *)tempURL {
-    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         if (![Common isEmptyString:tempURL] && !(self.dataSource.count % 10) && ![Common isEmptyArr:self.dataSource]) {
             [self getMoreDataWithUrl:tempURL];
         } else {
