@@ -144,7 +144,8 @@
         if (notification) {
             if ([notification isKindOfClass:[TT_Message class]]) {
                 TT_Message *message = (TT_Message *)notification;
-                if (message.message_type == 1) {
+                if (message.message_type == 1 ||
+                    message.message_type == 3) {
                     //1.发请求
                     //2.刷新UI
                     [self getAllGroupsAndProjectsData];
