@@ -195,6 +195,11 @@
 
 @end
 
+//MARK: - 清空未读消息
+@interface DeleteUnreadMessageApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 
 //MARK: - 添加discuss
 @interface DiscussCreateApi : LCBaseRequest<LCAPIRequest>

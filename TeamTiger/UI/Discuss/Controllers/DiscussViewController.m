@@ -92,12 +92,7 @@
 - (void)handleRightBtnActiqon:(UIButton *)sender {
     [UIAlertView hyb_showWithTitle:@"提醒" message:@"您确定要清空所有未读消息吗？" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
         if (buttonIndex == 1) {
-            [self.dataSource removeAllObjects];
-            [self.tableView reloadData];
-            sender.userInteractionEnabled = NO;
-            [sender setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
-            self.isNeedRefresh = YES;
-#warning 清空未读消息
+            [self deleteMessageListWithParameter:self.idDictionary];
         }
     }];
 }
@@ -139,6 +134,32 @@
         }
         [self.tableView reloadData];
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [super showText:NETWORKERROR afterSeconds:1.0];
+        NSLog(@"MessageListApi:%@", error);
+    }];
+}
+
+//MARK: - 清空未读消息
+- (void)deleteMessageListWithParameter:(id)parameter {
+    DeleteUnreadMessageApi *api = [[DeleteUnreadMessageApi alloc] init];
+    if (parameter) {
+        api.requestArgument = parameter;
+    }
+    [super showHudWithText:@"正在清空未读消息..."];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"MessageListApi:%@", request.responseJSONObject);
+        [super hideHud];
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [self.dataSource removeAllObjects];
+            [self.tableView reloadData];
+            self.rightBtn.userInteractionEnabled = NO;
+            [self.rightBtn setTitleColor:kRGB(91, 109, 130) forState:UIControlStateNormal];
+            self.isNeedRefresh = YES;
+        } else {
+            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [super hideHud];
         [super showText:NETWORKERROR afterSeconds:1.0];
         NSLog(@"MessageListApi:%@", error);
     }];

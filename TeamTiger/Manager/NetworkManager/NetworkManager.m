@@ -1069,6 +1069,36 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 清空未读消息
+@implementation DeleteUnreadMessageApi
+
+- (NSString *)apiMethodName {
+    return @"moment/message/delete.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodDelete;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;    
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
+
+
 //MARK: - 添加discuss
 @implementation DiscussCreateApi
 
