@@ -21,7 +21,6 @@
 #import "SelectGroupView.h"
 #import "UIViewController+MMDrawerController.h"
 #import "TTSettingViewController.h"
-#import "TTGroupViewController.h"
 #import "NSString+YYAdd.h"
 #import "ProjectItemView.h"
 #import "STPushView.h"
@@ -48,12 +47,16 @@ typedef enum{
 
 @property (strong, nonatomic) NSMutableArray *viewFrames;
 
+
 /**cell被拖动到边缘后开启，tableview自动向上或向下滚动*/
 @property (nonatomic, strong) CADisplayLink *autoScrollTimer;
 /**自动滚动的方向*/
 @property (nonatomic, assign) RTSnapshotMeetsEdge autoScrollDirection;
 /**对被选中的cell的截图*/
 @property (nonatomic, weak) UIView *snapshot;
+
+@property (assign, nonatomic) BOOL isIntoUserInfo;
+
 
 @end
 
@@ -254,7 +257,11 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self getAllGroupsAndProjectsData];
+    if (!self.isIntoUserInfo) {
+        [self getAllGroupsAndProjectsData];
+    } else {
+        self.isIntoUserInfo = NO;
+    }
     //fix a bug
     self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
 }
@@ -414,8 +421,7 @@ typedef enum{
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
-        TTBaseNavigationController *baseNav = [[TTBaseNavigationController alloc] initWithRootViewController:addProfileVC];
-        [self.navigationController presentViewController:baseNav animated:YES completion:nil];
+        [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addProfileVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
     };
     return headView;
 }
@@ -454,6 +460,7 @@ typedef enum{
 #pragma mark - 个人设置
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
+    self.isIntoUserInfo = YES;
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 

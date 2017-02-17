@@ -96,7 +96,7 @@
             [leftNav popToRootViewControllerAnimated:YES];
         } else if (drawContoller.openSide == MMDrawerSideNone) {
             TTBaseNavigationController *mainNav = (TTBaseNavigationController *)drawContoller.centerViewController;
-            [mainNav popViewControllerAnimated:NO];
+            [mainNav popToRootViewControllerAnimated:NO];
             [drawContoller openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
         }
     }

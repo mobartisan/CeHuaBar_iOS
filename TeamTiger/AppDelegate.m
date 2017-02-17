@@ -44,6 +44,7 @@
     
     //添加未读消息
     [self addPushView];
+    
     return YES;
 }
 
