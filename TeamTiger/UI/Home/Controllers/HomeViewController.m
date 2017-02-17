@@ -631,7 +631,7 @@
     HomeModel *model = self.dataSource[indexPath.row];
     // 定义唯一标识
     UITableViewCell *cell = nil;
-    if (model.cellType == 1) {
+    if (model.cellType == HomeModelCellTypeComment) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).commentBtn.indexPath = indexPath;
         ((HomeCell *)cell).commentBtn.isShow = YES;

@@ -568,7 +568,7 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [[CirclesManager sharedInstance].views removeAllObjects];
             [super showText:[NSString stringWithFormat:@"项目已添加至%@分组", group.group_name] afterSeconds:2.0];
-            [self.menuTable reloadData];
+            [self getAllGroupsAndProjectsData];
         }else {
             [super showText:@"项目已存在该分组下" afterSeconds:1.0];
         }

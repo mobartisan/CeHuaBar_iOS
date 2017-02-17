@@ -62,7 +62,6 @@
     HomeCell *cell = (HomeCell *)[self.tableView cellForRowAtIndexPath:indexPath];
     CGRect cellF = [cell.superview convertRect:cell.frame toView:window];
     CGFloat delt = CGRectGetMaxY(cellF) - (kScreenHeight - keyBoradFrame.size.height) - height - 10;
-    
     CGPoint offset = self.tableView.contentOffset;
     offset.y += delt;
     if (offset.y < 0) {
@@ -119,7 +118,7 @@
     HomeModel *model = self.dataSource[indexPath.row];
     // 定义唯一标识
     UITableViewCell *cell = nil;
-    if (model.cellType == 1) {
+    if (model.cellType == HomeModelCellTypeComment) {
         cell = (HomeCell *)[HomeCell cellWithTableView:tableView];
         ((HomeCell *)cell).homeModel = model;
         ((HomeCell *)cell).delegate = self;

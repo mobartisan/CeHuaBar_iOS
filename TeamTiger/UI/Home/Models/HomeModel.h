@@ -11,7 +11,7 @@
 @class HomeCommentModelFrame;
 
 typedef NS_ENUM(int, HomeModelCellType) {
-    HomeModelCellTypeComment = 0,
+    HomeModelCellTypeComment = 1,
     HomeModelCellTypeVote
 };
 
