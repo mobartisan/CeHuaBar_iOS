@@ -54,6 +54,12 @@
         } else {
             self.contentView.backgroundColor = [UIColor clearColor];
         }
+        
+        if (project.isRead) {
+            self.iconNewImg.hidden = YES;
+        } else {
+            self.iconNewImg.hidden = NO;
+        }
 
         UIView *v = [self viewWithTag:2016 + self.tag];
         if (v && [v isKindOfClass:[UIImageView class]]) [v removeFromSuperview];

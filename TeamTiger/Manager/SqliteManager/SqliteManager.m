@@ -391,20 +391,11 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
       isFieldTypeChanged:NO
          ];
 
-        
 //        TABLE_TT_Project
         [self checkTable:database
                tableName:TABLE_TT_Project
-           allFields:@[@"project_id",@"name",@"description",@"is_private",@"current_state",@"is_allow_delete",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id",@"is_grouped"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"boolean",@"integer",@"boolean",@"timestamp",@"varchar",@"timestamp",@"varchar",@"boolean"].mutableCopy
-             primaryKeys:nil
-      isFieldTypeChanged:NO
-         ];
-        
-        [self checkTable:database
-               tableName:TABLE_TT_Project
-               allFields:@[@"project_id",@"name"].mutableCopy
-           allFieldTypes:@[@"varchar",@"varchar"].mutableCopy
+           allFields:@[@"project_id",@"name",@"isTop",@"isNoDisturb",@"member_type",@"logoURL",@"newscount",@"group_id",@"group_name",@"isRead"].mutableCopy
+       allFieldTypes:@[@"varchar",@"varchar",@"boolean",@"boolean",@"integer",@"varchar",@"varchar",@"varchar",@"varchar",@"boolean"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];
@@ -472,7 +463,8 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
         
         //TABLE_TT_Message
         [self checkTable:database tableName:TABLE_TT_Message allFields:@[@"record_id", @"title", @"sub_title", @"url", @"url_type", @"badge", @"sound", @"content", @"create_date", @"last_edit_date", @"is_read", @"media_type", @"message_type"].mutableCopy allFieldTypes:@[@"varchar", @"varchar", @"varchar", @"varchar", @"integer", @"integer", @"varchar", @"varchar", @"varchar", @"varchar", @"boolean", @"integer", @"integer"].mutableCopy primaryKeys:nil isFieldTypeChanged:NO];
-        
+
+/*
         //add preparePredefineDatas
         [self preparePredefineDatas:database
                            commands:
@@ -491,7 +483,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0003','末端融合',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0004','电动汽车',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',1)",
            @"INSERT INTO TT_Project(project_id, name, description, is_private, current_state, is_allow_delete, create_date, create_user_id, last_edit_date, last_edit_user_id, is_grouped) VALUES('0005','主网抢修',null,0,0,1,datetime('now','localtime'),'xxcao',datetime('now','localtime'),'xxcao',0)",
-           
+
            //project members
            @"delete from TT_Project_Members",
            @"INSERT INTO TT_Project_Members(project_id, user_id, user_name, user_img_url) VALUES('0001','000001','曹兴星','1.png')",
@@ -661,7 +653,7 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
            @"INSERT INTO TT_Attachment(attachment_id, current_item_id, attachment_url, attachment_content) VALUES('0000034', 'D00007', null, 'image_5.jpg')",
            ].mutableCopy
          ];
-
+*/
     }
     else {
         //T_APP_SETTINGS

@@ -15,6 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *pointImg;
 
+@property (weak, nonatomic) IBOutlet UIImageView *iconNewImg;
+
 @property(nonatomic, weak) IBOutlet UIImageView *arrowImgV;
 
 @property(nonatomic, weak) IBOutlet UIImageView *pointImgV;

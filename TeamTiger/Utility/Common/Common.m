@@ -74,6 +74,14 @@
     return YES;
 }
 
+//获取安全的字符串
++ (NSString *)safeString:(NSString *)sourceStr {
+    if([Common isEmptyString:sourceStr]){
+        return @"";
+    }
+    return sourceStr;
+}
+
 //处理微信头像 头像大小 46 64 96 132
 + (NSString *)handleWeChatHeadImageUrl:(NSString *)headImgUrl Size:(double)size {
     if (![Common isEmptyString:headImgUrl]) {

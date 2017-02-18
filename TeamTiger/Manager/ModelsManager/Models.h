@@ -39,6 +39,8 @@
 @property (copy, nonatomic) NSString *newscount;
 @property (nonatomic,copy) NSString *group_id;
 @property (nonatomic,copy) NSString *group_name;
+@property (nonatomic,assign) BOOL isRead;
+
 
 @end
 

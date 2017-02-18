@@ -450,8 +450,12 @@ typedef enum{
         //主页moments
         [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
             if (finished) {
-                NSString *Id = self.unGroupProjects[indexPath.row];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:Id userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
+                TT_Project *project = self.unGroupProjects[indexPath.row];
+                project.isRead = YES;
+                //更新数据库
+                [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
+                [SQLITEMANAGER executeSql:[NSString stringWithFormat:@"update %@ set isRead = 1 where project_id = '%@'",TABLE_TT_Project,project.project_id]];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:project userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
             }
         }];
     }
@@ -503,6 +507,7 @@ typedef enum{
                 [project setValuesForKeysWithDictionary:projectDic];
                 [self.unGroupProjects addObject:project];
             }
+            [self synchronizedProejcts:self.unGroupProjects];
             [self.menuTable reloadData];
         }else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
@@ -837,6 +842,54 @@ typedef enum{
         [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
     }
     NSLog(@"view:%d---viewFrames:%ld", count, self.viewFrames.count);
+}
+
+
+//MARK: -同步项目数据
+- (void)synchronizedProejcts:(NSMutableArray *)serverDatas {
+    SqliteManager *sqliteManager = [SqliteManager sharedInstance];
+    [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
+    NSArray *dbDatas = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Project] Class:TABLE_TT_Project];
+    NSMutableArray *notInServers = [NSMutableArray array];
+    for (int i = 0; i < dbDatas.count; i++) {
+        TT_Project *dbProject = dbDatas[i];
+        BOOL isInServer = NO;
+        for (TT_Project *serverProject in serverDatas) {
+            if ([dbProject.project_id isEqualToString:serverProject.project_id]) {
+                isInServer = YES;
+                break;
+            }
+        }
+        if (!isInServer) {
+            [notInServers addObject:dbProject.project_id];
+        }
+    }
+    
+    for (NSInteger i = notInServers.count - 1; i >= 0; i--) {
+        [notInServers replaceObjectAtIndex:i
+                                withObject:[NSString stringWithFormat:@"'%@'",notInServers[i]]];
+    }
+    
+    [sqliteManager executeSql:[NSString stringWithFormat:@"delete from %@ where project_id in (%@)",TABLE_TT_Project,[notInServers componentsJoinedByString:@","]]];
+    //
+    for (int i = 0; i < serverDatas.count; i++) {
+        TT_Project *serverProject = serverDatas[i];
+        BOOL isInDB = NO;
+        for (TT_Project *dbProject in dbDatas) {
+            if ([serverProject.project_id isEqualToString:dbProject.project_id]) {
+                isInDB = YES;
+                serverProject.isRead = dbProject.isRead;
+                break;
+            }
+        }
+        if (!isInDB) {
+            //insert
+            NSString *sql = [NSString stringWithFormat:@"INSERT INTO TT_Project(project_id, name, isTop, isNoDisturb, member_type, logoURL, newscount, group_id, group_name, isRead) VALUES('%@', '%@', %d, %d, %d,'%@','%@','%@','%@',%d)", [Common safeString:serverProject.project_id],[Common safeString:serverProject.name],serverProject.isTop,serverProject.isNoDisturb,serverProject.member_type,[Common safeString:serverProject.logoURL],[Common safeString:serverProject.newscount],[Common safeString:serverProject.group_id],[Common safeString:serverProject.group_name],0];
+            [sqliteManager executeSql:sql];
+            //
+            serverProject.isRead = NO;
+        }
+    }
 }
 
 @end

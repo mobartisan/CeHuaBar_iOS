@@ -249,7 +249,6 @@
 		1D3E23681D61635C0024A5CA /* Models.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3E23631D61635C0024A5CA /* Models.m */; };
 		1D49DA051E1209CE00433B2C /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D49DA011E1209CE00433B2C /* GTMBase64.m */; };
 		1D49DA061E1209CE00433B2C /* JKEncrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D49DA041E1209CE00433B2C /* JKEncrypt.m */; };
-		1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5487231DCB263200DB4D89 /* TTGroupViewController.m */; };
 		1D55FD8F1D49A19900094112 /* TTSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */; };
 		1D55FD941D49AAA400094112 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D55FD921D49AAA400094112 /* SettingCell.m */; };
 		1D55FD951D49AAA400094112 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D55FD931D49AAA400094112 /* SettingCell.xib */; };
@@ -1023,8 +1022,6 @@
 		1D49DA021E1209CE00433B2C /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		1D49DA031E1209CE00433B2C /* JKEncrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEncrypt.h; sourceTree = "<group>"; };
 		1D49DA041E1209CE00433B2C /* JKEncrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKEncrypt.m; sourceTree = "<group>"; };
-		1D5487221DCB263200DB4D89 /* TTGroupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupViewController.h; sourceTree = "<group>"; };
-		1D5487231DCB263200DB4D89 /* TTGroupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupViewController.m; sourceTree = "<group>"; };
 		1D55FD8E1D49A19900094112 /* TTSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTSettingViewController.xib; sourceTree = "<group>"; };
 		1D55FD911D49AAA400094112 /* SettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
 		1D55FD921D49AAA400094112 /* SettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
@@ -2396,7 +2393,6 @@
 			isa = PBXGroup;
 			children = (
 				1D34D5071DEFC045002CBFF8 /* GroupSetting */,
-				1D5487211DCB260F00DB4D89 /* GroupsMenu */,
 				1D32AEF21DB0C370000DF537 /* View */,
 				1D32AEED1DB08546000DF537 /* TTProjectsMenuViewController.h */,
 				1D32AEEE1DB08546000DF537 /* TTProjectsMenuViewController.m */,
@@ -2501,15 +2497,6 @@
 				1D49DA041E1209CE00433B2C /* JKEncrypt.m */,
 			);
 			path = AESCrypt;
-			sourceTree = "<group>";
-		};
-		1D5487211DCB260F00DB4D89 /* GroupsMenu */ = {
-			isa = PBXGroup;
-			children = (
-				1D5487221DCB263200DB4D89 /* TTGroupViewController.h */,
-				1D5487231DCB263200DB4D89 /* TTGroupViewController.m */,
-			);
-			path = GroupsMenu;
 			sourceTree = "<group>";
 		};
 		1D55FD901D49AA8200094112 /* View */ = {
@@ -4401,7 +4388,6 @@
 				1D0EA2C71D45A82C00B47108 /* LCNetworkAgent.m in Sources */,
 				1D09CD101D3F550300F85E9A /* HYBHelperKitTestEntranceController.m in Sources */,
 				1D9580A41D3E207200FD0053 /* MJRefreshComponent.m in Sources */,
-				1D5487241DCB263200DB4D89 /* TTGroupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4452,9 +4438,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4472,7 +4458,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4577,7 +4563,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -4644,14 +4630,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -4662,12 +4650,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

@@ -17,6 +17,8 @@
 + (BOOL)isEmptyString:(NSString *)sourceStr;
 //数组是否为空
 + (BOOL)isEmptyArr:(NSArray *)arr;
+//获取安全的字符串
++ (NSString *)safeString:(NSString *)sourceStr;
 //处理微信头像
 + (NSString *)handleWeChatHeadImageUrl:(NSString *)headImgUrl Size:(double)size;
 //自定义push动画

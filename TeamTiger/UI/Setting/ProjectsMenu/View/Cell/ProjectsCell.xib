@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="psT-sH-SQ9" id="j0H-Ud-1lE">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="52"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SLk-5r-lom">
@@ -75,6 +75,13 @@
                             <constraint firstAttribute="width" constant="10" id="hlJ-lI-yNV"/>
                         </constraints>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNew" translatesAutoresizingMaskIntoConstraints="NO" id="v00-hT-Vnz">
+                        <rect key="frame" x="299" y="8" width="13" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="RnG-lo-i0r"/>
+                            <constraint firstAttribute="width" constant="13" id="m7U-KV-U2C"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
@@ -85,8 +92,10 @@
                     <constraint firstAttribute="trailing" secondItem="ebW-eD-0mT" secondAttribute="trailing" constant="15" id="G3s-k1-TdI"/>
                     <constraint firstItem="qBX-fy-bPl" firstAttribute="centerY" secondItem="j0H-Ud-1lE" secondAttribute="centerY" id="Ge4-aO-kbS"/>
                     <constraint firstItem="SLk-5r-lom" firstAttribute="leading" secondItem="j0H-Ud-1lE" secondAttribute="leading" constant="8" id="NBe-66-bxM"/>
+                    <constraint firstItem="v00-hT-Vnz" firstAttribute="top" secondItem="j0H-Ud-1lE" secondAttribute="top" constant="8" id="Nk6-l0-XoH"/>
                     <constraint firstItem="s55-wH-cUP" firstAttribute="leading" secondItem="JG4-U2-tTq" secondAttribute="trailing" constant="5" id="Wed-ub-hcA"/>
                     <constraint firstItem="5yN-VX-dWO" firstAttribute="centerY" secondItem="j0H-Ud-1lE" secondAttribute="centerY" id="eMO-Vg-xBX"/>
+                    <constraint firstAttribute="trailing" secondItem="v00-hT-Vnz" secondAttribute="trailing" constant="8" id="enF-DP-IPb"/>
                     <constraint firstItem="5yN-VX-dWO" firstAttribute="leading" secondItem="SLk-5r-lom" secondAttribute="trailing" constant="6" id="gr6-3K-hQP"/>
                     <constraint firstItem="f0z-rd-HAJ" firstAttribute="centerY" secondItem="j0H-Ud-1lE" secondAttribute="centerY" constant="-1.5" id="jUU-cL-KBn"/>
                     <constraint firstItem="SLk-5r-lom" firstAttribute="centerY" secondItem="j0H-Ud-1lE" secondAttribute="centerY" id="lI2-Ek-I3B"/>
@@ -97,6 +106,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="arrowImgV" destination="ebW-eD-0mT" id="QHB-Ar-w3n"/>
+                <outlet property="iconNewImg" destination="v00-hT-Vnz" id="1by-47-ZOM"/>
                 <outlet property="msgNumBGImgV" destination="f0z-rd-HAJ" id="hcm-Gv-Nhy"/>
                 <outlet property="msgNumLab" destination="qBX-fy-bPl" id="R3Z-1X-QUh"/>
                 <outlet property="notdisturbImgV" destination="s55-wH-cUP" id="yDV-Xd-gG1"/>
@@ -109,6 +119,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="iconNew" width="13" height="13"/>
         <image name="icon_do_not_disturb" width="36" height="36"/>
         <image name="icon_enter2" width="10" height="16"/>
     </resources>

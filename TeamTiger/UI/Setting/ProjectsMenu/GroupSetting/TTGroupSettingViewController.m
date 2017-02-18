@@ -171,6 +171,7 @@
         [(ProjectsCell *)cell loadProjectsInfo:projectInfo IsLast:indexPath.row == self.projects.count - 1];
         ((ProjectsCell *)cell).arrowImgV.hidden = YES;
         ((ProjectsCell *)cell).trailingConstrait.constant = 0;
+        ((ProjectsCell *)cell).iconNewImg.hidden = YES;
         return cell;
     }
 }
