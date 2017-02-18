@@ -49,7 +49,8 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-
+    //计算个数
+    [self caculateUnreadMessageCount];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -239,6 +240,22 @@
     [[QiniuUpoadManager mainQiniuUpoadManager] createToken];
     //应用统计
     [Analyticsmanager startAppAnalytics];
+}
+
+//MARK: - 统计未读消息个数
+- (void)caculateUnreadMessageCount {
+    MessageCountApi *msgCountApi = [[MessageCountApi alloc] init];
+    [msgCountApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        if ([request.responseJSONObject[CODE] integerValue] == 1000 &&
+            [request.responseJSONObject[SUCCESS] integerValue] == 1) {
+            NSInteger number = [request.responseJSONObject[OBJ][@"newscount"] integerValue];
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
+        } else {
+            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        [[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];
+    }];
 }
 
 @end
