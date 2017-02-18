@@ -44,7 +44,7 @@
 
 - (void)hudClickOperation
 {
-    [self push:nil];
+    [self push:self.topView.msgModel];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.topView.userInteractionEnabled = YES;
     });
@@ -70,8 +70,8 @@
 }
 
 //MARK:- 跳转消息页面
-- (void)push:(NSDictionary *)params{
-    if(self.topView.msgModel.message_type == 3) {
+- (void)push:(TT_Message *)params{
+    if(params.message_type == 3) {
         //moment变更
         MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
         if (drawContoller.openSide != MMDrawerSideNone) {
@@ -83,12 +83,12 @@
         if (![mainNav.topViewController isKindOfClass:[DiscussViewController class]]) {
             [mainNav popToRootViewControllerAnimated:NO];
             DiscussViewController *discussVC = [[DiscussViewController alloc] init];
-            if (self.topView.msgModel) {
-                discussVC.messageModel = self.topView.msgModel;
+            if (params) {
+                discussVC.messageModel = params;
             }
             [mainNav pushViewController:discussVC animated:YES];
         }
-    } else if (self.topView.msgModel.message_type == 1) {
+    } else if (params.message_type == 1 || params.message_type == 2) {
         //项目变更
         MMDrawerController *drawContoller = (MMDrawerController *)self.window.rootViewController;
         if (drawContoller.openSide == MMDrawerSideLeft) {

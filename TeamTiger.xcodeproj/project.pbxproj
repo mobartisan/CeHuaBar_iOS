@@ -4438,7 +4438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
@@ -4563,7 +4563,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
@@ -4630,7 +4630,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ling wei (JQX8M2KD8U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationContentService/Info.plist;

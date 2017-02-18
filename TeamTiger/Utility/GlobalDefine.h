@@ -42,5 +42,6 @@ NSString *gClientID;//client id
 
 UIView *bView;
 
+NSString *gMessageType;
 
 #endif /* GlobalDefine_h */

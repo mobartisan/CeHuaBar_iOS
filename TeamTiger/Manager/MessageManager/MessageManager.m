@@ -162,8 +162,30 @@ static MessageManager *singleton = nil;
 
 //
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
-//    UNNotificationRequest *request = response.notification.request; // 原始请求
+    UNNotificationRequest *request = response.notification.request; // 原始请求
     //在此，可判断response的种类和request的触发器是什么，可根据远程通知和本地通知分别处理，再根据action进行后续回调
+    // Required
+    NSDictionary *userInfo = request.content.userInfo;
+    //iOS10 收到远程通知
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        TT_Message *tmpMsg = [[TT_Message alloc] init];
+        tmpMsg.title = userInfo[@"aps"][@"alert"][@"title"];
+        tmpMsg.content = userInfo[@"aps"][@"alert"][@"body"];
+        tmpMsg.sound = userInfo[@"aps"][@"sound"];
+#warning to do here
+        tmpMsg.message_type = 3;
+        [self handleOneMessage:tmpMsg IsOffLine:YES];
+        //跳转页面
+        if (![LoginManager sharedInstace].isLogin || [Common isEmptyString:gSession]){
+            gMessageType = @(tmpMsg.message_type).stringValue;
+        } else {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                [appdelegate push:tmpMsg];
+            });
+        }
+    }
+    completionHandler();  // 系统要求执行这个方法
 }
 #pragma mark - GeTuiSdkDelegate
 /** SDK启动成功返回cid */
@@ -239,13 +261,15 @@ static MessageManager *singleton = nil;
         //当前处于未登录状态，不接收和处理消息
         return;
     }
-    //
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
-    NSLog(@"Message Transformat Dict: %@",dict);
-    
     //1.转成message model
-    TT_Message *msgModel = [[TT_Message alloc] init];
-    [msgModel getModelFromDict:dict];
+    TT_Message *msgModel = [[TT_Message alloc] init];;
+    if ([msgObj isKindOfClass:[TT_Message class]]) {
+        msgModel = msgObj;
+    } else {
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:msgObj options:kNilOptions error:nil];
+        NSLog(@"Message Transformat Dict: %@",dict);
+        [msgModel getModelFromDict:dict];
+    }
     //2.storage sqlite
     SqliteManager *sqliteManager = SQLITEMANAGER;
     [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];

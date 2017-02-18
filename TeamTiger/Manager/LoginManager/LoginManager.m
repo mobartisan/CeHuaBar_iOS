@@ -8,7 +8,6 @@
 
 #import "LoginManager.h"
 
-
 @implementation LoginManager
 
 static LoginManager *loginManager = nil;

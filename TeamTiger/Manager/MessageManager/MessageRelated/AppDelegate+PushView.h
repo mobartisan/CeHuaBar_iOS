@@ -19,4 +19,7 @@
 //显示pushView
 - (void)displayPushView;
 
+//页面跳转
+- (void)push:(TT_Message *)params;
+
 @end

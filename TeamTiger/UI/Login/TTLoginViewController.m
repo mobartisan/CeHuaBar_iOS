@@ -9,6 +9,7 @@
 #import "UIControl+YYAdd.h"
 #import "WXApiManager.h"
 #import "AppDelegate.h"
+#import "AppDelegate+PushView.h"
 #import "WXApiRequestHandler.h"
 #import "Constant.h"
 #import "WXApi.h"
@@ -136,6 +137,16 @@
                 UIWindow *window = kAppDelegate.window;
                 window.rootViewController = rootVC;
                 [window makeKeyAndVisible];
+                if (![Common isEmptyString:gMessageType]) {
+                    //由apns唤起的
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        AppDelegate *appdelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                        TT_Message *message = [[TT_Message alloc] init];
+                        message.message_type = gMessageType.integerValue;
+                        [appdelegate push:message];
+                        gMessageType = nil;
+                    });
+                }
             });
         } else if (resType == ResponseStatusFailure) {
             [super showText:response afterSeconds:1.0];
