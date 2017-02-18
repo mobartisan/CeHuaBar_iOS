@@ -312,7 +312,9 @@
                 }
             }
             //封面
-            if (kIsDictionary(objDic[@"banner"]) && [[objDic[@"banner"] allKeys] count] != 0) {
+            if (kIsDictionary(objDic[@"banner"]) &&
+                [[objDic[@"banner"] allKeys] count] != 0 &&
+                ![Common isEmptyString:objDic[@"banner"][@"url"]]) {
                 self.textLB.hidden = YES;
                 self.imageView.hidden = NO;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
