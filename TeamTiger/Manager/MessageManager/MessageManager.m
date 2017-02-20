@@ -172,8 +172,13 @@ static MessageManager *singleton = nil;
         tmpMsg.title = userInfo[@"aps"][@"alert"][@"title"];
         tmpMsg.content = userInfo[@"aps"][@"alert"][@"body"];
         tmpMsg.sound = userInfo[@"aps"][@"sound"];
-#warning to do here
-        tmpMsg.message_type = 3;
+        tmpMsg.badge = [userInfo[@"aps"][@"badge"] integerValue];
+        if([userInfo.allKeys containsObject:@"message_type"]) {
+            tmpMsg.message_type = [userInfo[@"message_type"] integerValue];
+        }
+        if ([userInfo.allKeys containsObject:@"payload"]) {
+            tmpMsg.url = userInfo[@"payload"];
+        }
         [self handleOneMessage:tmpMsg IsOffLine:YES];
         //跳转页面
         if (![LoginManager sharedInstace].isLogin || [Common isEmptyString:gSession]){
