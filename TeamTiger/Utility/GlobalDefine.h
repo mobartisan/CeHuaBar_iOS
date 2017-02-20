@@ -21,6 +21,12 @@ typedef NS_ENUM(NSUInteger, EResponseType) {
     ResponseStatusOffline,
 };
 
+typedef enum : NSUInteger {
+    ECurrentIsProject = 0,
+    ECurrentIsGroup,
+    ECurrentIsAll,
+} ECurrentStatus;
+
 typedef void(^ResponseBlock)(EResponseType resType, id response);
 
 static const double default_NavigationHeight = 64.0;

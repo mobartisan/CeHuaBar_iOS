@@ -291,7 +291,7 @@
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"getAllMoments:%@", request.responseJSONObject);
+        NSLog(@"GetAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         self.dataSource = [NSMutableArray array];
         BOOL isShowRing = NO;
@@ -321,18 +321,16 @@
 
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority];
             } else {
-                if (self.tempDic.allKeys.count != 0 && ![self.tempDic.allKeys containsObject:@"gid"]) {
+                if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
                     //只展示project
                     self.textLB.hidden = YES;
                     self.imageView.hidden = NO;
                     self.imageView.image = kImage(@"img_cover");
-                }
-                if (self.tempDic.allKeys.count != 0 && [self.tempDic.allKeys containsObject:@"gid"]) {
+                } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsGroup) {
                     //只展示分组的
                     self.textLB.hidden = NO;
                     self.imageView.hidden = YES;
-                }
-                if (!self.tempDic || self.tempDic.allKeys.count == 0) {
+                } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsAll) {
                     //所有moment
                     self.textLB.hidden = NO;
                     self.imageView.hidden = YES;
@@ -545,10 +543,13 @@
                                           @"url":url};
                     NSData *data = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
                     NSString *bannerStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSDictionary *bannerDic ;
-                    if (self.tempDic && [self.tempDic allKeys] != 0) {
+                    NSDictionary *bannerDic = nil;
+                    if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsGroup) {
                         bannerDic = @{@"medias":bannerStr,
                                       @"gid":self.tempDic[@"gid"]};
+                    } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
+                        bannerDic = @{@"medias":bannerStr,
+                                      @"pid":self.tempDic[@"pid"]};
                     } else {
                         bannerDic = @{@"medias":bannerStr};
                     }
@@ -703,7 +704,7 @@
     }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
         parameterDic = @{@"pid":[notification.object project_id]};
         self.setBtn.hidden = NO;
-        self.imageView.userInteractionEnabled = NO;
+        self.imageView.userInteractionEnabled = YES;
         
         [self.titleView setImage:nil forState:UIControlStateNormal];
         [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
@@ -779,5 +780,26 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
 }
 
+//MARK: - 当前展示的是否是项目、分组、还是所有
+- (ECurrentStatus)isProejctOrGroupOrAllByCurrently {
+    ECurrentStatus currentStatus;
+    if(self.tempDic) {
+        if (![self.tempDic.allKeys containsObject:@"pid"] &&
+            ![self.tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsAll;
+        } else if ([self.tempDic.allKeys containsObject:@"pid"] &&
+                   ![self.tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsProject;
+        } else if (![self.tempDic.allKeys containsObject:@"pid"] &&
+                   [self.tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsGroup;
+        } else {
+            currentStatus = ECurrentIsAll;
+        }
+    } else {
+        currentStatus = ECurrentIsAll;
+    }
+    return currentStatus;
+}
 
 @end
