@@ -55,7 +55,7 @@
 @property (strong, nonatomic) TT_Project *tempProject;//项目
 @property (strong, nonatomic) TT_Group *tempGroup;//分组
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
-
+@property (assign, nonatomic) NSInteger memberType;
 @end
 
 @implementation HomeViewController
@@ -337,6 +337,12 @@
                 }
             }
             
+            //是否是管理员
+            if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
+                self.memberType = [objDic[@"member_type"] integerValue];
+            } else {
+                self.memberType = -1;
+            }
             
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {
@@ -514,6 +520,12 @@
 
 - (void)handleBgImageTap {
     [self.view endEditing:YES];
+    //是否是管理员
+    if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
+        if (self.memberType == 0) {
+            return;
+        }
+    }
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     
     MMPopupItemHandler block = ^(NSInteger index){
@@ -740,7 +752,7 @@
 //点击项目名称
 - (void)clickProjectBtn:(TT_Project *)project {
     self.setBtn.hidden = NO;
-    self.imageView.userInteractionEnabled = NO;
+    self.imageView.userInteractionEnabled = YES;
     self.tempProject = project;
     [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     [self.titleView setImage:nil forState:UIControlStateNormal];
@@ -753,7 +765,7 @@
 //点击项目名称
 - (void)clickVoteProjectBtn:(TT_Project *)project {
     self.setBtn.hidden = NO;
-    self.imageView.userInteractionEnabled = NO;
+    self.imageView.userInteractionEnabled = YES;
     self.tempProject = project;
     [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
     [self.titleView setImage:nil forState:UIControlStateNormal];
