@@ -87,16 +87,15 @@
     
     //3.内容label
     InsetsLabel *contentLB = [InsetsLabel new];
-    contentLB.lineBreakMode = NSLineBreakByWordWrapping;
     contentLB.font = kFont;
     contentLB.textColor = [UIColor whiteColor];
-    contentLB.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    contentLB.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
     contentLB.numberOfLines = 0;
-    contentLB.layer.cornerRadius = 5;
-    contentLB.clipsToBounds = YES;
+    contentLB.lineBreakMode = NSLineBreakByWordWrapping;
+    [contentLB setInsets:UIEdgeInsetsMake(10, 10, 0, 10)];
+    [contentLB setVerticalAlignment:VerticalAlignmentTop];
     _contentLB = contentLB;
     [self addSubview:contentLB];
-    
 }
 
 /*
@@ -271,12 +270,12 @@
     
     _indexLabel.center = CGPointMake(self.bounds.size.width * 0.5, 35);
 //    _saveButton.frame = CGRectMake(30, self.bounds.size.height - 70, 50, 25);
-    CGFloat width = kScreenWidth - 10 * 2;
-    CGSize size = [NSString sizeWithText:self.content font:kFont maxSize:CGSizeMake(width, 200)];
-
-    _contentLB.frame = CGRectMake(10, kScreenHeight - 150, kScreenWidth - 10 * 2, size.height + 25);
-    _contentLB.insets = UIEdgeInsetsMake(4, 4, 4, 0);
+    
+    CGSize size = [NSString sizeWithText:self.content font:kFont maxSize:CGSizeMake(kScreenWidth, MAXFLOAT)];
+    CGFloat height = size.height + 44.0;
+    _contentLB.frame = CGRectMake(0, kScreenHeight - height, kScreenWidth, height);
     _contentLB.text = self.content;
+    [_contentLB setNeedsLayout];//修改UI
 }
 
 - (void)show
