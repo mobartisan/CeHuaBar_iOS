@@ -544,11 +544,10 @@
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
                 self.textLB.hidden = YES;
-                UIImage *normalImage = [selectImage normalizedImage];
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片
-                CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
+                CGImageRef imgR = CGImageCreateWithImageInRect(selectImage.CGImage, CGRectMake(0, 0, wself.imageView.size.width * scale, wself.imageView.size.height * scale));
                 UIImage *uploadImg = [UIImage imageWithCGImage:imgR];
                 CFRelease(imgR);
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
