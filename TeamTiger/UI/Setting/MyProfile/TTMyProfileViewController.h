@@ -11,5 +11,6 @@
 @interface TTMyProfileViewController : TTBaseViewController <UITableViewDelegate,UITableViewDataSource>
 
 @property(weak,nonatomic)IBOutlet UITableView *tableView;
+@property (nonatomic,copy) void(^submitInformation)(BOOL isSubmit);
 
 @end

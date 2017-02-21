@@ -20,6 +20,9 @@
 @property (copy, nonatomic) NSString *nickName;
 @property (copy, nonatomic) NSString *remark;
 @property (strong, nonatomic) UIButton *rightBtn;
+@property (nonatomic,assign) BOOL isSubmit;
+
+
 
 @end
 
@@ -35,6 +38,9 @@
     self.title = @"个人设置";
     
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
+        if (self.submitInformation) {
+            self.submitInformation(self.isSubmit);
+        }
         [self.navigationController popViewControllerAnimated:YES];
     }];
     
@@ -79,6 +85,7 @@
                 [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
                 self.rightBtn.enabled = NO;
             });
+            self.isSubmit = YES;
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
@@ -94,6 +101,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self.tableView reloadData];
 }
+
 
 #pragma mark - UITableViewDelegate && UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

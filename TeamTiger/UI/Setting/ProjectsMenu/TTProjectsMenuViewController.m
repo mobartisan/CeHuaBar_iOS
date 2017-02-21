@@ -225,6 +225,7 @@ typedef enum{
     edgePan.edges = UIRectEdgeRight;
     [self.menuTable addGestureRecognizer:edgePan];
     
+    self.isIntoUserInfo = YES;
     //处理通知
     [self handleNotificationWithBlock:^(id notification) {
         if (notification) {
@@ -257,10 +258,8 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    if (!self.isIntoUserInfo) {
+    if (self.isIntoUserInfo) {
         [self getAllGroupsAndProjectsData];
-    } else {
-        self.isIntoUserInfo = NO;
     }
     //fix a bug
     self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
@@ -464,7 +463,9 @@ typedef enum{
 #pragma mark - 个人设置
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
-    self.isIntoUserInfo = YES;
+    myProfileVC.submitInformation = ^(BOOL isSubmit) {
+        self.isIntoUserInfo = isSubmit;
+    };
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 
