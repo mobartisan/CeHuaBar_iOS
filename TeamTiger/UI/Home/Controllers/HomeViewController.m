@@ -109,7 +109,7 @@
         
         imageView.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
 
-        textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).bottomSpaceToView(_sectionHeader, 80).rightSpaceToView(_sectionHeader, 0).heightIs(20);
+        textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, imageViewH - 80).rightSpaceToView(_sectionHeader, 0).heightIs(20);
 
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
 
