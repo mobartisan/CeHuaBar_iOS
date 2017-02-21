@@ -71,6 +71,7 @@
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
         imageView.backgroundColor = [UIColor clearColor];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_sectionHeader addSubview:imageView];
         self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
