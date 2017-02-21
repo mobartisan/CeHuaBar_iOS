@@ -80,9 +80,10 @@
         UILabel *textLB = [UILabel new];
         textLB.userInteractionEnabled = YES;
         textLB.textAlignment = NSTextAlignmentCenter;
-        textLB.text = @"轻触设置moment封面";
+        textLB.text = @"轻触设置封面";
         textLB.textColor = [Common colorFromHexRGB:@"3f608b"];
         textLB.backgroundColor = [UIColor clearColor];
+        textLB.font = [UIFont systemFontOfSize:15];
         self.textLB = textLB;
         [_sectionHeader addSubview:textLB];
         UITapGestureRecognizer *tapLB = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapLBAction)];
@@ -108,7 +109,7 @@
         
         imageView.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
 
-        textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).topSpaceToView(_sectionHeader, 0).rightSpaceToView(_sectionHeader, 0).heightIs(imageViewH);
+        textLB.sd_layout.leftSpaceToView(_sectionHeader, 0).bottomSpaceToView(_sectionHeader, 80).rightSpaceToView(_sectionHeader, 0).heightIs(20);
 
         setBtn.sd_layout.topSpaceToView(_sectionHeader, imageViewH - 20).rightSpaceToView(_sectionHeader, 17).widthIs(122).heightIs(40);
 
@@ -311,6 +312,14 @@
                     }
                 }
             }
+            
+            //是否是管理员
+            if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
+                self.memberType = [objDic[@"member_type"] integerValue];
+            } else {
+                self.memberType = -1;
+            }
+
             //封面
             if (kIsDictionary(objDic[@"banner"]) &&
                 [[objDic[@"banner"] allKeys] count] != 0 &&
@@ -326,24 +335,25 @@
                     self.textLB.hidden = YES;
                     self.imageView.hidden = NO;
                     self.imageView.image = kImage(@"img_cover");
+                    if (self.memberType == 1) {
+                        //管理员
+                        self.textLB.hidden = NO;
+                        self.textLB.text = @"轻触设置项目封面";
+                    }
                 } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsGroup) {
                     //只展示分组的
                     self.textLB.hidden = NO;
-                    self.imageView.hidden = YES;
+                    self.textLB.text = @"轻触设置分组封面";
+                    self.imageView.hidden = NO;
+                    self.imageView.image = kImage(@"img_cover");
                 } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsAll) {
                     //所有moment
                     self.textLB.hidden = NO;
-                    self.imageView.hidden = YES;
+                    self.textLB.text = @"轻触设置Moments封面";
+                    self.imageView.hidden = NO;
+                    self.imageView.image = kImage(@"img_cover");
                 }
             }
-            
-            //是否是管理员
-            if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
-                self.memberType = [objDic[@"member_type"] integerValue];
-            } else {
-                self.memberType = -1;
-            }
-            
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {
                 [self handleUpRefreshAction:objDic[@"next"]];
