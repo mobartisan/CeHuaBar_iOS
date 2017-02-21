@@ -352,6 +352,8 @@ static const double kColumn = 4.0f;
             TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithSelectedAssets:_selectedAssets selectedPhotos:_selectedPhotos index:indexPath.row];
             //            imagePickerVc.allowPickingOriginalPhoto = self.allowPickingOriginalPhotoSwitch.isOn;
             imagePickerVc.isSelectOriginalPhoto = _isSelectOriginalPhoto;
+            imagePickerVc.allowPickingOriginalPhoto = NO;
+            imagePickerVc.allowPreview = NO;
             [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
                 [[SelectPhotosManger sharedInstance] setSelectPhotoes:[NSMutableArray arrayWithArray:photos] WithOption:self.optionStr];
                 [[SelectPhotosManger sharedInstance] setSelectAssets:[NSMutableArray arrayWithArray:assets]WithOption:self.optionStr];
@@ -387,7 +389,7 @@ static const double kColumn = 4.0f;
     
     // 1.如果你需要将拍照按钮放在外面，不要传这个参数
     imagePickerVc.selectedAssets = [[SelectPhotosManger sharedInstance] getAssetsWithOption:self.optionStr]; // optional, 可选的
-    imagePickerVc.allowTakePicture = YES; // 在内部显示拍照按钮
+    imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
     
     // 2. Set the appearance
     // 2. 在这里设置imagePickerVc的外观
@@ -399,7 +401,8 @@ static const double kColumn = 4.0f;
     // 3. 设置是否可以选择视频/图片/原图
     imagePickerVc.allowPickingVideo = NO;
     imagePickerVc.allowPickingImage = YES;
-    imagePickerVc.allowPickingOriginalPhoto = YES;
+    imagePickerVc.allowPickingOriginalPhoto = NO;
+    imagePickerVc.allowPreview = NO;
     
 #pragma mark - 到这里为止
     
@@ -441,9 +444,11 @@ static const double kColumn = 4.0f;
         TZImagePickerController *tzImagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:self.photoCount delegate:self];
         //        tzImagePickerVc.sortAscendingByModificationDate = self.sortAscendingSwitch.isOn;
         [tzImagePickerVc showProgressHUD];
+        tzImagePickerVc.allowPickingOriginalPhoto = NO;
+        tzImagePickerVc.allowPreview = NO;
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         // save photo and get asset / 保存图片，获取到asset
-        [[TZImageManager manager] savePhotoWithImage:image completion:^{
+        [[TZImageManager manager] savePhotoWithImage:image completion:^(NSError *error){
             [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
                 [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {
                     [tzImagePickerVc hideProgressHUD];

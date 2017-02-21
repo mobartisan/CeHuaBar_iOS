@@ -19,6 +19,7 @@
 #import "AddImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "TZImagePickerController.h"
+#import "TZImageManager.h"
 #import <Photos/Photos.h>
 #import "UIImage+Extension.h"
 
@@ -368,15 +369,20 @@
 
 #pragma mark - 选择项目logo
 - (void)pushImagePickerController {
-    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self isNormal:YES];
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+
     imagePickerVc.isSelectOriginalPhoto = NO;
     
     imagePickerVc.allowTakePicture = NO; // 在内部显示拍照按钮
     
     imagePickerVc.allowPickingVideo = NO;
     imagePickerVc.allowPickingImage = YES;
-    imagePickerVc.allowPickingOriginalPhoto = YES;
-    
+    imagePickerVc.allowPickingOriginalPhoto = NO;
+    imagePickerVc.allowPreview = NO;
+    imagePickerVc.showSelectBtn = NO;
+    imagePickerVc.allowCrop = YES;
+    CGFloat imageViewH = 320;
+    imagePickerVc.cropRect = CGRectMake((SCREEN_WIDTH - imageViewH) / 2.0, (SCREEN_HEIGHT - imageViewH) / 2.0, imageViewH, imageViewH);
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
@@ -398,7 +404,6 @@
         UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
         if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
             self.imagePickerVc.sourceType = sourceType;
-            self.imagePickerVc.allowsEditing = YES;
             if(iOS8Later) {
                 _imagePickerVc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
             }
@@ -409,15 +414,43 @@
     }
 }
 
+
 - (void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:nil];
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     if ([type isEqualToString:@"public.image"]) {
-        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-        self.tempImage = [self getNewImage:image];
-        [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+        TZImagePickerController *tzImagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:1 delegate:self];
+        [tzImagePickerVc showProgressHUD];
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        // save photo and get asset / 保存图片，获取到asset
+        [[TZImageManager manager] savePhotoWithImage:image completion:^(NSError *error){
+            if (error) {
+                [tzImagePickerVc hideProgressHUD];
+                NSLog(@"图片保存失败 %@",error);
+            } else {
+                [[TZImageManager manager] getCameraRollAlbum:NO allowPickingImage:YES completion:^(TZAlbumModel *model) {
+                    [[TZImageManager manager] getAssetsFromFetchResult:model.result allowPickingVideo:NO allowPickingImage:YES completion:^(NSArray<TZAssetModel *> *models) {
+                        [tzImagePickerVc hideProgressHUD];
+                        TZAssetModel *assetModel = [models firstObject];
+                        if (tzImagePickerVc.sortAscendingByModificationDate) {
+                            assetModel = [models lastObject];
+                        }
+                        { // 允许裁剪,去裁剪
+                            TZImagePickerController *imagePicker = [[TZImagePickerController alloc] initCropTypeWithAsset:assetModel.asset photo:image completion:^(UIImage *cropImage, id asset) {
+                                self.tempImage = cropImage;
+                                [self.contentTable reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+                            }];
+                            CGFloat imageViewH = 320;
+                            imagePicker.cropRect = CGRectMake((SCREEN_WIDTH - imageViewH) / 2.0, (SCREEN_HEIGHT - imageViewH) / 2.0, imageViewH, imageViewH);
+                            [self presentViewController:imagePicker animated:YES completion:nil];
+                        }
+                    }];
+                }];
+            }
+        }];
     }
-    [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [picker dismissViewControllerAnimated:YES completion:nil];
