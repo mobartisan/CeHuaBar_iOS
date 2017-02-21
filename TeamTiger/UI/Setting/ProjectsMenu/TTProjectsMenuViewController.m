@@ -260,6 +260,8 @@ typedef enum{
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     if (self.isIntoUserInfo) {
         [self getAllGroupsAndProjectsData];
+    } else {
+        self.isIntoUserInfo = YES;
     }
     //fix a bug
     self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
@@ -420,6 +422,13 @@ typedef enum{
     }
     headView.addProjectBlock = ^() {
         TTAddProjectViewController *addProfileVC = [[TTAddProjectViewController alloc] initWithNibName:@"TTAddProjectViewController" bundle:nil];
+        self.isIntoUserInfo = NO;
+        addProfileVC.creatProjectSuccess = ^(BOOL isCreatSuccess) {
+            if (isCreatSuccess) {
+                //创建项目成功 获取数据
+                [self getAllGroupsAndProjectsData];
+            }
+        };
         [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addProfileVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
     };
     return headView;
@@ -463,8 +472,11 @@ typedef enum{
 #pragma mark - 个人设置
 - (IBAction)clickHeadInfoAction:(id)sender {
     TTMyProfileViewController *myProfileVC = [[TTMyProfileViewController alloc] init];
+    self.isIntoUserInfo = NO;
     myProfileVC.submitInformation = ^(BOOL isSubmit) {
-        self.isIntoUserInfo = isSubmit;
+        if(isSubmit) {
+            [self.menuTable reloadData];
+        }
     };
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }

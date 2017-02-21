@@ -15,7 +15,6 @@
 
 @property (strong, nonatomic)NSMutableArray *datas;
 
-@property (copy, nonatomic) void (^requestData)();
-
+@property (copy, nonatomic) void (^creatProjectSuccess)(BOOL isSuccess);
 
 @end

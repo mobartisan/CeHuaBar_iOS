@@ -292,6 +292,9 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+            if (self.creatProjectSuccess) {
+                self.creatProjectSuccess(YES);
+            }
             [Common customPopAnimationFromNavigation:self.navigationController Type:kCATransitionReveal SubType:kCATransitionFromBottom];
         } else {
              [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
