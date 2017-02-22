@@ -32,5 +32,6 @@
 
 - (UIImage *)compressImageWithNewWidth:(CGFloat)newImageWidth;//缩图片
 
+- (UIImage *)cutCenterSquareImage;
 
 @end

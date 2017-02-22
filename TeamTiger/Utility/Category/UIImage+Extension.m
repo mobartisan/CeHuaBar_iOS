@@ -191,4 +191,33 @@
     return newImage;
 }
 
+
+- (UIImage *)cutCenterSquareImage {
+    
+    CGSize imageSize = self.size;
+    
+    // 中间最大正方形尺寸
+    CGRect centerRect;
+    CGFloat centerRectWH;
+    
+    //根据图片的大小计算出图片中间矩形区域的位置与大小
+    if (imageSize.width > imageSize.height) {
+        centerRectWH = imageSize.height;
+        float leftMargin = (imageSize.width - imageSize.height) * 0.5;
+        centerRect = CGRectMake(leftMargin,0,centerRectWH,centerRectWH);
+    }else{
+        centerRectWH = imageSize.width;
+        float topMargin = (imageSize.height - imageSize.width)*0.5;
+        centerRect = CGRectMake(0,topMargin,centerRectWH,centerRectWH);
+    }
+    
+    CGImageRef imageRef = self.CGImage;
+    //在最大正方形尺寸范围内截取
+    CGImageRef imageRefRect = CGImageCreateWithImageInRect(imageRef, centerRect);
+    UIImage *tmp = [[UIImage alloc] initWithCGImage:imageRefRect];
+    CGImageRelease(imageRefRect);// tmp是截取之后的image
+    
+    return tmp;
+}
+
 @end

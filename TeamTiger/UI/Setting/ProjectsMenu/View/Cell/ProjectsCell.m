@@ -7,6 +7,7 @@
 //
 
 #import "ProjectsCell.h"
+#import "UIImage+Extension.h"
 
 
 @implementation ProjectsCell
@@ -33,7 +34,12 @@
         self.project = project;
         //显示缩略图
         NSString *logoURLStr = [NSString stringWithFormat:@"%@%@",project.logoURL,kCompressKey];
-        [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:logoURLStr] placeholderImage:kImage(@"img_logo") options:SDWebImageRetryFailed | SDWebImageLowPriority];
+        [self.pointImgV sd_setImageWithURL:[NSURL URLWithString:logoURLStr] placeholderImage:kImage(@"img_logo") options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (image && (image.size.width != image.size.height)) {
+                UIImage *tmpImg = [image cutCenterSquareImage];
+                self.pointImgV.image = tmpImg;
+            }
+        }];
         
         if (self.project.newscount.integerValue != 0 && !project.isNoDisturb) {
             //接受项目消息
