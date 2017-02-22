@@ -67,7 +67,7 @@
         _sectionHeader.clipsToBounds = YES;
         _sectionHeader.backgroundColor = kRGBColor(28, 37, 51);
 
-        CGFloat imageViewH = kScreenWidth * 767 / 1242;
+        CGFloat imageViewH = kScreenWidth * kWidthHeightScale;
         UIImageView *imageView = [UIImageView new];
         imageView.userInteractionEnabled = YES;
         imageView.backgroundColor = [UIColor clearColor];
@@ -331,7 +331,7 @@
                 NSString *bannerURL = objDic[@"banner"][@"url"];
 
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-                    if (image && ((image.size.height / image.size.width) !=  (767 / 1242.0))) {
+                    if (image && image.size.height / image.size.width !=  kWidthHeightScale) {
                         //handle image
                         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
                     }
@@ -698,7 +698,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kScreenWidth * 767 / 1242 + 10;
+    return kScreenWidth * kWidthHeightScale + 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

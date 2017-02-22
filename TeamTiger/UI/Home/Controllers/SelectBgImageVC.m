@@ -216,7 +216,7 @@
     imagePickerVc.showSelectBtn = NO;
     imagePickerVc.allowCrop = YES;
 
-    CGFloat imageViewH = kScreenWidth * 767 / 1242.0;
+    CGFloat imageViewH = kScreenWidth * kWidthHeightScale;
     imagePickerVc.cropRect = CGRectMake(0, (Screen_Height - imageViewH) / 2.0, Screen_Width, imageViewH);
 #pragma mark - 到这里为止
     
@@ -285,7 +285,7 @@
                             }
                             [self dismissViewControllerAnimated:NO completion:nil];
                         }];
-                        CGFloat imageViewH = kScreenWidth * 767 / 1242.0;
+                        CGFloat imageViewH = kScreenWidth * kWidthHeightScale;
                         imagePicker.cropRect = CGRectMake(0, (Screen_Height - imageViewH) / 2.0, Screen_Width, imageViewH);
                         [self presentViewController:imagePicker animated:YES completion:nil];
                     }];

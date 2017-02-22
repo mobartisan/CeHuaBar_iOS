@@ -36,6 +36,8 @@ static const double kLabelHeight = 21.0f;
 static const double kCommonCellHeight = 77.0f;
 static const double kPointd = 8.0F;
 
+static const double kWidthHeightScale = 767 / 1242.0;
+
 static const int STR_COLOR_MAX = 6;
 static const char* kColorAr[STR_COLOR_MAX] = {
     "DCAD62", "669AFF", "DA4042", "91BF42", "E8C61E","41C4F0"};
