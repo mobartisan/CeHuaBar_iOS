@@ -296,7 +296,11 @@
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"GetAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        self.dataSource = [NSMutableArray array];
+        if (!self.dataSource) {
+            self.dataSource = [NSMutableArray array];
+        } else {
+            [self.dataSource removeAllObjects];
+        }
         BOOL isShowRing = NO;
         NSInteger newsCount = 0;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
