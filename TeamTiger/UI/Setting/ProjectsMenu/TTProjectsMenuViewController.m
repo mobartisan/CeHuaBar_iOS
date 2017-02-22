@@ -250,7 +250,6 @@ typedef enum{
 - (void)handleScreenEdgePan {
     [UIView animateWithDuration:0.5 animations:^{
         [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
-            
         }];
     }];
 }

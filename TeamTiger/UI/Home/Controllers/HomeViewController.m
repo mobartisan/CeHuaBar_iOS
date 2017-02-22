@@ -213,12 +213,13 @@
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
         settingVC.requestData = ^(NSString *groupName, ExitType type){
             if (type == ExitTypeDelete) {
-                self.setBtn.hidden = NO;
+                self.setBtn.hidden = YES;
                 [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
                 [self.titleView setImage:nil forState:UIControlStateNormal];
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             } else {
+                self.setBtn.hidden = NO;
                 if ([Common isEmptyString:groupName]) {
                     [self.titleView setTitle:[self.tempGroup group_name] forState:UIControlStateNormal];
                 } else {
