@@ -401,7 +401,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         NSString *name = (NSString *)([[CirclesManager sharedInstance] selectCircle][@"name"]);
         OptionType optionType = [CirclesManager sharedInstance].optionType;
         NSDictionary *dic = @{@"votes":votesStr,
-                              @"vote_type":[NSString stringWithFormat:@"%tu", optionType],//0--单选  1--多选
+                              @"vote_type":@(optionType),//0--单选  1--多选
                               @"pid":pid,
                               @"vote_title":_text,
                               @"type":@2 //1为普通的moment  2为投票类型
@@ -430,7 +430,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
                 [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
             }
         }];
-        
     } failure:^(NSError *error) {
         if (error) {
             [hud hideAnimated:YES];
@@ -438,5 +437,6 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         }
     }];
 }
+
 
 @end

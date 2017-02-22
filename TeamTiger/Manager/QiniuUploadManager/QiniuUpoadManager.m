@@ -109,9 +109,6 @@ static QiniuUpoadManager *manager = nil;
     return base64;
 }
 
-
-
-
 //上传单张图片
 + (void)uploadImage:(UIImage *)image progress:(QNUpProgressHandler)progress success:(void (^)(NSString *url))success failure:(void (^)(NSError *error))failure {
     dispatch_async(dispatch_get_global_queue(0, 0), ^{

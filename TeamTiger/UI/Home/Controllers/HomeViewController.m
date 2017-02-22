@@ -219,6 +219,7 @@
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
             } else if (type == ExitTypeModify){
+                self.setBtn.hidden = NO;
                 [self.titleView setTitle:groupName forState:UIControlStateNormal];
             }
         };
