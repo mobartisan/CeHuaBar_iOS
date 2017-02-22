@@ -376,6 +376,11 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         [super showText:@"请选择图片" afterSeconds:1.0];
         return;
     }
+    if (imageArr.count <= 1) {
+        [super showText:@"请选择至少两张图片" afterSeconds:1.0];
+        return;
+    }
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.label.text = @"正在上传图片并发布投票...";
