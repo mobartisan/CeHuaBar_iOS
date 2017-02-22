@@ -69,8 +69,8 @@
                 make.centerY.equalTo(self.contentView.mas_centerY);
             }];
             
-            self.projectIcon = [[UIImageView alloc] init];
-            self.projectIcon.image = kImage(@"img_logo");
+            self.projectIcon = [[UIImageView alloc] initWithImage:kImage(@"img_logo")];
+            self.projectIcon.contentMode = UIViewContentModeScaleAspectFit;
             setViewCorner(self.projectIcon, 4.0);
             [self.contentView addSubview:self.projectIcon];
             [self.projectIcon mas_makeConstraints:^(MASConstraintMaker *make) {

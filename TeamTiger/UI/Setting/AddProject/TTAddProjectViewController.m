@@ -236,18 +236,6 @@
     [self.view endEditing:YES];
 }
 
-- (UIImage *)getNewImage:(UIImage *)image {
-    CGFloat height = kScreenWidth * 767 / 1242;
-    UIImage *normalImage = [image normalizedImage];
-    // 获取当前使用的图片像素和点的比例
-    CGFloat scale = [UIScreen mainScreen].scale;
-    // 裁减图片
-    CGImageRef imgR = CGImageCreateWithImageInRect(normalImage.CGImage, CGRectMake(0, 0, kScreenWidth * scale, height * scale));
-    UIImage *resImage = [UIImage imageWithCGImage:imgR];
-    CGImageRelease(imgR);
-    return resImage;
-}
-
 #pragma mark - 创建项目
 - (void)createProjectWithProjectName {
     if ([Common isEmptyString:self.name]) {
@@ -265,7 +253,7 @@
         [self projectCreate:@{@"name":self.name,
                               @"uids":memberStr}];//无logo
     } else {
-        [QiniuUpoadManager uploadImage:[self getNewImage:self.tempImage] progress:nil success:^(NSString *url) {
+        [QiniuUpoadManager uploadImage:self.tempImage progress:nil success:^(NSString *url) {
             NSDictionary *dic = @{@"type":@0,
                                   @"from":@1,
                                   @"url":url};
@@ -386,7 +374,7 @@
     // You can get the photos by block, the same as by delegate.
     // 你可以通过block或者代理，来得到用户选择的照片.
     [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets, BOOL isSelectOriginalPhoto) {
-        self.tempImage = [self getNewImage:[photos firstObject]];
+        self.tempImage = [photos firstObject];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.contentTable reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
