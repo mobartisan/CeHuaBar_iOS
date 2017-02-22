@@ -125,7 +125,6 @@
      obj = <null>,
      msg = token无效，请重新登录
      */
-#warning has dangerous issues here
     if ([_responseJSONObject[@"code"] intValue] == 2000 &&
         [_responseJSONObject[@"success"] intValue] == 0 &&
         ([(NSString *)_responseJSONObject[@"msg"] containsString:@"token无效"] ||

@@ -364,8 +364,52 @@ hasKDbIdColumnInNewTable:(BOOL)hasKDbIdColumnInNewTable
 //        TABLE_TT_User
         [self checkTable:database
                tableName:TABLE_TT_User
-           allFields:@[@"user_id",@"password",@"name",@"nick_name",@"wx_account",@"phone",@"head_img_url",@"os_type",@"os_description",@"device_identify",@"create_date",@"create_user_id",@"last_edit_date",@"last_edit_user_id"].mutableCopy
-       allFieldTypes:@[@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"varchar",@"timestamp",@"varchar",@"timestamp",@"varchar"].mutableCopy
+           allFields:@[@"user_id",
+                       @"password",
+                       @"name",
+                       @"nick_name",
+                       @"wx_account",
+                       @"phone",
+                       @"head_img_url",
+                       @"os_type",
+                       @"os_description",
+                       @"device_identify",
+                       @"remark",
+                       @"isSelect",
+                       @"city",
+                       @"country",
+                       @"headimgurl",
+                       @"language",
+                       @"nickname",
+                       @"openid",
+                       @"province",
+                       @"sex",
+                       @"unionid",
+                       @"email",
+                       @"username"].mutableCopy
+       allFieldTypes:@[@"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"boolean",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar",
+                       @"varchar"].mutableCopy
              primaryKeys:nil
       isFieldTypeChanged:NO
          ];

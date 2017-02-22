@@ -242,10 +242,6 @@
 @synthesize os_type = _os_type;
 @synthesize os_description = _os_description;
 @synthesize device_identify = _device_identify;
-@synthesize create_date = _create_date;
-@synthesize create_user_id = _create_user_id;
-@synthesize last_edit_date = _last_edit_date;
-@synthesize last_edit_user_id = _last_edit_user_id;
 
 - (NSString *)description
 {
@@ -259,11 +255,6 @@
     NSLog(@"os_type:%@", _os_type);
     NSLog(@"os_description:%@", _os_description);
     NSLog(@"device_identify:%@", _device_identify);
-    NSLog(@"create_date:%@", _create_date);
-    NSLog(@"create_user_id:%@", _create_user_id);
-    NSLog(@"last_edit_date:%@", _last_edit_date);
-    NSLog(@"last_edit_user_id:%@", _last_edit_user_id);
-
     return [NSString stringWithFormat:@"{nick_name:%@, nick_name:%@, user_id:%@}", _nick_name, _head_img_url, _user_id];
 }
 
@@ -287,13 +278,9 @@ static TT_User *singleton = nil;
         self.nickname = userDic[@"nick_name"];
         self.remark = userDic[@"remark"];
         self.user_id = userDic[@"uid"];
-        
-#warning to do ...
-        self.openid = userDic[@"phone"];//phone
-        self.privilege = userDic[@"head_img_from"];
-        self.province = userDic[@"username"];//username
-        self.sex = userDic[@"_id"];//1 男  0 女
-        self.unionid = userDic[@"email"];//email
+        self.phone = userDic[@"phone"];//phone
+        self.username = userDic[@"username"];//username
+        self.email = userDic[@"email"];//email
         return YES;
     }
     return NO;

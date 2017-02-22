@@ -115,17 +115,13 @@
 @property(nonatomic, strong) NSString *password;  // password
 @property(nonatomic, strong) NSString *name;  // name
 @property(nonatomic, strong) NSString *nick_name;  // nick_name
-@property (strong, nonatomic) NSString *remark;
+@property(nonatomic, strong) NSString *remark;
 @property(nonatomic, strong) NSString *wx_account;  // wx_account
 @property(nonatomic, strong) NSString *phone;  // phone
 @property(nonatomic, strong) NSString *head_img_url;  // head_img_url
 @property(nonatomic, strong) NSString *os_type;  // os_type
 @property(nonatomic, strong) NSString *os_description;  // os_description
 @property(nonatomic, strong) NSString *device_identify;  // device_identify
-@property(nonatomic, strong) NSDate *create_date;  // create_date
-@property(nonatomic, strong) NSString *create_user_id;  // create_user_id
-@property(nonatomic, strong) NSDate *last_edit_date;  // last_edit_date
-@property(nonatomic, strong) NSString *last_edit_user_id;  // last_edit_user_id
 @property (assign, nonatomic) BOOL isSelect;
 
 //for wechat
@@ -135,10 +131,12 @@
 @property(nonatomic, strong) NSString *language;  // language
 @property(nonatomic, strong) NSString *nickname;  // nickname
 @property(nonatomic, strong) NSString *openid;  // openid
-@property(nonatomic, strong) NSArray *privilege;  // privilege
 @property(nonatomic, strong) NSString *province;  // province
 @property(nonatomic, strong) NSString *sex;  // sex
 @property(nonatomic, strong) NSString *unionid;  // unionid
+//后续补充
+@property(nonatomic, strong) NSString *email;  // email
+@property(nonatomic, strong) NSString *username;  // username
 
 + (instancetype)sharedInstance;
 
