@@ -72,6 +72,7 @@
         imageView.userInteractionEnabled = YES;
         imageView.backgroundColor = [UIColor clearColor];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.clipsToBounds = YES;
         [_sectionHeader addSubview:imageView];
         self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -329,7 +330,12 @@
                 self.imageView.hidden = NO;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
 
-                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority];
+                [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    if (image && ((image.size.height / image.size.width) !=  (767 / 1242.0))) {
+                        //handle image
+                        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+                    }
+                }];
             } else {
                 if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
                     //只展示project
