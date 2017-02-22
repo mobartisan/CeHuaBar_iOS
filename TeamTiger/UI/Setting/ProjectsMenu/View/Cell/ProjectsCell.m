@@ -74,7 +74,7 @@
             line.tag = 2016 + self.tag;
             [self addSubview:line];
             line.backgroundColor = [UIColor darkGrayColor];
-            line.alpha = 0.618;
+            line.alpha = 0.3;
             [line mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.equalTo(self.pointImgV.mas_right).offset(8.0);
                 make.right.equalTo(self.mas_right);
