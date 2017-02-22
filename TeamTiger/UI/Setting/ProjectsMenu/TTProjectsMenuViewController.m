@@ -896,11 +896,16 @@ typedef enum{
             }
         }
         if (!isInDB) {
-            //insert
-            NSString *sql = [NSString stringWithFormat:@"INSERT INTO TT_Project(project_id, name, isTop, isNoDisturb, member_type, logoURL, newscount, group_id, group_name, isRead) VALUES('%@', '%@', %d, %d, %d,'%@','%@','%@','%@',%d)", [Common safeString:serverProject.project_id],[Common safeString:serverProject.name],serverProject.isTop,serverProject.isNoDisturb,serverProject.member_type,[Common safeString:serverProject.logoURL],[Common safeString:serverProject.newscount],[Common safeString:serverProject.group_id],[Common safeString:serverProject.group_name],0];
-            [sqliteManager executeSql:sql];
-            //
+            int tmpIsRead = 0;
             serverProject.isRead = NO;
+            if (serverProject.member_type == 1) {
+                //自己建的设为已读
+                tmpIsRead = 1;
+                serverProject.isRead = YES;
+            }
+            //insert
+            NSString *sql = [NSString stringWithFormat:@"INSERT INTO TT_Project(project_id, name, isTop, isNoDisturb, member_type, logoURL, newscount, group_id, group_name, isRead) VALUES('%@', '%@', %d, %d, %d,'%@','%@','%@','%@',%d)", [Common safeString:serverProject.project_id],[Common safeString:serverProject.name],serverProject.isTop,serverProject.isNoDisturb,serverProject.member_type,[Common safeString:serverProject.logoURL],[Common safeString:serverProject.newscount],[Common safeString:serverProject.group_id],[Common safeString:serverProject.group_name],tmpIsRead];
+            [sqliteManager executeSql:sql];
         }
     }
 }
