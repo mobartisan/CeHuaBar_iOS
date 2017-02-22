@@ -60,9 +60,6 @@
 }
 
 - (void)handleReturnBackAction {
-    if (self.requestData) {
-        self.requestData(self.groupName, ExitTypeModify);
-    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -82,6 +79,10 @@
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
             [sender setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
             sender.enabled = NO;
+            
+            if (self.requestData) {
+                self.requestData(self.groupName, ExitTypeModify);
+            }
         }
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"GroupUpdateApi:%@", error);

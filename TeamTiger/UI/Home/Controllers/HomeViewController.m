@@ -203,7 +203,7 @@
         TTSettingViewController *settingVC = [[TTSettingViewController alloc] initWithNibName:@"TTSettingViewController" bundle:nil];
         settingVC.project = self.tempProject;
         settingVC.requestData = ^(){
-            self.setBtn.hidden = NO;
+            self.setBtn.hidden = YES;
             [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
             self.tempDic = nil;
             [self getAllMoments:self.tempDic IsNeedRefresh:NO];
@@ -213,19 +213,14 @@
         TTGroupSettingViewController *settingVC = [[TTGroupSettingViewController alloc] init];
         settingVC.requestData = ^(NSString *groupName, ExitType type){
             if (type == ExitTypeDelete) {
-                self.setBtn.hidden = NO;
+                self.setBtn.hidden = YES;
                 [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
                 [self.titleView setImage:nil forState:UIControlStateNormal];
                 self.tempDic = nil;
                 [self getAllMoments:self.tempDic IsNeedRefresh:NO];
-            } else {
-                if ([Common isEmptyString:groupName]) {
-                    [self.titleView setTitle:[self.tempGroup group_name] forState:UIControlStateNormal];
-                } else {
-                    [self.titleView setTitle:groupName forState:UIControlStateNormal];
-                }
+            } else if (type == ExitTypeModify){
+                [self.titleView setTitle:groupName forState:UIControlStateNormal];
             }
-            
         };
         settingVC.group = self.tempGroup;
         [self.navigationController pushViewController:settingVC animated:YES];
