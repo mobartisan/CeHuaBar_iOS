@@ -329,37 +329,16 @@
                 self.textLB.hidden = YES;
                 self.imageView.hidden = NO;
                 NSString *bannerURL = objDic[@"banner"][@"url"];
-
                 [self.imageView sd_setImageWithURL:[NSURL URLWithString:bannerURL] placeholderImage:self.imageView.image options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                     if (image && image.size.height / image.size.width !=  kWidthHeightScale) {
                         //handle image
                         self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+                    } else if (!image) {
+                        [self showDefaultCover];
                     }
                 }];
             } else {
-                if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
-                    //只展示project
-                    self.textLB.hidden = YES;
-                    self.imageView.hidden = NO;
-                    self.imageView.image = kImage(@"img_cover");
-                    if (self.memberType == 1) {
-                        //管理员
-                        self.textLB.hidden = NO;
-                        self.textLB.text = @"轻触设置项目封面";
-                    }
-                } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsGroup) {
-                    //只展示分组的
-                    self.textLB.hidden = NO;
-                    self.textLB.text = @"轻触设置分组封面";
-                    self.imageView.hidden = NO;
-                    self.imageView.image = kImage(@"img_cover");
-                } else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsAll) {
-                    //所有moment
-                    self.textLB.hidden = NO;
-                    self.textLB.text = @"轻触设置Moments封面";
-                    self.imageView.hidden = NO;
-                    self.imageView.image = kImage(@"img_cover");
-                }
+                [self showDefaultCover];
             }
             //更多数据
             if (![Common isEmptyString:objDic[@"next"]]) {
@@ -828,6 +807,34 @@
         currentStatus = ECurrentIsAll;
     }
     return currentStatus;
+}
+
+- (void)showDefaultCover {
+    if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsProject) {
+        //只展示project
+        self.textLB.hidden = YES;
+        self.imageView.hidden = NO;
+        self.imageView.image = kImage(@"img_cover");
+        if (self.memberType == 1) {
+            //管理员
+            self.textLB.hidden = NO;
+            self.textLB.text = @"轻触设置项目封面";
+        }
+    }
+    else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsGroup) {
+        //只展示分组的
+        self.textLB.hidden = NO;
+        self.textLB.text = @"轻触设置分组封面";
+        self.imageView.hidden = NO;
+        self.imageView.image = kImage(@"img_cover");
+    }
+    else if ([self isProejctOrGroupOrAllByCurrently] == ECurrentIsAll) {
+        //所有moment
+        self.textLB.hidden = NO;
+        self.textLB.text = @"轻触设置Moments封面";
+        self.imageView.hidden = NO;
+        self.imageView.image = kImage(@"img_cover");
+    }
 }
 
 @end
