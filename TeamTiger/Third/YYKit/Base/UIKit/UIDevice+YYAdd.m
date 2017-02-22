@@ -318,7 +318,7 @@ static yy_net_interface_counter yy_get_net_interface_counter() {
         name = dic[model];
         if (!name) name = model;
     });
-    return name;
+    return (NSString * _Nonnull)name;
 }
 
 - (NSDate *)systemUptime {

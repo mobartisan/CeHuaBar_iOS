@@ -788,7 +788,7 @@ static CGFloat TZScreenScale;
     int degrees = [self degressFromVideoFileWithAsset:videoAsset];
     if (degrees != 0) {
         CGAffineTransform translateToCenter;
-        CGAffineTransform mixedTransform;
+        CGAffineTransform mixedTransform = CGAffineTransformIdentity;
         videoComposition.frameDuration = CMTimeMake(1, 30);
         
         NSArray *tracks = [videoAsset tracksWithMediaType:AVMediaTypeVideo];

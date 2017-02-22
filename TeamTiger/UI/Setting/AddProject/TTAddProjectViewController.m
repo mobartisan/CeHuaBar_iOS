@@ -467,7 +467,6 @@
     TT_User *user = [TT_User sharedInstance];
     NSString *nick_name = user.nickname;
     NSString *current_time = [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-#warning to do here
     NSString *project_id = @"abcdefghijklmnop";
     if(![Common isEmptyString:self.project_id]) {
         project_id = self.project_id;

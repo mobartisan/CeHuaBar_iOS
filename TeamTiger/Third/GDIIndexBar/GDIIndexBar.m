@@ -291,13 +291,13 @@ CGPoint CGPointAdd(CGPoint point1, CGPoint point2) {
 {
     CGFloat indexRowHeight = _textSpacing + _lineHeight;
     CGFloat height = indexRowHeight * [self numberOfDisplayableRows] + _textSpacing * 2;
-    CGRect parentInsetRect = [_tableView.superview convertRect:_tableView.frame
-                                                        toView:self.superview];
-    
-    if ([self.superview isKindOfClass:[UIScrollView class]]) {
-        UIScrollView *scrollView = (UIScrollView *)self.superview;
-        parentInsetRect = UIEdgeInsetsInsetRect(scrollView.frame, scrollView.contentInset);
-    }
+//    CGRect parentInsetRect = [_tableView.superview convertRect:_tableView.frame
+//                                                        toView:self.superview];
+//    
+//    if ([self.superview isKindOfClass:[UIScrollView class]]) {
+//        UIScrollView *scrollView = (UIScrollView *)self.superview;
+//        parentInsetRect = UIEdgeInsetsInsetRect(scrollView.frame, scrollView.contentInset);
+//    }
     
     CGFloat yp;
     switch (_verticalAlignment) {
