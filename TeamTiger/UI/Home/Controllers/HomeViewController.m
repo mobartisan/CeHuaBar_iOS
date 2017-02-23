@@ -36,6 +36,7 @@
 #import "STPushView.h"
 #import "DiscussListModel.h"
 #import "TTBaseViewController+NotificationHandle.h"
+#import "YYFPSLabel.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -278,8 +279,15 @@
     [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 Object:nil Block:^(id  _Nullable sender) {
         [self getAllMoments:self.tempDic IsNeedRefresh:NO];
     }];
+    
+    //增加监听fps
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [YYFPSLabel xw_addFPSLableOnWidnow];
+    });
+
     //测试
 //     [self deleteAllData];
+    
 }
 
 #pragma mark 获取Moments

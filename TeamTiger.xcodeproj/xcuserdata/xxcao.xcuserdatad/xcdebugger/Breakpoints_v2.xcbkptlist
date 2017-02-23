@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509424597.867731"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-sectionHeader"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509424597.867731"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-sectionHeader"
             landmarkType = "7">
          </BreakpointContent>
@@ -274,11 +274,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509450241.324172"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "719"
-            endingLineNumber = "719"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
             landmarkName = "-handleConvertId:"
             landmarkType = "7">
          </BreakpointContent>
@@ -751,11 +751,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509450241.324172"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "-handleTapTableViewAction:"
             landmarkType = "7">
             <Locations>
@@ -831,11 +831,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509450241.324172"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "-getMoreDataWithUrl:"
             landmarkType = "7">
          </BreakpointContent>
@@ -911,11 +911,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509450241.324172"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "741"
-            endingLineNumber = "741"
+            startingLineNumber = "749"
+            endingLineNumber = "749"
             landmarkName = "-currentIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -991,11 +991,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509450241.324172"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -1118,69 +1118,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-            timestampString = "509375338.829235"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
-            landmarkName = "-clickHeadInfoAction:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__52-[TTProjectsMenuViewController clickHeadInfoAction:]_block_invoke"
-                  moduleName = "TeamTiger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-                  timestampString = "509450242.658706"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "479"
-                  endingLineNumber = "479"
-                  offsetFromSymbolStart = "108">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_.545"
-                  moduleName = "TeamTiger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-                  timestampString = "509450242.662221"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "479"
-                  endingLineNumber = "479"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_.546"
-                  moduleName = "TeamTiger"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-                  timestampString = "509450242.665621"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "479"
-                  endingLineNumber = "479"
-                  offsetFromSymbolStart = "36">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
             timestampString = "509375931.688771"
             startingColumnNumber = "9223372036854775807"
@@ -1214,7 +1151,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "509450242.739015"
+                  timestampString = "509509346.04435"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1229,7 +1166,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "509450242.743392"
+                  timestampString = "509509346.048805"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1294,7 +1231,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/SelectBgImageVC.m"
-                  timestampString = "509450242.766183"
+                  timestampString = "509509346.172006"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -1309,7 +1246,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/SelectBgImageVC.m"
-                  timestampString = "509450242.776742"
+                  timestampString = "509509346.177114"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -1326,11 +1263,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509448671.008829"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "-handleSetBtnAction:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1342,11 +1279,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509448676.943969"
+            timestampString = "509508852.18188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
             landmarkName = "-handleSetBtnAction:"
             landmarkType = "7">
          </BreakpointContent>

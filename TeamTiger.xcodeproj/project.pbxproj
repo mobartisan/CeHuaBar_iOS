@@ -251,6 +251,8 @@
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
 		1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5D5FF71D4EFADD007123EB /* AddressBook.framework */; };
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
+		1D6976E71E5E7C0500F0AD3A /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */; };
+		1D6976EC1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6976EB1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.m */; };
 		1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */; };
 		1D6D02CB1D58139F00EE0C2E /* TTPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D02CA1D58139F00EE0C2E /* TTPickerView.m */; };
 		1D6EC6B81E49ECF9007A70DF /* STPushView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6EC6B71E49ECF9007A70DF /* STPushView.m */; };
@@ -1026,6 +1028,10 @@
 		1D5D5FF21D4EE72E007123EB /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
 		1D5D5FF71D4EFADD007123EB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1D677F151D5C1D48001D099E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		1D6976E31E5E7C0500F0AD3A /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		1D6976EA1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XWAddForRoundedCorner.h"; sourceTree = "<group>"; };
+		1D6976EB1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XWAddForRoundedCorner.m"; sourceTree = "<group>"; };
 		1D6A2F191E3741CD007BC76A /* InsetsLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsetsLabel.h; sourceTree = "<group>"; };
 		1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsetsLabel.m; sourceTree = "<group>"; };
 		1D6D02C91D58139E00EE0C2E /* TTPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTPickerView.h; sourceTree = "<group>"; };
@@ -1791,6 +1797,7 @@
 		1D09CBAA1D3F29C900F85E9A /* YYKit */ = {
 			isa = PBXGroup;
 			children = (
+				1D6976E21E5E7C0500F0AD3A /* YYFPSLabel */,
 				1D09CC5A1D3F29C900F85E9A /* YYKit.h */,
 				1D09CBAB1D3F29C900F85E9A /* Base */,
 				1D09CBEC1D3F29C900F85E9A /* Cache */,
@@ -2544,6 +2551,24 @@
 			path = CacheManager;
 			sourceTree = "<group>";
 		};
+		1D6976E21E5E7C0500F0AD3A /* YYFPSLabel */ = {
+			isa = PBXGroup;
+			children = (
+				1D6976E31E5E7C0500F0AD3A /* YYFPSLabel.h */,
+				1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */,
+			);
+			path = YYFPSLabel;
+			sourceTree = "<group>";
+		};
+		1D6976E91E5E7ED200F0AD3A /* XWCornerRadius */ = {
+			isa = PBXGroup;
+			children = (
+				1D6976EA1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.h */,
+				1D6976EB1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.m */,
+			);
+			path = XWCornerRadius;
+			sourceTree = "<group>";
+		};
 		1D6A2F181E3741B5007BC76A /* InsetsLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2942,6 +2967,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D6976E91E5E7ED200F0AD3A /* XWCornerRadius */,
 				1DDAB54B1E5C7BA000ECC02E /* TZImagePickerController */,
 				1D5AD35E1E4963780010E947 /* GtSdkLib */,
 				1D8452781E4857BD00AF0A75 /* CustomTextField */,
@@ -4191,6 +4217,7 @@
 				1D09CC731D3F29C900F85E9A /* UIImage+YYAdd.m in Sources */,
 				2DFACA821D50808D0099A2A3 /* DiscussListModel.m in Sources */,
 				2D8F25B51D701E5700B28A8C /* Common.m in Sources */,
+				1D6976E71E5E7C0500F0AD3A /* YYFPSLabel.m in Sources */,
 				1D09CD5F1D3F59D500F85E9A /* SDWebImageDownloaderOperation.m in Sources */,
 				2DDD54141DB0D4AF00C55633 /* QNNetworkInfo.m in Sources */,
 				1D09CC691D3F29C900F85E9A /* CALayer+YYAdd.m in Sources */,
@@ -4256,6 +4283,7 @@
 				2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */,
 				1D09CD211D3F550300F85E9A /* UITextField+HYBMasonryKit.m in Sources */,
 				06008F291D58163100A5B3DB /* TTCommonTextViewItem.m in Sources */,
+				1D6976EC1E5E7ED200F0AD3A /* UIView+XWAddForRoundedCorner.m in Sources */,
 				2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */,
 				1D09CC781D3F29C900F85E9A /* UIView+YYAdd.m in Sources */,
 				1D09CD2B1D3F550300F85E9A /* UIDevice+HYBHelperKitUIKit.m in Sources */,
@@ -4464,7 +4492,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4482,7 +4510,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4589,7 +4617,7 @@
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4624,7 +4652,7 @@
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4656,7 +4684,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
@@ -4674,7 +4702,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
