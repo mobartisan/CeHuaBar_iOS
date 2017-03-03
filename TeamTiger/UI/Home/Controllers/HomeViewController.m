@@ -487,7 +487,7 @@
     [MMPopupWindow sharedWindow].touchWildToHide = YES;
     MMPopupItemHandler block = ^(NSInteger index){
         if (index == 0) {
-            TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] init];
+            TTAddDiscussViewController *addDiscussVC = [[TTAddDiscussViewController alloc] initWithNibName:@"TTAddDiscussViewController" bundle:nil];
             if ([self.tempDic.allKeys containsObject:@"pid"]) {
                 addDiscussVC.pidOrGid = self.tempDic[@"pid"];
             }
@@ -498,7 +498,7 @@
             };
             [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addDiscussVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
         } else if (index == 1) {
-            TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] init];
+            TTAddVoteViewController *addVoteVC = [[TTAddVoteViewController alloc] initWithNibName:@"TTAddVoteViewController" bundle:nil];
             if ([self.tempDic.allKeys containsObject:@"pid"]) {
                 addVoteVC.pidOrGid = self.tempDic[@"pid"];
             }

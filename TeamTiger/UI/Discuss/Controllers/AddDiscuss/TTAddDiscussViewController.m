@@ -24,7 +24,6 @@
 #import "SelectCircleViewController.h"
 #import "IQKeyboardManager.h"
 #import "AddImageView.h"
-#import "TTAddVoteViewController.h"
 
 @interface TTAddDiscussViewController ()
 {
@@ -232,6 +231,8 @@
 
 //MARK:- 发起moment
 - (void)actionStartMoment {
+    [self.view endEditing:YES];//收键盘
+
     if ([Common isEmptyArr:[CirclesManager sharedInstance].circles]) {
         [super showText:@"请先创建项目" afterSeconds:1.5];
         return;
@@ -250,6 +251,9 @@
         [self creatMomentAction:mediasArr text:_text];
     }
     else if (![Common isEmptyArr:picArr] && [Common isEmptyString:_text]) {//有图片无文字
+        [super showText:@"请输入moment描述" afterSeconds:1.5];
+        return;
+/*
         self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.myHud.mode = MBProgressHUDModeAnnularDeterminate;
         self.myHud.label.text = @"正在上传图片并发布moment...";
@@ -268,6 +272,7 @@
             [self.myHud hideAnimated:YES];
             [super showText:@"您的网络好像有问题~" afterSeconds:1.5];
         }];
+ */
     }else if (![Common isEmptyArr:picArr] && ![Common isEmptyString:_text]) {//有图片有文字
         self.myHud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.myHud.mode = MBProgressHUDModeAnnularDeterminate;
