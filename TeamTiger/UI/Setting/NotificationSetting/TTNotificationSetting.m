@@ -68,10 +68,10 @@
 - (void)loadDatas {
     [self.datas removeAllObjects];
     [self.datas addObjectsFromArray:@[
-                                      @{@"Name":@"接收信息消息通知",@"Type":@"0",@"Content":self.allowNotification,@"Description":@"如果你要关闭或开启策话吧的新消息通知，请在“设置” - “通知”功能中，找到应用程序“策话吧”更改。"},
-                                      @{@"Name":@"通知显示消息详情",@"Type":@"1",@"Content":self.isShowMessage,@"Description":@"关闭后，当收到策话吧信息时，通知提示将不显示发表人和内容摘要。"},
+                                      @{@"Name":@"接收信息消息通知",@"Type":@"0",@"Content":self.allowNotification,@"Description":@"如果你要关闭或开启策话的新消息通知，请在“设置” - “通知”功能中，找到应用程序“策话”更改。"},
+                                      @{@"Name":@"通知显示消息详情",@"Type":@"1",@"Content":self.isShowMessage,@"Description":@"关闭后，当收到策话信息时，通知提示将不显示发表人和内容摘要。"},
                                       @{@"Name":@"声音",@"Type":@"1",@"Content":self.isAudio,@"Description":@""},
-                                      @{@"Name":@"振动",@"Type":@"1",@"Content":self.isShake,@"Description":@"当策话吧在运行时，你可以设置是否需要声音或振动。"},
+                                      @{@"Name":@"振动",@"Type":@"1",@"Content":self.isShake,@"Description":@"当策话在运行时，你可以设置是否需要声音或振动。"},
                                       ]];
 }
 
