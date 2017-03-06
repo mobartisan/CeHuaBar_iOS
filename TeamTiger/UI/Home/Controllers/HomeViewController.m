@@ -700,45 +700,49 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
-    NSDictionary *parameterDic = nil;
-    BOOL isLoading = NO;
-    if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
-        parameterDic = @{@"gid":[notification.object group_id]};
-        
-        self.setBtn.hidden = NO;
-        self.imageView.userInteractionEnabled = YES;
-        
-        [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
-        self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-        [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
-        
-        self.tempGroup = notification.object;
-        self.tempProject = nil;
-        isLoading = YES;
-    }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
-        parameterDic = @{@"pid":[notification.object project_id]};
-        self.setBtn.hidden = NO;
-        self.imageView.userInteractionEnabled = YES;
-        
-        [self.titleView setImage:nil forState:UIControlStateNormal];
-        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-        [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
-        
-        self.tempProject = notification.object;
-        self.tempGroup = nil;
-        isLoading = YES;
-    } else {//主页
-        self.setBtn.hidden = YES;
-        self.imageView.userInteractionEnabled = YES;
-        
-        [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
-        self.tempProject = nil;
-        self.tempGroup = nil;
-    }
-    self.tempDic = parameterDic;
-    [self getAllMoments:parameterDic IsNeedRefresh:isLoading];
-    [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
+    [self.dataSource removeAllObjects];
+    [self.tableView reloadData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSDictionary *parameterDic = nil;
+        BOOL isLoading = NO;
+        if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
+            parameterDic = @{@"gid":[notification.object group_id]};
+            
+            self.setBtn.hidden = NO;
+            self.imageView.userInteractionEnabled = YES;
+            
+            [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
+            self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+            [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+            [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
+            
+            self.tempGroup = notification.object;
+            self.tempProject = nil;
+            isLoading = YES;
+        }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
+            parameterDic = @{@"pid":[notification.object project_id]};
+            self.setBtn.hidden = NO;
+            self.imageView.userInteractionEnabled = YES;
+            
+            [self.titleView setImage:nil forState:UIControlStateNormal];
+            [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+            [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+            
+            self.tempProject = notification.object;
+            self.tempGroup = nil;
+            isLoading = YES;
+        } else {//主页
+            self.setBtn.hidden = YES;
+            self.imageView.userInteractionEnabled = YES;
+            
+            [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
+            self.tempProject = nil;
+            self.tempGroup = nil;
+        }
+        self.tempDic = parameterDic;
+        [self getAllMoments:parameterDic IsNeedRefresh:isLoading];
+        [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
+    });
 }
 
 
