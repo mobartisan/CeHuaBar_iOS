@@ -37,6 +37,8 @@
 #import "DiscussListModel.h"
 #import "TTBaseViewController+NotificationHandle.h"
 #import "YYFPSLabel.h"
+#import "CacheManager.h"
+#import "Moments.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -61,6 +63,13 @@
 
 @implementation HomeViewController
 
+- (NSMutableArray *)dataSource {
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
+
 #pragma mark - 分区页眉
 - (UIView *)sectionHeader {
     if (!_sectionHeader) {
@@ -74,6 +83,7 @@
         imageView.backgroundColor = [UIColor clearColor];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.clipsToBounds = YES;
+        imageView.image = kImage(@"img_cover");
         [_sectionHeader addSubview:imageView];
         self.imageView = imageView;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
@@ -177,6 +187,7 @@
 - (UIButton *)titleView {
     if (_titleView == nil) {
         _titleView = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_titleView setTitle:@"Moments" forState:UIControlStateNormal];
         _titleView.enabled = NO;
         _titleView.frame = CGRectMake(0, 0, 300, 40);
     }
@@ -242,23 +253,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     bView = self.view;
-    [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
-    self.navigationItem.titleView = self.titleView;
+    self.setBtn.hidden = YES;
+    [self configureNavigationItem];
+    //显示缓存数据
+    [self getTmpData];
+    
     self.tempDic = nil;
     //获取moments
     [self getAllMoments:self.tempDic IsNeedRefresh:YES];
-    [self configureNavigationItem];
-    //下拉刷新
-    [self handleDownRefreshAction];
-    
+   
     self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.allowsSelection = NO;
     [Common removeExtraCellLines:self.tableView];
-    
-    self.setBtn.hidden = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapTableViewAction:)];
     [self.tableView addGestureRecognizer:tap];
+    //下拉刷新
+    [self handleDownRefreshAction];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConvertId:) name:NOTICE_KEY_NEED_REFRESH_MOMENTS object:nil];
     //处理通知
@@ -288,39 +299,58 @@
     //测试
 //     [self deleteAllData];
     
+    
+}
+
+- (void)getTmpData {
+    [self.dataSource removeAllObjects];
+    Moments *moment = [[CacheManager sharedInstance] selectDataFromDataBase];
+    if (![Common isEmptyString:moment.bannerUrl]) {
+        self.textLB.hidden = YES;
+        self.imageView.hidden = NO;
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:moment.bannerUrl] placeholderImage:kImage(@"img_cover") options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            if (image && image.size.height / image.size.width !=  kWidthHeightScale) {
+                //handle image
+                self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+            } else if (!image) {
+                [self showDefaultCover];
+            }
+        }];
+    }
+    [self.dataSource setArray:moment.list];
+    [self.tableView reloadData];
 }
 
 #pragma mark 获取Moments
 - (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh{
+    [self.dataSource removeAllObjects];
     if (isNeedRefresh) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"GetAllMoments:%@", request.responseJSONObject);
+        NSLog(@"getAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if (!self.dataSource) {
-            self.dataSource = [NSMutableArray array];
-        } else {
-            [self.dataSource removeAllObjects];
-        }
+        
         BOOL isShowRing = NO;
         NSInteger newsCount = 0;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            NSDictionary *objDic = request.responseJSONObject[OBJ];
+            NSDictionary *bannerDic = objDic[@"banner"];
+            NSString *newscount = objDic[@"newscount"];
+            NSArray *listArr = objDic[@"list"];
+            [[CacheManager sharedInstance] saveMomentsWithBanner:bannerDic[@"banner"] list:listArr];
+            
+            for (NSDictionary *dic in listArr) {
+                HomeModel *homeModel = [HomeModel modelWithDic:dic];
+                [self.dataSource addObject:homeModel];
+            }
+            
             //未读消息个数
-            newsCount = [request.responseJSONObject[@"obj"][@"newscount"] integerValue];
+            newsCount = [newscount integerValue];
             if (newsCount > 0) {
                 isShowRing = YES;
-            }
-            NSDictionary *objDic = request.responseJSONObject[OBJ];
-            if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-                if (![Common isEmptyArr:objDic[@"list"]]) {
-                    for (NSDictionary *dic in objDic[@"list"]) {
-                        HomeModel *homeModel = [HomeModel modelWithDic:dic];
-                        [self.dataSource addObject:homeModel];
-                    }
-                }
             }
             
             //是否是管理员
@@ -459,6 +489,7 @@
 }
 
 - (void)configureNavigationItem {
+    self.navigationItem.titleView = self.titleView;
     //左侧
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     leftBtn.frame = CGRectMake(0, 0, 30, 20);
@@ -700,6 +731,7 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
+    self.imageView.image = kImage(@"img_cover");
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -710,7 +742,6 @@
             
             self.setBtn.hidden = NO;
             self.imageView.userInteractionEnabled = YES;
-            
             [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
             self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
             [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];

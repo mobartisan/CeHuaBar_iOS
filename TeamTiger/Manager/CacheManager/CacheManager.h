@@ -19,7 +19,7 @@ static NSTimeInterval const gCacheTimeInterval = 6 * 60 * 60;//默认三小时
 static NSString *const Row_Data_Cache_Key = @"Row_Data_Cache_Key_String";
 static NSString *const Section_Data_Cache_Key = @"Section_Data_Cache_Key_String";
 
-
+@class Moments;
 @interface CacheManager : NSObject
 
 @property(nonatomic,assign) ECacheType cacheType;
@@ -36,5 +36,10 @@ static NSString *const Section_Data_Cache_Key = @"Section_Data_Cache_Key_String"
 - (void)setObject:(id)object ForKey:(NSString *)key TimeOut:(NSTimeInterval)timeOut;
 
 - (void)cleanCacheWithKey:(NSString *)key;
+
+//存到沙盒文件中
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list;
+//查询数据  --- 从数据库读取数据
+- (Moments *)selectDataFromDataBase;
 
 @end

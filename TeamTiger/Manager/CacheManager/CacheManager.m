@@ -8,6 +8,16 @@
 
 #import "CacheManager.h"
 #import "NSTimer+HYBHelperKit.h"
+#import "FMDatabase.h"
+#import "Moments.h"
+#import "HomeModel.h"
+
+@interface CacheManager()
+
+@property (nonatomic, strong) FMDatabase *db;
+
+@end
+
 @implementation CacheManager
 
 static CacheManager *singleton = nil;
@@ -18,6 +28,10 @@ static CacheManager *singleton = nil;
             singleton = [[[self class] alloc] init];
             singleton.cacheType = ECacheTypeDisk;
             singleton.mCache = [NSMutableDictionary dictionary];
+            //1.创建数据库
+            [singleton createDataBase];
+            //2.创建表
+            [singleton createTableInDataBase];
         }
     });
     return singleton;
@@ -136,6 +150,81 @@ static CacheManager *singleton = nil;
     } else {
         UserDefaultsRemove(key);
     }
+}
+
+
+#pragma mark  handle DataBase
+//创建数据库
+- (void)createDataBase {
+    self.db = [FMDatabase databaseWithPath:[self getDataBasePath]];
+}
+
+//获取数据库文件路径的方法
+- (NSString *)getDataBasePath {
+    //1.获取documents文件夹路径
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    //2.拼接文件路径
+    return [documentsPath stringByAppendingString:@"/AllMoments.sqlite"];
+}
+
+//创建表
+- (void)createTableInDataBase {
+    //1.打开数据库
+    BOOL isOpen = [self.db open];
+    if (!isOpen) {
+        return;
+    }
+    //2.通过SQL语句操作数据库 ---- 创建表
+    BOOL isSuccess = [self.db executeUpdate:@"create table if not exists AllMoments(id integer primary key autoincrement, banner blob, list blob)"];
+    //con_image  UIIMage类型   blob 二进制数据
+    NSLog(@"%@",isSuccess ? @"创建表成功" : @"创建表失败");
+    
+    //3.关闭数据库
+    [self.db close];
+}
+
+//查询数据  --- 从数据库读取数据
+- (Moments *)selectDataFromDataBase {
+    //1.打开数据库
+    BOOL isOpen = [self.db open];
+    if (! isOpen) {
+        return nil;
+    }
+    //2.通过SQL语句操作数据库 --- 查询所有的数据
+    FMResultSet *result = [self.db executeQuery:@"select * from AllMoments"];
+    NSString *bannerUrl = nil;
+    NSMutableArray *tmpArr = [NSMutableArray array];
+    //读取一条数据的每一个字段
+    while ([result next]) {
+        bannerUrl = [result stringForColumn:@"banner"];
+        NSData *tmpData = [result objectForColumnName:@"list"];
+        NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:tmpData];
+        HomeModel *homeModel = [HomeModel modelWithDic:dic];
+        [tmpArr addObject:homeModel];
+    }
+    //3.关闭数据库
+    [self.db close];
+    
+    return [Moments momentsWithBanner:bannerUrl list:tmpArr];;
+}
+
+//存到沙盒文件中
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list {
+    //1.打开数据库
+    BOOL isOpen = [self.db open];
+    if (!isOpen) {
+        return;
+    }
+    //2.删除之前数据库数据
+    [self.db executeUpdate:@"delete from AllMoments"];
+    //3.通过SQL操作数据
+    for (NSDictionary *dic in list) {
+        NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+        BOOL isSuccess = [self.db executeUpdate:@"insert into AllMoments(banner, list) values (?, ?)", bannerUrl, listDic];
+        NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+    }
+    //4.关闭数据库
+    [self.db close];
 }
 
 @end
