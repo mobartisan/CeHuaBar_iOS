@@ -1401,6 +1401,7 @@
 		2DA02A1D1E442BC500F5FEC2 /* TTAddMemberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddMemberViewController.h; sourceTree = "<group>"; };
 		2DA02A1E1E442BC500F5FEC2 /* TTAddMemberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddMemberViewController.m; sourceTree = "<group>"; };
 		2DA02A1F1E442BC500F5FEC2 /* TTAddMemberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberViewController.xib; sourceTree = "<group>"; };
+		2DA074751E71024800EFEE14 /* NotificationContentService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentService.entitlements; sourceTree = "<group>"; };
 		2DA5CA4F1E1F2B62000BFE93 /* TTAddMemberCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTAddMemberCell.h; sourceTree = "<group>"; };
 		2DA5CA501E1F2B62000BFE93 /* TTAddMemberCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTAddMemberCell.m; sourceTree = "<group>"; };
 		2DA5CA511E1F2B62000BFE93 /* TTAddMemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTAddMemberCell.xib; sourceTree = "<group>"; };
@@ -3371,6 +3372,7 @@
 		1DE01A0E1E4DAEDB00ED9AB7 /* NotificationContentService */ = {
 			isa = PBXGroup;
 			children = (
+				2DA074751E71024800EFEE14 /* NotificationContentService.entitlements */,
 				1DE01A0F1E4DAEDB00ED9AB7 /* NotificationViewController.h */,
 				1DE01A101E4DAEDB00ED9AB7 /* NotificationViewController.m */,
 				1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */,
@@ -3934,6 +3936,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = QRKXLCEHPN;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

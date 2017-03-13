@@ -462,7 +462,7 @@ typedef enum{
                 //更新数据库
                 [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                 [SQLITEMANAGER executeSql:[NSString stringWithFormat:@"update %@ set isRead = 1 where project_id = '%@'",TABLE_TT_Project,project.project_id]];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:project userInfo:@{@"Title":[self.unGroupProjects[indexPath.row] name], @"ISGROUP":@0}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:project userInfo:@{@"Title":[project name], @"ISGROUP":@0}];
             }
         }];
     }
@@ -527,6 +527,11 @@ typedef enum{
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         NSLog(@"getAllGroups:%@", error);
         [super showText:NETWORKERROR afterSeconds:1.0];
+        SqliteManager *sqliteManager = [SqliteManager sharedInstance];
+        [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
+        NSArray *dbDatas = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Project] Class:TABLE_TT_Project];
+        [self.unGroupProjects setArray:dbDatas];
+        [self.menuTable reloadData];
     }];
 }
 
@@ -853,7 +858,6 @@ typedef enum{
         CGRect viewF =  [self.menuTable convertRect:tmpView.frame fromView:tmpView.superview];
         [self.viewFrames addObject:[NSValue valueWithCGRect:viewF]];
     }
-    NSLog(@"view:%d---viewFrames:%ld", count, self.viewFrames.count);
 }
 
 

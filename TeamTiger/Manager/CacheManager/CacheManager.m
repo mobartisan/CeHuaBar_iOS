@@ -12,6 +12,7 @@
 #import "Moments.h"
 #import "HomeModel.h"
 
+
 @interface CacheManager()
 
 @property (nonatomic, strong) FMDatabase *db;
@@ -164,7 +165,7 @@ static CacheManager *singleton = nil;
     //1.获取documents文件夹路径
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     //2.拼接文件路径
-    return [documentsPath stringByAppendingString:@"/AllMoments.sqlite"];
+    return [documentsPath stringByAppendingString:@"/Moments.sqlite"];
 }
 
 //创建表
@@ -175,23 +176,65 @@ static CacheManager *singleton = nil;
         return;
     }
     //2.通过SQL语句操作数据库 ---- 创建表
-    BOOL isSuccess = [self.db executeUpdate:@"create table if not exists AllMoments(id integer primary key autoincrement, banner blob, list blob)"];
-    //con_image  UIIMage类型   blob 二进制数据
-    NSLog(@"%@",isSuccess ? @"创建表成功" : @"创建表失败");
-    
+    [self.db executeUpdate:@"create table if not exists TT_Moments(moment_id text, banner text, list blob)"];
+    [self.db executeUpdate:@"create table if not exists TT_Projects(project_id text, banner text, list blob)"];
+    [self.db executeUpdate:@"create table if not exists TT_Groups(group_id text, group_name text, banner text, list blob"];
     //3.关闭数据库
     [self.db close];
 }
 
-//查询数据  --- 从数据库读取数据
-- (Moments *)selectDataFromDataBase {
+//存到数据库中
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list notification:(NSNotification *)notification {
+    //1.打开数据库
+    BOOL isOpen = [self.db open];
+    if (!isOpen) {
+        return;
+    }
+    //2.删除原有数据
+    [self deleteMomentsFromDBWithNotification:notification];
+    //3.通过SQL操作数据
+    NSDictionary *tmpDic = notification.userInfo;
+    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
+        for (NSDictionary *dic in list) {
+            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", [notification.object group_id], bannerUrl, listDic];
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+        }
+    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
+        for (NSDictionary *dic in list) {
+            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+        }
+    } else {//主页
+        for (NSDictionary *dic in list) {
+            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+        }
+    }
+    //4.关闭数据库
+    [self.db close];
+}
+
+//查询moments数据
+- (Moments *)selectMomentsFromDataBaseWithNotification:(NSNotification *)notification {
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
         return nil;
     }
     //2.通过SQL语句操作数据库 --- 查询所有的数据
-    FMResultSet *result = [self.db executeQuery:@"select * from AllMoments"];
+    FMResultSet *result = nil;
+    NSDictionary *tmpDic = notification.userInfo;
+    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
+        
+    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
+        result = [self.db executeQuery:@"select * from TT_Moments where moment_id = ?", [notification.object project_id]];
+    } else {//主页
+        result = [self.db executeQuery:@"select * from TT_Moments"];
+    }
+    
     NSString *bannerUrl = nil;
     NSMutableArray *tmpArr = [NSMutableArray array];
     //读取一条数据的每一个字段
@@ -205,25 +248,26 @@ static CacheManager *singleton = nil;
     //3.关闭数据库
     [self.db close];
     
-    return [Moments momentsWithBanner:bannerUrl list:tmpArr];;
+    return [Moments momentsWithBanner:bannerUrl list:tmpArr];
 }
 
-//存到沙盒文件中
-- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list {
+//删除所有Moments数据
+- (void)deleteMomentsFromDBWithNotification:(NSNotification *)notification {
     //1.打开数据库
     BOOL isOpen = [self.db open];
-    if (!isOpen) {
+    if (! isOpen) {
         return;
     }
-    //2.删除之前数据库数据
-    [self.db executeUpdate:@"delete from AllMoments"];
-    //3.通过SQL操作数据
-    for (NSDictionary *dic in list) {
-        NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-        BOOL isSuccess = [self.db executeUpdate:@"insert into AllMoments(banner, list) values (?, ?)", bannerUrl, listDic];
-        NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+    //2.通过SQL语句操作数据库 --- 删除所有的数据
+    NSDictionary *tmpDic = notification.userInfo;
+    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
+        
+    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
+        [self.db executeUpdate:@"delete from TT_Projects"];
+    } else {//主页
+        [self.db executeUpdate:@"delete from TT_Moments"];
     }
-    //4.关闭数据库
+    //3.关闭数据库
     [self.db close];
 }
 

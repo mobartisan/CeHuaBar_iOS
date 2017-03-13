@@ -37,9 +37,10 @@ static NSString *const Section_Data_Cache_Key = @"Section_Data_Cache_Key_String"
 
 - (void)cleanCacheWithKey:(NSString *)key;
 
-//存到沙盒文件中
-- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list;
-//查询数据  --- 从数据库读取数据
-- (Moments *)selectDataFromDataBase;
+//存到数据库中
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list notification:(NSNotification *)notification;
+//查询moments数据
+- (Moments *)selectMomentsFromDataBaseWithNotification:(NSNotification *)notification;
+
 
 @end

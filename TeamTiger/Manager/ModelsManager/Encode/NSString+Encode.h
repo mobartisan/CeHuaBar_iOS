@@ -10,6 +10,7 @@
 
 @interface NSString(Encode)
 
+
 - (NSString *)encodedString;
 - (NSString *)decodedString;
 
