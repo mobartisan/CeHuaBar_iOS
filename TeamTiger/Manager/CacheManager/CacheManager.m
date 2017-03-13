@@ -185,35 +185,30 @@ static CacheManager *singleton = nil;
 
 //存到数据库中
 - (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list notification:(NSNotification *)notification {
-    //1.打开数据库
-    BOOL isOpen = [self.db open];
-    if (!isOpen) {
-        return;
-    }
-    //2.删除原有数据
+    //1.删除原有数据
     [self deleteMomentsFromDBWithNotification:notification];
-    //3.通过SQL操作数据
+    //2.通过SQL操作数据
     NSDictionary *tmpDic = notification.userInfo;
     if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
         for (NSDictionary *dic in list) {
             NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
             BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", [notification.object group_id], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
         }
     }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
         for (NSDictionary *dic in list) {
             NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
             BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
         }
     } else {//主页
         for (NSDictionary *dic in list) {
             NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
             BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"更新失败");
+            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
         }
     }
-    //4.关闭数据库
+    //3.关闭数据库
     [self.db close];
 }
 
@@ -228,9 +223,9 @@ static CacheManager *singleton = nil;
     FMResultSet *result = nil;
     NSDictionary *tmpDic = notification.userInfo;
     if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
-        
+        result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", [notification.object group_id]];
     }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
-        result = [self.db executeQuery:@"select * from TT_Moments where moment_id = ?", [notification.object project_id]];
+        result = [self.db executeQuery:@"select * from TT_Projects where project_id = ?", [notification.object project_id]];
     } else {//主页
         result = [self.db executeQuery:@"select * from TT_Moments"];
     }
@@ -261,14 +256,12 @@ static CacheManager *singleton = nil;
     //2.通过SQL语句操作数据库 --- 删除所有的数据
     NSDictionary *tmpDic = notification.userInfo;
     if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
-        
+        [self.db executeUpdate:@"delete from TT_Groups where group_id = ?", [notification.object group_id]];
     }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
-        [self.db executeUpdate:@"delete from TT_Projects"];
+        [self.db executeUpdate:@"delete from TT_Projects where project_id = ?", [notification.object project_id]];
     } else {//主页
         [self.db executeUpdate:@"delete from TT_Moments"];
     }
-    //3.关闭数据库
-    [self.db close];
 }
 
 @end

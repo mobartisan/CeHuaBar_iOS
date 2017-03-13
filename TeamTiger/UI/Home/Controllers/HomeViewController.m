@@ -256,9 +256,10 @@
     bView = self.view;
     self.setBtn.hidden = YES;
     [self configureNavigationItem];
+    
+    self.notification = nil;
     //显示缓存数据
     [self getDataBaseWithNotification:nil];
-    
     self.tempDic = nil;
     //获取moments
     [self getAllMoments:self.tempDic IsNeedRefresh:YES];
@@ -812,6 +813,7 @@
             self.tempGroup = nil;
         }
         self.tempDic = parameterDic;
+        self.notification = notification;
         [self getAllMoments:parameterDic IsNeedRefresh:isLoading];
         [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
     });
@@ -870,18 +872,11 @@
 - (void)getDataBaseWithNotification:(NSNotification *)notification {
     [self.dataSource removeAllObjects];
     Moments *moment = [[CacheManager sharedInstance] selectMomentsFromDataBaseWithNotification:notification];;
-    NSLog(@"moment.list---%@", moment.list);
+    NSLog(@"moment.bannerUrl---%@", moment.bannerUrl);
     if (![Common isEmptyString:moment.bannerUrl]) {
-//        self.textLB.hidden = YES;
-//        self.imageView.hidden = NO;
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:moment.bannerUrl] placeholderImage:kImage(@"img_cover") options:SDWebImageRetryFailed | SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            if (image && image.size.height / image.size.width !=  kWidthHeightScale) {
-                //handle image
-                self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-            } else if (!image) {
-                [self showDefaultCover];
-            }
-        }];
+        self.textLB.hidden = YES;
+        self.imageView.hidden = NO;
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:moment.bannerUrl] placeholderImage:kImage(@"img_cover")];
     }
     [self.dataSource setArray:moment.list];
     [self.tableView reloadData];
