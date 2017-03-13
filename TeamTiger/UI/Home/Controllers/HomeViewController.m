@@ -47,7 +47,8 @@
 @property (strong, nonatomic) UIView *sectionHeader;//分区页眉
 @property (strong, nonatomic) UIView *tableHeader;//tableView 页眉
 @property (strong, nonatomic) NSIndexPath *currentIndexPath;//键盘上移时对应cell的indexPath
-@property (nonatomic,strong) UILabel *countLB;//未读消息个数label
+@property (nonatomic, strong) IBOutlet UIView *newsView;
+@property (nonatomic,strong) IBOutlet UILabel *countLB;//未读消息个数label
 @property (strong, nonatomic) UIButton *titleView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UILabel *textLB;
@@ -142,44 +143,13 @@
         _tableHeader = [UIView new];
         _tableHeader.backgroundColor = [UIColor clearColor];
         _tableHeader.frame = CGRectMake(0, 0, 0, 50);
-        
-        UIImageView *bellImage = [UIImageView new];
-        bellImage.image = kImage(@"icon_bell");
-        [_tableHeader addSubview:bellImage];
-        
-        UILabel *countLB = [UILabel new];
-        countLB.text = @"new";
-        countLB.textColor = [UIColor whiteColor];
-        countLB.backgroundColor = kRGB(238, 28, 37);
-        countLB.textAlignment = NSTextAlignmentCenter;
-        countLB.layer.cornerRadius = 10;
-        countLB.layer.masksToBounds = YES;
-        countLB.adjustsFontSizeToFitWidth = YES;
-        countLB.font = [UIFont boldSystemFontOfSize:15];
-        [_tableHeader addSubview:countLB];
-        _countLB = countLB;
-        
-        
-        UIButton *bellBtn = [UIButton new];
-        [bellBtn addTarget:self action:@selector(handleBellBtnAction) forControlEvents:UIControlEventTouchUpInside];
-        [_tableHeader addSubview:bellBtn];
-        
-        [bellImage mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(30);
-            make.height.mas_equalTo(30);
+//        add new view
+        [_tableHeader addSubview:self.newsView];
+        [self.newsView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.mas_equalTo(120);
+            make.height.mas_equalTo(36);
             make.centerY.equalTo(_tableHeader);
             make.centerX.equalTo(_tableHeader);
-        }];
-        
-        [countLB mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.mas_equalTo(25);
-            make.height.mas_equalTo(20);
-            make.centerX.equalTo(_tableHeader).offset(15);
-            make.centerY.equalTo(_tableHeader).offset(-20 / 2);
-        }];
-        
-        [bellBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(_tableHeader);
         }];
     }
     return _tableHeader;
@@ -195,7 +165,7 @@
     return _titleView;
 }
 
-- (void)handleBellBtnAction {
+- (IBAction)handleBellBtnAction {
     DiscussViewController *discussVC = [[DiscussViewController alloc] init];
     discussVC.idDictionary = self.tempDic;
     [self.navigationController pushViewController:discussVC animated:YES];
@@ -378,9 +348,9 @@
             self.tableView.tableHeaderView = tableViewHeaderView;
         } else {
             self.tableView.tableHeaderView = self.tableHeader;
-            self.countLB.text = @(newsCount).stringValue;
+            self.countLB.text = [NSString stringWithFormat:@"%@条新消息", @(newsCount).stringValue];
             if (newsCount > 99) {
-                self.countLB.text = @"99+";
+                self.countLB.text = @"99+条新消息";
             }
         }
         [self.tableView reloadData];

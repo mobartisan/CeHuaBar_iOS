@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511101157.914217"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "-sectionHeader"
             landmarkType = "7">
          </BreakpointContent>
@@ -132,11 +132,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511101157.914217"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-sectionHeader"
             landmarkType = "7">
          </BreakpointContent>
@@ -274,12 +274,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
-            landmarkName = "-handleConvertId:"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
+            landmarkName = "-clickProjectBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -751,12 +751,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "457"
-            endingLineNumber = "457"
-            landmarkName = "-handleTapTableViewAction:"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
+            landmarkName = "-getMoreDataWithUrl:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -831,13 +831,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
-            landmarkName = "-getMoreDataWithUrl:"
-            landmarkType = "7">
+            startingLineNumber = "387"
+            endingLineNumber = "387"
+            landmarkName = "@implementation HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -911,12 +911,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "749"
-            endingLineNumber = "749"
-            landmarkName = "-currentIndexPath:"
+            startingLineNumber = "719"
+            endingLineNumber = "719"
+            landmarkName = "-clickVoteProjectBtn:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -991,11 +991,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
             landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
@@ -1135,7 +1135,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "510237019.487087"
+                  timestampString = "511102399.368286"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1150,7 +1150,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "510237019.489218"
+                  timestampString = "511102399.370312"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1215,7 +1215,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/SelectBgImageVC.m"
-                  timestampString = "510237019.500771"
+                  timestampString = "511102399.38148"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -1230,7 +1230,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/SelectBgImageVC.m"
-                  timestampString = "510237019.502873"
+                  timestampString = "511102399.383498"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "282"
@@ -1247,27 +1247,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
+            timestampString = "511102397.96676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "-handleSetBtnAction:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
-            timestampString = "509508852.18188"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
             landmarkName = "-handleSetBtnAction:"
             landmarkType = "7">
          </BreakpointContent>

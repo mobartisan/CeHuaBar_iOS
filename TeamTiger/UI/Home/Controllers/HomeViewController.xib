@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
             <connections>
+                <outlet property="countLB" destination="UTQ-Fw-Rxe" id="rV5-ez-KK7"/>
+                <outlet property="newsView" destination="5Pf-Oq-nfi" id="Bg8-1S-trl"/>
                 <outlet property="tableView" destination="Hjt-xt-42w" id="FL5-03-fhI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -38,5 +40,65 @@
             </constraints>
             <point key="canvasLocation" x="-23" y="-47"/>
         </view>
+        <view contentMode="scaleToFill" id="5Pf-Oq-nfi">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="36"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kGz-Hu-X5q">
+                    <rect key="frame" x="0.0" y="0.0" width="120" height="36"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99+条新消息" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.84999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="UTQ-Fw-Rxe">
+                    <rect key="frame" x="15" y="8" width="77" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" image="img_arrow_2" translatesAutoresizingMaskIntoConstraints="NO" id="hyG-gw-WmR">
+                    <rect key="frame" x="92" y="8" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="Jhi-mo-eMt"/>
+                        <constraint firstAttribute="height" constant="20" id="k7t-Nw-Wjs"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSp-cZ-MyD">
+                    <rect key="frame" x="0.0" y="0.0" width="120" height="36"/>
+                    <connections>
+                        <action selector="handleBellBtnAction" destination="-1" eventType="touchUpInside" id="o6A-bQ-YJI"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="dSp-cZ-MyD" firstAttribute="leading" secondItem="5Pf-Oq-nfi" secondAttribute="leading" id="CEU-jl-2lx"/>
+                <constraint firstItem="hyG-gw-WmR" firstAttribute="centerY" secondItem="5Pf-Oq-nfi" secondAttribute="centerY" id="EFY-Dg-cmW"/>
+                <constraint firstAttribute="trailing" secondItem="kGz-Hu-X5q" secondAttribute="trailing" id="K8f-as-qJz"/>
+                <constraint firstItem="dSp-cZ-MyD" firstAttribute="top" secondItem="5Pf-Oq-nfi" secondAttribute="top" id="Lge-WX-wll"/>
+                <constraint firstAttribute="bottom" secondItem="dSp-cZ-MyD" secondAttribute="bottom" id="Whq-9K-Pxg"/>
+                <constraint firstAttribute="bottom" secondItem="UTQ-Fw-Rxe" secondAttribute="bottom" constant="8" id="XPJ-Th-vsh"/>
+                <constraint firstAttribute="trailing" secondItem="hyG-gw-WmR" secondAttribute="trailing" constant="8" id="bnd-9Z-3d3"/>
+                <constraint firstItem="hyG-gw-WmR" firstAttribute="leading" secondItem="UTQ-Fw-Rxe" secondAttribute="trailing" id="dsd-jm-lkF"/>
+                <constraint firstItem="kGz-Hu-X5q" firstAttribute="leading" secondItem="5Pf-Oq-nfi" secondAttribute="leading" id="eI2-Nn-cIy"/>
+                <constraint firstAttribute="trailing" secondItem="dSp-cZ-MyD" secondAttribute="trailing" id="eKn-B1-1Hj"/>
+                <constraint firstAttribute="bottom" secondItem="kGz-Hu-X5q" secondAttribute="bottom" id="fzQ-lE-oz9"/>
+                <constraint firstItem="kGz-Hu-X5q" firstAttribute="top" secondItem="5Pf-Oq-nfi" secondAttribute="top" id="hUS-xC-MTm"/>
+                <constraint firstItem="UTQ-Fw-Rxe" firstAttribute="leading" secondItem="5Pf-Oq-nfi" secondAttribute="leading" constant="15" id="kgF-xZ-BDq"/>
+                <constraint firstItem="UTQ-Fw-Rxe" firstAttribute="top" secondItem="5Pf-Oq-nfi" secondAttribute="top" constant="8" id="mKf-vr-vuW"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="271" y="-75"/>
+        </view>
     </objects>
+    <resources>
+        <image name="img_arrow_2" width="16" height="16"/>
+    </resources>
 </document>
