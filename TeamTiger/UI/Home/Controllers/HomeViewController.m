@@ -306,13 +306,13 @@
 
 #pragma mark 获取Moments
 - (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh{
-    [self.dataSource removeAllObjects];
     if (isNeedRefresh) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        [self.dataSource removeAllObjects];
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         
@@ -768,7 +768,7 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
-    //    self.imageView.image = kImage(@"img_cover");
+    self.imageView.image = kImage(@"img_cover");
     [self.dataSource removeAllObjects];
     [self.tableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -870,7 +870,9 @@
 }
 
 - (void)getDataBaseWithNotification:(NSNotification *)notification {
-    [self.dataSource removeAllObjects];
+    if (![Common isEmptyArr:self.dataSource]) {
+         [self.dataSource removeAllObjects];
+    }
     Moments *moment = [[CacheManager sharedInstance] selectMomentsFromDataBaseWithNotification:notification];;
     NSLog(@"moment.bannerUrl---%@", moment.bannerUrl);
     if (![Common isEmptyString:moment.bannerUrl]) {
