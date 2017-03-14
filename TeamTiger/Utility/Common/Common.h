@@ -25,7 +25,8 @@
 + (void)customPushAnimationFromNavigation:(UINavigationController *)nav ToViewController:(UIViewController *)vc Type:(NSString *)animationType SubType:(NSString *)subType;
 //自定义pop动画
 + (void)customPopAnimationFromNavigation:(UINavigationController *)nav Type:(NSString *)animationType SubType:(NSString *)subType;
-
+//获取当前视图
++ (UIViewController *)getCurrentVC;
 //根据16进制显示颜色
 + (UIColor *)colorFromHexRGB:(NSString *)inColorString;
 

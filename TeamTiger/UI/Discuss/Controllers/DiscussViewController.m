@@ -53,7 +53,9 @@
                 if (message.message_type == 3) {
                     //项目变更
                     //如果有消息，且消息类型符合页面展示条件，则显示消息UI
-                    [self getMessageListWithParameter:self.idDictionary];
+                    if ([[Common getCurrentVC] isKindOfClass:[self class]]){
+                        [self getMessageListWithParameter:self.idDictionary];
+                    }
                 }
             }
         }
@@ -74,10 +76,13 @@
     self.navigationItem.title = @"我的未读消息";
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
-        if (self.isNeedRefresh) {
-            self.isNeedRefresh = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
-        }
+//        if (self.isNeedRefresh) {
+//            self.isNeedRefresh = NO;
+//            [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
+//        }
+        //清除所有未读
+        [self deleteMessageListWithParameter:self.idDictionary];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS_2 object:nil];
         [wself.navigationController popViewControllerAnimated:YES];
     }];
     //右侧
