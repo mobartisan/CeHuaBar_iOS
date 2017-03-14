@@ -462,7 +462,7 @@ typedef enum{
                 //更新数据库
                 [SQLITEMANAGER setDataBasePath:[TT_User sharedInstance].user_id];
                 [SQLITEMANAGER executeSql:[NSString stringWithFormat:@"update %@ set isRead = 1 where project_id = '%@'",TABLE_TT_Project,project.project_id]];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:project userInfo:@{@"Title":[project name], @"ISGROUP":@0}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTICE_KEY_NEED_REFRESH_MOMENTS object:project userInfo:@{@"Title":[project name], @"ISGROUP":@0, @"member_type":@(project.member_type)}];
             }
         }];
     }

@@ -58,7 +58,6 @@
 @property (strong, nonatomic) NSDictionary *tempDic;
 @property (strong, nonatomic) TT_Project *tempProject;//项目
 @property (strong, nonatomic) TT_Group *tempGroup;//分组
-@property (nonatomic,strong) NSNotification *notification;
 @property (strong, nonatomic) UIImagePickerController *imagePickerVc;
 @property (assign, nonatomic) NSInteger memberType;
 @end
@@ -143,7 +142,7 @@
         _tableHeader = [UIView new];
         _tableHeader.backgroundColor = [UIColor clearColor];
         _tableHeader.frame = CGRectMake(0, 0, 0, 50);
-//        add new view
+        //        add new view
         [_tableHeader addSubview:self.newsView];
         [self.newsView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.width.mas_equalTo(120);
@@ -227,10 +226,9 @@
     self.setBtn.hidden = YES;
     [self configureNavigationItem];
     
-    self.notification = nil;
-    //显示缓存数据
-    [self getDataBaseWithNotification:nil];
     self.tempDic = nil;
+    //显示缓存数据
+    [self getDataBaseData];
     //获取moments
     [self getAllMoments:self.tempDic IsNeedRefresh:YES];
     
@@ -269,7 +267,7 @@
     });
     
     //测试
-    //     [self deleteAllData];
+//         [self deleteAllData];
     
     
 }
@@ -294,7 +292,7 @@
             NSString *newscount = objDic[@"newscount"];
             NSArray *listArr = objDic[@"list"];
             //加载缓存
-            [[CacheManager sharedInstance] saveMomentsWithBanner:bannerDic[@"url"] list:listArr notification:self.notification];
+            [[CacheManager sharedInstance] saveMomentsWithBanner:bannerDic[@"url"] list:listArr tempDic:self.tempDic];
             
             for (NSDictionary *dic in listArr) {
                 HomeModel *homeModel = [HomeModel modelWithDic:dic];
@@ -522,7 +520,7 @@
             SelectBgImageVC *selectBgImageVC = [[SelectBgImageVC alloc] init];
             WeakSelf;
             selectBgImageVC.selectCircleVCBlock = ^(UIImage *selectImage, SelectBgImageVC *selectBgImageVC) {
-                self.textLB.hidden = YES;
+                
                 // 获取当前使用的图片像素和点的比例
                 CGFloat scale = [UIScreen mainScreen].scale;
                 // 裁减图片
@@ -533,6 +531,7 @@
                 hud.mode = MBProgressHUDModeAnnularDeterminate;
                 hud.label.text = @"正在上传...";
                 [QiniuUpoadManager uploadImage:uploadImg progress:^(NSString *key, float percent) {
+                    self.textLB.hidden = YES;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         NSLog(@"---->%lf",percent);
                         hud.progress = percent;
@@ -702,7 +701,8 @@
     [self.titleView setImage:nil forState:UIControlStateNormal];
     [self.titleView setTitle:project.name forState:UIControlStateNormal];
     self.tempDic = @{@"pid":project.project_id};
-    [self getAllMoments:@{@"pid":project.project_id} IsNeedRefresh:NO];//pid 项目id
+    [self getDataBaseData];
+    [self getAllMoments:self.tempDic IsNeedRefresh:NO];//pid 项目id
 }
 
 #pragma mark - HomeVoteCellDeleagte
@@ -715,7 +715,8 @@
     [self.titleView setImage:nil forState:UIControlStateNormal];
     [self.titleView setTitle:project.name forState:UIControlStateNormal];
     self.tempDic = @{@"pid":project.project_id};
-    [self getAllMoments:@{@"pid":project.project_id} IsNeedRefresh:NO];//pid 项目id
+    [self getDataBaseData];
+    [self getAllMoments:self.tempDic IsNeedRefresh:NO];//pid 项目id
 }
 
 
@@ -738,55 +739,47 @@
 
 #pragma mark - 分组或者项目Moments
 - (void)handleConvertId:(NSNotification *)notification {
-    self.imageView.image = kImage(@"img_cover");
-//    [self.dataSource removeAllObjects];
-//    [self.tableView reloadData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSDictionary *parameterDic = nil;
-        BOOL isLoading = NO;
-        if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
-            parameterDic = @{@"gid":[notification.object group_id]};
-            self.setBtn.hidden = NO;
-            self.imageView.userInteractionEnabled = YES;
-            [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
-            self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-            [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-            [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
-            
-            self.tempProject = nil;
-            self.tempGroup = notification.object;
-            isLoading = YES;
-        }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
-            //加载数据库数据
-            [self getDataBaseWithNotification:notification];
-            
-            parameterDic = @{@"pid":[notification.object project_id]};
-            self.setBtn.hidden = NO;
-            self.imageView.userInteractionEnabled = YES;
-            
-            [self.titleView setImage:nil forState:UIControlStateNormal];
-            [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-            [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
-            
-            self.tempProject = notification.object;
-            self.tempGroup = nil;
-            isLoading = YES;
-        } else {//主页
-            //加载数据库数据
-            [self getDataBaseWithNotification:notification];
-            
-            self.setBtn.hidden = YES;
-            self.imageView.userInteractionEnabled = YES;
-            
-            [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
-            self.tempProject = nil;
-            self.tempGroup = nil;
-        }
-        self.tempDic = parameterDic;
-        self.notification = notification;
-        [self getAllMoments:parameterDic IsNeedRefresh:isLoading];
-        [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
-    });
+    //设置title
+    [self.titleView setTitle:notification.userInfo[@"Title"] forState:UIControlStateNormal];
+    NSDictionary *parameterDic = nil;
+    if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 1) {//分组
+        self.memberType = 0;
+        parameterDic = @{@"gid":[notification.object group_id]};
+        self.setBtn.hidden = NO;
+        self.imageView.userInteractionEnabled = YES;
+        [self.titleView setImage:kImage(@"icon_moments") forState:UIControlStateNormal];
+        self.titleView.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+        [self.setBtn setTitle:@"分组设置" forState:UIControlStateNormal];
+        
+        self.tempProject = nil;
+        self.tempGroup = notification.object;
+    }else if (notification.object && [notification.userInfo[@"IsGroup"] intValue] == 0) {//项目
+        self.memberType = [notification.userInfo[@"member_type"] integerValue];
+        parameterDic = @{@"pid":[notification.object project_id]};
+        self.setBtn.hidden = NO;
+        self.imageView.userInteractionEnabled = YES;
+        
+        [self.titleView setImage:nil forState:UIControlStateNormal];
+        [self.leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+        [self.setBtn setTitle:@"项目设置" forState:UIControlStateNormal];
+        
+        self.tempProject = notification.object;
+        self.tempGroup = nil;
+    } else {//主页
+        self.memberType = 0;
+        self.setBtn.hidden = YES;
+        self.imageView.userInteractionEnabled = YES;
+        
+        [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
+        self.tempProject = nil;
+        self.tempGroup = nil;
+    }
+    self.tempDic = parameterDic;
+    [self getDataBaseData];
+    [self getAllMoments:parameterDic IsNeedRefresh:NO];
+    
+    
 }
 
 //MARK: - 当前展示的是否是项目、分组、还是所有
@@ -839,16 +832,18 @@
     }
 }
 
-- (void)getDataBaseWithNotification:(NSNotification *)notification {
+- (void)getDataBaseData {
     if (![Common isEmptyArr:self.dataSource]) {
-         [self.dataSource removeAllObjects];
+        [self.dataSource removeAllObjects];
     }
-    Moments *moment = [[CacheManager sharedInstance] selectMomentsFromDataBaseWithNotification:notification];;
+    Moments *moment = [[CacheManager sharedInstance] selectMomentsFromDataBaseWithTempDic:self.tempDic];;
     NSLog(@"moment.bannerUrl---%@", moment.bannerUrl);
     if (![Common isEmptyString:moment.bannerUrl]) {
         self.textLB.hidden = YES;
         self.imageView.hidden = NO;
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:moment.bannerUrl] placeholderImage:kImage(@"img_cover")];
+    } else {
+        [self showDefaultCover];
     }
     [self.dataSource setArray:moment.list];
     [self.tableView reloadData];

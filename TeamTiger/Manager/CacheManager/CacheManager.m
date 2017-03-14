@@ -136,7 +136,7 @@ static CacheManager *singleton = nil;
     } else {
         NSString *dateKey = [NSString stringWithFormat:@"%@_Date",key];
         UserDefaultsSave([NSDate date], dateKey);
-
+        
         NSString *timeInterValKey = [NSString stringWithFormat:@"%@_TimeInterval",key];
         UserDefaultsSave(@(timeOut), timeInterValKey);
     }
@@ -178,30 +178,51 @@ static CacheManager *singleton = nil;
     //2.通过SQL语句操作数据库 ---- 创建表
     [self.db executeUpdate:@"create table if not exists TT_Moments(moment_id text, banner text, list blob)"];
     [self.db executeUpdate:@"create table if not exists TT_Projects(project_id text, banner text, list blob)"];
-    [self.db executeUpdate:@"create table if not exists TT_Groups(group_id text, group_name text, banner text, list blob"];
+    [self.db executeUpdate:@"create table if not exists TT_Groups(group_id text, group_name text, banner text, list blob)"];
     //3.关闭数据库
     [self.db close];
 }
 
 //存到数据库中
-- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list notification:(NSNotification *)notification {
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list tempDic:(NSDictionary *)tempDic {
     //1.删除原有数据
-    [self deleteMomentsFromDBWithNotification:notification];
+    [self deleteMomentsFromDBWithTempDic:tempDic];
     //2.通过SQL操作数据
-    NSDictionary *tmpDic = notification.userInfo;
-    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
-        for (NSDictionary *dic in list) {
-            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", [notification.object group_id], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+    if(tempDic) {
+        if (![tempDic.allKeys containsObject:@"pid"] &&
+            ![tempDic.allKeys containsObject:@"gid"]) {//所有
+            for (NSDictionary *dic in list) {
+                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            }
+        } else if ([tempDic.allKeys containsObject:@"pid"] &&
+                   ![tempDic.allKeys containsObject:@"gid"]) {//项目
+            if ([Common isEmptyArr:list]) {
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner) values (?, ?)", tempDic[@"pid"], bannerUrl];
+                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            } else {
+                for (NSDictionary *dic in list) {
+                    NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                    NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+                }
+            }
+        } else if (![tempDic.allKeys containsObject:@"pid"] &&
+                   [tempDic.allKeys containsObject:@"gid"]) {//分组
+            for (NSDictionary *dic in list) {
+                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", tempDic[@"gid"], bannerUrl, listDic];
+                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            }
+        } else {//所有
+            for (NSDictionary *dic in list) {
+                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            }
         }
-    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
-        for (NSDictionary *dic in list) {
-            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
-        }
-    } else {//主页
+    } else {//所有
         for (NSDictionary *dic in list) {
             NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
             BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
@@ -213,7 +234,7 @@ static CacheManager *singleton = nil;
 }
 
 //查询moments数据
-- (Moments *)selectMomentsFromDataBaseWithNotification:(NSNotification *)notification {
+- (Moments *)selectMomentsFromDataBaseWithTempDic:(NSDictionary *)tempDic {
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
@@ -221,24 +242,34 @@ static CacheManager *singleton = nil;
     }
     //2.通过SQL语句操作数据库 --- 查询所有的数据
     FMResultSet *result = nil;
-    NSDictionary *tmpDic = notification.userInfo;
-    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
-        result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", [notification.object group_id]];
-    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
-        result = [self.db executeQuery:@"select * from TT_Projects where project_id = ?", [notification.object project_id]];
-    } else {//主页
-        result = [self.db executeQuery:@"select * from TT_Moments"];
+    if(tempDic) {
+        if (![tempDic.allKeys containsObject:@"pid"] &&
+            ![tempDic.allKeys containsObject:@"gid"]) {//所有
+           result = [self.db executeQuery:@"select * from TT_Moments"];
+        } else if ([tempDic.allKeys containsObject:@"pid"] &&
+                   ![tempDic.allKeys containsObject:@"gid"]) {//项目
+            result = [self.db executeQuery:@"select * from TT_Projects where project_id = ?", tempDic[@"pid"]];
+        } else if (![tempDic.allKeys containsObject:@"pid"] &&
+                   [tempDic.allKeys containsObject:@"gid"]) {//分组
+           result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", tempDic[@"gid"]];
+        } else {//所有
+          result = [self.db executeQuery:@"select * from TT_Moments"];
+        }
+    } else {//所有
+       result = [self.db executeQuery:@"select * from TT_Moments"];
     }
-    
     NSString *bannerUrl = nil;
     NSMutableArray *tmpArr = [NSMutableArray array];
     //读取一条数据的每一个字段
     while ([result next]) {
         bannerUrl = [result stringForColumn:@"banner"];
-        NSData *tmpData = [result objectForColumnName:@"list"];
-        NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:tmpData];
-        HomeModel *homeModel = [HomeModel modelWithDic:dic];
-        [tmpArr addObject:homeModel];
+        //list字段对应的值为空时的安全处理
+        if (![[result objectForColumnName:@"list"] isKindOfClass:[NSNull class]]) {
+            NSData *tmpData = [result objectForColumnName:@"list"];
+            NSDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:tmpData];
+            HomeModel *homeModel = [HomeModel modelWithDic:dic];
+            [tmpArr addObject:homeModel];
+        }
     }
     //3.关闭数据库
     [self.db close];
@@ -246,22 +277,32 @@ static CacheManager *singleton = nil;
     return [Moments momentsWithBanner:bannerUrl list:tmpArr];
 }
 
+
 //删除所有Moments数据
-- (void)deleteMomentsFromDBWithNotification:(NSNotification *)notification {
+- (void)deleteMomentsFromDBWithTempDic:(NSDictionary *)tempDic {
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
         return;
     }
     //2.通过SQL语句操作数据库 --- 删除所有的数据
-    NSDictionary *tmpDic = notification.userInfo;
-    if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 1) {//分组
-        [self.db executeUpdate:@"delete from TT_Groups where group_id = ?", [notification.object group_id]];
-    }else if (tmpDic && [tmpDic[@"IsGroup"] intValue] == 0) {//项目
-        [self.db executeUpdate:@"delete from TT_Projects where project_id = ?", [notification.object project_id]];
-    } else {//主页
+    if(tempDic) {
+        if (![tempDic.allKeys containsObject:@"pid"] &&
+            ![tempDic.allKeys containsObject:@"gid"]) {//所有
+            [self.db executeUpdate:@"delete from TT_Moments"];
+        } else if ([tempDic.allKeys containsObject:@"pid"] &&
+                   ![tempDic.allKeys containsObject:@"gid"]) {//项目
+            [self.db executeUpdate:@"delete from TT_Projects where project_id = ?", tempDic[@"pid"]];
+        } else if (![tempDic.allKeys containsObject:@"pid"] &&
+                   [tempDic.allKeys containsObject:@"gid"]) {//分组
+            [self.db executeUpdate:@"delete from TT_Groups where group_id = ?", tempDic[@"gid"]];
+        } else {//所有
+            [self.db executeUpdate:@"delete from TT_Moments"];
+        }
+    } else {//所有
         [self.db executeUpdate:@"delete from TT_Moments"];
     }
+    
 }
 
 @end

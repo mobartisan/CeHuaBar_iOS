@@ -38,9 +38,9 @@ static NSString *const Section_Data_Cache_Key = @"Section_Data_Cache_Key_String"
 - (void)cleanCacheWithKey:(NSString *)key;
 
 //存到数据库中
-- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list notification:(NSNotification *)notification;
+- (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list tempDic:(NSDictionary *)tempDic;
 //查询moments数据
-- (Moments *)selectMomentsFromDataBaseWithNotification:(NSNotification *)notification;
+- (Moments *)selectMomentsFromDataBaseWithTempDic:(NSDictionary *)tempDic;
 
 
 @end
