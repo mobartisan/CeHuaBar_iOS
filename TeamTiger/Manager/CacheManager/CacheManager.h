@@ -41,6 +41,7 @@ static NSString *const Section_Data_Cache_Key = @"Section_Data_Cache_Key_String"
 - (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list tempDic:(NSDictionary *)tempDic;
 //查询moments数据
 - (Moments *)selectMomentsFromDataBaseWithTempDic:(NSDictionary *)tempDic;
-
+//更新封面数据
+- (void)updateBannerWithTempDic:(NSDictionary *)tempDic bannerUrl:(NSString *)bannerUrl;
 
 @end

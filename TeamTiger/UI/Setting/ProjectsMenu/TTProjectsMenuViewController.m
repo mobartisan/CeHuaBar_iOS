@@ -257,6 +257,7 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self loadDBData];
     if (self.isIntoUserInfo) {
         [self getAllGroupsAndProjectsData];
     } else {
@@ -264,6 +265,16 @@ typedef enum{
     }
     //fix a bug
     self.menuTable.contentInset = UIEdgeInsetsMake(0, 0, 5.0, 0);
+}
+
+- (void)loadDBData {
+    SqliteManager *sqliteManager = [SqliteManager sharedInstance];
+    [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
+    NSArray *dbUnGroupProjects = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Project] Class:TABLE_TT_Project];
+//    NSArray *dbGroups = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Group] Class:TABLE_TT_Group];
+//    [self.groups setArray:dbGroups];
+    [self.unGroupProjects setArray:dbUnGroupProjects];
+    [self.menuTable reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

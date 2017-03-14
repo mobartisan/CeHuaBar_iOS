@@ -537,6 +537,7 @@
                         hud.progress = percent;
                     });
                 } success:^(NSString *url) {
+                    [[CacheManager sharedInstance] updateBannerWithTempDic:self.tempDic bannerUrl:url];
                     NSDictionary *dic = @{@"type":@0,
                                           @"from":@3,
                                           @"url":url};
@@ -552,7 +553,7 @@
                     } else {
                         bannerDic = @{@"medias":bannerStr};
                     }
-                    
+                    [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [hud hideAnimated:YES];
                         [self bannerUpdate:bannerDic UploadImage:uploadImg];

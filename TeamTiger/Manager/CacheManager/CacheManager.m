@@ -170,6 +170,7 @@ static CacheManager *singleton = nil;
 
 //创建表
 - (void)createTableInDataBase {
+    
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (!isOpen) {
@@ -185,19 +186,20 @@ static CacheManager *singleton = nil;
 
 //存到数据库中
 - (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list tempDic:(NSDictionary *)tempDic {
+    
     //1.删除原有数据
     [self deleteMomentsFromDBWithTempDic:tempDic];
-    //2.通过SQL操作数据
-    if(tempDic) {
-        if (![tempDic.allKeys containsObject:@"pid"] &&
-            ![tempDic.allKeys containsObject:@"gid"]) {//所有
-            for (NSDictionary *dic in list) {
-                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
-            }
-        } else if ([tempDic.allKeys containsObject:@"pid"] &&
-                   ![tempDic.allKeys containsObject:@"gid"]) {//项目
+    
+    //2.打开数据库
+    BOOL isOpen = [self.db open];
+    if (! isOpen) {
+        return ;
+    }
+    //3.通过SQL操作数据
+    ECurrentStatus currentStatus = [self isProejctOrGroupOrAllByCurrently:tempDic];
+    switch (currentStatus) {
+        case ECurrentIsProject:
+        {
             if ([Common isEmptyArr:list]) {
                 BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner) values (?, ?)", tempDic[@"pid"], bannerUrl];
                 NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
@@ -208,29 +210,63 @@ static CacheManager *singleton = nil;
                     NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
                 }
             }
-        } else if (![tempDic.allKeys containsObject:@"pid"] &&
-                   [tempDic.allKeys containsObject:@"gid"]) {//分组
-            for (NSDictionary *dic in list) {
-                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", tempDic[@"gid"], bannerUrl, listDic];
+        }
+            break;
+        case ECurrentIsGroup:
+        {
+            if ([Common isEmptyArr:list]) {
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner) values (?, ?)", tempDic[@"gid"], bannerUrl];
                 NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
-            }
-        } else {//所有
-            for (NSDictionary *dic in list) {
-                NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            } else {
+                for (NSDictionary *dic in list) {
+                    NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", tempDic[@"gid"], bannerUrl, listDic];
+                    NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+                }
             }
         }
-    } else {//所有
-        for (NSDictionary *dic in list) {
-            NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-            BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
-            NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            break;
+        case ECurrentIsAll:
+        {
+            if ([Common isEmptyArr:list]) {
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(banner) values (?)", bannerUrl];
+                NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+            } else {
+                for (NSDictionary *dic in list) {
+                    NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                    NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
+                }
+            }
         }
+            break;
+        default:
+            break;
     }
-    //3.关闭数据库
+    //4.关闭数据库
     [self.db close];
+}
+
+//MARK: - 当前是否是项目、分组、还是所有
+- (ECurrentStatus)isProejctOrGroupOrAllByCurrently:(NSDictionary *)tempDic {
+    ECurrentStatus currentStatus;
+    if(tempDic) {
+        if (![tempDic.allKeys containsObject:@"pid"] &&
+            ![tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsAll;
+        } else if ([tempDic.allKeys containsObject:@"pid"] &&
+                   ![tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsProject;
+        } else if (![tempDic.allKeys containsObject:@"pid"] &&
+                   [tempDic.allKeys containsObject:@"gid"]) {
+            currentStatus = ECurrentIsGroup;
+        } else {
+            currentStatus = ECurrentIsAll;
+        }
+    } else {
+        currentStatus = ECurrentIsAll;
+    }
+    return currentStatus;
 }
 
 //查询moments数据
@@ -242,22 +278,21 @@ static CacheManager *singleton = nil;
     }
     //2.通过SQL语句操作数据库 --- 查询所有的数据
     FMResultSet *result = nil;
-    if(tempDic) {
-        if (![tempDic.allKeys containsObject:@"pid"] &&
-            ![tempDic.allKeys containsObject:@"gid"]) {//所有
-           result = [self.db executeQuery:@"select * from TT_Moments"];
-        } else if ([tempDic.allKeys containsObject:@"pid"] &&
-                   ![tempDic.allKeys containsObject:@"gid"]) {//项目
+    ECurrentStatus currentStatus = [self isProejctOrGroupOrAllByCurrently:tempDic];
+    switch (currentStatus) {
+        case ECurrentIsProject:
             result = [self.db executeQuery:@"select * from TT_Projects where project_id = ?", tempDic[@"pid"]];
-        } else if (![tempDic.allKeys containsObject:@"pid"] &&
-                   [tempDic.allKeys containsObject:@"gid"]) {//分组
-           result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", tempDic[@"gid"]];
-        } else {//所有
-          result = [self.db executeQuery:@"select * from TT_Moments"];
-        }
-    } else {//所有
-       result = [self.db executeQuery:@"select * from TT_Moments"];
+            break;
+        case ECurrentIsGroup:
+            result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", tempDic[@"gid"]];
+            break;
+        case ECurrentIsAll:
+            result = [self.db executeQuery:@"select * from TT_Moments"];
+            break;
+        default:
+            break;
     }
+    
     NSString *bannerUrl = nil;
     NSMutableArray *tmpArr = [NSMutableArray array];
     //读取一条数据的每一个字段
@@ -285,7 +320,7 @@ static CacheManager *singleton = nil;
     if (! isOpen) {
         return;
     }
-    //2.通过SQL语句操作数据库 --- 删除所有的数据
+    //2.通过SQL语句操作数据库 --- 删除数据
     if(tempDic) {
         if (![tempDic.allKeys containsObject:@"pid"] &&
             ![tempDic.allKeys containsObject:@"gid"]) {//所有
@@ -302,7 +337,37 @@ static CacheManager *singleton = nil;
     } else {//所有
         [self.db executeUpdate:@"delete from TT_Moments"];
     }
-    
+    //3.关闭数据库
+    [self.db close];
+}
+
+- (void)updateBannerWithTempDic:(NSDictionary *)tempDic bannerUrl:(NSString *)bannerUrl {
+    //1.打开数据库
+    BOOL isOpen = [self.db open];
+    if (! isOpen) {
+        return;
+    }
+    //2.通过SQL语句操作数据库
+    ECurrentStatus currentStatus = [self isProejctOrGroupOrAllByCurrently:tempDic];
+    switch (currentStatus) {
+        case ECurrentIsProject:
+        {
+            
+          BOOL isSuccess =  [self.db executeUpdate:@"update TT_Projects set banner = ? where project_id = ?", bannerUrl, tempDic[@"pid"]];
+            NSLog(@"%d", isSuccess);
+        }
+            break;
+        case ECurrentIsGroup:
+            [self.db executeUpdate:@"update TT_Groups set banner = ? where group_id = ?", bannerUrl, tempDic[@"gid"]];
+            break;
+        case ECurrentIsAll:
+            [self.db executeUpdate:@"update TT_Moments set banner = ?", bannerUrl];
+            break;
+        default:
+            break;
+    }
+    //3.关闭数据库
+    [self.db close];
 }
 
 @end
