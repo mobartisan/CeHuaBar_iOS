@@ -213,6 +213,7 @@ typedef enum{
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //初始化全局数据
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
     self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
@@ -233,8 +234,9 @@ typedef enum{
                 TT_Message *message = (TT_Message *)notification;
                 if (message.message_type == 1 ||
                     message.message_type == 3) {
-                    //1.发请求
-                    //2.刷新UI
+                    //更新最新的项目数据
+                    [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
+                    //发请求，刷新UI
                     [self getAllGroupsAndProjectsData];
                 }
             }

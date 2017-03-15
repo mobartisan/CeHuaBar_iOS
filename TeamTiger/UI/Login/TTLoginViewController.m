@@ -147,14 +147,16 @@
                         gMessageType = nil;
                     });
                 }
+                [self hideLaunchImage];
             });
         } else if (resType == ResponseStatusFailure) {
             [super showText:response afterSeconds:1.0];
+            [self hideLaunchImage];
         } else {
             NSLog(@"%@", response);
             [super showText:@"登录失败" afterSeconds:1.0];
+            [self hideLaunchImage];
         }
-        [self hideLaunchImage];
     }];
 }
 
