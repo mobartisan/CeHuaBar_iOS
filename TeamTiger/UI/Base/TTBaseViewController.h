@@ -17,6 +17,8 @@ void doNotificaiotn(id self, SEL _cmd, id sender);
 
 @property (nonatomic, strong) MBProgressHUD *hud;
 
+- (void)showOnlyHud;
+
 - (void)showHudWithText:(NSString *)text;
 
 - (void)hideHud;

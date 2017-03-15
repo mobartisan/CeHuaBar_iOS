@@ -275,18 +275,17 @@
 #pragma mark 获取Moments
 - (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh {
     if (isNeedRefresh) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [super showOnlyHud];
     }
     AllMomentsApi *projectsApi = [[AllMomentsApi alloc] init];
     projectsApi.requestArgument = requestDic;
     [projectsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         [self.dataSource removeAllObjects];
         NSLog(@"getAllMoments:%@", request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
         BOOL isShowRing = NO;
         NSInteger newsCount = 0;
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            [super hideHud];
             NSDictionary *objDic = request.responseJSONObject[OBJ];
             NSDictionary *bannerDic = objDic[@"banner"];
             NSString *newscount = objDic[@"newscount"];
@@ -344,7 +343,8 @@
         if (!isShowRing) {
             UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, CGFLOAT_MIN)];
             self.tableView.tableHeaderView = tableViewHeaderView;
-        } else {
+        }
+        else {
             self.tableView.tableHeaderView = self.tableHeader;
             self.countLB.text = [NSString stringWithFormat:@"%@条新消息", @(newsCount).stringValue];
             if (newsCount > 99) {
@@ -359,7 +359,6 @@
         self.tableView.tableHeaderView = tableViewHeaderView;
         [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
 }

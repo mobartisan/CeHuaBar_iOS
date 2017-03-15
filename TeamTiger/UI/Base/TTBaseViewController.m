@@ -59,8 +59,13 @@
     NSLog(@"生命周期--释放:【%@】",NSStringFromClass([self class]));
 }
 
+- (void)showOnlyHud {
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    [self.hud showAnimated:YES];
+}
 
 - (void)showHudWithText:(NSString *)text {
+    self.hud.mode = MBProgressHUDModeText;
     self.hud.label.text = text;
     [self.hud showAnimated:YES];
 }
@@ -75,6 +80,7 @@
 
 - (void)showText:(NSString *)text afterSeconds:(int)seconds; {
     self.hud.label.text = text;
+    self.hud.mode = MBProgressHUDModeText;
     [self.hud showAnimated:YES];
     [self.hud hideAnimated:YES afterDelay:seconds];
 }
