@@ -73,11 +73,8 @@ static QiniuUpoadManager *manager = nil;
     // 将上传策略中的scrop和deadline序列化成json格式
     NSMutableDictionary *authInfo = [NSMutableDictionary dictionary];
     [authInfo setObject:self.scope forKey:@"scope"];
-    [authInfo
-     setObject:[NSNumber numberWithLong:[[NSDate date] timeIntervalSince1970] + self.liveTime * 24 * 3600]
-     forKey:@"deadline"];
-    NSData *jsonData =
-    [NSJSONSerialization dataWithJSONObject:authInfo options:NSJSONWritingPrettyPrinted error:nil];
+    [authInfo setObject:@([NSDate date].timeIntervalSince1970 + self.liveTime * 24 * 3600 * 2) forKey:@"deadline"];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:authInfo options:NSJSONWritingPrettyPrinted error:nil];
     
     // 对json序列化后的上传策略进行URL安全的base64编码
     NSString *encodedString = [self urlSafeBase64Encode:jsonData];

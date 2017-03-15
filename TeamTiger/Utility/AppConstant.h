@@ -70,11 +70,20 @@ static NSString *const NETWORKERROR = @"您的网络好像有问题~";
 #define WX_BASE_URL @"https://api.weixin.qq.com/sns"
 
 //七牛
+//by xiao jie
+//static NSInteger defaultLiveTime = 365;
+//static NSString *const QiNiuScope = @"cjdale";
+//static NSString *const QiNiuAccessKey = @"M82sZ5xflkxGQr1Kyi0VTG9UUid5PYBqYCzGgxv0";
+//static NSString *const QiNiuSecretKey = @"t9uR0JgBozDzQduR9h-HS0p-nye7Vm2cYIlGkkem";
+//#define QiNiuBaseUrl @"http://ohcjw5fss.bkt.clouddn.com/"
+
+//by xxcao
 static NSInteger defaultLiveTime = 365;
-static NSString *const QiNiuScope = @"cjdale";
-static NSString *const QiNiuAccessKey = @"M82sZ5xflkxGQr1Kyi0VTG9UUid5PYBqYCzGgxv0";
-static NSString *const QiNiuSecretKey = @"t9uR0JgBozDzQduR9h-HS0p-nye7Vm2cYIlGkkem";
-#define QiNiuBaseUrl @"http://ohcjw5fss.bkt.clouddn.com/"
+static NSString *const QiNiuScope = @"cehuabar";
+static NSString *const QiNiuAccessKey = @"tRt7hVxW6XdAhZCFG3BY1e8Eq5SuIoHdLbao4vp4";
+static NSString *const QiNiuSecretKey = @"kHeHeJ6TKGk_xg0cLduUPwESFFyWoK8XOzMfrC71";
+#define QiNiuBaseUrl @"http://oeveo0t8n.bkt.clouddn.com/"
+
 
 static NSString *const kCompressKey = @"?imageView2/2/w/120/h/120/q/100";
 
