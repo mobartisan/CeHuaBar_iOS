@@ -553,10 +553,9 @@
                     } else {
                         bannerDic = @{@"medias":bannerStr};
                     }
-                    [self.imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [hud hideAnimated:YES];
-                        [self bannerUpdate:bannerDic UploadImage:uploadImg];
+                        [self bannerUpdate:bannerDic UploadImage:uploadImg Url:url];
                     });
                 } failure:^(NSError *error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -583,7 +582,7 @@
 }
 
 #pragma mark - 更改封面
-- (void)bannerUpdate:(NSDictionary *)requestDic UploadImage:(UIImage *)uploadImg{
+- (void)bannerUpdate:(NSDictionary *)requestDic UploadImage:(UIImage *)uploadImg Url:(NSString *)imgUrl{
     UploadImageApi *uploadImageApi = [[UploadImageApi alloc] init];
     uploadImageApi.requestArgument = requestDic;
     [uploadImageApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -592,6 +591,8 @@
             self.textLB.hidden = YES;
             self.imageView.hidden = NO;
             self.imageView.image = uploadImg;
+            //only save
+            [self.imageView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:uploadImg options:SDWebImageRetryFailed | SDWebImageLowPriority];
         } else {
             [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
         }
