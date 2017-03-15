@@ -78,7 +78,7 @@ static NSString *const NETWORKERROR = @"您的网络好像有问题~";
 //#define QiNiuBaseUrl @"http://ohcjw5fss.bkt.clouddn.com/"
 
 //by xxcao
-static NSInteger defaultLiveTime = 365;
+static NSInteger defaultLiveTime = 365 * 2;
 static NSString *const QiNiuScope = @"cehuabar";
 static NSString *const QiNiuAccessKey = @"tRt7hVxW6XdAhZCFG3BY1e8Eq5SuIoHdLbao4vp4";
 static NSString *const QiNiuSecretKey = @"kHeHeJ6TKGk_xg0cLduUPwESFFyWoK8XOzMfrC71";
