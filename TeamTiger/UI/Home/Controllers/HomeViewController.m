@@ -273,7 +273,7 @@
 }
 
 #pragma mark 获取Moments
-- (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh{
+- (void)getAllMoments:(NSDictionary *)requestDic IsNeedRefresh:(BOOL)isNeedRefresh {
     if (isNeedRefresh) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }

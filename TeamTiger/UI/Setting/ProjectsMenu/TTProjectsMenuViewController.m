@@ -259,8 +259,8 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self loadDBData];
     if (self.isIntoUserInfo) {
+        [self loadDBData];
         [self getAllGroupsAndProjectsData];
     } else {
         self.isIntoUserInfo = YES;
@@ -273,8 +273,6 @@ typedef enum{
     SqliteManager *sqliteManager = [SqliteManager sharedInstance];
     [sqliteManager setDataBasePath:[TT_User sharedInstance].user_id];
     NSArray *dbUnGroupProjects = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Project] Class:TABLE_TT_Project];
-//    NSArray *dbGroups = [sqliteManager selectDatasSql:[NSString stringWithFormat:@"select * from %@",TABLE_TT_Group] Class:TABLE_TT_Group];
-//    [self.groups setArray:dbGroups];
     [self.unGroupProjects setArray:dbUnGroupProjects];
     [self.menuTable reloadData];
 }
@@ -507,7 +505,7 @@ typedef enum{
     [groupsApi startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
         NSLog(@"AllGroupsApi:%@", request.responseJSONObject);
         if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            NSDictionary *objDic =  request.responseJSONObject[OBJ];
+            NSDictionary *objDic = request.responseJSONObject[OBJ];
             //分组数据
             if (![Common isEmptyArr:self.groups]) {
                 [self.groups removeAllObjects];
@@ -908,6 +906,9 @@ typedef enum{
             if ([serverProject.project_id isEqualToString:dbProject.project_id]) {
                 isInDB = YES;
                 serverProject.isRead = dbProject.isRead;
+                //update
+                NSString *sql = [NSString stringWithFormat:@"update TT_Project set newscount = %@, isTop = %d, isNoDisturb = %d", [Common safeString:serverProject.newscount],serverProject.isTop, serverProject.isNoDisturb];
+                [sqliteManager executeSql:sql];
                 break;
             }
         }
