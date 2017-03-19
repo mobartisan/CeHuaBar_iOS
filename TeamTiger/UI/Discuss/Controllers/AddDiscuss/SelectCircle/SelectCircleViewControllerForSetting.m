@@ -112,6 +112,9 @@
     return headerView;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 70.0;
+}
 
 #pragma mark - Privater Methods
 
@@ -124,9 +127,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _tableView.separatorStyle = UITableViewCellSelectionStyleNone;
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.estimatedRowHeight = 77;
+        _tableView.backgroundColor = kColorForBackgroud;
     }
     return _tableView;
 }

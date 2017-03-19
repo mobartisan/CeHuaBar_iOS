@@ -31,6 +31,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"项目设置";
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
+    self.contentTable.backgroundColor = kRGBColor(28, 37, 51);
+    UIView *bgV = [[UIView alloc] init];
+    bgV.backgroundColor = kColorForBackgroud;
+    self.contentTable.backgroundView = bgV;
     [self getProjectMemberList];
     WeakSelf;
     [self hyb_setNavLeftImage:[UIImage imageNamed:@"icon_back"] block:^(UIButton *sender) {
@@ -129,16 +134,16 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 1 || section == 2) {
         return 10;
     }
     return 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 1 || section == 2) {
         UIView *bgView = [[UIView alloc] init];
-        bgView.backgroundColor = kRGB(21, 27, 38);
+        bgView.backgroundColor = kColorForBackgroud;
         return bgView;
     }
     return nil;

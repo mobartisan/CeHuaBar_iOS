@@ -215,13 +215,13 @@ typedef enum{
     [super viewDidLoad];
     //初始化全局数据
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
-    self.view.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
-    v.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    v.backgroundColor = kRGBColor(28, 37, 51);
     self.menuTable.backgroundView = v;
-    self.menuTable.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+    self.menuTable.backgroundColor = kRGBColor(28, 37, 51);
     UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreenEdgePan)];
     edgePan.edges = UIRectEdgeRight;
     [self.menuTable addGestureRecognizer:edgePan];
@@ -363,7 +363,7 @@ typedef enum{
             cell = [tableView dequeueReusableCellWithIdentifier:cellID];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-                cell.backgroundColor = [Common colorFromHexRGB:@"151b27"];
+                cell.backgroundColor = kRGBColor(28, 37, 51);
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             [cell addSubview:self.infoView];

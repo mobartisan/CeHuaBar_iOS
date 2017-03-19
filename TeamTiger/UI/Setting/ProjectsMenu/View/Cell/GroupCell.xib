@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入分组名称" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="r8b-9e-JUG">
-                        <rect key="frame" x="36" y="8" width="274" height="36.5"/>
+                        <rect key="frame" x="22" y="8" width="288" height="36.5"/>
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
                         <connections>
                             <outlet property="delegate" destination="KGk-i7-Jjw" id="Zbb-Du-MsL"/>
@@ -32,13 +32,14 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="r8b-9e-JUG" secondAttribute="bottom" constant="7.5" id="Mk3-th-xKb"/>
                     <constraint firstAttribute="trailing" secondItem="r8b-9e-JUG" secondAttribute="trailing" constant="10" id="jZT-1z-c73"/>
-                    <constraint firstItem="r8b-9e-JUG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="36" id="n8p-RJ-1Qc"/>
+                    <constraint firstItem="r8b-9e-JUG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="n8p-RJ-1Qc"/>
                     <constraint firstItem="r8b-9e-JUG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="smq-gH-MVw"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nameTxtField" destination="r8b-9e-JUG" id="shC-IU-OLK"/>
             </connections>
+            <point key="canvasLocation" x="26" y="-22"/>
         </tableViewCell>
     </objects>
 </document>

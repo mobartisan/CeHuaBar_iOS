@@ -21,6 +21,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.contentView.backgroundColor = kColorForCommonCellBackgroud;
     setViewCorner(self.headIcon, self.headIcon.bounds.size.width / 2);
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 

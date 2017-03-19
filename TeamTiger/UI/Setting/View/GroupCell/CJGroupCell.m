@@ -21,7 +21,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    self.contentView.backgroundColor = kColorForCommonCellBackgroud;
     self.lineView.backgroundColor = kRGB(33, 46, 63);
     self.lineView.hidden = self.isLastRow;
 

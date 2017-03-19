@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,10 +16,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldq-Va-2iM">
-                    <rect key="frame" x="50" y="24" width="275" height="36"/>
+                    <rect key="frame" x="8" y="10" width="359" height="50"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="9dP-Qj-riX"/>
+                        <constraint firstAttribute="height" constant="50" id="9dP-Qj-riX"/>
                     </constraints>
                     <state key="normal" title="删除分组">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -32,8 +32,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ldq-Va-2iM" secondAttribute="bottom" id="FvC-BM-olS"/>
-                <constraint firstItem="ldq-Va-2iM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="Wsh-rH-PUG"/>
-                <constraint firstAttribute="trailing" secondItem="ldq-Va-2iM" secondAttribute="trailing" constant="50" id="fHd-md-oqW"/>
+                <constraint firstItem="ldq-Va-2iM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Wsh-rH-PUG"/>
+                <constraint firstAttribute="trailing" secondItem="ldq-Va-2iM" secondAttribute="trailing" constant="8" id="fHd-md-oqW"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -42,6 +42,7 @@
             <connections>
                 <outlet property="deleteBtn" destination="ldq-Va-2iM" id="DZC-NA-b6Q"/>
             </connections>
+            <point key="canvasLocation" x="-110" y="73"/>
         </view>
     </objects>
 </document>

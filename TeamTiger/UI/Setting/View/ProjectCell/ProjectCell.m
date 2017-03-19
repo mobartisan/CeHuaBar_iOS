@@ -22,12 +22,15 @@
     switch (type) {
         case 0:
             cell = LoadFromNib(@"ProjectCell1");
+            cell.contentView.backgroundColor = kColorForCommonCellBackgroud;
             break;
         case 1:
             cell = LoadFromNib(@"ProjectCell1");
+            cell.contentView.backgroundColor = kColorForCommonCellBackgroud;
             break;
         case 2:
             cell = LoadFromNib(@"ProjectCell_Member");
+            cell.contentView.backgroundColor = kColorForCommonCellBackgroud;
             break;
         default:
             cell = LoadFromNib(@"ProjectCell2");
@@ -39,9 +42,9 @@
 + (CGFloat)loadCellHeightWithData:(id)obj {
     if ([obj[@"Type"] intValue] == 2) {
         NSArray *array = obj[@"Members"];
-        return 76.0 + itemSize * ceil((array.count + 1) / 4.0);
+        return 70.0 + itemSize * ceil((array.count + 1) / 4.0);
     }
-    return 76.0;
+    return 70.0;
 }
 
 - (void)reloadCellData:(id)obj{

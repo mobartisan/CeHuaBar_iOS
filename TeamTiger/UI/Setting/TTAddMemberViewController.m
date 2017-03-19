@@ -49,9 +49,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self configureNavigationItem];
+    self.view.backgroundColor = kColorForBackgroud;
+    self.tableView.backgroundColor = kColorForBackgroud;
     [self userRelation];
     [WXApiManager sharedManager].delegate = self;
-    self.tableView.rowHeight = 60;
+    self.tableView.rowHeight = 70;
     [Common removeExtraCellLines:self.tableView];
 }
 

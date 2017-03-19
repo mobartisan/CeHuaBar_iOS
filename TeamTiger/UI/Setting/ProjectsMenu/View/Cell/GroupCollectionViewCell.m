@@ -135,6 +135,7 @@
             make.height.equalTo(self.mas_height).offset(-20);
         }];
         _msgLabel.textColor = [Common colorFromHexRGB:@"2e3a4a"];
+        _msgLabel.textColor = kRGB(67, 84, 103);
         _msgLabel.textAlignment = NSTextAlignmentRight;
         _msgLabel.font = [UIFont boldSystemFontOfSize:75];
     }

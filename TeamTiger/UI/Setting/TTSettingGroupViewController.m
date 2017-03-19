@@ -63,6 +63,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configureNavigationItem];
+    self.view.backgroundColor = kColorForBackgroud;
+    self.tableView.backgroundColor = kColorForBackgroud;
     [Common removeExtraCellLines:self.tableView];
     [self getGroupList];
     self.tableView.tableFooterView = self.footerView;

@@ -30,6 +30,8 @@
 @implementation TTGroupSettingViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
+    self.table.backgroundColor = kColorForBackgroud;
     [self configureNavigationItem];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
@@ -293,9 +295,9 @@
         _table.rowHeight = 53;
         [Common removeExtraCellLines:_table];
         UIView *v = [[UIView alloc] init];
-        v.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        v.backgroundColor = kRGBColor(28, 37, 51);
         _table.backgroundView = v;
-        _table.backgroundColor = [UIColor colorWithRed:21.0/255.0f green:27.0/255.0f blue:38.0/255.0f alpha:1.0f];
+        _table.backgroundColor = kRGBColor(28, 37, 51);
         _table.separatorColor = [UIColor clearColor];
         _table.separatorStyle = UITableViewCellSeparatorStyleNone;
         
@@ -318,7 +320,7 @@
             make.edges.equalTo(tmpView);
         }];
         CGRect frame = tmpView.frame;
-        frame.size.height = 60.0;
+        frame.size.height = 80.0;
         tmpView.frame = frame;
         self.table.tableFooterView = tmpView;
     }
