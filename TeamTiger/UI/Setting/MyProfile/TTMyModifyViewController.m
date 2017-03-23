@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
     [self.descTF becomeFirstResponder];
     // Do any additional setup after loading the view from its nib.
     self.nameLB.text = [NSString stringWithFormat:@"%@:", self.tempDic[@"Name"]];

@@ -285,7 +285,12 @@ typedef enum{
 - (void)loadUserInfo {
     NSDictionary *dic = [MockDatas testerInfo];
     self.nameLab.text = dic[@"Name"];
-    self.remarkLab.text = dic[@"Remarks"];
+    if ([Common isEmptyString:dic[@"Remarks"]]) {
+        self.remarkLab.text = @"修改备注";
+    } else {
+        self.remarkLab.text = dic[@"Remarks"];
+    }
+    
     if (![Common isEmptyString:dic[@"HeadImage"]]) {
         NSString *urlString = [Common handleWeChatHeadImageUrl:dic[@"HeadImage"] Size:132];
         NSURL *url = [NSURL URLWithString:urlString];

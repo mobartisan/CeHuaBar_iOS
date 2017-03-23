@@ -18,7 +18,9 @@
     if (_addProjectBtn == nil) {
         _addProjectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_addProjectBtn setTitle:@"添加项目" forState:UIControlStateNormal];
-        [_addProjectBtn setImage:kImage(@"icon_add_moment") forState:UIControlStateNormal];
+        _addProjectBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_addProjectBtn setTitleColor:kRGB(68, 102, 149) forState:UIControlStateNormal];
+        [_addProjectBtn setImage:kImage(@"add") forState:UIControlStateNormal];
         [_addProjectBtn addTarget:self action:@selector(handleAddProjectAction) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:_addProjectBtn];
@@ -70,15 +72,9 @@
 
 //子控件布局
 - (void)layoutSubviews{
-    
-//    UIImageView *image = self.addProjectBtn.imageView;
-//    CGRect frame = image.frame;
-//    frame.size.width = 10;
-//    frame.size.height = 10;
-//    image.frame = frame;
     [self.addProjectBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -self.addProjectBtn.imageView.size.width, 0, self.addProjectBtn.imageView.size.width)];
-    [self.addProjectBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.addProjectBtn.titleLabel.bounds.size.width, 0, -self.addProjectBtn.titleLabel.bounds.size.width)];
-    self.addProjectBtn.frame = CGRectMake(Screen_Width - 40, 5, kAddProjectBtnW, kAddProjectBtnW);
+    [self.addProjectBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.addProjectBtn.titleLabel.bounds.size.width, 0, -self.addProjectBtn.titleLabel.bounds.size.width - 5)];
+    self.addProjectBtn.frame = CGRectMake(Screen_Width - 100, 10, 90, 20);
     self.deleteView.frame = CGRectMake(Screen_Width - 120, 0, 120, kViewHeight);
     self.containerView.frame = self.bounds;
 }

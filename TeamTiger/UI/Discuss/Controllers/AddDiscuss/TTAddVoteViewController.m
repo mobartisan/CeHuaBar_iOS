@@ -55,6 +55,8 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
+    self.tableView.backgroundColor = kRGBColor(28, 37, 51);
     self.title = @"发起投票";
     self.optionIndex = 0;
     self.isSelectOriginalPhoto = YES;

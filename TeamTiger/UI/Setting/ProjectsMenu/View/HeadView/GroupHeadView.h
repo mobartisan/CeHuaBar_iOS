@@ -23,6 +23,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *editBtn; //底层删除按钮
 
 @property (strong, nonatomic) UIButton *addProjectBtn;//创建项目按钮
+@property (nonatomic,strong) UILabel *addLB;//添加项目Label
 
 @property (nonatomic, assign) BOOL isOpenLeft; //是否已经打开左滑动
 

@@ -49,8 +49,13 @@
 }
 
 - (void)reloadCellData:(id)obj{
-    
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:obj];
+    if ([dic[@"ShowAccessory"] intValue] == 1 && [dic[@"IsEdit"] intValue] == 1) {
+        self.lineView.hidden = NO;
+    } else {
+        self.lineView.hidden = YES;
+    }
+    
     self.bgImgV.backgroundColor = dic[@"Color"];
     self.nameLab.text = dic[@"Name"];
     self.detailTxtField.text = dic[@"Description"];

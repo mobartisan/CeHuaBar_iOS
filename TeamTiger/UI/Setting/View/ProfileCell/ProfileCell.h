@@ -12,6 +12,7 @@
 typedef void(^ClickActionBlock)(ProfileCell *cell,int type);
 
 @interface ProfileCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImgV;
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UITextField *detailTxtField;

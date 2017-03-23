@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,31 +18,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-7u-kFq">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fw4-7u-kFq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
-                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.08235294118" green="0.1058823529" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="名字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xa3-ZM-HAE">
-                        <rect key="frame" x="16" y="27" width="34" height="21"/>
+                        <rect key="frame" x="16" y="27" width="35" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="猪八戒" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="drt-kO-hS0">
-                        <rect key="frame" x="72" y="23" width="206" height="30"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <rect key="frame" x="73" y="23" width="205" height="30"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_enter" translatesAutoresizingMaskIntoConstraints="NO" id="f9h-rG-xsa">
                         <rect key="frame" x="278" y="28" width="30" height="20"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="7HJ-n6-yf7"/>
                             <constraint firstAttribute="width" constant="30" id="sdY-69-dhB"/>
                         </constraints>
                     </imageView>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KaA-O1-X1p" userLabel="LineView">
+                        <rect key="frame" x="0.0" y="74.5" width="320" height="1"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Pee-s3-vnN"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
                     <constraint firstItem="drt-kO-hS0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="23" id="3yH-gO-ddV"/>
@@ -46,13 +57,16 @@
                     <constraint firstItem="drt-kO-hS0" firstAttribute="leading" secondItem="Xa3-ZM-HAE" secondAttribute="trailing" constant="22" id="8qw-dE-MOB"/>
                     <constraint firstItem="Xa3-ZM-HAE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="CsH-iF-yRw"/>
                     <constraint firstItem="f9h-rG-xsa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="28" id="HNt-IC-hvn"/>
+                    <constraint firstAttribute="bottom" secondItem="KaA-O1-X1p" secondAttribute="bottom" id="HWw-fS-ZWY"/>
                     <constraint firstItem="Xa3-ZM-HAE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="27" id="LfP-zu-kIh"/>
                     <constraint firstAttribute="bottom" secondItem="fw4-7u-kFq" secondAttribute="bottom" id="Oo7-uq-Wu4"/>
                     <constraint firstItem="f9h-rG-xsa" firstAttribute="leading" secondItem="drt-kO-hS0" secondAttribute="trailing" id="Pzi-GS-Mrm"/>
                     <constraint firstItem="fw4-7u-kFq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="QK0-pe-K0r"/>
                     <constraint firstAttribute="trailing" secondItem="fw4-7u-kFq" secondAttribute="trailing" id="YlY-5E-Gmq"/>
+                    <constraint firstAttribute="trailing" secondItem="KaA-O1-X1p" secondAttribute="trailing" id="eHf-6x-dok"/>
                     <constraint firstAttribute="bottom" secondItem="drt-kO-hS0" secondAttribute="bottom" constant="22.5" id="g0O-kx-Iau"/>
                     <constraint firstAttribute="trailing" secondItem="f9h-rG-xsa" secondAttribute="trailing" constant="12" id="gNd-lo-jxc"/>
+                    <constraint firstItem="KaA-O1-X1p" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qhH-iF-UtC"/>
                     <constraint firstItem="fw4-7u-kFq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="rb9-QU-2Mq"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,12 +75,18 @@
                 <outlet property="bgImgV" destination="fw4-7u-kFq" id="I6v-th-n6P"/>
                 <outlet property="dWeight" destination="Pzi-GS-Mrm" id="VwT-Ok-DHH"/>
                 <outlet property="detailTxtField" destination="drt-kO-hS0" id="WLS-89-Jdb"/>
+                <outlet property="lineView" destination="KaA-O1-X1p" id="jSc-mg-BHK"/>
                 <outlet property="nameLab" destination="Xa3-ZM-HAE" id="LV6-os-D1b"/>
             </connections>
-            <point key="canvasLocation" x="402" y="340"/>
+            <point key="canvasLocation" x="125" y="213"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="icon_enter" width="11" height="18"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>

@@ -91,6 +91,8 @@
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [WXApiManager sharedManager].delegate = self;
     [self userRelation];
+    self.view.backgroundColor = kRGBColor(28, 37, 51);
+    self.contentTable.backgroundColor = kRGBColor(28, 37, 51);
     
     //点击背景收键盘
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBGViewAction:)];
