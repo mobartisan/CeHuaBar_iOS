@@ -13,7 +13,7 @@
 #import "MMDrawerVisualState.h"
 #import "TTBaseNavigationController.h"
 #import "TTLoginViewController.h"
-#import "TTTabBarViewController.h"
+//#import "TTTabBarViewController.h"
 #import "WXApiManager.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
@@ -22,6 +22,7 @@
 #import "JKEncrypt.h"
 #import "LoginManager.h"
 #import "AppDelegate+PushView.h"
+#import "KeyboardManager.h"
 
 @interface AppDelegate ()
 
@@ -217,6 +218,7 @@
     //IQKeyboardManager
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [KeyboardManager sharedInstance];//全局监听键盘是否弹起
     
     //推送相关
     [MessageManager registerUserNotification];

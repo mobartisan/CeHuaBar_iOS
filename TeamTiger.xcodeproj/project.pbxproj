@@ -250,6 +250,7 @@
 		1D5CCA211DB5AF8D00542DCD /* GroupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D5CCA201DB5AF8D00542DCD /* GroupView.xib */; };
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
 		1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5D5FF71D4EFADD007123EB /* AddressBook.framework */; };
+		1D5F1C7F1E84AE2A00E47ECA /* KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F1C7E1E84AE2A00E47ECA /* KeyboardManager.m */; };
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
 		1D6976E71E5E7C0500F0AD3A /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */; };
 		1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */; };
@@ -1031,6 +1032,8 @@
 		1D5D5FF11D4EE72E007123EB /* CacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheManager.h; sourceTree = "<group>"; };
 		1D5D5FF21D4EE72E007123EB /* CacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheManager.m; sourceTree = "<group>"; };
 		1D5D5FF71D4EFADD007123EB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		1D5F1C7D1E84AE2A00E47ECA /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		1D5F1C7E1E84AE2A00E47ECA /* KeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardManager.m; sourceTree = "<group>"; };
 		1D677F151D5C1D48001D099E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		1D6976E31E5E7C0500F0AD3A /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
@@ -2566,6 +2569,15 @@
 			path = CacheManager;
 			sourceTree = "<group>";
 		};
+		1D5F1C7C1E84AE0B00E47ECA /* KeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F1C7D1E84AE2A00E47ECA /* KeyboardManager.h */,
+				1D5F1C7E1E84AE2A00E47ECA /* KeyboardManager.m */,
+			);
+			path = KeyboardManager;
+			sourceTree = "<group>";
+		};
 		1D6976E21E5E7C0500F0AD3A /* YYFPSLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2952,6 +2964,7 @@
 		1DA71B741D3DB618007483D2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				1D5F1C7C1E84AE0B00E47ECA /* KeyboardManager */,
 				1DAB77D81E15F2D300DF43B8 /* LoginManager */,
 				2D9674F61DEBD30F002DF6E0 /* AnalyticsManager */,
 				2DDD54361DB0D4D300C55633 /* QiniuUploadManager */,
@@ -4201,6 +4214,7 @@
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
 				063B088D1D6F144F008AB592 /* MMSheetView.m in Sources */,
 				2DDD54121DB0D4AF00C55633 /* QNDomain.m in Sources */,
+				1D5F1C7F1E84AE2A00E47ECA /* KeyboardManager.m in Sources */,
 				1DB5A5711D4B3EF1009E6170 /* TTSwitch.m in Sources */,
 				2DDD54271DB0D4AF00C55633 /* QNFile.m in Sources */,
 				1D115F921D4BA043003DFBB1 /* IQToolbar.m in Sources */,
