@@ -158,6 +158,7 @@
     if (_titleView == nil) {
         _titleView = [UIButton buttonWithType:UIButtonTypeCustom];
         [_titleView setTitle:@"Moments" forState:UIControlStateNormal];
+        [_titleView setImage:nil forState:UIControlStateNormal];
         _titleView.enabled = NO;
         _titleView.frame = CGRectMake(0, 0, 300, 40);
     }
@@ -187,6 +188,7 @@
         settingVC.requestData = ^(){
             self.setBtn.hidden = YES;
             [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
+            [self.titleView setImage:nil forState:UIControlStateNormal];
             self.tempDic = nil;
             [self getAllMoments:self.tempDic IsNeedRefresh:NO];
         };
@@ -771,7 +773,8 @@
         self.memberType = 0;
         self.setBtn.hidden = YES;
         self.imageView.userInteractionEnabled = YES;
-        
+        [self.titleView setImage:nil forState:UIControlStateNormal];
+        [self.titleView setTitle:@"Moments" forState:UIControlStateNormal];
         [self.leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
         self.tempProject = nil;
         self.tempGroup = nil;
