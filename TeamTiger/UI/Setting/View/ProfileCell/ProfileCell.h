@@ -22,6 +22,8 @@ typedef void(^ClickActionBlock)(ProfileCell *cell,int type);
 @property (copy, nonatomic) ClickActionBlock block;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *dWeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *lineHeight;
+
 
 + (instancetype)loadCellWithType:(int)type;
 

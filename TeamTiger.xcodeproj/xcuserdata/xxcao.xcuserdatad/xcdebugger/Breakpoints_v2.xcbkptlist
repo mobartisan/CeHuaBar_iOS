@@ -1119,7 +1119,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "512013959.677171"
+                  timestampString = "512055975.024954"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1134,7 +1134,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/MyProfile/TTMyProfileViewController.m"
-                  timestampString = "512013959.679213"
+                  timestampString = "512055975.027706"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "81"
@@ -1317,6 +1317,38 @@
             startingLineNumber = "56"
             endingLineNumber = "56"
             landmarkName = "-keyboardIsVisible"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/UI/Setting/View/ProfileCell/ProfileCell.m"
+            timestampString = "512055555.948605"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-reloadCellData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TeamTiger/UI/Setting/View/ProfileCell/ProfileCell.m"
+            timestampString = "512055556.892295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-reloadCellData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

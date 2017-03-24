@@ -17,6 +17,9 @@
     setViewCorner(self.exitBtn, 5);
     self.exitBtn.backgroundColor = [Common colorFromHexRGB:@"fe435d"];
     
+    self.lineHeight.constant = minLineWidth;
+    self.lineView.alpha = 0.3;
+    
     if (self.headImgV) {
         self.headImgV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeaderAction:)];
@@ -86,6 +89,8 @@
         if (self.accessoryImgV.hidden) {
             self.dWeight.constant = -20;
         }
+    } else if ([dic[@"Type"] intValue] == 0) {
+        self.lineView.hidden = NO;
     }
 }
 

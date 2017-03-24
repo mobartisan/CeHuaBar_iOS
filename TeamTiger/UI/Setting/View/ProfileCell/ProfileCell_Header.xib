@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -32,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="56" placeholderIntrinsicHeight="56" translatesAutoresizingMaskIntoConstraints="NO" id="JjQ-yr-QDs">
-                        <rect key="frame" x="241" y="13" width="55" height="55"/>
+                        <rect key="frame" x="241" y="10.5" width="55" height="55"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="55" id="A7U-XF-qVM"/>
@@ -50,7 +50,6 @@
                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="fw4-7u-kFq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="4L7-Q9-4qf"/>
-                    <constraint firstAttribute="bottom" secondItem="JjQ-yr-QDs" secondAttribute="bottom" constant="8" id="7Nx-Y8-90j"/>
                     <constraint firstAttribute="bottom" secondItem="fw4-7u-kFq" secondAttribute="bottom" id="8ok-pw-Thl"/>
                     <constraint firstItem="JjQ-yr-QDs" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Hh9-8H-Q2Z"/>
                     <constraint firstItem="fw4-7u-kFq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HqX-bj-sVP"/>
@@ -68,6 +67,8 @@
             <connections>
                 <outlet property="bgImgV" destination="fw4-7u-kFq" id="I6v-th-n6P"/>
                 <outlet property="headImgV" destination="JjQ-yr-QDs" id="IS9-xP-Ag6"/>
+                <outlet property="lineHeight" destination="o04-3I-GHr" id="cSq-ga-DeT"/>
+                <outlet property="lineView" destination="v4m-v4-b3B" id="2wF-FP-Mej"/>
             </connections>
             <point key="canvasLocation" x="279" y="154"/>
         </tableViewCell>
