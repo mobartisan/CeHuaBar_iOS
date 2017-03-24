@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldq-Va-2iM">
-                    <rect key="frame" x="8" y="10" width="359" height="50"/>
+                    <rect key="frame" x="10" y="10" width="355" height="50"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="9dP-Qj-riX"/>
@@ -32,8 +32,8 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ldq-Va-2iM" secondAttribute="bottom" id="FvC-BM-olS"/>
-                <constraint firstItem="ldq-Va-2iM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Wsh-rH-PUG"/>
-                <constraint firstAttribute="trailing" secondItem="ldq-Va-2iM" secondAttribute="trailing" constant="8" id="fHd-md-oqW"/>
+                <constraint firstItem="ldq-Va-2iM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Wsh-rH-PUG"/>
+                <constraint firstAttribute="trailing" secondItem="ldq-Va-2iM" secondAttribute="trailing" constant="10" id="fHd-md-oqW"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -42,7 +42,7 @@
             <connections>
                 <outlet property="deleteBtn" destination="ldq-Va-2iM" id="DZC-NA-b6Q"/>
             </connections>
-            <point key="canvasLocation" x="-110" y="73"/>
+            <point key="canvasLocation" x="-302" y="44"/>
         </view>
     </objects>
 </document>

@@ -15,11 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="laO-RJ-lM2">
-                        <rect key="frame" x="8" y="16" width="304" height="50"/>
+                        <rect key="frame" x="10" y="16" width="300" height="50"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="mLo-Vu-Fr8"/>
@@ -34,9 +34,9 @@
                 </subviews>
                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="laO-RJ-lM2" secondAttribute="trailing" constant="8" id="3IG-jb-N8q"/>
+                    <constraint firstAttribute="trailing" secondItem="laO-RJ-lM2" secondAttribute="trailing" constant="10" id="3IG-jb-N8q"/>
                     <constraint firstItem="laO-RJ-lM2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Zlz-Zs-bT0"/>
-                    <constraint firstItem="laO-RJ-lM2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="xIL-4A-F1F"/>
+                    <constraint firstItem="laO-RJ-lM2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="xIL-4A-F1F"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>

@@ -13,6 +13,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     setViewCorner(self.deleteBtn, 6);
+    self.deleteBtn.backgroundColor = [Common colorFromHexRGB:@"fe435d"];
 }
 
 - (IBAction)deleteBtnAction:(id)sender {

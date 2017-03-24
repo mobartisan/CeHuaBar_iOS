@@ -39,7 +39,7 @@
             <connections>
                 <outlet property="nameTxtField" destination="r8b-9e-JUG" id="shC-IU-OLK"/>
             </connections>
-            <point key="canvasLocation" x="26" y="-22"/>
+            <point key="canvasLocation" x="-76" y="-68"/>
         </tableViewCell>
     </objects>
 </document>

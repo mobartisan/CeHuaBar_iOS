@@ -19,6 +19,8 @@
     self.backgroundColor = [UIColor clearColor];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.nameTxtField setValue:[UIColor darkGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+//     UIButton *button = [self.nameTxtField valueForKey:@"_clearButton"];
+//    button.tintColor = [UIColor redColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

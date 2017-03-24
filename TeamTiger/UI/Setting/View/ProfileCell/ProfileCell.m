@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     setViewCorner(self.exitBtn, 5);
+    self.exitBtn.backgroundColor = [Common colorFromHexRGB:@"fe435d"];
     
     if (self.headImgV) {
         self.headImgV.userInteractionEnabled = YES;
