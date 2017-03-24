@@ -287,8 +287,10 @@ typedef enum{
     self.nameLab.text = dic[@"Name"];
     if ([Common isEmptyString:dic[@"Remarks"]]) {
         self.remarkLab.text = @"修改备注";
+        self.remarkLab.textColor = [UIColor darkGrayColor];
     } else {
         self.remarkLab.text = dic[@"Remarks"];
+        self.remarkLab.textColor = [UIColor whiteColor];
     }
     
     if (![Common isEmptyString:dic[@"HeadImage"]]) {
