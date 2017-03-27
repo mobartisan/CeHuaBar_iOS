@@ -299,24 +299,9 @@
     return barItem;
 }
 
-//对字典加密 返回 key=value&key1=value2
-+ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys {
-    NSMutableString *mString = [NSMutableString string];
-    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
-    [srcDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
-        NSString *tmpStr = nil;
-        if ([keys containsObject:key]) {
-            tmpStr = [NSString stringWithFormat:@"%@=%@", key, obj];
-        } else {
-            tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptHex:obj]];
-        }
-        [mString appendFormat:@"%@&",tmpStr];
-    }];
-    [mString replaceCharactersInRange:NSMakeRange(mString.length - 1, 1) withString:@""];
-    return mString;
-}
-
-+ (NSDictionary *)unEncyptWithString:(NSString *)srcStr {
+//MARK: - 加解密相关
+//拆解字符串成字典
++ (NSDictionary *)transeforStr2Dic:(NSString *)srcStr {
     NSArray *array = [srcStr componentsSeparatedByString:@"&"];
     NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
     [array enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -324,6 +309,79 @@
         if (keyValues.count == 2) {
             mDic[keyValues[0]] = keyValues[1];
         }
+    }];
+    return mDic;
+}
+
+//对字典加密 返回字符串 key=value&key1=value2  mode==0 十六进制模式   mode==1 字符串模式
++ (NSString *)encypt2StrWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode{
+    NSMutableString *mString = [NSMutableString string];
+    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+    [srcDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSString *tmpStr = nil;
+        if ([keys containsObject:key]) {
+            tmpStr = [NSString stringWithFormat:@"%@=%@", key, obj];
+        } else {
+            if (mode == 0) {
+                tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptHex:obj]];
+            } else {
+                tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptStr:obj]];
+            }
+        }
+        [mString appendFormat:@"%@&",tmpStr];
+    }];
+    [mString replaceCharactersInRange:NSMakeRange(mString.length - 1, 1) withString:@""];
+    return mString;
+}
+
+//对字符串进行解密 返回字典 mode==0 十六进制模式   mode==1 字符串模式
++ (NSDictionary *)unEncypt2StrWithString:(NSString *)srcStr Mode:(NSInteger) mode{
+    NSArray *array = [srcStr componentsSeparatedByString:@"&"];
+    NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
+    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+    [array enumerateObjectsUsingBlock:^(NSString *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSArray *keyValues = [obj componentsSeparatedByString:@"="];
+        if (keyValues.count == 2) {
+            if (mode == 0) {
+                mDic[keyValues[0]] = [jkEncrypt doDecEncryptHex:keyValues[1]];
+            } else {
+                mDic[keyValues[0]] = [jkEncrypt doDecEncryptStr:keyValues[1]];
+            }
+        }
+    }];
+    return mDic;
+}
+
+//对字典进行解密 返回字典  mode==0 十六进制模式   mode==1 字符串模式
++ (NSDictionary *)unEncypt2DicWithDic:(NSDictionary *)srcDic Mode:(NSInteger)mode{
+    NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
+    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+    [srcDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        if (mode == 0) {
+            mDic[key] = [jkEncrypt doDecEncryptHex:obj];
+        } else {
+            mDic[key] = [jkEncrypt doDecEncryptStr:obj];
+        }
+    }];
+    return mDic;
+}
+
+//对字典加密 返回字典 key=value&key1=value2  mode==0 十六进制模式   mode==1 字符串模式
++ (NSDictionary *)encypt2DicWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode{
+    NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
+    JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
+    [srcDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        NSString *tmpStr = nil;
+        if ([keys containsObject:key]) {
+            tmpStr = [NSString stringWithFormat:@"%@=%@", key, obj];
+        } else {
+            if (mode == 0) {
+                tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptHex:obj]];
+            } else {
+                tmpStr = [NSString stringWithFormat:@"%@=%@", key, [jkEncrypt doEncryptStr:obj]];
+            }
+        }
+        mDic[key] = tmpStr;
     }];
     return mDic;
 }

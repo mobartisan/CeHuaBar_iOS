@@ -58,11 +58,13 @@
 + (UIBarButtonItem *)createBackBarButton:(NSString *)name
                                 Selector:(void(^)())block;
 
++ (NSDictionary *)transeforStr2Dic:(NSString *)srcStr;
 
-+ (NSString *)encyptWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys;
++ (NSString *)encypt2StrWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode;
++ (NSDictionary *)encypt2DicWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode;
 
-+ (NSDictionary *)unEncyptWithString:(NSString *)srcStr;
-
++ (NSDictionary *)unEncypt2StrWithString:(NSString *)srcStr Mode:(NSInteger)mode;
++ (NSDictionary *)unEncypt2DicWithDic:(NSDictionary *)srcDic Mode:(NSInteger)mode;
 //生成md5
 + (NSString *)creatMD5value:(id)obj;
 

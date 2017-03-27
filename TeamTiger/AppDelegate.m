@@ -99,7 +99,7 @@
     
     //  方式二：
     if ([url.absoluteString containsString:@"cehuabar"]) {
-        NSDictionary *dic = [Common unEncyptWithString:url.query];
+        NSDictionary *dic = [Common transeforStr2Dic:url.query];
         JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
         NSString *project_id = [jkEncrypt doDecEncryptHex:dic[@"project_id"]];
         LoginManager *loginManager = [LoginManager sharedInstace];

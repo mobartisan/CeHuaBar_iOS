@@ -161,10 +161,10 @@
     TT_User *user = [TT_User sharedInstance];
     NSString *nick_name = user.nickname;
     NSString *current_time = [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *subString = [Common encyptWithDictionary:@{@"project_id":self.project.project_id,
+    NSString *subString = [Common encypt2StrWithDictionary:@{@"project_id":self.project.project_id,
                                                          @"project_name":self.project.name,
                                                          @"nick_name":nick_name,
-                                                         @"current_time":current_time}UnencyptKeys:@[@"project_name",@"nick_name",@"current_time"]];
+                                                         @"current_time":current_time}UnencyptKeys:@[@"project_name",@"nick_name",@"current_time"] Mode:0];
     NSString *composeURL = [NSString stringWithFormat:@"%@?%@",kLinkURL, subString];
     composeURL = [composeURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [WXApiRequestHandler sendLinkURL:composeURL

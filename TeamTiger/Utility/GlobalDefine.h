@@ -15,6 +15,8 @@
 
 #define TEST 1
 
+#define OPENENCRYPT   0
+
 typedef NS_ENUM(NSUInteger, EResponseType) {
     ResponseStatusSuccess = 0,
     ResponseStatusFailure,
