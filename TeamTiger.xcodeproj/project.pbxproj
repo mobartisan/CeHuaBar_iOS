@@ -421,6 +421,8 @@
 		1DF991CE1D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C91D488C0F00E7D1B8 /* UIImage+TYLaunchImage.m */; };
 		1DF991CF1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */; };
 		1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */; };
+		2D12443D1E88A9DE00AD70F0 /* TTLeaveMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D12443B1E88A9DE00AD70F0 /* TTLeaveMessageVC.m */; };
+		2D12443E1E88A9DE00AD70F0 /* TTLeaveMessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D12443C1E88A9DE00AD70F0 /* TTLeaveMessageVC.xib */; };
 		2D14691F1E2DBB5D000300C4 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */; };
 		2D1469201E2DBB5D000300C4 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D14691D1E2DBB5D000300C4 /* MGSwipeTableCell.m */; };
 		2D1DF8801E023F8C00E8A4DA /* VoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D1DF87F1E023F8C00E8A4DA /* VoteModel.m */; };
@@ -1323,6 +1325,9 @@
 		1DF991CB1D488C0F00E7D1B8 /* UIView+TYLaunchAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TYLaunchAnimation.m"; sourceTree = "<group>"; };
 		1DF991D51D48ADD900E7D1B8 /* TTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTSettingViewController.h; sourceTree = "<group>"; };
 		1DF991D61D48ADD900E7D1B8 /* TTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTSettingViewController.m; sourceTree = "<group>"; };
+		2D12443A1E88A9DE00AD70F0 /* TTLeaveMessageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLeaveMessageVC.h; sourceTree = "<group>"; };
+		2D12443B1E88A9DE00AD70F0 /* TTLeaveMessageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLeaveMessageVC.m; sourceTree = "<group>"; };
+		2D12443C1E88A9DE00AD70F0 /* TTLeaveMessageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTLeaveMessageVC.xib; sourceTree = "<group>"; };
 		2D14691A1E2DBB5D000300C4 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
 		2D14691B1E2DBB5D000300C4 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		2D14691C1E2DBB5D000300C4 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
@@ -3375,6 +3380,9 @@
 				2D5C85CA1D8113D7004699F4 /* TTMyModifyViewController.h */,
 				2D5C85CB1D8113D7004699F4 /* TTMyModifyViewController.m */,
 				2D5C85CC1D8113D7004699F4 /* TTMyModifyViewController.xib */,
+				2D12443A1E88A9DE00AD70F0 /* TTLeaveMessageVC.h */,
+				2D12443B1E88A9DE00AD70F0 /* TTLeaveMessageVC.m */,
+				2D12443C1E88A9DE00AD70F0 /* TTLeaveMessageVC.xib */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -4010,6 +4018,7 @@
 				1DA0E1A01D543F7B008CD6DF /* ProjectCell2.xib in Resources */,
 				2DFACA551D507B8B0099A2A3 /* DiscussViewController.xib in Resources */,
 				1D8713131DE6DFB600C17D01 /* loginBG35@2x.png in Resources */,
+				2D12443E1E88A9DE00AD70F0 /* TTLeaveMessageVC.xib in Resources */,
 				1DB5A5881D4B3F36009E6170 /* switchRed@2x.png in Resources */,
 				2D727A1C1DDD844E00CBF0BA /* none.png in Resources */,
 				1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */,
@@ -4496,6 +4505,7 @@
 				2DDD541A1DB0D4AF00C55633 /* QNResolver.m in Sources */,
 				2D727A1A1DDD844E00CBF0BA /* JJPhoto.m in Sources */,
 				1D09CC6B1D3F29C900F85E9A /* UIApplication+YYAdd.m in Sources */,
+				2D12443D1E88A9DE00AD70F0 /* TTLeaveMessageVC.m in Sources */,
 				1DF991D71D48ADD900E7D1B8 /* TTSettingViewController.m in Sources */,
 				1DDE9E6F1D533106005926FE /* TTMyProfileViewController.m in Sources */,
 				1D09CC791D3F29C900F85E9A /* YYCache.m in Sources */,

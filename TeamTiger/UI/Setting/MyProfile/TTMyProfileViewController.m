@@ -13,6 +13,7 @@
 #import "TTNotificationSetting.h"
 #import "UIAlertView+HYBHelperKit.h"
 #import "TTMyModifyViewController.h"
+#import "TTLeaveMessageVC.h"
 
 @interface TTMyProfileViewController ()
 
@@ -175,16 +176,21 @@
             }];
         }
         [self.navigationController pushViewController:myModifyVC animated:YES];
-    }else if (indexPath.section == 1) {
+    }else if (indexPath.section == 1) {//版本检测
+        
+    } else if (indexPath.section == 2) {//消息通知
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
+    } else if (indexPath.section == 3) {//意见反馈
+        TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
+        [self.navigationController pushViewController:leaveMessageVC animated:YES];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 1) {
+    if (section == 1 || section == 2 || section == 3) {
         return 10;
-    }else if (section == 2) {
+    }else if (section == 4) {
         return 5;
     }
     return 0;
@@ -204,13 +210,19 @@
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
                             @{@"Type":@1,@"Name":@"名字",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
                             @{@"Type":@1,@"Name":@"备注",@"Description":dic[@"Remarks"],@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-//                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
+                            //                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
+                            ],
+                        @[
+                            @{@"Type":@1,@"Name":@"版本检测",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
-                            @{@"Type":@2,@"Name":@"",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":[UIColor clearColor]}
+                            @{@"Type":@1,@"Name":@"意见反馈",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
+                            ],
+                        @[
+                        @{@"Type":@2,@"Name":@"",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":[UIColor clearColor]}
                             ]].mutableCopy;
     }
     return  _dataSource;
