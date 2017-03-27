@@ -633,7 +633,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeModel *model = self.dataSource[indexPath.row];
+    HomeModel *model = nil;
+    if(indexPath.row < self.dataSource.count){
+        model = self.dataSource[indexPath.row];
+    }
     // 定义唯一标识
     UITableViewCell *cell = nil;
     if (model.cellType == HomeModelCellTypeComment) {

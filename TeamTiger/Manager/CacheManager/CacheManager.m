@@ -273,7 +273,7 @@ static CacheManager *singleton = nil;
 - (Moments *)selectMomentsFromDataBaseWithTempDic:(NSDictionary *)tempDic {
     //1.打开数据库
     BOOL isOpen = [self.db open];
-    if (! isOpen) {
+    if (!isOpen) {
         return nil;
     }
     //2.通过SQL语句操作数据库 --- 查询所有的数据
