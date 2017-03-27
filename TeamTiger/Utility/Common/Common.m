@@ -9,6 +9,7 @@
 #import "Common.h"
 #import "HYBHelperBlocksKit.h"
 #import "JKEncrypt.h"
+#import "NSString+MD5Addition.h"
 
 @interface Common()
 
@@ -326,5 +327,26 @@
     }];
     return mDic;
 }
+
+//生成md5
++ (NSString *)creatMD5value:(id)obj {
+    if ([obj isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dic = (NSDictionary *)obj;
+        NSArray *keys = dic.allKeys;
+        NSArray *sortKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(NSString * _Nonnull obj1, NSString *  _Nonnull obj2) {
+            return ([obj1 compare:obj2] == NSOrderedDescending);
+        }];
+        NSMutableString *mString = [NSMutableString string];
+        for (NSString *key in sortKeys) {
+            if (![Common isEmptyString:dic[key]]) {
+                [mString appendFormat:@"%@%@", key, dic[key]];
+            }
+        }
+        //md5
+        return [mString stringFromMD5];
+    }
+    return nil;
+}
+
 
 @end

@@ -251,6 +251,8 @@
 		1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D5FF21D4EE72E007123EB /* CacheManager.m */; };
 		1D5D5FF81D4EFADD007123EB /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5D5FF71D4EFADD007123EB /* AddressBook.framework */; };
 		1D5F1C7F1E84AE2A00E47ECA /* KeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F1C7E1E84AE2A00E47ECA /* KeyboardManager.m */; };
+		1D6429A81E88A86900FBDFCB /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6429A51E88A86900FBDFCB /* NSString+MD5Addition.m */; };
+		1D6429A91E88A86900FBDFCB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6429A71E88A86900FBDFCB /* NSString+Utils.m */; };
 		1D677F161D5C1D48001D099E /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D677F151D5C1D48001D099E /* CoreTelephony.framework */; };
 		1D6976E71E5E7C0500F0AD3A /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */; };
 		1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D6A2F1A1E3741CD007BC76A /* InsetsLabel.m */; };
@@ -413,7 +415,6 @@
 		1DE01A141E4DAEDB00ED9AB7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */; };
 		1DE01A181E4DAEDB00ED9AB7 /* NotificationContentService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1DE73BB91D792A37002C8F69 /* SelectCircleViewControllerForSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */; };
-		1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */; };
 		1DF4EF2D1E37891100355562 /* UITextField+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF4EF2C1E37891100355562 /* UITextField+Extension.m */; };
 		1DF991CC1D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C51D488C0F00E7D1B8 /* TYLaunchBaseAnimation.m */; };
 		1DF991CD1D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DF991C71D488C0F00E7D1B8 /* TYLaunchFadeScaleAnimation.m */; };
@@ -1034,6 +1035,10 @@
 		1D5D5FF71D4EFADD007123EB /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1D5F1C7D1E84AE2A00E47ECA /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
 		1D5F1C7E1E84AE2A00E47ECA /* KeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardManager.m; sourceTree = "<group>"; };
+		1D6429A41E88A86900FBDFCB /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		1D6429A51E88A86900FBDFCB /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		1D6429A61E88A86900FBDFCB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
+		1D6429A71E88A86900FBDFCB /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		1D677F151D5C1D48001D099E /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		1D6976E31E5E7C0500F0AD3A /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
 		1D6976E41E5E7C0500F0AD3A /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
@@ -1305,8 +1310,6 @@
 		1DE01A151E4DAEDB00ED9AB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DE73BB71D792A37002C8F69 /* SelectCircleViewControllerForSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCircleViewControllerForSetting.m; sourceTree = "<group>"; };
 		1DE73BB81D792A37002C8F69 /* SelectCircleViewControllerForSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCircleViewControllerForSetting.h; sourceTree = "<group>"; };
-		1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
-		1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
 		1DF4EF2B1E37891100355562 /* UITextField+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Extension.h"; sourceTree = "<group>"; };
 		1DF4EF2C1E37891100355562 /* UITextField+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Extension.m"; sourceTree = "<group>"; };
 		1DF991C31D488C0F00E7D1B8 /* TYLaunchAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYLaunchAnimationProtocol.h; sourceTree = "<group>"; };
@@ -2578,6 +2581,17 @@
 			path = KeyboardManager;
 			sourceTree = "<group>";
 		};
+		1D6429A31E88A86900FBDFCB /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				1D6429A41E88A86900FBDFCB /* NSString+MD5Addition.h */,
+				1D6429A51E88A86900FBDFCB /* NSString+MD5Addition.m */,
+				1D6429A61E88A86900FBDFCB /* NSString+Utils.h */,
+				1D6429A71E88A86900FBDFCB /* NSString+Utils.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
 		1D6976E21E5E7C0500F0AD3A /* YYFPSLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3083,11 +3097,10 @@
 		1DA71B8B1D3DCB3A007483D2 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1D6429A31E88A86900FBDFCB /* NSString */,
 				1D373AA21E4C03B800630EDE /* NSNotificationCenter */,
 				2DC21B7D1D58873D004F7C2B /* CALayer+BorderColor.h */,
 				2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */,
-				1DF0A1961D4DB28B002D91DB /* NSString+Utils.h */,
-				1DF0A1971D4DB28B002D91DB /* NSString+Utils.m */,
 				1D115F2C1D4B9560003DFBB1 /* UITextView+PlaceHolder.h */,
 				1D115F2D1D4B9560003DFBB1 /* UITextView+PlaceHolder.m */,
 				2D6D176F1DED552200AFE3BD /* UIImage+Extension.h */,
@@ -4209,6 +4222,7 @@
 				1DA71B921D3DCC9D007483D2 /* TTBaseNavigationController.m in Sources */,
 				2D8B5A381E6EACA000826310 /* FMDatabase.m in Sources */,
 				1D95803B1D3E123800FD0053 /* AFURLSessionManager.m in Sources */,
+				1D6429A91E88A86900FBDFCB /* NSString+Utils.m in Sources */,
 				1D09CD5D1D3F59D500F85E9A /* UIView+WebCacheOperation.m in Sources */,
 				2D7279FF1DDD811B00CBF0BA /* SDWeiXinPhotoContainerView.m in Sources */,
 				06008F511D582FD300A5B3DB /* AddImageViewController.m in Sources */,
@@ -4249,6 +4263,7 @@
 				1D09CC711D3F29C900F85E9A /* UIFont+YYAdd.m in Sources */,
 				1D09CC941D3F29C900F85E9A /* YYTextSelectionView.m in Sources */,
 				1D09CC9A1D3F29C900F85E9A /* YYTextParser.m in Sources */,
+				1D6429A81E88A86900FBDFCB /* NSString+MD5Addition.m in Sources */,
 				0604B4641D4C5A5B00EF1703 /* AKPickerView.m in Sources */,
 				2D727A0D1DDD842300CBF0BA /* SDWaitingView.m in Sources */,
 				1D84527B1E4857D400AF0A75 /* CustomTextField.m in Sources */,
@@ -4369,7 +4384,6 @@
 				1D0EA2C41D45A82C00B47108 /* LCBatchRequestAgent.m in Sources */,
 				06008F151D58162300A5B3DB /* TTCommonCell.m in Sources */,
 				2DDD542D1DB0D4AF00C55633 /* QNSessionManager.m in Sources */,
-				1DF0A1981D4DB28B002D91DB /* NSString+Utils.m in Sources */,
 				1D6A2F1B1E3741CD007BC76A /* InsetsLabel.m in Sources */,
 				2D727A181DDD844E00CBF0BA /* JJMainScrollView.m in Sources */,
 				1D09CC8B1D3F29C900F85E9A /* YYClassInfo.m in Sources */,

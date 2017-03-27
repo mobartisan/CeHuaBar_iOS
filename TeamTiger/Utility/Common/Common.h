@@ -63,4 +63,7 @@
 
 + (NSDictionary *)unEncyptWithString:(NSString *)srcStr;
 
+//生成md5
++ (NSString *)creatMD5value:(id)obj;
+
 @end
