@@ -39,6 +39,7 @@
 #import "YYFPSLabel.h"
 #import "CacheManager.h"
 #import "Moments.h"
+#import "AppDelegate.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -224,6 +225,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [kAppDelegate checkAppVersion];
     bView = self.view;
     self.setBtn.hidden = YES;
     [self configureNavigationItem];

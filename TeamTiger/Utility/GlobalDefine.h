@@ -53,5 +53,7 @@ NSString *gClientID;//client id
 UIView *bView;
 
 NSString *gMessageType;
-
+NSString *serviceVersion;
+NSString *downLoadUrl;
+NSString *appDescription;
 #endif /* GlobalDefine_h */

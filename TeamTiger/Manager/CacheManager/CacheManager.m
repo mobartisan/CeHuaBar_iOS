@@ -27,8 +27,6 @@ static CacheManager *singleton = nil;
     dispatch_once(&onceToken, ^{
         if (!singleton) {
             singleton = [[[self class] alloc] init];
-            singleton.cacheType = ECacheTypeDisk;
-            singleton.mCache = [NSMutableDictionary dictionary];
             //1.创建数据库
             [singleton createDataBase];
             //2.创建表
@@ -38,133 +36,10 @@ static CacheManager *singleton = nil;
     return singleton;
 }
 
-- (id)getObjectForKey:(NSString *)key {
-    if (!key || key.length == 0) {
-        return nil;
-    }
-    if(self.cacheType == ECacheTypeMemory) {
-        return [self.mCache objectForKey:key];
-    } else {
-        id object = UserDefaultsGet(key);
-        
-        NSString *dateKey = [NSString stringWithFormat:@"%@_Date",key];
-        NSDate *dateObj = UserDefaultsGet(dateKey);
-        
-        NSString *timeInterValKey = [NSString stringWithFormat:@"%@_TimeInterval",key];
-        NSNumber *timeIntervalObj = UserDefaultsGet(timeInterValKey);
-        
-        NSDate *now = [NSDate date];
-        BOOL isTimeOut = now.timeIntervalSince1970 - dateObj.timeIntervalSince1970 >= timeIntervalObj.doubleValue;
-        if (dateObj && timeIntervalObj && isTimeOut) {
-            //缓存失效
-            [self cleanCacheWithKey:key];
-            [self cleanCacheWithKey:dateKey];
-            [self cleanCacheWithKey:timeInterValKey];
-            return nil;
-        } else {
-            if ([object isKindOfClass:[NSData class]]) {
-                return [NSKeyedUnarchiver unarchiveObjectWithData:object];
-            }
-            else if ([object isKindOfClass:[NSArray class]]) {
-                NSMutableArray *tmpArray = [NSMutableArray array];
-                for (id obj in object) {
-                    if ([obj isKindOfClass:[NSData class]]) {
-                        id tmpObj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                        [tmpArray addObject:tmpObj];
-                    } else if ([obj isKindOfClass:[NSArray class]]) {
-                        NSMutableArray *mObjs = [NSMutableArray array];
-                        for (id model in obj) {
-                            if ([model isKindOfClass:[NSData class]]) {
-                                id tmpModel = [NSKeyedUnarchiver unarchiveObjectWithData:model];
-                                [mObjs addObject:tmpModel];
-                            } else {
-                                [mObjs addObject:model];
-                            }
-                        }
-                        [tmpArray addObject:mObjs];
-                    } else {
-                        [tmpArray addObject:obj];
-                    }
-                }
-                return tmpArray;
-            }
-            else if ([object isKindOfClass:[NSDictionary class]]) {
-                NSMutableDictionary *tmpDic = [NSMutableDictionary dictionary];
-                [object enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-                    if ([obj isKindOfClass:[NSData class]]) {
-                        id tmpObj = [NSKeyedUnarchiver unarchiveObjectWithData:obj];
-                        tmpDic[key] = tmpObj;
-                    } else {
-                        tmpDic[key] = obj;
-                    }
-                }];
-            }
-            return object;
-        }
-    }
-}
-
-- (void)setObject:(id)object ForKey:(NSString *)key {
-    if (!key || key.length == 0 || !object) {
-        return;
-    }
-    if(self.cacheType == ECacheTypeMemory) {
-        [self.mCache setObject:object forKey:key];
-    } else {
-        UserDefaultsSave(object, key);
-    }
-}
-
-//根据时间
-- (void)setObject:(id)object ForKey:(NSString *)key TimeOut:(NSTimeInterval)timeOut {
-    if(timeOut <= 0){
-        return;
-    }
-    [self setObject:object ForKey:key];
-    
-    if (self.cacheType == ECacheTypeMemory) {
-        //自动计时
-        __block NSTimeInterval tmpTimerInterval = timeOut;
-        [NSTimer hyb_scheduledTimerWithTimeInterval:1.0 repeats:YES callback:^(NSTimer *timer) {
-            if (tmpTimerInterval <= 0) {
-                //
-                [self cleanCacheWithKey:key];
-                [timer hyb_invalidate];
-            }
-            tmpTimerInterval--;
-        }];
-    } else {
-        NSString *dateKey = [NSString stringWithFormat:@"%@_Date",key];
-        UserDefaultsSave([NSDate date], dateKey);
-        
-        NSString *timeInterValKey = [NSString stringWithFormat:@"%@_TimeInterval",key];
-        UserDefaultsSave(@(timeOut), timeInterValKey);
-    }
-}
-
-- (void)cleanCacheWithKey:(NSString *)key {
-    if (!key || key.length == 0) {
-        return;
-    }
-    if(self.cacheType == ECacheTypeMemory) {
-        [self.mCache removeObjectForKey:key];
-    } else {
-        UserDefaultsRemove(key);
-    }
-}
-
-
 #pragma mark  handle DataBase
 //创建数据库
 - (void)createDataBase {
-    NSString *dbPath = [self getDataBasePath];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:dbPath
-                                  withIntermediateDirectories:YES
-                                                   attributes:nil
-                                                        error:NULL];
-    }
-    self.db = [FMDatabase databaseWithPath:dbPath];
+    self.db = [FMDatabase databaseWithPath:[self getDataBasePath]];
 }
 
 //获取数据库文件路径的方法
@@ -172,7 +47,7 @@ static CacheManager *singleton = nil;
     //1.获取documents文件夹路径
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     //2.拼接文件路径
-    return [documentsPath stringByAppendingFormat:@"/%@.db", [TT_User sharedInstance].user_id];
+    return [documentsPath stringByAppendingFormat:@"/Moments.sqlite"];
 }
 
 //创建表
@@ -184,16 +59,16 @@ static CacheManager *singleton = nil;
         return;
     }
     //2.通过SQL语句操作数据库 ---- 创建表
-    [self.db executeUpdate:@"create table if not exists TT_Moments(moment_id text, banner text, list blob)"];
-    [self.db executeUpdate:@"create table if not exists TT_Projects(project_id text, banner text, list blob)"];
-    [self.db executeUpdate:@"create table if not exists TT_Groups(group_id text, group_name text, banner text, list blob)"];
+    [self.db executeUpdate:@"create table if not exists TT_Moments(user_id text, moment_id text, banner text, list blob)"];
+    [self.db executeUpdate:@"create table if not exists TT_Projects(user_id text, project_id text, banner text, list blob)"];
+    [self.db executeUpdate:@"create table if not exists TT_Groups(user_id text, group_id text, banner text, list blob)"];
     //3.关闭数据库
     [self.db close];
 }
 
 //存到数据库中
 - (void)saveMomentsWithBanner:(NSString *)bannerUrl list:(NSArray *)list tempDic:(NSDictionary *)tempDic {
-    
+     NSString *user_id = [TT_User sharedInstance].user_id;
     //1.删除原有数据
     [self deleteMomentsFromDBWithTempDic:tempDic];
     
@@ -208,12 +83,12 @@ static CacheManager *singleton = nil;
         case ECurrentIsProject:
         {
             if ([Common isEmptyArr:list]) {
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner) values (?, ?)", tempDic[@"pid"], bannerUrl];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(user_id, project_id, banner) values (?, ?, ?)", user_id, tempDic[@"pid"], bannerUrl];
                 NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
             } else {
                 for (NSDictionary *dic in list) {
                     NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(project_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Projects(user_id, project_id, banner, list) values (?, ?, ?, ?)", user_id, dic[@"pid"][@"_id"], bannerUrl, listDic];
                     NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
                 }
             }
@@ -222,12 +97,12 @@ static CacheManager *singleton = nil;
         case ECurrentIsGroup:
         {
             if ([Common isEmptyArr:list]) {
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner) values (?, ?)", tempDic[@"gid"], bannerUrl];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(user_id, group_id, banner) values (?, ?, ?)", user_id, tempDic[@"gid"], bannerUrl];
                 NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
             } else {
                 for (NSDictionary *dic in list) {
                     NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(group_id, banner, list) values (?, ?, ?)", tempDic[@"gid"], bannerUrl, listDic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Groups(user_id, group_id, banner, list) values (?, ?, ?, ?)", user_id, tempDic[@"gid"], bannerUrl, listDic];
                     NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
                 }
             }
@@ -236,12 +111,12 @@ static CacheManager *singleton = nil;
         case ECurrentIsAll:
         {
             if ([Common isEmptyArr:list]) {
-                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(banner) values (?)", bannerUrl];
+                BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(user_id, banner) values (?, ?)", user_id, bannerUrl];
                 NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
             } else {
                 for (NSDictionary *dic in list) {
                     NSData *listDic = [NSKeyedArchiver archivedDataWithRootObject:dic];
-                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(moment_id, banner, list) values (?, ?, ?)", dic[@"pid"][@"_id"], bannerUrl, listDic];
+                    BOOL isSuccess = [self.db executeUpdate:@"insert into TT_Moments(user_id, moment_id, banner, list) values (?, ?, ?, ?)", user_id, dic[@"pid"][@"_id"], bannerUrl, listDic];
                     NSLog(@"%@", isSuccess ? @"添加成功" : @"添加失败");
                 }
             }
@@ -278,6 +153,7 @@ static CacheManager *singleton = nil;
 
 //查询moments数据
 - (Moments *)selectMomentsFromDataBaseWithTempDic:(NSDictionary *)tempDic {
+    NSString *user_id = [TT_User sharedInstance].user_id;
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (!isOpen) {
@@ -288,13 +164,13 @@ static CacheManager *singleton = nil;
     ECurrentStatus currentStatus = [self isProejctOrGroupOrAllByCurrently:tempDic];
     switch (currentStatus) {
         case ECurrentIsProject:
-            result = [self.db executeQuery:@"select * from TT_Projects where project_id = ?", tempDic[@"pid"]];
+            result = [self.db executeQuery:@"select * from TT_Projects where project_id = ? and user_id = ?", tempDic[@"pid"], user_id];
             break;
         case ECurrentIsGroup:
-            result = [self.db executeQuery:@"select * from TT_Groups where group_id = ?", tempDic[@"gid"]];
+            result = [self.db executeQuery:@"select * from TT_Groups where group_id = ? and user_id = ?", tempDic[@"gid"], user_id];
             break;
         case ECurrentIsAll:
-            result = [self.db executeQuery:@"select * from TT_Moments"];
+            result = [self.db executeQuery:@"select * from TT_Moments where user_id = ?", user_id];
             break;
         default:
             break;
@@ -322,8 +198,7 @@ static CacheManager *singleton = nil;
 
 //删除所有Moments数据
 - (void)deleteMomentsFromDBWithTempDic:(NSDictionary *)tempDic {
-    
-    
+    NSString *user_id = [TT_User sharedInstance].user_id;
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
@@ -333,24 +208,25 @@ static CacheManager *singleton = nil;
     if(tempDic) {
         if (![tempDic.allKeys containsObject:@"pid"] &&
             ![tempDic.allKeys containsObject:@"gid"]) {//所有
-            [self.db executeUpdate:@"delete from TT_Moments"];
+            [self.db executeUpdate:@"delete from TT_Moments where user_id = ?", user_id];
         } else if ([tempDic.allKeys containsObject:@"pid"] &&
                    ![tempDic.allKeys containsObject:@"gid"]) {//项目
-            [self.db executeUpdate:@"delete from TT_Projects where project_id = ?", tempDic[@"pid"]];
+            [self.db executeUpdate:@"delete from TT_Projects where project_id = ? and user_id = ?", tempDic[@"pid"], user_id];
         } else if (![tempDic.allKeys containsObject:@"pid"] &&
                    [tempDic.allKeys containsObject:@"gid"]) {//分组
-            [self.db executeUpdate:@"delete from TT_Groups where group_id = ?", tempDic[@"gid"]];
+            [self.db executeUpdate:@"delete from TT_Groups where group_id = ? and user_id = ?", tempDic[@"gid"], user_id];
         } else {//所有
-            [self.db executeUpdate:@"delete from TT_Moments"];
+            [self.db executeUpdate:@"delete from TT_Moments where user_id = ?", user_id];
         }
     } else {//所有
-        [self.db executeUpdate:@"delete from TT_Moments"];
+        [self.db executeUpdate:@"delete from TT_Moments where user_id = ?", user_id];
     }
     //3.关闭数据库
     [self.db close];
 }
 
 - (void)updateBannerWithTempDic:(NSDictionary *)tempDic bannerUrl:(NSString *)bannerUrl {
+    NSString *user_id = [TT_User sharedInstance].user_id;
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
@@ -362,15 +238,15 @@ static CacheManager *singleton = nil;
         case ECurrentIsProject:
         {
             
-          BOOL isSuccess =  [self.db executeUpdate:@"update TT_Projects set banner = ? where project_id = ?", bannerUrl, tempDic[@"pid"]];
+          BOOL isSuccess =  [self.db executeUpdate:@"update TT_Projects set banner = ? where project_id = ? and user_id = ?", bannerUrl, tempDic[@"pid"], user_id];
             NSLog(@"%d", isSuccess);
         }
             break;
         case ECurrentIsGroup:
-            [self.db executeUpdate:@"update TT_Groups set banner = ? where group_id = ?", bannerUrl, tempDic[@"gid"]];
+            [self.db executeUpdate:@"update TT_Groups set banner = ? where group_id = ? and user_id = ?", bannerUrl, tempDic[@"gid"], user_id];
             break;
         case ECurrentIsAll:
-            [self.db executeUpdate:@"update TT_Moments set banner = ?", bannerUrl];
+            [self.db executeUpdate:@"update TT_Moments set banner = ? where user_id = ?", bannerUrl, user_id];
             break;
         default:
             break;

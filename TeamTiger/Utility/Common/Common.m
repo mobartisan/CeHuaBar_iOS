@@ -10,6 +10,7 @@
 #import "HYBHelperBlocksKit.h"
 #import "JKEncrypt.h"
 #import "NSString+MD5Addition.h"
+#import "CustomAlertView.h"
 
 @interface Common()
 
@@ -406,5 +407,50 @@
     return nil;
 }
 
+
++ (void)updateVewsin:(BOOL)isBigVersion UpdateInfo:(NSString *)updateInfo {
+        NSString *alerStr;
+        if(isBigVersion){
+            alerStr = [NSString stringWithFormat:@"发现新版本%@，请立即升级！",serviceVersion];
+        } else{
+            alerStr = [NSString stringWithFormat:@"发现新版本%@，",serviceVersion];
+        }
+        NSMutableString *mString = [NSMutableString stringWithString:alerStr];
+        if (![Common isEmptyString:updateInfo]) {
+            NSArray *strings = [updateInfo componentsSeparatedByString:@"\\n"];
+            for (NSString *updateItemStr in strings) {
+                [mString appendString:@"\n"];
+                [mString appendString:updateItemStr];
+            }
+        } else {
+            if (isBigVersion) {
+                mString = [NSMutableString stringWithFormat:@"发现新版本%@，请您立即升级！",serviceVersion];
+            } else {
+                mString = [NSMutableString stringWithFormat:@"发现新版本%@，您要升级吗？",serviceVersion];
+            }
+        }
+        
+        CustomAlertView *customAlerView = LoadFromNib(@"CustomAlertView");
+        [customAlerView showWithTitle:Default_TipSTR
+                              Content:mString
+                              btnLeft:Default_OverLook
+                             btnRight:Default_ArrowDownLoad
+                    CompletionHandler:^(NSInteger buttonIndex) {
+                        if (buttonIndex == 1) {
+#warning TO DO...
+//                            NSString *downloadUrlStr = [NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=%@",downLoadUrl];
+                            NSString *downloadUrlStr = [NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=https://www.joindoo.com:6045/Cattle/Cattle.plist"];
+                            //@"itms-services:///?action=download-manifest&url=https://www.joindoo.com:6045/Cattle/Cattle.plist";
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downloadUrlStr]];
+                        }
+                        else if(buttonIndex == 0){
+                            if(isBigVersion){
+                                exit(0);
+                            }
+                        }
+                        
+                    }];
+    
+}
 
 @end

@@ -85,7 +85,34 @@ static double const timeOutInterval = 15.0;
     return NO;
 }
 
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
 
+@end
+
+//MARK: - 版本检测
+@implementation VersionApi
+
+- (NSString *)apiMethodName {
+    return @"version.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodGet;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
 
 - (NSDictionary *)requestHeaderValue {
     return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
@@ -93,6 +120,34 @@ static double const timeOutInterval = 15.0;
 
 @end
 
+//MARK: - 意见反馈
+@implementation FeedBackApi
+
+- (NSString *)apiMethodName {
+    return @"feedback.app";
+}
+
+- (LCRequestMethod)requestMethod {
+    return LCRequestMethodPost;
+}
+
+- (NSTimeInterval)requestTimeoutInterval {
+    return timeOutInterval;
+}
+
+- (BOOL)ignoreUnifiedResponseProcess {
+    return YES;
+}
+
+- (BOOL)cacheResponse {
+    return NO;
+}
+
+- (NSDictionary *)requestHeaderValue {
+    return @{@"authorization":[NSString stringWithFormat:@"Bearer %@",gSession]};
+}
+
+@end
 #pragma mark - -----------用户-------------
 //MARK: - 用户登录
 @implementation LoginApi

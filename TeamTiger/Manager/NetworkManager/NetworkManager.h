@@ -34,6 +34,16 @@
 
 @end
 
+//MARK: - 版本检测
+@interface VersionApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
+//MARK: - 意见反馈
+@interface FeedBackApi : LCBaseRequest<LCAPIRequest>
+
+@end
+
 #pragma mark - -----------用户-------------
 //MARK: - 用户登录
 @interface LoginApi : LCBaseRequest<LCAPIRequest>

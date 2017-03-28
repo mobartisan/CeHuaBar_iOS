@@ -101,6 +101,8 @@
 ////最小线宽
 #define minLineWidth  (1.0 / [UIScreen mainScreen].scale)
 
+#define SingletonApplication         [UIApplication sharedApplication]
+
 
 //数据存储
 #define UserDefaultsGet(Key)           [[NSUserDefaults standardUserDefaults] objectForKey:Key]
@@ -119,5 +121,10 @@
 #else
 #define NSLog(format, ...)
 #endif
+
+//UIAlert提示
+#define Default_TipSTR                     NSLocalizedString(@"提示", @"")
+#define Default_OverLook                   NSLocalizedString(@"忽略", @"")
+#define Default_ArrowDownLoad              NSLocalizedString(@"前往下载", @"")
 
 #endif /* Macros_h */

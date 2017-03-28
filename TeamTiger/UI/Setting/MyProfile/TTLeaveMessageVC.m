@@ -52,6 +52,19 @@
     }
     [self.textView resignFirstResponder];
     
+    FeedBackApi *api = [[FeedBackApi alloc] init];
+    api.requestArgument = @{@"content":self.textView.text};
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            self.textView.text = nil;
+        }
+        [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        [super showText:NETWORKERROR afterSeconds:1.0];
+    }];
+    
     
 }
 

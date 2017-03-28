@@ -14,6 +14,7 @@
 #import "UIAlertView+HYBHelperKit.h"
 #import "TTMyModifyViewController.h"
 #import "TTLeaveMessageVC.h"
+#import "AppDelegate.h"
 
 @interface TTMyProfileViewController ()
 
@@ -177,7 +178,7 @@
         }
         [self.navigationController pushViewController:myModifyVC animated:YES];
     }else if (indexPath.section == 1) {//版本检测
-        
+        [kAppDelegate checkAppVersion];
     } else if (indexPath.section == 2) {//消息通知
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
@@ -227,7 +228,6 @@
     }
     return  _dataSource;
 }
-
 
 
 #pragma mark -  退出登录

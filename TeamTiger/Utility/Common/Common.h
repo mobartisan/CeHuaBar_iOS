@@ -68,4 +68,6 @@
 //生成md5
 + (NSString *)creatMD5value:(id)obj;
 
++ (void)updateVewsin:(BOOL)isBigVersion UpdateInfo:(NSString *)updateInfo;
+
 @end

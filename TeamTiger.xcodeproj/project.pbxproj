@@ -475,6 +475,8 @@
 		2DB351351DE53D84000521A3 /* HomeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DB351341DE53D84000521A3 /* HomeCell.m */; };
 		2DC21B7F1D58873D004F7C2B /* CALayer+BorderColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */; };
 		2DC7C6541E6FABBA00032665 /* Moments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC7C6531E6FABBA00032665 /* Moments.m */; };
+		2DCE78C41E8A4A1D003B0FE2 /* CustomAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCE78BE1E8A4A1D003B0FE2 /* CustomAlertView.m */; };
+		2DCE78C51E8A4A1D003B0FE2 /* CustomAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DCE78BF1E8A4A1D003B0FE2 /* CustomAlertView.xib */; };
 		2DD029F61DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */; };
 		2DD029F71DD00EB400CD881F /* UIView+SDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD029F51DD00EB400CD881F /* UIView+SDAutoLayout.m */; };
 		2DDD54111DB0D4AF00C55633 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53BA1DB0D4AF00C55633 /* QNDnsManager.m */; };
@@ -1424,6 +1426,9 @@
 		2DC21B7E1D58873D004F7C2B /* CALayer+BorderColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+BorderColor.m"; sourceTree = "<group>"; };
 		2DC7C6521E6FABBA00032665 /* Moments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Moments.h; sourceTree = "<group>"; };
 		2DC7C6531E6FABBA00032665 /* Moments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Moments.m; sourceTree = "<group>"; };
+		2DCE78BD1E8A4A1D003B0FE2 /* CustomAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAlertView.h; sourceTree = "<group>"; };
+		2DCE78BE1E8A4A1D003B0FE2 /* CustomAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAlertView.m; sourceTree = "<group>"; };
+		2DCE78BF1E8A4A1D003B0FE2 /* CustomAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomAlertView.xib; sourceTree = "<group>"; };
 		2DD029F11DD00EB400CD881F /* SDAutoLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDAutoLayout.h; sourceTree = "<group>"; };
 		2DD029F21DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
 		2DD029F31DD00EB400CD881F /* UITableView+SDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
@@ -3005,6 +3010,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				2DCE78B81E8A4A1D003B0FE2 /* CustomAlert */,
 				2D8B5A2C1E6EACA000826310 /* fmdb */,
 				1DDAB54B1E5C7BA000ECC02E /* TZImagePickerController */,
 				1D5AD35E1E4963780010E947 /* GtSdkLib */,
@@ -3617,6 +3623,24 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2DCE78B81E8A4A1D003B0FE2 /* CustomAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2DCE78BC1E8A4A1D003B0FE2 /* CustomAlertView */,
+			);
+			path = CustomAlert;
+			sourceTree = "<group>";
+		};
+		2DCE78BC1E8A4A1D003B0FE2 /* CustomAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				2DCE78BD1E8A4A1D003B0FE2 /* CustomAlertView.h */,
+				2DCE78BE1E8A4A1D003B0FE2 /* CustomAlertView.m */,
+				2DCE78BF1E8A4A1D003B0FE2 /* CustomAlertView.xib */,
+			);
+			path = CustomAlertView;
+			sourceTree = "<group>";
+		};
 		2DD029F01DD00EB400CD881F /* SDAutoLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -4045,6 +4069,7 @@
 				1DDE9E641D52DAF8005926FE /* TTAddProjectViewController.xib in Resources */,
 				1DD2E3231D596EAA005D45A9 /* toggle_handle_off@2x.png in Resources */,
 				1D5AD3661E49C70F0010E947 /* bbs.caf in Resources */,
+				2DCE78C51E8A4A1D003B0FE2 /* CustomAlertView.xib in Resources */,
 				2DFACA571D507B8B0099A2A3 /* DiscussListCell.xib in Resources */,
 				1DB5A58C1D4B3F36009E6170 /* round-switch-overlay@2x.png in Resources */,
 				1D34D5151DEFC370002CBFF8 /* GroupCell.xib in Resources */,
@@ -4398,6 +4423,7 @@
 				1D09CC8B1D3F29C900F85E9A /* YYClassInfo.m in Sources */,
 				2D727A011DDD811B00CBF0BA /* ImageAndBtnView.m in Sources */,
 				06893D011D59F16A00921900 /* SelectCircleViewController.m in Sources */,
+				2DCE78C41E8A4A1D003B0FE2 /* CustomAlertView.m in Sources */,
 				1D9580AD1D3E207200FD0053 /* MJRefreshGifHeader.m in Sources */,
 				1D09CC881D3F29C900F85E9A /* YYWebImageManager.m in Sources */,
 				1D09CC991D3F29C900F85E9A /* YYTextAttribute.m in Sources */,

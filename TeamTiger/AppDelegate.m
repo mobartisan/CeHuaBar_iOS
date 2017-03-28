@@ -38,6 +38,7 @@
     }
     
     [self initialMethods];
+   
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
@@ -48,6 +49,48 @@
     
     return YES;
 }
+
+- (void)checkAppVersion {
+    VersionApi *api = [[VersionApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
+            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
+            [self checkApp:request.responseJSONObject[OBJ][SERVICEVERSION]];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+- (void)checkApp:(NSString *)serviceVersion {
+    NSArray *serArr = [serviceVersion componentsSeparatedByString:@"."];
+    NSArray *nowArr = [AppVersion componentsSeparatedByString:@"."];
+    NSLog(@"%@--%@", serviceVersion, AppVersion);
+    if(serArr.count >= 2 && nowArr.count >= 2) {
+        if(![serArr[0] isEqualToString:nowArr[0]]) {
+            [Common updateVewsin:YES UpdateInfo:appDescription];
+            return;
+        }
+        if(![serArr[1] isEqualToString:nowArr[1]]) {
+            [Common updateVewsin:YES UpdateInfo:appDescription];
+            return;
+        }
+    }
+    if(serArr.count > 3 && nowArr.count > 3){
+        if(![serArr[2] isEqualToString:nowArr[2]]) {
+            [Common updateVewsin:NO UpdateInfo:appDescription];
+            return;
+        }
+        if(![serArr[3] isEqualToString:nowArr[3]]) {
+            [Common updateVewsin:NO UpdateInfo:appDescription];
+            return;
+        }
+    }
+    //add red circle
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     //计算个数

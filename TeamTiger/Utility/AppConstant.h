@@ -50,6 +50,8 @@ static NSString *const TABLE_TT_At_Members = @"TT_At_Members";
 
 static NSString *const TABLE_TT_Message = @"TT_Message";
 
+
+
 //网络返回Key
 static NSString *const CODE = @"code";
 static NSString *const MSG = @"msg";
@@ -57,7 +59,8 @@ static NSString *const SUCCESS = @"success";
 static NSString *const OBJ = @"obj";
 static NSString *const TOKEN = @"token";
 static NSString *const DATA = @"data";
-
+static NSString *const SERVICEVERSION = @"version_number";
+static NSString *const DESCRIPTION = @"description";
 static NSString *const NETWORKERROR = @"您的网络好像有问题~";
 
 //微信相关
