@@ -157,7 +157,14 @@ static CacheManager *singleton = nil;
 #pragma mark  handle DataBase
 //创建数据库
 - (void)createDataBase {
-    self.db = [FMDatabase databaseWithPath:[self getDataBasePath]];
+    NSString *dbPath = [self getDataBasePath];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dbPath]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:dbPath
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:NULL];
+    }
+    self.db = [FMDatabase databaseWithPath:dbPath];
 }
 
 //获取数据库文件路径的方法
@@ -165,7 +172,7 @@ static CacheManager *singleton = nil;
     //1.获取documents文件夹路径
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
     //2.拼接文件路径
-    return [documentsPath stringByAppendingString:@"/Moments.sqlite"];
+    return [documentsPath stringByAppendingFormat:@"/%@.db", [TT_User sharedInstance].user_id];
 }
 
 //创建表
@@ -315,6 +322,8 @@ static CacheManager *singleton = nil;
 
 //删除所有Moments数据
 - (void)deleteMomentsFromDBWithTempDic:(NSDictionary *)tempDic {
+    
+    
     //1.打开数据库
     BOOL isOpen = [self.db open];
     if (! isOpen) {
