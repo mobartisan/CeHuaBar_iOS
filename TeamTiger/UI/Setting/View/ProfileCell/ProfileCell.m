@@ -15,6 +15,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     setViewCorner(self.exitBtn, 5);
+    setViewCorner(self.pointImg, 3);
     self.exitBtn.backgroundColor = [Common colorFromHexRGB:@"fe435d"];
     
     self.lineHeight.constant = minLineWidth;
@@ -52,7 +53,7 @@
     return 76.0;
 }
 
-- (void)reloadCellData:(id)obj{
+- (void)reloadCellData:(id)obj {
     NSDictionary *dic = [NSDictionary dictionaryWithDictionary:obj];
     if ([dic[@"ShowAccessory"] intValue] == 1 && [dic[@"IsEdit"] intValue] == 1) {
         self.lineView.hidden = NO;
@@ -63,7 +64,14 @@
     self.bgImgV.backgroundColor = dic[@"Color"];
     self.nameLab.text = dic[@"Name"];
     self.detailTxtField.text = dic[@"Description"];
-
+    
+    if (![Common isEmptyString:dic[@"show"]] && [dic[@"show"] integerValue] == 1) {
+        self.pointImg.hidden = NO;
+    } else {
+        self.pointImg.hidden = YES;
+    }
+    
+    
     if ([dic[@"ShowAccessory"] intValue]) {
         self.accessoryImgV.hidden = NO;
     } else {
