@@ -409,6 +409,7 @@
 
 
 + (void)updateVewsin:(BOOL)isBigVersion UpdateInfo:(NSString *)updateInfo {
+    if (isShowUpdateVersion) {
         NSString *alerStr;
         if(isBigVersion){
             alerStr = [NSString stringWithFormat:@"发现新版本%@，请立即升级！",serviceVersion];
@@ -424,12 +425,12 @@
             }
         } else {
             if (isBigVersion) {
-                mString = [NSMutableString stringWithFormat:@"发现新版本%@，请您立即升级！",serviceVersion];
+                mString = [NSMutableString stringWithFormat:@"发现新版本%@，请您立即升级 ",serviceVersion];
             } else {
                 mString = [NSMutableString stringWithFormat:@"发现新版本%@，您要升级吗？",serviceVersion];
             }
         }
-        
+        NSLog(@"mString:%@", mString);
         CustomAlertView *customAlerView = LoadFromNib(@"CustomAlertView");
         [customAlerView showWithTitle:Default_TipSTR
                               Content:mString
@@ -437,19 +438,17 @@
                              btnRight:Default_ArrowDownLoad
                     CompletionHandler:^(NSInteger buttonIndex) {
                         if (buttonIndex == 1) {
-#warning TO DO...
-//                            NSString *downloadUrlStr = [NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=%@",downLoadUrl];
-                            NSString *downloadUrlStr = [NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=https://www.joindoo.com:6045/Cattle/Cattle.plist"];
-                            //@"itms-services:///?action=download-manifest&url=https://www.joindoo.com:6045/Cattle/Cattle.plist";
+                            NSString *downloadUrlStr = [NSString stringWithFormat:@"itms-services:///?action=download-manifest&url=https://git.oschina.net/caoxingxing123/BBS/raw/master/TeamTiger.plist"];
                             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:downloadUrlStr]];
-                        }
-                        else if(buttonIndex == 0){
+                        } else if(buttonIndex == 0){
                             if(isBigVersion){
                                 exit(0);
                             }
                         }
                         
                     }];
+
+    }
     
 }
 

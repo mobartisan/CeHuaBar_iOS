@@ -101,6 +101,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    NSMutableDictionary *dic = [self.dataSource[1] firstObject];
+    if (isHasNewVersion) {
+        [dic setObject:@"1" forKey:@"show"];
+    } else {
+        [dic setObject:@"0" forKey:@"show"];
+    }
+    
     [self.tableView reloadData];
 }
 
@@ -178,13 +185,36 @@
         }
         [self.navigationController pushViewController:myModifyVC animated:YES];
     }else if (indexPath.section == 1) {//版本检测
-        [kAppDelegate checkAppVersion];
+        [self checkAppVersion];
     } else if (indexPath.section == 2) {//消息通知
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
     } else if (indexPath.section == 3) {//意见反馈
         TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
         [self.navigationController pushViewController:leaveMessageVC animated:YES];
+    }
+}
+
+- (void)checkAppVersion {
+    VersionApi *api = [[VersionApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
+            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
+            [self checkApp:request.responseJSONObject[OBJ][SERVICEVERSION]];
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+    }];
+}
+
+- (void)checkApp:(NSString *)serviceVersion {
+    if(![serviceVersion isEqualToString:AppVersion]) {
+        isShowUpdateVersion = YES;
+        [Common updateVewsin:NO UpdateInfo:appDescription];
+    } else {
+        [super showText:@"当前已是最新版本" afterSeconds:1.5];
     }
 }
 

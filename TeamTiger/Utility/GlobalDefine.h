@@ -54,6 +54,7 @@ UIView *bView;
 
 NSString *gMessageType;
 NSString *serviceVersion;
-NSString *downLoadUrl;
 NSString *appDescription;
+BOOL isHasNewVersion;
+BOOL isShowUpdateVersion;
 #endif /* GlobalDefine_h */

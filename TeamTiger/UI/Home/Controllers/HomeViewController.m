@@ -226,6 +226,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [kAppDelegate checkAppVersion];
+
+    
     bView = self.view;
     self.setBtn.hidden = YES;
     [self configureNavigationItem];

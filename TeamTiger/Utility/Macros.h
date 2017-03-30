@@ -14,7 +14,7 @@
 #define CurrentSystemVersion_Double        [[[UIDevice currentDevice] systemVersion] doubleValue]
 
 //app 当前的版本
-#define AppVersion  [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey]
+#define AppVersion  [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 //检测是否retina屏
 #define isRetina   ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640.0, 960.0), [[UIScreen mainScreen] currentMode].size) : NO)

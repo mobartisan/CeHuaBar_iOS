@@ -46,6 +46,7 @@
     
     //添加未读消息
     [self addPushView];
+
     
     return YES;
 }
@@ -70,25 +71,34 @@
     NSLog(@"%@--%@", serviceVersion, AppVersion);
     if(serArr.count >= 2 && nowArr.count >= 2) {
         if(![serArr[0] isEqualToString:nowArr[0]]) {
+            isShowUpdateVersion = YES;
+            isHasNewVersion = YES;
             [Common updateVewsin:YES UpdateInfo:appDescription];
             return;
         }
         if(![serArr[1] isEqualToString:nowArr[1]]) {
+            isShowUpdateVersion = YES;
+            isHasNewVersion = YES;
             [Common updateVewsin:YES UpdateInfo:appDescription];
             return;
         }
     }
-    if(serArr.count > 3 && nowArr.count > 3){
+    if(serArr.count >= 3 && nowArr.count >= 3) {
         if(![serArr[2] isEqualToString:nowArr[2]]) {
+            isShowUpdateVersion = NO;
+            isHasNewVersion = YES;
             [Common updateVewsin:NO UpdateInfo:appDescription];
             return;
         }
         if(![serArr[3] isEqualToString:nowArr[3]]) {
+            isShowUpdateVersion = NO;
+            isHasNewVersion = YES;
             [Common updateVewsin:NO UpdateInfo:appDescription];
             return;
         }
     }
-    //add red circle
+    isShowUpdateVersion = NO;
+    isHasNewVersion = NO;
 }
 
 
