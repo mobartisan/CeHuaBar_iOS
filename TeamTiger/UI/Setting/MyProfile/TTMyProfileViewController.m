@@ -215,6 +215,7 @@
         [Common updateVewsin:NO UpdateInfo:appDescription];
     } else {
         [super showText:@"当前已是最新版本" afterSeconds:1.5];
+        isHasNewVersion = NO;
     }
 }
 

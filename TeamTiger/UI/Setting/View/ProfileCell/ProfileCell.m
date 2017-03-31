@@ -15,7 +15,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     setViewCorner(self.exitBtn, 5);
-    setViewCorner(self.pointImg, 3);
     self.exitBtn.backgroundColor = [Common colorFromHexRGB:@"fe435d"];
     
     self.lineHeight.constant = minLineWidth;

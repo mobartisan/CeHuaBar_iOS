@@ -46,6 +46,8 @@
         self.loginBgImgV.image = [UIImage imageNamed:@"loginBG55"];
     }
     [WXApiManager sharedManager].delegate = self;
+    
+    
     [self.loginBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         [self loginButtonAction];
     }];
@@ -56,7 +58,25 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
-    //自动登录 逻辑判断
+    
+
+    [self checkAppVersion:^(EResponseType resType, id response) {
+        if (resType == ResponseStatusSuccess) {
+            [self checkApp];
+            if (isShowUpdateVersion) {
+                 return;
+            }
+        } else if (resType == ResponseStatusOffline) {
+            
+        }
+        [self autoLogin];
+    }];
+    
+    
+}
+
+//自动登录 逻辑判断
+- (void)autoLogin {
     if ([[LoginManager sharedInstace] isCanAutoLogin]) {
         //自动登录
         NSString *accessToken = UserDefaultsGet(WX_ACCESS_TOKEN);
@@ -77,6 +97,61 @@
         //隐藏 手动登录
         [self hideLaunchImage];//隐藏启动页
     }
+}
+
+
+- (void)checkAppVersion:(ResponseBlock)passService {
+    VersionApi *api = [[VersionApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
+        appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
+        passService(ResponseStatusSuccess, serviceVersion);
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        passService(ResponseStatusOffline, NETWORKERROR);
+    }];
+}
+
+- (void)checkApp {
+    NSArray *serArr = [serviceVersion componentsSeparatedByString:@"."];
+    NSArray *nowArr = [AppVersion componentsSeparatedByString:@"."];
+    NSLog(@"%@--%@", serviceVersion, AppVersion);
+    if(serArr.count >= 2 && nowArr.count >= 2) {
+        if(![serArr[0] isEqualToString:nowArr[0]]) {
+            isShowUpdateVersion = YES;
+            isHasNewVersion = YES;
+            [self hideLaunchImage];
+            [Common updateVewsin:YES UpdateInfo:appDescription];
+            return;
+        }
+        if(![serArr[1] isEqualToString:nowArr[1]]) {
+            isShowUpdateVersion = YES;
+            isHasNewVersion = YES;
+            [self hideLaunchImage];
+            [Common updateVewsin:YES UpdateInfo:appDescription];
+            return;
+        }
+    }
+    if(serArr.count >= 3 && nowArr.count >= 3) {
+        if(![serArr[2] isEqualToString:nowArr[2]]) {
+            isShowUpdateVersion = NO;
+            isHasNewVersion = YES;
+            [Common updateVewsin:NO UpdateInfo:appDescription];
+            return;
+        }
+    }
+    
+    if(serArr.count > 3 && nowArr.count > 3) {
+        if(![serArr[3] isEqualToString:nowArr[3]]) {
+            isShowUpdateVersion = NO;
+            isHasNewVersion = YES;
+            [Common updateVewsin:NO UpdateInfo:appDescription];
+            return;
+        }
+    }
+    isShowUpdateVersion = NO;
+    isHasNewVersion = NO;
 }
 
 
@@ -161,6 +236,12 @@
 }
 
 - (void)loginButtonAction {
+    if (![Common isEmptyString:serviceVersion]) {
+        [self checkApp];
+        if (isShowUpdateVersion) {
+            return;
+        }
+    }
     //微信跳转
     if ([WXApi isWXAppInstalled]) {
         //转圈

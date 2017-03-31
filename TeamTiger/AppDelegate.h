@@ -17,7 +17,8 @@
 @property (strong, nonatomic) STPushView *topView;
 
 - (UIViewController *)creatHomeVC;
-- (void)checkAppVersion;
+- (void)checkAppVersion:(ResponseBlock)passService;
+- (void)checkApp;
 
 @end
 

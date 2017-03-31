@@ -38,7 +38,7 @@
     }
     
     [self initialMethods];
-   
+    
     //login
     TTLoginViewController *loginVC = [[TTLoginViewController alloc] init];
     self.window.rootViewController = loginVC;
@@ -46,61 +46,10 @@
     
     //添加未读消息
     [self addPushView];
-
+    
     
     return YES;
 }
-
-- (void)checkAppVersion {
-    VersionApi *api = [[VersionApi alloc] init];
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
-            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
-            [self checkApp:request.responseJSONObject[OBJ][SERVICEVERSION]];
-        }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-    }];
-}
-
-- (void)checkApp:(NSString *)serviceVersion {
-    NSArray *serArr = [serviceVersion componentsSeparatedByString:@"."];
-    NSArray *nowArr = [AppVersion componentsSeparatedByString:@"."];
-    NSLog(@"%@--%@", serviceVersion, AppVersion);
-    if(serArr.count >= 2 && nowArr.count >= 2) {
-        if(![serArr[0] isEqualToString:nowArr[0]]) {
-            isShowUpdateVersion = YES;
-            isHasNewVersion = YES;
-            [Common updateVewsin:YES UpdateInfo:appDescription];
-            return;
-        }
-        if(![serArr[1] isEqualToString:nowArr[1]]) {
-            isShowUpdateVersion = YES;
-            isHasNewVersion = YES;
-            [Common updateVewsin:YES UpdateInfo:appDescription];
-            return;
-        }
-    }
-    if(serArr.count >= 3 && nowArr.count >= 3) {
-        if(![serArr[2] isEqualToString:nowArr[2]]) {
-            isShowUpdateVersion = NO;
-            isHasNewVersion = YES;
-            [Common updateVewsin:NO UpdateInfo:appDescription];
-            return;
-        }
-        if(![serArr[3] isEqualToString:nowArr[3]]) {
-            isShowUpdateVersion = NO;
-            isHasNewVersion = YES;
-            [Common updateVewsin:NO UpdateInfo:appDescription];
-            return;
-        }
-    }
-    isShowUpdateVersion = NO;
-    isHasNewVersion = NO;
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     //计算个数
@@ -108,11 +57,11 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-
+    
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -237,7 +186,7 @@
     [drawerController setShowsShadow:NO];
     [drawerController setRestorationIdentifier:@"MMDrawer"];
     [drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningCenterView | MMOpenDrawerGestureModeBezelPanningCenterView];
-//    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeNone;
+    //    drawerController.closeDrawerGestureModeMask = MMCloseDrawerGestureModeNone;
     [drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModePanningNavigationBar | MMCloseDrawerGestureModePanningCenterView | MMCloseDrawerGestureModeBezelPanningCenterView];
     [drawerController setDrawerVisualStateBlock:[MMDrawerVisualState slideVisualStateBlock]];
     //自定义手势

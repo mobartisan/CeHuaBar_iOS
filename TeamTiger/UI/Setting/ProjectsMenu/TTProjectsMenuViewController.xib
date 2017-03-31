@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1217" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,6 +15,7 @@
                 <outlet property="infoView" destination="0k7-6g-zPu" id="W4l-Z9-Or9"/>
                 <outlet property="menuTable" destination="zmV-ze-VQb" id="lKj-IH-uix"/>
                 <outlet property="nameLab" destination="VJs-I9-wrN" id="TUk-xc-Xse"/>
+                <outlet property="pointImg" destination="fWz-92-bPm" id="42G-Ln-4QX"/>
                 <outlet property="remarkLab" destination="Zpi-hW-kX5" id="d4R-Ao-H2M"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -83,6 +84,13 @@
                         <action selector="clickHomeAction:" destination="-1" eventType="touchUpInside" id="gtI-Tb-684"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNew" translatesAutoresizingMaskIntoConstraints="NO" id="fWz-92-bPm">
+                    <rect key="frame" x="22" y="42" width="13" height="13"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="13" id="3fE-Zd-GHB"/>
+                        <constraint firstAttribute="width" constant="13" id="eEd-br-eq1"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
@@ -90,6 +98,7 @@
                 <constraint firstItem="S6I-Su-4y0" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="45" id="UAt-eg-qDH"/>
                 <constraint firstItem="gT9-uW-7mv" firstAttribute="leading" secondItem="0k7-6g-zPu" secondAttribute="leading" id="Und-Vp-pkJ"/>
                 <constraint firstItem="Zpi-hW-kX5" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="86" id="WKK-b7-RQU"/>
+                <constraint firstItem="fWz-92-bPm" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="42" id="WrT-WS-z0i"/>
                 <constraint firstAttribute="bottom" secondItem="gT9-uW-7mv" secondAttribute="bottom" id="g7A-TF-9jy"/>
                 <constraint firstItem="gT9-uW-7mv" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" id="kOt-ec-sV6"/>
                 <constraint firstItem="VJs-I9-wrN" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="55" id="kip-o4-Epb"/>
@@ -104,15 +113,17 @@
                 <constraint firstAttribute="bottom" secondItem="Zpi-hW-kX5" secondAttribute="bottom" constant="18" id="uuj-S9-BYr"/>
                 <constraint firstAttribute="trailing" secondItem="gT9-uW-7mv" secondAttribute="trailing" constant="175" id="vb3-OB-ayN"/>
                 <constraint firstItem="Rre-A1-AVJ" firstAttribute="top" secondItem="0k7-6g-zPu" secondAttribute="top" constant="55" id="z6G-41-TN5"/>
+                <constraint firstItem="fWz-92-bPm" firstAttribute="leading" secondItem="0k7-6g-zPu" secondAttribute="leading" constant="22" id="zUL-cb-nyq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-51" y="715"/>
+            <point key="canvasLocation" x="-51.5" y="715"/>
         </view>
     </objects>
     <resources>
+        <image name="iconNew" width="13" height="13"/>
         <image name="icon_home" width="26" height="26"/>
     </resources>
 </document>

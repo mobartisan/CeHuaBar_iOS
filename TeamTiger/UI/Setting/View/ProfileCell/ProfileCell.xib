@@ -50,12 +50,11 @@
                             <constraint firstAttribute="height" constant="0.5" id="Pee-s3-vnN"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UER-f4-kd0">
-                        <rect key="frame" x="309" y="5" width="6" height="6"/>
-                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconNew" translatesAutoresizingMaskIntoConstraints="NO" id="UER-f4-kd0">
+                        <rect key="frame" x="302" y="5" width="13" height="13"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="6" id="T1S-I1-TNE"/>
-                            <constraint firstAttribute="height" constant="6" id="vYU-nV-BeG"/>
+                            <constraint firstAttribute="width" constant="13" id="T1S-I1-TNE"/>
+                            <constraint firstAttribute="height" constant="13" id="vYU-nV-BeG"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -94,6 +93,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="iconNew" width="13" height="13"/>
         <image name="icon_enter" width="11" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -40,6 +40,7 @@ typedef enum{
 @property(nonatomic,strong)SelectGroupView *sgView;
 
 @property (strong, nonatomic) NSMutableArray *unGroupProjects;
+@property (weak, nonatomic) IBOutlet UIImageView *pointImg;
 
 @property(nonatomic, strong) NSMutableArray *groups;
 
@@ -216,6 +217,7 @@ typedef enum{
     //初始化全局数据
     [[CirclesManager sharedInstance] loadingGlobalCirclesInfo];
     self.view.backgroundColor = kRGBColor(28, 37, 51);
+    setViewCorner(self.pointImg, 5);
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [Common removeExtraCellLines:self.menuTable];
     UIView *v = [[UIView alloc] init];
@@ -259,6 +261,13 @@ typedef enum{
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    if (isHasNewVersion) {
+        self.pointImg.hidden = NO;
+    } else {
+        self.pointImg.hidden = YES;
+    }
+    
     if (self.isIntoUserInfo) {
         [self loadDBData];
         [self getAllGroupsAndProjectsData];
