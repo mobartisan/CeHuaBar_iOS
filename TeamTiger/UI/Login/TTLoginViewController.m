@@ -64,7 +64,7 @@
         if (resType == ResponseStatusSuccess) {
             [self checkApp];
             if (isShowUpdateVersion) {
-                 return;
+                 return ;
             }
         } else if (resType == ResponseStatusOffline) {
             

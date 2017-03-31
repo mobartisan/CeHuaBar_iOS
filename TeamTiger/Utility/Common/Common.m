@@ -418,7 +418,7 @@
         }
         NSMutableString *mString = [NSMutableString stringWithString:alerStr];
         if (![Common isEmptyString:updateInfo]) {
-            NSArray *strings = [updateInfo componentsSeparatedByString:@"\\n"];
+            NSArray *strings = [updateInfo componentsSeparatedByString:@"/r/n"];
             for (NSString *updateItemStr in strings) {
                 [mString appendString:@"\n"];
                 [mString appendString:updateItemStr];
