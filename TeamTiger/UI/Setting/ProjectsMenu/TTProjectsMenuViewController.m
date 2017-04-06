@@ -58,6 +58,7 @@ typedef enum{
 
 @property (assign, nonatomic) BOOL isIntoUserInfo;
 
+@property (assign, nonatomic) BOOL isPush;
 
 @end
 
@@ -260,7 +261,12 @@ typedef enum{
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    BOOL isNeedAnimated = NO;
+    if (self.isPush) {
+        self.isPush = NO;
+        isNeedAnimated = animated;
+    }
+    [self.navigationController setNavigationBarHidden:YES animated:isNeedAnimated];
     
     if (isHasNewVersion) {
         self.pointImg.hidden = NO;
@@ -288,8 +294,9 @@ typedef enum{
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+
 
 - (void)loadUserInfo {
     NSDictionary *dic = [MockDatas testerInfo];
@@ -455,6 +462,7 @@ typedef enum{
                 [self getAllGroupsAndProjectsData];
             }
         };
+        self.isPush = YES;
         [Common customPushAnimationFromNavigation:self.navigationController ToViewController:addProfileVC Type:kCATransitionMoveIn SubType:kCATransitionFromTop];
     };
     return headView;
@@ -504,6 +512,7 @@ typedef enum{
             [self.menuTable reloadData];
         }
     };
+    self.isPush = YES;
     [self.navigationController pushViewController:myProfileVC animated:YES];
 }
 
