@@ -45,6 +45,9 @@
         self.bottomHeight.constant = 70;
         self.loginBgImgV.image = [UIImage imageNamed:@"loginBG55"];
     }
+    
+    self.versionLab.text = [NSString stringWithFormat:@"当前版本：%@", AppVersion];
+    
     [WXApiManager sharedManager].delegate = self;
     
     

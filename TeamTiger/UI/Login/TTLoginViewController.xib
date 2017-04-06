@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +15,7 @@
                 <outlet property="bottomHeight" destination="RKs-rX-Tgb" id="0pd-uE-u85"/>
                 <outlet property="loginBgImgV" destination="AaC-FL-M6C" id="2kM-R0-sOC"/>
                 <outlet property="loginBtn" destination="uR6-ls-6ED" id="bxW-lY-2Ag"/>
+                <outlet property="versionLab" destination="bS9-tx-jTP" id="B1K-Jd-6qt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,6 +39,15 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本：1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bS9-tx-jTP">
+                    <rect key="frame" x="22" y="638.5" width="100" height="13.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="KNl-MY-nbs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -45,9 +55,11 @@
                 <constraint firstAttribute="trailing" secondItem="AaC-FL-M6C" secondAttribute="trailing" id="Enh-WU-GAw"/>
                 <constraint firstAttribute="bottom" secondItem="uR6-ls-6ED" secondAttribute="bottom" constant="60" id="RKs-rX-Tgb"/>
                 <constraint firstItem="AaC-FL-M6C" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="Ssd-6j-PdQ"/>
+                <constraint firstItem="bS9-tx-jTP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="22" id="UhK-K4-Vjm"/>
                 <constraint firstItem="AaC-FL-M6C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZK8-Ln-ZIJ"/>
                 <constraint firstAttribute="bottom" secondItem="AaC-FL-M6C" secondAttribute="bottom" id="eMO-X2-2XR"/>
                 <constraint firstItem="uR6-ls-6ED" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="g0h-Oz-8bM"/>
+                <constraint firstAttribute="bottom" secondItem="bS9-tx-jTP" secondAttribute="bottom" constant="15" id="keO-BK-dcS"/>
                 <constraint firstItem="AaC-FL-M6C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="nth-rR-JRe"/>
             </constraints>
             <point key="canvasLocation" x="-3" y="119"/>
