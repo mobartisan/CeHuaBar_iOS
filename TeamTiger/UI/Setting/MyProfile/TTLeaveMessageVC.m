@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
+@property (strong, nonatomic) UIButton *rightBarItemBtn;
+
 @end
 
 @implementation TTLeaveMessageVC
@@ -39,9 +41,11 @@
     [rightBtn setTitle:@"提交" forState:UIControlStateNormal];
     rightBtn.frame = CGRectMake(0, 0, 40, 20);
     [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+    rightBtn.enabled = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
+    self.rightBarItemBtn = rightBtn;
 }
 
 #pragma mark - 提交反馈信息
@@ -74,6 +78,16 @@
         return NO;
     }
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if(textView.text.length > 0) {
+        [self.rightBarItemBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.rightBarItemBtn.enabled = YES;
+    } else {
+        [self.rightBarItemBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+        self.rightBarItemBtn.enabled = NO;
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
