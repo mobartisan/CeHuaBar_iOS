@@ -261,7 +261,8 @@ typedef enum{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
-    if (isHasNewVersion) {
+    if (newVersionType == EAppVersionSmall ||
+        newVersionType == EAppVersionBig) {
         self.pointImg.hidden = NO;
     } else {
         self.pointImg.hidden = YES;

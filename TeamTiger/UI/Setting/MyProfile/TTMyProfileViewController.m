@@ -195,11 +195,12 @@
     [AppDelegate checkAppVersion:^(EResponseType resType, id response) {
         if (resType == ResponseStatusSuccess) {
             [AppDelegate checkApp];
-            if (!isHasNewVersion) {
+            if (newVersionType == EAppVersionNew) {
                 [super showText:@"当前已是最新版本" afterSeconds:1.5];
             }
             NSMutableDictionary *mDic = [self.dataSource[3] firstObject];
-            if (isHasNewVersion) {
+            if (newVersionType == EAppVersionSmall ||
+                newVersionType == EAppVersionBig) {
                 mDic[@"show"] = @"1";
             } else {
                 mDic[@"show"] = @"0";
@@ -228,7 +229,8 @@
     if (!_dataSource) {
         NSDictionary *dic = [MockDatas testerInfo];
         NSString *showValue = @"0";
-        if (isHasNewVersion) {
+        if (newVersionType == EAppVersionSmall ||
+            newVersionType == EAppVersionBig) {
             showValue = @"1";
         }
         _dataSource = @[

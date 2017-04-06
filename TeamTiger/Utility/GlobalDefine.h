@@ -29,6 +29,12 @@ typedef enum : NSUInteger {
     ECurrentIsAll,
 } ECurrentStatus;
 
+typedef NS_ENUM(NSUInteger, EAppVersionType) {
+    EAppVersionNew = 0,
+    EAppVersionSmall,
+    EAppVersionBig
+};
+
 typedef void(^ResponseBlock)(EResponseType resType, id response);
 
 static const double default_NavigationHeight = 64.0;
@@ -55,7 +61,7 @@ UIView *bView;
 NSString *gMessageType;
 NSString *serviceVersion;
 NSString *appDescription;
-BOOL isHasNewVersion;
+EAppVersionType newVersionType;
 BOOL isShowUpdate;
 
 #endif /* GlobalDefine_h */

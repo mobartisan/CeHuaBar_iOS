@@ -75,7 +75,8 @@
             if (resType == ResponseStatusSuccess ||
                 resType == ResponseStatusFailure) {
                 NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
-                if(isHasNewVersion) {
+                if(newVersionType == EAppVersionSmall ||
+                   newVersionType == EAppVersionBig) {
                     [self hideLaunchImage];
                 } else {
                     [self startLogin:tempDic];
@@ -175,7 +176,10 @@
 }
 
 - (void)loginButtonAction {
-    if (![Common isEmptyString:serviceVersion]) {
+    if(newVersionType == EAppVersionBig &&
+       ![Common isEmptyString:serviceVersion]) {
+        [AppDelegate checkApp];
+        return;
     }
     //微信跳转
     if ([WXApi isWXAppInstalled]) {

@@ -290,18 +290,18 @@
     if (serArr.count == 3 && nowArr.count == 3) {
         if (![serArr[0] isEqualToString:nowArr[0]]) {
             //大版本
-            isHasNewVersion = YES;
+            newVersionType = EAppVersionBig;
             [Common updateVewsin:YES UpdateInfo:appDescription];
         } else {
             if(![serArr[1] isEqualToString:nowArr[1]] || ![serArr[2] isEqualToString:nowArr[2]]) {
                 //小版本
-                isHasNewVersion = YES;
+                newVersionType = EAppVersionSmall;
                 [Common updateVewsin:NO UpdateInfo:appDescription];
             }
         }
     } else {
         //本地与服务器协商不一致 容错处理
-        isHasNewVersion = NO;
+        newVersionType = EAppVersionNew;
     }
 }
 
