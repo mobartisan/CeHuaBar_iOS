@@ -153,7 +153,7 @@
  __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
  CA_EXTERN NSString * const kCATransitionFromBottom
  __OSX_AVAILABLE_STARTING (__MAC_10_5, __IPHONE_2_0);
-
+ 
  */
 
 //获取当前屏幕显示的viewcontroller
@@ -315,7 +315,7 @@
 }
 
 //对字典加密 返回字符串 key=value&key1=value2  mode==0 十六进制模式   mode==1 字符串模式
-+ (NSString *)encypt2StrWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode{
++ (NSString *)encypt2StrWithDictionary:(NSDictionary *)srcDic UnencyptKeys:(NSArray *)keys Mode:(NSInteger)mode {
     NSMutableString *mString = [NSMutableString string];
     JKEncrypt *jkEncrypt = [[JKEncrypt alloc] init];
     [srcDic enumerateKeysAndObjectsUsingBlock:^(id _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
@@ -445,9 +445,7 @@
                                 exit(0);
                             }
                         }
-                        
                     }];
-
     }
     
 }
