@@ -25,7 +25,7 @@
     self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textView.enablesReturnKeyAutomatically = YES;
     self.textView.placeholder = @"请描述你的问题";
-    self.textView.backgroundColor = kColorForCommonCellBackgroud;
+//    self.textView.backgroundColor = kColorForCommonCellBackgroud;
 }
 
 - (void)configureNavigationItem {
@@ -52,6 +52,7 @@
     }
     [self.textView resignFirstResponder];
     
+    [super showHudWithText:@"正在提交..."];
     FeedBackApi *api = [[FeedBackApi alloc] init];
     api.requestArgument = @{@"content":self.textView.text};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -64,7 +65,6 @@
         NSLog(@"%@", error);
         [super showText:NETWORKERROR afterSeconds:1.0];
     }];
-    
     
 }
 
