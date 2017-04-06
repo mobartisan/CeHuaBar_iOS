@@ -45,7 +45,7 @@ static CacheManager *singleton = nil;
 //获取数据库文件路径的方法
 - (NSString *)getDataBasePath {
     //1.获取documents文件夹路径
-    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];
     //2.拼接文件路径
     return [documentsPath stringByAppendingFormat:@"/Moments.sqlite"];
 }
