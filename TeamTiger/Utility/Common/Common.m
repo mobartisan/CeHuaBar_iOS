@@ -409,8 +409,9 @@
 
 
 + (void)updateVewsin:(BOOL)isBigVersion UpdateInfo:(NSString *)updateInfo {
-    if (isHasNewVersion) {
+    if (!isShowUpdate) {
         NSString *alerStr;
+        isShowUpdate = YES;
         if(isBigVersion){
             alerStr = [NSString stringWithFormat:@"发现新版本%@，请立即升级！",serviceVersion];
         } else{
@@ -445,6 +446,9 @@
                                 exit(0);
                             }
                         }
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            isShowUpdate = NO;
+                        });
                     }];
     }
     

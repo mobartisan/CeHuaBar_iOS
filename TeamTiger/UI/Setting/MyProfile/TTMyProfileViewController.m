@@ -196,6 +196,13 @@
             if (!isHasNewVersion) {
                 [super showText:@"当前已是最新版本" afterSeconds:1.5];
             }
+            NSMutableDictionary *mDic = [self.dataSource[3] firstObject];
+            if (isHasNewVersion) {
+                mDic[@"show"] = @"1";
+            } else {
+                mDic[@"show"] = @"0";
+            }
+            [self.tableView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
         }
     }];
 }
