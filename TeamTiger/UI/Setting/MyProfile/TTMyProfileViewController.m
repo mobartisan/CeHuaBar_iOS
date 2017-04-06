@@ -101,7 +101,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    NSMutableDictionary *dic = [self.dataSource[1] firstObject];
+    NSMutableDictionary *dic = [self.dataSource[3] firstObject];
     if (isHasNewVersion) {
         [dic setObject:@"1" forKey:@"show"];
     } else {
@@ -184,14 +184,14 @@
             }];
         }
         [self.navigationController pushViewController:myModifyVC animated:YES];
-    }else if (indexPath.section == 1) {//版本检测
-        [self checkAppVersion];
+    } else if (indexPath.section == 1) {//意见反馈
+        TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
+        [self.navigationController pushViewController:leaveMessageVC animated:YES];
     } else if (indexPath.section == 2) {//消息通知
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
-    } else if (indexPath.section == 3) {//意见反馈
-        TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
-        [self.navigationController pushViewController:leaveMessageVC animated:YES];
+    } else if (indexPath.section == 3) {//版本检测
+        [self checkAppVersion];
     }
 }
 
@@ -230,16 +230,15 @@
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
                             @{@"Type":@1,@"Name":@"名字",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0),}.mutableCopy,
                             @{@"Type":@1,@"Name":@"备注",@"Description":dic[@"Remarks"],@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                            //                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
+                            @{@"Type":@1,@"Name":@"意见反馈",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"意见反馈",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
+                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
                             ],
                         @[
                         @{@"Type":@2,@"Name":@"",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":[UIColor clearColor]}
