@@ -409,7 +409,7 @@
 
 
 + (void)updateVewsin:(BOOL)isBigVersion UpdateInfo:(NSString *)updateInfo {
-    if (isShowUpdateVersion) {
+    if (isHasNewVersion) {
         NSString *alerStr;
         if(isBigVersion){
             alerStr = [NSString stringWithFormat:@"发现新版本%@，请立即升级！",serviceVersion];

@@ -101,13 +101,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    NSMutableDictionary *dic = [self.dataSource[3] firstObject];
-    if (isHasNewVersion) {
-        [dic setObject:@"1" forKey:@"show"];
-    } else {
-        [dic setObject:@"0" forKey:@"show"];
-    }
-    
     [self.tableView reloadData];
 }
 
@@ -225,6 +218,10 @@
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
         NSDictionary *dic = [MockDatas testerInfo];
+        NSString *showValue = @"0";
+        if (isHasNewVersion) {
+            showValue = @"1";
+        }
         _dataSource = @[
                         @[
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
@@ -238,7 +235,7 @@
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
+                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":showValue}.mutableCopy
                             ],
                         @[
                         @{@"Type":@2,@"Name":@"",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":[UIColor clearColor]}

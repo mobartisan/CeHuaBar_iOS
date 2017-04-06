@@ -59,9 +59,7 @@
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
     
-    
-    [self autoLogin];
-
+    [self autoLogin];//自动登录
 }
 
 //自动登录 逻辑判断
@@ -74,7 +72,11 @@
             if (resType == ResponseStatusSuccess ||
                 resType == ResponseStatusFailure) {
                 NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:response];
-                [self startLogin:tempDic];
+                if(isHasNewVersion) {
+                    [self hideLaunchImage];
+                } else {
+                    [self startLogin:tempDic];
+                }
             } else {
                 NSLog(@"获取access_token时出错 = %@", response);
                 [super showHudWithText:@"登录微信失败"];
