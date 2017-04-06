@@ -13,7 +13,6 @@
 #import "MMDrawerVisualState.h"
 #import "TTBaseNavigationController.h"
 #import "TTLoginViewController.h"
-//#import "TTTabBarViewController.h"
 #import "WXApiManager.h"
 #import "MessageManager.h"
 #import "UploadManager.h"
@@ -47,7 +46,12 @@
     //添加未读消息
     [self addPushView];
     
-    
+    //check app version
+    [AppDelegate checkAppVersion:^(EResponseType resType, id response) {
+        if (resType == ResponseStatusSuccess) {
+            [AppDelegate checkApp];
+        }
+    }];
     return YES;
 }
 
@@ -260,6 +264,48 @@
     } failure:^(__kindof LCBaseRequest *request, NSError *error) {
         [[UIApplication sharedApplication]setApplicationIconBadgeNumber:0];
     }];
+}
+
+//MARK:-版本检测
++ (void)checkAppVersion:(ResponseBlock)passService {
+    VersionApi *api = [[VersionApi alloc] init];
+    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+        NSLog(@"%@", request.responseJSONObject);
+        if ([request.responseJSONObject[CODE] integerValue] == 1000) {
+            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
+            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
+            passService(ResponseStatusSuccess, serviceVersion);
+        } else {
+            passService(ResponseStatusFailure, request.responseJSONObject[MSG]);
+        }
+    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+        NSLog(@"%@", error);
+        passService(ResponseStatusOffline, NETWORKERROR);
+    }];
+}
+
++ (void)checkApp {
+    NSArray *serArr = [serviceVersion componentsSeparatedByString:@"."];
+    NSArray *nowArr = [AppVersion componentsSeparatedByString:@"."];
+    if (serArr.count == 3 && nowArr.count == 3) {
+        if (![serArr[0] isEqualToString:nowArr[0]]) {
+            //大版本
+            isShowUpdateVersion = YES;
+            isHasNewVersion = YES;
+            [Common updateVewsin:YES UpdateInfo:appDescription];
+        } else {
+            if(![serArr[1] isEqualToString:nowArr[1]] || ![serArr[2] isEqualToString:nowArr[2]]) {
+                //小版本
+                isShowUpdateVersion = YES;
+                isHasNewVersion = YES;
+                [Common updateVewsin:NO UpdateInfo:appDescription];
+            }
+        }
+    } else {
+        //本地与服务器协商不一致 容错处理
+        isShowUpdateVersion = NO;
+        isHasNewVersion = NO;
+    }
 }
 
 @end

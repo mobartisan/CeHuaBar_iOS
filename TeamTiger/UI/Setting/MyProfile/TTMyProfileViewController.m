@@ -196,27 +196,15 @@
 }
 
 - (void)checkAppVersion {
-    VersionApi *api = [[VersionApi alloc] init];
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
-            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
-            [self checkApp:request.responseJSONObject[OBJ][SERVICEVERSION]];
+    //check app version
+    [AppDelegate checkAppVersion:^(EResponseType resType, id response) {
+        if (resType == ResponseStatusSuccess) {
+            [AppDelegate checkApp];
+            if (!isHasNewVersion) {
+                [super showText:@"当前已是最新版本" afterSeconds:1.5];
+            }
         }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
     }];
-}
-
-- (void)checkApp:(NSString *)serviceVersion {
-    if(![serviceVersion isEqualToString:AppVersion]) {
-        isShowUpdateVersion = YES;
-        [Common updateVewsin:NO UpdateInfo:appDescription];
-    } else {
-        [super showText:@"当前已是最新版本" afterSeconds:1.5];
-        isHasNewVersion = NO;
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -245,7 +233,7 @@
                             //                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"版本检测",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
+                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
                             ],
                         @[
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
