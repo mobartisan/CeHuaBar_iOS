@@ -56,5 +56,6 @@ NSString *gMessageType;
 NSString *serviceVersion;
 NSString *appDescription;
 BOOL isHasNewVersion;
-BOOL isShowUpdateVersion;
+BOOL isShowUpdate;
+
 #endif /* GlobalDefine_h */

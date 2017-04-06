@@ -14,6 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *loginBgImgV;
 
+@property (weak, nonatomic) IBOutlet UILabel *versionLab;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomHeight;
 
 @end

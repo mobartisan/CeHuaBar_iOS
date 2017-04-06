@@ -13,6 +13,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
+@property (strong, nonatomic) UIButton *rightBarItemBtn;
+
 @end
 
 @implementation TTLeaveMessageVC
@@ -25,7 +27,7 @@
     self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
     self.textView.enablesReturnKeyAutomatically = YES;
     self.textView.placeholder = @"请描述你的问题";
-    self.textView.backgroundColor = kColorForCommonCellBackgroud;
+//    self.textView.backgroundColor = kColorForCommonCellBackgroud;
 }
 
 - (void)configureNavigationItem {
@@ -39,9 +41,11 @@
     [rightBtn setTitle:@"提交" forState:UIControlStateNormal];
     rightBtn.frame = CGRectMake(0, 0, 40, 20);
     [rightBtn addTarget:self action:@selector(handleRightBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+    rightBtn.enabled = NO;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     
+    self.rightBarItemBtn = rightBtn;
 }
 
 #pragma mark - 提交反馈信息
@@ -52,6 +56,7 @@
     }
     [self.textView resignFirstResponder];
     
+    [super showHudWithText:@"正在提交..."];
     FeedBackApi *api = [[FeedBackApi alloc] init];
     api.requestArgument = @{@"content":self.textView.text};
     [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
@@ -65,7 +70,6 @@
         [super showText:NETWORKERROR afterSeconds:1.0];
     }];
     
-    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -74,6 +78,16 @@
         return NO;
     }
     return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if(textView.text.length > 0) {
+        [self.rightBarItemBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.rightBarItemBtn.enabled = YES;
+    } else {
+        [self.rightBarItemBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+        self.rightBarItemBtn.enabled = NO;
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

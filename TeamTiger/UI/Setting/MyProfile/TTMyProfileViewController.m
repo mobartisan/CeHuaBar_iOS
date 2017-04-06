@@ -101,13 +101,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    NSMutableDictionary *dic = [self.dataSource[1] firstObject];
-    if (isHasNewVersion) {
-        [dic setObject:@"1" forKey:@"show"];
-    } else {
-        [dic setObject:@"0" forKey:@"show"];
-    }
-    
     [self.tableView reloadData];
 }
 
@@ -184,39 +177,34 @@
             }];
         }
         [self.navigationController pushViewController:myModifyVC animated:YES];
-    }else if (indexPath.section == 1) {//版本检测
-        [self checkAppVersion];
+    } else if (indexPath.section == 1) {//意见反馈
+        TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
+        [self.navigationController pushViewController:leaveMessageVC animated:YES];
     } else if (indexPath.section == 2) {//消息通知
         TTNotificationSetting *notificationVC = [[TTNotificationSetting alloc] init];
         [self.navigationController pushViewController:notificationVC animated:YES];
-    } else if (indexPath.section == 3) {//意见反馈
-        TTLeaveMessageVC *leaveMessageVC = [[TTLeaveMessageVC alloc] init];
-        [self.navigationController pushViewController:leaveMessageVC animated:YES];
+    } else if (indexPath.section == 3) {//版本检测
+        [self checkAppVersion];
     }
 }
 
 - (void)checkAppVersion {
-    VersionApi *api = [[VersionApi alloc] init];
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@", request.responseJSONObject);
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            serviceVersion = request.responseJSONObject[OBJ][SERVICEVERSION];
-            appDescription = request.responseJSONObject[OBJ][DESCRIPTION];
-            [self checkApp:request.responseJSONObject[OBJ][SERVICEVERSION]];
+    //check app version
+    [AppDelegate checkAppVersion:^(EResponseType resType, id response) {
+        if (resType == ResponseStatusSuccess) {
+            [AppDelegate checkApp];
+            if (!isHasNewVersion) {
+                [super showText:@"当前已是最新版本" afterSeconds:1.5];
+            }
+            NSMutableDictionary *mDic = [self.dataSource[3] firstObject];
+            if (isHasNewVersion) {
+                mDic[@"show"] = @"1";
+            } else {
+                mDic[@"show"] = @"0";
+            }
+            [self.tableView reloadSection:3 withRowAnimation:UITableViewRowAnimationNone];
         }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
     }];
-}
-
-- (void)checkApp:(NSString *)serviceVersion {
-    if(![serviceVersion isEqualToString:AppVersion]) {
-        isShowUpdateVersion = YES;
-        [Common updateVewsin:NO UpdateInfo:appDescription];
-    } else {
-        [super showText:@"当前已是最新版本" afterSeconds:1.5];
-        isHasNewVersion = NO;
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -237,21 +225,24 @@
 - (NSMutableArray *)dataSource {
     if (!_dataSource) {
         NSDictionary *dic = [MockDatas testerInfo];
+        NSString *showValue = @"0";
+        if (isHasNewVersion) {
+            showValue = @"1";
+        }
         _dataSource = @[
                         @[
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
                             @{@"Type":@1,@"Name":@"名字",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0),}.mutableCopy,
                             @{@"Type":@1,@"Name":@"备注",@"Description":dic[@"Remarks"],@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
-                            //                            @{@"Type":@1,@"Name":@"账号",@"Description":dic[@"Account"],@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"版本检测",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":@"0"}.mutableCopy
+                            @{@"Type":@1,@"Name":@"意见反馈",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
                             @{@"Type":@1,@"Name":@"新消息通知",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
                             ],
                         @[
-                            @{@"Type":@1,@"Name":@"意见反馈",@"Description":@"",@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}
+                            @{@"Type":@1,@"Name":@"当前版本",@"Description":AppVersion,@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"show":showValue}.mutableCopy
                             ],
                         @[
                         @{@"Type":@2,@"Name":@"",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":[UIColor clearColor]}
