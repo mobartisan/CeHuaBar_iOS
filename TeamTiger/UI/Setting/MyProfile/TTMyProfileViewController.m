@@ -152,6 +152,7 @@
         myModifyVC.name = dic[@"Name"];
         myModifyVC.tempDic = dic;
         if (indexPath.row == 1) {
+            myModifyVC.title = @"姓名";
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
                     if ([user.nickname isEqualToString:value]) {
@@ -164,6 +165,7 @@
                 }
             }];
         } else if (indexPath.row == 2) {
+            myModifyVC.title = @"备注";
             [myModifyVC setPassValue:^(NSString *value) {
                 if (![Common isEmptyString:value]) {
                     if ([user.remark isEqualToString:value]) {
@@ -232,7 +234,7 @@
         _dataSource = @[
                         @[
                             @{@"Type":@0,@"Name":@"头像",@"Description":@"",@"ShowAccessory":@0,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0),@"HeadImage":dic[@"HeadImage"]}.mutableCopy,
-                            @{@"Type":@1,@"Name":@"名字",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0),}.mutableCopy,
+                            @{@"Type":@1,@"Name":@"姓名",@"Description":dic[@"Name"],@"ShowAccessory":@1,@"IsEdit":@1,@"Color":kRGB(27.0, 41.0, 58.0),}.mutableCopy,
                             @{@"Type":@1,@"Name":@"备注",@"Description":dic[@"Remarks"],@"ShowAccessory":@1,@"IsEdit":@0,@"Color":kRGB(27.0, 41.0, 58.0)}.mutableCopy,
                             ],
                         @[
