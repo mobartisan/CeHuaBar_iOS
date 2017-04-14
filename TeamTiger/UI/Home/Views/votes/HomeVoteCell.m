@@ -118,8 +118,8 @@
     self.iconImV.sd_cornerRadiusFromWidthRatio = @(0.5);
     
     
-    self.nameLB.sd_layout.leftSpaceToView(self.iconImV, 13).topSpaceToView(self.contentView, 20).widthIs(200).heightIs(17);
-    [self.nameLB setSingleLineAutoResizeWithMaxWidth:200];
+    self.nameLB.sd_layout.leftSpaceToView(self.iconImV, 13).topSpaceToView(self.contentView, 20).heightIs(17).rightSpaceToView(self.contentView, 10);
+//    [self.nameLB setSingleLineAutoResizeWithMaxWidth:200];
     
     
     self.imageV1.sd_layout.leftEqualToView(self.nameLB).topSpaceToView(self.nameLB, 9).widthIs(8).heightIs(10);

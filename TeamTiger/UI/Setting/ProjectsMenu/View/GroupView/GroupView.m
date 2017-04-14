@@ -8,7 +8,8 @@
 
 #import "GroupView.h"
 #import "MBProgressHUD.h"
-
+#import "UITextField+Extension.h"
+#import "AppDelegate.h"
 @interface GroupView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton *bgBtn;
@@ -30,6 +31,27 @@
     self.nameTxtField.leftViewMode = UITextFieldViewModeAlways;
     [self.nameTxtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [Common removeExtraCellLines:self.table];
+    [self.nameTxtField addTarget:self action:@selector(handleTextChange:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (void)handleTextChange:(UITextField *)textField {
+    //1.过滤表情
+    NSRegularExpression *regularExpression = [NSRegularExpression regularExpressionWithPattern:@"[^\\u0020-\\u007E\\u00A0-\\u00BE\\u2E80-\\uA4CF\\uF900-\\uFAFF\\uFE30-\\uFE4F\\uFF00-\\uFFEF\\u0080-\\u009F\\u2000-\\u201f\r\n]" options:0 error:nil];
+    
+    NSString *noEmojiStr = [regularExpression stringByReplacingMatchesInString:textField.text options:0 range:NSMakeRange(0, textField.text.length) withTemplate:@""];
+    
+    if (![noEmojiStr isEqualToString:textField.text]) {
+        textField.text = noEmojiStr;
+    }
+    //2.限制长度
+    [textField beyondMaxLength:40 BeyondBlock:^(BOOL isBeyond) {
+        if (isBeyond) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"字数超出上限";
+            [hud hideAnimated:YES afterDelay:1.5];
+        }
+    }];
 }
 
 - (void)layoutSubviews {
@@ -171,6 +193,7 @@
     }
     [self hide];
 }
+
 
 - (IBAction)cancelBtnAction:(id)sender {
     if (self.clickBtnBlock) {
