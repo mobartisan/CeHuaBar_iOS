@@ -58,45 +58,51 @@
 
 #pragma mark - 修改用户信息
 - (void)handleRightBtnAction:(UIButton *)sender {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    TT_User *user = [TT_User sharedInstance];
-    
-    NSDictionary *tempDic = nil;
-    if ([Common isEmptyString:self.nickName]) {
-        tempDic = @{@"remark":self.remark};
-        user.remark = self.remark;
-    } else if ([Common isEmptyString:self.remark]) {
-        tempDic = @{@"nickname":self.nickName};
-        user.nickname = self.nickName;
-    } else {
-        tempDic = @{@"nickname":self.nickName,
-                    @"remark":self.remark};
-        user.remark = self.remark;
-        user.nickname = self.nickName;
-    }
-    UserUpdateApi *api = [[UserUpdateApi alloc] init];
-    api.requestArgument = tempDic;
-    [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
-        NSLog(@"%@",request.responseJSONObject);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
-                self.remark = nil;
-                self.nickName = nil;
-                [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
-                self.rightBtn.enabled = NO;
-            });
-            self.isSubmit = YES;
-        } else {
-            [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+    UIAlertView *alert = [UIAlertView hyb_showWithTitle:@"提示" message:@"您确定要提交修改个人信息？" buttonTitles:@[@"取消", @"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+        if(buttonIndex == 1) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            TT_User *user = [TT_User sharedInstance];
+            
+            NSDictionary *tempDic = nil;
+            if ([Common isEmptyString:self.nickName]) {
+                tempDic = @{@"remark":self.remark};
+                user.remark = self.remark;
+            } else if ([Common isEmptyString:self.remark]) {
+                tempDic = @{@"nickname":self.nickName};
+                user.nickname = self.nickName;
+            } else {
+                tempDic = @{@"nickname":self.nickName,
+                            @"remark":self.remark};
+                user.remark = self.remark;
+                user.nickname = self.nickName;
+            }
+            UserUpdateApi *api = [[UserUpdateApi alloc] init];
+            api.requestArgument = tempDic;
+            [api startWithBlockSuccess:^(__kindof LCBaseRequest *request) {
+                NSLog(@"%@",request.responseJSONObject);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                if ([request.responseJSONObject[SUCCESS] intValue] == 1) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+                        self.remark = nil;
+                        self.nickName = nil;
+                        [self.rightBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+                        self.rightBtn.enabled = NO;
+                    });
+                    self.isSubmit = YES;
+                } else {
+                    [super showText:request.responseJSONObject[MSG] afterSeconds:1.0];
+                }
+            } failure:^(__kindof LCBaseRequest *request, NSError *error) {
+                NSLog(@"%@", error);
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
+            }];
         }
-    } failure:^(__kindof LCBaseRequest *request, NSError *error) {
-        NSLog(@"%@", error);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [super showText:@"您的网络好像有问题~" afterSeconds:1.0];
     }];
+    [alert show];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
