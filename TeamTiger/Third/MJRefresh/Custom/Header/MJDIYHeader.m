@@ -72,20 +72,23 @@
 - (void)setState:(MJRefreshState)state
 {
     MJRefreshCheckState;
-
+    
     switch (state) {
-        case MJRefreshStateIdle:
+        case MJRefreshStateIdle:{
             [self.loading stopAnimating];
             self.label.text = @"使劲拉我💩";
             break;
-        case MJRefreshStatePulling:
+        }
+        case MJRefreshStatePulling:{
             [self.loading stopAnimating];
             self.label.text = @"好了，放开我吧！我只是打酱油滴~";
             break;
-        case MJRefreshStateRefreshing:
+        }
+        case MJRefreshStateRefreshing: {
             self.label.text = @"谢谢！正在吐出😝数据...";
             [self.loading startAnimating];
             break;
+        }
         default:
             break;
     }
