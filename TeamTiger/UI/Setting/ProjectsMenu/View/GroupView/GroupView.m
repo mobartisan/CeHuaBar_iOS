@@ -33,6 +33,35 @@
     [self.nameTxtField setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     [Common removeExtraCellLines:self.table];
     [self.nameTxtField addTarget:self action:@selector(handleTextChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    //监听键盘收起
+    [[NSNotificationCenter defaultCenter]addCustomObserver:self Name:UIKeyboardDidShowNotification Object:nil Block:^(id  _Nullable sender) {
+        //获取键盘的高度
+        NSDictionary *userInfo = [sender userInfo];
+        NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+        CGRect keyboardRect = aValue.CGRectValue;
+        NSInteger height = keyboardRect.size.height;
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(Screen_Height - 100 - height);
+        }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.superview layoutIfNeeded];
+        }];
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addCustomObserver:self Name:UIKeyboardWillHideNotification Object:nil Block:^(id  _Nullable sender) {
+        [self mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(Screen_Height - 100);
+        }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.superview layoutIfNeeded];
+        }];
+    }];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeCustomObserver:self Name:UIKeyboardDidShowNotification Object:nil];
+    [[NSNotificationCenter defaultCenter]removeCustomObserver:self Name:UIKeyboardWillHideNotification Object:nil];
 }
 
 - (void)handleTextChange:(UITextField *)textField {
