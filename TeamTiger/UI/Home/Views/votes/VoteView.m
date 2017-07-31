@@ -114,6 +114,7 @@
             [customView.voteBtn setImage:kImage(@"icon_dislike") forState:UIControlStateNormal];
             [customView.voteBtn setTitle:@"投票" forState:UIControlStateNormal];
         }
+        customView.voteBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, 0, 0, 0);
     }];
     
     
