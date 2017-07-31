@@ -314,7 +314,7 @@
         [self setZoomScale:1.0 animated:YES];
     } else {//放大
        
-        CGRect zoomRect;
+        CGRect zoomRect = CGRectZero;
         zoomRect.origin.x = touchPoint.x;
         zoomRect.origin.y = touchPoint.y;
         [self zoomToRect:zoomRect animated:YES];

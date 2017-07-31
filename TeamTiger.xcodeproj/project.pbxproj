@@ -378,7 +378,6 @@
 		1DD2E3251D596EAA005D45A9 /* toggle_handle_on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E31D1D596EAA005D45A9 /* toggle_handle_on@2x.png */; };
 		1DD2E3261D596EAA005D45A9 /* toggle_handle_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E31E1D596EAA005D45A9 /* toggle_handle_on@3x.png */; };
 		1DD2E32D1D59B30F005D45A9 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD2E3281D59B30F005D45A9 /* libWeChatSDK.a */; };
-		1DD2E32E1D59B30F005D45A9 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DD2E3291D59B30F005D45A9 /* README.txt */; };
 		1DD2E3301D59B3DB005D45A9 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD2E32F1D59B3DB005D45A9 /* libc++.tbd */; };
 		1DD2E3391D59B871005D45A9 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2E3341D59B871005D45A9 /* WXApiManager.m */; };
 		1DD2E33A1D59B871005D45A9 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DD2E3361D59B871005D45A9 /* WXApiRequestHandler.m */; };
@@ -495,7 +494,6 @@
 		2DDD541E1DB0D4AF00C55633 /* QNHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53D91DB0D4AF00C55633 /* QNHex.m */; };
 		2DDD541F1DB0D4AF00C55633 /* QNIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53DB1DB0D4AF00C55633 /* QNIP.m */; };
 		2DDD54201DB0D4AF00C55633 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2DDD53DC1DB0D4AF00C55633 /* LICENSE */; };
-		2DDD54211DB0D4AF00C55633 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53DD1DB0D4AF00C55633 /* README.md */; };
 		2DDD54221DB0D4AF00C55633 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53E11DB0D4AF00C55633 /* QN_GTM_Base64.m */; };
 		2DDD54231DB0D4AF00C55633 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53E31DB0D4AF00C55633 /* QNALAssetFile.m */; };
 		2DDD54241DB0D4AF00C55633 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD53E51DB0D4AF00C55633 /* QNAsyncRun.m */; };
@@ -1247,7 +1245,6 @@
 		1DD2E31D1D596EAA005D45A9 /* toggle_handle_on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_handle_on@2x.png"; sourceTree = "<group>"; };
 		1DD2E31E1D596EAA005D45A9 /* toggle_handle_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toggle_handle_on@3x.png"; sourceTree = "<group>"; };
 		1DD2E3281D59B30F005D45A9 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		1DD2E3291D59B30F005D45A9 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		1DD2E32A1D59B30F005D45A9 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		1DD2E32B1D59B30F005D45A9 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		1DD2E32C1D59B30F005D45A9 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -1467,7 +1464,6 @@
 		2DDD53DA1DB0D4AF00C55633 /* QNIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNIP.h; sourceTree = "<group>"; };
 		2DDD53DB1DB0D4AF00C55633 /* QNIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNIP.m; sourceTree = "<group>"; };
 		2DDD53DC1DB0D4AF00C55633 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2DDD53DD1DB0D4AF00C55633 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2DDD53E01DB0D4AF00C55633 /* QN_GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QN_GTM_Base64.h; sourceTree = "<group>"; };
 		2DDD53E11DB0D4AF00C55633 /* QN_GTM_Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QN_GTM_Base64.m; sourceTree = "<group>"; };
 		2DDD53E21DB0D4AF00C55633 /* QNALAssetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNALAssetFile.h; sourceTree = "<group>"; };
@@ -3278,7 +3274,6 @@
 			isa = PBXGroup;
 			children = (
 				1DD2E3281D59B30F005D45A9 /* libWeChatSDK.a */,
-				1DD2E3291D59B30F005D45A9 /* README.txt */,
 				1DD2E32A1D59B30F005D45A9 /* WechatAuthSDK.h */,
 				1DD2E32B1D59B30F005D45A9 /* WXApi.h */,
 				1DD2E32C1D59B30F005D45A9 /* WXApiObject.h */,
@@ -3667,7 +3662,6 @@
 			children = (
 				2DDD53B71DB0D4AF00C55633 /* HappyDNS */,
 				2DDD53DC1DB0D4AF00C55633 /* LICENSE */,
-				2DDD53DD1DB0D4AF00C55633 /* README.md */,
 			);
 			path = HappyDNS;
 			sourceTree = "<group>";
@@ -4090,7 +4084,6 @@
 				2D44CDF51E272A3600098B37 /* CJGroupCell.xib in Resources */,
 				1D32AEF91DB0C451000DF537 /* GroupHeadView.xib in Resources */,
 				1D34D51B1DEFD005002CBFF8 /* DeleteFooterView.xib in Resources */,
-				1DD2E32E1D59B30F005D45A9 /* README.txt in Resources */,
 				1DBFD6F11D6463650039077D /* textfield_default_holo_light@2x.png in Resources */,
 				1DBFD6ED1D6463650039077D /* irv.png in Resources */,
 				1DB5A58A1D4B3F36009E6170 /* switchToggleHigh@2x.png in Resources */,
@@ -4363,7 +4356,6 @@
 				1D09CD0D1D3F550300F85E9A /* HYBCommonKit.m in Sources */,
 				1D09CD0E1D3F550300F85E9A /* HYBHelperKitBaseController.m in Sources */,
 				0604B4651D4C5A5B00EF1703 /* CCDraggableCardView.m in Sources */,
-				2DDD54211DB0D4AF00C55633 /* README.md in Sources */,
 				2D6D17711DED552200AFE3BD /* UIImage+Extension.m in Sources */,
 				1D09CC9B1D3F29C900F85E9A /* YYTextRubyAnnotation.m in Sources */,
 				2DDD54131DB0D4AF00C55633 /* QNLruCache.m in Sources */,

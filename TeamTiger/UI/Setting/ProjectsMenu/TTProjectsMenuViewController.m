@@ -793,7 +793,7 @@ typedef enum{
                 if (isContain) {
                     //1.取出下标
                     NSUInteger index =  [self.viewFrames indexOfObject:frameValue];
-                    NSLog(@"index:%lu---%ld", index, self.viewFrames.count);
+                    NSLog(@"index:%tu---%ld", index, self.viewFrames.count);
                     // 将快照放到分组里面
                     [UIView animateWithDuration:0.5 animations:^{
                         snapshot.transform = CGAffineTransformMakeScale(0.3, 1.4);

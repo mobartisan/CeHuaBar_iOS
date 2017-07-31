@@ -911,7 +911,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-            timestampString = "513161194.084948"
+            timestampString = "523165747.472548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "201"
@@ -1023,7 +1023,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-            timestampString = "513161194.084948"
+            timestampString = "523165747.472548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "351"
@@ -1151,13 +1151,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-            timestampString = "513161194.084948"
+            timestampString = "523165747.472548"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "593"
             endingLineNumber = "593"
             landmarkName = "-projectMemberQuitWithProject:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[TTProjectsMenuViewController projectMemberQuitWithProject:]"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+                  timestampString = "523165806.597136"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "593"
+                  endingLineNumber = "593"
+                  offsetFromSymbolStart = "460">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__61-[TTProjectsMenuViewController projectMemberQuitWithProject:]_block_invoke"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
+                  timestampString = "523165806.600288"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "593"
+                  endingLineNumber = "593"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

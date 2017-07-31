@@ -169,7 +169,7 @@
 #pragma mark - JJPhotoDelegate
 //关闭PhotoViewer时调用并返回 (观看的最后一张图片的序号)
 -(void)photoViwerWilldealloc:(NSInteger)selecedImageViewIndex {
-    NSLog(@"%ld", selecedImageViewIndex);
+    NSLog(@"%zd", selecedImageViewIndex);
 }
 
 @end
