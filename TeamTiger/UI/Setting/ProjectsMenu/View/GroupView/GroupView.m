@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "UITextField+Extension.h"
 #import "AppDelegate.h"
+
 @interface GroupView ()<UITextFieldDelegate>
 
 @property(nonatomic,strong)UIButton *bgBtn;
@@ -189,9 +190,18 @@
         //creat
         NSString *uuid = [[[NSUUID UUID].UUIDString stringByReplacingOccurrencesOfString:@"-" withString:NullString] lowercaseString];
         self.groupInfo[@"Gid"] = uuid;
-        self.clickBtnBlock(self, YES, self.groupInfo);
+        
+        UIAlertView *alert = [UIAlertView hyb_showWithTitle:@"提示" message:@"一个项目只隶属于一个分组，创建新分组有可能让别的分组失去项目哟~" buttonTitles:@[@"取消",@"确定"] block:^(UIAlertView *alertView, NSUInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                self.clickBtnBlock(self, YES, self.groupInfo);
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self hide];
+                });
+            }
+        }];
+        [alert show];
+        
     }
-    [self hide];
 }
 
 
