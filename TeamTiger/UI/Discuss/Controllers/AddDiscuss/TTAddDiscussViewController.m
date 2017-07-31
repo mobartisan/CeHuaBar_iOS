@@ -224,7 +224,7 @@
         _startMomentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 8);
-        [_startMomentBtn setTitle:@"创建" forState:UIControlStateNormal];
+        [_startMomentBtn setTitle:@"创 建" forState:UIControlStateNormal];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
         _startMomentBtn.backgroundColor = kColorForBackgroud;
     }

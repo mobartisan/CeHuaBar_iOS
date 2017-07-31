@@ -348,7 +348,7 @@ static const char* kOptionStr[STR_OPTION_MAX] = {
         _startMomentBtn.frame = CGRectMake(0, 0, Screen_Width - 10, 44);
         [_startMomentBtn setTitleColor:[Common colorFromHexRGB:@"2EC9CA"] forState:UIControlStateNormal];
         setViewCornerAndBorder(_startMomentBtn, 5);
-        [_startMomentBtn setTitle:@"发布" forState:UIControlStateNormal];
+        [_startMomentBtn setTitle:@"发 布" forState:UIControlStateNormal];
         [_startMomentBtn addTarget:self action:@selector(actionStartMoment) forControlEvents:UIControlEventTouchUpInside];
         _startMomentBtn.backgroundColor = kColorForBackgroud;
     }
