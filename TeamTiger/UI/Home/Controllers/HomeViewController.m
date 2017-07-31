@@ -40,6 +40,7 @@
 #import "CacheManager.h"
 #import "Moments.h"
 #import "AppDelegate.h"
+#import "MJDIYHeader.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -368,7 +369,7 @@
 
 #pragma mark - 下拉刷新
 - (void)handleDownRefreshAction {
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+    self.tableView.mj_header = [MJDIYHeader headerWithRefreshingBlock:^{
         [self getAllMoments:self.tempDic IsNeedRefresh:NO];
     }];
 }
