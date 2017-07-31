@@ -19,10 +19,10 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _imageView = [[UIImageView alloc] init];
-//        _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
         _imageView.backgroundColor = [UIColor clearColor];
         _imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:_imageView];
+        _imageView.frame = self.bounds;
         self.clipsToBounds = YES;
         
         _videoImageView = [[UIImageView alloc] init];
@@ -34,9 +34,10 @@
         _deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_deleteBtn setImage:[UIImage imageNamed:@"photo_delete"] forState:UIControlStateNormal];
         _deleteBtn.frame = CGRectMake(self.tz_width - 36, 0, 36, 36);
-        _deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-14, 0, 0, -14);
-        _deleteBtn.alpha = 0.6;
+        _deleteBtn.imageEdgeInsets = UIEdgeInsetsMake(-12, 0, 0, -12);
+        _deleteBtn.alpha = 1.0;
         [self addSubview:_deleteBtn];
+        
     }
     return self;
 }
