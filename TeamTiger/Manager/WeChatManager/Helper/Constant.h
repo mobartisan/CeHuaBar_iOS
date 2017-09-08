@@ -25,7 +25,9 @@ static NSString *kImageTagName = @"WECHAT_TAG_JUMP_APP";
 static NSString *kMessageExt = @"这是第三方带的测试字段";
 static NSString *kMessageAction = @"<action>dotalist</action>";
 
-static NSString *kLinkURL = @"http://www.cehuabar.com:9080/CeHuaBar?query=cehuabar://";
+//static NSString *kLinkURL = @"http://www.cehuabar.com:9080/CeHuaBar?query=cehuabar://";
+static NSString *kLinkURL = @"http://118.31.115.93:9080/CeHuaBar?query=cehuabar://";
+
 static NSString *kLinkTagName = @"WECHAT_TAG_JUMP_SHOWRANK";
 static NSString *kLinkTitle = @"邀请链接";
 static NSString *kLinkDescription = @"加入策话：工作不沉底，微信更私密（建议点击右上角选择Safari打开）";
