@@ -64,7 +64,9 @@ static MessageManager *singleton = nil;
          UNAuthorizationOptionCarPlay
                                                                             completionHandler:^(BOOL granted, NSError * _Nullable error) {
         if (granted) {
-          [[UIApplication sharedApplication] registerForRemoteNotifications];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[UIApplication sharedApplication] registerForRemoteNotifications];
+            });
           //默认程序内允许声音和震动
             if (UserDefaultsGet(ALLOW_USER_KEY_PLAY_AUDIO) == nil) {
                 UserDefaultsSave(@1, ALLOW_USER_KEY_PLAY_AUDIO);

@@ -4715,7 +4715,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				ENABLE_BITCODE = NO;
@@ -4751,7 +4751,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				ENABLE_BITCODE = NO;
