@@ -17,6 +17,7 @@
 #import "SelectGroupView.h"
 #import "IQKeyboardManager.h"
 #import "DeleteFooterView.h"
+#import "UIBarButtonItem+SXCreate.h"
 
 @interface TTGroupSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -44,12 +45,9 @@
 - (void)configureNavigationItem {
      self.title = @"分组设置";
     //左侧
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(0, 0, 23, 23);
-    [leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(handleReturnBackAction) image:kImage(@"icon_back")];
+    UIButton *leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
     leftBtn.tintColor = [UIColor whiteColor];
-    [leftBtn addTarget:self action:@selector(handleReturnBackAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [rightBtn setTitle:@"提交" forState:UIControlStateNormal];

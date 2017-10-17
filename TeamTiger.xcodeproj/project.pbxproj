@@ -222,6 +222,10 @@
 		1D115F941D4BA043003DFBB1 /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D115F851D4BA043003DFBB1 /* IQKeyboardManager.bundle */; };
 		1D12423C1E36304500A90DF6 /* defaultBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D12423B1E36304500A90DF6 /* defaultBG@2x.png */; };
 		1D29415D1D6E7F45003B9066 /* UploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D29415C1D6E7F45003B9066 /* UploadManager.m */; };
+		1D2FB07F1F95FA56002B0754 /* NSObject+SXRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2FB0781F95FA56002B0754 /* NSObject+SXRuntime.m */; };
+		1D2FB0801F95FA56002B0754 /* UIBarButtonItem+SXCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2FB07A1F95FA56002B0754 /* UIBarButtonItem+SXCreate.m */; };
+		1D2FB0811F95FA56002B0754 /* UINavigation+SXFixSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2FB07C1F95FA56002B0754 /* UINavigation+SXFixSpace.m */; };
+		1D2FB0821F95FA56002B0754 /* UINavigationController+SXFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2FB07E1F95FA56002B0754 /* UINavigationController+SXFullScreen.m */; };
 		1D32AEF01DB08546000DF537 /* TTProjectsMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D32AEEE1DB08546000DF537 /* TTProjectsMenuViewController.m */; };
 		1D32AEF11DB08546000DF537 /* TTProjectsMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1D32AEEF1DB08546000DF537 /* TTProjectsMenuViewController.xib */; };
 		1D32AEF71DB0C3BE000DF537 /* GroupHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D32AEF61DB0C3BE000DF537 /* GroupHeadView.m */; };
@@ -989,6 +993,14 @@
 		1D12423B1E36304500A90DF6 /* defaultBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "defaultBG@2x.png"; sourceTree = "<group>"; };
 		1D29415B1D6E7F45003B9066 /* UploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadManager.h; sourceTree = "<group>"; };
 		1D29415C1D6E7F45003B9066 /* UploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadManager.m; sourceTree = "<group>"; };
+		1D2FB0771F95FA56002B0754 /* NSObject+SXRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SXRuntime.h"; sourceTree = "<group>"; };
+		1D2FB0781F95FA56002B0754 /* NSObject+SXRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SXRuntime.m"; sourceTree = "<group>"; };
+		1D2FB0791F95FA56002B0754 /* UIBarButtonItem+SXCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+SXCreate.h"; sourceTree = "<group>"; };
+		1D2FB07A1F95FA56002B0754 /* UIBarButtonItem+SXCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+SXCreate.m"; sourceTree = "<group>"; };
+		1D2FB07B1F95FA56002B0754 /* UINavigation+SXFixSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigation+SXFixSpace.h"; sourceTree = "<group>"; };
+		1D2FB07C1F95FA56002B0754 /* UINavigation+SXFixSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigation+SXFixSpace.m"; sourceTree = "<group>"; };
+		1D2FB07D1F95FA56002B0754 /* UINavigationController+SXFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SXFullScreen.h"; sourceTree = "<group>"; };
+		1D2FB07E1F95FA56002B0754 /* UINavigationController+SXFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SXFullScreen.m"; sourceTree = "<group>"; };
 		1D32AEED1DB08546000DF537 /* TTProjectsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProjectsMenuViewController.h; sourceTree = "<group>"; };
 		1D32AEEE1DB08546000DF537 /* TTProjectsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTProjectsMenuViewController.m; sourceTree = "<group>"; };
 		1D32AEEF1DB08546000DF537 /* TTProjectsMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TTProjectsMenuViewController.xib; sourceTree = "<group>"; };
@@ -2412,6 +2424,21 @@
 			path = UploadManager;
 			sourceTree = "<group>";
 		};
+		1D2FB0761F95FA56002B0754 /* SXFNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				1D2FB0771F95FA56002B0754 /* NSObject+SXRuntime.h */,
+				1D2FB0781F95FA56002B0754 /* NSObject+SXRuntime.m */,
+				1D2FB0791F95FA56002B0754 /* UIBarButtonItem+SXCreate.h */,
+				1D2FB07A1F95FA56002B0754 /* UIBarButtonItem+SXCreate.m */,
+				1D2FB07B1F95FA56002B0754 /* UINavigation+SXFixSpace.h */,
+				1D2FB07C1F95FA56002B0754 /* UINavigation+SXFixSpace.m */,
+				1D2FB07D1F95FA56002B0754 /* UINavigationController+SXFullScreen.h */,
+				1D2FB07E1F95FA56002B0754 /* UINavigationController+SXFullScreen.m */,
+			);
+			path = SXFNavigationBar;
+			sourceTree = "<group>";
+		};
 		1D32AEEC1DB084EC000DF537 /* ProjectsMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -3011,6 +3038,7 @@
 		1DA71B751D3DB618007483D2 /* Third */ = {
 			isa = PBXGroup;
 			children = (
+				1D2FB0761F95FA56002B0754 /* SXFNavigationBar */,
 				2DCE78B81E8A4A1D003B0FE2 /* CustomAlert */,
 				2D8B5A2C1E6EACA000826310 /* fmdb */,
 				1DDAB54B1E5C7BA000ECC02E /* TZImagePickerController */,
@@ -4204,6 +4232,7 @@
 				1D09CC661D3F29C900F85E9A /* NSString+YYAdd.m in Sources */,
 				1D09CC7A1D3F29C900F85E9A /* YYDiskCache.m in Sources */,
 				1D09CC931D3F29C900F85E9A /* YYTextMagnifier.m in Sources */,
+				1D2FB0801F95FA56002B0754 /* UIBarButtonItem+SXCreate.m in Sources */,
 				1D5CCA1F1DB5AF5C00542DCD /* GroupView.m in Sources */,
 				2D44CDF41E272A3600098B37 /* CJGroupCell.m in Sources */,
 				1D5D5FF31D4EE72E007123EB /* CacheManager.m in Sources */,
@@ -4281,6 +4310,7 @@
 				1D9580B41D3E207200FD0053 /* UIScrollView+MJRefresh.m in Sources */,
 				1D09CD141D3F550300F85E9A /* NSFileManager+HYBHelperKit.m in Sources */,
 				1D09CD1F1D3F550300F85E9A /* UIScrollView+HYBMasonryKit.m in Sources */,
+				1D2FB0811F95FA56002B0754 /* UINavigation+SXFixSpace.m in Sources */,
 				2DDD541F1DB0D4AF00C55633 /* QNIP.m in Sources */,
 				1D09CD1C1D3F550300F85E9A /* UICollectionView+HYBMaonsryKit.m in Sources */,
 				06008F271D58163100A5B3DB /* TTCommonLabelItem.m in Sources */,
@@ -4480,6 +4510,7 @@
 				2DFACA561D507B8B0099A2A3 /* DiscussListCell.m in Sources */,
 				1D09CCA91D3F29C900F85E9A /* YYTimer.m in Sources */,
 				1D09CD5A1D3F59D500F85E9A /* UIImage+WebP.m in Sources */,
+				1D2FB0821F95FA56002B0754 /* UINavigationController+SXFullScreen.m in Sources */,
 				1D09CD1A1D3F550300F85E9A /* NSTimer+HYBHelperKit.m in Sources */,
 				1D09CD231D3F550300F85E9A /* UIWebView+HYBMasonryKit.m in Sources */,
 				1D09CCA41D3F29C900F85E9A /* YYKeychain.m in Sources */,
@@ -4497,6 +4528,7 @@
 				1D9580B11D3E207200FD0053 /* MJRefreshConst.m in Sources */,
 				1D09CD541D3F59D500F85E9A /* SDImageCache.m in Sources */,
 				1D0EA2C81D45A82C00B47108 /* LCNetworkConfig.m in Sources */,
+				1D2FB07F1F95FA56002B0754 /* NSObject+SXRuntime.m in Sources */,
 				1D0EA2D11D45A8AE00B47108 /* TMCache.m in Sources */,
 				1D8C334E1D5AC37B00AA4E1A /* MockDatas.m in Sources */,
 				1D115F871D4BA043003DFBB1 /* IQUIScrollView+Additions.m in Sources */,

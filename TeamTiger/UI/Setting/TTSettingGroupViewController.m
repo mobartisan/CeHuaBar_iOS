@@ -9,6 +9,7 @@
 #import "TTSettingGroupViewController.h"
 #import "CJGroupCell.h"
 #import "DeleteFooterView.h"
+#import "UIBarButtonItem+SXCreate.h"
 
 @interface TTSettingGroupViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -73,14 +74,11 @@
 - (void)configureNavigationItem {
     self.navigationItem.title = @"组";
     //左侧
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(0, 0, 40, 20);
-    [leftBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
-    [leftBtn setImage:kImage(@"icon_back") forState:UIControlStateNormal];
-    leftBtn.tintColor = [UIColor whiteColor];
-    [leftBtn addTarget:self action:@selector(handleReturnBackAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.leftBtn = leftBtn;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(handleReturnBackAction:) image:kImage(@"icon_back")];
+    self.leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    self.leftBtn.tintColor = [UIColor whiteColor];
+    [self.leftBtn setTitleColor:kRGB(114, 136, 160) forState:UIControlStateNormal];
+
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.hidden = YES;

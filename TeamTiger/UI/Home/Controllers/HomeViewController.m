@@ -41,6 +41,7 @@
 #import "Moments.h"
 #import "AppDelegate.h"
 #import "MJDIYHeader.h"
+#import "UIBarButtonItem+SXCreate.h"
 
 @interface HomeViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, HomeCellDelegate, HomeVoteCellDelegate>
 
@@ -446,13 +447,9 @@
 - (void)configureNavigationItem {
     self.navigationItem.titleView = self.titleView;
     //左侧
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(0, 0, 30, 20);
-    [leftBtn setImage:kImage(@"icon_sidebar") forState:UIControlStateNormal];
-    leftBtn.tintColor = [UIColor whiteColor];
-    [leftBtn addTarget:self action:@selector(handleProjectsBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-    self.leftBtn = leftBtn;
+    self.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(handleProjectsBtnAction) image:kImage(@"icon_sidebar")];
+    self.leftBtn = (UIButton *)self.navigationItem.leftBarButtonItem.customView;
+    self.leftBtn.tintColor = [UIColor whiteColor];
     //右侧
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(0, 0, 30, 20);

@@ -177,11 +177,13 @@
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
     return mainNav;
 #else
-    HomeViewController *homeVC = [[HomeViewController alloc] init];
+    HomeViewController *homeVC = [[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
     TTBaseNavigationController *mainNav = [[TTBaseNavigationController alloc] initWithRootViewController:homeVC];
+
     
     TTProjectsMenuViewController *projectsMenuVC = [[TTProjectsMenuViewController alloc] initWithNibName:@"TTProjectsMenuViewController" bundle:nil];
     TTBaseNavigationController *leftNav = [[TTBaseNavigationController alloc] initWithRootViewController:projectsMenuVC];
+
     
     MMDrawerController *drawerController = [[MMDrawerController alloc]
                                             initWithCenterViewController:mainNav
