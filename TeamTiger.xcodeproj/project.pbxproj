@@ -409,8 +409,8 @@
 		1DDE9E751D535DDA005926FE /* TTAddDiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE9E731D535DDA005926FE /* TTAddDiscussViewController.m */; };
 		1DDE9E761D535DDA005926FE /* TTAddDiscussViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDE9E741D535DDA005926FE /* TTAddDiscussViewController.xib */; };
 		1DDF39F31DEEABB10059207B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDF39F21DEEABB10059207B /* AudioToolbox.framework */; };
-		1DE01A0B1E4DAEDB00ED9AB7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0A1E4DAEDA00ED9AB7 /* UserNotifications.framework */; };
-		1DE01A0D1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0C1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework */; };
+		1DE01A0B1E4DAEDB00ED9AB7 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0A1E4DAEDA00ED9AB7 /* UserNotifications.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1DE01A0D1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DE01A0C1E4DAEDB00ED9AB7 /* UserNotificationsUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DE01A111E4DAEDB00ED9AB7 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DE01A101E4DAEDB00ED9AB7 /* NotificationViewController.m */; };
 		1DE01A141E4DAEDB00ED9AB7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DE01A121E4DAEDB00ED9AB7 /* MainInterface.storyboard */; };
 		1DE01A181E4DAEDB00ED9AB7 /* NotificationContentService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1DE01A091E4DAEDA00ED9AB7 /* NotificationContentService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -3968,18 +3968,18 @@
 		1DA71B521D3DB5A1007483D2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = MobileArtisan;
 				TargetAttributes = {
 					1D943C9A1E4D6F260059003E = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = QRKXLCEHPN;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 22N59XJY7Y;
+						ProvisioningStyle = Automatic;
 					};
 					1DA71B591D3DB5A1007483D2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = QRKXLCEHPN;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 22N59XJY7Y;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3991,8 +3991,8 @@
 					};
 					1DE01A081E4DAEDA00ED9AB7 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = QRKXLCEHPN;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 22N59XJY7Y;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplePay = {
 								enabled = 0;
@@ -4587,16 +4587,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationServiceName;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua.NotificationServiceName;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6657a4b2-4fd4-4597-80cd-07efad255761";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.mobartisan.cehuaBar.NotificationServiceName";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -4605,16 +4606,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationServiceName;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua.NotificationServiceName;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6657a4b2-4fd4-4597-80cd-07efad255761";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.mobartisan.cehuaBar.NotificationServiceName";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -4712,9 +4714,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4733,10 +4736,10 @@
 					"-ObjC",
 					"-w",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
-				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -4747,9 +4750,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_ENTITLEMENTS = TeamTiger/TeamTiger.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: publish@joindoo.com (F7894M67JG)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -4768,10 +4772,10 @@
 					"-ObjC",
 					"-w",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "58e47ec6-2982-421c-8d15-f437f208a4e6";
-				PROVISIONING_PROFILE_SPECIFIER = cehuaBarInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
@@ -4779,16 +4783,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua.NotificationContentService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d0eb0da6-fe26-4dda-847c-fcf2f7035c97";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.mobartisan.cehuaBar.NotificationContentService";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -4797,16 +4802,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: nanjing joindoo network technology Co.,Ltd.";
-				DEVELOPMENT_TEAM = QRKXLCEHPN;
+				CODE_SIGN_IDENTITY = "iPhone Developer: upbesthouseios@163.com (563Y6M2DZL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 22N59XJY7Y;
 				INFOPLIST_FILE = NotificationContentService/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehuaBar.NotificationContentService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobartisan.cehua.NotificationContentService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d0eb0da6-fe26-4dda-847c-fcf2f7035c97";
-				PROVISIONING_PROFILE_SPECIFIER = "XC iOS: com.mobartisan.cehuaBar.NotificationContentService";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

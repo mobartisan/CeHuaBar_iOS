@@ -279,8 +279,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "702"
             endingLineNumber = "702"
-            landmarkName = "-clickProjectBtn:"
-            landmarkType = "7">
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -740,7 +740,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "428"
             endingLineNumber = "428"
-            landmarkName = "-viewWillAppear:"
+            landmarkName = "-getMoreDataWithUrl:"
             landmarkType = "7">
             <Locations>
                <Location
@@ -820,8 +820,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "388"
             endingLineNumber = "388"
-            landmarkName = "-getMoreDataWithUrl:"
-            landmarkType = "7">
+            landmarkName = "HomeViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1167,7 +1167,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-                  timestampString = "523165806.597136"
+                  timestampString = "529914666.851351"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "593"
@@ -1182,7 +1182,7 @@
                   moduleName = "TeamTiger"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Setting/ProjectsMenu/TTProjectsMenuViewController.m"
-                  timestampString = "523165806.600288"
+                  timestampString = "529914666.854589"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "593"
@@ -1318,6 +1318,38 @@
             endingLineNumber = "190"
             landmarkName = "-handleSetBtnAction:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HomeViewController handleSetBtnAction:]"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
+                  timestampString = "529914666.873982"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "324">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__41-[HomeViewController handleSetBtnAction:]_block_invoke"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
+                  timestampString = "529914666.877525"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1339,7 +1371,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TeamTiger/UI/Home/Controllers/HomeViewController.m"
@@ -1350,6 +1382,38 @@
             endingLineNumber = "340"
             landmarkName = "-getAllMoments:IsNeedRefresh:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__50-[HomeViewController getAllMoments:IsNeedRefresh:]_block_invoke"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
+                  timestampString = "529914666.890358"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "340"
+                  endingLineNumber = "340"
+                  offsetFromSymbolStart = "3204">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__50-[HomeViewController getAllMoments:IsNeedRefresh:]_block_invoke"
+                  moduleName = "TeamTiger"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xxcao/Downloads/CeHuaBar_iOS/TeamTiger/UI/Home/Controllers/HomeViewController.m"
+                  timestampString = "529914666.893537"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "340"
+                  endingLineNumber = "340"
+                  offsetFromSymbolStart = "3276">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
